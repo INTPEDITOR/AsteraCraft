@@ -1,0 +1,433 @@
+{
+  "schema": 2,
+  "columns": 9,
+  "rows": 6,
+  "stored_directions": 9,
+  "visible_directions": 16,
+  "actions": {
+    "idle": [
+      0
+    ],
+    "move": [
+      1,
+      0,
+      2,
+      0
+    ],
+    "walk": [
+      1,
+      0,
+      2,
+      0
+    ],
+    "attack": [
+      3,
+      4,
+      5
+    ],
+    "harvest": [
+      3,
+      5,
+      4,
+      5
+    ],
+    "gather": [
+      3,
+      5,
+      4,
+      5
+    ]
+  },
+  "units": {
+    "0:0": {
+      "file": "res://assets/motion/r0_u00.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:1": {
+      "file": "res://assets/motion/r0_u01.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:2": {
+      "file": "res://assets/motion/r0_u02.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:3": {
+      "file": "res://assets/motion/r0_u03.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:4": {
+      "file": "res://assets/motion/r0_u04.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:5": {
+      "file": "res://assets/motion/r0_u05.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:6": {
+      "file": "res://assets/motion/r0_u06.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:7": {
+      "file": "res://assets/motion/r0_u07.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:8": {
+      "file": "res://assets/motion/r0_u08.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:9": {
+      "file": "res://assets/motion/r0_u09.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:10": {
+      "file": "res://assets/motion/r0_u10.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:11": {
+      "file": "res://assets/motion/r0_u11.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "0:12": {
+      "file": "res://assets/motion/r0_u12.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:0": {
+      "file": "res://assets/motion/r1_u00.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:1": {
+      "file": "res://assets/motion/r1_u01.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:2": {
+      "file": "res://assets/motion/r1_u02.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:3": {
+      "file": "res://assets/motion/r1_u03.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:4": {
+      "file": "res://assets/motion/r1_u04.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:5": {
+      "file": "res://assets/motion/r1_u05.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:6": {
+      "file": "res://assets/motion/r1_u06.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:7": {
+      "file": "res://assets/motion/r1_u07.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:8": {
+      "file": "res://assets/motion/r1_u08.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:9": {
+      "file": "res://assets/motion/r1_u09.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:10": {
+      "file": "res://assets/motion/r1_u10.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:11": {
+      "file": "res://assets/motion/r1_u11.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "1:12": {
+      "file": "res://assets/motion/r1_u12.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:0": {
+      "file": "res://assets/motion/r2_u00.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:1": {
+      "file": "res://assets/motion/r2_u01.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:2": {
+      "file": "res://assets/motion/r2_u02.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:3": {
+      "file": "res://assets/motion/r2_u03.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:4": {
+      "file": "res://assets/motion/r2_u04.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:5": {
+      "file": "res://assets/motion/r2_u05.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:6": {
+      "file": "res://assets/motion/r2_u06.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:7": {
+      "file": "res://assets/motion/r2_u07.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:8": {
+      "file": "res://assets/motion/r2_u08.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:9": {
+      "file": "res://assets/motion/r2_u09.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:10": {
+      "file": "res://assets/motion/r2_u10.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:11": {
+      "file": "res://assets/motion/r2_u11.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    },
+    "2:12": {
+      "file": "res://assets/motion/r2_u12.png",
+      "columns": 9,
+      "rows": 6,
+      "anchor": [
+        0.5,
+        0.88
+      ],
+      "scale_width": 0.84
+    }
+  }
+}

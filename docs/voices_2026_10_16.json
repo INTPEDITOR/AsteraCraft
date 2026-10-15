@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-16",
+  "status": "applied_to_working_source",
+  "executable_updated": false,
+  "units": 40,
+  "standard_units": 39,
+  "brood_units": 1,
+  "normal_per_unit": 5,
+  "special_per_unit": 5,
+  "speech_clips": 302,
+  "roar_clips": 140,
+  "narration_per_race": 14,
+  "total_clips": 442,
+  "selection_rule": "Explicit technology tier, then As + Tera price, then unit kind, then lowest entity id. Portrait and selection voice share the same leader; command selection order is preserved.",
+  "special_rule": "After five accepted selections of the same individual, with no gap above 12 seconds; ignore clicks less than .32 seconds apart. One pending response only; finish current line.",
+  "alerts": "As/Tera/supply/energy/technology/queue/brood shortages, own production/research completion, allied attack/base attack, victory/defeat. High-priority battle narration interrupts selection voice. Attack voice cooldown 10s, spatial minimap rings last 4s, nearby pings merge, maximum 8 active.",
+  "tests": {
+    "voice_unit_checks": 1406,
+    "voice_ui_checks": 21,
+    "existing_audio_checks": 104,
+    "failures": 0,
+    "unique_audio_hashes": 442,
+    "peak_pcm": 0.789978,
+    "min_rms": 0.084744
+  },
+  "limitations": [
+    "Speech is generated with one local Korean Microsoft Heami voice and distinct pitch/effect profiles; these are not separate actors or externally generated voices.",
+    "Citrus roars are procedural sound synthesis, not recorded animal or neural sound-effect performances. Listening approval and final performance polish are outstanding.",
+    "No new EXE was exported. This archive is a source patch for the current v0.5 working project, not a standalone game.",
+    "Free websites were researched, but no account, API key, or external TTS service was used."
+  ],
+  "free_tts_references": [
+    {
+      "name": "TTSMaker",
+      "url": "https://ttsmaker.com/ko",
+      "terms": "https://ttsmaker.com/copyright_and_commercial_license_terms",
+      "note": "Official license expressly permits use, modification and distribution in games."
+    },
+    {
+      "name": "Google AI Studio",
+      "url": "https://aistudio.google.com/",
+      "docs": "https://ai.google.dev/gemini-api/docs/speech-generation",
+      "pricing": "https://ai.google.dev/gemini-api/docs/pricing",
+      "note": "Korean TTS and free tier listed; account quota and model availability apply."
+    },
+    {
+      "name": "Typecast",
+      "url": "https://typecast.ai/kr/",
+      "note": "Free voice downloads are personal online posting only; no commercial use."
+    },
+    {
+      "name": "ElevenLabs",
+      "url": "https://elevenlabs.io/ko/text-to-speech",
+      "terms": "https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform",
+      "note": "Free plan does not include commercial rights."
+    }
+  ]
+}

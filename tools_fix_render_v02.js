@@ -1,0 +1,10 @@
+const fs=require('node:fs');let s=fs.readFileSync('scripts/main.gd','utf8');
+s=s.replace('zoom,_ground_point,screen_to_world,_fog_value','zoom,world_to_screen,screen_to_world,_fog_value');
+s=s.replace('\t_draw_minimap()\n','');
+const re=/^func _draw_minimap\(\) -> void:\n([\s\S]*?)(?=^func |$(?![\s\S]))/m;
+const m=s.match(re);if(!m)throw Error('minimap function not found');
+let body=m[1].replace(/(^|[;: ])draw_/gm,'$1canvas.draw_');
+body=body.replace(/^\t\t\tvar color=\[Color\("716042"\).*$/m,'\t\t\tvar color=terrain_artist.terrain_color(draw_map,index)');
+s=s.replace(re,'func _draw_minimap() -> void:\n\t_render_minimap(self)\n\nfunc _render_minimap(canvas: CanvasItem) -> void:\n'+body);
+fs.writeFileSync('scripts/main.gd',s);
+console.log('Projection and minimap canvas updated');

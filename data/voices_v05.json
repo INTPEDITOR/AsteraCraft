@@ -1,0 +1,5480 @@
+{
+  "schema": 1,
+  "source": "Microsoft Heami (ko-KR), local Windows TTS; per-unit DSP profiles, not independent actors",
+  "units": {
+    "0:0": {
+      "name": "정비공",
+      "tier": 0,
+      "priority": 5013,
+      "normal": [
+        "r0_u0_n0",
+        "r0_u0_n1",
+        "r0_u0_n2",
+        "r0_u0_n3",
+        "r0_u0_n4"
+      ],
+      "special": [
+        "r0_u0_s0",
+        "r0_u0_s1",
+        "r0_u0_s2",
+        "r0_u0_s3",
+        "r0_u0_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.96,
+        "effect": "radio",
+        "identity": 0
+      }
+    },
+    "0:1": {
+      "name": "전열사수",
+      "tier": 1,
+      "priority": 107512,
+      "normal": [
+        "r0_u1_n0",
+        "r0_u1_n1",
+        "r0_u1_n2",
+        "r0_u1_n3",
+        "r0_u1_n4"
+      ],
+      "special": [
+        "r0_u1_s0",
+        "r0_u1_s1",
+        "r0_u1_s2",
+        "r0_u1_s3",
+        "r0_u1_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.82,
+        "effect": "radio",
+        "identity": 1
+      }
+    },
+    "0:2": {
+      "name": "돌격병",
+      "tier": 1,
+      "priority": 111511,
+      "normal": [
+        "r0_u2_n0",
+        "r0_u2_n1",
+        "r0_u2_n2",
+        "r0_u2_n3",
+        "r0_u2_n4"
+      ],
+      "special": [
+        "r0_u2_s0",
+        "r0_u2_s1",
+        "r0_u2_s2",
+        "r0_u2_s3",
+        "r0_u2_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.74,
+        "effect": "radio",
+        "identity": 2
+      }
+    },
+    "0:3": {
+      "name": "방패보병",
+      "tier": 2,
+      "priority": 215010,
+      "normal": [
+        "r0_u3_n0",
+        "r0_u3_n1",
+        "r0_u3_n2",
+        "r0_u3_n3",
+        "r0_u3_n4"
+      ],
+      "special": [
+        "r0_u3_s0",
+        "r0_u3_s1",
+        "r0_u3_s2",
+        "r0_u3_s3",
+        "r0_u3_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.68,
+        "effect": "radio",
+        "identity": 3
+      }
+    },
+    "0:4": {
+      "name": "야전의무병",
+      "tier": 2,
+      "priority": 212509,
+      "normal": [
+        "r0_u4_n0",
+        "r0_u4_n1",
+        "r0_u4_n2",
+        "r0_u4_n3",
+        "r0_u4_n4"
+      ],
+      "special": [
+        "r0_u4_s0",
+        "r0_u4_s1",
+        "r0_u4_s2",
+        "r0_u4_s3",
+        "r0_u4_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.05,
+        "effect": "radio",
+        "identity": 4
+      }
+    },
+    "0:5": {
+      "name": "굴착포 전차",
+      "tier": 3,
+      "priority": 327508,
+      "normal": [
+        "r0_u5_n0",
+        "r0_u5_n1",
+        "r0_u5_n2",
+        "r0_u5_n3",
+        "r0_u5_n4"
+      ],
+      "special": [
+        "r0_u5_s0",
+        "r0_u5_s1",
+        "r0_u5_s2",
+        "r0_u5_s3",
+        "r0_u5_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.71,
+        "effect": "radio",
+        "identity": 5
+      }
+    },
+    "0:6": {
+      "name": "추적미사일 차륜차",
+      "tier": 2,
+      "priority": 220007,
+      "normal": [
+        "r0_u6_n0",
+        "r0_u6_n1",
+        "r0_u6_n2",
+        "r0_u6_n3",
+        "r0_u6_n4"
+      ],
+      "special": [
+        "r0_u6_s0",
+        "r0_u6_s1",
+        "r0_u6_s2",
+        "r0_u6_s3",
+        "r0_u6_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.9,
+        "effect": "radio",
+        "identity": 6
+      }
+    },
+    "0:7": {
+      "name": "그림자 정찰병",
+      "tier": 3,
+      "priority": 322506,
+      "normal": [
+        "r0_u7_n0",
+        "r0_u7_n1",
+        "r0_u7_n2",
+        "r0_u7_n3",
+        "r0_u7_n4"
+      ],
+      "special": [
+        "r0_u7_s0",
+        "r0_u7_s1",
+        "r0_u7_s2",
+        "r0_u7_s3",
+        "r0_u7_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.86,
+        "effect": "radio",
+        "identity": 7
+      }
+    },
+    "0:8": {
+      "name": "관측 드론",
+      "tier": 2,
+      "priority": 212505,
+      "normal": [
+        "r0_u8_n0",
+        "r0_u8_n1",
+        "r0_u8_n2",
+        "r0_u8_n3",
+        "r0_u8_n4"
+      ],
+      "special": [
+        "r0_u8_s0",
+        "r0_u8_s1",
+        "r0_u8_s2",
+        "r0_u8_s3",
+        "r0_u8_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.16,
+        "effect": "radio",
+        "identity": 8
+      }
+    },
+    "0:9": {
+      "name": "요격기",
+      "tier": 2,
+      "priority": 225004,
+      "normal": [
+        "r0_u9_n0",
+        "r0_u9_n1",
+        "r0_u9_n2",
+        "r0_u9_n3",
+        "r0_u9_n4"
+      ],
+      "special": [
+        "r0_u9_s0",
+        "r0_u9_s1",
+        "r0_u9_s2",
+        "r0_u9_s3",
+        "r0_u9_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.02,
+        "effect": "radio",
+        "identity": 9
+      }
+    },
+    "0:10": {
+      "name": "강습폭격기",
+      "tier": 3,
+      "priority": 335003,
+      "normal": [
+        "r0_u10_n0",
+        "r0_u10_n1",
+        "r0_u10_n2",
+        "r0_u10_n3",
+        "r0_u10_n4"
+      ],
+      "special": [
+        "r0_u10_s0",
+        "r0_u10_s1",
+        "r0_u10_s2",
+        "r0_u10_s3",
+        "r0_u10_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.77,
+        "effect": "radio",
+        "identity": 10
+      }
+    },
+    "0:11": {
+      "name": "장갑수송정",
+      "tier": 2,
+      "priority": 225002,
+      "normal": [
+        "r0_u11_n0",
+        "r0_u11_n1",
+        "r0_u11_n2",
+        "r0_u11_n3",
+        "r0_u11_n4"
+      ],
+      "special": [
+        "r0_u11_s0",
+        "r0_u11_s1",
+        "r0_u11_s2",
+        "r0_u11_s3",
+        "r0_u11_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.93,
+        "effect": "radio",
+        "identity": 11
+      }
+    },
+    "0:12": {
+      "name": "이동요새",
+      "tier": 4,
+      "priority": 475001,
+      "normal": [
+        "r0_u12_n0",
+        "r0_u12_n1",
+        "r0_u12_n2",
+        "r0_u12_n3",
+        "r0_u12_n4"
+      ],
+      "special": [
+        "r0_u12_s0",
+        "r0_u12_s1",
+        "r0_u12_s2",
+        "r0_u12_s3",
+        "r0_u12_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.62,
+        "effect": "radio",
+        "identity": 12
+      }
+    },
+    "1:0": {
+      "name": "일귤",
+      "tier": 0,
+      "priority": 5013,
+      "normal": [
+        "r1_u0_n0",
+        "r1_u0_n1",
+        "r1_u0_n2",
+        "r1_u0_n3",
+        "r1_u0_n4"
+      ],
+      "special": [
+        "r1_u0_s0",
+        "r1_u0_s1",
+        "r1_u0_s2",
+        "r1_u0_s3",
+        "r1_u0_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.95,
+        "effect": "cyber_roar",
+        "identity": 0
+      }
+    },
+    "1:1": {
+      "name": "껍질발톱",
+      "tier": 1,
+      "priority": 102512,
+      "normal": [
+        "r1_u1_n0",
+        "r1_u1_n1",
+        "r1_u1_n2",
+        "r1_u1_n3",
+        "r1_u1_n4"
+      ],
+      "special": [
+        "r1_u1_s0",
+        "r1_u1_s1",
+        "r1_u1_s2",
+        "r1_u1_s3",
+        "r1_u1_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.25,
+        "effect": "cyber_roar",
+        "identity": 1
+      }
+    },
+    "1:2": {
+      "name": "과즙분사체",
+      "tier": 1,
+      "priority": 108011,
+      "normal": [
+        "r1_u2_n0",
+        "r1_u2_n1",
+        "r1_u2_n2",
+        "r1_u2_n3",
+        "r1_u2_n4"
+      ],
+      "special": [
+        "r1_u2_s0",
+        "r1_u2_s1",
+        "r1_u2_s2",
+        "r1_u2_s3",
+        "r1_u2_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.02,
+        "effect": "cyber_roar",
+        "identity": 2
+      }
+    },
+    "1:3": {
+      "name": "후피거수",
+      "tier": 2,
+      "priority": 222510,
+      "normal": [
+        "r1_u3_n0",
+        "r1_u3_n1",
+        "r1_u3_n2",
+        "r1_u3_n3",
+        "r1_u3_n4"
+      ],
+      "special": [
+        "r1_u3_s0",
+        "r1_u3_s1",
+        "r1_u3_s2",
+        "r1_u3_s3",
+        "r1_u3_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.55,
+        "effect": "cyber_roar",
+        "identity": 3
+      }
+    },
+    "1:4": {
+      "name": "과숙폭탄",
+      "tier": 1,
+      "priority": 106509,
+      "normal": [
+        "r1_u4_n0",
+        "r1_u4_n1",
+        "r1_u4_n2",
+        "r1_u4_n3",
+        "r1_u4_n4"
+      ],
+      "special": [
+        "r1_u4_s0",
+        "r1_u4_s1",
+        "r1_u4_s2",
+        "r1_u4_s3",
+        "r1_u4_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.38,
+        "effect": "cyber_roar",
+        "identity": 4
+      }
+    },
+    "1:5": {
+      "name": "덩굴포식자",
+      "tier": 2,
+      "priority": 217508,
+      "normal": [
+        "r1_u5_n0",
+        "r1_u5_n1",
+        "r1_u5_n2",
+        "r1_u5_n3",
+        "r1_u5_n4"
+      ],
+      "special": [
+        "r1_u5_s0",
+        "r1_u5_s1",
+        "r1_u5_s2",
+        "r1_u5_s3",
+        "r1_u5_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.69,
+        "effect": "cyber_roar",
+        "identity": 5
+      }
+    },
+    "1:6": {
+      "name": "씨앗박격체",
+      "tier": 3,
+      "priority": 322507,
+      "normal": [
+        "r1_u6_n0",
+        "r1_u6_n1",
+        "r1_u6_n2",
+        "r1_u6_n3",
+        "r1_u6_n4"
+      ],
+      "special": [
+        "r1_u6_s0",
+        "r1_u6_s1",
+        "r1_u6_s2",
+        "r1_u6_s3",
+        "r1_u6_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.65,
+        "effect": "cyber_roar",
+        "identity": 6
+      }
+    },
+    "1:7": {
+      "name": "가시꽃",
+      "tier": 2,
+      "priority": 214006,
+      "normal": [
+        "r1_u7_n0",
+        "r1_u7_n1",
+        "r1_u7_n2",
+        "r1_u7_n3",
+        "r1_u7_n4"
+      ],
+      "special": [
+        "r1_u7_s0",
+        "r1_u7_s1",
+        "r1_u7_s2",
+        "r1_u7_s3",
+        "r1_u7_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.12,
+        "effect": "cyber_roar",
+        "identity": 7
+      }
+    },
+    "1:8": {
+      "name": "접목충",
+      "tier": 3,
+      "priority": 312505,
+      "normal": [
+        "r1_u8_n0",
+        "r1_u8_n1",
+        "r1_u8_n2",
+        "r1_u8_n3",
+        "r1_u8_n4"
+      ],
+      "special": [
+        "r1_u8_s0",
+        "r1_u8_s1",
+        "r1_u8_s2",
+        "r1_u8_s3",
+        "r1_u8_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.52,
+        "effect": "cyber_roar",
+        "identity": 8
+      }
+    },
+    "1:9": {
+      "name": "모즙체",
+      "tier": 3,
+      "priority": 322504,
+      "normal": [
+        "r1_u9_n0",
+        "r1_u9_n1",
+        "r1_u9_n2",
+        "r1_u9_n3",
+        "r1_u9_n4"
+      ],
+      "special": [
+        "r1_u9_s0",
+        "r1_u9_s1",
+        "r1_u9_s2",
+        "r1_u9_s3",
+        "r1_u9_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.78,
+        "effect": "cyber_roar",
+        "identity": 9
+      }
+    },
+    "1:10": {
+      "name": "귤박쥐",
+      "tier": 2,
+      "priority": 212503,
+      "normal": [
+        "r1_u10_n0",
+        "r1_u10_n1",
+        "r1_u10_n2",
+        "r1_u10_n3",
+        "r1_u10_n4"
+      ],
+      "special": [
+        "r1_u10_s0",
+        "r1_u10_s1",
+        "r1_u10_s2",
+        "r1_u10_s3",
+        "r1_u10_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.65,
+        "effect": "cyber_roar",
+        "identity": 10
+      }
+    },
+    "1:11": {
+      "name": "포낭비행체",
+      "tier": 2,
+      "priority": 220002,
+      "normal": [
+        "r1_u11_n0",
+        "r1_u11_n1",
+        "r1_u11_n2",
+        "r1_u11_n3",
+        "r1_u11_n4"
+      ],
+      "special": [
+        "r1_u11_s0",
+        "r1_u11_s1",
+        "r1_u11_s2",
+        "r1_u11_s3",
+        "r1_u11_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.58,
+        "effect": "cyber_roar",
+        "identity": 11
+      }
+    },
+    "1:12": {
+      "name": "대과수",
+      "tier": 4,
+      "priority": 460001,
+      "normal": [
+        "r1_u12_n0",
+        "r1_u12_n1",
+        "r1_u12_n2",
+        "r1_u12_n3",
+        "r1_u12_n4"
+      ],
+      "special": [
+        "r1_u12_s0",
+        "r1_u12_s1",
+        "r1_u12_s2",
+        "r1_u12_s3",
+        "r1_u12_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.42,
+        "effect": "cyber_roar",
+        "identity": 12
+      }
+    },
+    "1:13": {
+      "name": "배양체",
+      "tier": 0,
+      "priority": 0,
+      "normal": [
+        "r1_u13_n0",
+        "r1_u13_n1",
+        "r1_u13_n2",
+        "r1_u13_n3",
+        "r1_u13_n4"
+      ],
+      "special": [
+        "r1_u13_s0",
+        "r1_u13_s1",
+        "r1_u13_s2",
+        "r1_u13_s3",
+        "r1_u13_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.8,
+        "effect": "cyber_roar",
+        "identity": 13
+      }
+    },
+    "2:0": {
+      "name": "축조자",
+      "tier": 0,
+      "priority": 5013,
+      "normal": [
+        "r2_u0_n0",
+        "r2_u0_n1",
+        "r2_u0_n2",
+        "r2_u0_n3",
+        "r2_u0_n4"
+      ],
+      "special": [
+        "r2_u0_s0",
+        "r2_u0_s1",
+        "r2_u0_s2",
+        "r2_u0_s3",
+        "r2_u0_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.02,
+        "effect": "telepathy",
+        "identity": 0
+      }
+    },
+    "2:1": {
+      "name": "서약수호자",
+      "tier": 1,
+      "priority": 112512,
+      "normal": [
+        "r2_u1_n0",
+        "r2_u1_n1",
+        "r2_u1_n2",
+        "r2_u1_n3",
+        "r2_u1_n4"
+      ],
+      "special": [
+        "r2_u1_s0",
+        "r2_u1_s1",
+        "r2_u1_s2",
+        "r2_u1_s3",
+        "r2_u1_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.79,
+        "effect": "telepathy",
+        "identity": 1
+      }
+    },
+    "2:2": {
+      "name": "성문궁수",
+      "tier": 1,
+      "priority": 120011,
+      "normal": [
+        "r2_u2_n0",
+        "r2_u2_n1",
+        "r2_u2_n2",
+        "r2_u2_n3",
+        "r2_u2_n4"
+      ],
+      "special": [
+        "r2_u2_s0",
+        "r2_u2_s1",
+        "r2_u2_s2",
+        "r2_u2_s3",
+        "r2_u2_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.98,
+        "effect": "telepathy",
+        "identity": 2
+      }
+    },
+    "2:3": {
+      "name": "규율집행관",
+      "tier": 2,
+      "priority": 225010,
+      "normal": [
+        "r2_u3_n0",
+        "r2_u3_n1",
+        "r2_u3_n2",
+        "r2_u3_n3",
+        "r2_u3_n4"
+      ],
+      "special": [
+        "r2_u3_s0",
+        "r2_u3_s1",
+        "r2_u3_s2",
+        "r2_u3_s3",
+        "r2_u3_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.72,
+        "effect": "telepathy",
+        "identity": 3
+      }
+    },
+    "2:4": {
+      "name": "결계사제",
+      "tier": 2,
+      "priority": 225009,
+      "normal": [
+        "r2_u4_n0",
+        "r2_u4_n1",
+        "r2_u4_n2",
+        "r2_u4_n3",
+        "r2_u4_n4"
+      ],
+      "special": [
+        "r2_u4_s0",
+        "r2_u4_s1",
+        "r2_u4_s2",
+        "r2_u4_s3",
+        "r2_u4_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.13,
+        "effect": "telepathy",
+        "identity": 4
+      }
+    },
+    "2:5": {
+      "name": "천문심판관",
+      "tier": 3,
+      "priority": 327508,
+      "normal": [
+        "r2_u5_n0",
+        "r2_u5_n1",
+        "r2_u5_n2",
+        "r2_u5_n3",
+        "r2_u5_n4"
+      ],
+      "special": [
+        "r2_u5_s0",
+        "r2_u5_s1",
+        "r2_u5_s2",
+        "r2_u5_s3",
+        "r2_u5_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.68,
+        "effect": "telepathy",
+        "identity": 5
+      }
+    },
+    "2:6": {
+      "name": "밤눈감시자",
+      "tier": 2,
+      "priority": 215007,
+      "normal": [
+        "r2_u6_n0",
+        "r2_u6_n1",
+        "r2_u6_n2",
+        "r2_u6_n3",
+        "r2_u6_n4"
+      ],
+      "special": [
+        "r2_u6_s0",
+        "r2_u6_s1",
+        "r2_u6_s2",
+        "r2_u6_s3",
+        "r2_u6_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.23,
+        "effect": "telepathy",
+        "identity": 6
+      }
+    },
+    "2:7": {
+      "name": "고대석익병",
+      "tier": 2,
+      "priority": 235006,
+      "normal": [
+        "r2_u7_n0",
+        "r2_u7_n1",
+        "r2_u7_n2",
+        "r2_u7_n3",
+        "r2_u7_n4"
+      ],
+      "special": [
+        "r2_u7_s0",
+        "r2_u7_s1",
+        "r2_u7_s2",
+        "r2_u7_s3",
+        "r2_u7_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.54,
+        "effect": "telepathy",
+        "identity": 7
+      }
+    },
+    "2:8": {
+      "name": "궤도창",
+      "tier": 3,
+      "priority": 337505,
+      "normal": [
+        "r2_u8_n0",
+        "r2_u8_n1",
+        "r2_u8_n2",
+        "r2_u8_n3",
+        "r2_u8_n4"
+      ],
+      "special": [
+        "r2_u8_s0",
+        "r2_u8_s1",
+        "r2_u8_s2",
+        "r2_u8_s3",
+        "r2_u8_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.83,
+        "effect": "telepathy",
+        "identity": 8
+      }
+    },
+    "2:9": {
+      "name": "월익추적자",
+      "tier": 2,
+      "priority": 230004,
+      "normal": [
+        "r2_u9_n0",
+        "r2_u9_n1",
+        "r2_u9_n2",
+        "r2_u9_n3",
+        "r2_u9_n4"
+      ],
+      "special": [
+        "r2_u9_s0",
+        "r2_u9_s1",
+        "r2_u9_s2",
+        "r2_u9_s3",
+        "r2_u9_s4"
+      ],
+      "voice_profile": {
+        "pitch": 1.06,
+        "effect": "telepathy",
+        "identity": 9
+      }
+    },
+    "2:10": {
+      "name": "황혼잠행자",
+      "tier": 3,
+      "priority": 327503,
+      "normal": [
+        "r2_u10_n0",
+        "r2_u10_n1",
+        "r2_u10_n2",
+        "r2_u10_n3",
+        "r2_u10_n4"
+      ],
+      "special": [
+        "r2_u10_s0",
+        "r2_u10_s1",
+        "r2_u10_s2",
+        "r2_u10_s3",
+        "r2_u10_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.92,
+        "effect": "telepathy",
+        "identity": 10
+      }
+    },
+    "2:11": {
+      "name": "회랑지기",
+      "tier": 2,
+      "priority": 230002,
+      "normal": [
+        "r2_u11_n0",
+        "r2_u11_n1",
+        "r2_u11_n2",
+        "r2_u11_n3",
+        "r2_u11_n4"
+      ],
+      "special": [
+        "r2_u11_s0",
+        "r2_u11_s1",
+        "r2_u11_s2",
+        "r2_u11_s3",
+        "r2_u11_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.88,
+        "effect": "telepathy",
+        "identity": 11
+      }
+    },
+    "2:12": {
+      "name": "대심판선",
+      "tier": 4,
+      "priority": 485001,
+      "normal": [
+        "r2_u12_n0",
+        "r2_u12_n1",
+        "r2_u12_n2",
+        "r2_u12_n3",
+        "r2_u12_n4"
+      ],
+      "special": [
+        "r2_u12_s0",
+        "r2_u12_s1",
+        "r2_u12_s2",
+        "r2_u12_s3",
+        "r2_u12_s4"
+      ],
+      "voice_profile": {
+        "pitch": 0.6,
+        "effect": "telepathy",
+        "identity": 12
+      }
+    }
+  },
+  "narration": {
+    "0": {
+      "as": "r0_ann_as",
+      "tera": "r0_ann_tera",
+      "supply": "r0_ann_supply",
+      "attack": "r0_ann_attack",
+      "base_attack": "r0_ann_base_attack",
+      "building_ready": "r0_ann_building_ready",
+      "unit_ready": "r0_ann_unit_ready",
+      "research_ready": "r0_ann_research_ready",
+      "tech": "r0_ann_tech",
+      "energy": "r0_ann_energy",
+      "queue": "r0_ann_queue",
+      "brood": "r0_ann_brood",
+      "victory": "r0_ann_victory",
+      "defeat": "r0_ann_defeat"
+    },
+    "1": {
+      "as": "r1_ann_as",
+      "tera": "r1_ann_tera",
+      "supply": "r1_ann_supply",
+      "attack": "r1_ann_attack",
+      "base_attack": "r1_ann_base_attack",
+      "building_ready": "r1_ann_building_ready",
+      "unit_ready": "r1_ann_unit_ready",
+      "research_ready": "r1_ann_research_ready",
+      "tech": "r1_ann_tech",
+      "energy": "r1_ann_energy",
+      "queue": "r1_ann_queue",
+      "brood": "r1_ann_brood",
+      "victory": "r1_ann_victory",
+      "defeat": "r1_ann_defeat"
+    },
+    "2": {
+      "as": "r2_ann_as",
+      "tera": "r2_ann_tera",
+      "supply": "r2_ann_supply",
+      "attack": "r2_ann_attack",
+      "base_attack": "r2_ann_base_attack",
+      "building_ready": "r2_ann_building_ready",
+      "unit_ready": "r2_ann_unit_ready",
+      "research_ready": "r2_ann_research_ready",
+      "tech": "r2_ann_tech",
+      "energy": "r2_ann_energy",
+      "queue": "r2_ann_queue",
+      "brood": "r2_ann_brood",
+      "victory": "r2_ann_victory",
+      "defeat": "r2_ann_defeat"
+    }
+  },
+  "clips": [
+    {
+      "id": "r0_u0_n0",
+      "text": "공구 챙겼습니다.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_n0.wav"
+    },
+    {
+      "id": "r0_u0_n1",
+      "text": "어디부터 고칠까요?",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_n1.wav"
+    },
+    {
+      "id": "r0_u0_n2",
+      "text": "작업 지시 주십시오.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_n2.wav"
+    },
+    {
+      "id": "r0_u0_n3",
+      "text": "아스는 제가 맡죠.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_n3.wav"
+    },
+    {
+      "id": "r0_u0_n4",
+      "text": "안전모 확인 완료.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_n4.wav"
+    },
+    {
+      "id": "r0_u0_s0",
+      "text": "볼트 하나가 남는데요.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_s0.wav"
+    },
+    {
+      "id": "r0_u0_s1",
+      "text": "이건 망치로 해결 안 됩니다.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_s1.wav"
+    },
+    {
+      "id": "r0_u0_s2",
+      "text": "제 귀는 무전 안테나가 아닙니다.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_s2.wav"
+    },
+    {
+      "id": "r0_u0_s3",
+      "text": "야근 수당은 테라로 받겠습니다.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_s3.wav"
+    },
+    {
+      "id": "r0_u0_s4",
+      "text": "계속 부르시면 공사가 늦어집니다.",
+      "race": 0,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.96,
+      "file": "res://assets/voices/r0_u0_s4.wav"
+    },
+    {
+      "id": "r0_u1_n0",
+      "text": "전열사수 대기 중.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_n0.wav"
+    },
+    {
+      "id": "r0_u1_n1",
+      "text": "사선 확보했습니다.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_n1.wav"
+    },
+    {
+      "id": "r0_u1_n2",
+      "text": "명령만 주십시오.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_n2.wav"
+    },
+    {
+      "id": "r0_u1_n3",
+      "text": "탄창 이상 없습니다.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_n3.wav"
+    },
+    {
+      "id": "r0_u1_n4",
+      "text": "전방을 주시합니다.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_n4.wav"
+    },
+    {
+      "id": "r0_u1_s0",
+      "text": "총구 앞에 서지 마십시오.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_s0.wav"
+    },
+    {
+      "id": "r0_u1_s1",
+      "text": "제 이름은 사수가 아닙니다.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_s1.wav"
+    },
+    {
+      "id": "r0_u1_s2",
+      "text": "바위는 엄폐물입니다. 간식 아닙니다.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_s2.wav"
+    },
+    {
+      "id": "r0_u1_s3",
+      "text": "이 무전기 끄는 법 아십니까?",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_s3.wav"
+    },
+    {
+      "id": "r0_u1_s4",
+      "text": "계속 누르면 탄약이 나오진 않습니다.",
+      "race": 0,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r0_u1_s4.wav"
+    },
+    {
+      "id": "r0_u2_n0",
+      "text": "돌파 준비 끝났습니다.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_n0.wav"
+    },
+    {
+      "id": "r0_u2_n1",
+      "text": "앞줄은 제 자리죠.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_n1.wav"
+    },
+    {
+      "id": "r0_u2_n2",
+      "text": "장갑 믿고 갑니다.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_n2.wav"
+    },
+    {
+      "id": "r0_u2_n3",
+      "text": "거리를 좁히겠습니다.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_n3.wav"
+    },
+    {
+      "id": "r0_u2_n4",
+      "text": "길을 뚫어드리죠.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_n4.wav"
+    },
+    {
+      "id": "r0_u2_s0",
+      "text": "문이 잠겼으면 벽으로 갑니다.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_s0.wav"
+    },
+    {
+      "id": "r0_u2_s1",
+      "text": "브레이크는 정비 중입니다.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_s1.wav"
+    },
+    {
+      "id": "r0_u2_s2",
+      "text": "작전명은 일단 들어가 입니다.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_s2.wav"
+    },
+    {
+      "id": "r0_u2_s3",
+      "text": "어깨로 인사하면 다칩니다.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_s3.wav"
+    },
+    {
+      "id": "r0_u2_s4",
+      "text": "지휘관님도 같이 뛰시죠.",
+      "race": 0,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.74,
+      "file": "res://assets/voices/r0_u2_s4.wav"
+    },
+    {
+      "id": "r0_u3_n0",
+      "text": "방패를 세우겠습니다.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_n0.wav"
+    },
+    {
+      "id": "r0_u3_n1",
+      "text": "뒤에 붙으십시오.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_n1.wav"
+    },
+    {
+      "id": "r0_u3_n2",
+      "text": "전열을 지킵니다.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_n2.wav"
+    },
+    {
+      "id": "r0_u3_n3",
+      "text": "충격 흡수 장치 정상.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_n3.wav"
+    },
+    {
+      "id": "r0_u3_n4",
+      "text": "여긴 못 지나갑니다.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_n4.wav"
+    },
+    {
+      "id": "r0_u3_s0",
+      "text": "이 방패는 식탁이 아닙니다.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_s0.wav"
+    },
+    {
+      "id": "r0_u3_s1",
+      "text": "뒤통수는 지휘관님께 맡깁니다.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_s1.wav"
+    },
+    {
+      "id": "r0_u3_s2",
+      "text": "우산으로 쓰기엔 좀 무겁죠.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_s2.wav"
+    },
+    {
+      "id": "r0_u3_s3",
+      "text": "한 번 더 두드리면 문 열어야 합니까?",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_s3.wav"
+    },
+    {
+      "id": "r0_u3_s4",
+      "text": "지킬 건 많고 휴가는 짧군요.",
+      "race": 0,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r0_u3_s4.wav"
+    },
+    {
+      "id": "r0_u4_n0",
+      "text": "부상자를 알려주세요.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_n0.wav"
+    },
+    {
+      "id": "r0_u4_n1",
+      "text": "의무병 준비됐습니다.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_n1.wav"
+    },
+    {
+      "id": "r0_u4_n2",
+      "text": "맥박부터 확인합니다.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_n2.wav"
+    },
+    {
+      "id": "r0_u4_n3",
+      "text": "치료 장비 정상입니다.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_n3.wav"
+    },
+    {
+      "id": "r0_u4_n4",
+      "text": "살아서 돌아갑시다.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_n4.wav"
+    },
+    {
+      "id": "r0_u4_s0",
+      "text": "체온계는 무기가 아닙니다.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_s0.wav"
+    },
+    {
+      "id": "r0_u4_s1",
+      "text": "주사는 제가 놓습니다. 맞지는 않고요.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_s1.wav"
+    },
+    {
+      "id": "r0_u4_s2",
+      "text": "처방은 충분한 휴식입니다.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_s2.wav"
+    },
+    {
+      "id": "r0_u4_s3",
+      "text": "무전기 진찰은 정비공에게 가세요.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_s3.wav"
+    },
+    {
+      "id": "r0_u4_s4",
+      "text": "자꾸 부르시면 건강검진부터 합니다.",
+      "race": 0,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.05,
+      "file": "res://assets/voices/r0_u4_s4.wav"
+    },
+    {
+      "id": "r0_u5_n0",
+      "text": "굴착포 조준 대기.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_n0.wav"
+    },
+    {
+      "id": "r0_u5_n1",
+      "text": "포신 압력 정상.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_n1.wav"
+    },
+    {
+      "id": "r0_u5_n2",
+      "text": "지반을 확인합니다.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_n2.wav"
+    },
+    {
+      "id": "r0_u5_n3",
+      "text": "진지 구축 준비 완료.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_n3.wav"
+    },
+    {
+      "id": "r0_u5_n4",
+      "text": "포격 좌표 주십시오.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_n4.wav"
+    },
+    {
+      "id": "r0_u5_s0",
+      "text": "주차 공간이 좁군요.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_s0.wav"
+    },
+    {
+      "id": "r0_u5_s1",
+      "text": "땅을 고르게 만드는 게 특기입니다.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_s1.wav"
+    },
+    {
+      "id": "r0_u5_s2",
+      "text": "포신에 빨래 걸지 마십시오.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_s2.wav"
+    },
+    {
+      "id": "r0_u5_s3",
+      "text": "귀를 막으셔도 좀 시끄럽습니다.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_s3.wav"
+    },
+    {
+      "id": "r0_u5_s4",
+      "text": "지도 수정은 제가 맡겠습니다.",
+      "race": 0,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.71,
+      "file": "res://assets/voices/r0_u5_s4.wav"
+    },
+    {
+      "id": "r0_u6_n0",
+      "text": "표적 추적 중입니다.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_n0.wav"
+    },
+    {
+      "id": "r0_u6_n1",
+      "text": "미사일 잠금 대기.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_n1.wav"
+    },
+    {
+      "id": "r0_u6_n2",
+      "text": "차륜 구동 정상.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_n2.wav"
+    },
+    {
+      "id": "r0_u6_n3",
+      "text": "발사관 점검 완료.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_n3.wav"
+    },
+    {
+      "id": "r0_u6_n4",
+      "text": "도망갈 곳은 없습니다.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_n4.wav"
+    },
+    {
+      "id": "r0_u6_s0",
+      "text": "비포장 추가 요금 있습니다.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_s0.wav"
+    },
+    {
+      "id": "r0_u6_s1",
+      "text": "길 안내가 또 틀렸군요.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_s1.wav"
+    },
+    {
+      "id": "r0_u6_s2",
+      "text": "미사일은 반품이 안 됩니다.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_s2.wav"
+    },
+    {
+      "id": "r0_u6_s3",
+      "text": "잠금 장치는 차 문 얘기가 아닙니다.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_s3.wav"
+    },
+    {
+      "id": "r0_u6_s4",
+      "text": "주차 위반 딱지는 적에게 주세요.",
+      "race": 0,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.9,
+      "file": "res://assets/voices/r0_u6_s4.wav"
+    },
+    {
+      "id": "r0_u7_n0",
+      "text": "그림자에서 듣고 있습니다.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_n0.wav"
+    },
+    {
+      "id": "r0_u7_n1",
+      "text": "표적을 지목하십시오.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_n1.wav"
+    },
+    {
+      "id": "r0_u7_n2",
+      "text": "흔적 없이 움직입니다.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_n2.wav"
+    },
+    {
+      "id": "r0_u7_n3",
+      "text": "시야를 확보했어요.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_n3.wav"
+    },
+    {
+      "id": "r0_u7_n4",
+      "text": "숨소리를 낮추십시오.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_n4.wav"
+    },
+    {
+      "id": "r0_u7_s0",
+      "text": "제 위치를 방송하지 마십시오.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_s0.wav"
+    },
+    {
+      "id": "r0_u7_s1",
+      "text": "조용히 부르는 기능은 없습니까?",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_s1.wav"
+    },
+    {
+      "id": "r0_u7_s2",
+      "text": "숨었는데 또 찾으셨군요.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_s2.wav"
+    },
+    {
+      "id": "r0_u7_s3",
+      "text": "망토 세탁비가 꽤 나옵니다.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_s3.wav"
+    },
+    {
+      "id": "r0_u7_s4",
+      "text": "들키면 지휘관님 책임입니다.",
+      "race": 0,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.86,
+      "file": "res://assets/voices/r0_u7_s4.wav"
+    },
+    {
+      "id": "r0_u8_n0",
+      "text": "관측 링크 연결.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_n0.wav"
+    },
+    {
+      "id": "r0_u8_n1",
+      "text": "센서 전개 완료.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_n1.wav"
+    },
+    {
+      "id": "r0_u8_n2",
+      "text": "사각지대를 찾겠습니다.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_n2.wav"
+    },
+    {
+      "id": "r0_u8_n3",
+      "text": "영상 수신 양호.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_n3.wav"
+    },
+    {
+      "id": "r0_u8_n4",
+      "text": "숨은 표적을 확인합니다.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_n4.wav"
+    },
+    {
+      "id": "r0_u8_s0",
+      "text": "조종사는 여기 타고 있습니다.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_s0.wav"
+    },
+    {
+      "id": "r0_u8_s1",
+      "text": "드론이라고 무인인 건 아닙니다.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_s1.wav"
+    },
+    {
+      "id": "r0_u8_s2",
+      "text": "카메라에 손 흔들지 마세요.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_s2.wav"
+    },
+    {
+      "id": "r0_u8_s3",
+      "text": "제 귀까지 확대하지 마십시오.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_s3.wav"
+    },
+    {
+      "id": "r0_u8_s4",
+      "text": "녹화 중입니다. 방금 말씀도요.",
+      "race": 0,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.16,
+      "file": "res://assets/voices/r0_u8_s4.wav"
+    },
+    {
+      "id": "r0_u9_n0",
+      "text": "요격 편대 출격 대기.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_n0.wav"
+    },
+    {
+      "id": "r0_u9_n1",
+      "text": "상공을 지키겠습니다.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_n1.wav"
+    },
+    {
+      "id": "r0_u9_n2",
+      "text": "추력 정상입니다.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_n2.wav"
+    },
+    {
+      "id": "r0_u9_n3",
+      "text": "접근 표적 감시 중.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_n3.wav"
+    },
+    {
+      "id": "r0_u9_n4",
+      "text": "진로를 지정하십시오.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_n4.wav"
+    },
+    {
+      "id": "r0_u9_s0",
+      "text": "기내식은 없습니다.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_s0.wav"
+    },
+    {
+      "id": "r0_u9_s1",
+      "text": "급선회 전에 꽉 잡으십시오.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_s1.wav"
+    },
+    {
+      "id": "r0_u9_s2",
+      "text": "구름 위에도 야근은 있군요.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_s2.wav"
+    },
+    {
+      "id": "r0_u9_s3",
+      "text": "창문은 열리지 않습니다.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_s3.wav"
+    },
+    {
+      "id": "r0_u9_s4",
+      "text": "날개 끝은 만지지 마세요.",
+      "race": 0,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r0_u9_s4.wav"
+    },
+    {
+      "id": "r0_u10_n0",
+      "text": "폭격 항로 입력 대기.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_n0.wav"
+    },
+    {
+      "id": "r0_u10_n1",
+      "text": "폭장 고정 완료.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_n1.wav"
+    },
+    {
+      "id": "r0_u10_n2",
+      "text": "지상 표적 확인.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_n2.wav"
+    },
+    {
+      "id": "r0_u10_n3",
+      "text": "상공에서 정리하겠습니다.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_n3.wav"
+    },
+    {
+      "id": "r0_u10_n4",
+      "text": "투하 명령 기다립니다.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_n4.wav"
+    },
+    {
+      "id": "r0_u10_s0",
+      "text": "화물 취급 주의입니다.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_s0.wav"
+    },
+    {
+      "id": "r0_u10_s1",
+      "text": "이건 택배가 아닙니다.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_s1.wav"
+    },
+    {
+      "id": "r0_u10_s2",
+      "text": "착륙보다 이륙이 편하군요.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_s2.wav"
+    },
+    {
+      "id": "r0_u10_s3",
+      "text": "폭탄에 사인해 드릴까요?",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_s3.wav"
+    },
+    {
+      "id": "r0_u10_s4",
+      "text": "아군 좌표는 다시 확인하십시오.",
+      "race": 0,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.77,
+      "file": "res://assets/voices/r0_u10_s4.wav"
+    },
+    {
+      "id": "r0_u11_n0",
+      "text": "수송정 탑승 준비.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_n0.wav"
+    },
+    {
+      "id": "r0_u11_n1",
+      "text": "안전띠 확인하십시오.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_n1.wav"
+    },
+    {
+      "id": "r0_u11_n2",
+      "text": "병력 수용 가능합니다.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_n2.wav"
+    },
+    {
+      "id": "r0_u11_n3",
+      "text": "착륙 지점을 알려주십시오.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_n3.wav"
+    },
+    {
+      "id": "r0_u11_n4",
+      "text": "전원 데려오겠습니다.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_n4.wav"
+    },
+    {
+      "id": "r0_u11_s0",
+      "text": "문이 닫힙니다. 꼬리 조심.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_s0.wav"
+    },
+    {
+      "id": "r0_u11_s1",
+      "text": "정원 초과는 안 됩니다.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_s1.wav"
+    },
+    {
+      "id": "r0_u11_s2",
+      "text": "목적지는 한 번만 말씀하세요.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_s2.wav"
+    },
+    {
+      "id": "r0_u11_s3",
+      "text": "좌석은 선착순입니다.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_s3.wav"
+    },
+    {
+      "id": "r0_u11_s4",
+      "text": "반려 귤은 탑승 금지입니다.",
+      "race": 0,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.93,
+      "file": "res://assets/voices/r0_u11_s4.wav"
+    },
+    {
+      "id": "r0_u12_n0",
+      "text": "이동요새 전투 준비.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_n0.wav"
+    },
+    {
+      "id": "r0_u12_n1",
+      "text": "전선의 중심을 옮깁니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_n1.wav"
+    },
+    {
+      "id": "r0_u12_n2",
+      "text": "모든 포대 대기.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_n2.wav"
+    },
+    {
+      "id": "r0_u12_n3",
+      "text": "중장갑 이상 없습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_n3.wav"
+    },
+    {
+      "id": "r0_u12_n4",
+      "text": "이곳이 새로운 전선입니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_n4.wav"
+    },
+    {
+      "id": "r0_u12_s0",
+      "text": "작은 길로 안내하지 마십시오.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_s0.wav"
+    },
+    {
+      "id": "r0_u12_s1",
+      "text": "연비는 묻지 않는 게 좋습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_s1.wav"
+    },
+    {
+      "id": "r0_u12_s2",
+      "text": "제자리 회전도 작전입니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_s2.wav"
+    },
+    {
+      "id": "r0_u12_s3",
+      "text": "집보다 크다고 전입은 안 됩니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_s3.wav"
+    },
+    {
+      "id": "r0_u12_s4",
+      "text": "이 정도면 바위가 저를 피하겠군요.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.62,
+      "file": "res://assets/voices/r0_u12_s4.wav"
+    },
+    {
+      "id": "r1_u0_n0",
+      "text": "일귤: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_n0.wav"
+    },
+    {
+      "id": "r1_u0_n1",
+      "text": "일귤: 젖은 목울림",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_n1.wav"
+    },
+    {
+      "id": "r1_u0_n2",
+      "text": "일귤: 껍질 떨림",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_n2.wav"
+    },
+    {
+      "id": "r1_u0_n3",
+      "text": "일귤: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_n3.wav"
+    },
+    {
+      "id": "r1_u0_n4",
+      "text": "일귤: 짧은 포효",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_n4.wav"
+    },
+    {
+      "id": "r1_u0_s0",
+      "text": "일귤: 성난 연속 포효",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_s0.wav"
+    },
+    {
+      "id": "r1_u0_s1",
+      "text": "일귤: 깊은 공명",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_s1.wav"
+    },
+    {
+      "id": "r1_u0_s2",
+      "text": "일귤: 거친 숨과 울음",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_s2.wav"
+    },
+    {
+      "id": "r1_u0_s3",
+      "text": "일귤: 빠른 이중 포효",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_s3.wav"
+    },
+    {
+      "id": "r1_u0_s4",
+      "text": "일귤: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 0,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.95,
+      "file": "res://assets/voices/r1_u0_s4.wav"
+    },
+    {
+      "id": "r1_u1_n0",
+      "text": "껍질발톱: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_n0.wav"
+    },
+    {
+      "id": "r1_u1_n1",
+      "text": "껍질발톱: 젖은 목울림",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_n1.wav"
+    },
+    {
+      "id": "r1_u1_n2",
+      "text": "껍질발톱: 껍질 떨림",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_n2.wav"
+    },
+    {
+      "id": "r1_u1_n3",
+      "text": "껍질발톱: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_n3.wav"
+    },
+    {
+      "id": "r1_u1_n4",
+      "text": "껍질발톱: 짧은 포효",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_n4.wav"
+    },
+    {
+      "id": "r1_u1_s0",
+      "text": "껍질발톱: 성난 연속 포효",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_s0.wav"
+    },
+    {
+      "id": "r1_u1_s1",
+      "text": "껍질발톱: 깊은 공명",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_s1.wav"
+    },
+    {
+      "id": "r1_u1_s2",
+      "text": "껍질발톱: 거친 숨과 울음",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_s2.wav"
+    },
+    {
+      "id": "r1_u1_s3",
+      "text": "껍질발톱: 빠른 이중 포효",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_s3.wav"
+    },
+    {
+      "id": "r1_u1_s4",
+      "text": "껍질발톱: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 1,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.25,
+      "file": "res://assets/voices/r1_u1_s4.wav"
+    },
+    {
+      "id": "r1_u2_n0",
+      "text": "과즙분사체: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_n0.wav"
+    },
+    {
+      "id": "r1_u2_n1",
+      "text": "과즙분사체: 젖은 목울림",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_n1.wav"
+    },
+    {
+      "id": "r1_u2_n2",
+      "text": "과즙분사체: 껍질 떨림",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_n2.wav"
+    },
+    {
+      "id": "r1_u2_n3",
+      "text": "과즙분사체: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_n3.wav"
+    },
+    {
+      "id": "r1_u2_n4",
+      "text": "과즙분사체: 짧은 포효",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_n4.wav"
+    },
+    {
+      "id": "r1_u2_s0",
+      "text": "과즙분사체: 성난 연속 포효",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_s0.wav"
+    },
+    {
+      "id": "r1_u2_s1",
+      "text": "과즙분사체: 깊은 공명",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_s1.wav"
+    },
+    {
+      "id": "r1_u2_s2",
+      "text": "과즙분사체: 거친 숨과 울음",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_s2.wav"
+    },
+    {
+      "id": "r1_u2_s3",
+      "text": "과즙분사체: 빠른 이중 포효",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_s3.wav"
+    },
+    {
+      "id": "r1_u2_s4",
+      "text": "과즙분사체: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 2,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r1_u2_s4.wav"
+    },
+    {
+      "id": "r1_u3_n0",
+      "text": "후피거수: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_n0.wav"
+    },
+    {
+      "id": "r1_u3_n1",
+      "text": "후피거수: 젖은 목울림",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_n1.wav"
+    },
+    {
+      "id": "r1_u3_n2",
+      "text": "후피거수: 껍질 떨림",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_n2.wav"
+    },
+    {
+      "id": "r1_u3_n3",
+      "text": "후피거수: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_n3.wav"
+    },
+    {
+      "id": "r1_u3_n4",
+      "text": "후피거수: 짧은 포효",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_n4.wav"
+    },
+    {
+      "id": "r1_u3_s0",
+      "text": "후피거수: 성난 연속 포효",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_s0.wav"
+    },
+    {
+      "id": "r1_u3_s1",
+      "text": "후피거수: 깊은 공명",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_s1.wav"
+    },
+    {
+      "id": "r1_u3_s2",
+      "text": "후피거수: 거친 숨과 울음",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_s2.wav"
+    },
+    {
+      "id": "r1_u3_s3",
+      "text": "후피거수: 빠른 이중 포효",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_s3.wav"
+    },
+    {
+      "id": "r1_u3_s4",
+      "text": "후피거수: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 3,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.55,
+      "file": "res://assets/voices/r1_u3_s4.wav"
+    },
+    {
+      "id": "r1_u4_n0",
+      "text": "과숙폭탄: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_n0.wav"
+    },
+    {
+      "id": "r1_u4_n1",
+      "text": "과숙폭탄: 젖은 목울림",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_n1.wav"
+    },
+    {
+      "id": "r1_u4_n2",
+      "text": "과숙폭탄: 껍질 떨림",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_n2.wav"
+    },
+    {
+      "id": "r1_u4_n3",
+      "text": "과숙폭탄: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_n3.wav"
+    },
+    {
+      "id": "r1_u4_n4",
+      "text": "과숙폭탄: 짧은 포효",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_n4.wav"
+    },
+    {
+      "id": "r1_u4_s0",
+      "text": "과숙폭탄: 성난 연속 포효",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_s0.wav"
+    },
+    {
+      "id": "r1_u4_s1",
+      "text": "과숙폭탄: 깊은 공명",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_s1.wav"
+    },
+    {
+      "id": "r1_u4_s2",
+      "text": "과숙폭탄: 거친 숨과 울음",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_s2.wav"
+    },
+    {
+      "id": "r1_u4_s3",
+      "text": "과숙폭탄: 빠른 이중 포효",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_s3.wav"
+    },
+    {
+      "id": "r1_u4_s4",
+      "text": "과숙폭탄: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 4,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.38,
+      "file": "res://assets/voices/r1_u4_s4.wav"
+    },
+    {
+      "id": "r1_u5_n0",
+      "text": "덩굴포식자: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_n0.wav"
+    },
+    {
+      "id": "r1_u5_n1",
+      "text": "덩굴포식자: 젖은 목울림",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_n1.wav"
+    },
+    {
+      "id": "r1_u5_n2",
+      "text": "덩굴포식자: 껍질 떨림",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_n2.wav"
+    },
+    {
+      "id": "r1_u5_n3",
+      "text": "덩굴포식자: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_n3.wav"
+    },
+    {
+      "id": "r1_u5_n4",
+      "text": "덩굴포식자: 짧은 포효",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_n4.wav"
+    },
+    {
+      "id": "r1_u5_s0",
+      "text": "덩굴포식자: 성난 연속 포효",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_s0.wav"
+    },
+    {
+      "id": "r1_u5_s1",
+      "text": "덩굴포식자: 깊은 공명",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_s1.wav"
+    },
+    {
+      "id": "r1_u5_s2",
+      "text": "덩굴포식자: 거친 숨과 울음",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_s2.wav"
+    },
+    {
+      "id": "r1_u5_s3",
+      "text": "덩굴포식자: 빠른 이중 포효",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_s3.wav"
+    },
+    {
+      "id": "r1_u5_s4",
+      "text": "덩굴포식자: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 5,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.69,
+      "file": "res://assets/voices/r1_u5_s4.wav"
+    },
+    {
+      "id": "r1_u6_n0",
+      "text": "씨앗박격체: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_n0.wav"
+    },
+    {
+      "id": "r1_u6_n1",
+      "text": "씨앗박격체: 젖은 목울림",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_n1.wav"
+    },
+    {
+      "id": "r1_u6_n2",
+      "text": "씨앗박격체: 껍질 떨림",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_n2.wav"
+    },
+    {
+      "id": "r1_u6_n3",
+      "text": "씨앗박격체: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_n3.wav"
+    },
+    {
+      "id": "r1_u6_n4",
+      "text": "씨앗박격체: 짧은 포효",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_n4.wav"
+    },
+    {
+      "id": "r1_u6_s0",
+      "text": "씨앗박격체: 성난 연속 포효",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_s0.wav"
+    },
+    {
+      "id": "r1_u6_s1",
+      "text": "씨앗박격체: 깊은 공명",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_s1.wav"
+    },
+    {
+      "id": "r1_u6_s2",
+      "text": "씨앗박격체: 거친 숨과 울음",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_s2.wav"
+    },
+    {
+      "id": "r1_u6_s3",
+      "text": "씨앗박격체: 빠른 이중 포효",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_s3.wav"
+    },
+    {
+      "id": "r1_u6_s4",
+      "text": "씨앗박격체: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 6,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_u6_s4.wav"
+    },
+    {
+      "id": "r1_u7_n0",
+      "text": "가시꽃: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_n0.wav"
+    },
+    {
+      "id": "r1_u7_n1",
+      "text": "가시꽃: 젖은 목울림",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_n1.wav"
+    },
+    {
+      "id": "r1_u7_n2",
+      "text": "가시꽃: 껍질 떨림",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_n2.wav"
+    },
+    {
+      "id": "r1_u7_n3",
+      "text": "가시꽃: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_n3.wav"
+    },
+    {
+      "id": "r1_u7_n4",
+      "text": "가시꽃: 짧은 포효",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_n4.wav"
+    },
+    {
+      "id": "r1_u7_s0",
+      "text": "가시꽃: 성난 연속 포효",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_s0.wav"
+    },
+    {
+      "id": "r1_u7_s1",
+      "text": "가시꽃: 깊은 공명",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_s1.wav"
+    },
+    {
+      "id": "r1_u7_s2",
+      "text": "가시꽃: 거친 숨과 울음",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_s2.wav"
+    },
+    {
+      "id": "r1_u7_s3",
+      "text": "가시꽃: 빠른 이중 포효",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_s3.wav"
+    },
+    {
+      "id": "r1_u7_s4",
+      "text": "가시꽃: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 7,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.12,
+      "file": "res://assets/voices/r1_u7_s4.wav"
+    },
+    {
+      "id": "r1_u8_n0",
+      "text": "접목충: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_n0.wav"
+    },
+    {
+      "id": "r1_u8_n1",
+      "text": "접목충: 젖은 목울림",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_n1.wav"
+    },
+    {
+      "id": "r1_u8_n2",
+      "text": "접목충: 껍질 떨림",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_n2.wav"
+    },
+    {
+      "id": "r1_u8_n3",
+      "text": "접목충: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_n3.wav"
+    },
+    {
+      "id": "r1_u8_n4",
+      "text": "접목충: 짧은 포효",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_n4.wav"
+    },
+    {
+      "id": "r1_u8_s0",
+      "text": "접목충: 성난 연속 포효",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_s0.wav"
+    },
+    {
+      "id": "r1_u8_s1",
+      "text": "접목충: 깊은 공명",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_s1.wav"
+    },
+    {
+      "id": "r1_u8_s2",
+      "text": "접목충: 거친 숨과 울음",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_s2.wav"
+    },
+    {
+      "id": "r1_u8_s3",
+      "text": "접목충: 빠른 이중 포효",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_s3.wav"
+    },
+    {
+      "id": "r1_u8_s4",
+      "text": "접목충: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 8,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.52,
+      "file": "res://assets/voices/r1_u8_s4.wav"
+    },
+    {
+      "id": "r1_u9_n0",
+      "text": "모즙체: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_n0.wav"
+    },
+    {
+      "id": "r1_u9_n1",
+      "text": "모즙체: 젖은 목울림",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_n1.wav"
+    },
+    {
+      "id": "r1_u9_n2",
+      "text": "모즙체: 껍질 떨림",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_n2.wav"
+    },
+    {
+      "id": "r1_u9_n3",
+      "text": "모즙체: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_n3.wav"
+    },
+    {
+      "id": "r1_u9_n4",
+      "text": "모즙체: 짧은 포효",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_n4.wav"
+    },
+    {
+      "id": "r1_u9_s0",
+      "text": "모즙체: 성난 연속 포효",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_s0.wav"
+    },
+    {
+      "id": "r1_u9_s1",
+      "text": "모즙체: 깊은 공명",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_s1.wav"
+    },
+    {
+      "id": "r1_u9_s2",
+      "text": "모즙체: 거친 숨과 울음",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_s2.wav"
+    },
+    {
+      "id": "r1_u9_s3",
+      "text": "모즙체: 빠른 이중 포효",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_s3.wav"
+    },
+    {
+      "id": "r1_u9_s4",
+      "text": "모즙체: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 9,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.78,
+      "file": "res://assets/voices/r1_u9_s4.wav"
+    },
+    {
+      "id": "r1_u10_n0",
+      "text": "귤박쥐: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_n0.wav"
+    },
+    {
+      "id": "r1_u10_n1",
+      "text": "귤박쥐: 젖은 목울림",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_n1.wav"
+    },
+    {
+      "id": "r1_u10_n2",
+      "text": "귤박쥐: 껍질 떨림",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_n2.wav"
+    },
+    {
+      "id": "r1_u10_n3",
+      "text": "귤박쥐: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_n3.wav"
+    },
+    {
+      "id": "r1_u10_n4",
+      "text": "귤박쥐: 짧은 포효",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_n4.wav"
+    },
+    {
+      "id": "r1_u10_s0",
+      "text": "귤박쥐: 성난 연속 포효",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_s0.wav"
+    },
+    {
+      "id": "r1_u10_s1",
+      "text": "귤박쥐: 깊은 공명",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_s1.wav"
+    },
+    {
+      "id": "r1_u10_s2",
+      "text": "귤박쥐: 거친 숨과 울음",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_s2.wav"
+    },
+    {
+      "id": "r1_u10_s3",
+      "text": "귤박쥐: 빠른 이중 포효",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_s3.wav"
+    },
+    {
+      "id": "r1_u10_s4",
+      "text": "귤박쥐: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 10,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.65,
+      "file": "res://assets/voices/r1_u10_s4.wav"
+    },
+    {
+      "id": "r1_u11_n0",
+      "text": "포낭비행체: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_n0.wav"
+    },
+    {
+      "id": "r1_u11_n1",
+      "text": "포낭비행체: 젖은 목울림",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_n1.wav"
+    },
+    {
+      "id": "r1_u11_n2",
+      "text": "포낭비행체: 껍질 떨림",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_n2.wav"
+    },
+    {
+      "id": "r1_u11_n3",
+      "text": "포낭비행체: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_n3.wav"
+    },
+    {
+      "id": "r1_u11_n4",
+      "text": "포낭비행체: 짧은 포효",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_n4.wav"
+    },
+    {
+      "id": "r1_u11_s0",
+      "text": "포낭비행체: 성난 연속 포효",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_s0.wav"
+    },
+    {
+      "id": "r1_u11_s1",
+      "text": "포낭비행체: 깊은 공명",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_s1.wav"
+    },
+    {
+      "id": "r1_u11_s2",
+      "text": "포낭비행체: 거친 숨과 울음",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_s2.wav"
+    },
+    {
+      "id": "r1_u11_s3",
+      "text": "포낭비행체: 빠른 이중 포효",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_s3.wav"
+    },
+    {
+      "id": "r1_u11_s4",
+      "text": "포낭비행체: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 11,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.58,
+      "file": "res://assets/voices/r1_u11_s4.wav"
+    },
+    {
+      "id": "r1_u12_n0",
+      "text": "대과수: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_n0.wav"
+    },
+    {
+      "id": "r1_u12_n1",
+      "text": "대과수: 젖은 목울림",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_n1.wav"
+    },
+    {
+      "id": "r1_u12_n2",
+      "text": "대과수: 껍질 떨림",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_n2.wav"
+    },
+    {
+      "id": "r1_u12_n3",
+      "text": "대과수: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_n3.wav"
+    },
+    {
+      "id": "r1_u12_n4",
+      "text": "대과수: 짧은 포효",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": false,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_n4.wav"
+    },
+    {
+      "id": "r1_u12_s0",
+      "text": "대과수: 성난 연속 포효",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_s0.wav"
+    },
+    {
+      "id": "r1_u12_s1",
+      "text": "대과수: 깊은 공명",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_s1.wav"
+    },
+    {
+      "id": "r1_u12_s2",
+      "text": "대과수: 거친 숨과 울음",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_s2.wav"
+    },
+    {
+      "id": "r1_u12_s3",
+      "text": "대과수: 빠른 이중 포효",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_s3.wav"
+    },
+    {
+      "id": "r1_u12_s4",
+      "text": "대과수: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 12,
+      "type": "roar",
+      "special": true,
+      "pitch": 0.42,
+      "file": "res://assets/voices/r1_u12_s4.wav"
+    },
+    {
+      "id": "r1_u13_n0",
+      "text": "배양체: 짧은 낮은 반응",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_n0.wav"
+    },
+    {
+      "id": "r1_u13_n1",
+      "text": "배양체: 젖은 목울림",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_n1.wav"
+    },
+    {
+      "id": "r1_u13_n2",
+      "text": "배양체: 껍질 떨림",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_n2.wav"
+    },
+    {
+      "id": "r1_u13_n3",
+      "text": "배양체: 기계 제어음이 섞인 으르렁거림",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_n3.wav"
+    },
+    {
+      "id": "r1_u13_n4",
+      "text": "배양체: 짧은 포효",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": false,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_n4.wav"
+    },
+    {
+      "id": "r1_u13_s0",
+      "text": "배양체: 성난 연속 포효",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_s0.wav"
+    },
+    {
+      "id": "r1_u13_s1",
+      "text": "배양체: 깊은 공명",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_s1.wav"
+    },
+    {
+      "id": "r1_u13_s2",
+      "text": "배양체: 거친 숨과 울음",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_s2.wav"
+    },
+    {
+      "id": "r1_u13_s3",
+      "text": "배양체: 빠른 이중 포효",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_s3.wav"
+    },
+    {
+      "id": "r1_u13_s4",
+      "text": "배양체: 길고 강한 위협 포효",
+      "race": 1,
+      "kind": 13,
+      "type": "roar",
+      "special": true,
+      "pitch": 1.8,
+      "file": "res://assets/voices/r1_u13_s4.wav"
+    },
+    {
+      "id": "r2_u0_n0",
+      "text": "설계의 뜻을 읽었습니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_n0.wav"
+    },
+    {
+      "id": "r2_u0_n1",
+      "text": "기초부터 질서를 세웁니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_n1.wav"
+    },
+    {
+      "id": "r2_u0_n2",
+      "text": "축조를 기다립니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_n2.wav"
+    },
+    {
+      "id": "r2_u0_n3",
+      "text": "돌마다 제자리가 있습니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_n3.wav"
+    },
+    {
+      "id": "r2_u0_n4",
+      "text": "당신의 생각이 닿았습니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_n4.wav"
+    },
+    {
+      "id": "r2_u0_s0",
+      "text": "설계도는 마음속에 있습니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_s0.wav"
+    },
+    {
+      "id": "r2_u0_s1",
+      "text": "수평이 맞지 않으면 잠들 수 없습니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_s1.wav"
+    },
+    {
+      "id": "r2_u0_s2",
+      "text": "돌에게도 예의가 필요합니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_s2.wav"
+    },
+    {
+      "id": "r2_u0_s3",
+      "text": "세 번 재고 한 번 놓으십시오.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_s3.wav"
+    },
+    {
+      "id": "r2_u0_s4",
+      "text": "생각만으로 완공되지는 않습니다.",
+      "race": 2,
+      "kind": 0,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.02,
+      "file": "res://assets/voices/r2_u0_s4.wav"
+    },
+    {
+      "id": "r2_u1_n0",
+      "text": "서약은 굳건합니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_n0.wav"
+    },
+    {
+      "id": "r2_u1_n1",
+      "text": "앞을 지키겠습니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_n1.wav"
+    },
+    {
+      "id": "r2_u1_n2",
+      "text": "질서에 몸을 바칩니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_n2.wav"
+    },
+    {
+      "id": "r2_u1_n3",
+      "text": "의지가 방패가 됩니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_n3.wav"
+    },
+    {
+      "id": "r2_u1_n4",
+      "text": "당신의 뜻을 따릅니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_n4.wav"
+    },
+    {
+      "id": "r2_u1_s0",
+      "text": "서약서에 휴일은 없었습니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_s0.wav"
+    },
+    {
+      "id": "r2_u1_s1",
+      "text": "깃털이 흐트러져도 대열은 지킵니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_s1.wav"
+    },
+    {
+      "id": "r2_u1_s2",
+      "text": "눈을 감아도 감시는 계속됩니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_s2.wav"
+    },
+    {
+      "id": "r2_u1_s3",
+      "text": "침묵도 명령일 수 있습니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_s3.wav"
+    },
+    {
+      "id": "r2_u1_s4",
+      "text": "지금은 다섯 번째 부름입니다. 기억합니다.",
+      "race": 2,
+      "kind": 1,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.79,
+      "file": "res://assets/voices/r2_u1_s4.wav"
+    },
+    {
+      "id": "r2_u2_n0",
+      "text": "시위를 가다듬습니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_n0.wav"
+    },
+    {
+      "id": "r2_u2_n1",
+      "text": "성문 너머를 봅니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_n1.wav"
+    },
+    {
+      "id": "r2_u2_n2",
+      "text": "표적은 선명합니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_n2.wav"
+    },
+    {
+      "id": "r2_u2_n3",
+      "text": "한 발이면 충분합니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_n3.wav"
+    },
+    {
+      "id": "r2_u2_n4",
+      "text": "바람의 결을 읽겠습니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_n4.wav"
+    },
+    {
+      "id": "r2_u2_s0",
+      "text": "활줄은 악기가 아닙니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_s0.wav"
+    },
+    {
+      "id": "r2_u2_s1",
+      "text": "눈을 깜빡인 사이 놓치지 않습니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_s1.wav"
+    },
+    {
+      "id": "r2_u2_s2",
+      "text": "깃털은 화살에 양보하지 않습니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_s2.wav"
+    },
+    {
+      "id": "r2_u2_s3",
+      "text": "빗나감은 기록에서 지우지 않습니다.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_s3.wav"
+    },
+    {
+      "id": "r2_u2_s4",
+      "text": "사격 중 텔레파시는 짧게 하십시오.",
+      "race": 2,
+      "kind": 2,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.98,
+      "file": "res://assets/voices/r2_u2_s4.wav"
+    },
+    {
+      "id": "r2_u3_n0",
+      "text": "규율을 집행합니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_n0.wav"
+    },
+    {
+      "id": "r2_u3_n1",
+      "text": "흐트러진 전열을 바로잡겠습니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_n1.wav"
+    },
+    {
+      "id": "r2_u3_n2",
+      "text": "명령을 확인했습니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_n2.wav"
+    },
+    {
+      "id": "r2_u3_n3",
+      "text": "위반은 용납하지 않습니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_n3.wav"
+    },
+    {
+      "id": "r2_u3_n4",
+      "text": "질서가 승리를 만듭니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_n4.wav"
+    },
+    {
+      "id": "r2_u3_s0",
+      "text": "반복 호출도 규정 위반입니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_s0.wav"
+    },
+    {
+      "id": "r2_u3_s1",
+      "text": "규정집은 아직 서문입니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_s1.wav"
+    },
+    {
+      "id": "r2_u3_s2",
+      "text": "줄은 키가 아니라 계급 순입니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_s2.wav"
+    },
+    {
+      "id": "r2_u3_s3",
+      "text": "예외 조항은 없습니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_s3.wav"
+    },
+    {
+      "id": "r2_u3_s4",
+      "text": "지휘관님께도 규율은 적용됩니다.",
+      "race": 2,
+      "kind": 3,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.72,
+      "file": "res://assets/voices/r2_u3_s4.wav"
+    },
+    {
+      "id": "r2_u4_n0",
+      "text": "결계가 당신을 감쌉니다.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_n0.wav"
+    },
+    {
+      "id": "r2_u4_n1",
+      "text": "흔들리는 빛을 잇겠습니다.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_n1.wav"
+    },
+    {
+      "id": "r2_u4_n2",
+      "text": "마음을 고요히 하십시오.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_n2.wav"
+    },
+    {
+      "id": "r2_u4_n3",
+      "text": "수호의 의식은 준비됐습니다.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_n3.wav"
+    },
+    {
+      "id": "r2_u4_n4",
+      "text": "의지를 모으겠습니다.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_n4.wav"
+    },
+    {
+      "id": "r2_u4_s0",
+      "text": "결계 안에서는 뛰지 마십시오.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_s0.wav"
+    },
+    {
+      "id": "r2_u4_s1",
+      "text": "기도는 대기열을 만들지 않습니다.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_s1.wav"
+    },
+    {
+      "id": "r2_u4_s2",
+      "text": "마음의 소음이 조금 크군요.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_s2.wav"
+    },
+    {
+      "id": "r2_u4_s3",
+      "text": "깃털 정돈도 명상의 일부입니다.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_s3.wav"
+    },
+    {
+      "id": "r2_u4_s4",
+      "text": "당신의 잡념까지 들립니다.",
+      "race": 2,
+      "kind": 4,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.13,
+      "file": "res://assets/voices/r2_u4_s4.wav"
+    },
+    {
+      "id": "r2_u5_n0",
+      "text": "별의 판결을 전합니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_n0.wav"
+    },
+    {
+      "id": "r2_u5_n1",
+      "text": "천구가 응답합니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_n1.wav"
+    },
+    {
+      "id": "r2_u5_n2",
+      "text": "심판의 좌표를 정하십시오.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_n2.wav"
+    },
+    {
+      "id": "r2_u5_n3",
+      "text": "운행은 어긋나지 않습니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_n3.wav"
+    },
+    {
+      "id": "r2_u5_n4",
+      "text": "밤하늘이 지켜봅니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_n4.wav"
+    },
+    {
+      "id": "r2_u5_s0",
+      "text": "별자리 운세는 담당이 아닙니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_s0.wav"
+    },
+    {
+      "id": "r2_u5_s1",
+      "text": "오늘의 운세는 전투입니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_s1.wav"
+    },
+    {
+      "id": "r2_u5_s2",
+      "text": "행성을 움직이는 건 별도 의식입니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_s2.wav"
+    },
+    {
+      "id": "r2_u5_s3",
+      "text": "별을 세다 호출을 놓쳤군요.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_s3.wav"
+    },
+    {
+      "id": "r2_u5_s4",
+      "text": "당신의 미래에도 클릭이 보입니다.",
+      "race": 2,
+      "kind": 5,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.68,
+      "file": "res://assets/voices/r2_u5_s4.wav"
+    },
+    {
+      "id": "r2_u6_n0",
+      "text": "밤의 눈을 열었습니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_n0.wav"
+    },
+    {
+      "id": "r2_u6_n1",
+      "text": "감춰진 흔적을 봅니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_n1.wav"
+    },
+    {
+      "id": "r2_u6_n2",
+      "text": "어둠은 가림막이 아닙니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_n2.wav"
+    },
+    {
+      "id": "r2_u6_n3",
+      "text": "감시를 이어갑니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_n3.wav"
+    },
+    {
+      "id": "r2_u6_n4",
+      "text": "정적 속을 살피겠습니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_n4.wav"
+    },
+    {
+      "id": "r2_u6_s0",
+      "text": "눈은 이미 충분히 큽니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_s0.wav"
+    },
+    {
+      "id": "r2_u6_s1",
+      "text": "밝다고 더 잘 보지는 않습니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_s1.wav"
+    },
+    {
+      "id": "r2_u6_s2",
+      "text": "잠든 척도 관측입니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_s2.wav"
+    },
+    {
+      "id": "r2_u6_s3",
+      "text": "등 뒤도 보고 있습니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_s3.wav"
+    },
+    {
+      "id": "r2_u6_s4",
+      "text": "숨바꼭질은 제가 이깁니다.",
+      "race": 2,
+      "kind": 6,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.23,
+      "file": "res://assets/voices/r2_u6_s4.wav"
+    },
+    {
+      "id": "r2_u7_n0",
+      "text": "오랜 돌이 깨어났습니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_n0.wav"
+    },
+    {
+      "id": "r2_u7_n1",
+      "text": "무게로 길을 엽니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_n1.wav"
+    },
+    {
+      "id": "r2_u7_n2",
+      "text": "석익은 부서지지 않습니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_n2.wav"
+    },
+    {
+      "id": "r2_u7_n3",
+      "text": "고대의 명을 따릅니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_n3.wav"
+    },
+    {
+      "id": "r2_u7_n4",
+      "text": "대지가 발걸음을 기억합니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_n4.wav"
+    },
+    {
+      "id": "r2_u7_s0",
+      "text": "이끼는 계급장이 아닙니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_s0.wav"
+    },
+    {
+      "id": "r2_u7_s1",
+      "text": "기름칠보다 명상이 필요합니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_s1.wav"
+    },
+    {
+      "id": "r2_u7_s2",
+      "text": "박물관은 아직 이릅니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_s2.wav"
+    },
+    {
+      "id": "r2_u7_s3",
+      "text": "앉으면 지형이 바뀝니다.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_s3.wav"
+    },
+    {
+      "id": "r2_u7_s4",
+      "text": "천 년 만의 산책을 방해하지 마십시오.",
+      "race": 2,
+      "kind": 7,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.54,
+      "file": "res://assets/voices/r2_u7_s4.wav"
+    },
+    {
+      "id": "r2_u8_n0",
+      "text": "궤도를 계산합니다.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_n0.wav"
+    },
+    {
+      "id": "r2_u8_n1",
+      "text": "창끝을 하늘에 맞춥니다.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_n1.wav"
+    },
+    {
+      "id": "r2_u8_n2",
+      "text": "낙하지점 지정 대기.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_n2.wav"
+    },
+    {
+      "id": "r2_u8_n3",
+      "text": "질서의 궤적은 곧습니다.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_n3.wav"
+    },
+    {
+      "id": "r2_u8_n4",
+      "text": "꿰뚫을 준비가 됐습니다.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_n4.wav"
+    },
+    {
+      "id": "r2_u8_s0",
+      "text": "창문을 말한 것이 아닙니다.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_s0.wav"
+    },
+    {
+      "id": "r2_u8_s1",
+      "text": "포물선에도 품위가 있습니다.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_s1.wav"
+    },
+    {
+      "id": "r2_u8_s2",
+      "text": "계산 중에는 마음을 낮추십시오.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_s2.wav"
+    },
+    {
+      "id": "r2_u8_s3",
+      "text": "먼 곳도 같은 전장입니다.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_s3.wav"
+    },
+    {
+      "id": "r2_u8_s4",
+      "text": "천장 있는 곳으로 부르지 마십시오.",
+      "race": 2,
+      "kind": 8,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.83,
+      "file": "res://assets/voices/r2_u8_s4.wav"
+    },
+    {
+      "id": "r2_u9_n0",
+      "text": "달빛을 따라 추적합니다.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_n0.wav"
+    },
+    {
+      "id": "r2_u9_n1",
+      "text": "월익 전개 완료.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_n1.wav"
+    },
+    {
+      "id": "r2_u9_n2",
+      "text": "상공의 질서를 지킵니다.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_n2.wav"
+    },
+    {
+      "id": "r2_u9_n3",
+      "text": "표적의 궤적을 읽었습니다.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_n3.wav"
+    },
+    {
+      "id": "r2_u9_n4",
+      "text": "날개를 펼치겠습니다.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": false,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_n4.wav"
+    },
+    {
+      "id": "r2_u9_s0",
+      "text": "달까지 가는 항로는 아닙니다.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_s0.wav"
+    },
+    {
+      "id": "r2_u9_s1",
+      "text": "야간 비행 수당은 명예입니다.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_s1.wav"
+    },
+    {
+      "id": "r2_u9_s2",
+      "text": "구름도 대열을 맞추면 좋겠군요.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_s2.wav"
+    },
+    {
+      "id": "r2_u9_s3",
+      "text": "깃털 하나도 놓치지 않습니다.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_s3.wav"
+    },
+    {
+      "id": "r2_u9_s4",
+      "text": "높이 날아도 호출은 들리는군요.",
+      "race": 2,
+      "kind": 9,
+      "type": "speech",
+      "special": true,
+      "pitch": 1.06,
+      "file": "res://assets/voices/r2_u9_s4.wav"
+    },
+    {
+      "id": "r2_u10_n0",
+      "text": "황혼 속에 있습니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_n0.wav"
+    },
+    {
+      "id": "r2_u10_n1",
+      "text": "경계가 흐려집니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_n1.wav"
+    },
+    {
+      "id": "r2_u10_n2",
+      "text": "발소리를 남기지 않겠습니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_n2.wav"
+    },
+    {
+      "id": "r2_u10_n3",
+      "text": "보이지 않는 곳을 지킵니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_n3.wav"
+    },
+    {
+      "id": "r2_u10_n4",
+      "text": "의식만 연결하십시오.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_n4.wav"
+    },
+    {
+      "id": "r2_u10_s0",
+      "text": "찾았다고 크게 생각하지 마십시오.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_s0.wav"
+    },
+    {
+      "id": "r2_u10_s1",
+      "text": "숨는 데도 집중이 필요합니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_s1.wav"
+    },
+    {
+      "id": "r2_u10_s2",
+      "text": "투명해도 예절은 보입니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_s2.wav"
+    },
+    {
+      "id": "r2_u10_s3",
+      "text": "그림자에게 말하지 마십시오. 저입니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_s3.wav"
+    },
+    {
+      "id": "r2_u10_s4",
+      "text": "이미 당신 옆을 지나갔습니다.",
+      "race": 2,
+      "kind": 10,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.92,
+      "file": "res://assets/voices/r2_u10_s4.wav"
+    },
+    {
+      "id": "r2_u11_n0",
+      "text": "회랑을 열겠습니다.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_n0.wav"
+    },
+    {
+      "id": "r2_u11_n1",
+      "text": "모두를 건너편으로.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_n1.wav"
+    },
+    {
+      "id": "r2_u11_n2",
+      "text": "안전한 통로가 준비됐습니다.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_n2.wav"
+    },
+    {
+      "id": "r2_u11_n3",
+      "text": "탑승 의지를 전하십시오.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_n3.wav"
+    },
+    {
+      "id": "r2_u11_n4",
+      "text": "귀환할 길을 남깁니다.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_n4.wav"
+    },
+    {
+      "id": "r2_u11_s0",
+      "text": "회랑 안에서는 날개를 접으십시오.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_s0.wav"
+    },
+    {
+      "id": "r2_u11_s1",
+      "text": "통행 순서를 지켜주십시오.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_s1.wav"
+    },
+    {
+      "id": "r2_u11_s2",
+      "text": "마음만 먼저 타지 마십시오.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_s2.wav"
+    },
+    {
+      "id": "r2_u11_s3",
+      "text": "목적지 변경은 출발 전에.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_s3.wav"
+    },
+    {
+      "id": "r2_u11_s4",
+      "text": "마지막 승객을 기다리는 중입니다.",
+      "race": 2,
+      "kind": 11,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r2_u11_s4.wav"
+    },
+    {
+      "id": "r2_u12_n0",
+      "text": "대심판선이 응답합니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_n0.wav"
+    },
+    {
+      "id": "r2_u12_n1",
+      "text": "하늘의 법을 선포합니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_n1.wav"
+    },
+    {
+      "id": "r2_u12_n2",
+      "text": "모든 의식이 하나로 모였습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_n2.wav"
+    },
+    {
+      "id": "r2_u12_n3",
+      "text": "심판은 피할 수 없습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_n3.wav"
+    },
+    {
+      "id": "r2_u12_n4",
+      "text": "영원의 질서를 세우겠습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_n4.wav"
+    },
+    {
+      "id": "r2_u12_s0",
+      "text": "회의는 천 년 전에 끝났습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_s0.wav"
+    },
+    {
+      "id": "r2_u12_s1",
+      "text": "판결문은 짧지 않습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_s1.wav"
+    },
+    {
+      "id": "r2_u12_s2",
+      "text": "이 함선에도 정숙이 필요합니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_s2.wav"
+    },
+    {
+      "id": "r2_u12_s3",
+      "text": "별을 가려도 법은 빛납니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_s3.wav"
+    },
+    {
+      "id": "r2_u12_s4",
+      "text": "다음 호출은 정식 청원으로 받겠습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": true,
+      "pitch": 0.6,
+      "file": "res://assets/voices/r2_u12_s4.wav"
+    },
+    {
+      "id": "r0_ann_as",
+      "text": "아스가 부족합니다. 광물 수급을 확인하십시오.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_as.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_tera",
+      "text": "테라가 부족합니다. 추출 시설을 확인하십시오.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_tera.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_supply",
+      "text": "보급 한도에 도달했습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_supply.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_attack",
+      "text": "아군이 공격받고 있습니다. 지원을 요청합니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_attack.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_base_attack",
+      "text": "기지가 공격받고 있습니다. 방어 병력을 배치하십시오.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_base_attack.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_building_ready",
+      "text": "건설이 완료됐습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_building_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_unit_ready",
+      "text": "병력 배치가 완료됐습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_unit_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_research_ready",
+      "text": "연구가 완료됐습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_research_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_tech",
+      "text": "선행 건물이 필요합니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_tech.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_energy",
+      "text": "에너지가 부족합니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_energy.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_queue",
+      "text": "생산 대기열이 가득 찼습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_queue.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_brood",
+      "text": "생산 개체가 필요합니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_brood.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_victory",
+      "text": "작전 성공. 승리했습니다.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_victory.wav",
+      "announcer": true
+    },
+    {
+      "id": "r0_ann_defeat",
+      "text": "작전 실패. 남은 병력은 철수하십시오.",
+      "race": 0,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.88,
+      "file": "res://assets/voices/r0_ann_defeat.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_as",
+      "text": "아스가 부족하다. 황금 결정을 더 모아라.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_as.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_tera",
+      "text": "테라가 부족하다. 군체에 촉매를 공급하라.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_tera.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_supply",
+      "text": "군체의 수용 한계다. 생장 공간을 늘려라.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_supply.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_attack",
+      "text": "우리 군체가 공격받는다. 침입자를 찢어라.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_attack.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_base_attack",
+      "text": "뿌리가 공격받는다. 둥지를 지켜라.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_base_attack.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_building_ready",
+      "text": "새로운 군체 시설이 자랐다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_building_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_unit_ready",
+      "text": "새로운 개체가 깨어났다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_unit_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_research_ready",
+      "text": "군체가 한 단계 진화했다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_research_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_tech",
+      "text": "진화의 기반이 부족하다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_tech.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_energy",
+      "text": "정신 에너지가 부족하다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_energy.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_queue",
+      "text": "변태 대기열이 가득 찼다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_queue.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_brood",
+      "text": "변태할 배양체가 없다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_brood.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_victory",
+      "text": "군체가 전장을 삼켰다. 우리의 승리다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_victory.wav",
+      "announcer": true
+    },
+    {
+      "id": "r1_ann_defeat",
+      "text": "군체가 무너졌다. 뿌리는 기억한다.",
+      "race": 1,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.65,
+      "file": "res://assets/voices/r1_ann_defeat.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_as",
+      "text": "아스가 부족합니다. 축조의 자원을 모으십시오.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_as.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_tera",
+      "text": "테라가 부족합니다. 푸른 흐름을 확보하십시오.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_tera.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_supply",
+      "text": "수용 한도에 도달했습니다. 결속을 확장하십시오.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_supply.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_attack",
+      "text": "동족이 공격받고 있습니다. 서약을 지키십시오.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_attack.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_base_attack",
+      "text": "성역이 공격받고 있습니다. 방어 의식을 펼치십시오.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_base_attack.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_building_ready",
+      "text": "축조가 완성됐습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_building_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_unit_ready",
+      "text": "새로운 서약자가 합류했습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_unit_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_research_ready",
+      "text": "새로운 지혜를 깨우쳤습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_research_ready.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_tech",
+      "text": "선행 의식을 위한 건물이 필요합니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_tech.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_energy",
+      "text": "의식 에너지가 부족합니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_energy.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_queue",
+      "text": "소환 대기열이 가득 찼습니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_queue.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_brood",
+      "text": "소환할 매개체가 필요합니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_brood.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_victory",
+      "text": "질서가 회복됐습니다. 우리의 승리입니다.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_victory.wav",
+      "announcer": true
+    },
+    {
+      "id": "r2_ann_defeat",
+      "text": "서약을 지키지 못했습니다. 물러나십시오.",
+      "race": 2,
+      "kind": 12,
+      "type": "speech",
+      "special": false,
+      "pitch": 0.82,
+      "file": "res://assets/voices/r2_ann_defeat.wav",
+      "announcer": true
+    }
+  ]
+}

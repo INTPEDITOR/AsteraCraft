@@ -1,0 +1,16 @@
+.godot/
+build/
+server/data/
+assets/*.b64
+runtime/node.exe
+network.json
+network.local.json
+*.log
+*.zip
+*.pck
+*.exe
+*.tmp
+.env
+.env.*
+!.env.example
+export_templates/

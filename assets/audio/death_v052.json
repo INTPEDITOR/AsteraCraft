@@ -1,0 +1,357 @@
+{
+  "origin": "Original deterministic procedural synthesis, not external voice recordings",
+  "rate": 44100,
+  "cues": [
+    {
+      "race": 0,
+      "kind": 0,
+      "file": "death_0_0.wav",
+      "duration": 0.85,
+      "peak": 0.74,
+      "rms": 0.15719950880722705,
+      "style": "low nonverbal pilot grunt"
+    },
+    {
+      "race": 0,
+      "kind": 1,
+      "file": "death_0_1.wav",
+      "duration": 0.85,
+      "peak": 0.74,
+      "rms": 0.16172932314659594,
+      "style": "low nonverbal pilot grunt"
+    },
+    {
+      "race": 0,
+      "kind": 2,
+      "file": "death_0_2.wav",
+      "duration": 0.85,
+      "peak": 0.74,
+      "rms": 0.16748157989635198,
+      "style": "low nonverbal pilot grunt"
+    },
+    {
+      "race": 0,
+      "kind": 3,
+      "file": "death_0_3.wav",
+      "duration": 0.85,
+      "peak": 0.74,
+      "rms": 0.1571084570997895,
+      "style": "low nonverbal pilot grunt"
+    },
+    {
+      "race": 0,
+      "kind": 4,
+      "file": "death_0_4.wav",
+      "duration": 0.85,
+      "peak": 0.74,
+      "rms": 0.15867574500818132,
+      "style": "low nonverbal pilot grunt"
+    },
+    {
+      "race": 0,
+      "kind": 5,
+      "file": "death_0_5.wav",
+      "duration": 1.05,
+      "peak": 0.74,
+      "rms": 0.07500701949126362,
+      "style": "metal break / engine shutdown"
+    },
+    {
+      "race": 0,
+      "kind": 6,
+      "file": "death_0_6.wav",
+      "duration": 1.05,
+      "peak": 0.74,
+      "rms": 0.0808427060268554,
+      "style": "metal break / engine shutdown"
+    },
+    {
+      "race": 0,
+      "kind": 7,
+      "file": "death_0_7.wav",
+      "duration": 0.85,
+      "peak": 0.74,
+      "rms": 0.15922627776435608,
+      "style": "low nonverbal pilot grunt"
+    },
+    {
+      "race": 0,
+      "kind": 8,
+      "file": "death_0_8.wav",
+      "duration": 1.05,
+      "peak": 0.74,
+      "rms": 0.08046128442660533,
+      "style": "metal break / engine shutdown"
+    },
+    {
+      "race": 0,
+      "kind": 9,
+      "file": "death_0_9.wav",
+      "duration": 1.05,
+      "peak": 0.74,
+      "rms": 0.08296665730364769,
+      "style": "metal break / engine shutdown"
+    },
+    {
+      "race": 0,
+      "kind": 10,
+      "file": "death_0_10.wav",
+      "duration": 1.05,
+      "peak": 0.74,
+      "rms": 0.08057295216282825,
+      "style": "metal break / engine shutdown"
+    },
+    {
+      "race": 0,
+      "kind": 11,
+      "file": "death_0_11.wav",
+      "duration": 1.05,
+      "peak": 0.74,
+      "rms": 0.08410708394673229,
+      "style": "metal break / engine shutdown"
+    },
+    {
+      "race": 0,
+      "kind": 12,
+      "file": "death_0_12.wav",
+      "duration": 1.05,
+      "peak": 0.74,
+      "rms": 0.08242160663628605,
+      "style": "metal break / engine shutdown"
+    },
+    {
+      "race": 1,
+      "kind": 0,
+      "file": "death_1_0.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.13397877126851696,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 1,
+      "file": "death_1_1.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.11019874448906335,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 2,
+      "file": "death_1_2.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.10240843553904067,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 3,
+      "file": "death_1_3.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.12902150590867226,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 4,
+      "file": "death_1_4.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.12104432167026129,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 5,
+      "file": "death_1_5.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.12280086931162344,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 6,
+      "file": "death_1_6.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.10783409745348638,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 7,
+      "file": "death_1_7.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.13242500655919456,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 8,
+      "file": "death_1_8.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.12373648928123981,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 9,
+      "file": "death_1_9.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.13997231628430148,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 10,
+      "file": "death_1_10.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.1353716070153262,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 11,
+      "file": "death_1_11.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.12450853146932671,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 1,
+      "kind": 12,
+      "file": "death_1_12.wav",
+      "duration": 1.15,
+      "peak": 0.74,
+      "rms": 0.10515792845399666,
+      "style": "organic growl collapse"
+    },
+    {
+      "race": 2,
+      "kind": 0,
+      "file": "death_2_0.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.13424162511512466,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "file": "death_2_1.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.13597856463755223,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 2,
+      "file": "death_2_2.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.133863793321354,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 3,
+      "file": "death_2_3.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.1488408121067989,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 4,
+      "file": "death_2_4.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.15737503129876243,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 5,
+      "file": "death_2_5.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.14930600200749003,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 6,
+      "file": "death_2_6.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.14578268545701473,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 7,
+      "file": "death_2_7.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.14495039650283534,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 8,
+      "file": "death_2_8.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.13405418730727417,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 9,
+      "file": "death_2_9.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.15523885437984278,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 10,
+      "file": "death_2_10.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.14636195588166398,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 11,
+      "file": "death_2_11.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.1367669051375785,
+      "style": "owl cry / sacred resonance"
+    },
+    {
+      "race": 2,
+      "kind": 12,
+      "file": "death_2_12.wav",
+      "duration": 1.3,
+      "peak": 0.74,
+      "rms": 0.14629955094968658,
+      "style": "owl cry / sacred resonance"
+    }
+  ]
+}

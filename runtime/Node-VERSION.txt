@@ -1,0 +1,4 @@
+Node.js v24.18.0 (Windows x64)
+Runtime: node.exe
+License source: https://github.com/nodejs/node/blob/v24.18.0/LICENSE
+Node.js: https://nodejs.org/

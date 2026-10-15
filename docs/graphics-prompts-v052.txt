@@ -1,0 +1,33 @@
+AsteraCraft v0.5.2 graphics production record
+
+Generated with the built-in image generation tool. These are the consolidated
+production requirements, rather than a verbatim transcript of every iteration.
+
+Shared camera: fixed elevated oblique RTS camera, approximately 48 degrees
+above the ground, slightly less visible top surface than the first 55-degree
+fighter preview. Keep the top and both wings readable. No flat side views.
+Five columns: N, NE, E, SE, S. Keep camera elevation and lighting identical.
+Transparent background, individual units separated, no text or ground shadows.
+
+air_r0_camera_v052.png: three rows, piloted hyrax interceptor, bomber, transport.
+Distinct silhouettes and consistent vehicle construction. The unmanned scout
+drone uses the separate existing three-rotor layered asset.
+
+air_r1_camera_v052.png: four rows, two citrus flying unit types, two wing poses
+each. Preserve the citrus body and living wings. Transparent outside the units.
+The SE source column is mirrored by the catalog to correct the facing.
+
+air_r2_camera_v052.png: four rows, ivory/red/gold owl faction. Orb scout,
+triangular fighter, box-shaped transport, and ring-plus-spire capital ship.
+The ring remains horizontal. All units use the same elevated camera.
+
+owl_ne_camera_v052.png: corrected NE transport and ring capital. Show the
+rear-left quarter with noses pointing up-right. Preserve the source designs.
+
+Runtime: five source facings mirrored to eight headings; no rotation of flat
+sprites. Citrus animation has two painted wing poses. Registered images and
+catalog are produced by tools/register_graphics_v052.gd.
+
+HUD correction: generated artwork was not changed. The menu opening is drawn
+as one opaque black recess in scripts/rts_hud.gd, covering intersecting painted
+dividers. The full HUD proportions and panel positions are preserved.

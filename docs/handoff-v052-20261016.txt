@@ -1,0 +1,36 @@
+v0.5.2 release / 2026-10-16
+
+Workspace: E:/Codex/ASTERACRAFT/AsteraCraft
+Windows package: E:/Codex/ASTERACRAFT/deliverables/AsteraCraft-Windows-v0.5.2-20261016.zip
+SHA256: da78e04d697b847d9d3f3e9622006a7c48dc6f9ec73528e7a54507e97db2b4f9
+Unpacked EXE and PCK are in the same-named deliverables directory.
+
+Latest user correction: citrus/owl HUD menu lines overlapped the caption.
+Replaced that opening with a continuous black recess and smaller caption.
+Compared rts_hud.gd with the v0.5.1 source ZIP: no changes to overall panel
+geometry or scale. Only prior cloak commands and this menu drawing differ.
+Actual screenshots: build/v052-air-r1.png and build/v052-air-r2.png.
+
+Release pack 587 checks, graphics 232, completion 73, feedback 281, cloak 30,
+replay 12, audio 104, visual 16 passed. Official release template hash matches.
+Actual release EXE boot and 2-player + 1-observer network test passed.
+Packaged-resource menu probe reached account page against isolated server.
+Default source discovery encountered an incompatible existing local service;
+do not claim that every running historical lobby is compatible.
+Direct release EXE external-script probe timed out; replaced with editor
+loading the exported PCK for script-driven inspection. Actual EXE network and
+boot tests are independent. Source ranked/custom test passed with ENet send
+warnings during shutdown. See build/qa-v052.json for evidence and limitations.
+ZIP contents: all 19 manifest file lengths and SHA256 hashes verified.
+
+Gameplay work: arrival construction checks; three cloak behaviors; observer
+state/results; replay timing/performance; 39 synthesized death cues; fixed
+oblique air camera, silhouette separation, direction correction, citrus flap,
+drone rotor registration and missile vehicle turret mount correction.
+Graphics production notes: docs/graphics-prompts-v052.txt.
+
+Outstanding legacy scope: external TTS recordings, faithful SCM/SCX terrain
+integration, parasite mind control, deployed internet lobby, balance validation.
+GitHub INTPEDITOR connector confirmed; no AsteraCraft repository selected and
+no upload performed. Do not publish into unrelated existing repositories.
+Prior v0.5.1 deliverables preserved.

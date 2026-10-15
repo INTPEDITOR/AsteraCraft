@@ -1,0 +1,273 @@
+{
+  "air": {
+    "0:10": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "embedded_pilot": true,
+      "frames": [
+        "res://assets/registered_v052/r0_u10_0.png",
+        "res://assets/registered_v052/r0_u10_1.png",
+        "res://assets/registered_v052/r0_u10_2.png",
+        "res://assets/registered_v052/r0_u10_3.png",
+        "res://assets/registered_v052/r0_u10_4.png"
+      ],
+      "phases": 1,
+      "scale_hint": 260
+    },
+    "0:11": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "embedded_pilot": true,
+      "frames": [
+        "res://assets/registered_v052/r0_u11_0.png",
+        "res://assets/registered_v052/r0_u11_1.png",
+        "res://assets/registered_v052/r0_u11_2.png",
+        "res://assets/registered_v052/r0_u11_3.png",
+        "res://assets/registered_v052/r0_u11_4.png"
+      ],
+      "phases": 1,
+      "scale_hint": 260
+    },
+    "0:9": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "embedded_pilot": true,
+      "frames": [
+        "res://assets/registered_v052/r0_u9_0.png",
+        "res://assets/registered_v052/r0_u9_1.png",
+        "res://assets/registered_v052/r0_u9_2.png",
+        "res://assets/registered_v052/r0_u9_3.png",
+        "res://assets/registered_v052/r0_u9_4.png"
+      ],
+      "phases": 1,
+      "scale_hint": 260
+    },
+    "1:10": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "direction_flips": [
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "embedded_pilot": false,
+      "frames": [
+        "res://assets/registered_v052/r1_u10_0.png",
+        "res://assets/registered_v052/r1_u10_1.png",
+        "res://assets/registered_v052/r1_u10_2.png",
+        "res://assets/registered_v052/r1_u10_3.png",
+        "res://assets/registered_v052/r1_u10_4.png",
+        "res://assets/registered_v052/r1_u10_5.png",
+        "res://assets/registered_v052/r1_u10_6.png",
+        "res://assets/registered_v052/r1_u10_7.png",
+        "res://assets/registered_v052/r1_u10_8.png",
+        "res://assets/registered_v052/r1_u10_9.png"
+      ],
+      "phases": 2,
+      "scale_hint": 260
+    },
+    "1:11": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "direction_flips": [
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "embedded_pilot": false,
+      "frames": [
+        "res://assets/registered_v052/r1_u11_0.png",
+        "res://assets/registered_v052/r1_u11_1.png",
+        "res://assets/registered_v052/r1_u11_2.png",
+        "res://assets/registered_v052/r1_u11_3.png",
+        "res://assets/registered_v052/r1_u11_4.png",
+        "res://assets/registered_v052/r1_u11_5.png",
+        "res://assets/registered_v052/r1_u11_6.png",
+        "res://assets/registered_v052/r1_u11_7.png",
+        "res://assets/registered_v052/r1_u11_8.png",
+        "res://assets/registered_v052/r1_u11_9.png"
+      ],
+      "phases": 2,
+      "scale_hint": 260
+    },
+    "2:11": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "embedded_pilot": false,
+      "frames": [
+        "res://assets/registered_v052/r2_u11_0.png",
+        "res://assets/registered_v052/r2_u11_1.png",
+        "res://assets/registered_v052/r2_u11_2.png",
+        "res://assets/registered_v052/r2_u11_3.png",
+        "res://assets/registered_v052/r2_u11_4.png"
+      ],
+      "phases": 1,
+      "scale_hint": 260
+    },
+    "2:12": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "embedded_pilot": false,
+      "frames": [
+        "res://assets/registered_v052/r2_u12_0.png",
+        "res://assets/registered_v052/r2_u12_1.png",
+        "res://assets/registered_v052/r2_u12_2.png",
+        "res://assets/registered_v052/r2_u12_3.png",
+        "res://assets/registered_v052/r2_u12_4.png"
+      ],
+      "phases": 1,
+      "scale_hint": 260
+    },
+    "2:6": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "embedded_pilot": false,
+      "frames": [
+        "res://assets/registered_v052/r2_u6_0.png",
+        "res://assets/registered_v052/r2_u6_1.png",
+        "res://assets/registered_v052/r2_u6_2.png",
+        "res://assets/registered_v052/r2_u6_3.png",
+        "res://assets/registered_v052/r2_u6_4.png"
+      ],
+      "phases": 1,
+      "scale_hint": 260
+    },
+    "2:9": {
+      "anchor": [
+        160,
+        160
+      ],
+      "columns": 5,
+      "embedded_pilot": false,
+      "frames": [
+        "res://assets/registered_v052/r2_u9_0.png",
+        "res://assets/registered_v052/r2_u9_1.png",
+        "res://assets/registered_v052/r2_u9_2.png",
+        "res://assets/registered_v052/r2_u9_3.png",
+        "res://assets/registered_v052/r2_u9_4.png"
+      ],
+      "phases": 1,
+      "scale_hint": 260
+    }
+  },
+  "drone": {
+    "anchor": [
+      160,
+      160
+    ],
+    "bodies": [
+      "res://assets/registered_v052/drone_0_0.png",
+      "res://assets/registered_v052/drone_0_1.png",
+      "res://assets/registered_v052/drone_0_2.png",
+      "res://assets/registered_v052/drone_0_3.png",
+      "res://assets/registered_v052/drone_0_4.png"
+    ],
+    "rotors": [
+      "res://assets/registered_v052/drone_1_0.png",
+      "res://assets/registered_v052/drone_1_1.png",
+      "res://assets/registered_v052/drone_1_2.png",
+      "res://assets/registered_v052/drone_1_3.png",
+      "res://assets/registered_v052/drone_1_4.png"
+    ],
+    "scale_hint": 210
+  },
+  "vehicle": {
+    "anchor": [
+      160,
+      260
+    ],
+    "frames": [
+      {
+        "chassis": "res://assets/registered_v052/vehicle_body_0.png",
+        "mount": [
+          0.325,
+          -146.64
+        ],
+        "muzzle": [
+          0.325,
+          -122.265
+        ],
+        "turret": "res://assets/registered_v052/vehicle_turret_0.png"
+      },
+      {
+        "chassis": "res://assets/registered_v052/vehicle_body_1.png",
+        "mount": [
+          2.314,
+          -146.66
+        ],
+        "muzzle": [
+          47.684,
+          -116.064
+        ],
+        "turret": "res://assets/registered_v052/vehicle_turret_1.png"
+      },
+      {
+        "chassis": "res://assets/registered_v052/vehicle_body_2.png",
+        "mount": [
+          -13.104,
+          -138.632
+        ],
+        "muzzle": [
+          91.26,
+          -71.169
+        ],
+        "turret": "res://assets/registered_v052/vehicle_turret_2.png"
+      },
+      {
+        "chassis": "res://assets/registered_v052/vehicle_body_3.png",
+        "mount": [
+          0.0,
+          -163.228
+        ],
+        "muzzle": [
+          69.745,
+          -58.5
+        ],
+        "turret": "res://assets/registered_v052/vehicle_turret_3.png"
+      },
+      {
+        "chassis": "res://assets/registered_v052/vehicle_body_4.png",
+        "mount": [
+          0.0,
+          -153.075
+        ],
+        "muzzle": [
+          11.7,
+          -58.792
+        ],
+        "turret": "res://assets/registered_v052/vehicle_turret_4.png"
+      }
+    ],
+    "key": "0:6",
+    "scale_hint": 205,
+    "turret_scale": 0.82
+  }
+}

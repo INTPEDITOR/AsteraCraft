@@ -1,0 +1,356 @@
+{
+  "source": "https://github.com/bwapi/bwapi/blob/main/bwapi/BWAPILIB/Source/UnitType.cpp",
+  "sha": "84d7ca243364ce5728c2b98d5dbcdf5c75d71aa5",
+  "units": [
+    {
+      "name": "Terran_Command_Center",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Terran_Comsat_Station",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Terran_Nuclear_Silo",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Terran_Supply_Depot",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Terran_Refinery",
+      "w": 4,
+      "h": 2
+    },
+    {
+      "name": "Terran_Barracks",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Terran_Academy",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Terran_Factory",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Terran_Starport",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Terran_Control_Tower",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Terran_Science_Facility",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Terran_Covert_Ops",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Terran_Physics_Lab",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Unused_Terran1",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Terran_Machine_Shop",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Unused_Terran2",
+      "w": 3,
+      "h": 3
+    },
+    {
+      "name": "Terran_Engineering_Bay",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Terran_Armory",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Terran_Missile_Turret",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Terran_Bunker",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Special_Crashed_Norad_II",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Special_Ion_Cannon",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Powerup_Uraj_Crystal",
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "Powerup_Khalis_Crystal",
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "Zerg_Infested_Command_Center",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Zerg_Hatchery",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Zerg_Lair",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Zerg_Hive",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Zerg_Nydus_Canal",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Hydralisk_Den",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Defiler_Mound",
+      "w": 4,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Greater_Spire",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Queens_Nest",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Evolution_Chamber",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Ultralisk_Cavern",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Spire",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Spawning_Pool",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Creep_Colony",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Zerg_Spore_Colony",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Unused_Zerg1",
+      "w": 3,
+      "h": 3
+    },
+    {
+      "name": "Zerg_Sunken_Colony",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Special_Overmind_With_Shell",
+      "w": 5,
+      "h": 3
+    },
+    {
+      "name": "Special_Overmind",
+      "w": 5,
+      "h": 3
+    },
+    {
+      "name": "Zerg_Extractor",
+      "w": 4,
+      "h": 2
+    },
+    {
+      "name": "Special_Mature_Chrysalis",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Special_Cerebrate",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Special_Cerebrate_Daggoth",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Unused_Zerg2",
+      "w": 1,
+      "h": 1
+    },
+    {
+      "name": "Protoss_Nexus",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Protoss_Robotics_Facility",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Pylon",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Assimilator",
+      "w": 4,
+      "h": 2
+    },
+    {
+      "name": "Unused_Protoss1",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Protoss_Observatory",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Gateway",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Unused_Protoss2",
+      "w": 3,
+      "h": 3
+    },
+    {
+      "name": "Protoss_Photon_Cannon",
+      "w": 2,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Citadel_of_Adun",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Cybernetics_Core",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Templar_Archives",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Forge",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Stargate",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Special_Stasis_Cell_Prison",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Protoss_Fleet_Beacon",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Arbiter_Tribunal",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Robotics_Support_Bay",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Protoss_Shield_Battery",
+      "w": 3,
+      "h": 2
+    },
+    {
+      "name": "Special_Khaydarin_Crystal_Form",
+      "w": 4,
+      "h": 3
+    },
+    {
+      "name": "Special_Protoss_Temple",
+      "w": 7,
+      "h": 3
+    },
+    {
+      "name": "Special_XelNaga_Temple",
+      "w": 5,
+      "h": 4
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "air": {
+    "0:10": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": true,
+      "file": "res://assets/air_registered_v05/r0_u10.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r0_v05.png"
+    },
+    "0:11": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": true,
+      "file": "res://assets/air_registered_v05/r0_u11.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r0_v05.png"
+    },
+    "0:8": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": true,
+      "file": "res://assets/air_registered_v05/r0_u8.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r0_v05.png"
+    },
+    "0:9": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": true,
+      "file": "res://assets/air_registered_v05/r0_u9.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r0_v05.png"
+    },
+    "1:10": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": false,
+      "file": "res://assets/air_registered_v05/r1_u10.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r1_v05.png"
+    },
+    "1:11": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": false,
+      "file": "res://assets/air_registered_v05/r1_u11.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r1_v05.png"
+    },
+    "2:11": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": false,
+      "file": "res://assets/air_registered_v05/r2_u11.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r2_v05.png"
+    },
+    "2:12": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": false,
+      "file": "res://assets/air_registered_v05/r2_u12.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r2_v05.png"
+    },
+    "2:6": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": false,
+      "file": "res://assets/air_registered_v05/r2_u6.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r2_v05.png"
+    },
+    "2:9": {
+      "anchor": [
+        160,
+        160
+      ],
+      "embedded_pilot": false,
+      "file": "res://assets/air_registered_v05/r2_u9.png",
+      "native_heading": "north",
+      "projection": "overhead",
+      "scale_hint": 288,
+      "source": "res://assets/air_top_r2_v05.png"
+    }
+  },
+  "fire": {
+    "columns": 5,
+    "file": "res://assets/hyrax_fire_poses_v05.png",
+    "kinds": [
+      1,
+      2,
+      3,
+      7
+    ],
+    "muzzles": [
+      [
+        [
+          0.4,
+          0.09
+        ],
+        [
+          0.8,
+          0.2
+        ],
+        [
+          0.97,
+          0.43
+        ],
+        [
+          0.94,
+          0.75
+        ],
+        [
+          0.53,
+          0.72
+        ]
+      ],
+      [
+        [
+          0.42,
+          0.09
+        ],
+        [
+          0.85,
+          0.16
+        ],
+        [
+          0.98,
+          0.4
+        ],
+        [
+          0.98,
+          0.67
+        ],
+        [
+          0.54,
+          0.73
+        ]
+      ],
+      [
+        [
+          0.33,
+          0.06
+        ],
+        [
+          0.84,
+          0.14
+        ],
+        [
+          0.96,
+          0.29
+        ],
+        [
+          0.66,
+          0.47
+        ],
+        [
+          0.52,
+          0.55
+        ]
+      ],
+      [
+        [
+          0.24,
+          0.04
+        ],
+        [
+          0.84,
+          0.16
+        ],
+        [
+          0.98,
+          0.4
+        ],
+        [
+          0.99,
+          0.73
+        ],
+        [
+          0.53,
+          0.74
+        ]
+      ]
+    ],
+    "rows": 4
+  },
+  "motions": {
+    "0:4": {
+      "action_fps": {
+        "heal": 8,
+        "move": 9,
+        "walk": 9
+      },
+      "actions": {
+        "attack": [
+          0
+        ],
+        "harvest": [
+          0
+        ],
+        "heal": [
+          3
+        ],
+        "idle": [
+          0
+        ],
+        "move": [
+          1,
+          0,
+          2,
+          0
+        ],
+        "walk": [
+          1,
+          0,
+          2,
+          0
+        ]
+      },
+      "columns": 5,
+      "file": "res://assets/medic_registered_v05.png",
+      "packed_root": [
+        144,
+        292
+      ],
+      "rows": 4,
+      "scale_hint": 250
+    }
+  },
+  "schema": 1
+}

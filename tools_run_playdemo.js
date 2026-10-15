@@ -1,0 +1,10 @@
+'use strict';
+const cp=require('node:child_process'),fs=require('node:fs'),path=require('node:path');
+const root=__dirname,userdata=path.join(root,'build','playdemo-userdata-'+Date.now());fs.mkdirSync(userdata,{recursive:true});
+const engine=path.join(root,'..','tools','godot','Godot_v4.6-stable_win64_console.exe');
+const args=['--rendering-method','gl_compatibility','--path',root,'--script','tests/playdemo_v04.gd','--','--capture-frames'];
+const child=cp.spawn(engine,args,{cwd:root,env:{...process.env,APPDATA:userdata},windowsHide:true,stdio:['ignore','pipe','pipe']});
+const stream=fs.createWriteStream(path.join(root,'build','playdemo-v04.log'));let log='';
+for(const pipe of [child.stdout,child.stderr])pipe.on('data',data=>{log+=data;stream.write(data);process.stdout.write(data);if(/(?:^|\n)(?:SCRIPT ERROR:|ERROR:)/.test(log))child.kill();});
+child.on('error',error=>{console.error(error);process.exitCode=1;});
+child.on('close',code=>{stream.end();console.log('PLAYDEMO_RUNNER exit='+code+' userdata='+userdata);process.exitCode=code||0;});

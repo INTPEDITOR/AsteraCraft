@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cspdje7veumuj"
+
+[deps]
+
+files=["res://docs/external_tts_lines_v051.race.translation", "res://docs/external_tts_lines_v051.kind.translation", "res://docs/external_tts_lines_v051.announcer.translation", "res://docs/external_tts_lines_v051.text.translation", "res://docs/external_tts_lines_v051.direction.translation"]
+
+source_file="res://docs/external_tts_lines_v051.csv"
+dest_files=["res://docs/external_tts_lines_v051.race.translation", "res://docs/external_tts_lines_v051.kind.translation", "res://docs/external_tts_lines_v051.announcer.translation", "res://docs/external_tts_lines_v051.text.translation", "res://docs/external_tts_lines_v051.direction.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

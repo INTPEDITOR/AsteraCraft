@@ -1,0 +1,47 @@
+extends SceneTree
+var checks=0
+var failures: Array=[]
+
+func check(ok: bool, message: String) -> void:
+	checks+=1
+	if not ok:failures.append(message);printerr("FAIL: "+message)
+
+func _initialize() -> void:call_deferred("run")
+
+func run() -> void:
+	check(str(ProjectSettings.get_setting("application/config/version"))=="0.5.0","exported project version")
+	var game=JSON.parse_string(FileAccess.get_file_as_string("res://data/game.json"))
+	check(str(game.version)=="0.5.0","exported game version")
+	var voices=JSON.parse_string(FileAccess.get_file_as_string("res://data/voices_v05.json"))
+	check(voices.clips.size()==442,"442 bundled voices")
+	for clip in voices.clips:
+		var stream=load(str(clip.file))
+		check(stream is AudioStream and stream.get_length()>.25,"bundled audio "+str(clip.id))
+	var repair=JSON.parse_string(FileAccess.get_file_as_string("res://data/graphics_repairs_v05.json"))
+	for section in ["air","motions"]:
+		for key in repair.get(section,{}):
+			var info=repair[section][key]
+			var file=str(info.get("file",info.get("texture","")))
+			check(ResourceLoader.exists(file),"current repaired asset "+key)
+	for path in ["res://assets/owl_buildings_repaired_v05.png","res://assets/terrain_faces_v05.png","res://assets/hyrax_fire_poses_v05.png"]:
+		check(load(path) is Texture2D,"current graphic "+path)
+	var main=load("res://scripts/main.gd").new()
+	root.add_child(main);main.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	await process_frame;await process_frame
+	check(main.audio.director!=null,"exported voice director starts")
+	for race in range(3):
+		main._start_local({"map":race,"seed":413,"players":[{"name":"Export QA","race":race},{"name":"Bot","race":(race+1)%3,"bot":true}]})
+		main.paused=true;main.set_process(false);main.audio.set_paused(false)
+		var low=main.core.add_unit(0,1,Vector2(62,62))
+		var high=main.core.add_unit(0,12,Vector2(65,62))
+		main.state=main.core.snapshot();main.selected=[low.id,high.id];main._update_hud()
+		check(main._portrait_entity().id==high.id,"exported priority race %d"%race)
+		main._selection_voice()
+		check(main.audio.director.last_played=="r%d_u12_n0"%race,"exported selection voice")
+		main.audio.director.reset();main._voice_error("테라가 부족합니다")
+		check(main.audio.director.last_played=="r%d_ann_tera"%race,"exported narrator")
+		for i in range(60):main.core.step(.05)
+		check(main.core.time>=2.9,"exported match advances")
+	main.audio.clear();main.queue_free();await process_frame;await process_frame
+	print("RELEASE_V05 "+JSON.stringify({"checks":checks,"failures":failures}))
+	quit(0 if failures.is_empty() else 1)

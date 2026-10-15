@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "user_supplied": true,
+  "tracks": [
+    {
+      "file": "music_r0.mp3",
+      "title": "Ironbound Frontier",
+      "seconds": 221.88,
+      "loop": true,
+      "user_supplied": true,
+      "sha256": "d1a18cfef0b81cfdb60185aee771e392e3a04c8ab9e254bbdd33e1d3cdba5da4"
+    }
+  ],
+  "slots": [
+    {"name":"music_menu","context":"메인 화면"},
+    {"name":"music_r0","context":"바위너구리 종족"},
+    {"name":"music_r1","context":"귤 변이 군체"},
+    {"name":"music_r2","context":"고대 부엉이 종족"}
+  ],
+  "formats": ["ogg","mp3","wav"],
+  "included_music": true,
+  "note": "User-supplied Ironbound Frontier is included for the hyrax faction. Menu, citrus, and owl slots remain empty. No rejected development preview is included."
+}

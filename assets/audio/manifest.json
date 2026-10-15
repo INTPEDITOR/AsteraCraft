@@ -1,0 +1,492 @@
+{
+  "sample_rate": 44100,
+  "channels": 1,
+  "bits": 16,
+  "original": true,
+  "synthesis": "Layered procedural sound design; no sampled recordings.",
+  "sounds": [
+    {
+      "file": "unit_0_0.wav",
+      "seconds": 0.68,
+      "peak": 0.82,
+      "rms": 0.0532,
+      "race": 0,
+      "kind": 0,
+      "name": "정비공",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_1.wav",
+      "seconds": 0.68,
+      "peak": 0.82,
+      "rms": 0.0827,
+      "race": 0,
+      "kind": 1,
+      "name": "전열사수",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_2.wav",
+      "seconds": 0.68,
+      "peak": 0.82,
+      "rms": 0.0612,
+      "race": 0,
+      "kind": 2,
+      "name": "돌격병",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_3.wav",
+      "seconds": 0.68,
+      "peak": 0.82,
+      "rms": 0.067,
+      "race": 0,
+      "kind": 3,
+      "name": "방패보병",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_4.wav",
+      "seconds": 0.68,
+      "peak": 0.64,
+      "rms": 0.0735,
+      "race": 0,
+      "kind": 4,
+      "name": "야전의무병",
+      "category": "ability"
+    },
+    {
+      "file": "unit_0_5.wav",
+      "seconds": 1.15,
+      "peak": 0.82,
+      "rms": 0.1343,
+      "race": 0,
+      "kind": 5,
+      "name": "굴착포 전차",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_6.wav",
+      "seconds": 0.68,
+      "peak": 0.82,
+      "rms": 0.1451,
+      "race": 0,
+      "kind": 6,
+      "name": "추적미사일 차륜차",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_7.wav",
+      "seconds": 0.68,
+      "peak": 0.82,
+      "rms": 0.0722,
+      "race": 0,
+      "kind": 7,
+      "name": "그림자 정찰병",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_8.wav",
+      "seconds": 0.68,
+      "peak": 0.64,
+      "rms": 0.056,
+      "race": 0,
+      "kind": 8,
+      "name": "관측 드론",
+      "category": "ability"
+    },
+    {
+      "file": "unit_0_9.wav",
+      "seconds": 0.68,
+      "peak": 0.82,
+      "rms": 0.0915,
+      "race": 0,
+      "kind": 9,
+      "name": "요격기",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_10.wav",
+      "seconds": 1.15,
+      "peak": 0.82,
+      "rms": 0.1175,
+      "race": 0,
+      "kind": 10,
+      "name": "강습폭격기",
+      "category": "attack"
+    },
+    {
+      "file": "unit_0_11.wav",
+      "seconds": 0.68,
+      "peak": 0.64,
+      "rms": 0.0714,
+      "race": 0,
+      "kind": 11,
+      "name": "장갑수송정",
+      "category": "ability"
+    },
+    {
+      "file": "unit_0_12.wav",
+      "seconds": 1.15,
+      "peak": 0.82,
+      "rms": 0.1118,
+      "race": 0,
+      "kind": 12,
+      "name": "이동요새",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_0.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0519,
+      "race": 1,
+      "kind": 0,
+      "name": "일귤",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_1.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0748,
+      "race": 1,
+      "kind": 1,
+      "name": "껍질발톱",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_2.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0932,
+      "race": 1,
+      "kind": 2,
+      "name": "과즙분사체",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_3.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0843,
+      "race": 1,
+      "kind": 3,
+      "name": "후피거수",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_4.wav",
+      "seconds": 1.1,
+      "peak": 0.82,
+      "rms": 0.1242,
+      "race": 1,
+      "kind": 4,
+      "name": "과숙폭탄",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_5.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0835,
+      "race": 1,
+      "kind": 5,
+      "name": "덩굴포식자",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_6.wav",
+      "seconds": 1.1,
+      "peak": 0.82,
+      "rms": 0.0914,
+      "race": 1,
+      "kind": 6,
+      "name": "씨앗박격체",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_7.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0698,
+      "race": 1,
+      "kind": 7,
+      "name": "가시꽃",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_8.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0848,
+      "race": 1,
+      "kind": 8,
+      "name": "접목충",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_9.wav",
+      "seconds": 0.75,
+      "peak": 0.64,
+      "rms": 0.0596,
+      "race": 1,
+      "kind": 9,
+      "name": "모즙체",
+      "category": "ability"
+    },
+    {
+      "file": "unit_1_10.wav",
+      "seconds": 0.75,
+      "peak": 0.82,
+      "rms": 0.0988,
+      "race": 1,
+      "kind": 10,
+      "name": "귤박쥐",
+      "category": "attack"
+    },
+    {
+      "file": "unit_1_11.wav",
+      "seconds": 0.75,
+      "peak": 0.64,
+      "rms": 0.0809,
+      "race": 1,
+      "kind": 11,
+      "name": "포낭비행체",
+      "category": "ability"
+    },
+    {
+      "file": "unit_1_12.wav",
+      "seconds": 1.1,
+      "peak": 0.82,
+      "rms": 0.1009,
+      "race": 1,
+      "kind": 12,
+      "name": "대과수",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_0.wav",
+      "seconds": 0.85,
+      "peak": 0.82,
+      "rms": 0.0588,
+      "race": 2,
+      "kind": 0,
+      "name": "축조자",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_1.wav",
+      "seconds": 0.85,
+      "peak": 0.82,
+      "rms": 0.0798,
+      "race": 2,
+      "kind": 1,
+      "name": "서약수호자",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_2.wav",
+      "seconds": 0.85,
+      "peak": 0.82,
+      "rms": 0.0687,
+      "race": 2,
+      "kind": 2,
+      "name": "성문궁수",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_3.wav",
+      "seconds": 0.85,
+      "peak": 0.82,
+      "rms": 0.067,
+      "race": 2,
+      "kind": 3,
+      "name": "규율집행관",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_4.wav",
+      "seconds": 0.85,
+      "peak": 0.64,
+      "rms": 0.0662,
+      "race": 2,
+      "kind": 4,
+      "name": "결계사제",
+      "category": "ability"
+    },
+    {
+      "file": "unit_2_5.wav",
+      "seconds": 1.3,
+      "peak": 0.82,
+      "rms": 0.0883,
+      "race": 2,
+      "kind": 5,
+      "name": "천문심판관",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_6.wav",
+      "seconds": 0.85,
+      "peak": 0.64,
+      "rms": 0.0575,
+      "race": 2,
+      "kind": 6,
+      "name": "밤눈감시자",
+      "category": "ability"
+    },
+    {
+      "file": "unit_2_7.wav",
+      "seconds": 0.85,
+      "peak": 0.82,
+      "rms": 0.0828,
+      "race": 2,
+      "kind": 7,
+      "name": "고대석익병",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_8.wav",
+      "seconds": 1.3,
+      "peak": 0.82,
+      "rms": 0.1058,
+      "race": 2,
+      "kind": 8,
+      "name": "궤도창",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_9.wav",
+      "seconds": 0.85,
+      "peak": 0.82,
+      "rms": 0.0797,
+      "race": 2,
+      "kind": 9,
+      "name": "월익추적자",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_10.wav",
+      "seconds": 0.85,
+      "peak": 0.82,
+      "rms": 0.0847,
+      "race": 2,
+      "kind": 10,
+      "name": "황혼잠행자",
+      "category": "attack"
+    },
+    {
+      "file": "unit_2_11.wav",
+      "seconds": 0.85,
+      "peak": 0.64,
+      "rms": 0.0665,
+      "race": 2,
+      "kind": 11,
+      "name": "회랑지기",
+      "category": "ability"
+    },
+    {
+      "file": "unit_2_12.wav",
+      "seconds": 1.3,
+      "peak": 0.82,
+      "rms": 0.1303,
+      "race": 2,
+      "kind": 12,
+      "name": "대심판선",
+      "category": "attack"
+    },
+    {
+      "file": "mine_0.wav",
+      "seconds": 0.78,
+      "peak": 0.62,
+      "rms": 0.0627,
+      "race": 0,
+      "category": "mining"
+    },
+    {
+      "file": "explosion_0.wav",
+      "seconds": 1.3,
+      "peak": 0.78,
+      "rms": 0.0944,
+      "race": 0,
+      "category": "destruction"
+    },
+    {
+      "file": "mine_1.wav",
+      "seconds": 0.78,
+      "peak": 0.62,
+      "rms": 0.0738,
+      "race": 1,
+      "category": "mining"
+    },
+    {
+      "file": "explosion_1.wav",
+      "seconds": 1.3,
+      "peak": 0.78,
+      "rms": 0.0921,
+      "race": 1,
+      "category": "destruction"
+    },
+    {
+      "file": "mine_2.wav",
+      "seconds": 0.78,
+      "peak": 0.62,
+      "rms": 0.0525,
+      "race": 2,
+      "category": "mining"
+    },
+    {
+      "file": "explosion_2.wav",
+      "seconds": 1.3,
+      "peak": 0.78,
+      "rms": 0.0893,
+      "race": 2,
+      "category": "destruction"
+    },
+    {
+      "file": "ui_confirm.wav",
+      "seconds": 0.17,
+      "peak": 0.39,
+      "rms": 0.0244,
+      "category": "interface"
+    },
+    {
+      "file": "ui_select.wav",
+      "seconds": 0.21,
+      "peak": 0.32,
+      "rms": 0.0223,
+      "category": "interface"
+    },
+    {
+      "file": "ui_error.wav",
+      "seconds": 0.31,
+      "peak": 0.4,
+      "rms": 0.0313,
+      "category": "interface"
+    },
+    {
+      "file": "ui_ready.wav",
+      "seconds": 0.24,
+      "peak": 0.36,
+      "rms": 0.0376,
+      "category": "interface"
+    },
+    {
+      "file": "ui_build.wav",
+      "seconds": 0.44,
+      "peak": 0.43,
+      "rms": 0.0334,
+      "category": "interface"
+    },
+    {
+      "file": "heal_medic.wav",
+      "seconds": 0.64,
+      "peak": 0.32,
+      "rms": 0.0435,
+      "race": 0,
+      "kind": 4,
+      "category": "healing",
+      "name": "야전의무병 의료 치유"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+const fs=require('fs'),path=require('path'),cp=require('child_process');
+const root=path.resolve(__dirname,'..'),release=path.resolve(root,'../deliverables/AsteraCraft-Windows-v0.5-20261016');
+const isolated=path.join(root,'build/release-v05/empty');fs.mkdirSync(isolated,{recursive:true});
+const userData=path.join(root,'build/release-v05/test-user-data');fs.mkdirSync(userData,{recursive:true});
+const mode=process.argv[2]||'pack';
+const args=mode==='boot'?['--quit-after','120']:['--headless','--path',isolated,'--main-pack',path.join(release,'AsteraCraft.pck'),'--script',path.join(root,'tests/release_v05_pack_test.gd')];
+args.push('--log-file',path.join(root,`build/release-v05/${mode}-godot.log`));
+const engine=mode==='boot'?path.join(release,'AsteraCraft.exe'):path.resolve(root,'../tools/godot/Godot_v4.6-stable_win64_console.exe');
+const child=cp.spawn(engine,args,{cwd:isolated,windowsHide:true,env:{...process.env,APPDATA:userData},stdio:['ignore','pipe','pipe']});
+let output='';child.stdout.on('data',b=>{output+=b});child.stderr.on('data',b=>{output+=b});
+const timeout=setTimeout(()=>{child.kill();console.error('Release check timed out');process.exitCode=1},180000);
+child.on('exit',code=>{clearTimeout(timeout);fs.writeFileSync(path.join(root,`build/release-v05/${mode}-check.log`),output);console.log(output.slice(-8000));console.log('RELEASE_PROCESS_EXIT '+code);process.exitCode=code??1});

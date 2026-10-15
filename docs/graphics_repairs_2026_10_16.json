@@ -1,0 +1,30 @@
+{
+  "scope": "2026-10-16 graphics repair of the existing v0.5 working project",
+  "release_status": "source changes applied; existing v0.4 executable and release archives have not been replaced",
+  "fixed": [
+    "Ten aircraft now use generated transparent overhead art with registered central pivots; hull, embedded hyrax pilot and shadow rotate together.",
+    "Medic uses twenty new generated frames: outlined red/ivory medical emblem, two walking poses and cyan hand healing. All live medic actions bypass the old gun sprite.",
+    "Four hyrax infantry use twenty new aiming poses with registered muzzle points; baked flashes pointing sideways are no longer used while firing.",
+    "Owl headquarters and infantry gate were regenerated with complete uncropped upper spires.",
+    "Reviewed construction cells exclude disconnected neighbouring fragments; 117 construction PNGs rebaked with the current building dimensions.",
+    "Vehicle chassis suspension and walker leg movement use bounded cached mesh animation; turret recoil is independent.",
+    "Three planet cliff faces and matching floor materials regenerated; shared world-space UV warp, restrained material blending and slope shading reduce visible tiling and distinguish ramps from cliffs."
+  ],
+  "validation": {
+    "graphics_runtime_checks": 898,
+    "graphics_runtime_failures": 0,
+    "graphics_runtime_captures": 27,
+    "general_review_captures": 39,
+    "active_base_frames_audited": 2550,
+    "active_base_frame_edge_contacts": 0,
+    "construction_frames": 117,
+    "terrain_quality_checks": 4143550,
+    "terrain_quality_failures": 0
+  },
+  "limitations": [
+    "Aircraft use overhead image rotation, not independent perspective renders for every heading; depth and world-fixed lighting during turning are approximate.",
+    "New medic and infantry aiming art has five stored headings mirrored into eight views. Existing ground locomotion on the other units keeps its previous sixteen-direction mapping.",
+    "Vehicle gait is small procedural articulation of generated layers, not a fully rigged 3D walk cycle.",
+    "Terrain repetition is reduced, not eliminated. These checks do not certify StarCraft-level overall polish or match balance."
+  ]
+}

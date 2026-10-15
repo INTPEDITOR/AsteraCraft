@@ -1,0 +1,148 @@
+{
+  "cursors": [
+    {
+      "race": 0,
+      "mode": "default",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        68,
+        35,
+        301,
+        348
+      ],
+      "hotspot": [
+        2,
+        2
+      ],
+      "display_size": 42
+    },
+    {
+      "race": 0,
+      "mode": "move",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        32,
+        429,
+        354,
+        350
+      ],
+      "hotspot": [
+        177,
+        175
+      ],
+      "display_size": 46
+    },
+    {
+      "race": 0,
+      "mode": "attack",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        19,
+        803,
+        383,
+        408
+      ],
+      "hotspot": [
+        191.5,
+        204
+      ],
+      "display_size": 46
+    },
+    {
+      "race": 1,
+      "mode": "default",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        478,
+        35,
+        305,
+        355
+      ],
+      "hotspot": [
+        2,
+        2
+      ],
+      "display_size": 42
+    },
+    {
+      "race": 1,
+      "mode": "move",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        449,
+        429,
+        360,
+        352
+      ],
+      "hotspot": [
+        180,
+        176
+      ],
+      "display_size": 46
+    },
+    {
+      "race": 1,
+      "mode": "attack",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        445,
+        802,
+        370,
+        409
+      ],
+      "hotspot": [
+        185,
+        204.5
+      ],
+      "display_size": 46
+    },
+    {
+      "race": 2,
+      "mode": "default",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        903,
+        35,
+        305,
+        354
+      ],
+      "hotspot": [
+        2,
+        2
+      ],
+      "display_size": 42
+    },
+    {
+      "race": 2,
+      "mode": "move",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        855,
+        420,
+        371,
+        371
+      ],
+      "hotspot": [
+        185.5,
+        185.5
+      ],
+      "display_size": 46
+    },
+    {
+      "race": 2,
+      "mode": "attack",
+      "file": "res://assets/faction_cursors_v4.png",
+      "region": [
+        851,
+        806,
+        381,
+        407
+      ],
+      "hotspot": [
+        190.5,
+        203.5
+      ],
+      "display_size": 46
+    }
+  ]
+}

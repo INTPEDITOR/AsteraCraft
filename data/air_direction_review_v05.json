@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "status": "runtime_replacement_verified",
+  "replacement_catalog": "res://data/graphics_repairs_v05.json",
+  "replacement_method": "Generated north-facing overhead artwork, continuous rotation around a registered central pivot. Embedded hyrax pilots rotate together with the hull. This is not a new set of 32 independent perspective views.",
+  "verification": "tests/graphics_repairs_v05_test.gd: all ten aircraft at 32 heading samples plus real movement commands in eight directions; transparent background and padded bounds checked. Runtime shadows and projectile origins use the same orientation.",
+  "reviewed_units": ["0:8", "0:9", "0:10", "0:11", "1:10", "1:11", "2:6", "2:9", "2:11", "2:12"],
+  "reviewed_source_rows": [0, 2, 4],
+  "superseded_source_findings": [
+    "Hyrax interceptor and bomber frames assigned to eastward movement visibly point northwest.",
+    "Several northern and southern frames repeat similar views; column remapping alone cannot repair the atlas.",
+    "Generated north-facing hyrax replacement initially contained south-facing pilots; a revised draft shows backs of heads.",
+    "Replacement hyrax and owl atlases retain opaque backgrounds and are not approved for runtime use.",
+    "All generated replacement atlases remain outside runtime assets pending complete directional, alpha and registration review."
+  ],
+  "code_fix": "Moving aircraft hull and pilot use body_direction (actual displacement), rather than facing possibly overwritten by target acquisition.",
+  "acceptance_criteria": [
+    "Nose, pilot gaze and travel direction agree in every heading.",
+    "North shows pilot rear, south shows pilot face, lateral views match the nose.",
+    "All active animation rows checked, including attack and mirrored headings.",
+    "Transparent background, stable pivot and no clipping.",
+    "Actual in-game flight and turning capture reviewed before release."
+  ]
+}
