@@ -59,7 +59,7 @@ func run() -> void:
 	for kind in range(3):
 		cost+=float(ACData.unit(1,kind).as)
 		tera_cost+=float(ACData.unit(1,kind).tera)
-		population+=float(ACData.unit(1,kind).pop)
+		population+=float(ACData.unit(1,kind).pop)*int(ACData.unit(1,kind).get("production_count",1))
 	check(is_equal_approx(before_as-float(core.players[0].as),cost) and is_equal_approx(before_tera-float(core.players[0].tera),tera_cost) and is_equal_approx(float(core.players[0].reserved)-before_reserved,population),"three individual morphs pay both resources and reserve population exactly once")
 	for pod in pods:advance_pod(core,pod,1.0)
 	check(is_equal_approx(float(pods[0].morph_left),float(ACData.unit(1,0).time)-1.0) and is_equal_approx(float(pods[2].morph_left),float(ACData.unit(1,2).time)-1.0),"individual morph timers advance concurrently")
@@ -67,7 +67,7 @@ func run() -> void:
 	var middle_pop:=float(core.players[0].reserved)
 	check(core.command(0,{"type":"cancel","id":hq.id,"queue_index":1})=="","building compatibility queue cancels the specified body")
 	check(str(pods[1].brood_state)=="idle" and str(pods[0].brood_state)=="morph" and str(pods[2].brood_state)=="morph" and hq.queue.size()==2,"middle cancellation preserves the other independent jobs")
-	check(is_equal_approx(float(core.players[0].as)-middle_as,float(ACData.unit(1,1).as)) and is_equal_approx(middle_pop-float(core.players[0].reserved),float(ACData.unit(1,1).pop)),"cancel refunds the selected target and releases its reserved population")
+	check(is_equal_approx(float(core.players[0].as)-middle_as,float(ACData.unit(1,1).as)) and is_equal_approx(middle_pop-float(core.players[0].reserved),float(ACData.unit(1,1).pop)*int(ACData.unit(1,1).get("production_count",1))),"cancel refunds the selected target and releases its reserved population")
 	var repeated_as:=float(core.players[0].as)
 	ACCitrusBrood.cancel(core,0,pods[1])
 	check(is_equal_approx(float(core.players[0].as),repeated_as),"repeated cancellation cannot duplicate a refund")
@@ -128,13 +128,14 @@ func run() -> void:
 	var nursery: Dictionary={}
 	for building in regen.buildings:
 		if int(building.owner)==0 and int(building.kind)==3:nursery=building;break
+	nursery.pos=ACData.packed(ACData.point(regen_hq.pos)+Vector2(6,0))
 	ACCitrusBrood.producer(regen,nursery)
-	check(ACCitrusBrood.idle_pods(regen,nursery).size()==3,"additional nursery also owns three real bodies")
-	ACCitrusBrood.idle_pods(regen,nursery)[0].hp=0.0
+	check(ACCitrusBrood.idle_pods(regen,nursery,true).size()==3,"connected additional nursery owns three local bodies")
+	ACCitrusBrood.idle_pods(regen,nursery,true)[0].hp=0.0
 	ACCitrusBrood.producer(regen,nursery,24.9)
-	check(ACCitrusBrood.idle_pods(regen,nursery).size()==2,"additional nursery uses its twenty-five-second interval")
+	check(ACCitrusBrood.idle_pods(regen,nursery,true).size()==2,"additional nursery uses its twenty-five-second interval")
 	ACCitrusBrood.producer(regen,nursery,.1)
-	check(ACCitrusBrood.idle_pods(regen,nursery).size()==3,"additional nursery replenishes after its own interval")
+	check(ACCitrusBrood.idle_pods(regen,nursery,true).size()==3,"additional nursery replenishes after its own interval")
 	# Compatibility train picks an actual idle body; all entry points share 5 slots.
 	var queue_core:=prepared()
 	var queue_hq:=home(queue_core)
@@ -164,6 +165,9 @@ func run() -> void:
 	ACCitrusBrood.cleanup_dead(queue_core)
 	check(float(queue_core.players[0].reserved)==reserved,"destroying a parent does not cancel living egg reservations")
 	advance_pod(queue_core,orphan,float(orphan.morph_left))
-	check(int(orphan.id)==orphan_id and int(orphan.kind)==12 and is_equal_approx(float(queue_core.players[0].reserved),reserved-orphan_pop),"orphan morph completes with its original identity and releases its reservation")
+	check(int(orphan.id)==orphan_id and int(orphan.kind)==13 and float(queue_core.players[0].reserved)==reserved,"orphan morph pauses while mother authority is absent")
+	queue_hq.hp=ACData.building(1,0).hp
+	advance_pod(queue_core,orphan,float(orphan.morph_left))
+	check(int(orphan.id)==orphan_id and int(orphan.kind)==12 and is_equal_approx(float(queue_core.players[0].reserved),reserved-orphan_pop),"reconnected morph completes with its original identity and releases its reservation")
 	print("Citrus brood v0.4: %d checks, %d failures"%[checks,failures.size()])
 	quit(0 if failures.is_empty() else 1)

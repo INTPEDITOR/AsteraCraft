@@ -10,10 +10,10 @@ func run() -> void:
 	var scene=load("res://main.tscn").instantiate()
 	root.add_child(scene)
 	await process_frame
-	check(scene.audio.requested_music_name=="music_menu" and scene.audio.current_music_name.is_empty(),"actual main menu resolves its empty user slot without preview playback")
+	check(scene.audio.requested_music_name=="music_menu" and scene.audio.current_music_name=="music_menu","actual main menu plays Echoes of Astera")
 	scene._settings_menu()
 	await process_frame
-	check(scene.audio.current_music_name.is_empty() and not scene.audio._music_player.playing,"actual options preserve the silent default")
+	check(scene.audio.current_music_name=="music_menu" and scene.audio._music_player.playing,"actual options preserve menu music")
 	scene._menus().close()
 	var core:=ACCore.new()
 	core.setup({"map":0,"spawn_slots":[0,2],"players":[{"race":2},{"race":0}]})
@@ -22,9 +22,9 @@ func run() -> void:
 	scene.local_slot=0
 	scene.state=core.snapshot(0)
 	scene._build_hud()
-	check(scene.audio.requested_music_name=="music_r2" and scene.audio.current_music_name.is_empty(),"actual battle HUD chooses the local player's optional owl slot")
+	check(scene.audio.requested_music_name=="music_r2" and scene.audio.current_music_name=="music_r2","actual battle HUD plays Crimson Covenant for the local owl player")
 	scene._main_menu()
-	check(scene.audio.requested_music_name=="music_menu" and scene.audio.current_music_name.is_empty(),"actual return to menu resolves the optional menu slot")
+	check(scene.audio.requested_music_name=="music_menu" and scene.audio.current_music_name=="music_menu","actual return to menu selects Echoes of Astera")
 	core=ACCore.new()
 	core.setup({"map":0,"spawn_slots":[1,3],"players":[{"race":0},{"race":1}]})
 	scene.core=core
@@ -40,7 +40,7 @@ func run() -> void:
 	check(scene.audio.current_music_name=="music_r0" and scene.audio._music_player.playing and scene.audio._music_player.get_playback_position()>=position,"battle options preserve playback of the supplied song")
 	scene._menus().close()
 	scene._main_menu()
-	check(scene.audio.current_music_name.is_empty() and not scene.audio._music_player.playing and not scene.audio._music_fade_player.playing,"returning from hyrax battle stops the song for the empty menu slot")
+	check(scene.audio.current_music_name=="music_menu" and scene.audio._music_player.playing,"returning from hyrax battle transitions to menu music")
 	scene.audio.stop_music()
 	scene.queue_free()
 	await process_frame

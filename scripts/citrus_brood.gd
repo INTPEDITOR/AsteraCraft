@@ -82,7 +82,9 @@ static func _spawn(core, building: Dictionary, index: int) -> Dictionary:
 	for row in range(4):
 		for offset in [0,-1,1,-2,2]:
 			var point: Vector2=core.center(mother)+Vector2(offset*1.05,float(definition.h)*.5+.85+row*.9)
-			if core._unit_fits(ground_probe,point) and core._unit_fits(probe,point):near=point;break
+			# Keep a real ground spawn, but ordinary troops do not displace pods.
+			# The attached-layer probe reserves spacing only against other pods.
+			if core._unit_fits(ground_probe,point,false) and core._unit_fits(probe,point):near=point;break
 		if near.is_finite():break
 	if not near.is_finite():return {}
 	var pod: Dictionary=core.add_unit(int(building.owner),KIND,near)

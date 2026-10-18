@@ -1,0 +1,21 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "Full independent HD base textures to replace enlarged small atlas crops.",
+  "prompts": [
+    {
+      "key": "floor_hd_0",
+      "prompt": "Original premium AsteraCraft RTS ground texture. Produce a LARGE HIGH RESOLUTION SQUARE 1536x1536 full-bleed seamless surface texture; one single material filling the ENTIRE image, not a grid or atlas. Painted pre-rendered high quality strategy-game art, original and no copied game imagery. Surface: muted warm olive brown frontier earth. Flat overhead view, uniform diffuse illumination. Broad quiet low contrast surface with fine crisp restrained hand-painted stone grains and worn earth, sparse tiny chips mostly buried. No strong mottling, no distinct large cracks, no tracks, no rocks as objects, no grass clumps, no baked shadows, no horizon, no perspective, no borders or labels. Do not blur: retain high resolution sharp small material details, but no dense photographic noise. Texture should remain coherent and the same color at all edges and center. Seamless repeatable or mirrorable left-right and top-bottom; no obvious repeated pattern, no circular motifs, no cell edges. Crisp high resolution production texture, not a screenshot or illustration of a terrain tile.",
+      "transparent": false
+    },
+    {
+      "key": "floor_hd_1",
+      "prompt": "Original premium AsteraCraft RTS ground texture. Produce a LARGE HIGH RESOLUTION SQUARE 1536x1536 full-bleed seamless surface texture; one single material filling the ENTIRE image, not a grid or atlas. Painted pre-rendered high quality strategy-game art, original and no copied game imagery. Surface: desaturated red brown alien clay, subdued and not orange. Flat overhead view, uniform diffuse illumination. Broad quiet low contrast surface with fine crisp restrained hand-painted stone grains and worn earth, sparse tiny chips mostly buried. No strong mottling, no distinct large cracks, no tracks, no rocks as objects, no grass clumps, no baked shadows, no horizon, no perspective, no borders or labels. Do not blur: retain high resolution sharp small material details, but no dense photographic noise. Texture should remain coherent and the same color at all edges and center. Seamless repeatable or mirrorable left-right and top-bottom; no obvious repeated pattern, no circular motifs, no cell edges. Crisp high resolution production texture, not a screenshot or illustration of a terrain tile.",
+      "transparent": false
+    },
+    {
+      "key": "floor_hd_2",
+      "prompt": "Original premium AsteraCraft RTS ground texture. Produce a LARGE HIGH RESOLUTION SQUARE 1536x1536 full-bleed seamless surface texture; one single material filling the ENTIRE image, not a grid or atlas. Painted pre-rendered high quality strategy-game art, original and no copied game imagery. Surface: medium cool slate grey rocky highland earth. Flat overhead view, uniform diffuse illumination. Broad quiet low contrast surface with fine crisp restrained hand-painted stone grains and worn earth, sparse tiny chips mostly buried. No strong mottling, no distinct large cracks, no tracks, no rocks as objects, no grass clumps, no baked shadows, no horizon, no perspective, no borders or labels. Do not blur: retain high resolution sharp small material details, but no dense photographic noise. Texture should remain coherent and the same color at all edges and center. Seamless repeatable or mirrorable left-right and top-bottom; no obvious repeated pattern, no circular motifs, no cell edges. Crisp high resolution production texture, not a screenshot or illustration of a terrain tile.",
+      "transparent": false
+    }
+  ]
+}

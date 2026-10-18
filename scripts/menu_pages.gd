@@ -103,7 +103,7 @@ func online() -> void:
 	main.online_status=label(p,"전장을 찾고 있습니다…",80,740,24)
 	main.online_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	main.online_status.size.y=140
-	label(p,"같은 네트워크의 지휘관과 자동으로 연결합니다.",20,740,17)
+	label(p,"인터넷에서 지휘관을 찾아 래더와 커스텀 경기에 참가합니다.",20,740,17)
 	button(p,"뒤로",0,270,220,func():online_attempt+=1;main._main_menu())
 	button(p,"다시 연결",250,270,220,func():
 		if discovery!=null:discovery.forget_service()
@@ -125,7 +125,7 @@ func online() -> void:
 				discovery.forget_service()
 				main.online_status.text="로비에 연결하지 못했습니다. 다시 연결을 눌러 재탐색해 주세요."
 				return
-			if int(data.get("protocol",0))!=8:main.online_status.text="연결할 지휘관들이 모두 같은 버전의 게임을 실행해야 합니다.";return
+			if int(data.get("protocol",0))!=9:main.online_status.text="연결할 지휘관들이 모두 같은 버전의 게임을 실행해야 합니다.";return
 			_open_online_account(attempt)
 		)
 	)
@@ -224,7 +224,7 @@ func authenticate(register: bool) -> void:
 
 func rooms() -> void:
 	if not _account_ready():account_menu();return
-	var scope="온라인" if discovery!=null and discovery.scope=="ONLINE" else "같은 네트워크"
+	var scope="온라인"
 	var p=open("rooms","멀티플레이 · "+scope,Vector2(1260,840))
 	label(p,"%s   ·   %d점"%[main.account.get("nickname","지휘관"),int(main.account.get("rating",1000))],0,650,21)
 	main.race_select=option(p,ACData.get_data().race_names,0,55,300,main.race_choice,func(i):main.race_choice=i)
@@ -244,7 +244,7 @@ func rooms() -> void:
 	scroll.add_child(main.room_list)
 	button(p,"래더 매치",0,530,220,main._ladder_menu)
 	button(p,"순위표",280,530,220,main._leaderboard_menu)
-	button(p,"경기 재접속",560,530,220,main._reconnect_game)
+	button(p,"연결 도움말",560,530,220,func():main._notify("방장과의 연결이 필요합니다. 연결이 안 되면 방화벽의 게임 허용 설정을 확인하세요."))
 	button(p,"뒤로",840,530,220,main._main_menu)
 	main._fetch_rooms()
 
@@ -411,11 +411,11 @@ func update_room_text() -> void:
 
 func ladder() -> void:
 	if not _account_ready():account_menu();return
-	var scope="온라인" if discovery!=null and discovery.scope=="ONLINE" else "같은 네트워크"
+	var scope="온라인"
 	var p=open("ladder","래더 매치 · 1 대 1 · "+scope,Vector2(1010,790))
 	label(p,"%s   ·   %d점   ·   %d승 %d패"%[main.account.nickname,int(main.account.rating),int(main.account.wins),int(main.account.losses)],0,850,22)
 	option(p,ACData.get_data().race_names,0,70,300,main.race_choice,func(i):main.race_choice=i)
-	main.queue_label=label(p,"세 전장 중 하나에서 비슷한 실력의 상대를 찾습니다.\n전장과 스타팅은 경기 서버가 무작위로 정합니다.\n\n동일한 점수의 상대: 승리 +20 / 패배 -20\n상대가 200점 높으면: 승리 약 +30 / 패배 약 -10",155,850,21)
+	main.queue_label=label(p,"세 전장 중 하나에서 비슷한 실력의 상대를 찾습니다.\n전장과 스타팅은 매칭 시 무작위로 정합니다.\n\n동일한 점수의 상대: 승리 +20 / 패배 -20\n상대가 200점 높으면: 승리 약 +30 / 패배 약 -10",155,850,21)
 	main.queue_label.size.y=230
 	button(p,"상대 찾기",0,385,300,func():main._api("/queue/join",{"race":main.race_choice},func(data):
 		if data.has("error"):main._notify(data.error)
@@ -663,3 +663,5 @@ func pause() -> void:
 		main._main_menu()
 	)
 	label(p,"온라인 경기는 메뉴를 열어도 계속 진행됩니다.",390,570,16)
+
+

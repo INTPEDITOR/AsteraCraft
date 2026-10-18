@@ -57,7 +57,7 @@ func run() -> void:
 	check(is_equal_approx(old.sfx_volume,.27) and old.window_mode=="fullscreen" and old.last_played_race==2,"legacy effects/fullscreen preferences migrate")
 	var clean:=ACSettings.normalize({"edge_scroll_speed":999,"music_volume":-5,"voice_volume":2,"sfx_volume":NAN,"resolution":"broken","window_mode":"invalid"})
 	check(clean.edge_scroll_speed==2.5 and clean.music_volume==0.0 and clean.voice_volume==1.0 and clean.sfx_volume==.65,"invalid preferences clamp safely")
-	check(clean.resolution==[1440,900] and clean.window_mode=="windowed","invalid display preferences fall back safely")
+	check(clean.resolution==[1600,900] and clean.window_mode=="windowed","invalid display preferences fall back safely")
 	var audio:=ACAudio.new()
 	root.add_child(audio)
 	await process_frame

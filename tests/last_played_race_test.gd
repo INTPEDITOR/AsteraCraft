@@ -25,7 +25,7 @@ func run() -> void:
 	var script=load("res://scripts/main.gd")
 	var main=script.new()
 	root.add_child(main)
-	main.size=Vector2(1440,900)
+	main.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	await process_frame
 	main.settings.last_played_race=0
 	main._save_settings()

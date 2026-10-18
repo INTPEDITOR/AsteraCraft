@@ -2,6 +2,8 @@ class_name ACCore
 extends RefCounted
 
 const CITRUS_BROOD=preload("res://scripts/citrus_brood.gd")
+const ROOT_FIELD=preload("res://scripts/root_field.gd")
+var roots=ROOT_FIELD.new()
 
 var map := ACMap.new()
 var players: Array = []
@@ -13,6 +15,7 @@ var events: Array = []
 var explored: Array = []
 var visibility: Array = []
 var resource_memory: Array = []
+var building_memory: Array = []
 var spawn_slots: Array=[]
 var match_seed: int=0
 var time: float = 0.0
@@ -53,7 +56,7 @@ var perf: Dictionary={"path_requests":0,"path_cache_hits":0,"spatial_queries":0,
 
 # Unit positions are always ground-contact centers in map coordinates. Rendering
 # offsets, aircraft altitude and sprite trimming never change this anchor.
-const TERA_INTERVAL: float = 3.5
+const TERA_INTERVAL: float = 3.0
 const TERA_AMOUNT: int = 8
 const AS_INTERVAL: float = 2.2
 const AS_AMOUNT: int = 5
@@ -90,6 +93,9 @@ static func collision_size(race: int, kind: int) -> Vector2:
 	var definition=ACData.unit(race,kind)
 	var base=clampf(float(definition.size)*.64,.42,1.9)
 	if definition.air:return Vector2(base,base*.8)
+	# Oversized artwork must not give ground units a two-build-tile chassis:
+	# the original diagonal ramp neck is narrower than that bounding box.
+	base=minf(base,1.25)
 	var vehicle=definition.role in ["siege","missile","fortress","golem","tree","tank"]
 	return Vector2(base*(1.04 if vehicle else 1.0),base*(.88 if vehicle else .84))
 
@@ -142,6 +148,7 @@ func setup(config: Dictionary) -> void:
 		explored.append(fog)
 		visibility.append(fog.duplicate())
 		resource_memory.append({})
+		building_memory.append({})
 		var start_index=int(spawn_slots[i])
 		p.spawn_slot=start_index
 		var headquarters=ACData.building(int(p.race),0)
@@ -307,8 +314,11 @@ func mining_worker(unit: Dictionary) -> bool:
 	var node=resource(int(unit.get("target",-1)))
 	return not node.is_empty() and node.type=="as" and node.amount>0
 
+func working_worker(unit: Dictionary) -> bool:
+	return mining_worker(unit) or (int(unit.get("kind",-1))==0 and float(unit.get("hp",0))>0 and int(unit.get("container",-1))<0 and unit.get("order","") in ["build_move","construct"])
+
 func _workers_can_overlap(a: Dictionary, b: Dictionary) -> bool:
-	return mining_worker(a) or mining_worker(b)
+	return working_worker(a) or working_worker(b)
 
 func center(e: Dictionary) -> Vector2:
 	var p = ACData.point(e.pos)
@@ -347,6 +357,9 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 	var border=rect.grow_individual(half.x,half.y,half.x,half.y)
 	var origin=ACData.point(attacker.pos)
 	var middle=border.get_center()
+	if int(attacker.get("_surround_target",-1))==int(target.id) and time<float(attacker.get("_surround_retry",0)):
+		var retained=middle+ACData.point(attacker._surround_offset)
+		if _unit_fits(attacker,retained,false):return retained
 	# Keep a claimed angle while approaching. Re-select only after obstruction
 	# or substantial target displacement; do not chase a new edge every tick.
 	if int(attacker.get("_surround_target",-1))==int(target.id) and time<float(attacker.get("_surround_until",0)) and float(attacker.blocked_clock)<.65:
@@ -356,6 +369,7 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 	var best=INF
 	var result=origin.clamp(border.position,border.end)
 	var neighbours=_nearby_units(middle,maxf(border.size.x,border.size.y)+2)
+	var choices: Array=[]
 	for index in range(24):
 		var ray=Vector2.from_angle(facing+float(index)*TAU/24.0)
 		var radius=minf(border.size.x*.5/maxf(.001,absf(ray.x)),border.size.y*.5/maxf(.001,absf(ray.y)))
@@ -368,10 +382,26 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 			if collision_rect(attacker,candidate).grow(.05).intersects(collision_rect(other,reserved)):claimed=true;break
 		if claimed:continue
 		var score=origin.distance_squared_to(candidate)
-		if score<best:best=score;result=candidate
+		choices.append({"point":candidate,"score":score})
+	choices.sort_custom(func(a,b):return a.score<b.score)
+	var inspected=0
+	for choice in choices:
+		if inspected>=4:break
+		inspected+=1
+		var candidate: Vector2=choice.point
+		if _ground_sweep(_body_size(attacker),origin,candidate):
+			result=candidate;best=float(choice.score);break
+		# Compare reachable approaches around walls, not merely the closest edge.
+		var route=_clearance_path(attacker,origin,candidate)
+		if route.is_empty() or ACData.point(route.back()).distance_to(candidate)>.8:continue
+		var length=0.0;var previous=origin
+		for waypoint in route:
+			var point=ACData.point(waypoint);length+=previous.distance_to(point);previous=point
+		if length*length<best:best=length*length;result=candidate
 	attacker._surround_target=int(target.id)
 	attacker._surround_offset=ACData.packed(result-middle)
 	attacker._surround_until=time+1.25
+	attacker._surround_retry=time+.3
 	return result
 
 func building_contact(worker: Dictionary, building: Dictionary, reach: float=CONSTRUCTION_TOOL_REACH) -> bool:
@@ -407,7 +437,7 @@ func building_approach(b: Dictionary, from: Vector2, unit: Dictionary={}) -> Vec
 	var fallback=from
 	for candidate in candidates:
 		if fallback==from:fallback=candidate
-		if not unit.is_empty() and not _unit_fits(unit,candidate):continue
+		if not unit.is_empty() and not _unit_fits(unit,candidate,false):continue
 		if from.distance_to(candidate)<.7 or not map.path(from,candidate).is_empty():
 			return candidate
 	return fallback
@@ -503,9 +533,11 @@ func tera_headquarters(owner: int, pos: Vector2) -> int:
 	return -1
 
 func in_roots(owner: int, pos: Vector2) -> bool:
-	for building in buildings:
-		if int(building.owner)!=owner or int(building.race)!=1 or int(building.kind) not in [0,12] or building.hp<=0 or building.progress<1:continue
-		if center(building).distance_squared_to(pos)<=169.0:return true
+	return roots.contains(self,owner,pos)
+
+func in_owl_power(owner: int, pos: Vector2) -> bool:
+	for tower in buildings:
+		if int(tower.owner)==owner and int(tower.race)==2 and int(tower.kind)==2 and tower.hp>0 and tower.progress>=1 and center(tower).distance_squared_to(pos)<=144.0:return true
 	return false
 
 func placement(owner: int, kind: int, pos: Vector2, require_worker: bool = true) -> String:
@@ -536,8 +568,8 @@ func placement(owner: int, kind: int, pos: Vector2, require_worker: bool = true)
 			var bd=ACData.building(int(building.race),int(building.kind))
 			if rect.intersects(Rect2(ACData.point(building.pos),Vector2(bd.w,bd.h))):return "다른 건물과 겹칩니다"
 	for r in map.resources:
-		if r.type=="as" and r.amount>0 and physical_rect.intersects(resource_rect(r).grow(0.0 if kind==1 else .2)):
-			return "아스 채취 공간이 필요합니다"
+		if r.type=="as" and r.amount>0 and physical_rect.intersects(resource_rect(r).grow(ACMap.HQ_MINERAL_GAP if kind==0 else 0.0)):
+			return "본진은 아스 광물 가장자리에서 3칸 이상 떨어져야 합니다" if kind==0 else "아스 광물과 겹칩니다"
 		if r.type=="tera" and int(r.id)!=matched_vent and physical_rect.intersects(resource_rect(r)):
 			return "테라 매장지입니다"
 	if race==1 and kind!=0:
@@ -549,8 +581,10 @@ func placement(owner: int, kind: int, pos: Vector2, require_worker: bool = true)
 			for building in buildings:
 				if int(building.owner)==owner and int(building.race)==1 and int(building.kind)==0 and building.hp>0 and building.progress>=1 and center(building).distance_squared_to(rect.get_center())<=144.0:linked=true;break
 			if not linked:return "추가배양낭은 군체모수 12칸 이내에 건설하세요"
-	if race==2 and kind not in [0,1,2] and not in_field(owner,rect.get_center(),12):
-		return "규율탑 영향권이 필요합니다"
+	if race==2 and kind!=2:
+		for x in range(int(rect.position.x),int(rect.end.x)):
+			for y in range(int(rect.position.y),int(rect.end.y)):
+				if not in_owl_power(owner,Vector2(x,y)):return "건물 전체가 완성된 규율탑 12칸 이내에 있어야 합니다"
 	if require_worker:
 		var found=false
 		for u in units:
@@ -631,7 +665,7 @@ func _start_construction(worker: Dictionary, kind: int, pos: Vector2) -> String:
 	if players[owner].as<definition.as or players[owner].tera<definition.tera:return resource_error(owner,definition.as,definition.tera)
 	var plan={"id":-1000000-int(worker.id),"owner":owner,"race":worker.race,"kind":kind,"pos":ACData.packed(pos),"progress":0.0}
 	var approach=building_approach(plan,ACData.point(worker.pos),worker)
-	if not construction_reach(worker,plan) and (not _unit_fits(worker,approach) or (not _ground_sweep(_body_size(worker),ACData.point(worker.pos),approach) and map.path(ACData.point(worker.pos),approach).is_empty())):return "건설 위치까지 이동할 수 없습니다"
+	if not construction_reach(worker,plan) and (not _unit_fits(worker,approach,false) or (not _ground_sweep(_body_size(worker),ACData.point(worker.pos),approach) and map.path(ACData.point(worker.pos),approach).is_empty())):return "건설 위치까지 이동할 수 없습니다"
 	var previous=entity(int(worker.target)) if worker.order=="construct" else {}
 	if not previous.is_empty() and previous.has("progress") and int(previous.worker)==int(worker.id):previous.worker=-1
 	_release_mining_claim(worker)
@@ -934,6 +968,7 @@ func _retarget_busy_resource(worker: Dictionary, current: Dictionary) -> bool:
 	return true
 
 func _ground_fits_size(dimensions: Vector2, pos: Vector2) -> bool:
+	if map.source_detail_active:return map.source_ground_fits(dimensions,pos)
 	if navigation_revision!=map.revision:_refresh_navigation_mask()
 	var low_x=floori(pos.x-dimensions.x*.5+.5001)
 	var low_y=floori(pos.y-dimensions.y*.5+.5001)
@@ -1088,11 +1123,14 @@ func unit_free_position(race: int, kind: int, near: Vector2, ignore_id: int=-1, 
 func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 	var dimensions=_body_size(unit)
 	var large=maxf(dimensions.x,dimensions.y)>1.0
-	var crowded=float(unit.blocked_clock)>.8 and not mining_worker(unit)
+	var detailed=map.source_detail_active
+	var body_path=large or detailed
+	var crowded=float(unit.blocked_clock)>.8 and not working_worker(unit)
 	if path_cache_revision!=map.revision:
 		path_cache.clear()
 		path_cache_revision=map.revision
-	var route_key="%d,%d>%d,%d:%d,%d"%[roundi(from.x),roundi(from.y),roundi(to.x),roundi(to.y),ceili(dimensions.x*4) if large else 0,ceili(dimensions.y*4) if large else 0]
+	var grid_factor=4 if detailed else (2 if large else 1)
+	var route_key="%d,%d>%d,%d:%d,%d"%[roundi(from.x*grid_factor),roundi(from.y*grid_factor),roundi(to.x*grid_factor),roundi(to.y*grid_factor),ceili(dimensions.x*16) if body_path else 0,ceili(dimensions.y*16) if body_path else 0]
 	if not crowded and path_cache.has(route_key) and float(path_cache[route_key].until)>time:
 		perf.path_cache_hits+=1
 		return path_cache[route_key].path.duplicate(false)
@@ -1100,7 +1138,7 @@ func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 		unit._path_deferred=true
 		return []
 	paths_this_tick+=1
-	if not large and not crowded:
+	if not body_path and not crowded:
 		perf.path_requests+=1
 		var result=map.path(from,to)
 		if path_cache.size()>2048:path_cache.clear()
@@ -1109,21 +1147,22 @@ func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 	if clearance_revision!=map.revision:
 		clearance_paths.clear()
 		clearance_revision=map.revision
-	var key=Vector2i((dimensions*4).ceil())
-	if large and not clearance_paths.has(key):
+	var key=Vector2i((dimensions*16).ceil())
+	if body_path and not clearance_paths.has(key):
 		var nav=AStarGrid2D.new()
-		nav.region=Rect2i(0,0,ACMap.SIZE,ACMap.SIZE)
-		nav.cell_size=Vector2.ONE
+		nav.region=Rect2i(0,0,ACMap.SIZE*grid_factor,ACMap.SIZE*grid_factor)
+		nav.cell_size=Vector2.ONE/grid_factor
 		nav.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 		nav.default_compute_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.default_estimate_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.update()
-		var clearance=Vector2(key)/4.0
-		for x in range(ACMap.SIZE):
-			for y in range(ACMap.SIZE):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)))
+		var clearance=Vector2(key)/16.0
+		for x in range(ACMap.SIZE*grid_factor):
+			for y in range(ACMap.SIZE*grid_factor):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)/grid_factor))
 		clearance_paths[key]=nav
-	var navigator: AStarGrid2D=clearance_paths[key] if large else map.navigator
+	var navigator: AStarGrid2D=clearance_paths[key] if body_path else map.navigator
 	var temporary: Array=[]
+	var grid_scale=1.0/navigator.cell_size.x
 	if crowded:
 		for other in units:
 			if other.id==unit.id or other.hp<=0 or other.container>=0 or collision_layer(int(other.race),int(other.kind))!=COLLISION_GROUND or _workers_can_overlap(unit,other):continue
@@ -1131,10 +1170,10 @@ func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 			var rect=collision_rect(other)
 			rect.position-=dimensions*.5+Vector2.ONE*.05
 			rect.size+=dimensions+Vector2.ONE*.1
-			for x in range(int(ceil(rect.position.x)),int(floor(rect.end.x))+1):
-				for y in range(int(ceil(rect.position.y)),int(floor(rect.end.y))+1):
+			for x in range(int(ceil(rect.position.x*grid_scale)),int(floor(rect.end.x*grid_scale))+1):
+				for y in range(int(ceil(rect.position.y*grid_scale)),int(floor(rect.end.y*grid_scale))+1):
 					var point=Vector2i(x,y)
-					if map.inside(point) and not navigator.is_point_solid(point):
+					if navigator.region.has_point(point) and not navigator.is_point_solid(point):
 						navigator.set_point_solid(point,true)
 						temporary.append(point)
 	var first=_clearance_free(navigator,from)
@@ -1142,29 +1181,29 @@ func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 	var path: Array=[]
 	if first.x>=0 and last.x>=0:
 		perf.path_requests+=1
-		for point in navigator.get_id_path(first,last):path.append(ACData.packed(Vector2(point)))
+		for point in navigator.get_id_path(first,last):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
 	for point in temporary:navigator.set_point_solid(point,false)
 	if path.is_empty() and crowded:
 		first=_clearance_free(navigator,from)
 		last=_clearance_free(navigator,to)
 		if first.x>=0 and last.x>=0:
 			perf.path_requests+=1
-			for point in navigator.get_id_path(first,last):path.append(ACData.packed(Vector2(point)))
-	if not path.is_empty() and Vector2(first).distance_to(from)<.3:path.pop_front()
+			for point in navigator.get_id_path(first,last):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
+	if not path.is_empty() and (Vector2(first)*navigator.cell_size).distance_to(from)<.3:path.pop_front()
 	if not crowded:path_cache[route_key]={"path":path.duplicate(false),"until":time+(2.0 if not path.is_empty() else .5)}
 	return path
 
 func _clearance_free(navigator: AStarGrid2D, near: Vector2) -> Vector2i:
-	var origin=Vector2i(near.round())
-	for ring in range(9):
+	var origin=Vector2i((near/navigator.cell_size).round())
+	for ring in range(ceili(9.0/navigator.cell_size.x)):
 		var best=INF
 		var result=Vector2i(-1,-1)
 		for x in range(-ring,ring+1):
 			for y in range(-ring,ring+1):
 				if maxi(absi(x),absi(y))!=ring:continue
 				var point=origin+Vector2i(x,y)
-				if map.inside(point) and not navigator.is_point_solid(point):
-					var distance=Vector2(point).distance_squared_to(near)
+				if navigator.region.has_point(point) and not navigator.is_point_solid(point):
+					var distance=(Vector2(point)*navigator.cell_size).distance_squared_to(near)
 					if distance<best:best=distance;result=point
 		if result.x>=0:return result
 	return Vector2i(-1,-1)
@@ -1186,7 +1225,7 @@ func _crowd_arrived(unit: Dictionary, goal: Vector2, reach: float) -> bool:
 	return ACData.point(unit.pos).distance_to(goal)<=arrival
 
 func _request_room(unit: Dictionary, goal: Vector2, dt: float) -> void:
-	if mining_worker(unit):return
+	if working_worker(unit):return
 	var pos=ACData.point(unit.pos)
 	var direction=(goal-pos).normalized()
 	# Include the whole short approach: a blocker beside the current body
@@ -1275,7 +1314,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 	if not d.air and float(u.blocked_clock)>.3:_request_room(u,goal,dt)
 	var next=goal
 	if not d.air:
-		if int(u.kind)==0 and p.distance_squared_to(goal)<=400 and _ground_sweep(_body_size(u),p,goal):
+		if p.distance_squared_to(goal)<=144 and _ground_sweep(_body_size(u),p,goal):
 			u.path=[ACData.packed(goal)];u.path_failed=false;u.path_rev=map.revision;u.repath=3.0;u._path_goal=ACData.packed(goal)
 		u.repath-=dt
 		if u.path.is_empty() and u.path_failed and u.repath>0 and int(u.path_rev)==map.revision and ACData.point(u.get("_path_goal",ACData.packed(goal))).distance_squared_to(goal)<.01:return false
@@ -1303,7 +1342,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 				u.path=[ACData.packed(goal)]
 			else:
 				return false
-		if int(u.kind)==0:
+		if not u.path.is_empty():
 			for index in range(mini(u.path.size()-1,16),0,-1):
 				var point=ACData.point(u.path[index])
 				if p.distance_squared_to(point)<=64 and _ground_sweep(_body_size(u),p,point):
@@ -1325,7 +1364,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 				if p.distance_to(goal)<=reach:return true
 				if not _unit_fits(u,goal,false):return true
 				next=goal
-			else:
+			elif _ground_sweep(_body_size(u),p,ACData.point(u.path[1])):
 				u.path.pop_front()
 				next=ACData.point(u.path[0])
 	var direction=(next-p).normalized()
@@ -1414,6 +1453,7 @@ func step(dt: float) -> void:
 	units=units.filter(func(u):return u.hp>0)
 	_recalculate_supply()
 	perf.cleanup_us+=Time.get_ticks_usec()-phase_start
+	roots.update(self)
 	phase_start=Time.get_ticks_usec()
 	vision_clock-=dt
 	if vision_clock<=0:
@@ -1541,6 +1581,7 @@ func _displace_unit(unit: Dictionary, delta: Vector2) -> bool:
 	return true
 
 func _resolve_unit_pair(a: Dictionary, b: Dictionary, soft: bool, dt: float) -> bool:
+	if _body_layer(a)!=_body_layer(b):return false
 	if _workers_can_overlap(a,b):return false
 	var delta=ACData.point(a.pos)-ACData.point(b.pos)
 	var sum=(_body_size(a)+_body_size(b))*.5
@@ -2285,6 +2326,24 @@ func resource_visible(owner: int, node: Dictionary) -> bool:
 			if map.inside(Vector2i(x,y)) and visibility[owner][y*ACMap.SIZE+x]>0:return true
 	return false
 
+func _remembered_buildings(owner: int, visible: Array) -> Array:
+	if owner<0:return []
+	var memory: Dictionary=building_memory[owner];var observed={}
+	for building in visible:
+		observed[int(building.id)]=true
+		if allied(owner,int(building.owner)):
+			memory.erase(int(building.id));continue
+		memory[int(building.id)]={"id":building.id,"owner":building.owner,"race":building.race,"kind":building.kind,"pos":building.pos.duplicate(),"progress":building.progress,"last_seen":time,"remembered":true}
+	var ghosts=[]
+	for id in memory.keys():
+		if observed.has(id):continue
+		var remembered: Dictionary=memory[id];var point=Vector2i(center(remembered))
+		# Check only the viewer's present sight. Never query the hidden live
+		# entity to refresh ownership, construction, destruction or statistics.
+		if map.inside(point) and visibility[owner][point.y*128+point.x]>0:memory.erase(id)
+		else:ghosts.append(remembered.duplicate(true))
+	return ghosts
+
 func snapshot(owner: int = -1) -> Dictionary:
 	CITRUS_BROOD.refresh(self)
 	var us: Array=[]
@@ -2310,6 +2369,7 @@ func snapshot(owner: int = -1) -> Dictionary:
 				# Cosmetic-only contacts have no entity ID, health or command target.
 				shimmers.append({"race":u.race,"kind":u.kind,"pos":u.pos.duplicate(),"facing":u.facing.duplicate()})
 	for b in buildings:
+		if b.hp<=0:continue
 		if owner<0 or can_see(owner,b):
 			var copy=b.duplicate(true)
 			if owner>=0 and not allied(owner,int(b.owner)):
@@ -2351,4 +2411,4 @@ func snapshot(owner: int = -1) -> Dictionary:
 				var p=Vector2i(ACData.point(effect[key]))
 				if not map.inside(p) or visibility[owner][p.y*ACMap.SIZE+p.x]==0:visible=false
 		if visible:fx.append(effect.duplicate(true))
-	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"resources":rs,"effects":fx,"shimmers":shimmers,"ended":ended,"winners":winners,"fog":fog,"explored":seen,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original")}
+	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"building_memory":_remembered_buildings(owner,bs),"resources":rs,"roots":roots.snapshot(self,owner),"effects":fx,"shimmers":shimmers,"ended":ended,"winners":winners,"fog":fog,"explored":seen,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original")}

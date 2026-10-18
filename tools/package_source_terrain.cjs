@@ -1,0 +1,20 @@
+const fs=require('fs'),path=require('path'),crypto=require('crypto');
+const root=path.resolve(__dirname,'..');
+const out=path.resolve(root,'../deliverables/AsteraCraft-Windows-v0.5.8-source-terrain-20261018');
+const copy=(src,dest)=>{const p=path.join(out,dest);fs.mkdirSync(path.dirname(p),{recursive:true});fs.copyFileSync(path.join(root,src),p)};
+for(const name of ['AsteraCraft.exe','AsteraCraft.pck','libwebrtc_native.windows.template_release.x86_64.dll'])copy('build/release-v058-source-terrain/'+name,name);
+copy('Start_Game.cmd','Start_Game.cmd');copy('docs/changes-v058-source-terrain.txt','CHANGES.txt');
+copy('docs/tera-vent-art-prompts.json','QA/tera-vent-art-prompts.json');
+copy('docs/citrus-root-art-prompt.json','QA/citrus-root-art-prompt.json');
+copy('docs/citrus-menu-art-prompt.json','QA/citrus-menu-art-prompt.json');
+copy('build/preview-main-real1.png','QA/citrus-main-menu.png');
+for(const name of fs.readdirSync(path.join(root,'licenses')))copy('licenses/'+name,'licenses/'+name);
+for(const name of fs.readdirSync(path.join(root,'addons/webrtc_native')).filter(n=>n.startsWith('LICENSE.')))copy('addons/webrtc_native/'+name,'licenses/'+name);
+fs.writeFileSync(path.join(out,'README.txt'),'아스테라크래프트 v0.5.8 지형·카메라 경계·자원 지점 수정판\r\n폴더 전체를 유지하고 AsteraCraft.exe를 실행하세요. PCK와 DLL은 EXE 옆에 있어야 합니다.\r\n원본 세부 통행/경사로, 카메라 방향에 맞는 절벽, 물로 구분한 이동 불가 영역, 네 가지 지면 재질, 맵별 테라 분출구와 본진-아스 최소 간격을 반영했습니다.\r\nHUD 비율과 비행체 시점은 유지합니다. 자세한 변경과 검증 범위는 CHANGES.txt 및 QA 폴더를 참고하세요.\r\n');
+for(const name of fs.readdirSync(path.join(root,'build/source-terrain')).filter(n=>/\.(log|json)$/.test(n)))copy('build/source-terrain/'+name,'QA/'+name);
+for(const name of fs.readdirSync(path.join(root,'build/map-photo-tour')).filter(n=>/^map-\d-.*\.png$/.test(n)||n==='captures.json'))copy('build/map-photo-tour/'+name,'QA/'+name);
+copy('build/visual-locks-v053.json','QA/visual-locks-v053.json');
+for(const name of ['pack-check.log','boot-check.log'])if(fs.existsSync(path.join(root,'build/release-v058-source-terrain',name)))copy('build/release-v058-source-terrain/'+name,'QA/'+name);
+const files=[];
+function scan(dir,rel=''){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,e.name),r=rel?rel+'/'+e.name:e.name;if(e.isDirectory())scan(p,r);else if(e.name!=='BUILD_MANIFEST.json'){const b=fs.readFileSync(p);files.push({file:r,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex')})}}}
+scan(out);fs.writeFileSync(path.join(out,'BUILD_MANIFEST.json'),JSON.stringify({version:'0.5.8',patch:'source-terrain-natural-scenery',date:'2026-10-18',files},null,2));console.log({out,files:files.length});

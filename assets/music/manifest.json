@@ -1,23 +1,63 @@
 {
-  "schema": 1,
-  "user_supplied": true,
+  "formats": [
+    "ogg",
+    "mp3",
+    "wav"
+  ],
+  "included_music": true,
+  "note": "Four user-supplied tracks: menu Echoes of Astera; hyrax Ironbound Frontier; citrus Seeds of Dominion; owl Crimson Covenant. Original audio bytes preserved.",
+  "schema": 1.0,
+  "slots": [
+    {
+      "context": "메인 화면",
+      "name": "music_menu"
+    },
+    {
+      "context": "바위너구리 종족",
+      "name": "music_r0"
+    },
+    {
+      "context": "귤 변이 군체",
+      "name": "music_r1"
+    },
+    {
+      "context": "고대 부엉이 종족",
+      "name": "music_r2"
+    }
+  ],
   "tracks": [
     {
       "file": "music_r0.mp3",
-      "title": "Ironbound Frontier",
-      "seconds": 221.88,
       "loop": true,
-      "user_supplied": true,
-      "sha256": "d1a18cfef0b81cfdb60185aee771e392e3a04c8ab9e254bbdd33e1d3cdba5da4"
+      "seconds": 221.854,
+      "sha256": "d1a18cfef0b81cfdb60185aee771e392e3a04c8ab9e254bbdd33e1d3cdba5da4",
+      "title": "Ironbound Frontier",
+      "user_supplied": true
+    },
+    {
+      "file": "music_r1.mp3",
+      "loop": true,
+      "seconds": 218.592,
+      "sha256": "398b116262d328feadff2dd2e63664ed5f2b7647dbaf835efc548ba7c6709fa2",
+      "title": "Seeds of Dominion",
+      "user_supplied": true
+    },
+    {
+      "file": "music_r2.mp3",
+      "loop": true,
+      "seconds": 203.592,
+      "sha256": "814253b174acb1a3766c3dbe37f88e5a68f83af64a4680c32c8997f01c27d393",
+      "title": "Crimson Covenant",
+      "user_supplied": true
+    },
+    {
+      "file": "music_menu.mp3",
+      "loop": true,
+      "seconds": 239.448,
+      "sha256": "1ff26e166586c9b6c0c0570ce3c1ddca42a164b77f00184b428b36bb142ab914",
+      "title": "Echoes of Astera",
+      "user_supplied": true
     }
   ],
-  "slots": [
-    {"name":"music_menu","context":"메인 화면"},
-    {"name":"music_r0","context":"바위너구리 종족"},
-    {"name":"music_r1","context":"귤 변이 군체"},
-    {"name":"music_r2","context":"고대 부엉이 종족"}
-  ],
-  "formats": ["ogg","mp3","wav"],
-  "included_music": true,
-  "note": "User-supplied Ironbound Frontier is included for the hyrax faction. Menu, citrus, and owl slots remain empty. No rejected development preview is included."
+  "user_supplied": true
 }

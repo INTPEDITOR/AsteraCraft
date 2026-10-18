@@ -7,11 +7,11 @@ func check(value: bool, message: String) -> void:
 	if not value:failures.append(message);printerr("FAIL: "+message)
 func run() -> void:
 	var manifest=JSON.parse_string(FileAccess.get_file_as_string("res://assets/music/manifest.json"))
-	check(manifest is Dictionary and manifest.tracks.size()==1 and manifest.tracks[0].file=="music_r0.mp3" and bool(manifest.tracks[0].user_supplied) and manifest.slots.size()==4 and bool(manifest.included_music),"release contains the approved hyrax MP3 and four replaceable user music slots")
+	check(manifest is Dictionary and manifest.tracks.size()==4 and manifest.tracks[0].file=="music_r0.mp3" and bool(manifest.tracks[0].user_supplied) and manifest.slots.size()==4 and bool(manifest.included_music),"release contains four supplied tracks and replaceable user music slots")
 	var audio:=ACAudio.new()
 	root.add_child(audio)
 	await process_frame
-	check(audio.music_source("music_menu").is_empty(),"stale import caches cannot enable excluded preview music")
+	check(audio.music_source("music_menu").get("path","")=="res://assets/music/music_menu.mp3","menu resolves the supplied MP3")
 	var folder:="user://music-fixture-%d"%Time.get_ticks_usec()
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder))
 	audio.music_directories=[folder]

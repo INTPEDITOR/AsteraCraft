@@ -37,7 +37,7 @@ class TerrainCanvas extends Control:
 			var point=project(ACData.point(base.pos))
 			draw_arc(point,8,0,TAU,32,Color("d5dbd5"),1.2,true)
 		renderer.draw_boundary_mask(self,map,Rect2(Vector2.ZERO,viewport_size),zoom,project)
-		draw_string(ThemeDB.fallback_font,Vector2(map_origin.x,43),map.source_info.name+" / "+map.source_info.layout,HORIZONTAL_ALIGNMENT_LEFT,-1,26,Color("ebdfbe"))
+		draw_string(ThemeDB.fallback_font,Vector2(map_origin.x,43),map.source_info.name+" / "+str(map.source_info.get("layout",map.source_info.get("origin","original"))),HORIZONTAL_ALIGNMENT_LEFT,-1,26,Color("ebdfbe"))
 		draw_string(ThemeDB.fallback_font,Vector2(map_origin.x,77),"Original four-player map | X/Y mirror symmetry | 12 bases | 96 As + 12 Tera",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("a3b4ba"))
 
 var scene: TerrainCanvas
@@ -62,3 +62,4 @@ func capture() -> void:
 		assert(image.save_png(path)==OK,"Overview capture saved")
 		print("TERRAIN_OVERVIEW ",path," ",scene.renderer.last_stats)
 	quit()
+

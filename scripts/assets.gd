@@ -4,6 +4,7 @@ extends RefCounted
 # Unit anchoring remains relative to the original cell when alpha gets trimmed.
 var unit_frames: Dictionary={}
 var motion_frames: Dictionary={}
+var propulsion_frames: Array=[]
 var building_frames: Dictionary={}
 var building_idle_frames: Dictionary={}
 var building_idle_pixels: Dictionary={}
@@ -33,6 +34,17 @@ var _atlas_sources: Array=[]
 func load_all() -> void:
 	unit_frames.clear()
 	motion_frames.clear()
+	propulsion_frames.clear()
+	if ResourceLoader.exists("res://assets/movement_fx_v058.png"):
+		var source: Texture2D=load("res://assets/movement_fx_v058.png")
+		var cell=source.get_size()/Vector2(8,3)
+		for race in range(3):
+			var phases: Array=[]
+			for phase in range(8):
+				var frame=AtlasTexture.new();frame.atlas=source
+				frame.region=Rect2(Vector2(phase,race)*cell,cell)
+				phases.append(frame)
+			propulsion_frames.append(phases)
 	building_frames.clear()
 	building_idle_frames.clear()
 	building_idle_pixels.clear()

@@ -3,6 +3,7 @@ extends RefCounted
 
 const SIZE := 128
 const ELEVATION_PIXELS := 24.0
+const HQ_MINERAL_GAP := 3.0
 var terrain := PackedByteArray()
 var height_map := PackedByteArray()
 var surface_map := PackedByteArray()
@@ -23,8 +24,13 @@ var resource_obstacles: Array = []
 var _last_buildings: Array = []
 var _definition: Dictionary = {}
 var visual_ramps: Array = []
+var visual_roles := PackedByteArray()
 var _visual_elevations := PackedFloat32Array()
 var _visual_vertices: Dictionary = {}
+var source_walk_masks := PackedInt32Array()
+var source_ramp_regions: Array = []
+var source_detail_active := false
+var _detail_prefix := PackedInt32Array()
 
 func rotate(p: Vector2i, turns: int) -> Vector2i:
 	var q = p
@@ -39,6 +45,10 @@ func make(map_id: int, layout: String="source_chk_cv5_vf4") -> void:
 	theme=clampi(map_id,0,2)
 	for array in [resources,starts,render_regions,ramps,bridges,bases,decorations,resource_obstacles]:array.clear()
 	_last_buildings=[]
+	visual_roles.clear()
+	source_walk_masks.clear()
+	source_ramp_regions.clear()
+	source_detail_active=false
 	if layout=="source_chk_cv5_vf4" and FileAccess.file_exists("res://data/original_maps.json"):
 		_make_original(theme)
 		return
@@ -101,6 +111,22 @@ func _make_original(map_id: int) -> void:
 	starts=_definition.starts.duplicate(true)
 	resources=_definition.resources.duplicate(true)
 	bases=_definition.bases.duplicate(true)
+	if FileAccess.file_exists("res://data/terrain_visual_roles.json"):
+		var visuals=JSON.parse_string(FileAccess.get_file_as_string("res://data/terrain_visual_roles.json"))
+		if visuals.get("source_sha256","")==FileAccess.get_sha256("res://data/original_maps.json"):
+			visual_roles=PackedByteArray(visuals.maps[map_id].roles)
+	if FileAccess.file_exists("res://data/source_terrain_detail.json"):
+		var detail=JSON.parse_string(FileAccess.get_file_as_string("res://data/source_terrain_detail.json"))
+		assert(detail.source_sha256==FileAccess.get_sha256("res://data/original_maps.json"),"Source geometry metadata mismatch")
+		source_walk_masks=PackedInt32Array(detail.maps[map_id].walk_masks)
+		for raw in detail.maps[map_id].ramps:
+			var region=raw.duplicate(true)
+			region.center=ACData.point(raw.center)
+			region.direction=ACData.point(raw.direction)
+			source_ramp_regions.append(region)
+		source_info.collision_resolution=8
+		source_info.exact_source=false
+		source_info.geometry_policy="Original VF4 8px walk mask; AsteraCraft body clearance and original artwork"
 	_build_visual_relief()
 	for ramp in visual_ramps:ramps.append({"kind":"source","center":ACData.packed(ramp.center),"width":ramp.width})
 	_configure_navigation()
@@ -108,17 +134,19 @@ func _make_original(map_id: int) -> void:
 func _build_visual_relief() -> void:
 	visual_ramps.clear()
 	_visual_vertices.clear()
+	var authored=source_ramp_regions if not source_ramp_regions.is_empty() and terrain==PackedByteArray(_definition.terrain) and height_map==PackedByteArray(_definition.height_map) else []
 	_visual_elevations.resize(SIZE*SIZE)
 	var edges: Dictionary={}
 	for y in range(SIZE):
 		for x in range(SIZE):
 			var index=y*SIZE+x
-			_visual_elevations[index]=-2.0 if terrain[index]==2 else float(height_map[index])*ELEVATION_PIXELS+(6.0 if terrain[index]==1 else 0.0)
+			_visual_elevations[index]=-18.0 if is_water(index) else float(height_map[index])*ELEVATION_PIXELS+(6.0 if visual_role(index)==1 else 0.0)
 			if terrain[index]!=0:continue
 			for offset in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
 				var other=Vector2i(x,y)+offset
 				if inside(other) and terrain[other.y*SIZE+other.x]==0 and height_map[index]!=height_map[other.y*SIZE+other.x]:edges[index]=true
-	var remaining=edges.duplicate()
+	var remaining=edges.duplicate() if authored.is_empty() else {}
+	visual_ramps.assign(authored)
 	while not remaining.is_empty():
 		var queue: Array=[remaining.keys()[0]]
 		remaining.erase(queue[0])
@@ -149,7 +177,7 @@ func _build_visual_relief() -> void:
 		for point in points:
 			width=maxf(width,absf((point-center).dot(tangent))*2)
 			length=maxf(length,absf((point-center).dot(direction))*2)
-		if points.size()>=6:
+		if not points.is_empty():
 			visual_ramps.append({"center":center,"direction":direction,"width":maxf(4,width+2),"length":maxf(5,length+3)})
 	# Only walkable height interfaces become broad slopes; impassable cliff
 	# edges keep their authored steep silhouette and collision unchanged.
@@ -172,6 +200,27 @@ func _build_visual_relief() -> void:
 				total+=float(height_map[other.y*SIZE+other.x])*ELEVATION_PIXELS*weight
 				weights+=weight
 		_visual_elevations[int(raw)]=total/maxf(1,weights)
+	# Explicit source ramps also include partly walkable edge tiles omitted by
+	# the old coarse conversion. Blend only inside each authored slope footprint.
+	for ramp in authored:
+		var axis: Vector2=ramp.direction
+		var across=Vector2(axis.y,-axis.x)
+		var radius=ceili(maxf(ramp.width,ramp.length))
+		for y in range(maxi(0,int(ramp.center.y)-radius),mini(SIZE,int(ramp.center.y)+radius+1)):
+			for x in range(maxi(0,int(ramp.center.x)-radius),mini(SIZE,int(ramp.center.x)+radius+1)):
+				var i=y*SIZE+x
+				if source_walk_masks[i]==0:continue
+				var delta=Vector2(x+.5,y+.5)-ramp.center
+				var side=absf(delta.dot(across))/(ramp.width*.5)
+				var along=.5+delta.dot(axis)/ramp.length
+				if side>=1 or along<0 or along>1:continue
+				var blend=1.0-smoothstep(.72,1.0,side)
+				_visual_elevations[i]=lerpf(_visual_elevations[i],lerpf(ramp.high,ramp.low,smoothstep(0.0,1.0,along))*ELEVATION_PIXELS,blend)
+
+func visual_role(index: int) -> int:
+	if terrain[index]==2:return 2
+	if terrain[index]==0:return 0
+	return int(visual_roles[index]) if visual_roles.size()==SIZE*SIZE else 1
 
 func _cell(p: Vector2) -> Array:
 	if _definition.has("lanes"):return _reference_cell(p)
@@ -263,11 +312,48 @@ func _add_base(definition: Dictionary, slot: int, catalog: Dictionary) -> void:
 	bases.append({"kind":definition.kind,"access":definition.get("access","ground"),"pos":ACData.packed(reflect(center+Vector2(0,.5),slot)),"grid_center":ACData.packed(reflect(center,slot)),"slot":slot,"turn":slot,"main":definition.kind=="main","resources":ids})
 
 func start_building_anchor(slot: int, size: Vector2) -> Vector2:
-	if source_info.get("origin","")=="source_chk_cv5_vf4":return (ACData.point(starts[slot])-size*.5).floor()
+	if source_info.get("origin","")=="source_chk_cv5_vf4":return _closest_start_anchor(slot,size)
 	var canonical=(ACData.point(starts[0])-(size-Vector2.ONE)*.5).round()
 	if slot in [1,2]:canonical.x=SIZE-1-canonical.x-(size.x-1)
 	if slot in [2,3]:canonical.y=SIZE-1-canonical.y-(size.y-1)
 	return canonical
+
+static func footprint_gap(a: Rect2, b: Rect2) -> float:
+	# Build-grid exclusion uses edge-to-edge distance, not sprite centers.
+	return maxf(maxf(a.position.x-b.end.x,b.position.x-a.end.x),maxf(a.position.y-b.end.y,b.position.y-a.end.y))
+
+func _closest_start_anchor(slot: int, size: Vector2) -> Vector2:
+	var original=(ACData.point(starts[slot])-size*.5).floor()
+	var home_ore=[]
+	for node in resources:
+		if node.type=="as" and int(node.slot)==slot:home_ore.append(node)
+	if home_ore.is_empty():return original
+	var result=Vector2.INF;var best=INF
+	var home_height=height_map[int(starts[slot][1])*SIZE+int(starts[slot][0])]
+	for y in range(maxi(1,int(original.y)-10),mini(SIZE-int(size.y),int(original.y)+11)):
+		for x in range(maxi(1,int(original.x)-10),mini(SIZE-int(size.x),int(original.x)+11)):
+			var valid=true
+			for yy in range(y,y+int(size.y)):
+				for xx in range(x,x+int(size.x)):
+					if not buildable(Vector2i(xx,yy)) or height_map[yy*SIZE+xx]!=home_height:valid=false
+			if not valid:continue
+			var rect=Rect2(Vector2(x,y)-Vector2.ONE*.5,size)
+			for node in resources:
+				var body=Rect2(ACData.point(node.pos)-ACData.point(node.collision_size)*.5,ACData.point(node.collision_size))
+				if rect.intersects(body.grow(HQ_MINERAL_GAP if node.type=="as" and node.amount>0 else 0.0)):valid=false;break
+			if not valid:continue
+			var nearest=INF;var average=0.0
+			for node in home_ore:
+				var body=Rect2(ACData.point(node.pos)-Vector2(1,.5),Vector2(2,1))
+				nearest=minf(nearest,footprint_gap(rect,body))
+				var closest=ACData.point(node.pos).clamp(rect.position,rect.end)
+				average+=closest.distance_squared_to(ACData.point(node.pos))
+			# First meet the closest legal perimeter, then face the whole mineral
+			# line rather than hugging an outlying crystal. Source location breaks ties.
+			var score=(nearest-HQ_MINERAL_GAP)*100000+average/home_ore.size()+Vector2(x,y).distance_squared_to(original)*.01
+			if score<best:best=score;result=Vector2(x,y)
+	assert(result.is_finite(),"No legal starting headquarters near source start")
+	return result if result.is_finite() else original
 
 func start_worker_positions(slot: int) -> Array:
 	var result: Array=[]
@@ -300,7 +386,10 @@ func inside(p: Vector2i) -> bool:
 	return p.x>=0 and p.y>=0 and p.x<SIZE and p.y<SIZE
 
 func is_water(index: int) -> bool:
-	return index>=0 and index<terrain.size() and terrain[index]==2
+	if index<0 or index>=terrain.size():return false
+	# Keep the original 8px shoreline/ramp margins. Only wholly impassable
+	# obstacle interiors become pools, never their partly walkable edge tiles.
+	return terrain[index]==2 or (visual_role(index)==3 and source_walk_masks.size()==SIZE*SIZE and source_walk_masks[index]==0)
 
 ## Shared visual plane for terrain, units, resources, picking and rally markers.
 ## Navigation and authored height levels remain unchanged.
@@ -371,7 +460,43 @@ func reset_solids(buildings: Array) -> void:
 		for y in range(position.y,position.y+int(definition.h)):
 			for x in range(position.x,position.x+int(definition.w)):
 				if inside(Vector2i(x,y)):navigator.set_point_solid(Vector2i(x,y),true)
+	# Synthetic test/editor terrain uses its edited coarse geometry. Source
+	# detail is active only while the imported terrain itself is unchanged.
+	source_detail_active=source_walk_masks.size()==SIZE*SIZE and terrain==PackedByteArray(_definition.terrain)
+	if source_detail_active:_rebuild_source_collision(buildings)
 	revision+=1
+
+func _rebuild_source_collision(buildings: Array) -> void:
+	var solid=PackedByteArray()
+	solid.resize(512*512)
+	for y in range(512):
+		for x in range(512):
+			var tile=(y/4)*SIZE+x/4
+			# Integers here denote cell centers, matching CHK entity conversion.
+			solid[y*512+x]=int((source_walk_masks[tile]&(1<<((y%4)*4+x%4)))==0)
+	var obstacles=resource_obstacles.duplicate()
+	for building in buildings:
+		if building.hp<=0:continue
+		var definition=ACData.building(int(building.race),int(building.kind))
+		obstacles.append(Rect2(ACData.point(building.pos)-Vector2.ONE*.5,Vector2(definition.w,definition.h)))
+	for rect in obstacles:
+		var first=Vector2i(((rect.position+Vector2.ONE*.5)*4).floor()).max(Vector2i.ZERO)
+		var end=Vector2i(((rect.end+Vector2.ONE*.5)*4).ceil()).min(Vector2i(512,512))
+		for y in range(first.y,end.y):
+			for x in range(first.x,end.x):solid[y*512+x]=1
+	_detail_prefix.resize(513*513)
+	_detail_prefix.fill(0)
+	for y in range(512):
+		var row=0
+		for x in range(512):
+			row+=solid[y*512+x]
+			_detail_prefix[(y+1)*513+x+1]=row+_detail_prefix[y*513+x+1]
+
+func source_ground_fits(dimensions: Vector2, pos: Vector2) -> bool:
+	var low=Vector2i(((pos-dimensions*.5+Vector2.ONE*.50001)*4).floor())
+	var high=Vector2i(((pos+dimensions*.5+Vector2.ONE*.49999)*4).floor())+Vector2i.ONE
+	if low.x<0 or low.y<0 or high.x>512 or high.y>512:return false
+	return _detail_prefix[high.y*513+high.x]-_detail_prefix[low.y*513+high.x]-_detail_prefix[high.y*513+low.x]+_detail_prefix[low.y*513+low.x]==0
 
 func set_resource_obstacles(rects: Array) -> void:
 	resource_obstacles.clear()

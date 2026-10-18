@@ -10,9 +10,18 @@ func check(value: bool, message: String) -> void:
 func _initialize() -> void:
 	var renderer=ACTerrainRenderer.new()
 	renderer.load_art()
+	check(renderer.quiet_materials.size()==12 and renderer.world_materials.size()==9,"all new original terrain materials load")
+	check(renderer.bank_materials.size()==15,"straight convex concave shore and ramp materials load for each map")
+	for active in renderer.quiet_materials+renderer.world_materials:
+		check(active.get_width()>=288 and active.get_height()>=288,"new terrain swatches retain their source detail")
+		check(active.texture_filter in [CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS,CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC],"new materials use mipmapped sampling")
+	for theme in range(3):
+		var floor_texture=renderer.quiet_materials[theme*4]
+		check(mini(floor_texture.get_width(),floor_texture.get_height())>=1024,"active base floor is an independent HD texture, not a small atlas crop")
+		check(float(mini(floor_texture.get_width(),floor_texture.get_height()))/(renderer.QUIET_WORLD_SPAN*2.0)>=1.0,"actual active floor retains source texels at zoom 2")
 	var assets: Array=[]
 	for theme in range(3):
-		var texture=renderer._texture(16+theme)
+		var texture=renderer.quiet_materials[theme*4]
 		check(texture is CanvasTexture,"Dedicated ground texture %d must load"%theme)
 		if texture==null:continue
 		check(texture.get_width()>=1024 and texture.get_height()>=1024,"Ground image must provide actual high-resolution source texels")
@@ -20,9 +29,9 @@ func _initialize() -> void:
 		check(texture.texture_repeat==CanvasItem.TEXTURE_REPEAT_MIRROR,"Ground uses seamless mirror sampler")
 		var image=texture.diffuse_texture.get_image()
 		check(image.has_mipmaps() and image.get_mipmap_count()>=9,"Ground mip chain exists at runtime")
-		var zero=renderer._detail_uv(Vector2.ZERO)
-		var dx=(renderer._detail_uv(Vector2(1,0))-zero)*Vector2(texture.get_width(),texture.get_height())
-		var dy=(renderer._detail_uv(Vector2(0,1))-zero)*Vector2(texture.get_width(),texture.get_height())
+		var zero=renderer._detail_uv(Vector2.ZERO,renderer.QUIET_WORLD_SPAN)
+		var dx=(renderer._detail_uv(Vector2(1,0),renderer.QUIET_WORLD_SPAN)-zero)*Vector2(texture.get_width(),texture.get_height())
+		var dy=(renderer._detail_uv(Vector2(0,1),renderer.QUIET_WORLD_SPAN)-zero)*Vector2(texture.get_width(),texture.get_height())
 		check(absf(dx.length()-dy.length())<.01,"No stretched low-density UV axis")
 		check(minf(dx.length(),dy.length())/2.0>=.99,"Zoom2 retains at least one source texel per screen pixel")
 		assets.append({"theme":theme,"resolution":[texture.get_width(),texture.get_height()],"mip_levels":image.get_mipmap_count(),"texels_per_world_pixel":dx.length(),"texels_per_screen_pixel_at_zoom2":dx.length()/2.0})
@@ -39,7 +48,7 @@ func _initialize() -> void:
 		map.make(theme)
 		var before=hash([map.terrain,map.height_map,map.surface_map,map.buildable_map,map.resources,map.starts])
 		var data=renderer._build_cache(map,0)
-		check(not map.visual_ramps.is_empty(),"Walkable elevation interfaces must produce ramps")
+		check(map.source_info.origin=="source_chk_cv5_vf4","Original map geometry retained")
 		var floor_points=data.layers[0].mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
 		var surface_points: Dictionary={}
 		for point in floor_points:surface_points[point]=true
@@ -50,11 +59,22 @@ func _initialize() -> void:
 			roles[role]=true
 			var arrays=layer.mesh.surface_get_arrays(0)
 			var vertices=arrays[Mesh.ARRAY_VERTEX]
+			if role.begins_with("coast") or role.begins_with("height_bank"):
+				# Contour ribbons follow the boundary between levels, independently
+				# tessellated from the floor grid. They must be solid, not soft blends.
+				if role in ["coast","height_bank"]:
+					check(layer.slot in [240+theme*5,241+theme*5,242+theme*5,243+theme*5],"level boundary uses its own modular face material")
+					for color in arrays[Mesh.ARRAY_COLOR]:check(is_equal_approx(color.a,1.0),"water and height boundaries have opaque rock faces")
+				continue
 			for index in range(vertices.size()):
 				check(surface_points.has(vertices[index]),"Relief must reuse the ground triangles without floating or flattened quads")
 				if role=="cliff":check((vertices[index]/renderer.CLIFF_WORLD_PIXELS).distance_to(arrays[Mesh.ARRAY_TEX_UV][index])<.0001,"Cliff UV uses projected face size to prevent vertical stretching")
-			if role=="ramp":check(layer.slot==35+theme,"Ramp must use the generated flat floor material for its own planet")
-		check(roles.has("ramp") and roles.has("cliff") and roles.has("foot_shadow") and roles.has("upper_lip"),"Ramp, vertical face, upper rim and lower contact shadow remain distinct layers")
+			if role=="ramp":
+				check(layer.slot==192+theme*4,"Ramp shares the continuous HD soil of both landings")
+				for uv in arrays[Mesh.ARRAY_TEX_UV]:check(uv.is_finite(),"ramp soil world coordinates remain continuous")
+		check(roles.has("ramp")==not map.visual_ramps.is_empty(),"Ramp rendering follows each original map ramp data")
+		check(roles.has("height_bank") and roles.has("height_bank_shadow") and roles.has("height_bank_rim"),"Vertical face, upper rim and contact shadow remain distinct layers")
+		check(roles.has("coast") and roles.has("height_bank"),"water and land height boundaries are separate visible contours")
 		var boundary=map.visual_boundary()
 		check(boundary.size()==1024,"Visual boundary follows every half-cell perimeter segment")
 		for vertex in boundary:

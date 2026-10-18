@@ -1,0 +1,20 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "name": "frontier",
+      "prompt": "Use case: original game asset. Asset type: one transparent environment resource sprite for AsteraCraft RTS. Make a low natural Tera gas/mineral extraction vent integrated into muted ochre brown sandstone, dusty warm brown soil, dry fractured sedimentary stones. Wide irregular 2:1 oval footprint, viewed orthographically from elevated RTS camera about 55 degrees down, top and front visible. Low rugged rocky rim, one recessed fissure at center with a small restrained cyan blue mineral glow (under 10 percent of area), a few embedded blue veins. Terrain-matching matte rocks dominate, soft upper-left lighting, fine painterly rendered realistic strategy game detail readable at 128x64 pixels. Object isolated and centered on truly transparent background with generous clear padding, no scenic background, no square tile, no floating platform, no hard circular plinth, no giant crystals, no tower, no metal machinery, no flame plume, no text, no UI, no grid. Small natural ground-contact shadow and sparse loose gravel directly around the rim only; all outside fully alpha transparent. This is brand new original artwork, not copied from any existing game. Produce one sprite only.",
+      "path": "assets/tera_vent_frontier_v058.png"
+    },
+    {
+      "name": "basin",
+      "prompt": "Use case: original game asset. Asset type: one transparent environment resource sprite for AsteraCraft RTS. Make a low natural Tera gas/mineral extraction vent integrated into muted rusty red volcanic earth, dark red-brown basalt, weathered porous volcanic rocks. Wide irregular 2:1 oval footprint, viewed orthographically from elevated RTS camera about 55 degrees down, top and front visible. Low rugged rocky rim, one recessed fissure at center with a small restrained cyan blue mineral glow (under 10 percent of area), a few embedded blue veins. Terrain-matching matte rocks dominate, soft upper-left lighting, fine painterly rendered realistic strategy game detail readable at 128x64 pixels. Object isolated and centered on truly transparent background with generous clear padding, no scenic background, no square tile, no floating platform, no hard circular plinth, no giant crystals, no tower, no metal machinery, no flame plume, no text, no UI, no grid. Small natural ground-contact shadow and sparse loose gravel directly around the rim only; all outside fully alpha transparent. This is brand new original artwork, not copied from any existing game. Produce one sprite only.",
+      "path": "assets/tera_vent_basin_v058.png"
+    },
+    {
+      "name": "highland",
+      "prompt": "Use case: original game asset. Asset type: one transparent environment resource sprite for AsteraCraft RTS. Make a low natural Tera gas/mineral extraction vent integrated into muted neutral slate grey layered stone, grey weathered schist, a few muted olive lichen traces. Wide irregular 2:1 oval footprint, viewed orthographically from elevated RTS camera about 55 degrees down, top and front visible. Low rugged rocky rim, one recessed fissure at center with a small restrained cyan blue mineral glow (under 10 percent of area), a few embedded blue veins. Terrain-matching matte rocks dominate, soft upper-left lighting, fine painterly rendered realistic strategy game detail readable at 128x64 pixels. Object isolated and centered on truly transparent background with generous clear padding, no scenic background, no square tile, no floating platform, no hard circular plinth, no giant crystals, no tower, no metal machinery, no flame plume, no text, no UI, no grid. Small natural ground-contact shadow and sparse loose gravel directly around the rim only; all outside fully alpha transparent. This is brand new original artwork, not copied from any existing game. Produce one sprite only.",
+      "path": "assets/tera_vent_highland_v058.png"
+    }
+  ]
+}

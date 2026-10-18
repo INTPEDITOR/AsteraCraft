@@ -11,7 +11,7 @@ const sessions=new Map(),rooms=new Map(),queue=new Map(),offers=new Map(),games=
 const PORT=Number(process.env.PORT||17800), HOST=process.env.HOST||'0.0.0.0';
 const PUBLIC_HOST=process.env.PUBLIC_HOST||'';
 let gamePort=Number(process.env.GAME_PORT||17900);
-const VERSION='0.5.6', STARTED=Date.now(), DISCOVERY_PORT=Number(process.env.ASTERA_DISCOVERY_PORT||17801);
+const VERSION='0.5.7', STARTED=Date.now(), DISCOVERY_PORT=Number(process.env.ASTERA_DISCOVERY_PORT||17801);
 function save(){const temp=DBFILE+'.tmp';fs.writeFileSync(temp,JSON.stringify(db,null,2));fs.renameSync(temp,DBFILE);}
 function token(){return crypto.randomBytes(24).toString('hex');}
 function uid(){return crypto.randomUUID();}

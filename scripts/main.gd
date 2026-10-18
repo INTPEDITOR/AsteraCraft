@@ -9,6 +9,7 @@ var assets:=ACAssets.new()
 var battle_hud: ACRtsHUD
 var audio: ACAudio
 var terrain_artist:=ACTerrainRenderer.new()
+var root_artist=preload("res://scripts/root_renderer.gd").new()
 var construction_visual:=ConstructionVisual.new()
 var pointer_order=""
 var render_rects: Dictionary={}
@@ -30,6 +31,8 @@ var effect_frames: Array=[]
 var building_parts: Array=[]
 var world_resources: Array=[]
 var world_resource_images: Array=[]
+var tera_theme_textures: Array=[]
+var tera_theme_images: Array=[]
 var double_select=false
 var menu_backdrop: Texture2D
 var menu_pages: ACMenuPages
@@ -72,7 +75,7 @@ var difficulty=1
 var game_mode="ffa"
 var session_token=""
 var account: Dictionary={}
-var backend_url="http://127.0.0.1:17800"
+var backend_url="https://asteracraft-matchmaking.changjin93.chatgpt.site/api"
 var remote_game: Dictionary={}
 var room: Dictionary={}
 var queue_data: Dictionary={}
@@ -99,6 +102,10 @@ var settings: Dictionary=ACSettings.defaults()
 var font: Font
 
 # Dedicated server state. Only this authority owns gameplay and results.
+var public_p2p: ACPublicP2P
+var hosted_process=-1
+var match_heartbeat=0.0
+var public_reported=false
 var dedicated=false
 var server_config: Dictionary={}
 var peer_slots: Dictionary={}
@@ -122,6 +129,9 @@ func _ready() -> void:
 	get_window().focus_exited.connect(_release_pointer)
 	get_window().focus_entered.connect(_sync_pointer)
 	tree_exiting.connect(_release_pointer)
+	tree_exiting.connect(func():
+		if hosted_process>0 and OS.is_process_running(hosted_process):OS.kill(hosted_process)
+	)
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
 	font=preload("res://scripts/ui_font.gd").create()
 	var custom_theme=Theme.new()
@@ -146,8 +156,10 @@ func _ready() -> void:
 		var config=JSON.parse_string(FileAccess.get_file_as_string(args[i+1]))
 		test_network=true
 		test_client_surrender=bool(config.get("surrender",false))
+		backend_url=str(config.get("endpoint",backend_url))
+		session_token=str(config.get("session_token",""))
 		test_surrender_after=float(config.get("surrender_after",2.0))
-		test_deadline=Time.get_ticks_msec()/1000.0+35
+		test_deadline=Time.get_ticks_msec()/1000.0+75
 		ui=Control.new()
 		add_child(ui)
 		_join_game(config)
@@ -160,6 +172,10 @@ func _ready() -> void:
 	world_resources=_atlas("res://assets/resources_v2.png",2,1)
 	if world_resources.size()==2 and ResourceLoader.exists("res://assets/tera_base_v05.png"):world_resources[1]=load("res://assets/tera_base_v05.png")
 	for resource_texture in world_resources:world_resource_images.append(resource_texture.get_image())
+	for biome in ["frontier","basin","highland"]:
+		var source: Image=load("res://assets/tera_vent_%s_v058.png"%biome).get_image()
+		var texture=assets._trim(source,Rect2i(Vector2i.ZERO,source.get_size()))
+		tera_theme_textures.append(texture);tera_theme_images.append(texture.get_image())
 	audio=ACAudio.new()
 	add_child(audio)
 	if audio.director!=null:
@@ -532,7 +548,7 @@ func _release_pointer() -> void:
 	dragging=false
 
 func _sync_pointer() -> void:
-	if dedicated or DisplayServer.get_name()=="headless":return
+	if dedicated or DisplayServer.get_name()=="headless" or not is_inside_tree():return
 	# The entire application owns the pointer while focused, including menus
 	# and popups. Confinement must also be restored after a display-mode change.
 	var active=get_window().has_focus() and get_window().mode!=Window.MODE_MINIMIZED
@@ -582,6 +598,11 @@ func _focus_home(reset_zoom: bool=false) -> void:
 	render_rects.clear()
 
 func _process(dt: float) -> void:
+	if network_client and remote_game.get("transport","")=="webrtc":
+		match_heartbeat-=dt
+		if match_heartbeat<=0:
+			match_heartbeat=20.0
+			_api("/match/heartbeat",{"id":remote_game.id,"connected":page=="game"},func(_data):pass)
 	elapsed+=dt
 	visual_clock+=dt
 	if dedicated:
@@ -727,9 +748,13 @@ func _select_resource(resource: Dictionary) -> void:
 func _resource_dimensions(resource: Dictionary) -> Vector2:
 	return ACData.point(resource.collision_size) if resource.has("collision_size") else (Vector2(4,2) if resource.type=="tera" else Vector2(2,1))
 
+func _resource_texture(resource: Dictionary) -> Texture2D:
+	if resource.type=="tera" and tera_theme_textures.size()==3:return tera_theme_textures[draw_map.theme]
+	return world_resources[1 if resource.type=="tera" else 0]
+
 func _resource_screen_rect(resource: Dictionary) -> Rect2:
 	if world_resources.size()!=2:return Rect2()
-	var texture: Texture2D=world_resources[1 if resource.type=="tera" else 0]
+	var texture: Texture2D=_resource_texture(resource)
 	var dimensions=_resource_dimensions(resource)
 	var width=dimensions.x*32*zoom
 	var height=width*texture.get_height()/texture.get_width()
@@ -759,7 +784,7 @@ func _resource_at(mouse: Vector2,as_only: bool=false) -> Dictionary:
 		var image_rect=_resource_screen_rect(resource)
 		var hit=physical.has_point(mouse)
 		if not hit and _resource_refinery(resource).is_empty() and image_rect.has_point(mouse) and world_resource_images.size()==2:
-			var image: Image=world_resource_images[1 if resource.type=="tera" else 0]
+			var image: Image=tera_theme_images[draw_map.theme] if resource.type=="tera" and tera_theme_images.size()==3 else world_resource_images[1 if resource.type=="tera" else 0]
 			var sample=Vector2i((mouse-image_rect.position)/image_rect.size*Vector2(image.get_size()))
 			hit=image.get_pixelv(sample.clamp(Vector2i.ZERO,image.get_size()-Vector2i.ONE)).a>.15
 		if not hit:continue
@@ -1137,7 +1162,7 @@ func _save_replay() -> void:
 	if not dir.dir_exists("replays"):dir.make_dir("replays")
 	var file="user://replays/%d.acr"%int(Time.get_unix_time_from_system())
 	var f=FileAccess.open_compressed(file,FileAccess.WRITE,FileAccess.COMPRESSION_DEFLATE)
-	if f!=null:f.store_var({"version":"0.5.6","map":draw_map.theme,"map_layout":draw_map.source_info.get("origin","reference_inspired_original"),"slot":local_slot,"codec":replay_codec,"interval":replay_interval,"frames":replay_frames},false)
+	if f!=null:f.store_var({"version":"0.5.8","map":draw_map.theme,"map_layout":draw_map.source_info.get("origin","reference_inspired_original"),"slot":local_slot,"codec":replay_codec,"interval":replay_interval,"frames":replay_frames},false)
 
 func _replay_state(frame) -> Dictionary:
 	if frame is Dictionary:
@@ -1226,9 +1251,30 @@ func _join_game(game: Dictionary) -> void:
 	if network_client and remote_game.get("id")==game.id:return
 	_leave_network()
 	remote_game=game
+	public_reported=false;match_heartbeat=0.0
 	network_client=true
 	spectator=bool(game.get("spectator",false))
 	local_slot=maxi(0,int(game.slot))
+	if game.get("transport","")=="webrtc":
+		if game.get("is_host",false):
+			var config: Dictionary=game.host_config.duplicate(true);config.signal_url=backend_url
+			var file="user://hosted-"+str(game.id)+".json"
+			var output=FileAccess.open(file,FileAccess.WRITE)
+			if output==null:_notify("전투 설정을 저장하지 못했습니다");_report_public_void();network_client=false;return
+			output.store_string(JSON.stringify(config));output.close()
+			# The elected player's PC runs the authoritative child process.
+			var arguments=PackedStringArray(["--headless"])
+			if OS.has_feature("editor"):arguments.append_array(["--path",ProjectSettings.globalize_path("res://")])
+			arguments.append_array(["--","--battle-config",ProjectSettings.globalize_path(file)])
+			hosted_process=OS.create_process(OS.get_executable_path(),arguments,false)
+			if hosted_process<=0:_notify("방장 전투 호스팅을 시작하지 못했습니다");_report_public_void();return
+		public_p2p=ACPublicP2P.new();add_child(public_p2p)
+		public_p2p.failed.connect(func(message):_notify(message);_report_public_void())
+		multiplayer.multiplayer_peer=public_p2p.setup(backend_url,{"id":game.id,"peer_id":game.peer_id,"signal_ticket":game.signal_ticket})
+		multiplayer.connected_to_server.connect(_connected,CONNECT_ONE_SHOT)
+		if not multiplayer.server_disconnected.is_connected(_server_disconnected):multiplayer.server_disconnected.connect(_server_disconnected)
+		_menus().connecting()
+		return
 	var peer=ENetMultiplayerPeer.new()
 	var host=str(game.host)
 	if host in ["127.0.0.1","localhost"]:
@@ -1244,13 +1290,22 @@ func _connected() -> void:
 	_authenticate_peer.rpc_id(1,str(remote_game.ticket))
 
 func _leave_network() -> void:
+	if network_client and not result_sent:_report_public_void()
+	if is_instance_valid(public_p2p):public_p2p.close();public_p2p.queue_free();public_p2p=null
 	if multiplayer.multiplayer_peer!=null:multiplayer.multiplayer_peer.close();multiplayer.multiplayer_peer=null
+	if hosted_process>0 and OS.is_process_running(hosted_process):OS.kill(hosted_process)
+	hosted_process=-1
 	network_client=false
 
 func _server_disconnected() -> void:
+	if remote_game.get("transport","")=="webrtc":_report_public_void()
 	if network_client and not result_sent and not test_network:
 		var p=_panel(Rect2(size.x*.5-260,190,520,300),"101820")
 		_label(p,"연결이 끊겼습니다",Vector2(30,25),450,30)
+		if remote_game.get("transport","")=="webrtc":
+			_label(p,"직접 연결이 종료되어 점수가 반영되지 않습니다.",Vector2(30,95),460,18)
+			_button(p,"메인 화면",Vector2(30,160),220,func():_leave_network();_main_menu())
+			return
 		_label(p,"60초 안에 재접속하면 전투를 계속합니다.",Vector2(30,95),460,18)
 		_button(p,"재접속",Vector2(30,160),220,_reconnect_game)
 		_button(p,"메인 화면",Vector2(270,160),220,func():_leave_network();_main_menu())
@@ -1268,6 +1323,7 @@ func _match_finished(winning_slots: Array, duration: float) -> void:
 	state.ended=true
 	state.winners=winning_slots
 	state.time=duration
+	_report_public_result(winning_slots,duration)
 	if not result_sent and not test_network:
 		result_sent=true
 		_show_result()
@@ -1342,7 +1398,12 @@ func _receive_state(bytes: PackedByteArray) -> void:
 	state=data
 	if test_network:
 		if state.get("ended",false):
+			if result_sent:return
+			result_sent=true
+			_report_public_result(state.winners,float(state.time))
 			print("ASTERA_CLIENT_RESULT "+JSON.stringify({"winners":state.winners,"time":state.time,"slot":local_slot,"units":state.units.size()}))
+			await get_tree().create_timer(3).timeout
+			_leave_network()
 			get_tree().quit()
 		return
 	if page=="connecting":
@@ -1358,6 +1419,7 @@ func _receive_state(bytes: PackedByteArray) -> void:
 		result_sent=false
 		_build_hud()
 	if state.get("ended",false) and not result_sent:
+		_report_public_result(state.winners,float(state.time))
 		result_sent=true
 		_show_result()
 	queue_redraw()
@@ -1367,8 +1429,14 @@ func _start_dedicated(config_file: String) -> void:
 	server_config=JSON.parse_string(FileAccess.get_file_as_string(config_file))
 	core=Core.new()
 	core.setup(server_config)
-	var peer=ENetMultiplayerPeer.new()
-	if peer.create_server(int(server_config.port),8)!=OK:
+	var peer: MultiplayerPeer
+	if server_config.get("transport","")=="webrtc":
+		public_p2p=ACPublicP2P.new();add_child(public_p2p)
+		public_p2p.failed.connect(func(message):_emit_result({"void":true,"reason":message}))
+		peer=public_p2p.setup(str(server_config.signal_url),server_config,true)
+	else:
+		peer=ENetMultiplayerPeer.new()
+	if server_config.get("transport","")!="webrtc" and peer.create_server(int(server_config.port),8)!=OK:
 		print("ASTERA_RESULT "+JSON.stringify({"void":true,"reason":"전투 포트 사용 실패"}))
 		get_tree().quit(1)
 		return
@@ -1440,63 +1508,11 @@ func _draw() -> void:
 	if state.is_empty():return
 	draw_rect(_world_render_rect(),Color("090e13"))
 
-var root_tile_cache: Dictionary={}
-var root_tile_signature := ""
-var root_origins: Array[Vector2]=[]
-var root_alpha_cache: Dictionary={}
-
-func _root_edge_alpha(pos: Vector2) -> float:
-	if root_alpha_cache.has(pos):return root_alpha_cache[pos]
-	var distance=INF
-	for origin in root_origins:distance=minf(distance,pos.distance_to(origin))
-	var noise=.20*sin(pos.x*2.7+sin(pos.y*1.9))+.13*cos(pos.y*3.1+pos.x*.8)
-	var terrain_edge=1.0
-	var cell=Vector2i(pos.round())
-	for y in range(cell.y-1,cell.y+2):
-		for x in range(cell.x-1,cell.x+2):
-			if x>=0 and y>=0 and x<128 and y<128 and draw_map.terrain[y*128+x]==0:continue
-			var blocked=Vector2(x,y)
-			terrain_edge=minf(terrain_edge,pos.distance_to(pos.clamp(blocked-Vector2.ONE*.5,blocked+Vector2.ONE*.5)))
-	var alpha=(1.0-smoothstep(12.4,13.65,distance+noise))*smoothstep(0.0,1.0,terrain_edge)
-	root_alpha_cache[pos]=alpha
-	return alpha
-
-func _draw_root_ground(view: Rect2) -> void:
-	var sources: Array=[]
-	for building in state.get("buildings",[]):
-		if int(building.race)==1 and int(building.kind) in [0,12] and building.hp>0 and building.progress>=1:sources.append(building)
-	var signature=str(sources.map(func(b):return [b.id,b.pos,b.owner]))+str(draw_map.theme)
-	if signature!=root_tile_signature:
-		root_tile_signature=signature;root_tile_cache.clear();root_origins.clear();root_alpha_cache.clear()
-		for source in sources:
-			var origin=_center(source)
-			root_origins.append(origin)
-			for y in range(maxi(0,int(origin.y)-14),mini(128,int(origin.y)+15)):
-				for x in range(maxi(0,int(origin.x)-14),mini(128,int(origin.x)+15)):
-					if draw_map.terrain[y*128+x]!=0 or origin.distance_squared_to(Vector2(x,y))>196:continue
-					root_tile_cache[Vector2i(x,y)]=int(source.owner)
-	for tile in root_tile_cache:
-		if _fog_value(tile.y*128+tile.x)==0:continue
-		var pos=Vector2(tile)
-		var point=_ground_point(pos)
-		if not view.grow(40*zoom).has_point(point):continue
-		var shade=.75 if _fog_value(tile.y*128+tile.x)==1 else 1.0
-		var polygon=PackedVector2Array()
-		var colors=PackedColorArray()
-		for offset in [Vector2(-.5,-.5),Vector2(.5,-.5),Vector2(.5,.5),Vector2(-.5,.5)]:
-			polygon.append(_ground_point(pos+offset))
-			colors.append(Color(.24*shade,.12*shade,.16*shade,.58*_root_edge_alpha(pos+offset)))
-		world_canvas.draw_polygon(polygon,colors)
-		var edge_alpha=_root_edge_alpha(pos)
-		var bend=Vector2(.34*sin(tile.x*17+tile.y*7),.34*cos(tile.y*11+tile.x*3))
-		for step in [Vector2i.RIGHT,Vector2i.DOWN]:
-			if not root_tile_cache.has(tile+step):continue
-			var other=tile+step
-			var end=Vector2(step)+Vector2(.34*sin(other.x*17+other.y*7),.34*cos(other.y*11+other.x*3))
-			var midpoint=(bend+end)*.5+Vector2(.1*sin(tile.y*19),.13*cos(tile.x*13))
-			var vein=PackedVector2Array([_ground_point(pos+bend),_ground_point(pos+midpoint),_ground_point(pos+end)])
-			world_canvas.draw_polyline(vein,Color(.37*shade,.21*shade,.12*shade,.75*edge_alpha),maxf(1,2.2*zoom),true)
-			world_canvas.draw_line(_ground_point(pos+midpoint),_ground_point(pos+midpoint+Vector2(.17,-.21)),Color(.46*shade,.25*shade,.13*shade,.55*edge_alpha),maxf(1,zoom),true)
+func _draw_root_ground(_view: Rect2) -> void:
+	var packed=state.get("roots",PackedInt32Array())
+	if not network_client and not replay_mode and core!=null:packed=core.roots.snapshot(core,-1 if spectator else local_slot)
+	var fog_signature=hash([state.get("fog",[]),state.get("explored",[]),spectator])
+	root_artist.draw(world_canvas,draw_map,packed,_fog_value,zoom,world_to_screen,fog_signature)
 
 func _draw_world() -> void:
 	var view=_world_render_rect()
@@ -1513,6 +1529,9 @@ func _draw_world() -> void:
 		elif res.type=="tera" and _resource_refinery(res).is_empty():_draw_vent(sp,res)
 		elif int(res.id)==selected_resource:_draw_resource_selection(sp,res)
 	var objects: Array=[]
+	for remembered in state.get("building_memory",[]):
+		var point=_center(remembered)
+		if _fog_value(int(point.y)*128+int(point.x))==1 and view.grow(200).has_point(_ground_point(point)):objects.append(remembered)
 	for e in _entities():
 		if e.get("container",-1)>=0 or not _visible(e):continue
 		if view.grow(200).has_point(_ground_point(_center(e) if e.has("progress") else _visual_position(e))):objects.append(e)
@@ -1562,6 +1581,12 @@ func _draw_footprint(pos: Vector2,dimensions: Vector2,color: Color,fill: bool=fa
 	world_canvas.draw_polyline(points,color.lightened(.3),1.5,true)
 
 func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
+	if race==2:
+		for tower in state.get("buildings",[]):
+			if int(tower.owner)!=local_slot or int(tower.kind)!=2 or tower.hp<=0 or tower.progress<1:continue
+			var boundary=PackedVector2Array()
+			for i in range(65):boundary.append(_ground_point(_center(tower)+Vector2.from_angle(float(i)*TAU/64.0)*12.0))
+			world_canvas.draw_polyline(boundary,Color(.4,.75,1,.5),1.5,true)
 	var definition=ACData.building(race,kind)
 	var texture=assets.building(race,kind)
 	if texture==null:return
@@ -1592,6 +1617,17 @@ func _draw_building(e: Dictionary) -> void:
 				anchor=ACData.point(resource.pos)
 				break
 	var sp=_ground_point(anchor)
+	if e.get("remembered",false):
+		# A frozen last-seen silhouette is terrain intelligence, not a live
+		# entity: no idle motion, smoke, health bars, selection or target entry.
+		var remembered_texture=assets.building(int(e.race),int(e.kind))
+		if remembered_texture==null:return
+		var width=float(d.w)*32.0*zoom
+		var height=width*remembered_texture.get_height()/remembered_texture.get_width()
+		var rect=Rect2(sp+Vector2(-width*.5,float(d.h)*16.0*zoom-height),Vector2(width,height))
+		for layer in construction_visual.shadow_layers(int(e.race),int(e.kind),remembered_texture,rect,float(e.progress)):
+			world_canvas.draw_texture_rect(layer.texture,layer.rect,false,Color(.40,.40,.43,float(layer.opacity)))
+		return
 	var idle_clock=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)+int(e.id)*.173
 	var tex=assets.building_idle(int(e.race),int(e.kind),idle_clock) if float(e.progress)>=1.0 else assets.building(int(e.race),int(e.kind))
 	if int(e.id) in selected:_draw_footprint(pos-Vector2(.5,.5) if int(e.kind)==1 else pos,Vector2(d.w,d.h),Color("64e996"))
@@ -1659,6 +1695,13 @@ func _draw_unit(e: Dictionary) -> void:
 	_cast_shadow(tex,frame.anchor,foot,extent/maxf(1,float(frame.scale_hint)),bool(frame.get("flip",false)),22*zoom if d.air else 0.0,1.0,float(frame.get("rotation",0)))
 	var color=Color(.96,.97,.98)
 	if e.get("cloaked",false):color.a=.42
+	if bool(d.air) and bool(e.get("moving",false)) and assets.propulsion_frames.size()==3:
+		# Separate exhaust frames preserve the approved hull pixels and view angle.
+		var facing=_visual_facing(e).normalized()
+		var exhaust: Texture2D=assets.propulsion_frames[int(e.race)][posmod(int(elapsed*16)+int(e.id),8)]
+		_world_transform(sp-facing*extent*.27,Vector2.DOWN.angle_to(-facing))
+		world_canvas.draw_texture_rect(exhaust,Rect2(-extent*.14,-extent*.025,extent*.28,extent*.40),false,Color(1,1,1,color.a*.85))
+		_world_transform()
 	var rect=_draw_drone(e,sp,extent,color,animation_clock) if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() else _draw_unit_frame(frame,sp,extent,color)
 	if not vehicle.is_empty():
 		var factor=extent/maxf(1,float(frame.scale_hint))
@@ -1853,18 +1896,18 @@ func _draw_ore(sp: Vector2,res: Dictionary) -> void:
 
 func _draw_vent(sp: Vector2,res: Dictionary) -> void:
 	if world_resources.size()!=2:return
-	var tex: Texture2D=world_resources[1]
+	var tex: Texture2D=_resource_texture(res)
 	var rect=_resource_screen_rect(res)
 	var dimensions=_resource_dimensions(res)*32*zoom
 	_world_shadow(sp,dimensions*Vector2(.9,.7),.28)
 	if int(res.id)==selected_resource:_draw_resource_selection(sp,res)
-	world_canvas.draw_texture_rect(tex,rect,false,Color(.96,.97,.98) if float(res.amount)>0 else Color(.42,.5,.58))
+	world_canvas.draw_texture_rect(tex,rect,false,Color(.85,.84,.80) if float(res.amount)>0 else Color(.42,.45,.47))
 	if float(res.amount)>0:
 		var plume=assets.tera_plume(float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)+float(res.id)*.137)
 		if not plume.is_empty():
-			var factor=dimensions.x*.48/float(plume.scale_hint)
-			_world_transform(rect.position+rect.size*Vector2(.54,.57),0,Vector2.ONE*factor)
-			world_canvas.draw_texture(plume.texture,-plume.anchor,Color(1,1,1,.72))
+			var factor=dimensions.x*.22/float(plume.scale_hint)
+			_world_transform(rect.position+rect.size*Vector2(.52,.46),0,Vector2.ONE*factor)
+			world_canvas.draw_texture(plume.texture,-plume.anchor,Color(.7,.85,.9,.30))
 			_world_transform()
 
 func _draw_refinery_plume(building: Dictionary,rect: Rect2) -> void:
@@ -1917,6 +1960,9 @@ func _render_minimap(canvas: CanvasItem) -> void:
 		if not _visible(e) or e.get("container",-1)>=0:continue
 		var p=_center(e)
 		canvas.draw_rect(Rect2(rect.position+p*map_scale-Vector2.ONE,Vector2(4,4) if e.has("progress") else Vector2(2,2)).intersection(rect),_team_color(int(e.owner)))
+	for remembered in state.get("building_memory",[]):
+		var p=_center(remembered)
+		if _fog_value(int(p.y)*128+int(p.x))==1:canvas.draw_rect(Rect2(rect.position+p*map_scale-Vector2.ONE,Vector2(4,4)).intersection(rect),_team_color(int(remembered.owner)).darkened(.65))
 	var view_size=_view_rect().size/(32*zoom)*map_scale
 	var viewport_rect=Rect2(rect.position+camera*map_scale-view_size*.5,view_size).intersection(rect.grow(-1))
 	canvas.draw_rect(viewport_rect,Color.WHITE,false,1)
@@ -2046,3 +2092,17 @@ func _draw_heal_effect(fx: Dictionary,from: Vector2,to: Vector2,progress: float)
 	_world_transform(to,0,Vector2(1,.5))
 	world_canvas.draw_arc(Vector2.ZERO,(8+progress*10)*zoom,0,TAU,24,Color(tint,strength*.7),1.4*zoom,true)
 	_world_transform()
+
+func _report_public_void() -> void:
+	if remote_game.get("transport","")!="webrtc" or public_reported or spectator:return
+	public_reported=true
+	_api("/match/report",{"id":remote_game.id,"void":true},func(_data):pass)
+
+func _report_public_result(winners: Array, duration: float) -> void:
+	if remote_game.get("transport","")!="webrtc" or public_reported or spectator:return
+	public_reported=true
+	_api("/match/heartbeat",{"id":remote_game.id,"connected":true},func(_data):
+		_api("/match/report",{"id":remote_game.id,"winners":winners,"duration":duration},func(_result):pass)
+	)
+
+

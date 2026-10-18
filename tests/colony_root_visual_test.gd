@@ -12,5 +12,5 @@ func run():
 	for i in range(8):await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://build/colony-root-ground.png")
-	print("COLONY_ROOT_VISUAL tiles=",main.root_tile_cache.size()," pooled=",h.larva)
+	print("COLONY_ROOT_VISUAL tiles=",main.root_artist.tile_count," pooled=",h.larva)
 	main.queue_free();await process_frame;quit()

@@ -18,6 +18,14 @@ func run():
 				var hq=c.add_building(0,0,(ACData.point(base.pos)-Vector2(2,1.5)).floor(),true)
 				c.map.reset_solids(c.buildings)
 				var anchor=c.refinery_anchor(vent)
+				if race==2:
+					var powered=false
+					for dx in range(-8,9):
+						for dy in range(-8,9):
+							var tower=anchor+Vector2(dx,dy)
+							if not powered and tower.distance_to(anchor)>3 and tower.distance_to(anchor)<7 and c.placement(0,2,tower,false)=="":
+								c.add_building(0,2,tower,true);c.map.reset_solids(c.buildings);powered=true
+					check(powered,"owl tower site near vent %d/%d"%[theme,vent.id])
 				check(anchor.is_finite(),"finite anchor %d/%d/%d"%[theme,race,vent.id])
 				var error=c.placement(0,1,anchor,false)
 				report.append({"map":theme,"race":race,"vent":vent.id,"pos":vent.pos,"anchor":ACData.packed(anchor),"error":error})
@@ -50,3 +58,4 @@ func run():
 				for worker in workers:check(c._unit_fits(worker,ACData.point(worker.pos)),"starting worker clear %d/%d/%d/%d"%[theme,race,owner,worker.id])
 	var file=FileAccess.open("res://build/tera-map-audit.json",FileAccess.WRITE);file.store_string(JSON.stringify(report,"  "))
 	print("TERA_MAP_AUDIT "+JSON.stringify({"checks":checks,"failures":failures,"sites":report.size()}));quit(0 if failures.is_empty() else 1)
+

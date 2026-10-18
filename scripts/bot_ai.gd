@@ -146,7 +146,9 @@ static func build(c,owner: int,kind: int) -> bool:
 			for node in c.map.resources:
 				if node.type!="tera" or node.amount<=0 or ACData.point(node.pos).distance_to(home)>14:continue
 				var anchor: Vector2=c.refinery_anchor(node)
-				if c.placement(owner,kind,anchor)!="":continue
+				var placement_error: String=c.placement(owner,kind,anchor)
+				if placement_error.contains("규율탑"):return power_site(c,owner,workers,anchor,kind)
+				if placement_error!="":continue
 				var worker=builder(c,workers,anchor)
 				if not worker.is_empty():return c.command(owner,{"type":"build","kind":kind,"pos":ACData.packed(anchor),"ids":[worker.id]})==""
 			continue
@@ -155,6 +157,22 @@ static func build(c,owner: int,kind: int) -> bool:
 			if pos.distance_to(home)<4 or blocks_lane(c,owner,pos,d) or c.placement(owner,kind,pos)!="":continue
 			var worker=builder(c,workers,pos)
 			if not worker.is_empty():return c.command(owner,{"type":"build","kind":kind,"pos":ACData.packed(pos),"ids":[worker.id]})==""
+	return false
+
+static func power_site(c,owner: int,workers: Array,anchor: Vector2,kind: int) -> bool:
+	if c.buildings.any(func(b):return b.owner==owner and b.kind==2 and b.hp>0 and b.progress<1 and c.center(b).distance_to(anchor)<10):return false
+	var d=ACData.building(2,kind)
+	for ring in range(3,8):
+		for offset in [Vector2(ring,0),Vector2(-ring,0),Vector2(0,ring),Vector2(0,-ring),Vector2(ring,ring),Vector2(-ring,-ring)]:
+			var pos=(anchor+offset).floor()
+			if c.placement(owner,2,pos)!="" or blocks_lane(c,owner,pos,ACData.building(2,2)):continue
+			var middle=pos+Vector2(1,1)
+			var covered=true
+			for corner in [anchor,anchor+Vector2(d.w-1,0),anchor+Vector2(0,d.h-1),anchor+Vector2(d.w-1,d.h-1)]:
+				if middle.distance_to(corner)>11.5:covered=false
+			if not covered:continue
+			var worker=builder(c,workers,pos)
+			if not worker.is_empty():return c.command(owner,{"type":"build","kind":2,"pos":ACData.packed(pos),"ids":[worker.id]})==""
 	return false
 
 static func expansion_site(c,owner: int,workers: Array,hq: Dictionary) -> Dictionary:
@@ -168,6 +186,7 @@ static func expansion_site(c,owner: int,workers: Array,hq: Dictionary) -> Dictio
 		if minerals<500:continue
 		for b in c.buildings:
 			if b.hp<=0:continue
+			if int(b.owner)==owner and int(b.race)==2 and int(b.kind)==2:continue
 			if (int(b.owner)==owner or c.can_see(owner,b)) and c.center(b).distance_to(site)<(10 if c.allied(owner,int(b.owner)) else 22):occupied=true;break
 		if occupied:continue
 		for enemy in c.units:
@@ -184,7 +203,8 @@ static func expansion_site(c,owner: int,workers: Array,hq: Dictionary) -> Dictio
 		if value>=score:continue
 		for offset in [Vector2.ZERO,Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN]:
 			var anchor=(site-Vector2(d.w,d.h)*.5+offset).floor()
-			if c.placement(owner,0,anchor)=="":
+			var error: String=c.placement(owner,0,anchor)
+			if error=="" or (int(c.players[owner].race)==2 and error.contains("규율탑")):
 				best={"pos":ACData.packed(anchor),"worker":worker.id,"base":base};score=value;break
 	return best
 
@@ -194,6 +214,8 @@ static func expand(c,owner: int,workers: Array,hq: Dictionary) -> bool:
 		if int(b.owner)==owner and int(b.kind)==0 and b.hp>0 and b.progress<1:return false
 	var choice=expansion_site(c,owner,workers,hq)
 	if choice.is_empty():return false
+	if int(c.players[owner].race)==2 and c.placement(owner,0,ACData.point(choice.pos)).contains("규율탑"):
+		return power_site(c,owner,workers,ACData.point(choice.pos),0)
 	return c.command(owner,{"type":"build","kind":0,"pos":choice.pos,"ids":[choice.worker]})==""
 
 static func redistribute(c,owner: int,workers: Array,bases: Array) -> void:

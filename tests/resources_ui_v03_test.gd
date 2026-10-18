@@ -17,29 +17,30 @@ func click(point: Vector2,button: int=MOUSE_BUTTON_LEFT) -> void:
 	var motion=InputEventMouseMotion.new()
 	motion.position=point
 	motion.global_position=point
-	Input.parse_input_event(motion)
+	# Sprite positions are viewport-local; the game may letterbox its window.
+	root.push_input(motion,true)
 	await frames(2)
 	var event=InputEventMouseButton.new()
 	event.position=point
 	event.global_position=point
 	event.button_index=button
 	event.pressed=true
-	Input.parse_input_event(event)
+	root.push_input(event,true)
 	await frames(2)
 	event=event.duplicate()
 	event.pressed=false
-	Input.parse_input_event(event)
+	root.push_input(event,true)
 	await frames(2)
 
 func press(code: Key) -> void:
 	var event=InputEventKey.new()
 	event.keycode=code
 	event.pressed=true
-	Input.parse_input_event(event)
+	root.push_input(event,true)
 	await frames(2)
 	event=event.duplicate()
 	event.pressed=false
-	Input.parse_input_event(event)
+	root.push_input(event,true)
 	await frames(2)
 
 func resource_point(resource: Dictionary) -> Vector2:
@@ -48,14 +49,17 @@ func resource_point(resource: Dictionary) -> Vector2:
 		for sx in [.5,.35,.65]:
 			var point=area.position+area.size*Vector2(sx,sy)
 			var picked: Dictionary=main._resource_at(point)
-			if not picked.is_empty() and int(picked.id)==int(resource.id) and main._hit_test(point)<0:return point
+			if not picked.is_empty() and int(picked.id)==int(resource.id) and main._hit_test(point)<0 and main._world_visible_at(point):return point
 	return Vector2.INF
 
 func focus_resource(resource: Dictionary) -> void:
 	main.camera=ACData.point(resource.pos)+Vector2(4,0)
 	main._clamp_camera()
 	main._sync_world_canvas()
-	await create_timer(.13).timeout
+	# Initial terrain construction may occupy a full frame. Wait for actual
+	# drawing so entity hit rectangles belong to this map and camera.
+	await frames(3)
+	await RenderingServer.frame_post_draw
 
 func capture(name: String) -> void:
 	main._update_hud()
@@ -70,18 +74,31 @@ func run() -> void:
 	root.add_child(main)
 	await frames(5)
 	for race in range(3):
-		main._start_local({"map":race,"players":[{"race":race},{"race":(race+1)%3}]})
+		main._start_local({"map":race,"spawn_slots":[0,2],"players":[{"race":race},{"race":(race+1)%3}]})
 		main.paused=true
+		main.set_process(false)
 		main.settings.edge_scroll=false
 		var core=main.core
 		var ore: Dictionary={}
 		var vent: Dictionary={}
 		for node in core.map.resources:
+			if int(node.get("slot",-1))!=int(core.players[0].spawn_slot):continue
 			if node.type=="as" and ore.is_empty():ore=node
 			if node.type=="tera" and vent.is_empty():vent=node
 		check(not ore.is_empty() and not vent.is_empty(),"both resource types exist on map %d"%race)
 		if ore.is_empty() or vent.is_empty():continue
-		main.spectator=true
+		if race==2:
+			# Owl refineries retain their tower requirement; prepare legal power.
+			var powered=false;var anchor=core.refinery_anchor(vent)
+			for x in range(-6,7):
+				for y in range(-6,7):
+					var site=anchor+Vector2(x,y)
+					if not powered and site.distance_to(anchor)>3 and core.placement(0,2,site,false)=="":
+						core.add_building(0,2,site,true);core.map.reset_solids(core.buildings);powered=true
+			check(powered,"owl vent fixture has a legal nearby power tower")
+		# Commands are intentionally disabled for spectators. Test a real player
+		# and their own starting deposits, within the refinery's HQ radius.
+		main.spectator=false
 		main.state=core.snapshot(0)
 		await focus_resource(ore)
 		var point=resource_point(ore)
@@ -89,6 +106,9 @@ func run() -> void:
 		if not point.is_finite():continue
 		await click(point)
 		check(main.selected_resource==ore.id and main.selected.is_empty(),"As uses exclusive resource selection on map %d"%race)
+		if main._selected_resource_data().is_empty():
+			print("RESOURCE_CLICK_DIAGNOSTIC ",point," viewport=",root.size," main=",main.size," pointer=",main.pointer_position," can_point=",main._can_point_world(point)," hovered=",root.gui_get_hovered_control())
+			quit(1);return
 		check(main._selected_resource_data().type=="as" and main._selected_resource_data().initial_amount==1500,"As selection retains its resource schema on map %d"%race)
 		check(main.battle_hud.action_buttons.is_empty() and not main.battle_hud._resource.is_empty(),"resource HUD has deposit information and no commands on map %d"%race)
 		var area: Rect2=main._resource_screen_rect(ore)
@@ -132,7 +152,8 @@ func run() -> void:
 		await click(point)
 		check(main.selected_resource==vent.id and main._selected_resource_data().type=="tera","Tera supports deposit selection on map %d"%race)
 		area=main._resource_screen_rect(vent)
-		texture=main.world_resources[1]
+		texture=main._resource_texture(vent)
+		check(texture==main.tera_theme_textures[race],"Tera uses this map's terrain-matched sprite on map %d"%race)
 		check(is_equal_approx(area.size.x,128*main.zoom) and is_equal_approx(area.size.y/area.size.x,float(texture.get_height())/texture.get_width()),"Tera renders at four tiles with its original aspect on map %d"%race)
 		main.selected_resource=-1
 		main.selected=[worker.id]
@@ -144,7 +165,11 @@ func run() -> void:
 		core.players[0].tera=1000
 		var building_count=core.buildings.size()
 		await click(point)
-		check(core.buildings.size()==building_count+1,"clicking the Tera sprite places its refinery on map %d"%race)
+		check(worker.order=="build_move" or core.buildings.size()==building_count+1,"clicking the Tera sprite sends its refinery construction order on map %d"%race)
+		for tick in range(800):
+			if core.buildings.size()>building_count:break
+			core.step(.05)
+		check(core.buildings.size()==building_count+1,"worker reaches the clicked Tera and places its refinery on map %d"%race)
 		if core.buildings.size()!=building_count+1:continue
 		var refinery=core.buildings[-1]
 		check(ACData.point(refinery.pos).distance_to(expected)<.001,"refinery and deposit centers are aligned on map %d"%race)

@@ -48,6 +48,7 @@ func choose_background(index: int=-1) -> void:
 	var remembered=int(preferences.get("last_played_race",0)) if preferences is Dictionary else 0
 	background_index=clampi(remembered if index<0 else index,0,2)
 	var path="res://assets/menu_planet_%d_wide_v05.png"%background_index
+	if background_index==1:path="res://assets/menu_planet_1_roots_v058.png"
 	art=null
 	if ResourceLoader.exists(path):
 		if not _background_cache.has(path):_background_cache[path]=load(path)
