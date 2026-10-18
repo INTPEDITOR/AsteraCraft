@@ -1,0 +1,4 @@
+const fs=require('fs');const b=fs.readFileSync(process.argv[2]);const pe=b.readUInt32LE(60),opt=pe+24,n=b.readUInt16LE(pe+6),os=b.readUInt16LE(pe+20),dir=opt+(b.readUInt16LE(opt)===0x20b?112:96),rrva=b.readUInt32LE(dir+16);
+const sections=[];for(let i=0;i<n;i++){let s=opt+os+i*40;sections.push({rva:b.readUInt32LE(s+12),size:Math.max(b.readUInt32LE(s+8),b.readUInt32LE(s+16)),file:b.readUInt32LE(s+20)});}
+function at(rva){let s=sections.find(x=>rva>=x.rva&&rva<x.rva+x.size);if(!s)throw Error('bad rva');return s.file+rva-s.rva;}const base=at(rrva);
+function walk(off,keys=[]){const p=base+off,c=b.readUInt16LE(p+12)+b.readUInt16LE(p+14);for(let i=0;i<c;i++){const q=p+16+i*8,k=b.readUInt32LE(q),v=b.readUInt32LE(q+4),ks=keys.concat(k);if(v>>>31)walk(v&0x7fffffff,ks);else if([3,14].includes(ks[0])){const d=base+v,len=b.readUInt32LE(d+4),start=at(b.readUInt32LE(d));console.log(ks.join('/'),len,b.subarray(start,start+Math.min(len,110)).toString('hex'));}}}walk(0);

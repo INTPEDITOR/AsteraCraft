@@ -151,18 +151,23 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 	_symbol_material.shader=shader
 	_symbol_material.set_shader_parameter("symbol_color",SYMBOL_COLOR)
 	for faction in range(3):
-		var portrait_path="res://assets/portraits_%d.png"%faction
+		var portrait_path="res://assets/portraits_%d_faces_v059.png"%faction
 		if ResourceLoader.exists(portrait_path):
 			var sheet: Texture2D=load(portrait_path)
-			for kind in range(13):
+			for kind in range(14 if faction==1 else 13):
 				var atlas=AtlasTexture.new()
 				atlas.atlas=sheet
 				atlas.region=Rect2(Vector2(kind%4,int(kind/4))*sheet.get_size()/4,sheet.get_size()/4)
 				# Citrus source sheet has painted separators at its cell edges.
-				if faction==1:atlas.region=atlas.region.grow(-4)
+				atlas.region=atlas.region.grow(-3)
+				var face=Rect2(.05,.03,.90,.90)
+				if faction==1:
+					face=[Rect2(.13,.04,.78,.78),Rect2(.28,.01,.70,.70),Rect2(.12,.05,.85,.85),Rect2(.15,.03,.82,.82),Rect2(.18,.08,.80,.80),Rect2(.36,.13,.62,.62),Rect2(.18,.22,.78,.78),Rect2(.30,.10,.68,.68),Rect2(.15,.17,.78,.78),Rect2(.27,.02,.70,.70),Rect2(.24,.19,.74,.74),Rect2(.16,.15,.82,.82),Rect2(.22,.20,.65,.65),Rect2(.12,.09,.82,.82)][kind]
+				elif faction==0 and kind in [5,6]:face=Rect2(.22,.02,.74,.74)
+				elif faction==2 and kind in [1,2,5,7]:face=Rect2(.25,.02,.73,.73)
+				atlas.region=Rect2(atlas.region.position+face.position*atlas.region.size,face.size*atlas.region.size)
 				atlas.filter_clip=true
 				portraits["%d:%d"%[faction,kind]]=atlas
-	if ResourceLoader.exists("res://assets/medic_portrait_v05.png"):portraits["0:4"]=load("res://assets/medic_portrait_v05.png")
 	if ResourceLoader.exists("res://assets/building_portraits_v4.png"):
 		var source: Texture2D=load("res://assets/building_portraits_v4.png")
 		for faction in range(3):
@@ -621,12 +626,12 @@ func _update_details() -> void:
 	_portrait=portraits.get("%d:%d"%[int(_unit.race),int(_unit.kind)]) if not building else (building_portraits[int(_unit.race)] if building_portraits.size()==3 else _unit_icon)
 	if _is_brood():
 		_unit_icon=main.assets.unit(1,13,Vector2(1,1),"morph" if str(_unit.get("brood_state","idle"))=="morph" else "idle",float(main.state.get("time",0))).get("texture")
-		_portrait=_unit_icon
+		_portrait=portraits.get("1:13",_unit_icon)
 	if count>1:
 		var leader=main._portrait_entity()
 		if not leader.is_empty() and not leader.has("progress"):
 			if int(leader.race)==1 and int(leader.kind)==13:
-				_portrait=main.assets.unit(1,13,Vector2(1,1)).get("texture")
+				_portrait=portraits.get("1:13")
 			else:_portrait=portraits.get("%d:%d"%[int(leader.race),int(leader.kind)])
 		name_label.text="선택한 부대  ·  %d / 12"%count
 		detail_label.text=""
@@ -753,6 +758,9 @@ func _set_inline_help(button: Button,title: String,text: String,activate: bool=t
 	)
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT and is_visible_in_tree() and main!=null and main.page=="game":
+		if _portrait_rect().has_point(get_global_transform_with_canvas().affine_inverse()*event.position):
+			main._focus_selection(true);get_viewport().set_input_as_handled();return
 	# Disabled controls and their hit overlays must still explain their costs.
 	if not event is InputEventMouseMotion or not is_visible_in_tree() or main==null or main.page!="game":return
 	var hovered: Button=null
@@ -1329,7 +1337,11 @@ func _draw() -> void:
 	var portrait=_portrait_rect()
 	if _portrait!=null:
 		draw_rect(portrait,Color("080909"))
-		_draw_fit(_portrait,portrait.grow(-4))
+		var area=portrait.grow(-4)
+		var source_size=_portrait.get_size()
+		var scale=maxf(area.size.x/source_size.x,area.size.y/source_size.y)
+		var crop=area.size/scale
+		draw_texture_rect_region(_portrait,area,Rect2((source_size-crop)*.5,crop))
 	var content=_detail_content_rect()
 	if _hover_help.is_empty() and (main.selected.size()==1 or not _resource.is_empty()) and _unit_icon!=null:
 		_draw_fit(_unit_icon,_unit_preview_rect())

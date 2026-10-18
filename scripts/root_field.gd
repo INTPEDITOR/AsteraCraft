@@ -81,6 +81,11 @@ func update(core) -> void:
 	var signature=hash(signature_data);var tick=floori(core.time*4)
 	if tick==last_tick and signature==source_signature:return
 	var geometry=hash([core.map.terrain,core.map.height_map,core.map.source_detail_active])
+	if geometry==geometry_signature and signature==source_signature and last_tick>=0:
+		var mature=true
+		for source in sources.values():
+			if float(last_tick)/4.0<float(source.started)+(RADIUS-SEED_RADIUS)/SPEED+.25+FADE_TIME:mature=false;break
+		if mature:last_tick=tick;return
 	if geometry!=geometry_signature:
 		geometry_signature=geometry;sources.clear();allowed.resize(WIDTH*WIDTH)
 		for y in range(WIDTH):

@@ -1,4 +1,10 @@
 extends "res://tests/map_photo_tour.gd"
+func photograph(theme,label,point,magnification=1.0):
+	main.zoom=magnification;main.camera=point;main._clamp_camera()
+	main._sync_world_canvas()
+	for i in range(70):
+		main.world_canvas.queue_redraw();await process_frame
+	await super.photograph(theme,label,point,magnification)
 func run():
 	root.size=Vector2i(1600,900)
 	main=load("res://tests/menu_v04_harness.gd").new();root.add_child(main);main.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);await frames(4)

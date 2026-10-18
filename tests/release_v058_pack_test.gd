@@ -37,9 +37,11 @@ func run() -> void:
 	check(load("res://assets/citrus_root_ground_v058.png") is Texture2D,"citrus woody root ground art bundled")
 	check(load("res://assets/menu_planet_1_roots_v058.png") is Texture2D,"new citrus planet menu art bundled")
 	check(ACCore.TERA_INTERVAL==3.0,"faster Tera cycle bundled")
-	check(str(ProjectSettings.get_setting("application/config/version"))=="0.5.8","exported project version")
+	check(str(ProjectSettings.get_setting("application/config/version"))=="0.5.9","exported project version")
 	var game=JSON.parse_string(FileAccess.get_file_as_string("res://data/game.json"))
-	check(str(game.version)=="0.5.8","exported game version")
+	check(str(game.version)=="0.5.9","exported game version")
+	for file in ["citrus_bat_leaf_v059.png","portraits_0_faces_v059.png","portraits_1_faces_v059.png","portraits_2_faces_v059.png","game_icon.png"]:
+		check(load("res://assets/"+file) is Texture2D,"new v059 asset bundled: "+file)
 	check(game.units[1][1].as==50 and game.units[1][1].production_count==2,"exported shell claw pair cost")
 	check(FileAccess.file_exists("res://data/original_maps.json"),"original terrain data bundled")
 	check(load("res://assets/building_1_02_nutrient_v053.png") is Texture2D,"new nutrient sac bundled")

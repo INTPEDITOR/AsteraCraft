@@ -51,6 +51,9 @@ var dragging=false
 var middle_drag=false
 var attack_mode=false
 var build_kind=-1
+var last_group_key=-1
+var last_group_time=-1000
+var root_viewer_signature=0
 var build_panel=false
 var spectator=false
 var paused=false
@@ -296,11 +299,17 @@ func _fetch_rooms() -> void:
 func _room_menu() -> void:
 	_menus().room_menu()
 
+var room_update_pending=false
 func _room_update(data: Dictionary) -> void:
+	if room_update_pending or room.is_empty():return
+	room_update_pending=true
+	_update_room_text()
 	data.id=room.id
 	_api("/room/update",data,func(result):
-		if result.has("room"):room=result.room;_update_room_text()
-		else:_notify(result.get("error","변경 실패"))
+		room_update_pending=false
+		if page!="room":return
+		if result.has("room"):room=result.room;_menus().room_notice_until=0;_update_room_text()
+		else:_menus().show_room_notice(str(result.get("error","변경 실패")))
 	)
 
 func _update_room_text() -> void:
@@ -798,15 +807,32 @@ func _command_point(mouse: Vector2) -> Vector2:
 
 func _build_position(mouse: Vector2) -> Vector2:
 	var point=screen_to_world(mouse)
-	if build_kind!=1:return point.floor()
+	var definition=ACData.building(int(state.players[local_slot].race),build_kind)
+	# Commands and ghosts share the footprint centre, not its top-left corner.
+	if build_kind!=1:return (point-Vector2(definition.w,definition.h)*.5).round()
 	var resource=_resource_at(mouse)
 	if resource.is_empty() or resource.type!="tera":
 		for node in state.get("resources",[]):
 			if node.type=="tera" and Rect2(ACData.point(node.pos)-_resource_dimensions(node)*.5,_resource_dimensions(node)).grow(.4).has_point(point):resource=node;break
 	if not resource.is_empty() and resource.type=="tera":
-		var definition=ACData.building(int(state.players[local_slot].race),1)
 		return ACData.point(resource.pos)-Vector2(float(definition.w)-1,float(definition.h)-1)*.5
-	return point.floor()
+	return (point-Vector2(float(definition.w)-1,float(definition.h)-1)*.5).round()
+
+func _focus_selection(portrait_only: bool=false) -> void:
+	var target=Vector2.ZERO;var count=0
+	if selected_resource>=0:
+		for resource in state.get("resources",[]):
+			if int(resource.id)==selected_resource:target=ACData.point(resource.pos);count=1;break
+	elif portrait_only:
+		var entity=_portrait_entity()
+		if not entity.is_empty():target=_center(entity);count=1
+	else:
+		for id in selected:
+			var entity=_entity(int(id))
+			if not entity.is_empty():target+=_center(entity);count+=1
+	if count==0:return
+	camera=target/float(count);camera_velocity=Vector2.ZERO
+	_clamp_camera();render_rects.clear();queue_redraw()
 
 func _center(e: Dictionary) -> Vector2:
 	var p=ACData.point(e.pos)
@@ -896,9 +922,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			var key=int(event.keycode-KEY_0)
 			if event.ctrl_pressed:
 				if selected_resource<0:groups[key]=selected.slice(0,12)
+				last_group_key=-1
 			else:
 				selected_resource=-1
 				selected=groups.get(key,[]).filter(func(id):return not _entity(int(id)).is_empty()).slice(0,12)
+				var now=Time.get_ticks_msec()
+				if last_group_key==key and now-last_group_time<=350:_focus_selection()
+				last_group_key=key;last_group_time=now
 				_selection_voice()
 		_update_hud()
 		queue_redraw()
@@ -1509,8 +1539,11 @@ func _draw() -> void:
 	draw_rect(_world_render_rect(),Color("090e13"))
 
 func _draw_root_ground(_view: Rect2) -> void:
+	var viewer=hash([local_slot,spectator,network_client,replay_mode])
+	if viewer!=root_viewer_signature:
+		root_viewer_signature=viewer;root_artist.chunks.clear();root_artist.pending.clear();root_artist.chunk_input=0
 	var packed=state.get("roots",PackedInt32Array())
-	if not network_client and not replay_mode and core!=null:packed=core.roots.snapshot(core,-1 if spectator else local_slot)
+	if spectator and not network_client and not replay_mode and core!=null:packed=core.roots.snapshot(core,-1)
 	var fog_signature=hash([state.get("fog",[]),state.get("explored",[]),spectator])
 	root_artist.draw(world_canvas,draw_map,packed,_fog_value,zoom,world_to_screen,fog_signature)
 
@@ -1520,15 +1553,12 @@ func _draw_world() -> void:
 	world_canvas.draw_rect(view,Color("0a1119"))
 	terrain_artist.draw(world_canvas,draw_map,view,zoom,world_to_screen,screen_to_world,_fog_value,float(state.get("time",0)))
 	_draw_root_ground(view)
+	var objects: Array=[]
 	for res in state.get("resources",[]):
 		var p=ACData.point(res.pos)
 		if not draw_map.inside(Vector2i(p)):continue
-		var sp=_ground_point(p)
 		if not _resource_screen_rect(res).intersects(view) or _fog_value(int(p.y)*128+int(p.x))==0:continue
-		if res.type=="as" and res.amount>0:_draw_ore(sp,res)
-		elif res.type=="tera" and _resource_refinery(res).is_empty():_draw_vent(sp,res)
-		elif int(res.id)==selected_resource:_draw_resource_selection(sp,res)
-	var objects: Array=[]
+		objects.append(res)
 	for remembered in state.get("building_memory",[]):
 		var point=_center(remembered)
 		if _fog_value(int(point.y)*128+int(point.x))==1 and view.grow(200).has_point(_ground_point(point)):objects.append(remembered)
@@ -1541,7 +1571,12 @@ func _draw_world() -> void:
 	)
 	render_rects.clear()
 	for e in objects:
-		if e.has("progress"):_draw_building(e)
+		if e.has("amount"):
+			var sp=_ground_point(ACData.point(e.pos))
+			if e.type=="as" and e.amount>0:_draw_ore(sp,e)
+			elif e.type=="tera" and _resource_refinery(e).is_empty():_draw_vent(sp,e)
+			elif int(e.id)==selected_resource:_draw_resource_selection(sp,e)
+		elif e.has("progress"):_draw_building(e)
 		else:_draw_unit(e)
 	for contact in state.get("shimmers",[]):_draw_cloak_shimmer(contact)
 	for id in selected:
@@ -1600,6 +1635,8 @@ func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
 	world_canvas.draw_texture_rect(texture,Rect2(point+Vector2(-width*.5,front-height),Vector2(width,height)),false,tint)
 
 func _render_depth(e: Dictionary) -> float:
+	if e.has("amount"):
+		return _ground_point(ACData.point(e.pos)+Vector2(0,maxf(0,_resource_dimensions(e).y*.5-.5))).y
 	if e.has("progress"):
 		var definition=ACData.building(int(e.race),int(e.kind))
 		return _ground_point(ACData.point(e.pos)+Vector2(float(definition.w)*.5,float(definition.h)-.5)).y
@@ -2094,12 +2131,12 @@ func _draw_heal_effect(fx: Dictionary,from: Vector2,to: Vector2,progress: float)
 	_world_transform()
 
 func _report_public_void() -> void:
-	if remote_game.get("transport","")!="webrtc" or public_reported or spectator:return
+	if remote_game.get("transport","")!="webrtc" or public_reported or (spectator and not remote_game.get("is_host",false)):return
 	public_reported=true
 	_api("/match/report",{"id":remote_game.id,"void":true},func(_data):pass)
 
 func _report_public_result(winners: Array, duration: float) -> void:
-	if remote_game.get("transport","")!="webrtc" or public_reported or spectator:return
+	if remote_game.get("transport","")!="webrtc" or public_reported or (spectator and not remote_game.get("is_host",false)):return
 	public_reported=true
 	_api("/match/heartbeat",{"id":remote_game.id,"connected":true},func(_data):
 		_api("/match/report",{"id":remote_game.id,"winners":winners,"duration":duration},func(_result):pass)

@@ -757,6 +757,16 @@ func command(owner: int, cmd: Dictionary) -> String:
 			players[owner].as+=d.as*.75
 			players[owner].tera+=d.tera*.75
 			b.hp=0
+			if int(b.race)==1 and b.get("initiated",false):
+				# Restore only an actually consumed builder, exactly once.
+				b.initiated=false
+				map.reset_solids(buildings.filter(func(item):return item.hp>0))
+				collision_index_valid=false
+				var restored=add_unit(owner,0,unit_free_position(1,0,center(b)))
+				var worker_data=ACData.unit(1,0)
+				restored.hp=clampf(float(b.get("builder_hp",worker_data.hp)),1,float(worker_data.hp))
+				restored.carried=int(b.get("builder_carried",0))
+				_recalculate_supply()
 		else:
 			if not b.queue.is_empty():
 				if int(b.race)==1:return CITRUS_BROOD.cancel_queue(self,owner,b,int(cmd.get("queue_index",-1)))
@@ -1484,6 +1494,8 @@ func _tick_building(b: Dictionary, dt: float) -> void:
 			b.initiated=true
 			if int(b.race)==1:
 				# Morph only on arrival. This is consumption, not a combat death.
+				b.builder_hp=w.hp
+				b.builder_carried=w.get("carried",0)
 				_release_mining_claim(w)
 				w.hp=0.0;w.dead_processed=true;w.order="consumed"
 				w.target=-1;w.path=[];w.build_queue=[]

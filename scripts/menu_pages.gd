@@ -17,6 +17,11 @@ var room_preview: ACLobbyMapPreview
 var room_map_name: Label
 var replay_file=""
 var observer_button: Button
+var team_button: Button
+var add_bot_button: Button
+var remove_bot_button: Button
+var room_notice=""
+var room_notice_until=0
 
 func _init(controller: Control) -> void:
 	main=controller
@@ -348,28 +353,41 @@ func room_menu() -> void:
 	main.room_detail=label(p,"",385,740,18,350)
 	main.room_detail.size.y=48
 	main.room_detail.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	var team=button(p,"팀 변경",350,445,160,func():
+	team_button=button(p,"팀 변경",350,445,160,func():
 		for member in main.room.members:
 			if member.user==main.account.id:main._room_update({"team":1-int(member.team)})
 	)
-	room_controls.append(team)
+	room_controls.append(team_button)
 	observer_button=button(p,"관전자로 전환",520,445,175,func():
 		for member in main.room.members:
 			if member.user==main.account.id:main._room_update({"observer":not member.get("observer",false)})
 	)
 	room_controls.append(observer_button)
 	if owner:
-		room_controls.append(button(p,"컴퓨터 추가",705,445,180,func():main._room_update({"add_bot":true})))
-		room_controls.append(button(p,"컴퓨터 제거",895,445,180,func():main._room_update({"remove_bot":true})))
+		add_bot_button=button(p,"컴퓨터 추가",705,445,180,func():main._room_update({"add_bot":true}))
+		remove_bot_button=button(p,"컴퓨터 제거",895,445,180,func():main._room_update({"remove_bot":true}))
+		room_controls.append(add_bot_button);room_controls.append(remove_bot_button)
+	for control in [team_button,observer_button,add_bot_button,remove_bot_button]:
+		if is_instance_valid(control):control.add_theme_font_size_override("font_size",16)
 	ready_button=button(p,"준비",350,520,300,func():
 		for member in main.room.members:
 			if member.user==main.account.id:main._room_update({"ready":not member.ready})
 	,48)
-	button(p,"방 나가기",830,520,220,func():main._api("/room/leave",{},func(_data):main.room={};main._rooms_menu()))
+	button(p,"방 나가기",830,520,220,leave_room)
 	modal.closed.disconnect(modal.closed.get_connections()[0].callable)
-	modal.closed.connect(func():main._api("/room/leave",{},func(_data):main.room={};main._rooms_menu()))
+	modal.closed.connect(leave_room)
 	update_room_text()
 	main.poll_clock=.15
+
+func show_room_notice(message: String) -> void:
+	room_notice=message;room_notice_until=Time.get_ticks_msec()+6000
+	update_room_text()
+
+func leave_room() -> void:
+	main._api("/room/leave",{},func(data):
+		if data.has("error"):show_room_notice(str(data.error));return
+		main.room={};main._rooms_menu()
+	)
 
 func update_room_text() -> void:
 	if not is_instance_valid(main.room_detail):return
@@ -380,6 +398,13 @@ func update_room_text() -> void:
 	room_preview.set_map(int(r.map))
 	room_map_name.text=ACLobbyMapPreview.map_names()[int(r.map)]
 	var self_observer=false
+	var player_count=0
+	var observer_count=0
+	var bot_count=0
+	for member in r.members:
+		if member.get("observer",false):observer_count+=1
+		else:player_count+=1
+		if member.get("bot",false):bot_count+=1
 	for index in range(8):
 		var row=room_rows[index]
 		if index>=r.members.size():
@@ -396,18 +421,34 @@ func update_room_text() -> void:
 		if member.user==main.account.id:
 			self_observer=observing
 			observer_button.text="플레이어로 전환" if observing else "관전자로 전환"
-			if is_instance_valid(ready_button):ready_button.text="준비 취소" if member.ready else "준비"
-			if is_instance_valid(main.race_select):main.race_select.select(int(member.race))
+			if is_instance_valid(ready_button):ready_button.text="준비 취소" if member.ready else ("호스팅 준비" if observing and r.owner==main.account.id else "준비")
+			row.race.visible=observing
+			if is_instance_valid(main.race_select):
+				main.race_select.visible=not observing
+				main.race_select.select(int(member.race))
 	main.room_detail.text="모두 준비하면 5초 뒤 시작 · 남은 3초부터 준비 확정"
+	if self_observer and r.owner==main.account.id:main.room_detail.text="방장 관전 · 내 PC로 호스팅 · 참가자와 방장 모두 준비하면 시작"
+	if player_count<2:main.room_detail.text="전투할 플레이어가 2명 이상 필요합니다. 컴퓨터도 참가할 수 있습니다."
 	if r.get("countdown")!=null:main.room_detail.text="%d초 뒤 전투 시작%s"%[int(r.countdown)," · 준비 확정" if r.get("locked",false) else ""]
 	elif r.get("start_error")!=null:main.room_detail.text=str(r.start_error)
+	if Time.get_ticks_msec()<room_notice_until:main.room_detail.text=room_notice
 	if is_instance_valid(main.map_select):main.map_select.select(int(r.map))
 	if is_instance_valid(main.mode_select):main.mode_select.select(1 if r.mode=="teams" else 0)
-	var locked=bool(r.get("locked",false))
-	if is_instance_valid(ready_button):ready_button.disabled=locked or self_observer
+	var locked=bool(r.get("locked",false)) or main.room_update_pending
+	if is_instance_valid(ready_button):ready_button.disabled=locked or (self_observer and r.owner!=main.account.id)
 	for control in room_controls:
 		if is_instance_valid(control):control.set("disabled",locked or (control.get_meta("owner_only",false) and r.owner!=main.account.id))
 	if is_instance_valid(main.race_select):main.race_select.disabled=locked or self_observer
+	team_button.disabled=locked or self_observer or r.mode!="teams"
+	team_button.tooltip_text="팀전에서 플레이어의 팀을 변경합니다." if r.mode!="teams" else "1팀과 2팀을 전환합니다."
+	observer_button.disabled=locked or (player_count>=4 if self_observer else observer_count>=4)
+	observer_button.tooltip_text="방장도 관전할 수 있으며 내 PC가 호스팅을 계속합니다." if r.owner==main.account.id else "플레이어와 관전자를 전환합니다. 각 정원은 4명입니다."
+	if is_instance_valid(add_bot_button):
+		add_bot_button.disabled=locked or player_count>=4 or r.members.size()>=8 or r.owner!=main.account.id
+		add_bot_button.tooltip_text="플레이어 정원은 컴퓨터를 포함해 4명입니다."
+	if is_instance_valid(remove_bot_button):
+		remove_bot_button.disabled=locked or bot_count==0 or r.owner!=main.account.id
+		remove_bot_button.tooltip_text="마지막으로 추가한 컴퓨터를 제거합니다."
 
 func ladder() -> void:
 	if not _account_ready():account_menu();return

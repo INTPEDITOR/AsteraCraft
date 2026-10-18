@@ -137,6 +137,7 @@ func load_all() -> void:
 			var texture: Texture2D=load(String(info.file))
 			repaired_air[key]={"texture":texture,"anchor":ACData.point(info.anchor),"scale_hint":float(info.scale_hint),"embedded_pilot":bool(info.embedded_pilot),"overhead":true,"cell_size":texture.get_size()}
 	_load_graphics_v052()
+	_load_citrus_bat()
 	var fire: Dictionary=graphics_repairs.get("fire",{})
 	if not fire.is_empty() and ResourceLoader.exists(String(fire.file)):
 		var source: Texture2D=load(String(fire.file))
@@ -152,6 +153,21 @@ func load_all() -> void:
 				frame.muzzle=ACData.point(fire.muzzles[row][col])*Vector2(cell.size)-Vector2(used.position)-frame.anchor
 				sequence.append(frame)
 			repaired_fire["0:%d"%int(fire.kinds[row])]=sequence
+
+func _load_citrus_bat() -> void:
+	var path="res://assets/citrus_bat_leaf_v059.png"
+	if not ResourceLoader.exists(path):return
+	var source: Texture2D=load(path)
+	var cell=source.get_size()/Vector2(5,2)
+	var frames=[]
+	for row in range(2):
+		for col in range(5):
+			var texture=AtlasTexture.new();texture.atlas=source
+			texture.region=Rect2(Vector2(col,row)*cell,cell)
+			# Register head/body pivots between raised and lowered wings.
+			var shift=[Vector2(-1,-95.5),Vector2(35,-86.5),Vector2(-8,-109.5),Vector2(4,-131.5),Vector2(0,-115.5)][col] if row==1 else Vector2.ZERO
+			frames.append({"texture":texture,"anchor":cell*.5+shift,"scale_hint":cell.x*.84,"embedded_pilot":true,"cell_size":cell})
+	directional_air["1:10"]={"frames":frames,"columns":5,"phases":2,"direction_flips":[false,false,false,false,false]}
 
 func _load_graphics_v052() -> void:
 	if not FileAccess.file_exists("res://data/graphics_v052.json"):return

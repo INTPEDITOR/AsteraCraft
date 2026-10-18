@@ -3,7 +3,8 @@ config_version=5
 
 [application]
 config/name="아스테라크래프트"
-config/version="0.5.8"
+config/version="0.5.9"
+config/icon="res://assets/game_icon.png"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 
