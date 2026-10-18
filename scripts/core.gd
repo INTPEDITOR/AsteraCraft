@@ -453,6 +453,9 @@ func _move_to_building(u: Dictionary, b: Dictionary, dt: float, reach: float=.12
 	return _move(u,ACData.point(u.approach_goal),dt,reach)
 
 func _ground_sweep(dimensions: Vector2, from: Vector2, to: Vector2) -> bool:
+	# The imported map's summed-area collision table can prove the whole
+	# swept rectangle empty in one query. Keep the sampled test for corners.
+	if map.source_detail_active and map.source_ground_fits(dimensions+(to-from).abs(),(from+to)*.5):return true
 	var samples=maxi(1,ceili(from.distance_to(to)/.2))
 	for index in range(samples+1):
 		if not _ground_fits_size(dimensions,from.lerp(to,float(index)/samples)):return false
@@ -581,7 +584,7 @@ func placement(owner: int, kind: int, pos: Vector2, require_worker: bool = true)
 			for building in buildings:
 				if int(building.owner)==owner and int(building.race)==1 and int(building.kind)==0 and building.hp>0 and building.progress>=1 and center(building).distance_squared_to(rect.get_center())<=144.0:linked=true;break
 			if not linked:return "추가배양낭은 군체모수 12칸 이내에 건설하세요"
-	if race==2 and kind!=2:
+	if race==2 and kind not in [0,1,2]:
 		for x in range(int(rect.position.x),int(rect.end.x)):
 			for y in range(int(rect.position.y),int(rect.end.y)):
 				if not in_owl_power(owner,Vector2(x,y)):return "건물 전체가 완성된 규율탑 12칸 이내에 있어야 합니다"
@@ -1155,7 +1158,18 @@ func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 		path_cache[route_key]={"path":result.duplicate(false),"until":time+(2.0 if not result.is_empty() else .5)}
 		return result
 	if clearance_revision!=map.revision:
-		clearance_paths.clear()
+		if detailed and clearance_revision>=0:
+			var changed=map.source_changes_since(clearance_revision)
+			for size_key in clearance_paths:
+				var cached: AStarGrid2D=clearance_paths[size_key]
+				if cached.cell_size!=Vector2.ONE*.25:
+					clearance_paths.clear();break
+				if not changed.has_area():continue
+				var padding=ceili(maxf(size_key.x,size_key.y)/8.0)+4
+				var area=changed.grow(padding).intersection(cached.region)
+				for x in range(area.position.x,area.end.x):
+					for y in range(area.position.y,area.end.y):cached.set_point_solid(Vector2i(x,y),not _ground_fits_size(Vector2(size_key)/16.0,Vector2(x,y)*.25))
+		else:clearance_paths.clear()
 		clearance_revision=map.revision
 	var key=Vector2i((dimensions*16).ceil())
 	if body_path and not clearance_paths.has(key):

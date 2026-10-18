@@ -193,7 +193,7 @@ async function api(req,res){
  if(route==='/game'){
   const g=games.get(url.searchParams.get('id'));if(!g||!g.people.some(p=>p.user===user.id))error(404,'경기를 찾을 수 없습니다.');response(res,200,{game:gameInfo(g,user),user:safeUser(user)});return;
  }
- if(route==='/leaderboard'){response(res,200,{users:Object.values(db.users).filter(u=>u.identity_source!=='legacy_generated').sort((a,b)=>b.rating-a.rating||b.wins-a.wins||a.created-b.created).slice(0,100).map(safeUser)});return;}
+ if(route==='/leaderboard'){response(res,200,{users:Object.values(db.users).filter(u=>u.identity_source!=='legacy_generated'&&u.wins+u.losses>0).sort((a,b)=>b.rating-a.rating||b.wins-a.wins||a.created-b.created).slice(0,100).map(safeUser)});return;}
  if(route==='/history'){response(res,200,{matches:Object.values(db.matches).filter(m=>m.players.some(p=>p.id===user.id)).sort((a,b)=>b.time-a.time).slice(0,30)});return;}
  error(404,'없는 요청입니다.');
 }

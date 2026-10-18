@@ -31,6 +31,8 @@ var source_walk_masks := PackedInt32Array()
 var source_ramp_regions: Array = []
 var source_detail_active := false
 var _detail_prefix := PackedInt32Array()
+var _detail_solid := PackedByteArray()
+var _detail_changes: Dictionary={}
 
 func rotate(p: Vector2i, turns: int) -> Vector2i:
 	var q = p
@@ -484,6 +486,19 @@ func _rebuild_source_collision(buildings: Array) -> void:
 		var end=Vector2i(((rect.end+Vector2.ONE*.5)*4).ceil()).min(Vector2i(512,512))
 		for y in range(first.y,end.y):
 			for x in range(first.x,end.x):solid[y*512+x]=1
+	var changed=Rect2i()
+	if _detail_solid.size()!=solid.size():changed=Rect2i(0,0,512,512)
+	else:
+		for y in range(512):
+			if solid.slice(y*512,(y+1)*512)==_detail_solid.slice(y*512,(y+1)*512):continue
+			for x in range(512):
+				if solid[y*512+x]==_detail_solid[y*512+x]:continue
+				var cell=Rect2i(x,y,1,1)
+				changed=changed.merge(cell) if changed.has_area() else cell
+	_detail_changes[revision+1]=changed
+	for old in _detail_changes.keys():
+		if int(old)<revision-63:_detail_changes.erase(old)
+	_detail_solid=solid
 	_detail_prefix.resize(513*513)
 	_detail_prefix.fill(0)
 	for y in range(512):
@@ -491,6 +506,14 @@ func _rebuild_source_collision(buildings: Array) -> void:
 		for x in range(512):
 			row+=solid[y*512+x]
 			_detail_prefix[(y+1)*513+x+1]=row+_detail_prefix[y*513+x+1]
+
+func source_changes_since(previous: int) -> Rect2i:
+	var result=Rect2i()
+	for version in range(previous+1,revision+1):
+		if not _detail_changes.has(version):return Rect2i(0,0,512,512)
+		var changed: Rect2i=_detail_changes[version]
+		if changed.has_area():result=result.merge(changed) if result.has_area() else changed
+	return result
 
 func source_ground_fits(dimensions: Vector2, pos: Vector2) -> bool:
 	var low=Vector2i(((pos-dimensions*.5+Vector2.ONE*.50001)*4).floor())

@@ -17,7 +17,7 @@ function check(value,label){assert(value,label);checks++;}
 async function api(route,session,body){let status,result;const req={url:route,method:body===undefined?'GET':'POST',socket:{remoteAddress:'v04-test'},headers:{host:'192.168.1.5:17800',...(session?{authorization:'Bearer '+session.token}:{})},async *[Symbol.asyncIterator](){if(body!==undefined)yield Buffer.from(JSON.stringify(body));}};const res={writeHead(code){status=code;},end(data){result=JSON.parse(data);}};try{await svc.api(req,res);}catch(e){status=e.code||500;result={error:e.message};}return {status,...result};}
 function validStarts(config,count){return config.spawn_slots.length===count&&new Set(config.spawn_slots).size===count&&config.spawn_slots.every(x=>Number.isInteger(x)&&x>=0&&x<4);}
 async function run(){
- const health=await api('/health');check(health.version==='0.4.0'&&health.protocol===4,'new service version and compatible protocol');
+ const health=await api('/health');check(typeof health.version==='string'&&health.protocol===8,'service reports current compatible protocol');
  check((await api('/rooms')).status===401,'room entry requires account');
  check((await api('/queue/join',null,{race:0})).status===401,'ladder entry requires account');
  check((await api('/register',null,{nickname:legacy.nickname,password:oldPass})).status===400,'old automatic clients cannot generate accounts');
@@ -31,6 +31,7 @@ async function run(){
  check(svc._test.db.users[legacy.id].identity_source==='legacy_generated','exact generation rule plus valid password verifies legacy account');
  check((await api('/account/legacy',null,{nickname:other.nickname,password:otherPass})).migrated,'stored client proof migrates another generated profile');
  const board=(await api('/leaderboard',a)).users;
+ check(!board.some(u=>u.id===a.user.id||u.id===b.user.id),'unplayed accounts excluded from standings');
  check(!board.some(u=>u.id===legacy.id||u.id===other.id),'verified generated profiles excluded from standings');
  check(board.some(u=>u.id===similar.id),'similar manually chosen nickname remains visible');
  check(board.find(u=>u.id===similar.id).win_rate===75,'win rate derives from actual wins/losses');

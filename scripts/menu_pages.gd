@@ -249,7 +249,6 @@ func rooms() -> void:
 	scroll.add_child(main.room_list)
 	button(p,"래더 매치",0,530,220,main._ladder_menu)
 	button(p,"순위표",280,530,220,main._leaderboard_menu)
-	button(p,"연결 도움말",560,530,220,func():main._notify("방장과의 연결이 필요합니다. 연결이 안 되면 방화벽의 게임 허용 설정을 확인하세요."))
 	button(p,"뒤로",840,530,220,main._main_menu)
 	main._fetch_rooms()
 
@@ -501,9 +500,10 @@ func leaderboard() -> void:
 	main._api("/leaderboard",{},func(data):
 		if not is_instance_valid(table):return
 		if data.has("error"):status.text=data.error;return
-		status.text="%d명의 지휘관"%data.users.size()
-		for index in range(data.users.size()):
-			var user=data.users[index]
+		var ranked_users=data.users.filter(func(user):return int(user.get("wins",0))+int(user.get("losses",0))>0)
+		status.text="%d명의 지휘관"%ranked_users.size() if not ranked_users.is_empty() else "아직 래더 전적이 있는 지휘관이 없습니다."
+		for index in range(ranked_users.size()):
+			var user=ranked_users[index]
 			var row=table.create_item(root_item)
 			var values=[str(index+1),str(user.nickname),str(int(user.rating)),str(int(user.wins)),str(int(user.losses)),"%.1f%%"%float(user.get("win_rate",0)) if int(user.wins)+int(user.losses)>0 else "—"]
 			for column in range(6):
