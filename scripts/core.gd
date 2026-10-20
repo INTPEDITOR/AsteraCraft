@@ -3,6 +3,11 @@ extends RefCounted
 
 const CITRUS_BROOD=preload("res://scripts/citrus_brood.gd")
 const ROOT_FIELD=preload("res://scripts/root_field.gd")
+const RESEARCH=preload("res://scripts/research.gd")
+const ABILITIES=preload("res://scripts/abilities.gd")
+const NEW_UNITS=preload("res://scripts/new_units.gd")
+const FLIGHT=preload("res://scripts/flight_motion.gd")
+const BURST=preload("res://scripts/burst_weapon.gd")
 var roots=ROOT_FIELD.new()
 
 var map := ACMap.new()
@@ -10,7 +15,10 @@ var players: Array = []
 var units: Array = []
 var buildings: Array = []
 var effects: Array = []
-var corpses: Array = []
+var ability_events: Array=[]
+var ability_zones: Array=[]
+var reveals: Array=[]
+var rubble: Array=[]
 var events: Array = []
 var explored: Array = []
 var visibility: Array = []
@@ -29,8 +37,11 @@ var rng := RandomNumberGenerator.new()
 var next_effect_id: int = 1
 var collision_index: Dictionary={}
 var collision_index_valid: bool=false
+var crowd_arrival_cache: Dictionary={}
+var threat_indexes: Dictionary={}
 var clearance_paths: Dictionary={}
 var clearance_revision: int=-1
+var path_time_this_tick: int=0
 var entity_lookup: Dictionary={}
 var resource_lookup: Dictionary={}
 var entity_spatial: Dictionary={}
@@ -40,7 +51,10 @@ var owned_buildings: Dictionary={}
 var field_nodes: Dictionary={}
 var worker_assignments: Dictionary={}
 var mining_claims: Dictionary={}
+var mining_waiters: Dictionary={}
 var vision_spans: Dictionary={}
+var vision_signatures: Dictionary={}
+var fog_revision: int=0
 var path_cache: Dictionary={}
 var path_cache_revision: int=-1
 var indexed_units: int=-1
@@ -60,7 +74,7 @@ const TERA_INTERVAL: float = 3.0
 const TERA_AMOUNT: int = 8
 const AS_INTERVAL: float = 2.2
 const AS_AMOUNT: int = 5
-const ENERGY_REGEN: float = .3
+const ENERGY_REGEN: float = .65
 const TERA_HQ_RADIUS: float = 14.0
 const MAX_EFFECTS: int = 512
 const COLLISION_GROUND: int = 1
@@ -69,7 +83,7 @@ const COLLISION_ATTACHED: int = 0
 const COLLISION_CELL: float = 1.5
 const COLLISION_SKIN: float = .004
 const ENTITY_CELL: float = 8.0
-const MAX_PATH_REQUESTS: int = 48
+const MAX_PATH_REQUESTS: int = 8
 const MAX_PRODUCTION_QUEUE: int = 5
 const MAX_BUILD_PLANS: int = 32
 const CONSTRUCTION_TOOL_REACH: float = .35
@@ -199,7 +213,7 @@ func add_unit(owner: int, kind: int, pos: Vector2) -> Dictionary:
 	var race = int(players[owner].race)
 	var d = ACData.unit(race,kind)
 	pos=unit_free_position(race,kind,pos)
-	var u = {"id":next_id,"owner":owner,"race":race,"kind":kind,"pos":ACData.packed(pos),"hp":float(d.hp),"shield":float(d.shield),"energy":100.0,"order":"idle","target":-1,"goal":ACData.packed(pos),"path":[],"path_rev":map.revision,"repath":0.0,"cooldown":0.0,"damaged":-99.0,"fired":-99.0,"facing":[0.0,1.0],"moving":false,"anchored":false,"slow_until":0.0,"ability_cd":0.0,"carried":0,"cargo_type":"as","gather_clock":0.0,"container":-1,"cargo":[],"heal_stock":25.0,"action":"idle","action_started":time,"action_clock":0.0,"activity_clock":0.0,"action_intent":"idle"}
+	var u = {"id":next_id,"owner":owner,"race":race,"kind":kind,"pos":ACData.packed(pos),"hp":float(d.hp),"shield":float(d.shield),"energy":100.0,"order":"idle","target":-1,"goal":ACData.packed(pos),"path":[],"path_rev":map.revision,"repath":0.0,"cooldown":0.0,"damaged":-99.0,"fired":-99.0,"facing":[0.0,1.0],"moving":false,"anchored":false,"slow_until":0.0,"ability_cd":0.0,"carried":0,"cargo_type":"as","gather_clock":0.0,"container":-1,"cargo":[],"action":"idle","action_started":time,"action_clock":0.0,"activity_clock":0.0,"action_intent":"idle"}
 	next_id += 1
 	u.collision_size=ACData.packed(collision_size(race,kind))
 	u.collision_layer=collision_layer(race,kind)
@@ -211,9 +225,8 @@ func add_unit(owner: int, kind: int, pos: Vector2) -> Dictionary:
 	u._auto_target=-1
 	u._scan_at=time+float(int(u.id)%5)*.035
 	u.max_energy=ACData.unit_max_energy(race,kind)
-	u.energy=minf(100,u.max_energy)
+	u.energy=minf(25,u.max_energy)
 	u.cloak_active=false
-	if race==0 and kind==7:u.energy=50.0
 	u.healing=false
 	u.heal_target=-1
 	u.heal_kind=""
@@ -318,7 +331,7 @@ func working_worker(unit: Dictionary) -> bool:
 	return mining_worker(unit) or (int(unit.get("kind",-1))==0 and float(unit.get("hp",0))>0 and int(unit.get("container",-1))<0 and unit.get("order","") in ["build_move","construct"])
 
 func _workers_can_overlap(a: Dictionary, b: Dictionary) -> bool:
-	return working_worker(a) or working_worker(b)
+	return (int(a.kind)==0 and working_worker(a)) or (int(b.kind)==0 and working_worker(b))
 
 func center(e: Dictionary) -> Vector2:
 	var p = ACData.point(e.pos)
@@ -398,10 +411,13 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 		for waypoint in route:
 			var point=ACData.point(waypoint);length+=previous.distance_to(point);previous=point
 		if length*length<best:best=length*length;result=candidate
+	# If the target is already completely surrounded, wait behind the front
+	# rather than shoving into an occupied edge and retrying 24 slots each tick.
+	if best==INF:result=origin
 	attacker._surround_target=int(target.id)
 	attacker._surround_offset=ACData.packed(result-middle)
 	attacker._surround_until=time+1.25
-	attacker._surround_retry=time+.3
+	attacker._surround_retry=time+(.65 if best==INF else .3)
 	return result
 
 func building_contact(worker: Dictionary, building: Dictionary, reach: float=CONSTRUCTION_TOOL_REACH) -> bool:
@@ -542,6 +558,14 @@ func in_owl_power(owner: int, pos: Vector2) -> bool:
 	for tower in buildings:
 		if int(tower.owner)==owner and int(tower.race)==2 and int(tower.kind)==2 and tower.hp>0 and tower.progress>=1 and center(tower).distance_squared_to(pos)<=144.0:return true
 	return false
+
+func building_powered(b: Dictionary) -> bool:
+	if int(b.race)!=2 or int(b.kind) in [0,1,2]:return true
+	var d=ACData.building(2,int(b.kind));var pos=ACData.point(b.pos)
+	for x in range(int(d.w)):
+		for y in range(int(d.h)):
+			if not in_owl_power(int(b.owner),pos+Vector2(x,y)):return false
+	return true
 
 func placement(owner: int, kind: int, pos: Vector2, require_worker: bool = true) -> String:
 	if owner<0 or owner>=players.size() or kind<0 or kind>=13:
@@ -710,10 +734,31 @@ func command(owner: int, cmd: Dictionary) -> String:
 		return "잘못된 유닛 선택입니다"
 	# Human commands represent a selection group. AI controls its whole army
 	# directly and may also issue larger trusted groups through this API.
-	if ids.size()>12 and not bool(players[owner].bot):
+	var brood_selection=not ids.is_empty() and ids.all(func(id):
+		var pod=entity(int(id))
+		return not pod.is_empty() and int(pod.owner)==owner and CITRUS_BROOD.is_pod(pod))
+	if ids.size()>12 and not bool(players[owner].bot) and not brood_selection:
 		return "한 번에 최대 12기까지 선택할 수 있습니다"
 	var type = str(cmd.get("type",""))
-	if type=="morph":return CITRUS_BROOD.train(self,owner,entity(int(cmd.get("id",-1))),int(cmd.get("kind",-1)),cmd.get("ids",[]))
+	if type=="skill":return ABILITIES.command(self,owner,cmd)
+	if type=="produce_nuke":return ABILITIES.produce_nuke(self,owner,entity(int(cmd.get("id",-1))))
+	if type=="cancel_nuke":return ABILITIES.cancel_nuke(self,owner,entity(int(cmd.get("id",-1))))
+	if type=="unload_one":
+		var carrier=entity(int(cmd.get("id",-1)))
+		if carrier.is_empty() or carrier.has("progress") or int(carrier.owner)!=owner or ACData.unit(int(carrier.race),int(carrier.kind)).role!="transport":return "수송 유닛을 선택하세요"
+		return "" if NEW_UNITS.unload(self,carrier,int(cmd.get("passenger",-1))) else "내릴 수 있는 지상 공간이 없습니다"
+	if type in ["produce_drone","cancel_drone"]:return NEW_UNITS.command(self,owner,cmd)
+	if type=="research":return RESEARCH.enqueue(self,owner,entity(int(cmd.get("id",-1))),str(cmd.get("stat","attack")))
+	if type=="cancel_research":return RESEARCH.cancel(self,owner,entity(int(cmd.get("id",-1))),int(cmd.get("queue_index",-1)))
+	if type=="morph":
+		var accepted=false;var error="선택한 배양체를 확인하세요"
+		for id in ids if not ids.is_empty() else [cmd.get("id",-1)]:
+			var pod=entity(int(id))
+			if not CITRUS_BROOD.is_pod(pod) or pod.get("brood_state","")!="idle":continue
+			var result=CITRUS_BROOD.train(self,owner,pod,int(cmd.get("kind",-1)))
+			if result=="":accepted=true
+			else:error=result;break
+		return "" if accepted else error
 	if type=="cancel_morph":return CITRUS_BROOD.cancel(self,owner,entity(int(cmd.get("id",-1))))
 	if type=="surrender":
 		players[owner].lost=true
@@ -725,7 +770,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 		var b=entity(int(cmd.get("id",-1)))
 		var kind=int(cmd.get("kind",-1))
 		if not b.is_empty() and int(b.race)==1:return CITRUS_BROOD.train(self,owner,b,kind)
-		if b.is_empty() or not b.has("queue") or int(b.owner)!=owner or b.progress<1 or kind<0 or kind>=13:
+		if b.is_empty() or not b.has("queue") or int(b.owner)!=owner or b.progress<1 or kind<0 or kind>=ACData.unit_count(int(b.race)):
 			return "생산 건물을 선택하세요"
 		var d=ACData.unit(int(b.race),kind)
 		var producer=int(d.producer)
@@ -771,6 +816,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 				restored.carried=int(b.get("builder_carried",0))
 				_recalculate_supply()
 		else:
+			if b.queue.is_empty() and not b.get("research_queue",[]).is_empty():return RESEARCH.cancel(self,owner,b,int(cmd.get("queue_index",-1)))
 			if not b.queue.is_empty():
 				if int(b.race)==1:return CITRUS_BROOD.cancel_queue(self,owner,b,int(cmd.get("queue_index",-1)))
 				var index=int(cmd.get("queue_index",b.queue.size()-1))
@@ -782,25 +828,6 @@ func command(owner: int, cmd: Dictionary) -> String:
 				players[owner].reserved=maxf(0,players[owner].reserved-d.pop)
 				if int(b.race)==1:
 					b.larva+=1
-		return ""
-	if type=="research":
-		var b=entity(int(cmd.get("id",-1)))
-		var stat=str(cmd.get("stat","attack"))
-		if b.is_empty() or not b.has("research") or int(b.owner)!=owner or b.progress<1 or b.research!="":
-			return "연구 가능한 건물을 선택하세요"
-		if stat not in ACData.research_stats(int(b.race),int(b.kind)):
-			return "이 건물에서 연구할 수 없습니다"
-		var level=int(players[owner][stat])
-		if level>=3:
-			return "최대 연구 단계입니다"
-		for other in buildings:
-			if int(other.owner)==owner and other.research==stat:
-				return "이미 연구 중입니다"
-		if not pay(owner,100+level*75,100+level*75):
-			return resource_error(owner,100+level*75,100+level*75)
-		b.research=stat
-		b.research_left=45+level*15
-		b.research_total=b.research_left
 		return ""
 	if type=="rally":
 		var raw=cmd.get("pos",[])
@@ -837,10 +864,12 @@ func command(owner: int, cmd: Dictionary) -> String:
 		var was_fleeing=bool(u.get("fleeing",false))
 		u.fleeing=false
 		u._flee_manual_until=time+2.0
+		if type!="ability":u.self_repair_until=0.0
 		if type=="ability":
 			var ability_role=str(ACData.unit(int(u.race),int(u.kind)).role)
-			if ability_role=="parasite":
-				return _mind_control(u,int(cmd.get("target",-1)))
+			if ability_role in ["parasite","mage","priest"]:
+				var skill="mind_control" if ability_role=="parasite" else "judgment" if ability_role=="mage" else "barrier"
+				return ABILITIES.use(self,u,skill,ACData.point(cmd.get("pos",u.pos)),int(cmd.get("target",u.id if ability_role=="priest" else -1)))
 			var energy_cost=75 if ability_role=="mage" else 60 if ability_role=="priest" else 0
 			if int(u.race)==0 and int(u.kind)==7 and not u.get("cloak_active",false):energy_cost=25
 			if energy_cost>0 and float(u.energy)<energy_cost:
@@ -852,7 +881,9 @@ func command(owner: int, cmd: Dictionary) -> String:
 			_ability(u,ACData.point(cmd.get("pos",u.pos)))
 			continue
 		var was_mining=mining_worker(u)
+		BURST.cancel(u)
 		u.erase("auto_mine_hq")
+		u.erase("mining_base");u.erase("mining_anchor")
 		u.path=[]
 		u.approach_target=-1
 		u.repath=0.0
@@ -907,28 +938,33 @@ func _home_ore(worker: Dictionary) -> int:
 		if headquarters.is_empty():return -1
 		worker.auto_mine_hq=int(headquarters.id)
 	var home=center(headquarters)
+	var anchor=ACData.point(worker.get("mining_anchor",ACData.packed(home)))
+	var base=int(worker.get("mining_base",-1))
 	var best=INF
 	var chosen=-1
-	for node in _query_resources(home,16):
-		if node.type!="as" or node.amount<=0 or home.distance_squared_to(ACData.point(node.pos))>256:continue
+	var available=false
+	for node in _query_resources(anchor,16):
+		if node.type!="as" or node.amount<=0 or anchor.distance_squared_to(ACData.point(node.pos))>256:continue
+		if base>=0 and int(node.get("base",-1))!=base:continue
+		if base<0 and worker.has("mining_anchor") and anchor.distance_squared_to(ACData.point(node.pos))>100:continue
 		var goal=_resource_approach(node,ACData.point(worker.pos),_body_size(worker),home)
 		if not goal.is_finite():continue
-		var route=map.path(ACData.point(worker.pos),goal)
 		var distance=ACData.point(worker.pos).distance_to(goal)
 		if not _ground_sweep(_body_size(worker),ACData.point(worker.pos),goal):
+			var route=map.path(ACData.point(worker.pos),goal)
 			if route.is_empty():continue
 			distance=0.0
 			var previous=ACData.point(worker.pos)
 			for step in route:
 				var point=ACData.point(step);distance+=previous.distance_to(point);previous=point
 			distance+=previous.distance_to(goal)
-		var assigned=0
-		for other in units:
-			if other.id!=worker.id and other.owner==worker.owner and other.kind==0 and other.hp>0 and other.order=="gather" and other.target==node.id:assigned+=1
-		# Prefer short round trips from this HQ; spread the four starters over
-		# nearby faces instead of sending an occupied-node worker behind the line.
-		var score=distance+2.0*home.distance_to(goal)+assigned*8.0
-		if score<best:best=score;chosen=int(node.id)
+		var holder=entity(int(mining_claims.get(int(node.id),-1)))
+		var free=(holder.is_empty() or int(holder.id)==int(worker.id)) and float(node.get("_worked_at",-1))!=time and mining_waiters.get(int(node.id),[]).is_empty()
+		# Use the closest free node in this mineral line. If every node is
+		# occupied, distance alone decides where to queue; no load penalty can
+		# send overflow workers to a remote expansion.
+		if (free and not available) or (free==available and distance<best):
+			available=free;best=distance;chosen=int(node.id)
 	return chosen
 
 func nearest_resource(pos: Vector2, type: String, owner: int = -1) -> int:
@@ -943,14 +979,13 @@ func nearest_resource(pos: Vector2, type: String, owner: int = -1) -> int:
 		if r.type!=type or r.amount<=0:
 			continue
 		var dist=pos.distance_squared_to(ACData.point(r.pos))
-		dist+=float(worker_assignments.get(int(r.id),0))*16.0
 		if dist<best:
 			best=dist
 			id=int(r.id)
 	if id<0 and choices.size()!=map.resources.size():
 		for node in map.resources:
 			if node.type!=type or node.amount<=0:continue
-			var distance=pos.distance_squared_to(ACData.point(node.pos))+float(worker_assignments.get(int(node.id),0))*16.0
+			var distance=pos.distance_squared_to(ACData.point(node.pos))
 			if distance<best:best=distance;id=int(node.id)
 	return id
 
@@ -968,11 +1003,14 @@ func nearest_available_resource(pos: Vector2, exclude_id: int=-1, worker_id: int
 	return result
 
 func _retarget_busy_resource(worker: Dictionary, current: Dictionary) -> bool:
-	if worker.has("auto_mine_hq"):return false
 	if time<float(worker.get("_busy_scan_at",-1)):return false
 	worker._busy_scan_at=time+.35
-	var alternative=nearest_available_resource(ACData.point(worker.pos),int(current.id),int(worker.id))
-	if alternative<0:return false
+	var alternative=_home_ore(worker)
+	if alternative<0 or alternative==int(current.id):return false
+	# Once queued at the nearest occupied node, retain the place in line.
+	if worker.mining_state=="waiting" and not mining_waiters.get(int(current.id),[]).is_empty():
+		var candidate=resource(alternative)
+		if not candidate.is_empty() and ACData.point(candidate.pos).distance_squared_to(ACData.point(worker.pos))>=ACData.point(current.pos).distance_squared_to(ACData.point(worker.pos)):return false
 	_release_mining_claim(worker)
 	worker.target=alternative
 	worker.path=[]
@@ -1001,6 +1039,7 @@ func _refresh_navigation_mask() -> void:
 	navigation_revision=map.revision
 
 func _rebuild_collision_index() -> void:
+	crowd_arrival_cache.clear();threat_indexes.clear()
 	collision_index.clear()
 	entity_lookup.clear()
 	entity_spatial.clear()
@@ -1093,7 +1132,7 @@ func _unit_fits(unit: Dictionary, pos: Vector2, check_units: bool=true) -> bool:
 	var layer=_body_layer(unit)
 	var dimensions=_body_size(unit)
 	if layer==COLLISION_GROUND and not _ground_fits_size(dimensions,pos):return false
-	if layer==COLLISION_GROUND and not map.resources.is_empty():
+	if layer==COLLISION_GROUND and not map.source_detail_active and not map.resources.is_empty():
 		var body=Rect2(pos-dimensions*.5,dimensions)
 		for node in _query_resources(pos,3):
 			if node.type=="as" and node.amount<=0:continue
@@ -1134,11 +1173,24 @@ func unit_free_position(race: int, kind: int, near: Vector2, ignore_id: int=-1, 
 	return near
 
 func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
+	if paths_this_tick==0:path_time_this_tick=0
+	if path_time_this_tick>=5000:
+		unit._path_deferred=true;return []
+	var started=Time.get_ticks_usec()
+	var result=_clearance_path_impl(unit,from,to)
+	path_time_this_tick+=Time.get_ticks_usec()-started
+	return result
+
+func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 	var dimensions=_body_size(unit)
 	var large=maxf(dimensions.x,dimensions.y)>1.0
 	var detailed=map.source_detail_active
 	var body_path=large or detailed
-	var crowded=float(unit.blocked_clock)>.8 and not working_worker(unit)
+	# Combat contact is handled by reserved melee slots and local steering.
+	# Treating every fighting body as a new map wall made an inaccessible
+	# target trigger repeated full-map searches through a dense battle.
+	var pursuing=unit.get("order","")=="attack" or int(unit.get("_auto_target",-1))>=0
+	var crowded=float(unit.blocked_clock)>.8 and not working_worker(unit) and not pursuing
 	if path_cache_revision!=map.revision:
 		path_cache.clear()
 		path_cache_revision=map.revision
@@ -1181,8 +1233,24 @@ func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 		nav.default_estimate_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.update()
 		var clearance=Vector2(key)/16.0
-		for x in range(ACMap.SIZE*grid_factor):
-			for y in range(ACMap.SIZE*grid_factor):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)/grid_factor))
+		var template=ACData.clearance_template(map.theme,key) if detailed else []
+		if template.is_empty():
+			for x in range(ACMap.SIZE*grid_factor):
+				for y in range(ACMap.SIZE*grid_factor):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)/grid_factor))
+		else:
+			for rectangle in template:nav.fill_solid_region(Rect2i(int(rectangle[0]),int(rectangle[1]),int(rectangle[2]),int(rectangle[3])))
+			var obstacles=map.resource_obstacles.duplicate()
+			for building in buildings:
+				if building.hp>0:
+					var d=ACData.building(int(building.race),int(building.kind))
+					obstacles.append(Rect2(ACData.point(building.pos)-Vector2.ONE*.5,Vector2(d.w,d.h)))
+			var low_offset=Vector2i((-clearance*2+Vector2.ONE*2.00004).floor())
+			var high_offset=Vector2i((clearance*2+Vector2.ONE*1.99996).floor())+Vector2i.ONE
+			for obstacle in obstacles:
+				var first=Vector2i(((obstacle.position+Vector2.ONE*.5)*4).floor()).max(Vector2i.ZERO)
+				var end=Vector2i(((obstacle.end+Vector2.ONE*.5)*4).ceil()).min(Vector2i(512,512))
+				var low=first-high_offset+Vector2i.ONE;var high=end-low_offset
+				nav.fill_solid_region(Rect2i(low,high-low).intersection(nav.region))
 		clearance_paths[key]=nav
 	var navigator: AStarGrid2D=clearance_paths[key] if body_path else map.navigator
 	var temporary: Array=[]
@@ -1234,19 +1302,26 @@ func _clearance_free(navigator: AStarGrid2D, near: Vector2) -> Vector2i:
 
 func _crowd_arrived(unit: Dictionary, goal: Vector2, reach: float) -> bool:
 	if unit.order not in ["move","attack_move"]:return false
-	var count=0
-	var largest=maxf(collision_size(int(unit.race),int(unit.kind)).x,.5)
-	for other in _nearby_units(goal,3):
-		if other.id==unit.id or other.hp<=0 or other.container>=0:continue
-		if collision_layer(int(other.race),int(other.kind))!=COLLISION_GROUND:continue
-		var same_destination=ACData.point(other.get("goal",other.pos)).distance_to(goal)<.7
-		var occupying_goal=ACData.point(other.pos).distance_to(goal)<.55
-		if (same_destination or occupying_goal) and ACData.point(other.pos).distance_to(goal)<3 and (not other.moving or other.order in ["idle","hold"]):
-			count+=1
-			largest=maxf(largest,collision_size(int(other.race),int(other.kind)).x)
+	var distance_squared=ACData.point(unit.pos).distance_squared_to(goal)
+	if distance_squared>16:return false
+	# A whole army can share one destination. Aggregate its settled occupants
+	# once per simulation step instead of repeating the same neighborhood scan.
+	if not crowd_arrival_cache.has(goal):
+		var members={};var largest=.5
+		for other in _nearby_units(goal,3):
+			if other.hp<=0 or other.container>=0 or _body_layer(other)!=COLLISION_GROUND:continue
+			var distance=ACData.point(other.pos).distance_squared_to(goal)
+			if distance>=9 or (other.moving and other.order not in ["idle","hold"]):continue
+			if distance<.3025 or ACData.point(other.get("goal",other.pos)).distance_squared_to(goal)<.49:
+				members[int(other.id)]=true
+				largest=maxf(largest,float(other._body_size.x) if other.has("_body_size") else collision_size(int(other.race),int(other.kind)).x)
+		crowd_arrival_cache[goal]={"members":members,"largest":largest}
+	var cached: Dictionary=crowd_arrival_cache[goal]
+	var count=cached.members.size()-(1 if cached.members.has(int(unit.id)) else 0)
 	if count==0:return false
+	var largest=maxf(float(cached.largest),float(unit._body_size.x) if unit.has("_body_size") else collision_size(int(unit.race),int(unit.kind)).x)
 	var arrival=maxf(reach,clampf(sqrt(float(count+1))*largest*1.1+.7,1.0,3.0))
-	return ACData.point(unit.pos).distance_to(goal)<=arrival
+	return distance_squared<=arrival*arrival
 
 func _request_room(unit: Dictionary, goal: Vector2, dt: float) -> void:
 	if working_worker(unit):return
@@ -1330,15 +1405,18 @@ func _advance_ground(unit: Dictionary, desired: Vector2, goal: Vector2, dt: floa
 func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 	var p=ACData.point(u.pos)
 	var d=ACData.unit(int(u.race),int(u.kind))
+	if d.air:return FLIGHT.move(self,u,goal,dt,reach)
 	if p.distance_to(goal)<=reach:
 		return true
-	if u.anchored:
+	if u.anchored or float(u.get("rooted_until",0))>time:
 		return false
 	if not d.air and _crowd_arrived(u,goal,reach):return true
 	if not d.air and float(u.blocked_clock)>.3:_request_room(u,goal,dt)
 	var next=goal
 	if not d.air:
-		if p.distance_squared_to(goal)<=144 and _ground_sweep(_body_size(u),p,goal):
+		var shortcut_check=time>=float(u.get("_shortcut_at",0)) or int(u.path_rev)!=map.revision or ACData.point(u.get("_shortcut_goal",ACData.packed(goal))).distance_squared_to(goal)>1
+		if shortcut_check:u._shortcut_at=time+.25+float(int(u.id)%5)*.015;u._shortcut_goal=ACData.packed(goal)
+		if shortcut_check and p.distance_squared_to(goal)<=144 and _ground_sweep(_body_size(u),p,goal):
 			u.path=[ACData.packed(goal)];u.path_failed=false;u.path_rev=map.revision;u.repath=3.0;u._path_goal=ACData.packed(goal)
 		u.repath-=dt
 		if u.path.is_empty() and u.path_failed and u.repath>0 and int(u.path_rev)==map.revision and ACData.point(u.get("_path_goal",ACData.packed(goal))).distance_squared_to(goal)<.01:return false
@@ -1347,6 +1425,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 			u._path_deferred=false
 			u.path=_clearance_path(u,p,goal)
 			if u._path_deferred:return false
+			shortcut_check=true
 			u._path_goal=ACData.packed(goal)
 			u.path_failed=u.path.is_empty()
 			u.avoid_until=-1.0
@@ -1366,7 +1445,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 				u.path=[ACData.packed(goal)]
 			else:
 				return false
-		if not u.path.is_empty():
+		if shortcut_check and not u.path.is_empty():
 			for index in range(mini(u.path.size()-1,16),0,-1):
 				var point=ACData.point(u.path[index])
 				if p.distance_squared_to(point)<=64 and _ground_sweep(_body_size(u),p,point):
@@ -1393,6 +1472,8 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 				next=ACData.point(u.path[0])
 	var direction=(next-p).normalized()
 	var speed=float(d.speed)*(.45 if time<u.slow_until else 1.0)
+	if float(u.get("stim_until",0))>time:speed*=1.25
+	if float(u.get("march_until",0))>time:speed*=1.25
 	var step=direction*minf(speed*dt,p.distance_to(next))
 	var movement=step
 	if d.air:
@@ -1420,11 +1501,12 @@ func step(dt: float) -> void:
 	if ended:
 		return
 	time+=dt
+	crowd_arrival_cache.clear();threat_indexes.clear()
 	paths_this_tick=0
 	var phase_start=Time.get_ticks_usec()
 	perf.ticks+=1
 	effects=effects.filter(func(e): return e.until>time)
-	corpses=corpses.filter(func(e): return e.until>time)
+	rubble=rubble.filter(func(e):return float(e.until)>time)
 	# Text notices and completed spell records should not accumulate forever.
 	for event in events:
 		if not event.has("created"):event.created=time
@@ -1441,6 +1523,7 @@ func step(dt: float) -> void:
 			continue
 		_tick_building(b,dt)
 	_rebuild_collision_index()
+	ABILITIES.update(self,dt)
 	perf.building_us+=Time.get_ticks_usec()-phase_start
 	phase_start=Time.get_ticks_usec()
 	for u in units:
@@ -1452,6 +1535,8 @@ func step(dt: float) -> void:
 	_separate_units(dt,false)
 	perf.collision_us+=Time.get_ticks_usec()-phase_start
 	phase_start=Time.get_ticks_usec()
+	ABILITIES.update(self,0)
+	NEW_UNITS.cleanup(self)
 	CITRUS_BROOD.cleanup_dead(self)
 	var dead_buildings=buildings.filter(func(b):return b.hp<=0)
 	for b in dead_buildings:
@@ -1464,8 +1549,6 @@ func step(dt: float) -> void:
 	for u in units:
 		if u.hp<=0 and not u.get("dead_processed",false):
 			u.dead_processed=true
-			if int(u.race)==1:
-				corpses.append({"pos":u.pos,"until":time+20,"value":float(ACData.unit(1,int(u.kind)).pop)*12})
 			for cargo_id in u.cargo:
 				var rider=entity(int(cargo_id))
 				if not rider.is_empty():
@@ -1497,6 +1580,8 @@ func step(dt: float) -> void:
 
 func _tick_building(b: Dictionary, dt: float) -> void:
 	var d=ACData.building(int(b.race),int(b.kind))
+	b.powered=building_powered(b)
+	if not b.powered:return
 	if b.progress<1:
 		var w=entity(int(b.worker))
 		if int(b.race)==0:
@@ -1527,16 +1612,11 @@ func _tick_building(b: Dictionary, dt: float) -> void:
 		return
 	_regenerate(b,d,dt)
 	if int(b.kind)==1:_tick_tera(b,dt)
-	var powered=not (int(b.race)==2 and int(b.kind) not in [0,1,2,11,12] and not in_field(int(b.owner),center(b),12))
-	var rate=1.0 if powered else .5
+	var rate=1.0
 	if int(b.race)==1 and int(b.kind) in [0,3]:
 		CITRUS_BROOD.producer(self,b,dt)
-	if b.research!="":
-		b.research_left-=dt*rate
-		if b.research_left<=0:
-			players[b.owner][b.research]+=1
-			events.append({"owner":b.owner,"text":"연구 완료: "+str(b.research)})
-			b.research=""
+	RESEARCH.tick(self,b,dt*rate)
+	ABILITIES.tick_building(self,b,dt*rate)
 	if not b.queue.is_empty() and int(b.race)!=1:
 		var q=b.queue[0]
 		q.left=maxf(0,q.left-dt*rate)
@@ -1558,7 +1638,7 @@ func _tick_building(b: Dictionary, dt: float) -> void:
 	if int(b.kind) in [11,12] and int(b.race)!=1 or int(b.race)==1 and int(b.kind) in [10,11]:
 		b.cooldown=maxf(0,b.cooldown-dt)
 		var aa=int(b.kind)==(11 if int(b.race)==1 else 12)
-		var target=_find_target(b,7 if aa else 6,"a" if aa else "g")
+		var target=_find_target(b,9 if aa else 8,"a" if aa else "g")
 		if not target.is_empty() and b.cooldown<=0:
 			_damage(b,target,24 if aa else 15)
 			b.cooldown=1.0
@@ -1717,7 +1797,9 @@ func _tick_unit(u: Dictionary, dt: float) -> void:
 	u.heal_kind=""
 	var previous_pos=ACData.point(u.pos)
 	u._aiming=false
+	u._air_handled=false
 	_tick_unit_behavior(u,dt)
+	if u._definition.air and not u._air_handled:FLIGHT.coast(self,u,dt)
 	var displacement=ACData.point(u.pos)-previous_pos
 	if displacement.length_squared()>.000001:u.body_direction=ACData.packed(displacement.normalized())
 	if not u._aiming:u.turret_direction=u.body_direction.duplicate()
@@ -1749,8 +1831,12 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 		u.fleeing=false
 		if u.order=="move":u.order="idle";u.path=[]
 	_regenerate(u,d,dt)
+	if not u.get("channel",{}).is_empty() or float(u.get("self_repair_until",0))>time:
+		BURST.cancel(u);return
+	if NEW_UNITS.tick(self,u,dt):return
+	if BURST.tick(self,u):return
 	if int(u.kind)==0 and u.order=="idle":_advance_build_queue(u)
-	if not u.fleeing and d.role in ["medic","healer_detector","priest"]:
+	if not u.fleeing and float(u.get("silenced_until",0))<=time and d.role in ["medic","healer_detector","priest"]:
 		_support(u,d,dt)
 	var pos=ACData.point(u.pos)
 	if u.order=="build_move":
@@ -1812,6 +1898,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			if used+d.pop<=8:
 				u.container=carrier.id
 				carrier.cargo.append(u.id)
+				_effect("board",carrier,center(carrier),.35,{"passenger":u.id})
 				u.order="idle"
 		return
 	var target: Dictionary={}
@@ -1821,7 +1908,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			u.order="attack_move"
 			u.target=-1
 			target={}
-	if target.is_empty() and d.damage>0 and u.order in ["idle","hold","attack_move"]:
+	if target.is_empty() and d.damage>0 and (u.order in ["idle","hold","attack_move"] or (d.role=="chaser" and u.order=="move")):
 		if time>=float(u.get("_scan_at",0.0)):
 			target=_find_target(u,maxf(float(d.range),7.0),str(d.targets))
 			u._auto_target=int(target.get("id",-1))
@@ -1829,6 +1916,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 		else:
 			target=entity(int(u.get("_auto_target",-1)))
 			if not target.is_empty() and not can_see(int(u.owner),target):target={}
+	if d.role=="chaser" and (target.is_empty() or not _can_attack(d,target)):u.focus_target=-1
 	if not target.is_empty() and _can_attack(d,target):
 		u._aiming=true
 		u.turret_direction=ACData.packed((center(target)-pos).normalized())
@@ -1847,25 +1935,47 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 					_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage))
 					_effect("explosion",u,center(target),.65,{"projectile":"explosion"})
 					u.hp=0
+				elif int(d.get("burst_count",1))>1:
+					BURST.start(self,u,target)
 				else:
-					_damage(u,target,float(d.damage)+players[u.owner].attack*2)
+					var target_air=not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air
+					var base=float(d.get("damage_air",d.damage)) if target_air else float(d.damage)
+					if d.role=="chaser":
+						if int(u.get("focus_target",-1))!=int(target.id):u.focus_target=target.id;u.focus_started=time
+						base*=1+minf(2,maxf(0,time-float(u.get("focus_started",time)))*.35)
+					_damage(u,target,base+players[u.owner].attack*2)
+					if float(d.get("splash_radius",0))>0:
+						_area_damage(u,center(target),float(d.splash_radius),base*float(d.get("splash_factor",.5)),int(target.id),str(d.targets))
+					if float(u.get("scatter_until",0))>time:_area_damage(u,center(target),2.2,base*.6,int(target.id),"g")
+					if float(u.get("pierce_until",0))>time:NEW_UNITS.pierce(self,u,target,base*.65)
 					if d.role in ["siege","bomber","golem","tree"]:
-						_area_damage(u,center(target),1.3,float(d.damage)*.4,int(target.id))
+						_area_damage(u,center(target),1.3,float(d.damage)*.4,int(target.id),str(d.targets))
 					if d.role in ["root","officer"]:
 						target.slow_until=time+2.0
-				u.cooldown=float(d.period)
+				u.cooldown=float(d.period)*(1.4 if float(u.get("attack_slow_until",0))>time else 1.0)
+				if float(u.get("stim_until",0))>time:u.cooldown*=.75
+				if float(u.get("bloom_until",0))>time:u.cooldown/=1.25
 				u.fired=time
 				_set_action(u,"attack",true)
+			if d.role=="chaser" and u.order in ["move","attack_move"]:_move(u,ACData.point(u.goal),dt)
 		elif u.order!="hold":
-			if melee:_move(u,_melee_approach(u,target),dt,.04)
+			if d.role=="chaser" and u.order=="move":_move(u,ACData.point(u.goal),dt)
+			elif melee:_move(u,_melee_approach(u,target),dt,.04)
 			else:_move(u,center(target),dt,attack_range*.85)
 	elif u.order in ["move","attack_move"]:
+		u.focus_target=-1
 		if _move(u,ACData.point(u.goal),dt):
 			u.order="idle"
 			u.fleeing=false
 
 func _gather(u: Dictionary, dt: float) -> void:
 	var pos=ACData.point(u.pos)
+	if u.mining_state=="exhausted_return" and int(u.carried)==0:
+		var home=_nearest_hq(int(u.owner),pos)
+		if home.is_empty() or building_contact(u,home,AS_UNLOAD_REACH):
+			u.order="idle";u.target=-1;u.path=[];u.mining_state="exhausted";collision_recovery_revision=-1
+		else:_move_to_building(u,home,dt)
+		return
 	if u.carried>0:
 		_release_mining_claim(u)
 		u.mining_state="return"
@@ -1887,16 +1997,16 @@ func _gather(u: Dictionary, dt: float) -> void:
 			_move_to_building(u,hq,dt)
 		return
 	var res=resource(int(u.target))
+	if not res.is_empty() and res.type=="as" and not u.has("mining_anchor"):
+		u.mining_anchor=res.pos.duplicate();u.mining_base=int(res.get("base",-1))
 	if res.is_empty() or res.amount<=0 or res.type!="as":
 		_release_mining_claim(u)
-		u.target=_home_ore(u) if u.has("auto_mine_hq") else nearest_resource(pos,"as",int(u.owner))
+		u.target=_home_ore(u)
 		u.gather_clock=0.0
 		u.path=[]
 		res=resource(int(u.target))
 		if res.is_empty():
-			u.order="idle"
-			u.mining_state="idle"
-			collision_recovery_revision=-1
+			u.mining_state="exhausted_return"
 			return
 	var holder=int(mining_claims.get(int(res.id),-1))
 	if holder>=0 and holder!=int(u.id) and _retarget_busy_resource(u,res):return
@@ -1946,18 +2056,30 @@ func _gather(u: Dictionary, dt: float) -> void:
 func _release_mining_claim(unit: Dictionary) -> void:
 	var target=int(unit.get("target",-1))
 	if int(mining_claims.get(target,-1))==int(unit.id):mining_claims.erase(target)
+	if mining_waiters.has(target):
+		mining_waiters[target].erase(int(unit.id))
+		if mining_waiters[target].is_empty():mining_waiters.erase(target)
 	unit.gather_clock=0.0
 	unit.mining_state="idle"
 
 func _claim_miner(unit: Dictionary, node: Dictionary) -> bool:
 	var holder_id=int(mining_claims.get(int(node.id),-1))
+	if holder_id==int(unit.id):return true
+	if not mining_waiters.has(int(node.id)):mining_waiters[int(node.id)]=[]
+	var queue: Array=mining_waiters[int(node.id)]
+	if not int(unit.id) in queue:queue.append(int(unit.id))
+	while not queue.is_empty():
+		var first=entity(int(queue[0]))
+		if not first.is_empty() and mining_worker(first) and int(first.target)==int(node.id) and int(first.carried)==0:break
+		queue.pop_front()
 	if holder_id>=0 and holder_id!=int(unit.id):
 		var holder=entity(holder_id)
 		if holder.is_empty() or not mining_worker(holder) or int(holder.target)!=int(node.id) or int(holder.carried)>0:
 			mining_claims.erase(int(node.id))
 		else:return false
-	if int(mining_claims.get(int(node.id),-1))==int(unit.id):return true
+	if queue.is_empty() or int(queue[0])!=int(unit.id):return false
 	if float(node.get("_worked_at",-1))==time:return false
+	queue.pop_front()
 	mining_claims[int(node.id)]=int(unit.id)
 	unit._mining_wait=0.0
 	unit.gather_clock=0.0
@@ -1982,12 +2104,27 @@ func _find_target(attacker: Dictionary, radius: float, targets: String) -> Dicti
 	if attacker.get("order","")=="attack_move":
 		var threat: Dictionary={}
 		var nearest=radius*radius
-		for candidate in _query_entities(center(attacker),radius):
-			if candidate.hp<=0 or candidate.has("progress") or candidate.get("container",-1)>=0 or allied(int(attacker.owner),int(candidate.owner)) or players[candidate.owner].lost:continue
-			if ("a" if _body_layer(candidate)==COLLISION_AIR else "g") not in targets:continue
-			var distance=center(attacker).distance_squared_to(center(candidate))
-			if distance>nearest or not can_see(int(attacker.owner),candidate) or not _team_threat(candidate,int(attacker.owner)):continue
-			nearest=distance;threat=candidate
+		var owner=int(attacker.owner);var pos=center(attacker)
+		if not threat_indexes.has(owner):
+			var grid={}
+			for candidate in units:
+				if candidate.hp<=0 or candidate.container>=0 or allied(owner,int(candidate.owner)) or players[candidate.owner].lost or not _team_threat(candidate,owner):continue
+				var cell=Vector2i((ACData.point(candidate.pos)/COLLISION_CELL).floor())
+				if not grid.has(cell):grid[cell]=[]
+				grid[cell].append(candidate)
+			threat_indexes[owner]=grid
+		var grid: Dictionary=threat_indexes[owner]
+		var origin=Vector2i((pos/COLLISION_CELL).floor())
+		for ring in range(ceili(radius/COLLISION_CELL)+1):
+			if ring>1 and nearest<=pow(float(ring-1)*COLLISION_CELL,2):break
+			for dx in range(-ring,ring+1):
+				for dy in range(-ring,ring+1):
+					if maxi(absi(dx),absi(dy))!=ring:continue
+					for candidate in grid.get(origin+Vector2i(dx,dy),[]):
+						if candidate.hp<=0 or allied(owner,int(candidate.owner)) or ("a" if _body_layer(candidate)==COLLISION_AIR else "g") not in targets:continue
+						var distance=pos.distance_squared_to(ACData.point(candidate.pos))
+						if distance>nearest or not can_see(owner,candidate) or not _team_threat(candidate,owner):continue
+						nearest=distance;threat=candidate
 		if not threat.is_empty():return threat
 	var best=radius*radius
 	var result: Dictionary={}
@@ -2031,23 +2168,33 @@ func projectile_style(attacker: Dictionary) -> String:
 		["drill","claw","acid","slam","explosion","vine","seed","thorn","spore","none","acid","spore","seed"],
 		["spark","slash","bolt","blade","none","spell","none","plasma","beam","bolt","slash","none","beam"]
 	]
-	return styles[int(attacker.get("race",0))][clampi(int(attacker.get("kind",0)),0,12)]
+	return str(ACData.unit(int(attacker.race),int(attacker.kind)).get("weapon",styles[int(attacker.race)][clampi(int(attacker.kind),0,12)]))
 
-func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_projectile: bool=true) -> void:
+func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_projectile: bool=true,damage_kind: String="attack",armor_scale: float=1.0,bonus_scale: float=1.0) -> void:
 	if target.hp<=0 or allied(int(attacker.owner),int(target.owner)):
 		return
 	attacker._last_attack_owner=int(target.owner)
 	attacker._last_attack_time=time
 	var d=ACData.building(int(target.race),int(target.kind)) if target.has("progress") else ACData.unit(int(target.race),int(target.kind))
 	var left=amount
+	if damage_kind=="attack":
+		if not attacker.has("progress"):
+			var ad=ACData.unit(int(attacker.race),int(attacker.kind))
+			left+=float(ad.get("bonus_"+str(d.get("armor_class","heavy" if target.has("progress") else "light")),0))*bonus_scale
+		if float(target.get("smoke_until",0))>time and projectile_style(attacker) not in ["tool","bash","claw","slam","slash","blade","drill","vine"]:left*=.65
+		if float(target.get("carapace_until",0))>time:left*=.55
+	if float(target.get("ward_until",0))>time:
+		var ward_absorb=minf(left,float(target.get("ward",0)))
+		target.ward=float(target.get("ward",0))-ward_absorb;left-=ward_absorb
+	if left<=0:return
 	if target.shield>0:
-		left=maxf(1,left-float(players[target.owner].shield))
+		left=maxf(armor_scale,left-float(players[target.owner].shield)*armor_scale)
 		var absorbed=minf(left,target.shield)
 		target.shield-=absorbed
 		left-=absorbed
 	if left>0:
 		var armor=(2 if int(target.race)==0 else (0 if int(target.race)==1 else 1)) if target.has("progress") else int(d.armor)+int(players[target.owner].armor)
-		left=maxf(1,left-armor)
+		left=maxf(armor_scale,left-armor*armor_scale)
 		if not target.has("progress") and d.role=="shield":
 			var facing=ACData.point(target.facing)
 			if facing.dot((center(attacker)-center(target)).normalized())>.3:
@@ -2058,12 +2205,25 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 		var style=projectile_style(attacker)
 		var travel=clampf(center(attacker).distance_to(center(target))/24.0,.12,.6)
 		if style in ["beam","laser","tool","bash","claw","slam","slash","blade","drill","spark"]:travel=.18
-		_effect("shot",attacker,center(target),travel,{"target":int(target.id),"projectile":style,"damage":amount,"target_air":not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air})
+		_effect("shot",attacker,center(target),travel,{"target":int(target.id),"projectile":style,"damage":amount,"barrel":int(attacker.get("burst_shot",-1)),"target_air":not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air})
 	if target.hp<=0:
 		players[attacker.owner].kills+=1
-		_effect("explosion",target,center(target),.6,{"attacker":int(attacker.get("id",-1)),"fatal":true})
+		if target.has("progress"):
+			var known=[]
+			var location=Vector2i(center(target))
+			for owner in range(players.size()):
+				if allied(owner,int(target.owner)) or (map.inside(location) and visibility[owner][location.y*128+location.x]>0):known.append(owner)
+			rubble.append({"id":next_effect_id,"race":target.race,"kind":target.kind,"pos":ACData.packed(center(target)),"width":d.w,"started":time,"until":time+45,"known":known})
+			next_effect_id+=1
+			if rubble.size()>128:rubble.pop_front()
+		_death_visual(target,int(attacker.get("id",-1)))
 	elif not target.has("progress"):
 		_flee_from_damage(target,attacker)
+
+func _death_visual(target: Dictionary, attacker_id: int=-1) -> void:
+	var d=ACData.building(int(target.race),int(target.kind)) if target.has("progress") else ACData.unit(int(target.race),int(target.kind))
+	var style="juice" if int(target.race)==1 else "blue_flame" if int(target.race)==2 else "explosion" if target.has("progress") or d.get("material","")=="mechanical" else "blood"
+	_effect("death",target,center(target),8.0 if style in ["juice","blood"] else .85,{"attacker":attacker_id,"fatal":true,"death_style":style,"extent":float(d.w)*32 if target.has("progress") else clampf(float(d.get("visual_extent",36))*1.4,26,140)})
 
 func _flee_from_damage(unit: Dictionary, attacker: Dictionary) -> void:
 	var definition=unit._definition if unit.has("_definition") else ACData.unit(int(unit.race),int(unit.kind))
@@ -2102,16 +2262,17 @@ func _flee_from_damage(unit: Dictionary, attacker: Dictionary) -> void:
 	# the pathfinder or extend an impossible movement indefinitely.
 	unit._flee_ready_at=time+.75
 
-func _area_damage(u: Dictionary, pos: Vector2, radius: float, damage: float, except_id: int = -1) -> void:
+func _area_damage(u: Dictionary, pos: Vector2, radius: float, damage: float, except_id: int = -1,targets: String="ga",armor_scale: float=1.0) -> void:
 	for t in _query_entities(pos,radius):
 		if int(t.id)!=except_id and t.hp>0 and t.get("container",-1)<0 and not allied(int(u.owner),int(t.owner)) and center(t).distance_squared_to(pos)<=radius*radius:
-			_damage(u,t,damage,false)
+			if ("g" if t.has("progress") or not ACData.unit(int(t.race),int(t.kind)).air else "a") in targets:_damage(u,t,damage,false,"attack",armor_scale)
 
 func _mind_control(u: Dictionary, target_id: int) -> String:
 	# Validate on the authoritative simulation, including fog and concealed units.
 	if u.hp<=0 or u.get("container",-1)>=0 or ACData.unit(int(u.race),int(u.kind)).role!="parasite":return "정신 조종을 사용할 수 없습니다"
 	if u.ability_cd>0:return "능력 재사용 대기 중입니다"
-	if float(u.energy)<100:return "에너지가 부족합니다"
+	var mana_cost=200.0
+	if float(u.energy)<mana_cost:return "마나 200이 필요합니다"
 	var target=entity(target_id)
 	if target.is_empty() or target.hp<=0 or target.has("progress") or target.get("technical",false):return "적 유닛을 지정하세요"
 	if allied(int(u.owner),int(target.owner)):return "적 유닛을 지정하세요"
@@ -2129,7 +2290,7 @@ func _mind_control(u: Dictionary, target_id: int) -> String:
 	target._auto_target=-1;target._scan_at=time;target.fleeing=false
 	target.healing=false;target.heal_target=-1;target.heal_kind="";target.moving=false
 	target.controlled_by=int(u.id);target.previous_owner=previous_owner
-	u.energy-=100;u.ability_cd=20;u.fired=time
+	u.energy-=mana_cost;u.ability_cd=20;u.fired=time
 	_set_action(u,"attack",true)
 	_effect("heal",u,center(target),.8,{"projectile":"mind_control","target":target.id})
 	collision_index_valid=false;collision_recovery_revision=-1
@@ -2148,14 +2309,7 @@ func _ability(u: Dictionary, pos: Vector2) -> void:
 		u.anchored=not u.anchored
 		u.ability_cd=1.0
 	elif d.role=="transport":
-		for id in u.cargo:
-			var rider=entity(int(id))
-			if not rider.is_empty():
-				rider.container=-1
-				collision_index_valid=false
-				rider.pos=ACData.packed(unit_free_position(int(rider.race),int(rider.kind),ACData.point(u.pos)+Vector2(rng.randf_range(-2,2),rng.randf_range(-2,2)),int(rider.id)))
-				collision_index_valid=false
-		u.cargo=[]
+		for id in u.cargo.duplicate():NEW_UNITS.unload(self,u,int(id))
 		u.ability_cd=1
 	elif d.role=="mage" and u.energy>=75 and ACData.point(u.pos).distance_to(pos)<10:
 		u.energy-=75
@@ -2184,11 +2338,7 @@ func resolve_spells() -> void:
 			_effect("explosion",caster,ACData.point(e.pos),.5,{"projectile":"spell","caster":e.caster})
 
 func _support(u: Dictionary, d: Dictionary, dt: float) -> void:
-	if d.role=="healer_detector":
-		for c in corpses:
-			if c.value>0 and ACData.point(c.pos).distance_to(ACData.point(u.pos))<3:
-				u.heal_stock+=c.value
-				c.value=0
+	if d.role=="healer_detector" and (not u.get("sap_heal_enabled",true) or float(u.energy)<=0):return
 	var candidates=_query_entities(ACData.point(u.pos),4)
 	candidates.sort_custom(func(a,b):
 		var previous=int(u.get("_heal_previous_target",-1))
@@ -2206,7 +2356,7 @@ func _support(u: Dictionary, d: Dictionary, dt: float) -> void:
 		var holder_id=int(t.get("_heal_owner",-1))
 		if holder_id!=int(u.id) and time<float(t.get("_heal_until",-1)):
 			var holder=entity(holder_id)
-			if not holder.is_empty() and holder.hp>0 and holder.container<0 and not holder.get("fleeing",false) and center(holder).distance_squared_to(center(t))<=16 and (float(holder.energy)>0 or (int(holder.race)==1 and float(holder.heal_stock)>0)):continue
+			if not holder.is_empty() and holder.hp>0 and holder.container<0 and not holder.get("fleeing",false) and float(holder.get("silenced_until",0))<=time and holder.get("sap_heal_enabled",true) and center(holder).distance_squared_to(center(t))<=16 and float(holder.energy)>0:continue
 		if float(t.get("_healed_tick",-1))==time and holder_id!=int(u.id):continue
 		if d.role=="medic" and int(t.race)==0 and int(t.kind) in [0,1,2,3,4,7] and u.energy>0:
 			var amount=minf(td.hp-t.hp,minf(6*dt,float(u.energy)*4.0))
@@ -2214,10 +2364,15 @@ func _support(u: Dictionary, d: Dictionary, dt: float) -> void:
 			u.energy=maxf(0,float(u.energy)-amount*.25)
 			_healing_activity(u,t,"medic",amount)
 			break
-		if d.role=="healer_detector" and int(t.race)==1 and u.heal_stock>0:
-			var amount=minf(8*dt,minf(u.heal_stock,td.hp-t.hp))
+		if d.role=="priest" and int(t.race)==2 and u.energy>0:
+			var amount=minf(float(td.hp)-float(t.hp),minf(10*dt,float(u.energy)*.5))
+			t.hp+=amount;u.energy=maxf(0,float(u.energy)-amount*2)
+			_healing_activity(u,t,"priest",amount)
+			break
+		if d.role=="healer_detector" and int(t.race)==1 and u.energy>0:
+			var amount=minf(8*dt,minf(float(u.energy)*2,float(td.hp)-float(t.hp)))
 			t.hp+=amount
-			u.heal_stock-=amount
+			u.energy=maxf(0,float(u.energy)-amount*.5)
 			_healing_activity(u,t,"sap",amount)
 			break
 
@@ -2273,7 +2428,19 @@ func _update_vision() -> void:
 				if not allied(owner,int(e.owner)):
 					continue
 				sources[owner][Vector3i(p.x,p.y,radius)]=true
+	for reveal in reveals:
+		var radius=int(reveal.radius);var point=Vector2i(ACData.point(reveal.pos))
+		if not vision_spans.has(radius):
+			var spans: Array=[]
+			for dy in range(-radius,radius+1):spans.append(Vector2i(dy,int(floor(sqrt(float(radius*radius-dy*dy))))))
+			vision_spans[radius]=spans
+		for owner in range(players.size()):
+			if allied(owner,int(reveal.owner)):sources[owner][Vector3i(point.x,point.y,radius)]=true
 	for owner in range(players.size()):
+		var signature=hash(sources[owner])
+		if vision_signatures.get(owner,-1)==signature:continue
+		vision_signatures[owner]=signature
+		fog_revision+=1
 		var fog=PackedByteArray()
 		fog.resize(ACMap.SIZE*ACMap.SIZE)
 		fog.fill(0)
@@ -2303,6 +2470,8 @@ func can_see(owner: int, e: Dictionary) -> bool:
 		return false
 	if not e.has("progress"):
 		if is_cloaked(e):
+			for reveal in reveals:
+				if reveal.get("detect",false) and float(reveal.until)>time and allied(owner,int(reveal.owner)) and ACData.point(reveal.pos).distance_squared_to(center(e))<=pow(float(reveal.radius),2):return true
 			for detector in _query_entities(center(e),9):
 				if not allied(owner,int(detector.owner)) or detector.hp<=0 or detector.get("container",-1)>=0:continue
 				var detects=false
@@ -2318,10 +2487,14 @@ func _check_end() -> void:
 		if players[i].lost:
 			continue
 		var alive=false
+		var headquarters=false
 		for b in buildings:
 			if int(b.owner)==i and b.hp>0:
 				alive=true
-		if not alive:
+				if int(b.kind)==0 and b.progress>=1:headquarters=true
+		if headquarters:players[i].hq_deadline=-1.0
+		elif float(players[i].get("hq_deadline",-1))<0:players[i].hq_deadline=time+60.0
+		if (not alive and not units.any(func(u):return int(u.owner)==i and u.hp>0)) or (not headquarters and time>=float(players[i].get("hq_deadline",INF))):
 			players[i].lost=true
 	var teams: Array=[]
 	for i in range(players.size()):
@@ -2370,7 +2543,7 @@ func _remembered_buildings(owner: int, visible: Array) -> Array:
 		else:ghosts.append(remembered.duplicate(true))
 	return ghosts
 
-func snapshot(owner: int = -1) -> Dictionary:
+func snapshot(owner: int = -1, live_view: bool=false) -> Dictionary:
 	CITRUS_BROOD.refresh(self)
 	var us: Array=[]
 	var bs: Array=[]
@@ -2381,6 +2554,8 @@ func snapshot(owner: int = -1) -> Dictionary:
 			# them before copying rather than deep-copying then discarding them.
 			var copy=u.duplicate(false)
 			copy.cloaked=is_cloaked(u)
+			if live_view:
+				us.append(copy);continue
 			copy.erase("path")
 			for internal in ["action_intent","activity_clock","approach_target","approach_revision","approach_goal","blocked_clock","nav_blocked","avoid_until","yield_visual_until","path_rev","repath","path_failed"]:copy.erase(internal)
 			for key in copy.keys():
@@ -2401,12 +2576,17 @@ func snapshot(owner: int = -1) -> Dictionary:
 			if owner>=0 and not allied(owner,int(b.owner)):
 				copy.queue=[]
 				copy.research=""
+				copy.research_queue=[]
+				copy.nuke_job={}
 			bs.append(copy)
 	var ps=players.duplicate(true)
+	for player in ps:
+		for key in player.keys():
+			if str(key).begins_with("_"):player.erase(key)
 	if owner>=0:
 		for i in range(ps.size()):
 			if not allied(owner,i):
-				for key in ["as","tera","used","cap","reserved","ai_goal","spent","gathered","attack","armor","shield","home","spawn_slot"]:
+				for key in ["as","tera","used","cap","reserved","ai_goal","spent","gathered","attack","armor","shield","home","spawn_slot","technologies","nukes","nuke_stock"]:
 					ps[i].erase(key)
 	var fog=PackedByteArray()
 	var seen=PackedByteArray()
@@ -2430,11 +2610,20 @@ func snapshot(owner: int = -1) -> Dictionary:
 		copy.depleted=int(copy.amount)<=0
 		rs.append(copy)
 	var fx: Array=[]
+	var ruins=[]
+	for debris in rubble:
+		var point=Vector2i(ACData.point(debris.pos));var visible=owner<0 or (map.inside(point) and visibility[owner][point.y*128+point.x]>0)
+		if visible and owner>=0 and owner not in debris.known:debris.known.append(owner)
+		if owner>=0 and owner not in debris.known:continue
+		var copy=debris.duplicate(false);copy.erase("known");copy.fogged=not visible;ruins.append(copy)
 	for effect in effects:
+		if effect.get("type","")=="nuclear_notice":
+			fx.append({"id":effect.id,"type":"nuclear_notice","started":effect.started,"until":effect.until})
+			continue
 		var visible=true
 		if owner>=0:
 			for key in ["from","to"]:
 				var p=Vector2i(ACData.point(effect[key]))
 				if not map.inside(p) or visibility[owner][p.y*ACMap.SIZE+p.x]==0:visible=false
 		if visible:fx.append(effect.duplicate(true))
-	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"building_memory":_remembered_buildings(owner,bs),"resources":rs,"roots":roots.snapshot(self,owner),"effects":fx,"shimmers":shimmers,"ended":ended,"winners":winners,"fog":fog,"explored":seen,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original")}
+	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"building_memory":_remembered_buildings(owner,bs),"resources":rs,"roots":roots.snapshot(self,owner),"effects":fx,"rubble":ruins,"shimmers":shimmers,"ended":ended,"winners":winners,"fog":fog,"explored":seen,"fog_revision":fog_revision,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original"),"_live_view":live_view}

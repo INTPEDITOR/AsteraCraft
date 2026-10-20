@@ -1,0 +1,19 @@
+{
+  "projectiles": {
+    "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-df4abf4b-b7bf-4dda-b348-1dcc4ed3f1b9.png",
+    "prompt": "Original RTS weapon sprite atlas, transparent PNG, EXACT 8 equal columns and 8 equal rows, isolated fully padded cells, no text, no unit bodies, no borders. Eight animation frames left to right per row. Canonical projectile travels towards RIGHT (east) in screen plane; no camera or ground backdrop. First two frames ignition/muzzle, middle four flying projectile with short tail, final two distinctive small hit and fade. Row1 brass bullet orange muzzle white-hot tiny tracer sparks; row2 dark steel cannon shell broad amber muzzle and dusty explosive impact; row3 physical gray rocket with yellow stripe and red nose, exhaust then orange blast; row4 organic orange citrus acid droplet with green strands and teal glints, wet splash; row5 brown-green seed pod trailing orange pollen, seed burst; row6 slender green thorn with orange core and cyan glint, needle impact; row7 ivory/crimson plasma orb with blue-white hot center, circular energy impact; row8 ivory and red magical bolt with gold edge, star shaped impact. Crisp high detail painted RTS art, shape differences clearly readable at 20-40px. Every cell has 15% padding and fixed center, no overlaps. No borrowed game images, no logos."
+  },
+  "impacts": {
+    "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-4a05a412-7373-441e-971b-1d948c7d3dbe.png",
+    "prompt": "Original RTS attack sprite atlas, transparent PNG, EXACT 8 equal columns by 8 equal rows, isolated fully padded cells, no text, no unit bodies, no borders. Eight temporal animation frames left to right per row. Tiny effects readable at 30-60px, no camera or ground backdrop. Row1 citrus claw: three separate curved orange claw cuts with green acid specks, strike then fade. Row2 ivory/crimson blade: elegant pale sweeping crescent with red gold sparks. Row3 kinetic hammer: compressed dust cone, angular gray chips and short orange impact rays. Row4 electrical spark: cyan branching star arcs and small ivory hot central glint. Row5 vehicle flamethrower: low directional flame cone towards RIGHT, yellow core orange-red edges, ignition then full blast then embers. Row6 living vine weapon: green curling thorn vine with orange sap and cyan glints, sweeps towards RIGHT then retracts. Row7 sustained beam endpoints: concentric ivory-red focus rings and escalating cyan-white sparks, no opaque background. Row8 explosive ground hit: irregular amber blast with dark metal fragments, expanding gray brown smoke then fine dust fade. Crisp high detail painted RTS art, distinct silhouettes, fixed center and 15% padding each cell, no overlap. No borrowed game images or logos."
+  },
+  "generator": "built-in image_gen",
+  "columns": 8,
+  "rows": 8,
+  "frames": 8,
+  "canonical_direction": "right",
+  "files": [
+    "res://assets/weapon_projectiles_v060.png",
+    "res://assets/weapon_impacts_v060.png"
+  ]
+}

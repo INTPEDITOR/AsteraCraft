@@ -130,7 +130,7 @@ func online() -> void:
 				discovery.forget_service()
 				main.online_status.text="로비에 연결하지 못했습니다. 다시 연결을 눌러 재탐색해 주세요."
 				return
-			if int(data.get("protocol",0))!=9:main.online_status.text="연결할 지휘관들이 모두 같은 버전의 게임을 실행해야 합니다.";return
+			if int(data.get("protocol",0))!=10:main.online_status.text="연결할 지휘관들이 모두 같은 버전의 게임을 실행해야 합니다.";return
 			_open_online_account(attempt)
 		)
 	)
@@ -283,7 +283,7 @@ func make_room_row(item: Dictionary) -> Panel:
 	background.border_color=Color(.56,.47,.27,.45)
 	background.set_border_width_all(1)
 	row.add_theme_stylebox_override("panel",background)
-	var description=label(row,"%s\n참가 %d / 4 · 관전 %d / 4 · %s"%[item.name,item.members.filter(func(m):return not m.get("observer",false)).size(),item.members.filter(func(m):return m.get("observer",false)).size(),ACLobbyMapPreview.map_names()[int(item.map)]],4,800,18,16)
+	var description=label(row,"%s\n참가 %d / %d · 관전 %d / 4 · %s"%[item.name,item.members.filter(func(m):return not m.get("observer",false)).size(),4-item.get("closed_slots",[]).size(),item.members.filter(func(m):return m.get("observer",false)).size(),ACLobbyMapPreview.map_names()[int(item.map)]],4,800,18,16)
 	description.size.y=56
 	description.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	description.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -293,13 +293,28 @@ func make_room_row(item: Dictionary) -> Panel:
 	))
 	return row
 
+func _room_seats(room: Dictionary) -> Array:
+	var seats=[{},{},{},{},{},{},{},{}]
+	for member in room.members:
+		if member.get("observer",false):
+			for index in range(4,8):
+				if seats[index].is_empty():seats[index]=member;break
+		else:
+			var slot=int(member.get("slot",-1)) if member.get("slot")!=null else -1
+			if slot>=0 and slot<4 and seats[slot].is_empty():seats[slot]=member
+			else:
+				for index in range(4):
+					if seats[index].is_empty():seats[index]=member;break
+	return seats
+
 func room_menu() -> void:
 	if not _account_ready():account_menu();return
 	var p=open("room","커스텀 대기실",Vector2(1260,840))
 	room_controls=[]
 	room_rows=[]
 	room_member_ids=[]
-	for member in main.room.members:room_member_ids.append(str(member.user))
+	var seats=_room_seats(main.room)
+	for member in seats:room_member_ids.append(str(member.get("user","")))
 	var owner=main.room.owner==main.account.id
 	room_owner_id=str(main.room.owner)
 	room_map_name=label(p,"",0,300,22)
@@ -342,9 +357,25 @@ func room_menu() -> void:
 		var status=label(row,"",4,125,17,600)
 		for item in [nick,race,team,status]:item.size.y=29
 		room_rows.append({"nickname":nick,"race":race,"team":team,"status":status})
-		if index<main.room.members.size() and main.room.members[index].user==main.account.id:
+		var seated: Dictionary=seats[index]
+		if index<4 and owner:
+			var slot_index=index
+			var slot_button=button(row,"슬롯 닫기",600,0,125,func():main._room_update({"slot":slot_index,"closed":not slot_index in main.room.get("closed_slots",[])}),36)
+			slot_button.add_theme_font_size_override("font_size",14)
+			slot_button.set_meta("owner_only",true)
+			room_rows.back()["slot_button"]=slot_button;room_controls.append(slot_button)
+		if seated.get("bot",false) and owner:
 			race.visible=false
-			main.race_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],250,0,220,int(main.room.members[index].race),func(i):main.race_choice=i;main._room_update({"race":i}))
+			var bot_id=str(seated.user)
+			var bot_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],250,0,220,int(seated.race),func(i):main._room_update({"bot_id":bot_id,"bot_race":i}))
+			bot_select.size.y=36;bot_select.custom_minimum_size.y=36
+			bot_select.add_theme_font_size_override("font_size",17)
+			bot_select.set_meta("owner_only",true)
+			room_rows.back()["bot_select"]=bot_select
+			room_controls.append(bot_select)
+		if seated.get("user","")==main.account.id:
+			race.visible=false
+			main.race_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],250,0,220,int(seated.race),func(i):main.race_choice=i;main._room_update({"race":i}))
 			main.race_select.size.y=36
 			main.race_select.custom_minimum_size.y=36
 			main.race_select.add_theme_font_size_override("font_size",17)
@@ -391,8 +422,9 @@ func leave_room() -> void:
 func update_room_text() -> void:
 	if not is_instance_valid(main.room_detail):return
 	var r=main.room
+	var seats=_room_seats(r)
 	var member_ids: Array=[]
-	for member in r.members:member_ids.append(str(member.user))
+	for member in seats:member_ids.append(str(member.get("user","")))
 	if room_owner_id!=str(r.owner) or room_member_ids!=member_ids:room_menu();return
 	room_preview.set_map(int(r.map))
 	room_map_name.text=ACLobbyMapPreview.map_names()[int(r.map)]
@@ -406,17 +438,24 @@ func update_room_text() -> void:
 		if member.get("bot",false):bot_count+=1
 	for index in range(8):
 		var row=room_rows[index]
-		if index>=r.members.size():
-			row.nickname.text="빈 슬롯";row.race.text="";row.team.text="";row.status.text="참가 대기"
+		var member: Dictionary=seats[index]
+		if row.has("slot_button"):
+			row.slot_button.visible=member.is_empty()
+			row.slot_button.text="슬롯 열기" if index in r.get("closed_slots",[]) else "슬롯 닫기"
+			row.status.visible=not member.is_empty()
+		if member.is_empty():
+			var closed=index<4 and index in r.get("closed_slots",[])
+			row.nickname.text=("닫힌 플레이어 슬롯 %d"%[index+1] if closed else "빈 플레이어 슬롯 %d"%[index+1]) if index<4 else "빈 관전자 슬롯"
+			row.race.text="";row.team.text="";row.status.text="닫힘" if closed else "참가 대기" if index<4 else "관전 대기"
 			row.status.modulate=Color("777e82")
 			continue
-		var member=r.members[index]
 		row.nickname.text=member.nickname+(" · 방장" if member.user==r.owner else "")
 		var observing=bool(member.get("observer",false))
 		row.race.text="관전자" if observing else ["바위너구리","귤 변이 군체","고대 부엉이"][int(member.race)]
 		row.team.text=str(int(member.team)+1) if r.mode=="teams" and not observing else "—"
 		row.status.text="관전" if observing else ("준비 완료" if member.ready else "준비 대기")
 		row.status.modulate=Color("a5d88f") if member.ready else Color("b8b6ac")
+		if row.has("bot_select"):row.bot_select.select(int(member.race))
 		if member.user==main.account.id:
 			self_observer=observing
 			observer_button.text="플레이어로 전환" if observing else "관전자로 전환"
@@ -440,11 +479,12 @@ func update_room_text() -> void:
 	if is_instance_valid(main.race_select):main.race_select.disabled=locked or self_observer
 	team_button.disabled=locked or self_observer or r.mode!="teams"
 	team_button.tooltip_text="팀전에서 플레이어의 팀을 변경합니다." if r.mode!="teams" else "1팀과 2팀을 전환합니다."
-	observer_button.disabled=locked or (player_count>=4 if self_observer else observer_count>=4)
+	var capacity=4-r.get("closed_slots",[]).size()
+	observer_button.disabled=locked or (player_count>=capacity if self_observer else observer_count>=4)
 	observer_button.tooltip_text="방장도 관전할 수 있으며 내 PC가 호스팅을 계속합니다." if r.owner==main.account.id else "플레이어와 관전자를 전환합니다. 각 정원은 4명입니다."
 	if is_instance_valid(add_bot_button):
-		add_bot_button.disabled=locked or player_count>=4 or r.members.size()>=8 or r.owner!=main.account.id
-		add_bot_button.tooltip_text="플레이어 정원은 컴퓨터를 포함해 4명입니다."
+		add_bot_button.disabled=locked or player_count>=capacity or r.members.size()>=8 or r.owner!=main.account.id
+		add_bot_button.tooltip_text="열린 플레이어 슬롯은 컴퓨터를 포함해 %d명입니다."%capacity
 	if is_instance_valid(remove_bot_button):
 		remove_bot_button.disabled=locked or bot_count==0 or r.owner!=main.account.id
 		remove_bot_button.tooltip_text="마지막으로 추가한 컴퓨터를 제거합니다."
@@ -550,6 +590,8 @@ func result(won: bool) -> Control:
 	button(p,"메인 화면",0,425,300,leave)
 	var replay=button(p,"리플레이 보기",340,425,300,_watch_result_replay)
 	replay.disabled=main.replay_frames.is_empty()
+	var save=button(p,"리플레이 저장",680,425,300,func():main._save_replay())
+	save.disabled=main.replay_frames.is_empty()
 	return p
 
 func _watch_result_replay() -> void:
@@ -693,16 +735,13 @@ func pause() -> void:
 	modal.closed.connect(resume)
 	button(p,"계속하기",45,0,300,resume)
 	button(p,"환경 설정",45,75,300,settings)
-	button(p,"리플레이 저장",45,150,300,func():main._save_replay();main._notify("현재까지의 리플레이를 저장했습니다."))
+	button(p,"리플레이 저장",45,150,300,func():main._save_replay())
 	button(p,"항복",45,225,300,func():resume.call();main._send_command({"type":"surrender"}))
 	button(p,"메인 화면",45,300,300,func():
 		if not main.replay_mode and not main.state.get("ended",false):main._send_command({"type":"surrender"})
-		main._save_replay()
 		main._leave_network()
 		main.core=null
 		main.paused=false
 		main._main_menu()
 	)
 	label(p,"온라인 경기는 메뉴를 열어도 계속 진행됩니다.",390,570,16)
-
-

@@ -1,0 +1,18 @@
+AsteraCraft audio credits
+
+Spoken unit voices and faction narrators: generated using ElevenLabs
+https://elevenlabs.io
+
+Citrus creature voices and combat / ability / transport sound sources:
+generated using VARCO Sound
+https://sound.varco.ai
+
+Character direction, short dialogue, sound selection, editing, radio processing,
+biomechanical layering and stone telepathy processing: AsteraCraft project.
+This is a noncommercial experimental game project.
+
+The source records in data/elevenlabs_voices_v060.json and
+data/varco_sounds_v060.json document the generation sources. The active voice
+and sound manifests document the edited clips and their source checksums.
+Runtime sound cues include edited derivatives of the generated recordings.
+These credits do not imply that every cue was generated independently.

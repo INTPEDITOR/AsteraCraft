@@ -26,10 +26,10 @@ func _initialize():
 					if weights[owner]>.95:cores[owner]+=1
 				if x>0 and owner!=owners[-2]:changes+=1
 				if y>0 and owner!=owners[(y-1)*128+x]:changes+=1
-				if map.visual_role(y*128+x)==3 and map.is_water(y*128+x):
+				check(map.is_water(y*128+x)==(map.terrain[y*128+x]==2),"water follows original map classification")
+				if map.is_water(y*128+x):
 					pools+=1
-					check(map.source_walk_masks[y*128+x]==0,"new water excludes every walkable minitile")
-		check(pools==[943,169,456][theme],"all wholly blocked obstacle interiors converted to water")
+		check(pools==[257,176,1116][theme],"all original water tiles preserved without converting rocks")
 		for kind in range(4):
 			check(counts[kind]>total*.02,"all four textures cover meaningful land districts")
 			check(cores[kind]>20,"all four textures have full-strength interiors")

@@ -2,7 +2,7 @@ const {spawn}=require('node:child_process'),fs=require('node:fs'),path=require('
 const root=path.resolve(__dirname,'..'),endpoint=process.env.ASTERA_TEST_URL||'http://127.0.0.1:17900/api';
 const observerHost=process.env.ASTERA_OBSERVER_HOST==='1';
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-async function api(route,token,body){const r=await fetch(endpoint+route,{method:body?'POST':'GET',headers:{'Content-Type':'application/json',Authorization:'Bearer '+(token||'')},body:body?JSON.stringify(body):undefined});const d=await r.json();assert.equal(r.status,200,JSON.stringify(d));return d;}
+async function api(route,token,body){const r=await fetch(endpoint+route,{method:body?'POST':'GET',headers:{'Content-Type':'application/json','X-Astera-Protocol':'10',Authorization:'Bearer '+(token||'')},body:body?JSON.stringify(body):undefined});const d=await r.json();assert.equal(r.status,200,JSON.stringify(d));return d;}
 (async()=>{
  const suffix=Date.now().toString(36),players=[];
  for(let i=0;i<3;i++)players.push(await api('/register','',{nickname:'qa'+suffix+i,password:require('node:crypto').randomBytes(24).toString('hex')}));

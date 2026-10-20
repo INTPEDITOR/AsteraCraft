@@ -1,0 +1,609 @@
+{
+  "schema": 1,
+  "service": "VARCO Sound",
+  "budget": 1700,
+  "cost_per_request": 50,
+  "starting_credits": 1000,
+  "banks": [
+    {
+      "id": "nuclear",
+      "ordinal": 1,
+      "credits": 50,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. A colossal nuclear detonation: instantaneous sharp flash crack, immense deep bass pressure wave, heavy fireball roar and debris, then a majestic slowly fading low rumble. One isolated 8-second game effect."
+    },
+    {
+      "id": "nuclear_ascent",
+      "ordinal": 2,
+      "credits": 50,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. A heavy tactical rocket engine ignites with a forceful mechanical ignition bang and roars upward, powerful turbulent rocket exhaust rapidly receding over 4 seconds. No impact explosion."
+    },
+    {
+      "id": "ballistic",
+      "prompt": "High-quality isolated RTS game sound effects. No music, no ambience, no constant noise. Start immediately. Three isolated heavy sci-fi weapon attacks with clear silence between: a sharp automatic rifle burst and bolt cycle; a heavy tank cannon boom with metallic recoil; a flame jet ignition and pressurized fiery whoosh. No speech.",
+      "ordinal": 3,
+      "credits": 50
+    },
+    {
+      "id": "arcane",
+      "prompt": "High-quality isolated RTS game sound effects. No music, no ambience, no constant noise. Start immediately. Three isolated majestic fantasy spell activations with silence between: a sharp high-voltage plasma crack and energy impact; a deep crystalline protective shield activation and shimmer; a huge resonant judgment beam with an ancient hollow energy roar. No chanting.",
+      "ordinal": 4,
+      "credits": 50
+    },
+    {
+      "id": "organic",
+      "prompt": "High-quality isolated RTS game sound effects. No music, no ambience, no constant noise. Start immediately. Three isolated biological game abilities with silence between: a wet acid spit and corrosive splatter; giant tree roots snapping up through earth; a concentrated healing pulse of liquid droplets and alien organic resonance. No speech.",
+      "ordinal": 5,
+      "credits": 50
+    },
+    {
+      "id": "transport",
+      "prompt": "High-quality isolated RTS game sound effects. No music, no ambience, no constant noise. Start immediately. Three isolated realistic transport events with silence between: heavy hydraulic metal boarding hatch opening and locking; woody organic creature pouch opening with wet valves and closing; ancient stone portal opening with a low magical chime and grinding stone. No speech.",
+      "ordinal": 6,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u0",
+      "kind": 0,
+      "race": 1,
+      "name": "일귤",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. small busy woody worker chirps with hydraulic ratchets. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 7,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u1",
+      "kind": 1,
+      "race": 1,
+      "name": "껍질발톱",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. aggressive rapid claw creature chattering with serrated metallic clicks. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 8,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u2",
+      "kind": 2,
+      "race": 1,
+      "name": "과즙분사체",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. wet gurgling acid-spitter croak with a deep pump and resonant steel throat. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 9,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u3",
+      "kind": 3,
+      "race": 1,
+      "name": "후피거수",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. colossal thick-skinned beast bass growls with slow grinding armor servos. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 10,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u4",
+      "kind": 4,
+      "race": 1,
+      "name": "과숙폭탄",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. unstable swollen explosive creature bubbling cackles with ticking mechanical clicks. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 11,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u5",
+      "kind": 5,
+      "race": 1,
+      "name": "덩굴포식자",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. predatory vine serpent rasp and leafy hiss with a twisting metal resonator. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 12,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u6",
+      "kind": 6,
+      "race": 1,
+      "name": "씨앗박격체",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. hollow woody seed-cannon creature hoots with clacking chamber mechanisms. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 13,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u7",
+      "kind": 7,
+      "race": 1,
+      "name": "가시꽃",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. sharp thorn-flower insect calls with crystalline metallic ringing. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 14,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u8",
+      "kind": 8,
+      "race": 1,
+      "name": "접목충",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. sinister parasitic insect whispers and chittering with alien electronic modulation. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 15,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u9",
+      "kind": 9,
+      "race": 1,
+      "name": "모즙체",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. low nurturing but threatening organic queen hum with liquid resonance and a mechanical undertone. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 16,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u10",
+      "kind": 10,
+      "race": 1,
+      "name": "귤박쥐",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. piercing flying leaf-bat shrieks with fluttering membranes and rapidly pulsing electronic chirps. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 17,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u11",
+      "kind": 11,
+      "race": 1,
+      "name": "포낭비행체",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. deep inflated flying transport creature calls with pneumatic breathing and creaking metallic cartilage. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 18,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u12",
+      "kind": 12,
+      "race": 1,
+      "name": "대과수",
+      "prompt": "Isolated RTS alien unit voice, a unique biomechanical citrus monster. enormous ancient tree monster seismic groan with deep grinding machinery and crackling roots. Perform three different short nonverbal responses, about one second each, separated by complete silence. The organic monster voice and machinery must sound fused into one living creature. Detailed expressive threatening game voice, not human speech, not words, no music, no environment, no weapon impacts.",
+      "ordinal": 19,
+      "credits": 50
+    },
+    {
+      "id": "citrus_u13",
+      "kind": 13,
+      "race": 1,
+      "name": "배양체",
+      "prompt": "Isolated RTS alien unit voice, a delicate newborn biomechanical citrus larva. Soft wet larval squeaks and curious insect trills fused with tiny servo chirps, springy woody shell clicks and subtle liquid bubbles. Perform three different short nonverbal responses, about one second each, separated by complete silence. One living monster, not human speech, no words, no music, no environment, no weapon impacts.",
+      "ordinal": 20,
+      "credits": 50
+    },
+    {
+      "id": "nuclear_descent",
+      "ordinal": 21,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. A massive missile plunging rapidly from the sky: threatening accelerating air whistle, dense wind shear rushing downward, rising intensity for 3 seconds, stop just before impact. No explosion."
+    },
+    {
+      "id": "rifle",
+      "ordinal": 22,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One powerful military rifle shot. Sharp dry muzzle crack, punchy mechanical bolt cycling, a subtle shell casing clink, a compact gritty tail. Realistic close firearm sound, about 0.6 seconds."
+    },
+    {
+      "id": "cannon",
+      "ordinal": 23,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One heavy armored tank cannon shot: sudden chest-punching low boom, metallic recoil mechanism, gritty shell blast and a short debris tail. Powerful compact 1.5-second game effect."
+    },
+    {
+      "id": "missile",
+      "ordinal": 24,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One guided missile firing from a vehicle: hard launcher clunk, sharp rocket ignition and fast fiery whoosh, ending in a compact distant explosive impact. Realistic layered 2-second weapon effect."
+    },
+    {
+      "id": "flame",
+      "ordinal": 25,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One military flamethrower burst: mechanical ignition click, forceful liquid-fuel whoosh, roaring pressurized flame and crackling fire. Intense close 1.5-second effect."
+    },
+    {
+      "id": "melee",
+      "ordinal": 26,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One heavy claw tearing through metal armor: rapid physical air swish, a fierce sharp metallic slash, thick tearing material and a weighty impact. Close detailed 0.7-second melee game sound."
+    },
+    {
+      "id": "acid",
+      "ordinal": 27,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One organic acid-spitting creature attack: forceful wet pressurized spit, a short liquid projectile hiss, thick corrosive splatter and brief sizzling surface reaction. Dense realistic 1-second biological effect."
+    },
+    {
+      "id": "seed",
+      "ordinal": 28,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One giant organic seed cannon firing: woody chamber tension, a deep hollow organic thump, fast thorn projectile swish and brittle seed-shell impact. Crisp close 1-second fantasy creature weapon sound."
+    },
+    {
+      "id": "roots",
+      "ordinal": 29,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One burst of massive living tree roots tearing upward: deep woody flexing, snapping fibrous roots, cracking soil, heavy earth impact and falling grit. Powerful compact 1.5-second root magic effect."
+    },
+    {
+      "id": "hive",
+      "ordinal": 30,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One ominous psychic mind-control pulse: layered alien organic resonance, tense low chitinous vibration, a focused neural snap and unsettling hollow echo. Detailed 1.5-second game magic effect. No speech or chanting."
+    },
+    {
+      "id": "heal",
+      "ordinal": 31,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One concentrated healing activation: tactile liquid droplets and soft organic pulses, a clean restorative energy shimmer and gentle resonant release. Clear compact 1-second restorative game ability sound, not a melody."
+    },
+    {
+      "id": "shield",
+      "ordinal": 32,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One forceful protective energy shield switching on: dense low activation thump, crystalline energy surface expanding, bright electrical shimmer and a brief protective hum. Solid 1-second ability sound."
+    },
+    {
+      "id": "electric",
+      "ordinal": 33,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One electrical combat discharge: a hard capacitor click, violent electrical crackle, a short high-voltage arc and grounded bass thump. Compact 1-second effect, no musical notes."
+    },
+    {
+      "id": "beam",
+      "ordinal": 34,
+      "credits": 50,
+      "account_batch": 2,
+      "prompt": "Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. One massive science-fiction judgment beam: a brief deep energy swell, piercing laser release, broad roaring energy surge and sizzling shock impact. Monumental 2-second effect."
+    }
+  ],
+  "requests": [
+    {
+      "id": "nuclear",
+      "credits": 50,
+      "project": "4de0992e-46ca-4066-8d89-8c5659677b7b",
+      "file": "build/varco-v060/nuclear.wav",
+      "bytes": 537644,
+      "seconds": 5.6,
+      "status": "downloaded_and_verified",
+      "source_sha256": "f4a55ad9385523ca3508c154fb382c2cec544165a99e638a93a068794b60ca65"
+    },
+    {
+      "id": "nuclear_ascent",
+      "credits": 50,
+      "project": "9e8d84c3-810b-49f4-a3ed-a20431ff9a45",
+      "source": "C:/Users/Admin/Downloads/Rocket_ignition.wav",
+      "file": "build/varco-v060/nuclear_ascent.wav",
+      "status": "downloaded",
+      "source_sha256": "a3c8d8b35899c9844256db45740f75d03f8883b15bea4c47fc7aed1181225b78"
+    },
+    {
+      "id": "citrus_u0",
+      "credits": 50,
+      "project": "87c289e7-5d6a-42cc-80ae-89cf9d7c0cc4",
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Alien_voice.wav",
+      "file": "build/varco-v060/citrus_u0.wav",
+      "source_sha256": "946a7fc799e6f06aa90f28a35057d7f0e7625ea8af21778c25fd0fde99ff40c6"
+    },
+    {
+      "id": "citrus_u1",
+      "project": "1a0cf422-4464-4e84-bdeb-fe97f7819fbb",
+      "credits": 50,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Alien_voice (1).wav",
+      "file": "build/varco-v060/citrus_u1.wav",
+      "source_sha256": "bf160b99e80d16151141d7d2f8a435e69b978e5923b9a26a1b67ecfd2e0f7eb4"
+    },
+    {
+      "id": "citrus_u2",
+      "project": "60dca93d-03cb-444d-b364-3e4e2fb02fbd",
+      "credits": 50,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Alien_croak.wav",
+      "file": "build/varco-v060/citrus_u2.wav",
+      "source_sha256": "0517118f98d0adc7ea463e699d1d987988600b19b377454aefa91873e23ad85e"
+    },
+    {
+      "id": "citrus_u3",
+      "project": "63d74ee5-1164-4e00-9bb1-d0dacddd3d41",
+      "credits": 50,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Alien_growl.wav",
+      "file": "build/varco-v060/citrus_u3.wav",
+      "source_sha256": "ea16c134037975d8d87c5294489bb41417b301e3cc4e29cc774ce704262ea6a3"
+    },
+    {
+      "id": "citrus_u4",
+      "project": "80f036d3-5563-426f-953f-de345c470762",
+      "credits": 50,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Alien_voice (2).wav",
+      "file": "build/varco-v060/citrus_u4.wav",
+      "source_sha256": "0f61650984e169ccd7f396064ab1f0696b177015d831850730611f9f163103a4"
+    },
+    {
+      "id": "citrus_u5",
+      "project": "f10834ff-2c8e-427d-8e11-eb621ac34b92",
+      "credits": 50,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Alien_voice (3).wav",
+      "file": "build/varco-v060/citrus_u5.wav",
+      "source_sha256": "a6c2c66a1281e0cb22998da1004dff0a066dc31dc5dc4bb725cdce9556399004"
+    },
+    {
+      "id": "citrus_u6",
+      "project": "a25849fa-8ba7-4009-81c7-16ace789c4ec",
+      "credits": 50,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Alien_voice (4).wav",
+      "file": "build/varco-v060/citrus_u6.wav",
+      "source_sha256": "9193a62bfa33442f144b870885f8cd2f7e5aea416a50f72b80f51ec157382c66"
+    },
+    {
+      "id": "citrus_u7",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "02cf94f9-9f0e-4e7c-b01f-592053eff34e",
+      "source": "C:/Users/Admin/Downloads/Alien_voice (5).wav",
+      "file": "build/varco-v060/citrus_u7.wav",
+      "source_sha256": "ba585a3b2c2b108565b97641753dd0198d785cb1ca991252c2497ac649b1a08c"
+    },
+    {
+      "id": "citrus_u8",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "0436609d-f0bd-4f48-9618-ed5750d77d72",
+      "source": "C:/Users/Admin/Downloads/Alien_whispers.wav",
+      "file": "build/varco-v060/citrus_u8.wav",
+      "source_sha256": "0ebe4b407a541d1a951eff1bf0c6f3a545069b73aad2f798f95f5db6786984bf"
+    },
+    {
+      "id": "citrus_u9",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "3b19bcad-9778-4a72-a3ff-3448753109d2",
+      "source": "C:/Users/Admin/Downloads/Alien_hum.wav",
+      "file": "build/varco-v060/citrus_u9.wav",
+      "source_sha256": "76ce76f455251e03c4ab3d889f82e465c62c657f9a5b458a960e98d14624a209"
+    },
+    {
+      "id": "citrus_u10",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "06b55eb8-ac2e-4a76-bc6b-75860998acc1",
+      "source": "C:/Users/Admin/Downloads/Alien_voice (6).wav",
+      "file": "build/varco-v060/citrus_u10.wav",
+      "source_sha256": "b6ccbc35031561a6bc58c55e47177faa059dcf8ff29e01abf8734db551583778"
+    },
+    {
+      "id": "citrus_u11",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "1654d977-3e7f-46a1-a23e-f4d37f97b1e6",
+      "source": "C:/Users/Admin/Downloads/Alien_transport.wav",
+      "file": "build/varco-v060/citrus_u11.wav",
+      "source_sha256": "f3d49c80b574093265555482e58d7112c766df332d504352902591f69971906c"
+    },
+    {
+      "id": "citrus_u12",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "a9cd1c47-bafa-4fd1-854b-a24bf8c79209",
+      "source": "C:/Users/Admin/Downloads/Alien_groan.wav",
+      "file": "build/varco-v060/citrus_u12.wav",
+      "source_sha256": "84fbde4b2a090e2ae9ebd1e231f3309ab362c12759522ca812598377bd2c82ec"
+    },
+    {
+      "id": "citrus_u13",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "5fa33dca-f2b0-46ff-b1d2-930d90aee235",
+      "source": "C:/Users/Admin/Downloads/Alien_larva.wav",
+      "file": "build/varco-v060/citrus_u13.wav",
+      "source_sha256": "a1ea5d85913a16da8458842cc7ecdfd8f626e7321fc6ca989219ef605b166236"
+    },
+    {
+      "id": "ballistic",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "8cd72c97-6026-4bd8-83d9-64e3d79a5e8c",
+      "source": "C:/Users/Admin/Downloads/Sci_fi_weapons.wav",
+      "file": "build/varco-v060/ballistic.wav",
+      "source_sha256": "a80c24b3bca914c3f1d0f0fbb9faa1cb16c80776c849c5f5b67116cd04a3af63"
+    },
+    {
+      "id": "arcane",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "9cebb3e7-235e-4529-b7ce-c4655c32cfb5",
+      "source": "C:/Users/Admin/Downloads/Magic_beam.wav",
+      "file": "build/varco-v060/arcane.wav",
+      "source_sha256": "b60f0c826cb5d6d1cfc65fde2e0e1b74f6c6e8122de198477e8fa9be5c927e25"
+    },
+    {
+      "id": "organic",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "ee344ee0-beff-49f6-a5bf-d874c34d7169",
+      "source": "C:/Users/Admin/Downloads/Rts_sfx.wav",
+      "file": "build/varco-v060/organic.wav",
+      "source_sha256": "a80a0b72c8c983b60453b140eb649e9743bee59f2136d2feb04e690668e7bcee"
+    },
+    {
+      "id": "transport",
+      "credits": 50,
+      "status": "downloaded",
+      "project": "ff42973c-1fdc-49b4-88e7-02ec23930379",
+      "source": "C:/Users/Admin/Downloads/Transport_events.wav",
+      "file": "build/varco-v060/transport.wav",
+      "source_sha256": "e41966fc3009be797546985acfc9fc4c6d86e54ff7cb059ec10c0e67c108e54d"
+    },
+    {
+      "id": "nuclear_descent",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Missile_drop.wav",
+      "file": "build/varco-v060/nuclear_descent.wav",
+      "project": "e16127b3-b66f-43e9-ac20-c56661f89d18",
+      "source_sha256": "8549970e4b1ba61e5daa3d10ba22387952ff1b15fb80c85035b43765fef3b6bf"
+    },
+    {
+      "id": "rifle",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Rifle_shot.wav",
+      "file": "build/varco-v060/rifle.wav",
+      "project": "066d6548-3863-41bb-a95e-2e8ef49c4134",
+      "source_sha256": "35e6fe7f5b77c3c308971c782dccc849aecedfa885b75b83fb3fb4d26235a3fd"
+    },
+    {
+      "id": "cannon",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Tank_cannon.wav",
+      "file": "build/varco-v060/cannon.wav",
+      "project": "8e9fe57f-5cda-4ea0-86e5-5cb35cd15761",
+      "source_sha256": "d9597a41bfe2c601ea55ca9916c136c75ee8a860935da776e47b88c1ca7cbc33"
+    },
+    {
+      "id": "missile",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Guided_missile.wav",
+      "file": "build/varco-v060/missile.wav",
+      "project": "910ddfc0-8ea8-4a82-853b-9ce19a8d5de6",
+      "source_sha256": "f98dc2e2f7a56471d69a972f3895ec3cff1ebf9015ee6f2605f3194ee60d317f"
+    },
+    {
+      "id": "flame",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Flamethrower_burst.wav",
+      "file": "build/varco-v060/flame.wav",
+      "project": "bfa86d92-eed3-43ef-95c2-6fd82abb6640",
+      "source_sha256": "582fb818f61d2952000d3dd3d012268c1af2bf654c4f0da04333a5981f54557f"
+    },
+    {
+      "id": "melee",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Claw_tear.wav",
+      "file": "build/varco-v060/melee.wav",
+      "project": "fc4eead1-3a37-4853-89bd-613d2eb70722",
+      "source_sha256": "ce1f708a3450bb08c6e7b1ba82bdc240db681e974405420b7947e07e3b4740c8"
+    },
+    {
+      "id": "acid",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Acid_spit.wav",
+      "file": "build/varco-v060/acid.wav",
+      "project": "6c1b833b-0190-4d44-b4e8-11762a73492b",
+      "source_sha256": "4910b24e398c7f4a75ef5bffad7ca895263bac80710dae4912749527e41d18ba"
+    },
+    {
+      "id": "seed",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Seed_cannon.wav",
+      "file": "build/varco-v060/seed.wav",
+      "project": "1e86fb51-b0fc-4828-aa30-ccdcfc797a40",
+      "source_sha256": "8ed52ad1b43b016aa4fdf58d7fedc5c9ff25ae37f02dc8b28788ac7233278c07"
+    },
+    {
+      "id": "roots",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Root_tear.wav",
+      "file": "build/varco-v060/roots.wav",
+      "project": "cb02d5f4-8161-40ed-bc6e-63a8ec731095",
+      "source_sha256": "219d3841c30e7dc39301e3a5c5029cf5ebe5020e8511754521b410af0d8e5ac7"
+    },
+    {
+      "id": "hive",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Mind_pulse.wav",
+      "file": "build/varco-v060/hive.wav",
+      "project": "f3f20181-693a-4056-a63e-bbe1c99e9dc3",
+      "source_sha256": "1359c416782dca32330eec64ac456e625c896dec42b2cfa9e2f37d7885121214"
+    },
+    {
+      "id": "heal",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Healing_pulse.wav",
+      "file": "build/varco-v060/heal.wav",
+      "project": "b94b5acd-d2bf-49ce-8544-4a6be7004e37",
+      "source_sha256": "1e1d1c9e07666fc190682964d9ea7ed52388cfea1a4132ab5f1aa56a675b008a"
+    },
+    {
+      "id": "shield",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Shield_activate.wav",
+      "file": "build/varco-v060/shield.wav",
+      "project": "f9d43aef-ab13-4dc2-a599-99a07475f6e8",
+      "source_sha256": "3c792547bba530773b7df82e5e08e9dd020839afc178ac614f9d7fedb1c66e8c"
+    },
+    {
+      "id": "electric",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Electric_arc.wav",
+      "file": "build/varco-v060/electric.wav",
+      "project": "e3f35c1f-3a80-4737-964e-7b491ad6e38b",
+      "source_sha256": "9c4c62d33060917256d3d9379809e7d0a52bf8256f90384cde4e1a6fde939a26"
+    },
+    {
+      "id": "beam",
+      "credits": 50,
+      "account_batch": 2,
+      "status": "downloaded",
+      "source": "C:/Users/Admin/Downloads/Beam_strike.wav",
+      "file": "build/varco-v060/beam.wav",
+      "project": "7d6d11d4-81e8-46a0-bae4-29d709a92b77",
+      "source_sha256": "e013695b9dcae4d883eb7ef3fdd9cb9cc799d5b85f763f1a165720f3e7fb7d6b"
+    }
+  ],
+  "policy": "User updated: all 13 citrus unit voices must be newly generated biomechanical monsters in VARCO; narration exclusively ElevenLabs. Remaining seven effect banks have multiple isolated events/variations for weapon and spell derivatives.",
+  "account_batches": [
+    {
+      "batch": 1,
+      "starting_credits": 1000,
+      "approved_spend": 1000,
+      "confirmed_remaining": 0
+    },
+    {
+      "batch": 2,
+      "starting_credits": 1000,
+      "approved_spend": 700,
+      "authorization": "User approved an additional 700 credits and confirmed account switch.",
+      "confirmed_remaining": 300
+    }
+  ],
+  "actual_credits_spent": 1700
+}

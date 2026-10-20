@@ -1,0 +1,1728 @@
+{
+  "schema": 1,
+  "status": "awaiting_generation",
+  "origin": "ElevenLabs web UI, free available default voices, noncommercial game",
+  "line_policy": "unit lines about 1-2 seconds, narration about 2-3 seconds; clear game-actor delivery",
+  "effects": [
+    "strong military radio",
+    "organic hive chorus",
+    "majestic telepathy reverb"
+  ],
+  "banks": [
+    {
+      "id": "r0_u0",
+      "race": 0,
+      "kind": 0,
+      "name": "정비공",
+      "voice": "George",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u0_n0",
+          "text": "공구 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u0_n1",
+          "text": "작업 지시를.",
+          "special": false
+        },
+        {
+          "id": "r0_u0_n2",
+          "text": "수리한다.",
+          "special": false
+        },
+        {
+          "id": "r0_u0_s0",
+          "text": "단단히 조여라.",
+          "special": true
+        },
+        {
+          "id": "r0_u0_s1",
+          "text": "공사는 계속된다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 공구 준비.\n[long pause]\n작업 지시를.\n[long pause]\n수리한다.\n[long pause]\n단단히 조여라.\n[long pause]\n공사는 계속된다.",
+      "pitch": 0.84,
+      "persona": "mature military baritone, distinct role 정비공",
+      "tag": "serious",
+      "resonance": 0.06,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u1",
+      "race": 0,
+      "kind": 1,
+      "name": "전열사수",
+      "voice": "Brian",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u1_n0",
+          "text": "명령을 내려라.",
+          "special": false
+        },
+        {
+          "id": "r0_u1_n1",
+          "text": "전열 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u1_n2",
+          "text": "전진한다.",
+          "special": false
+        },
+        {
+          "id": "r0_u1_s0",
+          "text": "사격 개시!",
+          "special": true
+        },
+        {
+          "id": "r0_u1_s1",
+          "text": "끝까지 버틴다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 명령을 내려라.\n[long pause]\n전열 준비.\n[long pause]\n전진한다.\n[long pause]\n사격 개시!\n[long pause]\n끝까지 버틴다.",
+      "pitch": 0.79,
+      "persona": "mature military baritone, distinct role 전열사수",
+      "tag": "serious",
+      "resonance": 0.077,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u2",
+      "race": 0,
+      "kind": 2,
+      "name": "돌격병",
+      "voice": "Adam",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u2_n0",
+          "text": "돌격 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u2_n1",
+          "text": "길을 열겠다.",
+          "special": false
+        },
+        {
+          "id": "r0_u2_n2",
+          "text": "거침없이 간다.",
+          "special": false
+        },
+        {
+          "id": "r0_u2_s0",
+          "text": "돌파한다!",
+          "special": true
+        },
+        {
+          "id": "r0_u2_s1",
+          "text": "뒤따라와라.",
+          "special": true
+        }
+      ],
+      "prompt": "[angry] 돌격 준비.\n[long pause]\n길을 열겠다.\n[long pause]\n거침없이 간다.\n[long pause]\n돌파한다!\n[long pause]\n뒤따라와라.",
+      "pitch": 0.82,
+      "persona": "mature military baritone, distinct role 돌격병",
+      "tag": "angry",
+      "resonance": 0.094,
+      "speed": 1
+    },
+    {
+      "id": "r0_u3",
+      "race": 0,
+      "kind": 3,
+      "name": "방패보병",
+      "voice": "Roger",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u3_n0",
+          "text": "방패를 들어라.",
+          "special": false
+        },
+        {
+          "id": "r0_u3_n1",
+          "text": "전열을 지킨다.",
+          "special": false
+        },
+        {
+          "id": "r0_u3_n2",
+          "text": "흔들리지 마라.",
+          "special": false
+        },
+        {
+          "id": "r0_u3_s0",
+          "text": "내 뒤로 모여라.",
+          "special": true
+        },
+        {
+          "id": "r0_u3_s1",
+          "text": "물러서지 않는다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 방패를 들어라.\n[long pause]\n전열을 지킨다.\n[long pause]\n흔들리지 마라.\n[long pause]\n내 뒤로 모여라.\n[long pause]\n물러서지 않는다.",
+      "pitch": 0.75,
+      "persona": "mature military baritone, distinct role 방패보병",
+      "tag": "serious",
+      "resonance": 0.111,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u4",
+      "race": 0,
+      "kind": 4,
+      "name": "야전의무병",
+      "voice": "Daniel",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u4_n0",
+          "text": "의무병 대기.",
+          "special": false
+        },
+        {
+          "id": "r0_u4_n1",
+          "text": "아직 끝이 아니다.",
+          "special": false
+        },
+        {
+          "id": "r0_u4_n2",
+          "text": "치료를 시작한다.",
+          "special": false
+        },
+        {
+          "id": "r0_u4_s0",
+          "text": "살아서 돌아와.",
+          "special": true
+        },
+        {
+          "id": "r0_u4_s1",
+          "text": "전열로 복귀해.",
+          "special": true
+        }
+      ],
+      "prompt": "[calm] 의무병 대기.\n[long pause]\n아직 끝이 아니다.\n[long pause]\n치료를 시작한다.\n[long pause]\n살아서 돌아와.\n[long pause]\n전열로 복귀해.",
+      "pitch": 0.9,
+      "persona": "mature military baritone, distinct role 야전의무병",
+      "tag": "calm",
+      "resonance": 0.128,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u5",
+      "race": 0,
+      "kind": 5,
+      "name": "굴착포 전차",
+      "voice": "Bill",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u5_n0",
+          "text": "포신 정렬.",
+          "special": false
+        },
+        {
+          "id": "r0_u5_n1",
+          "text": "사격 좌표를.",
+          "special": false
+        },
+        {
+          "id": "r0_u5_n2",
+          "text": "포격 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u5_s0",
+          "text": "철갑탄 장전.",
+          "special": true
+        },
+        {
+          "id": "r0_u5_s1",
+          "text": "땅을 뒤흔든다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 포신 정렬.\n[long pause]\n사격 좌표를.\n[long pause]\n포격 준비.\n[long pause]\n철갑탄 장전.\n[long pause]\n땅을 뒤흔든다.",
+      "pitch": 0.73,
+      "persona": "mature military baritone, distinct role 굴착포 전차",
+      "tag": "serious",
+      "resonance": 0.145,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u6",
+      "race": 0,
+      "kind": 6,
+      "name": "추적미사일 차륜차",
+      "voice": "Eric",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u6_n0",
+          "text": "표적을 지정하라.",
+          "special": false
+        },
+        {
+          "id": "r0_u6_n1",
+          "text": "미사일 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u6_n2",
+          "text": "추적 개시.",
+          "special": false
+        },
+        {
+          "id": "r0_u6_s0",
+          "text": "벗어날 수 없다.",
+          "special": true
+        },
+        {
+          "id": "r0_u6_s1",
+          "text": "끝까지 쫓는다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 표적을 지정하라.\n[long pause]\n미사일 준비.\n[long pause]\n추적 개시.\n[long pause]\n벗어날 수 없다.\n[long pause]\n끝까지 쫓는다.",
+      "pitch": 0.83,
+      "persona": "mature military baritone, distinct role 추적미사일 차륜차",
+      "tag": "serious",
+      "resonance": 0.162,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u7",
+      "race": 0,
+      "kind": 7,
+      "name": "그림자 정찰병",
+      "voice": "Callum",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u7_n0",
+          "text": "그림자 속으로.",
+          "special": false
+        },
+        {
+          "id": "r0_u7_n1",
+          "text": "조용히 움직인다.",
+          "special": false
+        },
+        {
+          "id": "r0_u7_n2",
+          "text": "목표를 말해라.",
+          "special": false
+        },
+        {
+          "id": "r0_u7_s0",
+          "text": "들키지 마라.",
+          "special": true
+        },
+        {
+          "id": "r0_u7_s1",
+          "text": "모두 보고 있다.",
+          "special": true
+        }
+      ],
+      "prompt": "[whispers] 그림자 속으로.\n[long pause]\n조용히 움직인다.\n[long pause]\n목표를 말해라.\n[long pause]\n들키지 마라.\n[long pause]\n모두 보고 있다.",
+      "pitch": 0.78,
+      "persona": "mature military baritone, distinct role 그림자 정찰병",
+      "tag": "whispers",
+      "resonance": 0.179,
+      "speed": 1
+    },
+    {
+      "id": "r0_u8",
+      "race": 0,
+      "kind": 8,
+      "name": "무인 관측 드론",
+      "voice": "Charlie",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u8_n0",
+          "text": "관측 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u8_n1",
+          "text": "탐지 개시.",
+          "special": false
+        },
+        {
+          "id": "r0_u8_n2",
+          "text": "구역을 확인한다.",
+          "special": false
+        },
+        {
+          "id": "r0_u8_s0",
+          "text": "사각은 없다.",
+          "special": true
+        },
+        {
+          "id": "r0_u8_s1",
+          "text": "시야를 확보한다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 관측 준비.\n[long pause]\n탐지 개시.\n[long pause]\n구역을 확인한다.\n[long pause]\n사각은 없다.\n[long pause]\n시야를 확보한다.",
+      "pitch": 0.88,
+      "persona": "mature military baritone, distinct role 무인 관측 드론",
+      "tag": "serious",
+      "resonance": 0.196,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u9",
+      "race": 0,
+      "kind": 9,
+      "name": "요격기",
+      "voice": "Adam",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u9_n0",
+          "text": "요격기 대기.",
+          "special": false
+        },
+        {
+          "id": "r0_u9_n1",
+          "text": "목표를 포착했다.",
+          "special": false
+        },
+        {
+          "id": "r0_u9_n2",
+          "text": "출격한다.",
+          "special": false
+        },
+        {
+          "id": "r0_u9_s0",
+          "text": "하늘을 지킨다.",
+          "special": true
+        },
+        {
+          "id": "r0_u9_s1",
+          "text": "도망칠 순 없다.",
+          "special": true
+        }
+      ],
+      "prompt": "[angry] 요격기 대기.\n[long pause]\n목표를 포착했다.\n[long pause]\n출격한다.\n[long pause]\n하늘을 지킨다.\n[long pause]\n도망칠 순 없다.",
+      "pitch": 0.68,
+      "persona": "mature military baritone, distinct role 요격기",
+      "tag": "angry",
+      "resonance": 0.213,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u10",
+      "race": 0,
+      "kind": 10,
+      "name": "강습폭격기",
+      "voice": "George",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u10_n0",
+          "text": "폭격 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u10_n1",
+          "text": "좌표를 확인한다.",
+          "special": false
+        },
+        {
+          "id": "r0_u10_n2",
+          "text": "지상을 지워라.",
+          "special": false
+        },
+        {
+          "id": "r0_u10_s0",
+          "text": "투하한다!",
+          "special": true
+        },
+        {
+          "id": "r0_u10_s1",
+          "text": "불바다가 된다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 폭격 준비.\n[long pause]\n좌표를 확인한다.\n[long pause]\n지상을 지워라.\n[long pause]\n투하한다!\n[long pause]\n불바다가 된다.",
+      "pitch": 0.68,
+      "persona": "mature military baritone, distinct role 강습폭격기",
+      "tag": "serious",
+      "resonance": 0.23,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u11",
+      "race": 0,
+      "kind": 11,
+      "name": "장갑수송정",
+      "voice": "Roger",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u11_n0",
+          "text": "수송정 대기.",
+          "special": false
+        },
+        {
+          "id": "r0_u11_n1",
+          "text": "탑승하라.",
+          "special": false
+        },
+        {
+          "id": "r0_u11_n2",
+          "text": "강하 지점으로.",
+          "special": false
+        },
+        {
+          "id": "r0_u11_s0",
+          "text": "아군을 데려온다.",
+          "special": true
+        },
+        {
+          "id": "r0_u11_s1",
+          "text": "모두 귀환한다.",
+          "special": true
+        }
+      ],
+      "prompt": "[calm] 수송정 대기.\n[long pause]\n탑승하라.\n[long pause]\n강하 지점으로.\n[long pause]\n아군을 데려온다.\n[long pause]\n모두 귀환한다.",
+      "pitch": 0.91,
+      "persona": "mature military baritone, distinct role 장갑수송정",
+      "tag": "calm",
+      "resonance": 0.247,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u12",
+      "race": 0,
+      "kind": 12,
+      "name": "이동요새",
+      "voice": "Bill",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u12_n0",
+          "text": "요새 기동.",
+          "special": false
+        },
+        {
+          "id": "r0_u12_n1",
+          "text": "전선을 지킨다.",
+          "special": false
+        },
+        {
+          "id": "r0_u12_n2",
+          "text": "여기가 성벽이다.",
+          "special": false
+        },
+        {
+          "id": "r0_u12_s0",
+          "text": "무너뜨려 봐라.",
+          "special": true
+        },
+        {
+          "id": "r0_u12_s1",
+          "text": "더는 못 지나간다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 요새 기동.\n[long pause]\n전선을 지킨다.\n[long pause]\n여기가 성벽이다.\n[long pause]\n무너뜨려 봐라.\n[long pause]\n더는 못 지나간다.",
+      "pitch": 0.62,
+      "persona": "mature military baritone, distinct role 이동요새",
+      "tag": "serious",
+      "resonance": 0.264,
+      "speed": 1
+    },
+    {
+      "id": "r0_u13",
+      "race": 0,
+      "kind": 13,
+      "name": "화염돌파차",
+      "voice": "Callum",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u13_n0",
+          "text": "화염 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u13_n1",
+          "text": "길을 태워라.",
+          "special": false
+        },
+        {
+          "id": "r0_u13_n2",
+          "text": "돌파한다!",
+          "special": false
+        },
+        {
+          "id": "r0_u13_s0",
+          "text": "한 줌 재가 돼라.",
+          "special": true
+        },
+        {
+          "id": "r0_u13_s1",
+          "text": "불길을 따라와라.",
+          "special": true
+        }
+      ],
+      "prompt": "[angry] 화염 준비.\n[long pause]\n길을 태워라.\n[long pause]\n돌파한다!\n[long pause]\n한 줌 재가 돼라.\n[long pause]\n불길을 따라와라.",
+      "pitch": 0.93,
+      "persona": "mature military baritone, distinct role 화염돌파차",
+      "tag": "angry",
+      "resonance": 0.281,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u14",
+      "race": 0,
+      "kind": 14,
+      "name": "강철둥지 모함",
+      "voice": "Daniel",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u14_n0",
+          "text": "강철둥지 대기.",
+          "special": false
+        },
+        {
+          "id": "r0_u14_n1",
+          "text": "드론 출격 준비.",
+          "special": false
+        },
+        {
+          "id": "r0_u14_n2",
+          "text": "편대 출격!",
+          "special": false
+        },
+        {
+          "id": "r0_u14_s0",
+          "text": "하늘을 장악한다.",
+          "special": true
+        },
+        {
+          "id": "r0_u14_s1",
+          "text": "전장을 굽어본다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 강철둥지 대기.\n[long pause]\n드론 출격 준비.\n[long pause]\n편대 출격!\n[long pause]\n하늘을 장악한다.\n[long pause]\n전장을 굽어본다.",
+      "pitch": 0.72,
+      "persona": "mature military baritone, distinct role 강철둥지 모함",
+      "tag": "serious",
+      "resonance": 0.298,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u15",
+      "race": 0,
+      "kind": 15,
+      "name": "요격 드론",
+      "voice": "Eric",
+      "direction": "stern, forceful military game actor",
+      "clips": [
+        {
+          "id": "r0_u15_n0",
+          "text": "요격 드론 대기.",
+          "special": false
+        },
+        {
+          "id": "r0_u15_n1",
+          "text": "표적 확인.",
+          "special": false
+        },
+        {
+          "id": "r0_u15_n2",
+          "text": "출격한다.",
+          "special": false
+        },
+        {
+          "id": "r0_u15_s0",
+          "text": "명령 수신.",
+          "special": true
+        },
+        {
+          "id": "r0_u15_s1",
+          "text": "표적을 추적한다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 요격 드론 대기.\n[long pause]\n표적 확인.\n[long pause]\n출격한다.\n[long pause]\n명령 수신.\n[long pause]\n표적을 추적한다.",
+      "pitch": 0.69,
+      "persona": "mature military baritone, distinct role 요격 드론",
+      "tag": "serious",
+      "resonance": 0.315,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u0",
+      "race": 2,
+      "kind": 0,
+      "name": "축조자",
+      "voice": "Bill",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u0_n0",
+          "text": "토대를 세우리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u0_n1",
+          "text": "설계를 펼쳐라.",
+          "special": false
+        },
+        {
+          "id": "r2_u0_n2",
+          "text": "질서를 세운다.",
+          "special": false
+        },
+        {
+          "id": "r2_u0_s0",
+          "text": "영원히 남으리라.",
+          "special": true
+        },
+        {
+          "id": "r2_u0_s1",
+          "text": "돌에 뜻을 새긴다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 토대를 세우리라.\n[long pause]\n설계를 펼쳐라.\n[long pause]\n질서를 세운다.\n[long pause]\n영원히 남으리라.\n[long pause]\n돌에 뜻을 새긴다.",
+      "pitch": 0.84,
+      "persona": "solemn male fantasy stone guardian, distinct role 축조자",
+      "tag": "serious",
+      "resonance": 0.06,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u1",
+      "race": 2,
+      "kind": 1,
+      "name": "서약수호자",
+      "voice": "Adam",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u1_n0",
+          "text": "서약은 영원하다.",
+          "special": false
+        },
+        {
+          "id": "r2_u1_n1",
+          "text": "성문을 지키리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u1_n2",
+          "text": "전진하라.",
+          "special": false
+        },
+        {
+          "id": "r2_u1_s0",
+          "text": "맹세를 증명하라.",
+          "special": true
+        },
+        {
+          "id": "r2_u1_s1",
+          "text": "결코 꺾이지 않는다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 서약은 영원하다.\n[long pause]\n성문을 지키리라.\n[long pause]\n전진하라.\n[long pause]\n맹세를 증명하라.\n[long pause]\n결코 꺾이지 않는다.",
+      "pitch": 0.76,
+      "persona": "solemn male fantasy stone guardian, distinct role 서약수호자",
+      "tag": "serious",
+      "resonance": 0.077,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u2",
+      "race": 2,
+      "kind": 2,
+      "name": "성문궁수",
+      "voice": "Charlie",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u2_n0",
+          "text": "시위를 당겨라.",
+          "special": false
+        },
+        {
+          "id": "r2_u2_n1",
+          "text": "표적을 보았다.",
+          "special": false
+        },
+        {
+          "id": "r2_u2_n2",
+          "text": "화살을 놓아라.",
+          "special": false
+        },
+        {
+          "id": "r2_u2_s0",
+          "text": "운명은 빗나가지 않는다.",
+          "special": true
+        },
+        {
+          "id": "r2_u2_s1",
+          "text": "침묵으로 답하라.",
+          "special": true
+        }
+      ],
+      "prompt": "[calm] 시위를 당겨라.\n[long pause]\n표적을 보았다.\n[long pause]\n화살을 놓아라.\n[long pause]\n운명은 빗나가지 않는다.\n[long pause]\n침묵으로 답하라.",
+      "pitch": 0.9,
+      "persona": "solemn male fantasy stone guardian, distinct role 성문궁수",
+      "tag": "calm",
+      "resonance": 0.094,
+      "speed": 1
+    },
+    {
+      "id": "r2_u3",
+      "race": 2,
+      "kind": 3,
+      "name": "규율집행관",
+      "voice": "Daniel",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u3_n0",
+          "text": "규율 앞에 서라.",
+          "special": false
+        },
+        {
+          "id": "r2_u3_n1",
+          "text": "심판을 기다려라.",
+          "special": false
+        },
+        {
+          "id": "r2_u3_n2",
+          "text": "너를 구속한다.",
+          "special": false
+        },
+        {
+          "id": "r2_u3_s0",
+          "text": "질서에 복종하라.",
+          "special": true
+        },
+        {
+          "id": "r2_u3_s1",
+          "text": "도망칠 곳은 없다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 규율 앞에 서라.\n[long pause]\n심판을 기다려라.\n[long pause]\n너를 구속한다.\n[long pause]\n질서에 복종하라.\n[long pause]\n도망칠 곳은 없다.",
+      "pitch": 0.7,
+      "persona": "solemn male fantasy stone guardian, distinct role 규율집행관",
+      "tag": "serious",
+      "resonance": 0.111,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u4",
+      "race": 2,
+      "kind": 4,
+      "name": "결계사제",
+      "voice": "George",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u4_n0",
+          "text": "내 빛을 따르라.",
+          "special": false
+        },
+        {
+          "id": "r2_u4_n1",
+          "text": "생명을 지키리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u4_n2",
+          "text": "상처를 거둔다.",
+          "special": false
+        },
+        {
+          "id": "r2_u4_s0",
+          "text": "다시 일어서라.",
+          "special": true
+        },
+        {
+          "id": "r2_u4_s1",
+          "text": "그대는 쓰러지지 않는다.",
+          "special": true
+        }
+      ],
+      "prompt": "[calm] 내 빛을 따르라.\n[long pause]\n생명을 지키리라.\n[long pause]\n상처를 거둔다.\n[long pause]\n다시 일어서라.\n[long pause]\n그대는 쓰러지지 않는다.",
+      "pitch": 0.86,
+      "persona": "solemn male fantasy stone guardian, distinct role 결계사제",
+      "tag": "calm",
+      "resonance": 0.128,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u5",
+      "race": 2,
+      "kind": 5,
+      "name": "천문심판관",
+      "voice": "Brian",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u5_n0",
+          "text": "별들이 명한다.",
+          "special": false
+        },
+        {
+          "id": "r2_u5_n1",
+          "text": "심판을 내리리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u5_n2",
+          "text": "하늘을 보아라.",
+          "special": false
+        },
+        {
+          "id": "r2_u5_s0",
+          "text": "운명을 받아라.",
+          "special": true
+        },
+        {
+          "id": "r2_u5_s1",
+          "text": "별빛이 널 가른다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 별들이 명한다.\n[long pause]\n심판을 내리리라.\n[long pause]\n하늘을 보아라.\n[long pause]\n운명을 받아라.\n[long pause]\n별빛이 널 가른다.",
+      "pitch": 0.82,
+      "persona": "solemn male fantasy stone guardian, distinct role 천문심판관",
+      "tag": "serious",
+      "resonance": 0.145,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u6",
+      "race": 2,
+      "kind": 6,
+      "name": "밤눈감시자",
+      "voice": "Callum",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u6_n0",
+          "text": "어둠을 꿰뚫는다.",
+          "special": false
+        },
+        {
+          "id": "r2_u6_n1",
+          "text": "밤눈이 지켜본다.",
+          "special": false
+        },
+        {
+          "id": "r2_u6_n2",
+          "text": "모든 것을 보리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u6_s0",
+          "text": "숨을 곳은 없다.",
+          "special": true
+        },
+        {
+          "id": "r2_u6_s1",
+          "text": "침묵을 듣는다.",
+          "special": true
+        }
+      ],
+      "prompt": "[whispers] 어둠을 꿰뚫는다.\n[long pause]\n밤눈이 지켜본다.\n[long pause]\n모든 것을 보리라.\n[long pause]\n숨을 곳은 없다.\n[long pause]\n침묵을 듣는다.",
+      "pitch": 0.79,
+      "persona": "solemn male fantasy stone guardian, distinct role 밤눈감시자",
+      "tag": "whispers",
+      "resonance": 0.162,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u7",
+      "race": 2,
+      "kind": 7,
+      "name": "고대석익병",
+      "voice": "Roger",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u7_n0",
+          "text": "석익이 깨어난다.",
+          "special": false
+        },
+        {
+          "id": "r2_u7_n1",
+          "text": "대지를 울려라.",
+          "special": false
+        },
+        {
+          "id": "r2_u7_n2",
+          "text": "돌의 분노를 보라.",
+          "special": false
+        },
+        {
+          "id": "r2_u7_s0",
+          "text": "산산이 부숴라.",
+          "special": true
+        },
+        {
+          "id": "r2_u7_s1",
+          "text": "수천 년을 버텼다.",
+          "special": true
+        }
+      ],
+      "prompt": "[angry] 석익이 깨어난다.\n[long pause]\n대지를 울려라.\n[long pause]\n돌의 분노를 보라.\n[long pause]\n산산이 부숴라.\n[long pause]\n수천 년을 버텼다.",
+      "pitch": 0.66,
+      "persona": "solemn male fantasy stone guardian, distinct role 고대석익병",
+      "tag": "angry",
+      "resonance": 0.179,
+      "speed": 1
+    },
+    {
+      "id": "r2_u8",
+      "race": 2,
+      "kind": 8,
+      "name": "궤도창",
+      "voice": "Eric",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u8_n0",
+          "text": "궤도창 정렬.",
+          "special": false
+        },
+        {
+          "id": "r2_u8_n1",
+          "text": "천공을 가르리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u8_n2",
+          "text": "관통한다.",
+          "special": false
+        },
+        {
+          "id": "r2_u8_s0",
+          "text": "성좌가 겨눈다.",
+          "special": true
+        },
+        {
+          "id": "r2_u8_s1",
+          "text": "모든 장갑을 뚫는다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 궤도창 정렬.\n[long pause]\n천공을 가르리라.\n[long pause]\n관통한다.\n[long pause]\n성좌가 겨눈다.\n[long pause]\n모든 장갑을 뚫는다.",
+      "pitch": 0.68,
+      "persona": "solemn male fantasy stone guardian, distinct role 궤도창",
+      "tag": "serious",
+      "resonance": 0.196,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u9",
+      "race": 2,
+      "kind": 9,
+      "name": "월익추적자",
+      "voice": "Charlie",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u9_n0",
+          "text": "월익을 펼쳐라.",
+          "special": false
+        },
+        {
+          "id": "r2_u9_n1",
+          "text": "달빛을 따라라.",
+          "special": false
+        },
+        {
+          "id": "r2_u9_n2",
+          "text": "하늘로 나아간다.",
+          "special": false
+        },
+        {
+          "id": "r2_u9_s0",
+          "text": "그림자를 추격하라.",
+          "special": true
+        },
+        {
+          "id": "r2_u9_s1",
+          "text": "날개는 꺾이지 않는다.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 월익을 펼쳐라.\n[long pause]\n달빛을 따라라.\n[long pause]\n하늘로 나아간다.\n[long pause]\n그림자를 추격하라.\n[long pause]\n날개는 꺾이지 않는다.",
+      "pitch": 0.72,
+      "persona": "solemn male fantasy stone guardian, distinct role 월익추적자",
+      "tag": "serious",
+      "resonance": 0.213,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u10",
+      "race": 2,
+      "kind": 10,
+      "name": "황혼잠행자",
+      "voice": "Callum",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u10_n0",
+          "text": "황혼이 내려온다.",
+          "special": false
+        },
+        {
+          "id": "r2_u10_n1",
+          "text": "소리 없이 간다.",
+          "special": false
+        },
+        {
+          "id": "r2_u10_n2",
+          "text": "이미 네 곁이다.",
+          "special": false
+        },
+        {
+          "id": "r2_u10_s0",
+          "text": "어둠에 잠겨라.",
+          "special": true
+        },
+        {
+          "id": "r2_u10_s1",
+          "text": "마지막 빛을 거둔다.",
+          "special": true
+        }
+      ],
+      "prompt": "[whispers] 황혼이 내려온다.\n[long pause]\n소리 없이 간다.\n[long pause]\n이미 네 곁이다.\n[long pause]\n어둠에 잠겨라.\n[long pause]\n마지막 빛을 거둔다.",
+      "pitch": 0.66,
+      "persona": "solemn male fantasy stone guardian, distinct role 황혼잠행자",
+      "tag": "whispers",
+      "resonance": 0.23,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u11",
+      "race": 2,
+      "kind": 11,
+      "name": "회랑지기",
+      "voice": "Daniel",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u11_n0",
+          "text": "회랑이 열린다.",
+          "special": false
+        },
+        {
+          "id": "r2_u11_n1",
+          "text": "동족을 이끌리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u11_n2",
+          "text": "탑승하라.",
+          "special": false
+        },
+        {
+          "id": "r2_u11_s0",
+          "text": "안전한 곳으로.",
+          "special": true
+        },
+        {
+          "id": "r2_u11_s1",
+          "text": "모두 돌아오리라.",
+          "special": true
+        }
+      ],
+      "prompt": "[calm] 회랑이 열린다.\n[long pause]\n동족을 이끌리라.\n[long pause]\n탑승하라.\n[long pause]\n안전한 곳으로.\n[long pause]\n모두 돌아오리라.",
+      "pitch": 0.88,
+      "persona": "solemn male fantasy stone guardian, distinct role 회랑지기",
+      "tag": "calm",
+      "resonance": 0.247,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u12",
+      "race": 2,
+      "kind": 12,
+      "name": "대심판선",
+      "voice": "Bill",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u12_n0",
+          "text": "대심판을 내리리라.",
+          "special": false
+        },
+        {
+          "id": "r2_u12_n1",
+          "text": "천공이 열린다.",
+          "special": false
+        },
+        {
+          "id": "r2_u12_n2",
+          "text": "판결은 내려졌다.",
+          "special": false
+        },
+        {
+          "id": "r2_u12_s0",
+          "text": "별들이 불타리라.",
+          "special": true
+        },
+        {
+          "id": "r2_u12_s1",
+          "text": "종말을 받아라.",
+          "special": true
+        }
+      ],
+      "prompt": "[serious] 대심판을 내리리라.\n[long pause]\n천공이 열린다.\n[long pause]\n판결은 내려졌다.\n[long pause]\n별들이 불타리라.\n[long pause]\n종말을 받아라.",
+      "pitch": 0.62,
+      "persona": "solemn male fantasy stone guardian, distinct role 대심판선",
+      "tag": "serious",
+      "resonance": 0.264,
+      "speed": 1
+    },
+    {
+      "id": "r2_u13",
+      "race": 2,
+      "kind": 13,
+      "name": "성좌추격기",
+      "voice": "Brian",
+      "direction": "solemn, majestic ancient fantasy game actor",
+      "clips": [
+        {
+          "id": "r2_u13_n0",
+          "text": "성좌를 추격한다.",
+          "special": false
+        },
+        {
+          "id": "r2_u13_n1",
+          "text": "기계에 뜻을 새긴다.",
+          "special": false
+        },
+        {
+          "id": "r2_u13_n2",
+          "text": "별의 궤도로 간다.",
+          "special": false
+        },
+        {
+          "id": "r2_u13_s0",
+          "text": "포위를 돌파하라.",
+          "special": true
+        },
+        {
+          "id": "r2_u13_s1",
+          "text": "강철로 심판한다.",
+          "special": true
+        }
+      ],
+      "prompt": "[angry] 성좌를 추격한다.\n[long pause]\n기계에 뜻을 새긴다.\n[long pause]\n별의 궤도로 간다.\n[long pause]\n포위를 돌파하라.\n[long pause]\n강철로 심판한다.",
+      "pitch": 0.69,
+      "persona": "solemn male fantasy stone guardian, distinct role 성좌추격기",
+      "tag": "angry",
+      "resonance": 0.281,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_ann",
+      "race": 0,
+      "announcer": true,
+      "voice": "Brian",
+      "direction": "commanding military warning",
+      "clips": [
+        {
+          "id": "r0_ann_as",
+          "text": "아스가 부족하다.",
+          "event": "as"
+        },
+        {
+          "id": "r0_ann_tera",
+          "text": "테라가 부족하다.",
+          "event": "tera"
+        },
+        {
+          "id": "r0_ann_supply",
+          "text": "인구 한도다.",
+          "event": "supply"
+        },
+        {
+          "id": "r0_ann_attack",
+          "text": "아군이 공격받는다!",
+          "event": "attack"
+        },
+        {
+          "id": "r0_ann_base_attack",
+          "text": "본진이 공격받는다!",
+          "event": "base_attack"
+        },
+        {
+          "id": "r0_ann_building_ready",
+          "text": "건설 완료.",
+          "event": "building_ready"
+        },
+        {
+          "id": "r0_ann_unit_ready",
+          "text": "병력 준비 완료.",
+          "event": "unit_ready"
+        },
+        {
+          "id": "r0_ann_research_ready",
+          "text": "연구 완료.",
+          "event": "research_ready"
+        },
+        {
+          "id": "r0_ann_tech",
+          "text": "선행 기술이 필요하다.",
+          "event": "tech"
+        },
+        {
+          "id": "r0_ann_energy",
+          "text": "에너지가 부족하다.",
+          "event": "energy"
+        },
+        {
+          "id": "r0_ann_queue",
+          "text": "대기열이 가득 찼다.",
+          "event": "queue"
+        },
+        {
+          "id": "r0_ann_brood",
+          "text": "배양체가 부족하다.",
+          "event": "brood"
+        },
+        {
+          "id": "r0_ann_victory",
+          "text": "승리는 우리의 것!",
+          "event": "victory"
+        },
+        {
+          "id": "r0_ann_defeat",
+          "text": "패배했다.",
+          "event": "defeat"
+        },
+        {
+          "id": "r0_ann_nuclear",
+          "text": "핵 발사가 감지되었습니다.",
+          "event": "nuclear"
+        }
+      ],
+      "prompt": "[serious] 아스가 부족하다.\n[long pause]\n테라가 부족하다.\n[long pause]\n인구 한도다.\n[long pause]\n아군이 공격받는다!\n[long pause]\n본진이 공격받는다!\n[long pause]\n건설 완료.\n[long pause]\n병력 준비 완료.\n[long pause]\n연구 완료.\n[long pause]\n선행 기술이 필요하다.\n[long pause]\n에너지가 부족하다.\n[long pause]\n대기열이 가득 찼다.\n[long pause]\n배양체가 부족하다.\n[long pause]\n승리는 우리의 것!\n[long pause]\n패배했다.\n[long pause]\n핵 발사가 감지되었습니다.",
+      "pitch": 0.78,
+      "persona": "mature military baritone"
+    },
+    {
+      "id": "r1_ann",
+      "race": 1,
+      "announcer": true,
+      "voice": "Astera Citrus Queen - Korean Villainess",
+      "direction": "ominous female hive queen",
+      "clips": [
+        {
+          "id": "r1_ann_as",
+          "text": "아스가 모자란다.",
+          "event": "as"
+        },
+        {
+          "id": "r1_ann_tera",
+          "text": "테라가 모자란다.",
+          "event": "tera"
+        },
+        {
+          "id": "r1_ann_supply",
+          "text": "군체가 가득 찼다.",
+          "event": "supply"
+        },
+        {
+          "id": "r1_ann_attack",
+          "text": "동족이 공격받는다!",
+          "event": "attack"
+        },
+        {
+          "id": "r1_ann_base_attack",
+          "text": "모수가 공격받는다!",
+          "event": "base_attack"
+        },
+        {
+          "id": "r1_ann_building_ready",
+          "text": "둥지가 완성됐다.",
+          "event": "building_ready"
+        },
+        {
+          "id": "r1_ann_unit_ready",
+          "text": "새 생명이 깨어났다.",
+          "event": "unit_ready"
+        },
+        {
+          "id": "r1_ann_research_ready",
+          "text": "진화가 끝났다.",
+          "event": "research_ready"
+        },
+        {
+          "id": "r1_ann_tech",
+          "text": "진화가 더 필요하다.",
+          "event": "tech"
+        },
+        {
+          "id": "r1_ann_energy",
+          "text": "마나가 모자란다.",
+          "event": "energy"
+        },
+        {
+          "id": "r1_ann_queue",
+          "text": "배양이 가득 찼다.",
+          "event": "queue"
+        },
+        {
+          "id": "r1_ann_brood",
+          "text": "배양체가 필요하다.",
+          "event": "brood"
+        },
+        {
+          "id": "r1_ann_victory",
+          "text": "군체가 승리했다!",
+          "event": "victory"
+        },
+        {
+          "id": "r1_ann_defeat",
+          "text": "군체가 무너졌다.",
+          "event": "defeat"
+        },
+        {
+          "id": "r1_ann_nuclear",
+          "text": "군체가 핵 발사를 감지했다.",
+          "event": "nuclear"
+        }
+      ],
+      "prompt": "[menacing] 아스가 모자란다.\n[long pause]\n테라가 모자란다.\n[long pause]\n군체가 가득 찼다.\n[long pause]\n동족이 공격받는다!\n[long pause]\n모수가 공격받는다!\n[long pause]\n둥지가 완성됐다.\n[long pause]\n새 생명이 깨어났다.\n[long pause]\n진화가 끝났다.\n[long pause]\n진화가 더 필요하다.\n[long pause]\n마나가 모자란다.\n[long pause]\n배양이 가득 찼다.\n[long pause]\n배양체가 필요하다.\n[long pause]\n군체가 승리했다!\n[long pause]\n군체가 무너졌다.\n[long pause]\n군체가 핵 발사를 감지했다.",
+      "pitch": 1,
+      "persona": "clearly female, low and sinister hive queen",
+      "voice_id": "Q69KF38TeuLELWRa9ClZ",
+      "speed": 1.1,
+      "user_feedback": "Female narrator approved, increase delivery speed slightly without changing voice"
+    },
+    {
+      "id": "r2_ann",
+      "race": 2,
+      "announcer": true,
+      "voice": "Bill",
+      "direction": "majestic ancient telepath",
+      "clips": [
+        {
+          "id": "r2_ann_as",
+          "text": "아스가 부족하다.",
+          "event": "as"
+        },
+        {
+          "id": "r2_ann_tera",
+          "text": "테라가 부족하다.",
+          "event": "tera"
+        },
+        {
+          "id": "r2_ann_supply",
+          "text": "인구 한도에 닿았다.",
+          "event": "supply"
+        },
+        {
+          "id": "r2_ann_attack",
+          "text": "동족이 공격받는다!",
+          "event": "attack"
+        },
+        {
+          "id": "r2_ann_base_attack",
+          "text": "본진을 지켜라!",
+          "event": "base_attack"
+        },
+        {
+          "id": "r2_ann_building_ready",
+          "text": "성소가 세워졌다.",
+          "event": "building_ready"
+        },
+        {
+          "id": "r2_ann_unit_ready",
+          "text": "병력이 준비됐다.",
+          "event": "unit_ready"
+        },
+        {
+          "id": "r2_ann_research_ready",
+          "text": "연구가 끝났다.",
+          "event": "research_ready"
+        },
+        {
+          "id": "r2_ann_tech",
+          "text": "선행 기술을 갖춰라.",
+          "event": "tech"
+        },
+        {
+          "id": "r2_ann_energy",
+          "text": "마나가 부족하다.",
+          "event": "energy"
+        },
+        {
+          "id": "r2_ann_queue",
+          "text": "대기열이 가득 찼다.",
+          "event": "queue"
+        },
+        {
+          "id": "r2_ann_brood",
+          "text": "배양체가 필요하다.",
+          "event": "brood"
+        },
+        {
+          "id": "r2_ann_victory",
+          "text": "우리의 승리다!",
+          "event": "victory"
+        },
+        {
+          "id": "r2_ann_defeat",
+          "text": "패배를 받아들인다.",
+          "event": "defeat"
+        },
+        {
+          "id": "r2_ann_nuclear",
+          "text": "핵 발사의 징조가 감지되었다.",
+          "event": "nuclear"
+        }
+      ],
+      "prompt": "[serious] 아스가 부족하다.\n[long pause]\n테라가 부족하다.\n[long pause]\n인구 한도에 닿았다.\n[long pause]\n동족이 공격받는다!\n[long pause]\n본진을 지켜라!\n[long pause]\n성소가 세워졌다.\n[long pause]\n병력이 준비됐다.\n[long pause]\n연구가 끝났다.\n[long pause]\n선행 기술을 갖춰라.\n[long pause]\n마나가 부족하다.\n[long pause]\n대기열이 가득 찼다.\n[long pause]\n배양체가 필요하다.\n[long pause]\n우리의 승리다!\n[long pause]\n패배를 받아들인다.\n[long pause]\n핵 발사의 징조가 감지되었다.",
+      "pitch": 0.82,
+      "persona": "solemn ancient stone oracle"
+    }
+  ],
+  "voice_policy": "Every unit has a distinct performed voice and individual pitch, pacing and resonance. Hyrax mature baritones; citrus units new nonverbal biomechanical VARCO creatures, clearly female sinister ElevenLabs narrator; owl solemn male stone fantasy voices.",
+  "recordings": [
+    {
+      "id": "r0_ann",
+      "banks": [
+        "r0_ann"
+      ],
+      "voice": "Brian",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_25_21_Brian - Deep, Resonant and Comforting_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "r0_u2",
+      "banks": [
+        "r0_u2"
+      ],
+      "voice": "Adam",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_31_50_Adam - Dominant, Firm_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "r2_ann",
+      "banks": [
+        "r2_ann"
+      ],
+      "voice": "Bill",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_32_55_Bill - Wise, Mature, Balanced_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_George",
+      "banks": [
+        "r0_u0",
+        "r0_u10",
+        "r2_u4"
+      ],
+      "voice": "George",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_42_08_George - Warm, Captivating Storyteller_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Brian",
+      "banks": [
+        "r0_u1",
+        "r2_u5",
+        "r2_u13"
+      ],
+      "voice": "Brian",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_43_47_Brian - Deep, Resonant and Comforting_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Adam",
+      "banks": [
+        "r0_u9",
+        "r2_u1"
+      ],
+      "voice": "Adam",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_45_24_Adam - Dominant, Firm_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "r1_ann_queen",
+      "banks": [
+        "r1_ann"
+      ],
+      "voice": "Astera Citrus Queen - Korean Villainess",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_44_46_Astera Citrus Queen - Korean Villainessㄷ_gen_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Roger",
+      "banks": [
+        "r0_u3",
+        "r0_u11",
+        "r2_u7"
+      ],
+      "voice": "Roger",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_46_26_Roger - Laid-Back, Casual, Resonant_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Daniel",
+      "banks": [
+        "r0_u4",
+        "r0_u14",
+        "r2_u3",
+        "r2_u11"
+      ],
+      "voice": "Daniel",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_47_36_Daniel - Steady Broadcaster_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Bill",
+      "banks": [
+        "r0_u5",
+        "r0_u12",
+        "r2_u0",
+        "r2_u12"
+      ],
+      "voice": "Bill",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_48_45_Bill - Wise, Mature, Balanced_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Eric",
+      "banks": [
+        "r0_u6",
+        "r0_u15",
+        "r2_u8"
+      ],
+      "voice": "Eric",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_50_08_Eric - Smooth, Trustworthy_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Callum",
+      "banks": [
+        "r0_u7",
+        "r0_u13",
+        "r2_u6",
+        "r2_u10"
+      ],
+      "voice": "Callum",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_51_07_Callum - Husky Trickster_pre_sp100_s50_sb75_v4.mp3"
+    },
+    {
+      "id": "actor_Charlie",
+      "banks": [
+        "r0_u8",
+        "r2_u2",
+        "r2_u9"
+      ],
+      "voice": "Charlie",
+      "source": "C:/Users/Admin/Downloads/ElevenLabs_2026-10-20T13_52_37_Charlie - Deep, Confident, Energetic_pre_sp100_s50_sb75_v4.mp3"
+    }
+  ],
+  "generation_groups": [
+    {
+      "id": "actor_George",
+      "voice": "George",
+      "banks": [
+        "r0_u0",
+        "r0_u10",
+        "r2_u4"
+      ],
+      "prompt": "[serious] 공구 준비.\n[long pause]\n작업 지시를.\n[long pause]\n수리한다.\n[long pause]\n단단히 조여라.\n[long pause]\n공사는 계속된다.\n[long pause]\n[serious] 폭격 준비.\n[long pause]\n좌표를 확인한다.\n[long pause]\n지상을 지워라.\n[long pause]\n투하한다!\n[long pause]\n불바다가 된다.\n[long pause]\n[calm] 내 빛을 따르라.\n[long pause]\n생명을 지키리라.\n[long pause]\n상처를 거둔다.\n[long pause]\n다시 일어서라.\n[long pause]\n그대는 쓰러지지 않는다."
+    },
+    {
+      "id": "actor_Brian",
+      "voice": "Brian",
+      "banks": [
+        "r0_u1",
+        "r2_u5",
+        "r2_u13"
+      ],
+      "prompt": "[serious] 명령을 내려라.\n[long pause]\n전열 준비.\n[long pause]\n전진한다.\n[long pause]\n사격 개시!\n[long pause]\n끝까지 버틴다.\n[long pause]\n[serious] 별들이 명한다.\n[long pause]\n심판을 내리리라.\n[long pause]\n하늘을 보아라.\n[long pause]\n운명을 받아라.\n[long pause]\n별빛이 널 가른다.\n[long pause]\n[angry] 성좌를 추격한다.\n[long pause]\n기계에 뜻을 새긴다.\n[long pause]\n별의 궤도로 간다.\n[long pause]\n포위를 돌파하라.\n[long pause]\n강철로 심판한다."
+    },
+    {
+      "id": "actor_Adam",
+      "voice": "Adam",
+      "banks": [
+        "r0_u9",
+        "r2_u1"
+      ],
+      "prompt": "[angry] 요격기 대기.\n[long pause]\n목표를 포착했다.\n[long pause]\n출격한다.\n[long pause]\n하늘을 지킨다.\n[long pause]\n도망칠 순 없다.\n[long pause]\n[serious] 서약은 영원하다.\n[long pause]\n성문을 지키리라.\n[long pause]\n전진하라.\n[long pause]\n맹세를 증명하라.\n[long pause]\n결코 꺾이지 않는다."
+    },
+    {
+      "id": "actor_Roger",
+      "voice": "Roger",
+      "banks": [
+        "r0_u3",
+        "r0_u11",
+        "r2_u7"
+      ],
+      "prompt": "[serious] 방패를 들어라.\n[long pause]\n전열을 지킨다.\n[long pause]\n흔들리지 마라.\n[long pause]\n내 뒤로 모여라.\n[long pause]\n물러서지 않는다.\n[long pause]\n[calm] 수송정 대기.\n[long pause]\n탑승하라.\n[long pause]\n강하 지점으로.\n[long pause]\n아군을 데려온다.\n[long pause]\n모두 귀환한다.\n[long pause]\n[angry] 석익이 깨어난다.\n[long pause]\n대지를 울려라.\n[long pause]\n돌의 분노를 보라.\n[long pause]\n산산이 부숴라.\n[long pause]\n수천 년을 버텼다."
+    },
+    {
+      "id": "actor_Daniel",
+      "voice": "Daniel",
+      "banks": [
+        "r0_u4",
+        "r0_u14",
+        "r2_u3",
+        "r2_u11"
+      ],
+      "prompt": "[calm] 의무병 대기.\n[long pause]\n아직 끝이 아니다.\n[long pause]\n치료를 시작한다.\n[long pause]\n살아서 돌아와.\n[long pause]\n전열로 복귀해.\n[long pause]\n[serious] 강철둥지 대기.\n[long pause]\n드론 출격 준비.\n[long pause]\n편대 출격!\n[long pause]\n하늘을 장악한다.\n[long pause]\n전장을 굽어본다.\n[long pause]\n[serious] 규율 앞에 서라.\n[long pause]\n심판을 기다려라.\n[long pause]\n너를 구속한다.\n[long pause]\n질서에 복종하라.\n[long pause]\n도망칠 곳은 없다.\n[long pause]\n[calm] 회랑이 열린다.\n[long pause]\n동족을 이끌리라.\n[long pause]\n탑승하라.\n[long pause]\n안전한 곳으로.\n[long pause]\n모두 돌아오리라."
+    },
+    {
+      "id": "actor_Bill",
+      "voice": "Bill",
+      "banks": [
+        "r0_u5",
+        "r0_u12",
+        "r2_u0",
+        "r2_u12"
+      ],
+      "prompt": "[serious] 포신 정렬.\n[long pause]\n사격 좌표를.\n[long pause]\n포격 준비.\n[long pause]\n철갑탄 장전.\n[long pause]\n땅을 뒤흔든다.\n[long pause]\n[serious] 요새 기동.\n[long pause]\n전선을 지킨다.\n[long pause]\n여기가 성벽이다.\n[long pause]\n무너뜨려 봐라.\n[long pause]\n더는 못 지나간다.\n[long pause]\n[serious] 토대를 세우리라.\n[long pause]\n설계를 펼쳐라.\n[long pause]\n질서를 세운다.\n[long pause]\n영원히 남으리라.\n[long pause]\n돌에 뜻을 새긴다.\n[long pause]\n[serious] 대심판을 내리리라.\n[long pause]\n천공이 열린다.\n[long pause]\n판결은 내려졌다.\n[long pause]\n별들이 불타리라.\n[long pause]\n종말을 받아라."
+    },
+    {
+      "id": "actor_Eric",
+      "voice": "Eric",
+      "banks": [
+        "r0_u6",
+        "r0_u15",
+        "r2_u8"
+      ],
+      "prompt": "[serious] 표적을 지정하라.\n[long pause]\n미사일 준비.\n[long pause]\n추적 개시.\n[long pause]\n벗어날 수 없다.\n[long pause]\n끝까지 쫓는다.\n[long pause]\n[serious] 요격 드론 대기.\n[long pause]\n표적 확인.\n[long pause]\n출격한다.\n[long pause]\n명령 수신.\n[long pause]\n표적을 추적한다.\n[long pause]\n[serious] 궤도창 정렬.\n[long pause]\n천공을 가르리라.\n[long pause]\n관통한다.\n[long pause]\n성좌가 겨눈다.\n[long pause]\n모든 장갑을 뚫는다."
+    },
+    {
+      "id": "actor_Callum",
+      "voice": "Callum",
+      "banks": [
+        "r0_u7",
+        "r0_u13",
+        "r2_u6",
+        "r2_u10"
+      ],
+      "prompt": "[whispers] 그림자 속으로.\n[long pause]\n조용히 움직인다.\n[long pause]\n목표를 말해라.\n[long pause]\n들키지 마라.\n[long pause]\n모두 보고 있다.\n[long pause]\n[angry] 화염 준비.\n[long pause]\n길을 태워라.\n[long pause]\n돌파한다!\n[long pause]\n한 줌 재가 돼라.\n[long pause]\n불길을 따라와라.\n[long pause]\n[whispers] 어둠을 꿰뚫는다.\n[long pause]\n밤눈이 지켜본다.\n[long pause]\n모든 것을 보리라.\n[long pause]\n숨을 곳은 없다.\n[long pause]\n침묵을 듣는다.\n[long pause]\n[whispers] 황혼이 내려온다.\n[long pause]\n소리 없이 간다.\n[long pause]\n이미 네 곁이다.\n[long pause]\n어둠에 잠겨라.\n[long pause]\n마지막 빛을 거둔다."
+    },
+    {
+      "id": "actor_Charlie",
+      "voice": "Charlie",
+      "banks": [
+        "r0_u8",
+        "r2_u2",
+        "r2_u9"
+      ],
+      "prompt": "[serious] 관측 준비.\n[long pause]\n탐지 개시.\n[long pause]\n구역을 확인한다.\n[long pause]\n사각은 없다.\n[long pause]\n시야를 확보한다.\n[long pause]\n[calm] 시위를 당겨라.\n[long pause]\n표적을 보았다.\n[long pause]\n화살을 놓아라.\n[long pause]\n운명은 빗나가지 않는다.\n[long pause]\n침묵으로 답하라.\n[long pause]\n[serious] 월익을 펼쳐라.\n[long pause]\n달빛을 따라라.\n[long pause]\n하늘로 나아간다.\n[long pause]\n그림자를 추격하라.\n[long pause]\n날개는 꺾이지 않는다."
+    }
+  ]
+}

@@ -9,7 +9,7 @@ func run():
 	var assets=ACAssets.new();assets.load_all()
 	var report=[]
 	for race in range(3):
-		for kind in range(13):
+		for kind in range(ACData.unit_count(race)):
 			var hashes=[]
 			for phase in range(16):
 				var f=assets.unit(race,kind,Vector2(1,.5),"walk",float(phase)/18.0)

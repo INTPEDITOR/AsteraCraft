@@ -389,9 +389,9 @@ func inside(p: Vector2i) -> bool:
 
 func is_water(index: int) -> bool:
 	if index<0 or index>=terrain.size():return false
-	# Keep the original 8px shoreline/ramp margins. Only wholly impassable
-	# obstacle interiors become pools, never their partly walkable edge tiles.
-	return terrain[index]==2 or (visual_role(index)==3 and source_walk_masks.size()==SIZE*SIZE and source_walk_masks[index]==0)
+	# Water is a source terrain family, never a synonym for impassable ground.
+	# Rock doodads and plateau interiors retain their original land identity.
+	return terrain[index]==2
 
 ## Shared visual plane for terrain, units, resources, picking and rally markers.
 ## Navigation and authored height levels remain unchanged.

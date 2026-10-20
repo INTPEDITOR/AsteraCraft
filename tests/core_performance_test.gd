@@ -11,7 +11,7 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func arena() -> ACCore:
-	var c=ACCore.new()
+	var c=load("res://tests/core_profile_probe_v060.gd").new() if OS.get_environment("ASTERA_PROFILE")=="1" else ACCore.new()
 	c.setup({"map":0,"seed":20261015,"players":[{"race":0},{"race":2}]})
 	c.units.clear()
 	c.buildings.clear()
@@ -79,6 +79,7 @@ func run_case(count: int, mode: String) -> void:
 	var result=stats(timings)
 	result.merge({"mode":mode,"units":count,"ticks":SAMPLES,"simulated_seconds":(WARMUP+SAMPLES)*DT,"survivors":c.units.size(),"ended":c.ended,"warmup_max_ms":snappedf(warmup_max,.001)})
 	if perf_property:result["perf"]=c.get("perf").duplicate(true)
+	if c.has_method("profile_report"):result["profile"]=c.call("profile_report")
 	if c.units.size()!=count or c.ended:
 		failed=true
 		result["invalid"]="benchmark population or active-match invariant changed"

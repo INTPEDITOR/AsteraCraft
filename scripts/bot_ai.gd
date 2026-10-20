@@ -2,9 +2,9 @@ extends RefCounted
 ## Deterministic, resource-paying bot. Terrain is public; enemy decisions use
 ## current sight only. Difficulty changes planning and reaction, not income.
 const PROFILES=[
-	{"interval":4.5,"workers":12,"attack":16,"expand":360.0,"bases":2,"retreat":.0,"tech":5},
-	{"interval":2.5,"workers":16,"attack":12,"expand":210.0,"bases":3,"retreat":.22,"tech":9},
-	{"interval":1.0,"workers":18,"attack":9,"expand":160.0,"bases":4,"retreat":.32,"tech":12}]
+	{"interval":4.5,"workers":12,"attack":12,"assembly":.9,"expand":360.0,"bases":2,"retreat":.0,"tech":5},
+	{"interval":2.5,"workers":16,"attack":16,"assembly":.85,"expand":210.0,"bases":3,"retreat":.22,"tech":9},
+	{"interval":1.0,"workers":18,"attack":20,"assembly":.8,"expand":160.0,"bases":4,"retreat":.32,"tech":12}]
 
 static func tick(c, owner: int) -> void:
 	var p: Dictionary=c.players[owner]
@@ -25,7 +25,7 @@ static func tick(c, owner: int) -> void:
 	if hq.is_empty() or hq.hp<=0:hq=bases[0];p.home=hq.id
 	# Preserve the budget and assignment while a worker travels to a new site.
 	# A pending order is not yet a building and must not be issued every tick.
-	if workers.any(func(w):return w.order=="build_move"):return
+	# Travelling builders must not suspend combat and economic decisions.
 	for u in workers:
 		if u.order=="idle":
 			u.order="gather";u.target=c.nearest_resource(c.center(u),"as",owner)
@@ -86,8 +86,9 @@ static func tick(c, owner: int) -> void:
 	for b in c.buildings:
 		if int(b.owner)!=owner or b.progress<1 or b.hp<=0 or b.queue.size()>=2:continue
 		var choices: Array=[]
-		for kind in range(1,13):
+		for kind in range(1,ACData.unit_count(race)):
 			var d=ACData.unit(race,kind)
+			if d.get("spawn_only",false):continue
 			if (race!=1 and int(d.producer)!=int(b.kind)) or (race==1 and int(b.kind) not in [0,3]):continue
 			if not c.prerequisites(owner,d.requires) or d.as>p.as or d.tera>p.tera:continue
 			if d.role in ["transport","detector"] and army.size()<12:continue
@@ -194,15 +195,25 @@ static func expansion_site(c,owner: int,workers: Array,hq: Dictionary) -> Dictio
 		if occupied:continue
 		var worker=builder(c,workers,site)
 		if worker.is_empty():continue
-		var origin: Vector2=c.map.nearest_free(c.center(worker))
 		var approach: Vector2=c.map.nearest_free(site+Vector2(0,3))
 		if approach.distance_to(site)>6:continue
-		var path: Array=c.map.navigator.get_id_path(Vector2i(origin.round()),Vector2i(approach.round()))
-		if path.is_empty():continue
-		var value=float(path.size())+site.distance_to(c.center(hq))*.3
+		# Expand outward from a completed base, never from a wandering worker.
+		# Reject remote sites and long detours even when they are technically reachable.
+		var value=INF
+		for own_base in c.buildings:
+			if int(own_base.owner)!=owner or int(own_base.kind)!=0 or own_base.hp<=0 or own_base.progress<1:continue
+			var direct: float=site.distance_to(c.center(own_base))
+			if direct>48:continue
+			var origin: Vector2=c.map.nearest_free(c.center(own_base)+Vector2(0,4))
+			var path: Array=c.map.navigator.get_id_path(Vector2i(origin.round()),Vector2i(approach.round()))
+			if path.is_empty() or path.size()>80 or path.size()>direct*2.5+12:continue
+			value=minf(value,float(path.size())+direct*.3)
 		if value>=score:continue
-		for offset in [Vector2.ZERO,Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN]:
-			var anchor=(site-Vector2(d.w,d.h)*.5+offset).floor()
+		var anchors=[]
+		for y in range(-9,10):
+			for x in range(-9,10):anchors.append((site-Vector2(d.w,d.h)*.5+Vector2(x,y)).floor())
+		anchors.sort_custom(func(a,b):return a.distance_squared_to(site)<b.distance_squared_to(site))
+		for anchor in anchors:
 			var error: String=c.placement(owner,0,anchor)
 			if error=="" or (int(c.players[owner].race)==2 and error.contains("규율탑")):
 				best={"pos":ACData.packed(anchor),"worker":worker.id,"base":base};score=value;break
@@ -238,6 +249,7 @@ static func redistribute(c,owner: int,workers: Array,bases: Array) -> void:
 		for i in range(bases.size()):
 			if i==best or counts[i]<=lowest+3 or ACData.point(node.pos).distance_to(c.center(bases[i]))>=13:continue
 			c._release_mining_claim(w);w.target=c.nearest_resource(c.center(bases[best]),"as",owner);w.path=[];w.approach_target=-1
+			w.erase("mining_anchor");w.erase("mining_base")
 			return
 
 static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile: Dictionary) -> void:
@@ -253,7 +265,6 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 	var fighting=0
 	for u in army:
 		if ACData.unit(int(u.race),int(u.kind)).damage>0:fighting+=1
-	var attack=defend or fighting>=int(profile.attack)
 	var slot=posmod(int(p.spawn_slot)+1+int(p.ai_goal),4)
 	if slot==int(p.spawn_slot):p.ai_goal=(int(p.ai_goal)+1)%3;slot=posmod(int(p.spawn_slot)+1+int(p.ai_goal),4)
 	var goal: Vector2=c.center(target) if not target.is_empty() else ACData.point(c.map.starts[slot])
@@ -261,9 +272,23 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 		var tile=Vector2i(goal)
 		if c.visibility[owner][tile.y*ACMap.SIZE+tile.x]>0:p.ai_goal=(int(p.ai_goal)+1)%3
 	var rally: Vector2=c.map.nearest_free(home+(Vector2(63.5,63.5)-home).normalized()*7)
+	var wave: Array=p.get("_ai_wave",[]).filter(func(id):
+		var u=c.entity(int(id))
+		return not u.is_empty() and u.hp>0 and int(u.owner)==owner and int(u.container)<0)
+	if defend or wave.size()<maxi(3,int(p.get("_ai_wave_size",0))*.3):wave=[]
+	var attack=not wave.is_empty()
+	var ready=0
+	for u in army:
+		if float(ACData.unit(int(u.race),int(u.kind)).damage)>0 and c.center(u).distance_squared_to(rally)<=64:ready+=1
+	var threshold=int(profile.attack)+mini(16,floori(c.time/600)*4)
+	if not defend and not attack and fighting>=threshold and ready>=ceili(fighting*float(profile.assembly)):
+		for u in army:
+			if c.center(u).distance_squared_to(rally)<=100:wave.append(int(u.id))
+		p._ai_wave_size=wave.size();attack=true
+	p._ai_wave=wave
 	for u in army:
 		var d=ACData.unit(int(u.race),int(u.kind))
-		if d.role=="parasite" and float(u.energy)>=100 and float(u.ability_cd)<=0:
+		if d.role=="parasite" and float(u.energy)>=200 and float(u.ability_cd)<=0:
 			var choice: Dictionary={};var value=-1.0
 			for enemy in visible:
 				if enemy.has("progress") or enemy.hp<=0 or enemy.get("technical",false) or enemy.get("container",-1)>=0 or not enemy.get("cargo",[]).is_empty() or c.allied(owner,int(enemy.owner)):continue
@@ -276,7 +301,8 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 		if float(u.hp)<float(d.hp)*float(profile.retreat) and c.time-float(u.damaged)<5:
 			if u.order!="move":u.order="move";u.goal=ACData.packed(rally);u.path=[]
 			continue
-		if defend or u.order in ["idle","hold"]:
-			if not attack and c.center(u).distance_to(rally)<3:continue
-			u.order="attack_move";u.goal=ACData.packed(goal if attack else rally);u.path=[]
+		var destination: Vector2=goal if defend or (attack and int(u.id) in wave) else rally
+		if destination==rally and c.center(u).distance_to(rally)<3 and u.order in ["idle","hold","attack_move"]:continue
+		if u.order in ["idle","hold"] or ACData.point(u.goal).distance_squared_to(destination)>9:
+			u.order="attack_move";u.goal=ACData.packed(destination);u.path=[]
 		if int(p.difficulty)>0 and d.role=="mage" and not target.is_empty() and c.center(u).distance_to(goal)<float(d.range)+2:c._ability(u,goal)

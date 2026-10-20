@@ -1,0 +1,30 @@
+extends "res://tests/abilities_v060_test.gd"
+func run():
+	for race in range(3):
+		var c=arena(race);var u=c.add_unit(0,9 if race!=1 else 10,Vector2(40,40));var maximum=float(u._definition.speed)
+		u.order="move";u.goal=[80,40]
+		c._tick_unit(u,.05)
+		check(ACData.point(u.air_velocity).length()>0 and ACData.point(u.air_velocity).length()<maximum*.3,"air accelerates gradually %d"%race)
+		for i in range(7):c.time+=.05;c._tick_unit(u,.05)
+		check(absf(ACData.point(u.air_velocity).length()-maximum)<.05,"air reaches cruise quickly %d"%race)
+		var old=ACData.point(u.pos);c.command(0,{"type":"stop","ids":[u.id]});c._tick_unit(u,.05)
+		check(ACData.point(u.pos).distance_to(old)>0 and ACData.point(u.air_velocity).length()<maximum,"stop decelerates instead of snapping %d"%race)
+		for i in range(10):c.time+=.05;c._tick_unit(u,.05)
+		check(ACData.point(u.air_velocity).length()<.01,"air comes to rest %d"%race)
+		var goal=ACData.point(u.pos)+Vector2(4,0);u.order="move";u.goal=ACData.packed(goal)
+		for i in range(100):c.time+=.05;c._tick_unit(u,.05)
+		check(ACData.point(u.pos).distance_to(goal)<.6 and ACData.point(u.air_velocity).length()<.1,"arrival brakes without overshooting %d"%race)
+	var c=arena();var scout=c.add_unit(0,7,Vector2(40,40));scout.energy=200;c.players[0].technologies.nuclear=1;c.players[0].nukes=1
+	var target=c.add_unit(1,1,Vector2(44,40));target.hp=2000;target.shield=0;reveal(c)
+	check(cast(c,scout,"nuclear",{},Vector2(44,40))=="","18 second strike starts")
+	check(c.effects.any(func(fx):return fx.type=="nuclear_ascent" and fx.until==4),"4 second ascent")
+	check(scout.channel.until==15 and scout.channel.impact==18,"15 second guide and 18 second impact")
+	c.visibility[1].fill(0);var enemy_snapshot=c.snapshot(1)
+	check(enemy_snapshot.effects.any(func(fx):return fx.type=="nuclear_notice" and not fx.has("from") and not fx.has("owner")),"global narration warns without revealing launch position")
+	c.time=14.99;ACAbilities.update(c,0);check(target.hp==2000 and c.ability_events.is_empty(),"no damage during launch and guidance")
+	c.time=15;ACAbilities.update(c,0)
+	check(scout.channel.is_empty() and c.effects.any(func(fx):return fx.type=="nuclear_descent" and fx.until==18),"3 second ballistic descent after lock")
+	scout.hp=0;c.time=17.99;ACAbilities.update(c,0);check(target.hp==2000,"no early descent impact")
+	c.time=18;ACAbilities.update(c,0);check(target.hp<1600 and c.ability_events.is_empty(),"impact at 18 even if guide dies after lock")
+	check(c.effects.any(func(fx):return fx.get("skill","")=="nuclear" and fx.until==34),"sixteen second mushroom cloud")
+	print("FLIGHT_NUCLEAR_V060 ",JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)

@@ -1,5 +1,6 @@
 const fs=require('fs'),path=require('path');
 const root=path.resolve(__dirname,'..'),cat=JSON.parse(fs.readFileSync(path.join(root,'data/voices_v05.json'))),rate=24000;
+if(Number(cat.schema)>=2)throw Error('The active external voice cast must be rebuilt with import_actor_voices_v060.cjs and import_citrus_voices_v060.cjs. Legacy SAPI rendering is disabled.');
 const {processVoice}=require('./voice_faction_dsp.cjs');
 const out=path.join(root,'assets/voices');fs.mkdirSync(out,{recursive:true});
 function readWav(file){const b=fs.readFileSync(file);let sr,channels,bits,data,format;for(let p=12;p+8<=b.length;){const id=b.toString('ascii',p,p+4),n=b.readUInt32LE(p+4);if(id==='fmt '){format=b.readUInt16LE(p+8);channels=b.readUInt16LE(p+10);sr=b.readUInt32LE(p+12);bits=b.readUInt16LE(p+22)}if(id==='data')data=b.subarray(p+8,p+8+n);p+=8+n+(n%2)}if(format!==1||bits!==16||!data)throw Error('Unsupported WAV '+file);const x=new Float32Array(data.length/2/channels);for(let i=0;i<x.length;i++)for(let c=0;c<channels;c++)x[i]+=data.readInt16LE((i*channels+c)*2)/32768/channels;return{x,sr}}
@@ -26,8 +27,10 @@ function tempo(x,speed){
 }
 let seed=1749;function noise(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/2147483648-1}
 function roar(c){seed=1000+c.kind*111+(c.special?900:0)+Number(c.id.slice(-1))*37;const n=Number(c.id.slice(-1)),duration=(c.special?1.6:1.0)+n*.12+(c.kind===12?.5:0),x=new Float32Array(Math.ceil(duration*rate));let phase=0,low=0;const base=(72+c.kind*5)*c.pitch;for(let i=0;i<x.length;i++){const t=i/rate,u=t/duration,env=Math.pow(Math.sin(Math.PI*u),.7)*(.6+.4*Math.pow(Math.sin(t*(7+n)*Math.PI),2)),freq=base*(1+.18*Math.sin(t*(3+n))+ .3*(1-u));phase+=freq/rate*2*Math.PI;low+=.15*(noise()-low);const rasp=Math.sin(phase+2.4*Math.sin(phase*.5))*.4+Math.sin(phase*2.01)*.15+low*.9;const circuit=.08*Math.sin(phase*5.7)*(Math.sin(t*49)>0?1:.4);x[i]=(rasp+circuit)*env;}return x}
-const report=[];
-for(const c of cat.clips){let y;if(c.type==='roar')y=roar(c);else{const src=readWav(path.join(root,'build/voice-raw',c.id+'.wav'));y=tempo(resample(src.x,src.sr,c.pitch),1.15/c.pitch);}y=processVoice(y,c);for(let i=0;i<Math.min(160,y.length/2);i++){y[i]*=i/160;y[y.length-1-i]*=i/160}writeWav(path.join(out,c.id+'.wav'),y);report.push({id:c.id,seconds:y.length/rate,type:c.type,effect:["radio","hive","telepathy"][c.race],announcer:!!c.announcer});}
+const selected=(process.env.ASTERA_VOICE_FILTER||'').split(',').filter(Boolean);
+const previous=path.join(root,'build/voice-render-report.json');
+const report=selected.length&&fs.existsSync(previous)?JSON.parse(fs.readFileSync(previous)).filter(c=>!selected.includes(c.id)):[];
+for(const c of cat.clips.filter(c=>!selected.length||selected.includes(c.id))){let y;if(c.type==='roar')y=roar(c);else{const src=readWav(path.join(root,'build/voice-raw',c.id+'.wav'));y=tempo(resample(src.x,src.sr,c.pitch),1.15/c.pitch);}y=processVoice(y,c);for(let i=0;i<Math.min(160,y.length/2);i++){y[i]*=i/160;y[y.length-1-i]*=i/160}writeWav(path.join(out,c.id+'.wav'),y);report.push({id:c.id,seconds:y.length/rate,type:c.type,effect:["radio","hive","telepathy"][c.race],announcer:!!c.announcer});}
 fs.writeFileSync(path.join(root,'build/voice-render-report.json'),JSON.stringify(report,null,2));console.log(`Rendered ${report.length} normalized mono PCM WAV clips`);
 
 fs.writeFileSync(path.join(root,"data/voice_effects_v058.json"),JSON.stringify({revision:"faction-radio-hive-telepathy-v1",profiles:["radio","hive","telepathy"],clips:report},null,2)+"\n");

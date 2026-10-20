@@ -1,3104 +1,3655 @@
 {
-  "revision": "faction-radio-hive-telepathy-v1",
-  "profiles": [
-    "radio",
-    "hive",
-    "telepathy"
+  "revision": "faction-radio-hive-telepathy-v2",
+  "providers": [
+    "ElevenLabs",
+    "VARCO Sound"
   ],
+  "sample_rate": 24000,
   "clips": [
     {
-      "id": "r0_u0_n0",
-      "seconds": 1.3029583333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_n1",
-      "seconds": 1.475625,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_n2",
-      "seconds": 1.4217083333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_n3",
-      "seconds": 1.35975,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_n4",
-      "seconds": 1.4261666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_s0",
-      "seconds": 1.5466666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_s1",
-      "seconds": 1.8712916666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_s2",
-      "seconds": 2.177375,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_s3",
-      "seconds": 2.241125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u0_s4",
-      "seconds": 2.2365,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_n0",
-      "seconds": 1.3554166666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_n1",
-      "seconds": 1.4804583333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_n2",
-      "seconds": 1.3326666666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_n3",
-      "seconds": 1.4701666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_n4",
-      "seconds": 1.3854166666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_s0",
-      "seconds": 1.8018333333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_s1",
-      "seconds": 1.7365833333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_s2",
-      "seconds": 3.163125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_s3",
-      "seconds": 1.9037916666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u1_s4",
-      "seconds": 2.4344166666666665,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_n0",
-      "seconds": 1.6044166666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_n1",
-      "seconds": 1.3075,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_n2",
-      "seconds": 1.3104583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_n3",
-      "seconds": 1.424625,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_n4",
-      "seconds": 1.0881666666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_s0",
-      "seconds": 1.9648333333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_s1",
-      "seconds": 1.729,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_s2",
-      "seconds": 1.9714583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_s3",
-      "seconds": 1.786625,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u2_s4",
-      "seconds": 1.8616666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_n0",
-      "seconds": 1.474125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_n1",
-      "seconds": 1.1640833333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_n2",
-      "seconds": 1.1559583333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_n3",
-      "seconds": 1.7589166666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_n4",
-      "seconds": 1.3590833333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_s0",
-      "seconds": 1.89425,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_s1",
-      "seconds": 2.2351666666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_s2",
-      "seconds": 1.9060833333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_s3",
-      "seconds": 2.289458333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u3_s4",
-      "seconds": 2.1194166666666665,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_n0",
-      "seconds": 1.5397916666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_n1",
-      "seconds": 1.5735416666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_n2",
-      "seconds": 1.5532083333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_n3",
-      "seconds": 1.6577916666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_n4",
-      "seconds": 1.4340416666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_s0",
-      "seconds": 1.7837916666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_s1",
-      "seconds": 3.3065,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_s2",
-      "seconds": 1.8680833333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_s3",
-      "seconds": 2.4154166666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u4_s4",
-      "seconds": 2.5634166666666665,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_n0",
-      "seconds": 1.438125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_n1",
-      "seconds": 1.3014166666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_n2",
-      "seconds": 1.2325,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_n3",
-      "seconds": 1.600125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_n4",
-      "seconds": 1.438,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_s0",
-      "seconds": 1.504,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_s1",
-      "seconds": 2.1340833333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_s2",
-      "seconds": 1.8316666666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_s3",
-      "seconds": 2.142625,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u5_s4",
-      "seconds": 2.0461666666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_n0",
-      "seconds": 1.4101666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_n1",
-      "seconds": 1.3927083333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_n2",
-      "seconds": 1.3222916666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_n3",
-      "seconds": 1.5149166666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_n4",
-      "seconds": 1.6131666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_s0",
-      "seconds": 1.869125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_s1",
-      "seconds": 1.7213333333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_s2",
-      "seconds": 1.8455,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_s3",
-      "seconds": 2.446458333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u6_s4",
-      "seconds": 2.2165416666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_n0",
-      "seconds": 1.6707083333333332,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_n1",
-      "seconds": 1.5170416666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_n2",
-      "seconds": 1.479375,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_n3",
-      "seconds": 1.398875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_n4",
-      "seconds": 1.5745,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_s0",
-      "seconds": 2.040583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_s1",
-      "seconds": 2.0272083333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_s2",
-      "seconds": 1.88025,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_s3",
-      "seconds": 1.96925,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u7_s4",
-      "seconds": 1.9858333333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_n0",
-      "seconds": 1.3896666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_n1",
-      "seconds": 1.3491666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_n2",
-      "seconds": 1.7470833333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_n3",
-      "seconds": 1.36575,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_n4",
-      "seconds": 1.705875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_s0",
-      "seconds": 2.0526666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_s1",
-      "seconds": 1.89225,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_s2",
-      "seconds": 1.8558333333333332,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_s3",
-      "seconds": 2.0599166666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u8_s4",
-      "seconds": 2.922875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_n0",
-      "seconds": 1.594625,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_n1",
-      "seconds": 1.5536666666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_n2",
-      "seconds": 1.2756666666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_n3",
-      "seconds": 1.616,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_n4",
-      "seconds": 1.4759583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_s0",
-      "seconds": 1.3307916666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_s1",
-      "seconds": 1.8883333333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_s2",
-      "seconds": 1.6839583333333332,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_s3",
-      "seconds": 1.7662916666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u9_s4",
-      "seconds": 1.8139583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_n0",
-      "seconds": 1.536625,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_n1",
-      "seconds": 1.35175,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_n2",
-      "seconds": 1.269125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_n3",
-      "seconds": 1.8417916666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_n4",
-      "seconds": 1.5115833333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_s0",
-      "seconds": 1.4747916666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_s1",
-      "seconds": 1.4610833333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_s2",
-      "seconds": 1.84125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_s3",
-      "seconds": 1.6427916666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u10_s4",
-      "seconds": 2.2234583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_n0",
-      "seconds": 1.5596666666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_n1",
-      "seconds": 1.5747916666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_n2",
-      "seconds": 1.55525,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_n3",
-      "seconds": 1.817875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_n4",
-      "seconds": 1.3711666666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_s0",
-      "seconds": 2.489625,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_s1",
-      "seconds": 1.5913333333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_s2",
-      "seconds": 2.3078333333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_s3",
-      "seconds": 1.650125,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u11_s4",
-      "seconds": 2.0756666666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_n0",
-      "seconds": 1.4455416666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_n1",
-      "seconds": 1.7075416666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_n2",
-      "seconds": 1.1669583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_n3",
-      "seconds": 1.594375,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_n4",
-      "seconds": 1.7855,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_s0",
-      "seconds": 1.944875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_s1",
-      "seconds": 2.1166666666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_s2",
-      "seconds": 1.8928333333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_s3",
-      "seconds": 2.113916666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r0_u12_s4",
-      "seconds": 2.374791666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u0_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u1_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u2_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u3_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u4_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u5_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u6_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u7_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u8_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u9_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u10_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u11_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_n0",
-      "seconds": 1.71,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_n1",
-      "seconds": 1.83,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_n2",
-      "seconds": 1.95,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_n3",
-      "seconds": 2.07,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_n4",
-      "seconds": 2.19,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_s0",
-      "seconds": 2.31,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_s1",
-      "seconds": 2.430041666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_s2",
-      "seconds": 2.55,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_s3",
-      "seconds": 2.67,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u12_s4",
-      "seconds": 2.79,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_n0",
-      "seconds": 1.21,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_n1",
-      "seconds": 1.3300416666666666,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_n2",
-      "seconds": 1.45,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_n3",
-      "seconds": 1.57,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_n4",
-      "seconds": 1.69,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_s0",
-      "seconds": 1.81,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_s1",
-      "seconds": 1.9300416666666667,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_s2",
-      "seconds": 2.05,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_s3",
-      "seconds": 2.17,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r1_u13_s4",
-      "seconds": 2.29,
-      "type": "roar",
-      "effect": "hive",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_n0",
-      "seconds": 1.9352083333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_n1",
-      "seconds": 2.021333333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_n2",
-      "seconds": 1.494375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_n3",
-      "seconds": 1.941125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_n4",
-      "seconds": 2.039,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_s0",
-      "seconds": 2.18175,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_s1",
-      "seconds": 2.776291666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_s2",
-      "seconds": 2.0363333333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_s3",
-      "seconds": 2.2405416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u0_s4",
-      "seconds": 2.502083333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_n0",
-      "seconds": 1.6624166666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_n1",
-      "seconds": 1.6030833333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_n2",
-      "seconds": 1.7675,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_n3",
-      "seconds": 1.696125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_n4",
-      "seconds": 1.70675,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_s0",
-      "seconds": 2.167875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_s1",
-      "seconds": 2.480916666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_s2",
-      "seconds": 2.3745,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_s3",
-      "seconds": 2.1285833333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u1_s4",
-      "seconds": 3.5634166666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_n0",
-      "seconds": 1.7026666666666668,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_n1",
-      "seconds": 1.6424166666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_n2",
-      "seconds": 1.694625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_n3",
-      "seconds": 1.8198333333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_n4",
-      "seconds": 1.82875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_s0",
-      "seconds": 1.8264166666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_s1",
-      "seconds": 2.506625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_s2",
-      "seconds": 2.5067916666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_s3",
-      "seconds": 2.5435833333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u2_s4",
-      "seconds": 2.7457083333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_n0",
-      "seconds": 1.5321666666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_n1",
-      "seconds": 2.41825,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_n2",
-      "seconds": 1.6809166666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_n3",
-      "seconds": 2.041541666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_n4",
-      "seconds": 1.9245416666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_s0",
-      "seconds": 2.2943333333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_s1",
-      "seconds": 2.041875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_s2",
-      "seconds": 2.2007916666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_s3",
-      "seconds": 1.7017916666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u3_s4",
-      "seconds": 2.52025,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_n0",
-      "seconds": 2.0280416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_n1",
-      "seconds": 2.0635,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_n2",
-      "seconds": 1.8850416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_n3",
-      "seconds": 2.225125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_n4",
-      "seconds": 1.5685833333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_s0",
-      "seconds": 2.20375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_s1",
-      "seconds": 2.42125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_s2",
-      "seconds": 2.027833333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_s3",
-      "seconds": 2.4803333333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u4_s4",
-      "seconds": 2.1655416666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_n0",
-      "seconds": 1.727375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_n1",
-      "seconds": 1.5667916666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_n2",
-      "seconds": 2.1437916666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_n3",
-      "seconds": 1.9534583333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_n4",
-      "seconds": 1.632125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_s0",
-      "seconds": 2.327375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_s1",
-      "seconds": 1.9753333333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_s2",
-      "seconds": 2.63475,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_s3",
-      "seconds": 2.1980416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u5_s4",
-      "seconds": 2.320875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_n0",
-      "seconds": 1.6664166666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_n1",
-      "seconds": 1.812,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_n2",
-      "seconds": 1.9064583333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_n3",
-      "seconds": 1.4819166666666668,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_n4",
-      "seconds": 2.064416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_s0",
-      "seconds": 1.9625416666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_s1",
-      "seconds": 2.3500833333333335,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_s2",
-      "seconds": 1.9584166666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_s3",
-      "seconds": 1.721,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u6_s4",
-      "seconds": 2.1537916666666668,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_n0",
-      "seconds": 1.8035416666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_n1",
-      "seconds": 1.43275,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_n2",
-      "seconds": 2.0009166666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_n3",
-      "seconds": 1.5497083333333332,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_n4",
-      "seconds": 2.0401666666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_s0",
-      "seconds": 1.9162083333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_s1",
-      "seconds": 2.3068333333333335,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_s2",
-      "seconds": 1.877125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_s3",
-      "seconds": 1.8860833333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u7_s4",
-      "seconds": 2.8132916666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_n0",
-      "seconds": 1.5054583333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_n1",
-      "seconds": 1.9052083333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_n2",
-      "seconds": 1.7514583333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_n3",
-      "seconds": 1.9347916666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_n4",
-      "seconds": 1.813625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_s0",
-      "seconds": 1.971625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_s1",
-      "seconds": 2.0880833333333335,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_s2",
-      "seconds": 2.38525,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_s3",
-      "seconds": 2.1044583333333335,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u8_s4",
-      "seconds": 2.45325,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_n0",
-      "seconds": 1.9895,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_n1",
-      "seconds": 1.404375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_n2",
-      "seconds": 1.969,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_n3",
-      "seconds": 2.023416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_n4",
-      "seconds": 1.7914166666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_s0",
-      "seconds": 2.25225,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_s1",
-      "seconds": 2.284375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_s2",
-      "seconds": 2.356625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_s3",
-      "seconds": 2.240458333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u9_s4",
-      "seconds": 2.4005,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_n0",
-      "seconds": 1.562625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_n1",
-      "seconds": 1.5248333333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_n2",
-      "seconds": 2.139875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_n3",
-      "seconds": 2.07625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_n4",
-      "seconds": 1.8237916666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_s0",
-      "seconds": 2.51625,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_s1",
-      "seconds": 2.279,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_s2",
-      "seconds": 1.9094166666666668,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_s3",
-      "seconds": 3.358416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u10_s4",
-      "seconds": 2.3369166666666668,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_n0",
-      "seconds": 1.493,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_n1",
-      "seconds": 1.5591666666666666,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_n2",
-      "seconds": 2.278958333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_n3",
-      "seconds": 1.9985416666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_n4",
-      "seconds": 1.7227916666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_s0",
-      "seconds": 2.4166666666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_s1",
-      "seconds": 2.0922916666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_s2",
-      "seconds": 2.17125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_s3",
-      "seconds": 2.164083333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u11_s4",
-      "seconds": 2.2922083333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_n0",
-      "seconds": 1.9310833333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_n1",
-      "seconds": 1.853875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_n2",
-      "seconds": 2.185875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_n3",
-      "seconds": 2.0765833333333332,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_n4",
-      "seconds": 2.104791666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_s0",
-      "seconds": 2.2670833333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_s1",
-      "seconds": 1.9735833333333332,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_s2",
-      "seconds": 2.354791666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_s3",
-      "seconds": 2.030666666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
-      "id": "r2_u12_s4",
-      "seconds": 2.8667083333333334,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": false
-    },
-    {
       "id": "r0_ann_as",
-      "seconds": 3.655375,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.427,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_tera",
-      "seconds": 3.6505,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.387,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_supply",
-      "seconds": 1.6514583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.126,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_attack",
-      "seconds": 3.6494166666666668,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.504,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_base_attack",
-      "seconds": 4.221875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.521,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_building_ready",
-      "seconds": 1.465875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.031,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_unit_ready",
-      "seconds": 1.8615833333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.339,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_research_ready",
-      "seconds": 1.4949583333333334,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.061,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_tech",
-      "seconds": 1.655875,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.485,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_energy",
-      "seconds": 1.3772916666666666,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.329,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_queue",
-      "seconds": 2.022666666666667,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.442,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_brood",
-      "seconds": 1.7783333333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.391,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_victory",
-      "seconds": 2.6569583333333333,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 1.435,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
       "id": "r0_ann_defeat",
-      "seconds": 3.5455,
-      "type": "speech",
-      "effect": "radio",
-      "announcer": true
+      "seconds": 0.963,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
-      "id": "r1_ann_as",
-      "seconds": 3.4250833333333333,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
+      "id": "r0_ann_nuclear",
+      "seconds": 1.857,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_ann",
+      "pitch": 0.78,
+      "speed": 1
     },
     {
-      "id": "r1_ann_tera",
-      "seconds": 3.5625,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
+      "id": "r0_u2_n0",
+      "seconds": 1.087,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_u2",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
-      "id": "r1_ann_supply",
-      "seconds": 3.4429583333333333,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
+      "id": "r0_u2_n1",
+      "seconds": 1.103,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_u2",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
-      "id": "r1_ann_attack",
-      "seconds": 3.56,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
+      "id": "r0_u2_n2",
+      "seconds": 1.228,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_u2",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
-      "id": "r1_ann_base_attack",
-      "seconds": 3.0532916666666665,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
+      "id": "r0_u2_s0",
+      "seconds": 0.925,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_u2",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
-      "id": "r1_ann_building_ready",
-      "seconds": 1.9444583333333334,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_unit_ready",
-      "seconds": 1.734,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_research_ready",
-      "seconds": 1.9004166666666666,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_tech",
-      "seconds": 1.605875,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_energy",
-      "seconds": 1.7901666666666667,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_queue",
-      "seconds": 1.84425,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_brood",
-      "seconds": 1.6750833333333333,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_victory",
-      "seconds": 3.32,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
-    },
-    {
-      "id": "r1_ann_defeat",
-      "seconds": 3.0875,
-      "type": "speech",
-      "effect": "hive",
-      "announcer": true
+      "id": "r0_u2_s1",
+      "seconds": 0.944,
+      "provider": "ElevenLabs",
+      "source_bank": "r0_u2",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_as",
-      "seconds": 3.696125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.988,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_tera",
-      "seconds": 3.662916666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.947,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_supply",
-      "seconds": 3.976125,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 2.058,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_attack",
-      "seconds": 3.90375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 2.17,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_base_attack",
-      "seconds": 4.321375,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.796,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_building_ready",
-      "seconds": 1.6974583333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.929,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_unit_ready",
-      "seconds": 2.1159166666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.92,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_research_ready",
-      "seconds": 1.8777083333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.792,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_tech",
-      "seconds": 2.482666666666667,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 2.05,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_energy",
-      "seconds": 1.8524583333333333,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.856,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_queue",
-      "seconds": 2.0565,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 2.019,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_brood",
-      "seconds": 2.0532916666666665,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.918,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_victory",
-      "seconds": 3.401875,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.813,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
     },
     {
       "id": "r2_ann_defeat",
-      "seconds": 3.457,
-      "type": "speech",
-      "effect": "telepathy",
-      "announcer": true
+      "seconds": 1.982,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
+    },
+    {
+      "id": "r2_ann_nuclear",
+      "seconds": 2.644,
+      "provider": "ElevenLabs",
+      "source_bank": "r2_ann",
+      "pitch": 0.82,
+      "speed": 1
+    },
+    {
+      "id": "r0_u0_n0",
+      "seconds": 1.075,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u0_n1",
+      "seconds": 1.339,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u0_n2",
+      "seconds": 0.97,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u0_s0",
+      "seconds": 1.337,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u0_s1",
+      "seconds": 1.593,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u10_n0",
+      "seconds": 1.073,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.68,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u10_n1",
+      "seconds": 1.402,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.68,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u10_n2",
+      "seconds": 1.292,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.68,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u10_s0",
+      "seconds": 0.937,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.68,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u10_s1",
+      "seconds": 1.194,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.68,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u4_n0",
+      "seconds": 1.985,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.86,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u4_n1",
+      "seconds": 1.947,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.86,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u4_n2",
+      "seconds": 1.874,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.86,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u4_s0",
+      "seconds": 1.66,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.86,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u4_s1",
+      "seconds": 2.288,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_George",
+      "pitch": 0.86,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u1_n0",
+      "seconds": 1.231,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u1_n1",
+      "seconds": 1.076,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u1_n2",
+      "seconds": 0.978,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u1_s0",
+      "seconds": 1.105,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u1_s1",
+      "seconds": 1.324,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u5_n0",
+      "seconds": 1.998,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.82,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u5_n1",
+      "seconds": 2.135,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.82,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u5_n2",
+      "seconds": 1.698,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.82,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u5_s0",
+      "seconds": 1.83,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.82,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u5_s1",
+      "seconds": 2.336,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.82,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u13_n0",
+      "seconds": 2.107,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.69,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u13_n1",
+      "seconds": 2.078,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.69,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u13_n2",
+      "seconds": 2.057,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.69,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u13_s0",
+      "seconds": 1.917,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.69,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u13_s1",
+      "seconds": 2.134,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Brian",
+      "pitch": 0.69,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u9_n0",
+      "seconds": 1.132,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.68,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u9_n1",
+      "seconds": 1.301,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.68,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u9_n2",
+      "seconds": 0.91,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.68,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u9_s0",
+      "seconds": 1.153,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.68,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u9_s1",
+      "seconds": 1.286,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.68,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u1_n0",
+      "seconds": 2.391,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.76,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u1_n1",
+      "seconds": 2.04,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.76,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u1_n2",
+      "seconds": 1.432,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.76,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u1_s0",
+      "seconds": 2.065,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.76,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u1_s1",
+      "seconds": 2.229,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Adam",
+      "pitch": 0.76,
+      "speed": 0.975
+    },
+    {
+      "id": "r1_ann_as",
+      "seconds": 1.902,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_tera",
+      "seconds": 1.767,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_supply",
+      "seconds": 1.86,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_attack",
+      "seconds": 1.907,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_base_attack",
+      "seconds": 1.862,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_building_ready",
+      "seconds": 1.829,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_unit_ready",
+      "seconds": 2.004,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_research_ready",
+      "seconds": 1.752,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_tech",
+      "seconds": 1.991,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_energy",
+      "seconds": 1.714,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_queue",
+      "seconds": 1.766,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_brood",
+      "seconds": 1.736,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_victory",
+      "seconds": 1.802,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_defeat",
+      "seconds": 1.829,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r1_ann_nuclear",
+      "seconds": 2.41,
+      "provider": "ElevenLabs",
+      "source_bank": "r1_ann_queen",
+      "pitch": 1,
+      "speed": 1.1
+    },
+    {
+      "id": "r0_u3_n0",
+      "seconds": 1.202,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.75,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u3_n1",
+      "seconds": 1.295,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.75,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u3_n2",
+      "seconds": 1.155,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.75,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u3_s0",
+      "seconds": 1.345,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.75,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u3_s1",
+      "seconds": 1.423,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.75,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u11_n0",
+      "seconds": 1.266,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.91,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u11_n1",
+      "seconds": 0.934,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.91,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u11_n2",
+      "seconds": 1.199,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.91,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u11_s0",
+      "seconds": 1.351,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.91,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u11_s1",
+      "seconds": 1.566,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.91,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u7_n0",
+      "seconds": 2.187,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.66,
+      "speed": 1
+    },
+    {
+      "id": "r2_u7_n1",
+      "seconds": 1.887,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.66,
+      "speed": 1
+    },
+    {
+      "id": "r2_u7_n2",
+      "seconds": 2.104,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.66,
+      "speed": 1
+    },
+    {
+      "id": "r2_u7_s0",
+      "seconds": 2.104,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.66,
+      "speed": 1
+    },
+    {
+      "id": "r2_u7_s1",
+      "seconds": 2.255,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Roger",
+      "pitch": 0.66,
+      "speed": 1
+    },
+    {
+      "id": "r0_u4_n0",
+      "seconds": 1.202,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.9,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u4_n1",
+      "seconds": 1.422,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.9,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u4_n2",
+      "seconds": 1.317,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.9,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u4_s0",
+      "seconds": 1.143,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.9,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u4_s1",
+      "seconds": 1.221,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.9,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u14_n0",
+      "seconds": 1.364,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u14_n1",
+      "seconds": 1.246,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u14_n2",
+      "seconds": 0.933,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u14_s0",
+      "seconds": 1.281,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r0_u14_s1",
+      "seconds": 1.335,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u3_n0",
+      "seconds": 1.77,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.7,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u3_n1",
+      "seconds": 1.923,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.7,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u3_n2",
+      "seconds": 1.813,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.7,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u3_s0",
+      "seconds": 1.925,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.7,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u3_s1",
+      "seconds": 1.985,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.7,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u11_n0",
+      "seconds": 1.865,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.88,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u11_n1",
+      "seconds": 1.964,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.88,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u11_n2",
+      "seconds": 1.392,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.88,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u11_s0",
+      "seconds": 1.702,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.88,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u11_s1",
+      "seconds": 1.935,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Daniel",
+      "pitch": 0.88,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u5_n0",
+      "seconds": 1.138,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.73,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u5_n1",
+      "seconds": 1.266,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.73,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u5_n2",
+      "seconds": 1.015,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.73,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u5_s0",
+      "seconds": 1.316,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.73,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u5_s1",
+      "seconds": 1.402,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.73,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u12_n0",
+      "seconds": 0.963,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r0_u12_n1",
+      "seconds": 1.333,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r0_u12_n2",
+      "seconds": 1.4,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r0_u12_s0",
+      "seconds": 1.188,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r0_u12_s1",
+      "seconds": 1.435,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r2_u0_n0",
+      "seconds": 1.881,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u0_n1",
+      "seconds": 1.956,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u0_n2",
+      "seconds": 1.948,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u0_s0",
+      "seconds": 2.148,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u0_s1",
+      "seconds": 2.159,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.84,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u12_n0",
+      "seconds": 2.26,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r2_u12_n1",
+      "seconds": 1.857,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r2_u12_n2",
+      "seconds": 2.034,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r2_u12_s0",
+      "seconds": 2.121,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r2_u12_s1",
+      "seconds": 1.849,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Bill",
+      "pitch": 0.62,
+      "speed": 1
+    },
+    {
+      "id": "r0_u6_n0",
+      "seconds": 1.287,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.83,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u6_n1",
+      "seconds": 1.021,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.83,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u6_n2",
+      "seconds": 1.019,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.83,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u6_s0",
+      "seconds": 1.212,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.83,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u6_s1",
+      "seconds": 1.298,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.83,
+      "speed": 0.975
+    },
+    {
+      "id": "r0_u15_n0",
+      "seconds": 1.361,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.69,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u15_n1",
+      "seconds": 0.929,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.69,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u15_n2",
+      "seconds": 0.974,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.69,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u15_s0",
+      "seconds": 1.056,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.69,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u15_s1",
+      "seconds": 1.365,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.69,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u8_n0",
+      "seconds": 1.646,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.68,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u8_n1",
+      "seconds": 1.884,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.68,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u8_n2",
+      "seconds": 1.441,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.68,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u8_s0",
+      "seconds": 1.867,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.68,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u8_s1",
+      "seconds": 2.322,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Eric",
+      "pitch": 0.68,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u7_n0",
+      "seconds": 1.248,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.78,
+      "speed": 1
+    },
+    {
+      "id": "r0_u7_n1",
+      "seconds": 1.458,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.78,
+      "speed": 1
+    },
+    {
+      "id": "r0_u7_n2",
+      "seconds": 1.24,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.78,
+      "speed": 1
+    },
+    {
+      "id": "r0_u7_s0",
+      "seconds": 1.107,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.78,
+      "speed": 1
+    },
+    {
+      "id": "r0_u7_s1",
+      "seconds": 1.266,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.78,
+      "speed": 1
+    },
+    {
+      "id": "r0_u13_n0",
+      "seconds": 1.124,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.93,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u13_n1",
+      "seconds": 1.1,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.93,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u13_n2",
+      "seconds": 0.926,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.93,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u13_s0",
+      "seconds": 1.393,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.93,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u13_s1",
+      "seconds": 1.286,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.93,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u6_n0",
+      "seconds": 2.16,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u6_n1",
+      "seconds": 2.107,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u6_n2",
+      "seconds": 2.034,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u6_s0",
+      "seconds": 2,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u6_s1",
+      "seconds": 1.979,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.79,
+      "speed": 0.975
+    },
+    {
+      "id": "r2_u10_n0",
+      "seconds": 2.054,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.66,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u10_n1",
+      "seconds": 1.912,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.66,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u10_n2",
+      "seconds": 2.047,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.66,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u10_s0",
+      "seconds": 1.893,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.66,
+      "speed": 0.95
+    },
+    {
+      "id": "r2_u10_s1",
+      "seconds": 2.322,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Callum",
+      "pitch": 0.66,
+      "speed": 0.95
+    },
+    {
+      "id": "r0_u8_n0",
+      "seconds": 1.087,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.88,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u8_n1",
+      "seconds": 1.055,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.88,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u8_n2",
+      "seconds": 1.317,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.88,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u8_s0",
+      "seconds": 1.201,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.88,
+      "speed": 1.025
+    },
+    {
+      "id": "r0_u8_s1",
+      "seconds": 1.351,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.88,
+      "speed": 1.025
+    },
+    {
+      "id": "r2_u2_n0",
+      "seconds": 1.777,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.9,
+      "speed": 1
+    },
+    {
+      "id": "r2_u2_n1",
+      "seconds": 1.648,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.9,
+      "speed": 1
+    },
+    {
+      "id": "r2_u2_n2",
+      "seconds": 1.591,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.9,
+      "speed": 1
+    },
+    {
+      "id": "r2_u2_s0",
+      "seconds": 2.474,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.9,
+      "speed": 1
+    },
+    {
+      "id": "r2_u2_s1",
+      "seconds": 1.797,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.9,
+      "speed": 1
+    },
+    {
+      "id": "r2_u9_n0",
+      "seconds": 1.684,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u9_n1",
+      "seconds": 1.717,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u9_n2",
+      "seconds": 1.773,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u9_s0",
+      "seconds": 1.934,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r2_u9_s1",
+      "seconds": 2.278,
+      "provider": "ElevenLabs",
+      "source_bank": "actor_Charlie",
+      "pitch": 0.72,
+      "speed": 1.05
+    },
+    {
+      "id": "r1_u0_n0",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u0",
+      "pitch": 0.98,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u0_n1",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u0",
+      "pitch": 1,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u0_n2",
+      "seconds": 1.112,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u0",
+      "pitch": 1.025,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u0_s0",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u0",
+      "pitch": 0.91,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u0_s1",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u0",
+      "pitch": 1.075,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u1_n0",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u1",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u1_n1",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u1",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u1_n2",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u1",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u1_s0",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u1",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u1_s1",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u1",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u2_n0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u2",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u2_n1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u2",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u2_n2",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u2",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u2_s0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u2",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u2_s1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u2",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u3_n0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u3",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u3_n1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u3",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u3_n2",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u3",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u3_s0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u3",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u3_s1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u3",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u4_n0",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u4",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u4_n1",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u4",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u4_n2",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u4",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u4_s0",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u4",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u4_s1",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u4",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u5_n0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u5",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u5_n1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u5",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u5_n2",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u5",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u5_s0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u5",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u5_s1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u5",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u6_n0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u6",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u6_n1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u6",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u6_n2",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u6",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u6_s0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u6",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u6_s1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u6",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u7_n0",
+      "seconds": 1.225,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u7",
+      "pitch": 0.98,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u7_n1",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u7",
+      "pitch": 1,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u7_n2",
+      "seconds": 1.72,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u7",
+      "pitch": 1.025,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u7_s0",
+      "seconds": 1.225,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u7",
+      "pitch": 0.91,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u7_s1",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u7",
+      "pitch": 1.075,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u8_n0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u8",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u8_n1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u8",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u8_n2",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u8",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u8_s0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u8",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u8_s1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u8",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u9_n0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u9",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u9_n1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u9",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u9_n2",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u9",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u9_s0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u9",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u9_s1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u9",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u10_n0",
+      "seconds": 0.975,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u10",
+      "pitch": 0.98,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u10_n1",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u10",
+      "pitch": 1,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u10_n2",
+      "seconds": 0.903,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u10",
+      "pitch": 1.025,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u10_s0",
+      "seconds": 0.975,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u10",
+      "pitch": 0.91,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u10_s1",
+      "seconds": 1.8,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u10",
+      "pitch": 1.075,
+      "derivative": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "r1_u11_n0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u11",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u11_n1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u11",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u11_n2",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u11",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u11_s0",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u11",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u11_s1",
+      "seconds": 1.66,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u11",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u12_n0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u12",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u12_n1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u12",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u12_n2",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u12",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u12_s0",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u12",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u12_s1",
+      "seconds": 1.4,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u12",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u13_n0",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u13",
+      "pitch": 0.98,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u13_n1",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u13",
+      "pitch": 1,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u13_n2",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u13",
+      "pitch": 1.025,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u13_s0",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u13",
+      "pitch": 0.91,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "r1_u13_s1",
+      "seconds": 1.53,
+      "provider": "VARCO Sound",
+      "source_bank": "citrus_u13",
+      "pitch": 1.075,
+      "derivative": "three expressive short excerpts derived from the continuous generated call"
+    }
+  ],
+  "recordings": [
+    {
+      "id": "r0_ann",
+      "voice": "Brian",
+      "source_sha256": "0bb0c92d924efb4cfbf04c8520793fcc75cc1eba6ed34ef340a42efb1db794a6",
+      "seconds": 29.074285714285715,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 1.25,
+          "end": 2.6,
+          "duration": 1.35
+        },
+        {
+          "start": 3.66,
+          "end": 4.94,
+          "duration": 1.28
+        },
+        {
+          "start": 5.75,
+          "end": 7.03,
+          "duration": 1.28
+        },
+        {
+          "start": 8.22,
+          "end": 9.07,
+          "duration": 0.85
+        },
+        {
+          "start": 10.29,
+          "end": 11.31,
+          "duration": 1.02
+        },
+        {
+          "start": 12.03,
+          "end": 12.89,
+          "duration": 0.86
+        },
+        {
+          "start": 13.9,
+          "end": 14.72,
+          "duration": 0.82
+        },
+        {
+          "start": 15.47,
+          "end": 16.31,
+          "duration": 0.84
+        },
+        {
+          "start": 17.49,
+          "end": 18.32,
+          "duration": 0.83
+        },
+        {
+          "start": 19.33,
+          "end": 20.12,
+          "duration": 0.79
+        },
+        {
+          "start": 21.26,
+          "end": 22.02,
+          "duration": 0.76
+        },
+        {
+          "start": 23.11,
+          "end": 23.91,
+          "duration": 0.8
+        },
+        {
+          "start": 25.04,
+          "end": 25.88,
+          "duration": 0.84
+        },
+        {
+          "start": 26.49,
+          "end": 27.32,
+          "duration": 0.83
+        }
+      ]
+    },
+    {
+      "id": "r0_u2",
+      "voice": "Adam",
+      "source_sha256": "3db945a0d4f3c7d5077f799bb62b8195e0dbd6e1c04294404279a0e61a247a57",
+      "seconds": 7.471020408163265,
+      "segments": 5,
+      "gaps": [
+        {
+          "start": 0.86,
+          "end": 1.91,
+          "duration": 1.05
+        },
+        {
+          "start": 2.7,
+          "end": 3.59,
+          "duration": 0.89
+        },
+        {
+          "start": 4.48,
+          "end": 5.18,
+          "duration": 0.7
+        },
+        {
+          "start": 5.8,
+          "end": 6.51,
+          "duration": 0.71
+        }
+      ]
+    },
+    {
+      "id": "r2_ann",
+      "voice": "Bill",
+      "source_sha256": "48bf47bc179030f81b02e392218c3ad7a0de0d3587cd214baa906707dfb0a895",
+      "seconds": 35.97061224489796,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 1.39,
+          "end": 3.14,
+          "duration": 1.75
+        },
+        {
+          "start": 4.26,
+          "end": 5.64,
+          "duration": 1.38
+        },
+        {
+          "start": 6.87,
+          "end": 8.2,
+          "duration": 1.33
+        },
+        {
+          "start": 9.58,
+          "end": 10.82,
+          "duration": 1.24
+        },
+        {
+          "start": 11.81,
+          "end": 13.08,
+          "duration": 1.27
+        },
+        {
+          "start": 14.2,
+          "end": 15.42,
+          "duration": 1.22
+        },
+        {
+          "start": 16.54,
+          "end": 17.75,
+          "duration": 1.21
+        },
+        {
+          "start": 18.73,
+          "end": 19.75,
+          "duration": 1.02
+        },
+        {
+          "start": 21,
+          "end": 22.24,
+          "duration": 1.24
+        },
+        {
+          "start": 23.28,
+          "end": 24.51,
+          "duration": 1.23
+        },
+        {
+          "start": 25.72,
+          "end": 26.94,
+          "duration": 1.22
+        },
+        {
+          "start": 28.06,
+          "end": 29.35,
+          "duration": 1.29
+        },
+        {
+          "start": 30.34,
+          "end": 31.56,
+          "duration": 1.22
+        },
+        {
+          "start": 32.73,
+          "end": 33.93,
+          "duration": 1.2
+        }
+      ]
+    },
+    {
+      "id": "actor_George",
+      "voice": "George",
+      "source_sha256": "ac4421fcaadfa7aede091848880952efe2c985804dc5cb12a3e0bc8d888c850a",
+      "seconds": 29.30938775510204,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 0.83,
+          "end": 2.47,
+          "duration": 1.64
+        },
+        {
+          "start": 3.39,
+          "end": 4.85,
+          "duration": 1.46
+        },
+        {
+          "start": 5.45,
+          "end": 6.43,
+          "duration": 0.98
+        },
+        {
+          "start": 7.38,
+          "end": 8.43,
+          "duration": 1.05
+        },
+        {
+          "start": 9.64,
+          "end": 10.59,
+          "duration": 0.95
+        },
+        {
+          "start": 11.27,
+          "end": 12.33,
+          "duration": 1.06
+        },
+        {
+          "start": 13.37,
+          "end": 14.35,
+          "duration": 0.98
+        },
+        {
+          "start": 15.27,
+          "end": 16.11,
+          "duration": 0.84
+        },
+        {
+          "start": 16.69,
+          "end": 17.64,
+          "duration": 0.95
+        },
+        {
+          "start": 18.49,
+          "end": 19.48,
+          "duration": 0.99
+        },
+        {
+          "start": 20.67,
+          "end": 21.64,
+          "duration": 0.97
+        },
+        {
+          "start": 22.81,
+          "end": 23.7,
+          "duration": 0.89
+        },
+        {
+          "start": 24.77,
+          "end": 25.75,
+          "duration": 0.98
+        },
+        {
+          "start": 26.63,
+          "end": 27.55,
+          "duration": 0.92
+        }
+      ]
+    },
+    {
+      "id": "actor_Brian",
+      "voice": "Brian",
+      "source_sha256": "54ea8bf131068276d4d1a9c07c338378b1c0e23c8575b7a8ee72de4f85f4374a",
+      "seconds": 32.83591836734694,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 1.03,
+          "end": 2.34,
+          "duration": 1.31
+        },
+        {
+          "start": 3.05,
+          "end": 4.39,
+          "duration": 1.34
+        },
+        {
+          "start": 5.03,
+          "end": 6.27,
+          "duration": 1.24
+        },
+        {
+          "start": 7.03,
+          "end": 8.3,
+          "duration": 1.27
+        },
+        {
+          "start": 9.27,
+          "end": 10.57,
+          "duration": 1.3
+        },
+        {
+          "start": 11.68,
+          "end": 12.94,
+          "duration": 1.26
+        },
+        {
+          "start": 14.17,
+          "end": 15.5,
+          "duration": 1.33
+        },
+        {
+          "start": 16.33,
+          "end": 17.52,
+          "duration": 1.19
+        },
+        {
+          "start": 18.48,
+          "end": 19.71,
+          "duration": 1.23
+        },
+        {
+          "start": 21.14,
+          "end": 22.35,
+          "duration": 1.21
+        },
+        {
+          "start": 23.67,
+          "end": 24.65,
+          "duration": 0.98
+        },
+        {
+          "start": 25.95,
+          "end": 26.94,
+          "duration": 0.99
+        },
+        {
+          "start": 28.21,
+          "end": 29.16,
+          "duration": 0.95
+        },
+        {
+          "start": 30.29,
+          "end": 31.23,
+          "duration": 0.94
+        }
+      ]
+    },
+    {
+      "id": "actor_Adam",
+      "voice": "Adam",
+      "source_sha256": "002bd059a56d925e41409579374e0e7ec14db036c94b53dcbc2a038129ec5da4",
+      "seconds": 19.957551020408165,
+      "segments": 10,
+      "gaps": [
+        {
+          "start": 0.9,
+          "end": 2.4,
+          "duration": 1.5
+        },
+        {
+          "start": 3.44,
+          "end": 4.6,
+          "duration": 1.16
+        },
+        {
+          "start": 5.23,
+          "end": 6.25,
+          "duration": 1.02
+        },
+        {
+          "start": 7.11,
+          "end": 8.05,
+          "duration": 0.94
+        },
+        {
+          "start": 9.08,
+          "end": 10.22,
+          "duration": 1.14
+        },
+        {
+          "start": 11.73,
+          "end": 12.73,
+          "duration": 1
+        },
+        {
+          "start": 13.9,
+          "end": 14.75,
+          "duration": 0.85
+        },
+        {
+          "start": 15.33,
+          "end": 16.23,
+          "duration": 0.9
+        },
+        {
+          "start": 17.41,
+          "end": 18.4,
+          "duration": 0.99
+        }
+      ]
+    },
+    {
+      "id": "r1_ann_queen",
+      "voice": "Astera Citrus Queen - Korean Villainess",
+      "source_sha256": "aeee1f6e4fb3e5dda7ef3714b1d4c8e598d109615a5bc44d6b3bcabf805d04e1",
+      "seconds": 34.42938775510204,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 1.62,
+          "end": 2.87,
+          "duration": 1.25
+        },
+        {
+          "start": 4.18,
+          "end": 5.11,
+          "duration": 0.93
+        },
+        {
+          "start": 6.54,
+          "end": 7.38,
+          "duration": 0.84
+        },
+        {
+          "start": 8.88,
+          "end": 9.63,
+          "duration": 0.75
+        },
+        {
+          "start": 11.07,
+          "end": 11.96,
+          "duration": 0.89
+        },
+        {
+          "start": 13.35,
+          "end": 14.24,
+          "duration": 0.89
+        },
+        {
+          "start": 15.83,
+          "end": 16.7,
+          "duration": 0.87
+        },
+        {
+          "start": 17.96,
+          "end": 18.84,
+          "duration": 0.88
+        },
+        {
+          "start": 20.4,
+          "end": 21.29,
+          "duration": 0.89
+        },
+        {
+          "start": 22.55,
+          "end": 23.4,
+          "duration": 0.85
+        },
+        {
+          "start": 24.74,
+          "end": 25.56,
+          "duration": 0.82
+        },
+        {
+          "start": 26.85,
+          "end": 27.71,
+          "duration": 0.86
+        },
+        {
+          "start": 29.08,
+          "end": 29.93,
+          "duration": 0.85
+        },
+        {
+          "start": 31.32,
+          "end": 32.17,
+          "duration": 0.85
+        }
+      ]
+    },
+    {
+      "id": "actor_Roger",
+      "voice": "Roger",
+      "source_sha256": "4800aa6ada0d2c235394ad23ea59df28b28f38466f2c04ba1a28e52be2b41988",
+      "seconds": 29.962448979591837,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 1.03,
+          "end": 2.49,
+          "duration": 1.46
+        },
+        {
+          "start": 3.49,
+          "end": 4.49,
+          "duration": 1
+        },
+        {
+          "start": 5.36,
+          "end": 6.41,
+          "duration": 1.05
+        },
+        {
+          "start": 7.45,
+          "end": 8.46,
+          "duration": 1.01
+        },
+        {
+          "start": 9.61,
+          "end": 10.67,
+          "duration": 1.06
+        },
+        {
+          "start": 11.57,
+          "end": 12.56,
+          "duration": 0.99
+        },
+        {
+          "start": 13.14,
+          "end": 14.16,
+          "duration": 1.02
+        },
+        {
+          "start": 15,
+          "end": 16.02,
+          "duration": 1.02
+        },
+        {
+          "start": 17.02,
+          "end": 18,
+          "duration": 0.98
+        },
+        {
+          "start": 19.23,
+          "end": 20.16,
+          "duration": 0.93
+        },
+        {
+          "start": 21.51,
+          "end": 22.32,
+          "duration": 0.81
+        },
+        {
+          "start": 23.39,
+          "end": 24.22,
+          "duration": 0.83
+        },
+        {
+          "start": 25.48,
+          "end": 26.25,
+          "duration": 0.77
+        },
+        {
+          "start": 27.53,
+          "end": 28.33,
+          "duration": 0.8
+        }
+      ]
+    },
+    {
+      "id": "actor_Daniel",
+      "voice": "Daniel",
+      "source_sha256": "cef70c8d32589e7de70660209d0b899ca4ef2ffa7f093b1f60a98bddf7619d98",
+      "seconds": 39.627755102040815,
+      "segments": 20,
+      "gaps": [
+        {
+          "start": 1.05,
+          "end": 2.72,
+          "duration": 1.67
+        },
+        {
+          "start": 3.87,
+          "end": 5.24,
+          "duration": 1.37
+        },
+        {
+          "start": 6.28,
+          "end": 7.59,
+          "duration": 1.31
+        },
+        {
+          "start": 8.42,
+          "end": 9.38,
+          "duration": 0.96
+        },
+        {
+          "start": 10.32,
+          "end": 11.69,
+          "duration": 1.37
+        },
+        {
+          "start": 12.78,
+          "end": 13.8,
+          "duration": 1.02
+        },
+        {
+          "start": 14.79,
+          "end": 15.76,
+          "duration": 0.97
+        },
+        {
+          "start": 16.44,
+          "end": 17.41,
+          "duration": 0.97
+        },
+        {
+          "start": 18.42,
+          "end": 19.31,
+          "duration": 0.89
+        },
+        {
+          "start": 20.39,
+          "end": 21.36,
+          "duration": 0.97
+        },
+        {
+          "start": 22.3,
+          "end": 23.21,
+          "duration": 0.91
+        },
+        {
+          "start": 24.32,
+          "end": 25.22,
+          "duration": 0.9
+        },
+        {
+          "start": 26.22,
+          "end": 27.1,
+          "duration": 0.88
+        },
+        {
+          "start": 28.22,
+          "end": 29.12,
+          "duration": 0.9
+        },
+        {
+          "start": 30.3,
+          "end": 31.26,
+          "duration": 0.96
+        },
+        {
+          "start": 32.23,
+          "end": 33.25,
+          "duration": 1.02
+        },
+        {
+          "start": 34.33,
+          "end": 35.18,
+          "duration": 0.85
+        },
+        {
+          "start": 35.73,
+          "end": 36.58,
+          "duration": 0.85
+        },
+        {
+          "start": 37.4,
+          "end": 38.28,
+          "duration": 0.88
+        }
+      ]
+    },
+    {
+      "id": "actor_Bill",
+      "voice": "Bill",
+      "source_sha256": "2acc0219ad7091494133dbaccc2a6eb702e1c0387793d502a8a5c7462113bf6d",
+      "seconds": 48.19591836734694,
+      "segments": 20,
+      "gaps": [
+        {
+          "start": 0.93,
+          "end": 2.52,
+          "duration": 1.59
+        },
+        {
+          "start": 3.41,
+          "end": 4.92,
+          "duration": 1.51
+        },
+        {
+          "start": 5.59,
+          "end": 7.04,
+          "duration": 1.45
+        },
+        {
+          "start": 7.99,
+          "end": 9.4,
+          "duration": 1.41
+        },
+        {
+          "start": 10.45,
+          "end": 11.92,
+          "duration": 1.47
+        },
+        {
+          "start": 12.57,
+          "end": 14.01,
+          "duration": 1.44
+        },
+        {
+          "start": 15.04,
+          "end": 16.48,
+          "duration": 1.44
+        },
+        {
+          "start": 17.57,
+          "end": 18.95,
+          "duration": 1.38
+        },
+        {
+          "start": 19.85,
+          "end": 21.26,
+          "duration": 1.41
+        },
+        {
+          "start": 22.41,
+          "end": 23.8,
+          "duration": 1.39
+        },
+        {
+          "start": 24.8,
+          "end": 26.21,
+          "duration": 1.41
+        },
+        {
+          "start": 27.29,
+          "end": 28.67,
+          "duration": 1.38
+        },
+        {
+          "start": 29.74,
+          "end": 31.13,
+          "duration": 1.39
+        },
+        {
+          "start": 32.39,
+          "end": 33.76,
+          "duration": 1.37
+        },
+        {
+          "start": 35.04,
+          "end": 36.43,
+          "duration": 1.39
+        },
+        {
+          "start": 37.88,
+          "end": 39.24,
+          "duration": 1.36
+        },
+        {
+          "start": 40.29,
+          "end": 41.64,
+          "duration": 1.35
+        },
+        {
+          "start": 42.86,
+          "end": 44.21,
+          "duration": 1.35
+        },
+        {
+          "start": 45.53,
+          "end": 46.88,
+          "duration": 1.35
+        }
+      ]
+    },
+    {
+      "id": "actor_Eric",
+      "voice": "Eric",
+      "source_sha256": "f60f77c9fab11664fd1bcb22b85810cbc24ed4d599e3274772e8d18d709a82a1",
+      "seconds": 27.715918367346937,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 1.11,
+          "end": 2.48,
+          "duration": 1.37
+        },
+        {
+          "start": 3.13,
+          "end": 4.51,
+          "duration": 1.38
+        },
+        {
+          "start": 5.18,
+          "end": 6.29,
+          "duration": 1.11
+        },
+        {
+          "start": 7.13,
+          "end": 8.12,
+          "duration": 0.99
+        },
+        {
+          "start": 9.07,
+          "end": 10.11,
+          "duration": 1.04
+        },
+        {
+          "start": 11.09,
+          "end": 12.08,
+          "duration": 0.99
+        },
+        {
+          "start": 12.67,
+          "end": 13.63,
+          "duration": 0.96
+        },
+        {
+          "start": 14.25,
+          "end": 15.2,
+          "duration": 0.95
+        },
+        {
+          "start": 15.92,
+          "end": 16.89,
+          "duration": 0.97
+        },
+        {
+          "start": 17.88,
+          "end": 18.89,
+          "duration": 1.01
+        },
+        {
+          "start": 19.72,
+          "end": 20.59,
+          "duration": 0.87
+        },
+        {
+          "start": 21.68,
+          "end": 22.56,
+          "duration": 0.88
+        },
+        {
+          "start": 23.19,
+          "end": 24.06,
+          "duration": 0.87
+        },
+        {
+          "start": 25.13,
+          "end": 25.95,
+          "duration": 0.82
+        }
+      ]
+    },
+    {
+      "id": "actor_Callum",
+      "voice": "Callum",
+      "source_sha256": "9de1eaba37902865b208f9d0c2cca924d4acd517b8e84f6d3d56384428418e24",
+      "seconds": 36.989387755102044,
+      "segments": 20,
+      "gaps": [
+        {
+          "start": 1.05,
+          "end": 2.52,
+          "duration": 1.47
+        },
+        {
+          "start": 3.63,
+          "end": 4.55,
+          "duration": 0.92
+        },
+        {
+          "start": 5.5,
+          "end": 6.37,
+          "duration": 0.87
+        },
+        {
+          "start": 7.16,
+          "end": 7.95,
+          "duration": 0.79
+        },
+        {
+          "start": 8.91,
+          "end": 9.8,
+          "duration": 0.89
+        },
+        {
+          "start": 10.63,
+          "end": 11.4,
+          "duration": 0.77
+        },
+        {
+          "start": 12.19,
+          "end": 12.85,
+          "duration": 0.66
+        },
+        {
+          "start": 13.46,
+          "end": 14.33,
+          "duration": 0.87
+        },
+        {
+          "start": 15.42,
+          "end": 16.15,
+          "duration": 0.73
+        },
+        {
+          "start": 17.11,
+          "end": 18.01,
+          "duration": 0.9
+        },
+        {
+          "start": 19.28,
+          "end": 20.15,
+          "duration": 0.87
+        },
+        {
+          "start": 21.39,
+          "end": 22.17,
+          "duration": 0.78
+        },
+        {
+          "start": 23.36,
+          "end": 24.03,
+          "duration": 0.67
+        },
+        {
+          "start": 25.15,
+          "end": 25.87,
+          "duration": 0.72
+        },
+        {
+          "start": 26.98,
+          "end": 27.82,
+          "duration": 0.84
+        },
+        {
+          "start": 28.95,
+          "end": 29.76,
+          "duration": 0.81
+        },
+        {
+          "start": 30.77,
+          "end": 31.61,
+          "duration": 0.84
+        },
+        {
+          "start": 32.76,
+          "end": 33.61,
+          "duration": 0.85
+        },
+        {
+          "start": 34.61,
+          "end": 35.35,
+          "duration": 0.74
+        }
+      ]
+    },
+    {
+      "id": "actor_Charlie",
+      "voice": "Charlie",
+      "source_sha256": "459ab1e07ba15fd07a8070af5ce07a0a13d194ea1eaaab6e3e3cc90fd45648bb",
+      "seconds": 33.56734693877551,
+      "segments": 15,
+      "gaps": [
+        {
+          "start": 0.88,
+          "end": 2.6,
+          "duration": 1.72
+        },
+        {
+          "start": 3.35,
+          "end": 4.81,
+          "duration": 1.46
+        },
+        {
+          "start": 5.72,
+          "end": 7,
+          "duration": 1.28
+        },
+        {
+          "start": 7.84,
+          "end": 9.14,
+          "duration": 1.3
+        },
+        {
+          "start": 10.13,
+          "end": 11.48,
+          "duration": 1.35
+        },
+        {
+          "start": 12.35,
+          "end": 13.83,
+          "duration": 1.48
+        },
+        {
+          "start": 14.6,
+          "end": 15.93,
+          "duration": 1.33
+        },
+        {
+          "start": 16.65,
+          "end": 18.08,
+          "duration": 1.43
+        },
+        {
+          "start": 19.71,
+          "end": 20.75,
+          "duration": 1.04
+        },
+        {
+          "start": 21.68,
+          "end": 23.05,
+          "duration": 1.37
+        },
+        {
+          "start": 23.94,
+          "end": 25.18,
+          "duration": 1.24
+        },
+        {
+          "start": 26.09,
+          "end": 27.45,
+          "duration": 1.36
+        },
+        {
+          "start": 28.39,
+          "end": 29.43,
+          "duration": 1.04
+        },
+        {
+          "start": 30.57,
+          "end": 31.66,
+          "duration": 1.09
+        }
+      ]
+    },
+    {
+      "id": "citrus_u0",
+      "provider": "VARCO Sound",
+      "project": "87c289e7-5d6a-42cc-80ae-89cf9d7c0cc4",
+      "source_sha256": "946a7fc799e6f06aa90f28a35057d7f0e7625ea8af21778c25fd0fde99ff40c6",
+      "seconds": 5.74,
+      "method": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "citrus_u1",
+      "provider": "VARCO Sound",
+      "project": "1a0cf422-4464-4e84-bdeb-fe97f7819fbb",
+      "source_sha256": "bf160b99e80d16151141d7d2f8a435e69b978e5923b9a26a1b67ecfd2e0f7eb4",
+      "seconds": 2.97,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u2",
+      "provider": "VARCO Sound",
+      "project": "60dca93d-03cb-444d-b364-3e4e2fb02fbd",
+      "source_sha256": "0517118f98d0adc7ea463e699d1d987988600b19b377454aefa91873e23ad85e",
+      "seconds": 2.14,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u3",
+      "provider": "VARCO Sound",
+      "project": "63d74ee5-1164-4e00-9bb1-d0dacddd3d41",
+      "source_sha256": "ea16c134037975d8d87c5294489bb41417b301e3cc4e29cc774ce704262ea6a3",
+      "seconds": 1.83,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u4",
+      "provider": "VARCO Sound",
+      "project": "80f036d3-5563-426f-953f-de345c470762",
+      "source_sha256": "0f61650984e169ccd7f396064ab1f0696b177015d831850730611f9f163103a4",
+      "seconds": 3.7,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u5",
+      "provider": "VARCO Sound",
+      "project": "f10834ff-2c8e-427d-8e11-eb621ac34b92",
+      "source_sha256": "a6c2c66a1281e0cb22998da1004dff0a066dc31dc5dc4bb725cdce9556399004",
+      "seconds": 4.19,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u6",
+      "provider": "VARCO Sound",
+      "project": "a25849fa-8ba7-4009-81c7-16ace789c4ec",
+      "source_sha256": "9193a62bfa33442f144b870885f8cd2f7e5aea416a50f72b80f51ec157382c66",
+      "seconds": 5.8,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u7",
+      "provider": "VARCO Sound",
+      "project": "02cf94f9-9f0e-4e7c-b01f-592053eff34e",
+      "source_sha256": "ba585a3b2c2b108565b97641753dd0198d785cb1ca991252c2497ac649b1a08c",
+      "seconds": 5.02,
+      "method": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "citrus_u8",
+      "provider": "VARCO Sound",
+      "project": "0436609d-f0bd-4f48-9618-ed5750d77d72",
+      "source_sha256": "0ebe4b407a541d1a951eff1bf0c6f3a545069b73aad2f798f95f5db6786984bf",
+      "seconds": 3.55,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u9",
+      "provider": "VARCO Sound",
+      "project": "3b19bcad-9778-4a72-a3ff-3448753109d2",
+      "source_sha256": "76ce76f455251e03c4ab3d889f82e465c62c657f9a5b458a960e98d14624a209",
+      "seconds": 10.24,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u10",
+      "provider": "VARCO Sound",
+      "project": "06b55eb8-ac2e-4a76-bc6b-75860998acc1",
+      "source_sha256": "b6ccbc35031561a6bc58c55e47177faa059dcf8ff29e01abf8734db551583778",
+      "seconds": 3.97,
+      "method": "three detected responses, trimmed with short fades"
+    },
+    {
+      "id": "citrus_u11",
+      "provider": "VARCO Sound",
+      "project": "1654d977-3e7f-46a1-a23e-f4d37f97b1e6",
+      "source_sha256": "f3d49c80b574093265555482e58d7112c766df332d504352902591f69971906c",
+      "seconds": 6.33,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u12",
+      "provider": "VARCO Sound",
+      "project": "a9cd1c47-bafa-4fd1-854b-a24bf8c79209",
+      "source_sha256": "84fbde4b2a090e2ae9ebd1e231f3309ab362c12759522ca812598377bd2c82ec",
+      "seconds": 5.41,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    },
+    {
+      "id": "citrus_u13",
+      "provider": "VARCO Sound",
+      "project": "5fa33dca-f2b0-46ff-b1d2-930d90aee235",
+      "source_sha256": "a1ea5d85913a16da8458842cc7ecdfd8f626e7321fc6ca989219ef605b166236",
+      "seconds": 4.11,
+      "method": "three expressive short excerpts derived from the continuous generated call"
+    }
+  ],
+  "units": [
+    {
+      "id": "0:2",
+      "name": "돌격병",
+      "actor": "Adam",
+      "pitch": 0.82,
+      "effect": "radio",
+      "resonance": 0.094,
+      "identity": 2
+    },
+    {
+      "id": "0:0",
+      "name": "정비공",
+      "actor": "George",
+      "pitch": 0.84,
+      "effect": "radio",
+      "resonance": 0.06,
+      "identity": 0
+    },
+    {
+      "id": "0:10",
+      "name": "강습폭격기",
+      "actor": "George",
+      "pitch": 0.68,
+      "effect": "radio",
+      "resonance": 0.23,
+      "identity": 10
+    },
+    {
+      "id": "2:4",
+      "name": "결계사제",
+      "actor": "George",
+      "pitch": 0.86,
+      "effect": "stone-telepathy",
+      "resonance": 0.128,
+      "identity": 204
+    },
+    {
+      "id": "0:1",
+      "name": "전열사수",
+      "actor": "Brian",
+      "pitch": 0.79,
+      "effect": "radio",
+      "resonance": 0.077,
+      "identity": 1
+    },
+    {
+      "id": "2:5",
+      "name": "천문심판관",
+      "actor": "Brian",
+      "pitch": 0.82,
+      "effect": "stone-telepathy",
+      "resonance": 0.145,
+      "identity": 205
+    },
+    {
+      "id": "2:13",
+      "name": "성좌추격기",
+      "actor": "Brian",
+      "pitch": 0.69,
+      "effect": "stone-telepathy",
+      "resonance": 0.281,
+      "identity": 213
+    },
+    {
+      "id": "0:9",
+      "name": "요격기",
+      "actor": "Adam",
+      "pitch": 0.68,
+      "effect": "radio",
+      "resonance": 0.213,
+      "identity": 9
+    },
+    {
+      "id": "2:1",
+      "name": "서약수호자",
+      "actor": "Adam",
+      "pitch": 0.76,
+      "effect": "stone-telepathy",
+      "resonance": 0.077,
+      "identity": 201
+    },
+    {
+      "id": "0:3",
+      "name": "방패보병",
+      "actor": "Roger",
+      "pitch": 0.75,
+      "effect": "radio",
+      "resonance": 0.111,
+      "identity": 3
+    },
+    {
+      "id": "0:11",
+      "name": "장갑수송정",
+      "actor": "Roger",
+      "pitch": 0.91,
+      "effect": "radio",
+      "resonance": 0.247,
+      "identity": 11
+    },
+    {
+      "id": "2:7",
+      "name": "고대석익병",
+      "actor": "Roger",
+      "pitch": 0.66,
+      "effect": "stone-telepathy",
+      "resonance": 0.179,
+      "identity": 207
+    },
+    {
+      "id": "0:4",
+      "name": "야전의무병",
+      "actor": "Daniel",
+      "pitch": 0.9,
+      "effect": "radio",
+      "resonance": 0.128,
+      "identity": 4
+    },
+    {
+      "id": "0:14",
+      "name": "강철둥지 모함",
+      "actor": "Daniel",
+      "pitch": 0.72,
+      "effect": "radio",
+      "resonance": 0.298,
+      "identity": 14
+    },
+    {
+      "id": "2:3",
+      "name": "규율집행관",
+      "actor": "Daniel",
+      "pitch": 0.7,
+      "effect": "stone-telepathy",
+      "resonance": 0.111,
+      "identity": 203
+    },
+    {
+      "id": "2:11",
+      "name": "회랑지기",
+      "actor": "Daniel",
+      "pitch": 0.88,
+      "effect": "stone-telepathy",
+      "resonance": 0.247,
+      "identity": 211
+    },
+    {
+      "id": "0:5",
+      "name": "굴착포 전차",
+      "actor": "Bill",
+      "pitch": 0.73,
+      "effect": "radio",
+      "resonance": 0.145,
+      "identity": 5
+    },
+    {
+      "id": "0:12",
+      "name": "이동요새",
+      "actor": "Bill",
+      "pitch": 0.62,
+      "effect": "radio",
+      "resonance": 0.264,
+      "identity": 12
+    },
+    {
+      "id": "2:0",
+      "name": "축조자",
+      "actor": "Bill",
+      "pitch": 0.84,
+      "effect": "stone-telepathy",
+      "resonance": 0.06,
+      "identity": 200
+    },
+    {
+      "id": "2:12",
+      "name": "대심판선",
+      "actor": "Bill",
+      "pitch": 0.62,
+      "effect": "stone-telepathy",
+      "resonance": 0.264,
+      "identity": 212
+    },
+    {
+      "id": "0:6",
+      "name": "추적미사일 차륜차",
+      "actor": "Eric",
+      "pitch": 0.83,
+      "effect": "radio",
+      "resonance": 0.162,
+      "identity": 6
+    },
+    {
+      "id": "0:15",
+      "name": "요격 드론",
+      "actor": "Eric",
+      "pitch": 0.69,
+      "effect": "radio",
+      "resonance": 0.315,
+      "identity": 15
+    },
+    {
+      "id": "2:8",
+      "name": "궤도창",
+      "actor": "Eric",
+      "pitch": 0.68,
+      "effect": "stone-telepathy",
+      "resonance": 0.196,
+      "identity": 208
+    },
+    {
+      "id": "0:7",
+      "name": "그림자 정찰병",
+      "actor": "Callum",
+      "pitch": 0.78,
+      "effect": "radio",
+      "resonance": 0.179,
+      "identity": 7
+    },
+    {
+      "id": "0:13",
+      "name": "화염돌파차",
+      "actor": "Callum",
+      "pitch": 0.93,
+      "effect": "radio",
+      "resonance": 0.281,
+      "identity": 13
+    },
+    {
+      "id": "2:6",
+      "name": "밤눈감시자",
+      "actor": "Callum",
+      "pitch": 0.79,
+      "effect": "stone-telepathy",
+      "resonance": 0.162,
+      "identity": 206
+    },
+    {
+      "id": "2:10",
+      "name": "황혼잠행자",
+      "actor": "Callum",
+      "pitch": 0.66,
+      "effect": "stone-telepathy",
+      "resonance": 0.23,
+      "identity": 210
+    },
+    {
+      "id": "0:8",
+      "name": "무인 관측 드론",
+      "actor": "Charlie",
+      "pitch": 0.88,
+      "effect": "radio",
+      "resonance": 0.196,
+      "identity": 8
+    },
+    {
+      "id": "2:2",
+      "name": "성문궁수",
+      "actor": "Charlie",
+      "pitch": 0.9,
+      "effect": "stone-telepathy",
+      "resonance": 0.094,
+      "identity": 202
+    },
+    {
+      "id": "2:9",
+      "name": "월익추적자",
+      "actor": "Charlie",
+      "pitch": 0.72,
+      "effect": "stone-telepathy",
+      "resonance": 0.213,
+      "identity": 209
+    },
+    {
+      "id": "1:0",
+      "name": "일귤",
+      "provider": "VARCO Sound",
+      "identity": 100,
+      "effect": "biomechanical-monster",
+      "source_project": "87c289e7-5d6a-42cc-80ae-89cf9d7c0cc4"
+    },
+    {
+      "id": "1:1",
+      "name": "껍질발톱",
+      "provider": "VARCO Sound",
+      "identity": 101,
+      "effect": "biomechanical-monster",
+      "source_project": "1a0cf422-4464-4e84-bdeb-fe97f7819fbb"
+    },
+    {
+      "id": "1:2",
+      "name": "과즙분사체",
+      "provider": "VARCO Sound",
+      "identity": 102,
+      "effect": "biomechanical-monster",
+      "source_project": "60dca93d-03cb-444d-b364-3e4e2fb02fbd"
+    },
+    {
+      "id": "1:3",
+      "name": "후피거수",
+      "provider": "VARCO Sound",
+      "identity": 103,
+      "effect": "biomechanical-monster",
+      "source_project": "63d74ee5-1164-4e00-9bb1-d0dacddd3d41"
+    },
+    {
+      "id": "1:4",
+      "name": "과숙폭탄",
+      "provider": "VARCO Sound",
+      "identity": 104,
+      "effect": "biomechanical-monster",
+      "source_project": "80f036d3-5563-426f-953f-de345c470762"
+    },
+    {
+      "id": "1:5",
+      "name": "덩굴포식자",
+      "provider": "VARCO Sound",
+      "identity": 105,
+      "effect": "biomechanical-monster",
+      "source_project": "f10834ff-2c8e-427d-8e11-eb621ac34b92"
+    },
+    {
+      "id": "1:6",
+      "name": "씨앗박격체",
+      "provider": "VARCO Sound",
+      "identity": 106,
+      "effect": "biomechanical-monster",
+      "source_project": "a25849fa-8ba7-4009-81c7-16ace789c4ec"
+    },
+    {
+      "id": "1:7",
+      "name": "가시꽃",
+      "provider": "VARCO Sound",
+      "identity": 107,
+      "effect": "biomechanical-monster",
+      "source_project": "02cf94f9-9f0e-4e7c-b01f-592053eff34e"
+    },
+    {
+      "id": "1:8",
+      "name": "접목충",
+      "provider": "VARCO Sound",
+      "identity": 108,
+      "effect": "biomechanical-monster",
+      "source_project": "0436609d-f0bd-4f48-9618-ed5750d77d72"
+    },
+    {
+      "id": "1:9",
+      "name": "모즙체",
+      "provider": "VARCO Sound",
+      "identity": 109,
+      "effect": "biomechanical-monster",
+      "source_project": "3b19bcad-9778-4a72-a3ff-3448753109d2"
+    },
+    {
+      "id": "1:10",
+      "name": "귤박쥐",
+      "provider": "VARCO Sound",
+      "identity": 110,
+      "effect": "biomechanical-monster",
+      "source_project": "06b55eb8-ac2e-4a76-bc6b-75860998acc1"
+    },
+    {
+      "id": "1:11",
+      "name": "포낭비행체",
+      "provider": "VARCO Sound",
+      "identity": 111,
+      "effect": "biomechanical-monster",
+      "source_project": "1654d977-3e7f-46a1-a23e-f4d37f97b1e6"
+    },
+    {
+      "id": "1:12",
+      "name": "대과수",
+      "provider": "VARCO Sound",
+      "identity": 112,
+      "effect": "biomechanical-monster",
+      "source_project": "a9cd1c47-bafa-4fd1-854b-a24bf8c79209"
+    },
+    {
+      "id": "1:13",
+      "name": "배양체",
+      "provider": "VARCO Sound",
+      "identity": 113,
+      "effect": "biomechanical-monster",
+      "source_project": "5fa33dca-f2b0-46ff-b1d2-930d90aee235"
     }
   ]
 }

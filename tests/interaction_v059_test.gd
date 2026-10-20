@@ -21,7 +21,7 @@ func run():
 	main.build_kind=-1;main.state.players[0].race=1;main.zoom=1;main.selected=[target.id];main.camera=main._center(target);main._update_hud();main._sync_world_canvas()
 	var air=main.assets.unit(1,10,Vector2.RIGHT,"move",0)
 	var flap=main.assets.unit(1,10,Vector2.RIGHT,"move",.21)
-	check(air.texture!=flap.texture and air.texture.atlas.resource_path.ends_with("citrus_bat_leaf_v059.png"),"new bat wing animation loaded")
+	check(air.texture!=flap.texture and air.texture.atlas.resource_path.ends_with("citrus_bat_motion_v060.png"),"eight-phase leaf-wing bat animation loaded")
 	for i in range(40):main.world_canvas.queue_redraw();await frames()
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://build/interaction-v059.png")

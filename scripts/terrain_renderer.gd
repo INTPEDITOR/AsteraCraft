@@ -166,7 +166,7 @@ func _load_cells(path: String, trim: bool) -> Array[Texture2D]:
 		result.append(ImageTexture.create_from_image(image.get_region(used)) if used.has_area() else null)
 	return result
 
-func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Callable, _unproject: Callable, fog: Callable, _clock: float) -> void:
+func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Callable, _unproject: Callable, fog: Callable, _clock: float, fog_revision: int=-1) -> void:
 	var started = Time.get_ticks_usec()
 	if not loaded:load_art()
 	canvas.texture_repeat = CanvasItem.TEXTURE_REPEAT_MIRROR
@@ -188,7 +188,7 @@ func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Cal
 		canvas.draw_mesh(layer.mesh,_texture(layer.slot),transform,layer.tint)
 		calls += 1
 	_draw_props(canvas,map,clip,zoom,project,fog)
-	_update_fog(data,fog)
+	_update_fog(data,fog,fog_revision)
 	if data.fog_texture != null:
 		_draw_cropped(canvas,data.fog_texture,world_rect,clip,Color.WHITE)
 		calls += 1
@@ -241,7 +241,7 @@ func _build_cache(map: ACMap, signature: int) -> Dictionary:
 	for i in range(classes.size()):
 		var surface = int(map.surface_map[i]) if map.surface_map.size()>i else _surface_fallback(map,i)
 		# Collision alone cannot distinguish a cliff, shore, rock or doodad.
-		classes[i] = 5 if map.is_water(i) else (4 if map.visual_role(i)==1 else (6 if map.visual_role(i)==2 else (1 if surface==3 else (2 if surface==4 else (3 if surface==5 else (6 if surface==1 else 0))))))
+		classes[i] = 5 if map.is_water(i) else (4 if map.visual_role(i) in [1,3] else (6 if map.visual_role(i)==2 else (1 if surface==3 else (2 if surface==4 else (3 if surface==5 else (6 if surface==1 else 0))))))
 	var fields: Array = []
 	for layer in range(7):
 		var field := PackedFloat32Array()
@@ -842,10 +842,12 @@ func _ramp_mesh(map: ACMap, points: PackedVector2Array, levels: PackedFloat32Arr
 				builder.colors[base+vertex]=Color(shade,shade,shade,alpha[vertex])
 	return _mesh(builder) if not builder.vertices.is_empty() else null
 
-func _update_fog(data: Dictionary, fog: Callable) -> void:
+func _update_fog(data: Dictionary, fog: Callable, revision: int=-1) -> void:
+	if revision>=0 and data.get("fog_revision",-2)==revision and data.fog_texture!=null:return
 	var now = Time.get_ticks_msec()
 	if now-int(data.fog_updated)<100:return
 	data.fog_updated=now
+	data.fog_revision=revision
 	var bytes := PackedByteArray()
 	bytes.resize(128*128*4)
 	fog_samples.resize(128*128)
@@ -858,8 +860,8 @@ func _update_fog(data: Dictionary, fog: Callable) -> void:
 	if data.fog_texture!=null and signature==data.fog_hash:return
 	data.fog_hash=signature
 	var image = Image.create_from_data(128,128,false,Image.FORMAT_RGBA8,bytes)
-	# Reconstruct only terrain cover at 8px resolution; entity fog stays strict.
-	image.resize(512,512,Image.INTERPOLATE_CUBIC)
+	# Hardware filtering reconstructs the cover from source cells. Entity
+	# visibility remains strict; no full-map cubic CPU resize is needed.
 	if data.fog_texture==null:data.fog_texture=ImageTexture.create_from_image(image)
 	else:data.fog_texture.update(image)
 

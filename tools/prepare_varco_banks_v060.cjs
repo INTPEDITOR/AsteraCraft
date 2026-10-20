@@ -1,0 +1,25 @@
+const fs=require('fs'),path=require('path');
+const spec=[
+['nuclear','A colossal nuclear detonation: instantaneous sharp flash crack, immense deep bass pressure wave, heavy fireball roar and debris, then a majestic slowly fading low rumble. One isolated 8-second game effect.'],
+['nuclear_ascent','A heavy tactical rocket engine ignites with a forceful mechanical ignition bang and roars upward, powerful turbulent rocket exhaust rapidly receding over 4 seconds. No impact explosion.'],
+['nuclear_descent','A massive missile plunging rapidly from the sky: threatening accelerating air whistle, dense wind shear rushing downward, rising intensity for 3 seconds, stop just before impact. No explosion.'],
+['ballistic','Three isolated futuristic military rifle shots, sharp dry muzzle crack, punchy mechanical bolt cycling and subtle metal casings. Clear silence between shots. Close detailed realistic firearm effect.'],
+['cannon','One heavy armored tank cannon shot: sudden chest-punching low boom, metallic recoil mechanism, gritty shell blast and brief debris tail. Powerful, compact 1.5-second game effect.'],
+['missile','One guided missile firing from a vehicle: hard launcher clunk, sharp rocket ignition and fast fiery whoosh, then a compact distant explosive impact. Realistic layered 2-second weapon effect.'],
+['flame','A military flamethrower firing a single fierce burst: mechanical ignition click, forceful liquid-fuel whoosh, roaring pressurized flame and crackling fire. Intense close 1.5-second effect.'],
+['plasma','One powerful futuristic plasma weapon discharge: sharp electromagnetic snap, dense resonant energy pulse travelling fast and a brief sizzling plasma impact. Weighty 1-second science-fiction weapon effect.'],
+['electric','An electrical combat device charging and discharging once: hard capacitor click, violent electrical crackle, short high-voltage arc and grounded bass thump. Compact 1-second effect, no musical notes.'],
+['beam','A massive science-fiction judgment beam firing once: a brief deep energy swell, piercing laser release, broad roaring energy surge and sizzling shock impact. Monumental 2-second effect.'],
+['melee','Three distinct isolated heavy melee impacts with silence between: a sharp steel sword slash and clang, a thick claw tearing through armor, then a weighty stone hammer crushing metal. Close physical detailed game effects.'],
+['acid','One organic acid-spitting creature attack: forceful wet pressurized spit, a short liquid projectile hiss, thick corrosive splatter and brief sizzling surface reaction. Dense realistic 1-second biological effect.'],
+['seed','One giant organic seed cannon firing: woody chamber tension, a deep hollow organic thump, fast thorn projectile swish and brittle seed-shell impact. Crisp close 1-second fantasy creature weapon effect.'],
+['roots','A burst of massive living tree roots tearing upward: deep woody flexing, snapping fibrous roots, cracking soil, heavy earth impact and falling grit. A powerful compact 1.5-second root magic effect.'],
+['hive','One ominous psychic mind-control pulse: layered alien organic resonance, tense low chitinous vibration, a focused neural snap and unsettling hollow echo. Detailed 1.5-second game magic effect without speech.'],
+['heal','A single concentrated healing activation: tactile liquid droplets and soft organic pulses, a clean restorative energy shimmer and a gentle resonant release. Clear compact 1-second game ability effect, not a melody.'],
+['shield','A forceful protective energy shield switching on once: dense low activation thump, crystalline energy surface expanding, bright electrical shimmer and a brief protective hum. Solid 1-second ability sound.'],
+['arcane','An ancient arcane combat spell striking once: a sharp magical seal snap, powerful resonant crystalline ring, swirling energy and a deep physical impact. Majestic compact 1.5-second effect, no chanting.'],
+['transport','A heavy armored transport hatch opening and closing: hydraulic servos, pressurized air hiss, a solid sliding metal door and strong locking clunks. Close detailed isolated mechanical 2-second effect.'],
+['creature','Three isolated nonverbal alien creature calls with clear silence between: a huge woody citrus beast growl, a wet chitinous insect hiss, and a sharp flying leaf-bat shriek. Organic, threatening game monster voices, no human speech.']];
+const banks=spec.map(([id,prompt],i)=>({id,ordinal:i+1,credits:50,prompt:'Isolated high-quality RTS game sound effect. No music, no talking, no ambience or constant background noise. Start immediately. '+prompt}));
+const ledger={schema:1,service:'VARCO Sound',budget:1000,cost_per_request:50,starting_credits:1000,banks,requests:[{id:'nuclear',credits:50,project:'4de0992e-46ca-4066-8d89-8c5659677b7b',file:'build/varco-v060/nuclear.wav',bytes:537644,seconds:5.6,status:'downloaded_and_verified'}]};
+fs.writeFileSync(path.join(__dirname,'../data/varco_sounds_v060.json'),JSON.stringify(ledger,null,2));console.log('VARCO planned',banks.length,'banks, maximum credits',banks.length*50,'already used',50);

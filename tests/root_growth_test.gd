@@ -44,7 +44,12 @@ func _initialize():
 	check(core.snapshot(1).roots==seen.roots,"hidden source death does not leak through root memory")
 	core.visibility[1][visible_index]=1
 	core.visibility[1][ACRootField.ground_index(home_index)]=1
-	check(core.snapshot(1).roots.is_empty(),"scouting the area again removes obsolete root memory")
+	check(not core.snapshot(1).roots.is_empty(),"destroyed source leaves roots to wither gradually")
+	var at_death=core.roots.current.size()
+	core.time+=5;core.roots.update(core)
+	check(core.roots.current.size()<at_death and core.roots.current.has(home_index),"outer roots recede before the roots underneath the source")
+	core.time+=20
+	check(core.snapshot(1).roots.is_empty(),"scouting removes obsolete memory once roots finish withering")
 	# A full water barrier cannot be jumped by radial distance or diagonals.
 	core=arena()
 	for y in range(128):core.map.terrain[y*128+37]=2

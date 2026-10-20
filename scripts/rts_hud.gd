@@ -76,6 +76,7 @@ var portraits: Dictionary = {}
 var building_portraits: Array[Texture2D] = []
 var armor_upgrade_icon: Texture2D
 var icons: Array[Texture2D] = []
+var command_art=ACCommandIcons.new()
 var resource_icons: Array[Texture2D] = []
 var action_buttons: Array[Button] = []
 var action_specs: Array[Dictionary] = []
@@ -111,9 +112,12 @@ var _font: Font
 var _has_build_panel := false
 var _last_size := Vector2.ZERO
 var _symbol_material: ShaderMaterial
+var _cargo_material: ShaderMaterial
 var _frame_art: Array[Texture2D] = []
 var _frame_source_regions: Array[Rect2i] = []
 var _uniform_shells: Array[bool] = []
+var _complete_shells: Array[bool] = []
+const COMMON_SHELL={"crop":Rect2i(0,0,1963,330),"mini":Rect2(64,62,218,218),"detail":Rect2(362,90,826,190),"menu":Rect2(1254,42,166,27),"portrait":Rect2(1263,104,148,178),"command":Rect2(1490,66,416,228),"cols":[1490,1600,1710,1820],"rows":[66,150,234],"slot":Vector2(86,60)}
 var _native_shell_geometry: Dictionary = {
 	1:{"crop":Rect2i(10,237,1963,330),"mini":Rect2(98,308,210,216),"detail":Rect2(394,344,818,176),"menu":Rect2(1276,300,38,24),"portrait":Rect2(1280,348,148,178),"command":Rect2(1498,324,398,213),"cols":[1498,1604,1710,1816],"rows":[324,402,481],"slot":Vector2(80,56)},
 	2:{"crop":Rect2i(15,218,1954,341),"mini":Rect2(120,295,220,210),"detail":Rect2(405,296,748,208),"menu":Rect2(1220,283,36,20),"portrait":Rect2(1218,327,150,180),"command":Rect2(1435,296,422,206),"cols":[1435,1546,1658,1769],"rows":[296,371,446],"slot":Vector2(88,56)}
@@ -150,11 +154,16 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 	_symbol_material=ShaderMaterial.new()
 	_symbol_material.shader=shader
 	_symbol_material.set_shader_parameter("symbol_color",SYMBOL_COLOR)
+	_cargo_material=ShaderMaterial.new();_cargo_material.shader=shader
+	_cargo_material.set_shader_parameter("symbol_color",Color("829ba6"))
 	for faction in range(3):
 		var portrait_path="res://assets/portraits_%d_faces_v059.png"%faction
+		var revised="res://assets/portraits_%d_faces_v060.png"%faction
+		var safe_portrait=ResourceLoader.exists(revised)
+		if safe_portrait:portrait_path=revised
 		if ResourceLoader.exists(portrait_path):
 			var sheet: Texture2D=load(portrait_path)
-			for kind in range(14 if faction==1 else 13):
+			for kind in range(14 if faction==1 else ACData.unit_count(faction)):
 				var atlas=AtlasTexture.new()
 				atlas.atlas=sheet
 				atlas.region=Rect2(Vector2(kind%4,int(kind/4))*sheet.get_size()/4,sheet.get_size()/4)
@@ -165,7 +174,7 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 					face=[Rect2(.13,.04,.78,.78),Rect2(.28,.01,.70,.70),Rect2(.12,.05,.85,.85),Rect2(.15,.03,.82,.82),Rect2(.18,.08,.80,.80),Rect2(.36,.13,.62,.62),Rect2(.18,.22,.78,.78),Rect2(.30,.10,.68,.68),Rect2(.15,.17,.78,.78),Rect2(.27,.02,.70,.70),Rect2(.24,.19,.74,.74),Rect2(.16,.15,.82,.82),Rect2(.22,.20,.65,.65),Rect2(.12,.09,.82,.82)][kind]
 				elif faction==0 and kind in [5,6]:face=Rect2(.22,.02,.74,.74)
 				elif faction==2 and kind in [1,2,5,7]:face=Rect2(.25,.02,.73,.73)
-				atlas.region=Rect2(atlas.region.position+face.position*atlas.region.size,face.size*atlas.region.size)
+				if not safe_portrait:atlas.region=Rect2(atlas.region.position+face.position*atlas.region.size,face.size*atlas.region.size)
 				atlas.filter_clip=true
 				portraits["%d:%d"%[faction,kind]]=atlas
 	if ResourceLoader.exists("res://assets/building_portraits_v4.png"):
@@ -222,6 +231,15 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 	for faction in range(3):
 		var path="res://assets/ui_hud_%d.png"%faction
 		var native_path="res://assets/ui_hud_%d_native_v3.png"%faction
+		if ResourceLoader.exists("res://assets/ui_hud_%d_native_v060.png"%faction):native_path="res://assets/ui_hud_%d_native_v060.png"%faction
+		if faction==0 and ResourceLoader.exists("res://assets/ui_hud_0_native_v060.png"):
+			native_path="res://assets/ui_hud_0_native_v060.png"
+			_native_shell_geometry[0]=_native_shell_geometry[1].duplicate(true)
+		var complete=ResourceLoader.exists("res://assets/ui_hud_%d_complete_v060.png"%faction)
+		_complete_shells.append(complete)
+		if complete:
+			native_path="res://assets/ui_hud_%d_complete_v060.png"%faction
+			_native_shell_geometry[faction]=COMMON_SHELL.duplicate(true)
 		var native=_native_shell_geometry.has(faction) and ResourceLoader.exists(native_path)
 		if native:path=native_path
 		_frame_art.append(load(path) if ResourceLoader.exists(path) else null)
@@ -469,7 +487,9 @@ func _layout() -> void:
 	queue_redraw()
 
 func _portrait_rect() -> Rect2:
-	return shell_rect(_shell_geometry().portrait)
+	var original=shell_rect(_shell_geometry().portrait)
+	var common=Vector2(144,174)*size.x/(1963.0 if _complete_shells[race] else 1983.0)
+	return Rect2(original.get_center()-common*.5,common)
 
 func _portrait_frame_rect() -> Rect2:
 	return _portrait_rect()
@@ -490,7 +510,8 @@ func _menu_rect() -> Rect2:
 	return shell_rect(_single_menu_source())
 
 func _single_menu_source() -> Rect2:
-	if race==1 and _uniform_shells[race]:return Rect2(1267,292,177,42)
+	if _complete_shells[race]:return COMMON_SHELL.menu
+	if race in [0,1] and _uniform_shells[race]:return Rect2(1267,292,177,42)
 	if race==2 and _uniform_shells[race]:return Rect2(1207,275,170,38)
 	return _shell_geometry().menu
 
@@ -543,7 +564,8 @@ func update_hud(force: bool=false) -> void:
 		race=new_race
 		accent=[Color("dfb64d"),Color("f18b3f"),Color("cf555e")][race]
 		_layout()
-	main.selected=main.selected.filter(func(id):return not main._entity(int(id)).is_empty()).slice(0,MAX_SELECTION)
+	main.selected=main.selected.filter(func(id):return not main._entity(int(id)).is_empty())
+	if not main.selected.all(func(id):return _is_brood_entity(main._entity(int(id)))):main.selected=main.selected.slice(0,MAX_SELECTION)
 	resources[0].text=str(int(player.get("as",0)))
 	resources[0].add_theme_color_override("font_color",Color("f5cc50"))
 	resources[1].text=str(int(player.get("tera",0)))
@@ -560,6 +582,8 @@ func update_hud(force: bool=false) -> void:
 	title_label.text=str(ACData.get_data().race_names[race])
 	title_label.add_theme_color_override("font_color",accent.lightened(.2))
 	status_label.text=main.status_text if main.elapsed<main.status_until else ("공격할 위치를 지정하세요" if main.attack_mode else ("건설 위치를 지정하세요 · 우클릭 취소" if main.build_kind>=0 else ""))
+	if float(player.get("hq_deadline",-1))>=0 and not player.get("lost",false):
+		status_label.text="본진 상실 · %d초 이내 본진 건설을 완료해야 합니다"%maxi(0,ceili(float(player.hq_deadline)-float(state.time)))
 	_update_details()
 	var build_panel=bool(main.build_panel)
 	if build_panel!=_has_build_panel:
@@ -569,10 +593,10 @@ func update_hud(force: bool=false) -> void:
 	for building in state.get("buildings",[]):
 		if int(building.owner)==main.local_slot and float(building.progress)>=1:completed.append(int(building.kind))
 	completed.sort()
-	var current_signature=str(main.selected)+str(build_panel)+str(command_page)+str(completed)+str(_resource.get("id",-1))+str([player.get("attack",0),player.get("armor",0),player.get("shield",0)])
+	var current_signature=str(main.selected)+str(build_panel)+str(command_page)+str(completed)+str(_resource.get("id",-1))+str([player.get("attack",0),player.get("armor",0),player.get("shield",0),player.get("technologies",{}),player.get("nukes",0)])
 	if not _unit.is_empty() and _unit.has("progress"):
-		current_signature+=str(float(_unit.progress)>=1)+str(_unit.get("queue",[]).map(func(item):return item.kind))+str(_unit.get("research",""))
-	elif not _unit.is_empty():current_signature+=str(_unit.get("brood_state",""))+str(_unit.get("morph_kind",-1))+str(_unit.get("cloak_active",false))
+		current_signature+=str(_unit.get("nuke_job",{}).is_empty())+str(float(_unit.progress)>=1)+str(_unit.get("queue",[]).map(func(item):return item.kind))+str(_unit.get("research_queue",[]).map(func(item):return [item.kind,item.level]))
+	elif not _unit.is_empty():current_signature+=str(_unit.get("brood_state",""))+str(_unit.get("morph_kind",-1))+str(_unit.get("cloak_active",false))+str(_unit.get("cargo",[]))+str(_unit.get("drones",[]))+str(_unit.get("drone_queue",[]).size())
 	if not _unit.is_empty():
 		var owner: Dictionary=state.players[int(_unit.owner)]
 		current_signature+=str([_unit.race,_unit.kind,_unit.owner,owner.get("attack",0),owner.get("armor",0),owner.get("shield",0)])
@@ -622,7 +646,7 @@ func _update_details() -> void:
 	if _unit.is_empty():return
 	var building=_unit.has("progress")
 	_definition=ACData.building(int(_unit.race),int(_unit.kind)) if building else ACData.unit(int(_unit.race),int(_unit.kind))
-	_unit_icon=main.assets.building(int(_unit.race),int(_unit.kind)) if building else _unit_texture(int(_unit.race),int(_unit.kind))
+	_unit_icon=_building_texture(int(_unit.race),int(_unit.kind)) if building else _unit_texture(int(_unit.race),int(_unit.kind))
 	_portrait=portraits.get("%d:%d"%[int(_unit.race),int(_unit.kind)]) if not building else (building_portraits[int(_unit.race)] if building_portraits.size()==3 else _unit_icon)
 	if _is_brood():
 		_unit_icon=main.assets.unit(1,13,Vector2(1,1),"morph" if str(_unit.get("brood_state","idle"))=="morph" else "idle",float(main.state.get("time",0))).get("texture")
@@ -633,7 +657,7 @@ func _update_details() -> void:
 			if int(leader.race)==1 and int(leader.kind)==13:
 				_portrait=portraits.get("1:13")
 			else:_portrait=portraits.get("%d:%d"%[int(leader.race),int(leader.kind)])
-		name_label.text="선택한 부대  ·  %d / 12"%count
+		name_label.text="연결 배양체 전체 선택 · %d마리"%main.selected.size() if _is_brood() else "선택한 부대  ·  %d / 12"%count
 		detail_label.text=""
 		description_label.text=""
 		return
@@ -653,6 +677,9 @@ func _update_details() -> void:
 		return
 	if building:
 		var lines=[hp+shield,_building_role(_definition)]
+		if (int(_unit.race)==1 and int(_unit.kind) in [10,11]) or (int(_unit.race)!=1 and int(_unit.kind) in [11,12]):
+			var anti_air=int(_unit.kind)==(11 if int(_unit.race)==1 else 12)
+			lines.append("공중 전용 · 사거리 9 · 피해 24 · 공격 주기 1초" if anti_air else "지상 전용 · 사거리 8 · 피해 15 · 공격 주기 1초")
 		if float(_unit.progress)<1:
 			lines.append("건설 중  %d%%"%int(float(_unit.progress)*100))
 		elif not _unit.get("queue",[]).is_empty():
@@ -666,7 +693,8 @@ func _update_details() -> void:
 			description_label.text=_building_role(_definition).split("·")[0].strip_edges()
 		elif str(_unit.get("research",""))!="":
 			lines.append("연구 중  %d초"%ceili(_unit.get("research_left",0)))
-		elif int(_unit.kind)==1:lines.append("테라 자동 추출  ·  2.5초마다 +12" if _unit.get("tera_active",false) else "비활성 · 14칸 이내 완성된 본진 필요")
+		elif int(_unit.kind)==1:lines.append("테라 자동 추출  ·  3초마다 +8" if _unit.get("tera_active",false) else "비활성 · 14칸 이내 완성된 본진 필요")
+		if int(_unit.race)==2 and not _unit.get("powered",true):lines.append("비활성 · 규율탑 지원 없음")
 		if int(_unit.kind)==1:
 			var catalyst=_building_catalyst(_unit)
 			if not catalyst.is_empty():
@@ -678,6 +706,10 @@ func _update_details() -> void:
 			if not _unit.get("queue",[]).is_empty():lines[1]+=" · 배양체 %d"%int(_unit.get("larva",0))
 			else:lines.append("연결 배양체  %d"%int(_unit.get("larva",0)))
 			if int(_unit.kind)==3:lines.append("군체모수 연동 · 12칸" if _unit.get("brood_active",false) else "비활성 · 군체모수 연결 없음")
+		if int(_unit.race)==0 and int(_unit.kind)==8:
+			var job: Dictionary=_unit.get("nuke_job",{})
+			lines.append("핵미사일 보유 %d / 3"%int(main.state.players[int(_unit.owner)].get("nukes",0)))
+			if not job.is_empty():lines.append("핵미사일 제조 · %d%% · 남은 %d초"%[roundi(100*(1-float(job.left)/float(job.total))),ceili(float(job.left))])
 		detail_label.text="\n".join(lines)
 
 	else:
@@ -685,7 +717,26 @@ func _update_details() -> void:
 		var bonus=int(owner.get("attack",0))*2 if float(_definition.get("damage",0))>0 else 0
 		var attack=int(_definition.get("damage",0))+bonus
 		var armor=int(_definition.get("armor",0))+int(owner.get("armor",0))
-		var lines=[hp+shield,"공격 %d (%d+%d)  방어 %d (%d+%d)"%[attack,int(_definition.get("damage",0)),bonus,armor,int(_definition.get("armor",0)),int(owner.get("armor",0))],"사거리 %s · 이동 %s · 인구 %s"%[_number(float(_definition.get("range",0))),_number(float(_definition.get("speed",0))),_number(float(_definition.get("pop",0)))]]
+		var lines=[hp+shield+" · "+("중장갑" if _definition.get("armor_class","")=="heavy" else "경장갑")+" · "+("기계" if _definition.get("material","")=="mechanical" else "생체"),"공격 %d (%d+%d)  방어 %d (%d+%d)"%[attack,int(_definition.get("damage",0)),bonus,armor,int(_definition.get("armor",0)),int(owner.get("armor",0))],"사거리 %s · 이동 %s · 인구 %s"%[_number(float(_definition.get("range",0))),_number(float(_definition.get("speed",0))),_number(float(_definition.get("pop",0)))]]
+		if float(_definition.get("bonus_light",0))>0:lines[1]+=" · 경장갑 +%d"%int(_definition.bonus_light)
+		if float(_definition.get("bonus_heavy",0))>0:lines[1]+=" · 중장갑 +%d"%int(_definition.bonus_heavy)
+		if _definition.has("damage_air"):lines[1]+=" · 공중 %d"%int(_definition.damage_air)
+		if int(_definition.get("burst_count",1))>1:
+			var shots=int(_definition.burst_count)
+			var total=float(_definition.damage)*(1 if _definition.get("burst_split_total",false) else shots)+bonus
+			lines[1]="공격 %s × %d연발 · 총 %s · 방어 %d"%[_number(total/shots),shots,_number(total),armor]
+			for armor_type in ["light","heavy"]:
+				var extra=float(_definition.get("bonus_"+armor_type,0))*(1 if _definition.get("burst_split_total",false) else shots)
+				if extra>0:lines[1]+=" · %s 총 +%s"%["경장갑" if armor_type=="light" else "중장갑",_number(extra)]
+		if _definition.role=="carrier":lines[1]="요격 드론 %d / 8 · 생산 대기 %d"%[_unit.get("drones",[]).size(),_unit.get("drone_queue",[]).size()]
+		if _definition.role=="transport":
+			var occupied=0.0
+			for cargo_id in _unit.get("cargo",[]):
+				var passenger=main._entity(int(cargo_id))
+				if not passenger.is_empty():occupied+=maxf(1,float(ACData.unit(int(passenger.race),int(passenger.kind)).pop))
+			lines[1]="탑승 %d기 · 사용 용량 %s / 8"%[_unit.get("cargo",[]).size(),_number(occupied)]
+		if float(_unit.get("bloom_until",0))>float(main.state.time):lines[1]+=" · 개화: 공격속도 +25%% (%d초)"%ceili(float(_unit.bloom_until)-float(main.state.time))
+		if _definition.role=="healer_detector":lines[2]+=" · 자동 치료 "+("켜짐" if _unit.get("sap_heal_enabled",true) else "꺼짐")
 		if _uses_energy(_definition):
 			var maximum=_max_energy(_definition)
 			energy_label.text="%d / %d"%[int(_unit.get("energy",0)),int(maximum)]
@@ -730,7 +781,13 @@ func _building_catalyst(building: Dictionary) -> Dictionary:
 		if str(resource.get("type",""))=="tera" and footprint.has_point(ACData.point(resource.pos)):return resource
 	return {}
 func _unit_texture(faction: int,kind: int) -> Texture2D:
+	var icon=command_art.texture(faction,"units",kind)
+	if icon!=null:return icon
 	return main.assets.unit(faction,kind,Vector2(1,1)).get("texture")
+
+func _building_texture(faction: int,kind: int) -> Texture2D:
+	var icon=command_art.texture(faction,"buildings",kind)
+	return icon if icon!=null else main.assets.building(faction,kind)
 
 func _max_energy(definition: Dictionary) -> float:
 	return maxf(0,float(definition.get("max_energy",200 if str(definition.get("role","")) in ["medic","mage","priest"] else 0)))
@@ -806,8 +863,12 @@ func queue_slot_rect(index: int) -> Rect2:
 func _build_queue() -> void:
 	for child in queue_layer.get_children():child.hide();child.queue_free()
 	queue_buttons.clear()
+	if not _unit.is_empty() and not _unit.has("progress") and main.selected.size()==1:
+		_build_cargo()
+		return
 	if main.selected.size()!=1 or _unit.is_empty() or not _unit.has("progress"):return
-	var queue: Array=_unit.get("queue",[])
+	var researching=not _unit.get("research_queue",[]).is_empty()
+	var queue: Array=_unit.get("research_queue",[]) if researching else _unit.get("queue",[])
 	if queue.is_empty():return
 	var building_id=int(_unit.id)
 	for index in range(5):
@@ -821,11 +882,11 @@ func _build_queue() -> void:
 		button.add_theme_stylebox_override("disabled",_shell_button_style(0))
 		button.set_meta("queue_index",index)
 		if index<queue.size():
-			var definition=ACData.unit(int(_unit.race),int(queue[index].kind))
+			var definition={"name":str(queue[index].name)+" %d"%int(queue[index].level)} if researching else ACData.unit(int(_unit.race),int(queue[index].kind))
 			var image=TextureRect.new()
 			image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
 			image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			image.texture=_unit_texture(int(_unit.race),int(queue[index].kind))
+			image.texture=command_art.research(int(_unit.race),str(queue[index].kind)) if researching else _unit_texture(int(_unit.race),int(queue[index].kind))
 			image.position=Vector2(4,1)
 			image.size=Vector2(slot.size.x-8,28)
 			image.mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -837,15 +898,41 @@ func _build_queue() -> void:
 			progress.mouse_filter=Control.MOUSE_FILTER_IGNORE
 			button.add_child(progress)
 			button.set_meta("progress_bar",progress)
-			_set_inline_help(button,("현재 생산: " if index==0 else "생산 대기: ")+str(definition.name),"클릭하면 이 항목의 생산을 취소합니다.",false)
+			_set_inline_help(button,("진행 중: " if index==0 else "대기: ")+str(definition.name),"클릭하면 이 항목을 취소하고 지불한 자원을 반환합니다.",false)
 			var queue_index=index
-			button.pressed.connect(func():_play_ui("confirm");main._send_command({"type":"cancel","id":building_id,"queue_index":queue_index}))
+			button.pressed.connect(func():_play_ui("confirm");main._send_command({"type":"cancel_research" if researching else "cancel","id":building_id,"queue_index":queue_index}))
 			button.disabled=int(_unit.owner)!=main.local_slot or main.replay_mode or bool(main.state.get("ended",false))
 		else:
 			button.mouse_filter=Control.MOUSE_FILTER_IGNORE
 			button.disabled=true
 		queue_layer.add_child(button)
 		queue_buttons.append(button)
+
+func _build_cargo() -> void:
+	var role=str(_definition.get("role",""))
+	if role not in ["transport","carrier"]:return
+	var ids: Array=_unit.get("drones",[]) if role=="carrier" else _unit.get("cargo",[])
+	var content=_detail_content_rect();var width=minf(34,(content.size.x-104)/8.0)
+	for index in range(8):
+		var slot=Button.new();slot.focus_mode=Control.FOCUS_NONE
+		slot.position=content.position-detail_layer.position+Vector2(100+index*width,content.size.y-32)
+		slot.size=Vector2(width-2,29);slot.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
+		var style=StyleBoxFlat.new();style.bg_color=Color("141a1c");style.border_color=accent.darkened(.25);style.set_border_width_all(1)
+		slot.add_theme_stylebox_override("normal",style);slot.add_theme_stylebox_override("hover",style)
+		if index<ids.size():
+			var passenger=main._entity(int(ids[index]))
+			if not passenger.is_empty():
+				var icon=TextureRect.new();icon.texture=_unit_texture(int(passenger.race),int(passenger.kind));icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);icon.material=_cargo_material;icon.mouse_filter=Control.MOUSE_FILTER_IGNORE;slot.add_child(icon)
+				var name=str(ACData.unit(int(passenger.race),int(passenger.kind)).name)
+				_set_inline_help(slot,name,"탑승 중" if role=="transport" else "출격 중" if int(passenger.container)<0 else "탑재 중",false)
+				var carrier_id=int(_unit.id);var passenger_id=int(passenger.id)
+				slot.pressed.connect(func():
+					if role=="transport":main._send_command({"type":"unload_one","id":carrier_id,"passenger":passenger_id})
+					else:main._notify(name)
+				)
+		else:slot.disabled=true
+		queue_layer.add_child(slot)
 
 func _update_production_meter() -> void:
 	production_meter.hide()
@@ -858,14 +945,22 @@ func _update_production_meter() -> void:
 			production_meter.set_values(1-float(_unit.get("morph_left",0))/maxf(1,float(_unit.get("morph_total",1))),1,accent)
 			production_meter.show()
 		return
+	if not _unit.has("progress") and _definition.role=="carrier":
+		var jobs: Array=_unit.get("drone_queue",[])
+		if not jobs.is_empty():
+			production_meter.position=Vector2(100,content.size.y-42)
+			production_meter.size=Vector2(maxf(20,content.size.x-104),4)
+			production_meter.set_values(1-float(jobs[0].left)/float(jobs[0].total),1,accent);production_meter.show()
+		return
 	if not _unit.has("progress"):return
-	var queue: Array=_unit.get("queue",[])
+	var queue: Array=_unit.get("research_queue",[]) if not _unit.get("research_queue",[]).is_empty() else _unit.get("queue",[])
 	production_meter.position=Vector2(100,content.size.y-(48 if not queue.is_empty() else 14))
 	production_meter.size=Vector2(maxf(20,content.size.x-104),5)
 	var progress=-1.0
 	if float(_unit.progress)<1:progress=float(_unit.progress)
 	elif not queue.is_empty():progress=1-float(queue[0].left)/maxf(.01,float(queue[0].total))
 	elif str(_unit.get("research",""))!="":progress=1-float(_unit.get("research_left",0))/maxf(1,float(_unit.get("research_total",45)))
+	elif not _unit.get("nuke_job",{}).is_empty():progress=1-float(_unit.nuke_job.left)/float(_unit.nuke_job.total)
 	if progress>=0:
 		production_meter.set_values(clampf(progress,0,1),1,accent)
 		production_meter.show()
@@ -877,6 +972,7 @@ func _build_upgrade_badges() -> void:
 	for child in upgrade_layer.get_children():child.hide();child.queue_free()
 	upgrade_badges.clear()
 	if main.selected.size()!=1 or _unit.is_empty() or _unit.has("progress") or _is_brood():return
+	if _definition.role in ["carrier","transport"]:return
 	var owner: Dictionary=main.state.players[int(_unit.owner)]
 	var stats: Array[String]=[]
 	if float(_definition.get("damage",0))>0:stats.append("attack")
@@ -896,7 +992,7 @@ func _build_upgrade_badges() -> void:
 		var image=TextureRect.new()
 		image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
 		image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		image.texture=armor_upgrade_icon if stat=="armor" and armor_upgrade_icon!=null else _icon(ICON_ATTACK if stat=="attack" else (ICON_REPAIR if stat=="armor" else ICON_ABILITY))
+		image.texture=command_art.research(int(_unit.race),stat)
 		image.material=null
 		image.position=Vector2(1,2)
 		image.size=Vector2(16,16)
@@ -927,12 +1023,12 @@ func _build_selection() -> void:
 	var cell_width=minf(SELECTION_SIZE.x,floorf((content.size.x-12*scale)/(4*scale)))*scale
 	var grid_left=content.get_center().x-(cell_width*4+12*scale)*.5
 	var grid_top=content.get_center().y-(SELECTION_SIZE.y*3+4)*scale*.5
-	for index in range(main.selected.size()):
+	for index in range(mini(MAX_SELECTION,main.selected.size())):
 		var entity: Dictionary=main._entity(int(main.selected[index]))
 		if entity.is_empty():continue
 		var id=int(entity.id)
 		var definition: Dictionary=ACData.building(int(entity.race),int(entity.kind)) if entity.has("progress") else ACData.unit(int(entity.race),int(entity.kind))
-		var texture: Texture2D=main.assets.building(int(entity.race),int(entity.kind)) if entity.has("progress") else _unit_texture(int(entity.race),int(entity.kind))
+		var texture: Texture2D=_building_texture(int(entity.race),int(entity.kind)) if entity.has("progress") else _unit_texture(int(entity.race),int(entity.kind))
 		if str(definition.get("role",""))=="brood":texture=main.assets.unit(1,13,Vector2(1,1),"morph" if str(entity.get("brood_state","idle"))=="morph" else "idle",float(main.state.get("time",0))).get("texture")
 		var button=Button.new()
 		button.focus_mode=Control.FOCUS_NONE
@@ -1005,7 +1101,7 @@ func _can_rally() -> bool:
 	if main.has_method("_building_accepts_rally"):return main._building_accepts_rally(_unit)
 	if _unit.is_empty() or not _unit.has("progress") or float(_unit.progress)<1:return false
 	if int(_unit.race)==1:return int(_unit.kind) in [0,3]
-	for kind in range(13):
+	for kind in range(ACData.unit_count(int(_unit.race))):
 		if int(ACData.unit(int(_unit.race),kind).producer)==int(_unit.kind):return true
 	return false
 
@@ -1033,13 +1129,15 @@ func _build_commands() -> void:
 				var build=int(BUILD_ORDERS[faction][slot])
 				var definition: Dictionary=ACData.building(faction,build)
 				var build_id=build
-				all.append(_command(str(definition.name),0,"",ICON_BUILD,func():main.set("pointer_order","");main.attack_mode=false;main.build_kind=build_id;main._notify(str(definition.name)+": 건설 위치 지정"),_cost_tip(definition)+"\n"+str(BUILD_ROLES[slot])+" · "+str(definition.description),main.assets.building(faction,build),definition))
+				all.append(_command(str(definition.name),0,"",ICON_BUILD,func():main.set("pointer_order","");main.attack_mode=false;main.build_kind=build_id;main._notify(str(definition.name)+": 건설 위치 지정"),_cost_tip(definition)+"\n"+str(BUILD_ROLES[slot])+" · "+str(definition.description),_building_texture(faction,build),definition))
 				all[-1]["building_kind"]=build_id
 				all[-1]["build_role"]=BUILD_ROLES[slot]
 			_show_paged(all,true)
 			return
 		all.append(_command("이동",KEY_M,"M",ICON_MOVE,func():_target_order("move"),"지정한 위치로 이동합니다."))
-		if float(_definition.get("damage",0))>0:
+		if float(_definition.get("damage",0))>0 or _definition.get("role","")=="carrier" or main.selected.any(func(selected_id):
+			var troop=main._entity(int(selected_id))
+			return not troop.is_empty() and not troop.has("progress") and int(troop.owner)==main.local_slot and float(ACData.unit(int(troop.race),int(troop.kind)).damage)>0):
 			all.append(_command("공격",KEY_A,"A",ICON_ATTACK,func():main.set("pointer_order","");main.attack_mode=true;main.build_kind=-1,"적 유닛을 공격하거나 지정 위치로 공격 이동합니다."))
 		all.append(_command("정지",KEY_S,"S",ICON_STOP,func():_send("stop"),"현재 명령을 중단합니다."))
 		all.append(_command("위치 사수",KEY_H,"H",ICON_HOLD,func():_send("hold"),"위치를 지키며 사거리 안의 적을 공격합니다."))
@@ -1053,32 +1151,45 @@ func _build_commands() -> void:
 			var names={"siege":"공성 전개","fortress":"요새 전개","tree":"뿌리 고정","shield":"방패 전개"}
 			var title="전개 해제" if _unit.get("anchored",false) else names[role]
 			all.append(_command(title,KEY_Q,"Q",ICON_ABILITY,func():_ability(false),"현재 위치에서 전개 상태를 전환합니다."))
-		elif role=="mage":
-			all.append(_command("천문 심판",KEY_Q,"Q",ICON_ABILITY,func():_target_order("ability"),"에너지 75 · 재사용 12초\n사거리 10 안의 위치에 지연 광역 공격을 가합니다."))
-		elif role=="parasite":
-			all.append(_command("정신 조종",KEY_Q,"Q",ICON_ABILITY,func():_target_order("ability"),"에너지 100 · 사거리 6 · 재사용 20초\n보이는 적 유닛 한 기를 영구히 아군으로 전환합니다.\n건물·배양체·탑승 중인 유닛·승객을 태운 수송선은 대상에서 제외됩니다."))
-		elif role=="priest":
-			all.append(_command("결계 복원",KEY_Q,"Q",ICON_ABILITY,func():_ability(false),"에너지 60 · 재사용 12초\n주변 아군 부엉이의 실드를 45 회복합니다."))
 		elif role=="transport":
 			all.append(_command("모두 내리기",KEY_D,"D",ICON_UNLOAD,func():_ability(false),"현재 위치에 탑승 유닛을 모두 내립니다.\n지상 유닛이 수송 유닛을 우클릭하면 탑승합니다."))
 		elif faction==0 and kind==7:
 			all.append(_command("은폐 해제" if _unit.get("cloak_active",false) else "은폐",KEY_C,"C",ICON_ABILITY,func():_ability(false),"시작 에너지 25 · 유지 초당 1\n공격해도 은폐가 유지됩니다."))
+		var skill_keys=[KEY_W,KEY_E,KEY_T,KEY_F]
+		var skill_names=["W","E","T","F"]
+		var skills=ACAbilities.catalog(faction,kind)
+		for index in range(skills.size()):
+			var skill: Dictionary=skills[index]
+			var skill_id=str(skill.id)
+			all.append(_command(str(skill.name),skill_keys[index],skill_names[index],ICON_ABILITY,func():_skill(skill_id),_skill_tip(skill),command_art.skill(faction,skill_id),{"skill":skill_id}))
+		if role=="priest":all.append(_command("자동 체력 회복",0,"",ICON_REPAIR,func():main._notify("에너지 2당 체력 1 자동 회복 · 초당 최대 10"),"부상한 아군 부엉이의 체력을 자동 회복합니다.
+체력 1당 에너지 2 · 최대 초당 체력 10"))
+		if role=="carrier":
+			all.append(_command("요격 드론 생산",KEY_Q,"Q",ICON_TRAIN,func():main._send_command({"type":"produce_drone","id":id}),"아스 25 · 테라 10 · 8초
+모함당 생산 예약 포함 최대 8기",_unit_texture(0,15),{"as":25,"tera":10,"drone":true}))
+			all.append(_command("드론 생산 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel_drone","id":id}),"마지막 드론 생산을 취소하고 비용을 반환합니다."))
 	else:
 		if float(_unit.progress)<1:
 			all.append(_command("건설 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel","id":id}),"건설을 취소하고 비용의 75%를 돌려받습니다."))
 		else:
-			for train in range(13):
+			if faction==1 and kind in [0,3]:
+				all.append(_command("연결된 배양체 전체 선택",KEY_V,"V",31,func():main._select_brood(id),"이 본진과 연동된 배양체를 선택합니다.\n각 배양체에서 독립적으로 유닛을 변태시키세요."))
+			for train in range(ACData.unit_count(faction)) if faction!=1 else []:
 				var definition: Dictionary=ACData.unit(faction,train)
 				if (faction==1 and kind in [0,3]) or (faction!=1 and int(definition.producer)==kind):
 					var train_id=train
 					all.append(_command(str(definition.name),0,"",ICON_TRAIN,func():main._send_command({"type":"train","id":id,"kind":train_id}),_cost_tip(definition)+"\n인구 %s · 생산 %d초\n"%[_number(float(definition.pop)),int(definition.time)]+str(definition.description),_unit_texture(faction,train),definition))
-			if not ACData.research_stats(faction,kind).is_empty():
-				for stat in ACData.research_stats(faction,kind):
-					var stat_id=str(stat)
-					var label={"attack":"공격 연구","armor":"방어 연구","shield":"실드 연구"}[stat]
-					var level=int(main.state.players[main.local_slot].get(stat,0))
-					var cost={"as":100+level*75,"tera":100+level*75,"research_stat":stat,"level":level}
-					all.append(_command(label,0,"",ICON_RESEARCH,func():main._send_command({"type":"research","id":id,"stat":stat_id}),_cost_tip(cost)+"\n%s · 현재 %d / 3단계"%[label,level]+"\n종족 전체에 적용됩니다.",armor_upgrade_icon if stat=="armor" else null,cost))
+			for research in ACResearch.catalog(faction,kind):
+				var stat_id=str(research.id)
+				var level=ACResearch.level(main.state.players[main.local_slot],stat_id)
+				for job in _unit.get("research_queue",[]):
+					if str(job.kind)==stat_id:level+=1
+				var cost={"as":research.as+level*float(research.get("step",0)),"tera":research.tera+level*float(research.get("step",0)),"research_stat":stat_id,"level":level,"max_level":research.get("max_level",1)}
+				all.append(_command(str(research.name),0,"",ICON_RESEARCH,func():main._send_command({"type":"research","id":id,"stat":stat_id}),_cost_tip(cost)+"\n예약 포함 %d / %d단계\n완료 시 종족 전체에 적용됩니다."%[level,int(research.get("max_level",1))],command_art.research(faction,stat_id),cost))
+			if faction==0 and kind==8:
+				all.append(_command("핵미사일 생산",0,"",ICON_TRAIN,func():main._send_command({"type":"produce_nuke","id":id}),"아스 300 · 테라 200 · 75초
+유도 연구 필요 · 최대 3발 보유",command_art.skill(faction,"nuclear"),{"as":300,"tera":200,"nuke":true}))
+				if not _unit.get("nuke_job",{}).is_empty():all.append(_command("핵미사일 생산 취소",0,"",ICON_CANCEL,func():main._send_command({"type":"cancel_nuke","id":id}),"생산 취소 · 비용 전액 반환"))
 			if all.size()>9:
 				_show_paged(all,false)
 				return
@@ -1103,8 +1214,8 @@ func _show_paged(all: Array[Dictionary],building_menu: bool,brood_menu: bool=fal
 		spec.key_name=PAGE_KEY_NAMES[on_page] if building_menu else PRODUCTION_KEY_NAMES[on_page]
 		visible.append(spec)
 	while visible.size()<capacity:visible.append({})
-	visible.append(_command("이전",KEY_BRACKETLEFT,"[",ICON_MOVE,func():command_page=posmod(command_page-1,pages);update_hud(true),"이전 명령 페이지"))
-	visible.append(_command("%d / %d 다음"%[command_page+1,pages],KEY_BRACKETRIGHT,"]",ICON_MOVE,func():command_page=(command_page+1)%pages;update_hud(true),"다음 명령 페이지"))
+	visible.append(_command("이전",KEY_BRACKETLEFT,"[",29,func():command_page=posmod(command_page-1,pages);update_hud(true),"이전 명령 페이지"))
+	visible.append(_command("%d / %d 다음"%[command_page+1,pages],KEY_BRACKETRIGHT,"]",30,func():command_page=(command_page+1)%pages;update_hud(true),"다음 명령 페이지"))
 	if building_menu:
 		visible.append(_command("돌아가기",KEY_X,"X",ICON_CANCEL,func():main.build_panel=false;main.build_kind=-1;command_page=0;update_hud(true),"건설 메뉴를 닫습니다."))
 	elif brood_menu:
@@ -1147,8 +1258,8 @@ func _present_commands(specs: Array[Dictionary]) -> void:
 			image.mouse_filter=Control.MOUSE_FILTER_IGNORE
 			image.texture=texture
 			image.texture_repeat=CanvasItem.TEXTURE_REPEAT_DISABLED
-			image.flip_h=int(spec.key)==KEY_BRACKETLEFT
-			var glyph_size=Vector2(minf(46,slot.size.x-14),minf(36,slot.size.y-6))
+			image.flip_h=false
+			var glyph_size=Vector2(minf(54,slot.size.x-8),minf(46,slot.size.y-4))
 			image.position=(slot.size-glyph_size)*.5+Vector2(3,0)
 			image.size=glyph_size
 			# Preserve full-colour building and equipment artwork.
@@ -1190,7 +1301,19 @@ func _shell_button_style(state_index: int) -> StyleBox:
 	return style
 
 func _cost_tip(definition: Dictionary) -> String:
-	return "아스 %d · 테라 %d"%[int(definition.get("as",0)),int(definition.get("tera",0))]
+	var result="아스 %d · 테라 %d"%[int(definition.get("as",0)),int(definition.get("tera",0))]
+	if definition.has("role") and not definition.has("w"):
+		var targets=str(definition.get("targets",""))
+		result+="\n%s · %s · %s"%["중장갑" if definition.get("armor_class","")=="heavy" else "경장갑","기계 (수리 가능)" if definition.get("material","")=="mechanical" else "생체","지상·공중 공격" if targets=="ga" else "지상 공격" if targets=="g" else "공중 공격" if targets=="a" else "지원 유닛 · 기본 공격 없음"]
+		if float(definition.get("damage",0))>0:
+			result+="\n기본 피해 %d · 사거리 %s · 공격 주기 %s초"%[int(definition.damage),_number(float(definition.range)),_number(float(definition.period))]
+			if int(definition.get("burst_count",1))>1:
+				var total=float(definition.damage)*(1 if definition.get("burst_split_total",false) else int(definition.burst_count))
+				result+=" · %d연발 (발당 %s · 총 %s)"%[int(definition.burst_count),_number(total/int(definition.burst_count)),_number(total)]
+			if definition.has("damage_air"):result+=" · 공중 피해 %d"%int(definition.damage_air)
+			if float(definition.get("bonus_light",0))>0:result+=" · 경장갑 +%d"%int(definition.bonus_light)
+			if float(definition.get("bonus_heavy",0))>0:result+=" · 중장갑 +%d"%int(definition.bonus_heavy)
+	return result
 
 func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 	for button in selection_buttons:
@@ -1210,24 +1333,41 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 		var cost: Dictionary=spec.cost
 		var reasons: Array[String]=[]
 		if race==1 and int(_unit.get("kind",-1))==3 and _unit.has("progress") and not _unit.get("brood_active",false):reasons.append("군체모수 연결 필요")
-		if not cost.is_empty():
+		if cost.has("skill"):
+			var skill=ACAbilities.catalog(int(_unit.race),int(_unit.kind)).filter(func(d):return d.id==cost.skill)[0]
+			if not ACAbilities.unlocked(player,skill):reasons.append("연구 필요: "+str(skill.name))
+			if float(_unit.get("energy",0))<float(skill.energy):reasons.append("에너지 부족")
+			var remaining=float(_unit.get("skill_ready",{}).get(str(skill.id),0))-float(main.state.time)
+			if skill.id=="mind_control":remaining=maxf(remaining,float(_unit.get("ability_cd",0)))
+			if remaining>0:reasons.append("재사용 대기 %d초"%ceili(remaining))
+			if float(_unit.get("silenced_until",0))>float(main.state.time):reasons.append("능력 봉인 중")
+			if skill.id=="sap_reclaim" and float(_unit.get("energy",0))>=_max_energy(_definition):reasons.append("마나 최대치")
+			if skill.id=="sap_heal":
+				button.toggle_mode=true;button.set_pressed_no_signal(bool(_unit.get("sap_heal_enabled",true)))
+		elif not cost.is_empty():
 			if float(player.get("as",0))<float(cost.get("as",0)):reasons.append("아스 부족")
 			if float(player.get("tera",0))<float(cost.get("tera",0)):reasons.append("테라 부족")
 			var missing=ACData.missing_building_names(race,cost.get("requires",[]),completed)
 			if not missing.is_empty():reasons.append("필요 건물: "+", ".join(missing))
 			if cost.has("research_stat"):
-				if int(cost.level)>=3:reasons.append("최대 연구 단계")
-				if str(_unit.get("research",""))!="":reasons.append("이미 연구 중")
+				if int(cost.level)>=int(cost.get("max_level",3)):reasons.append("최대 연구 단계 또는 예약 완료")
+				if _unit.get("research_queue",[]).size()>=ACResearch.CAPACITY:reasons.append("연구 대기열 가득 참")
+			elif cost.has("nuke"):
+				if ACResearch.level(player,"nuclear")==0:reasons.append("핵미사일 유도 연구 필요")
+				if not _unit.get("nuke_job",{}).is_empty():reasons.append("핵미사일 생산 중")
+				if int(player.get("nukes",0))>=3:reasons.append("핵미사일 최대 보유량")
+			elif cost.has("drone"):
+				if _unit.get("drones",[]).size()+_unit.get("drone_queue",[]).size()>=8:reasons.append("드론 최대 8기")
 			elif not cost.has("w"):
 				if float(player.get("used",0))+float(player.get("reserved",0))+(float(cost.get("pop",0))*int(cost.get("production_count",1)))>float(player.get("cap",0)):reasons.append("인구 한도 부족")
-				if _unit.get("queue",[]).size()>=5:reasons.append("생산 대기열 가득 참 · 최대 5기")
+				if not _is_brood() and _unit.get("queue",[]).size()>=5:reasons.append("생산 대기열 가득 참 · 최대 5기")
 				if race==1 and not _is_brood() and int(_unit.get("larva",0))<=0:reasons.append("배양체 필요")
 		button.disabled=not reasons.is_empty() or main.replay_mode or bool(main.state.get("ended",false))
 		button.set_meta("blocked_reasons",reasons)
 		var blocked_hit=button.get_node_or_null("BlockedVoiceHit")
 		if blocked_hit!=null:blocked_hit.mouse_filter=Control.MOUSE_FILTER_STOP if button.disabled else Control.MOUSE_FILTER_IGNORE
 		var help_lines: Array[String]=[]
-		if not cost.is_empty():help_lines.append(_cost_tip(cost)+(" · 건설 %d초"%int(cost.get("time",0)) if cost.has("w") else (" · 인구 %s · %d초"%[_number((float(cost.get("pop",0))*int(cost.get("production_count",1)))),int(cost.get("time",0))] if not cost.has("research_stat") else "")))
+		if not cost.is_empty() and not cost.has("skill"):help_lines.append(_cost_tip(cost)+(" · 건설 %d초"%int(cost.get("time",0)) if cost.has("w") else (" · 인구 %s · %d초"%[_number((float(cost.get("pop",0))*int(cost.get("production_count",1)))),int(cost.get("time",0))] if not cost.has("research_stat") else "")))
 		if int(cost.get("production_count",1))>1:help_lines.append("1회 생산: %d마리"%int(cost.production_count))
 		var prerequisites: Array[String]=[]
 		for kind in cost.get("requires",[]):prerequisites.append(str(ACData.building(race,int(kind)).name))
@@ -1245,6 +1385,8 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 		button.modulate=Color(.55,.6,.63) if button.disabled else Color.WHITE
 
 func _icon(index: int) -> Texture2D:
+	var replacement=command_art.texture(race,"commands",index)
+	if replacement!=null:return replacement
 	return icons[index] if index>=0 and index<icons.size() else null
 
 func _resource_icon(index: int) -> Texture2D:
@@ -1309,35 +1451,11 @@ func _draw() -> void:
 		else:draw_colored_polygon(_body_outline,[Color("514b35"),Color("593e2a"),Color("746b60")][race])
 	if _frame_art.size()==3 and _frame_art[race]!=null:
 		draw_texture_rect_region(_frame_art[race],shell_draw_rect(),Rect2(_frame_source_regions[race]))
-	var unused_menu=_unused_menu_cover_rect()
-	if race>0 and _uniform_shells[race]:
-		# Cover every baked-in divider with one uninterrupted black recess.
-		# Keep the approved shell geometry and the surrounding race trim intact.
-		var menu=_menu_rect()
-		draw_rect(menu,Color("080909"))
-		var inset=menu.grow(-2)
-		var corner=minf(4,inset.size.y*.2)
-		var outline=PackedVector2Array([
-			inset.position+Vector2(corner,0),Vector2(inset.end.x-corner,inset.position.y),
-			Vector2(inset.end.x,inset.position.y+corner),inset.end-Vector2(0,corner),
-			inset.end-Vector2(corner,0),Vector2(inset.position.x+corner,inset.end.y),
-			Vector2(inset.position.x,inset.end.y-corner),inset.position+Vector2(0,corner)])
-		draw_colored_polygon(outline,Color("101111"))
-		outline.append(outline[0])
-		draw_polyline(outline,Color("4b4942"),1,true)
-	if unused_menu.has_area():
-		if _frame_art.size()==3:
-			# Reuse the approved shell's own recessed surface; the outer ivory
-			# material made an unrelated grey patch beside the menu button.
-			var scale=shell_draw_rect().size.x/_frame_source_regions[race].size.x
-			var sample=Rect2(_shell_geometry().detail.position+Vector2(24,24),unused_menu.size/scale)
-			draw_texture_rect_region(_frame_art[race],unused_menu,sample)
-		else:draw_rect(unused_menu,Color("746b60"))
 	if main.has_method("_render_minimap"):main._render_minimap(self)
 	var portrait=_portrait_rect()
 	if _portrait!=null:
 		draw_rect(portrait,Color("080909"))
-		var area=portrait.grow(-4)
+		var area=portrait.grow(-1)
 		var source_size=_portrait.get_size()
 		var scale=maxf(area.size.x/source_size.x,area.size.y/source_size.y)
 		var crop=area.size/scale
@@ -1395,3 +1513,19 @@ func _draw_cover(texture: Texture2D,area: Rect2) -> void:
 	var factor=maxf(area.size.x/texture.get_width(),area.size.y/texture.get_height())
 	var sample=area.size/factor
 	draw_texture_rect_region(texture,area,Rect2((texture.get_size()-sample)*.5,sample))
+
+func _is_brood_entity(entity: Dictionary) -> bool:
+	return not entity.is_empty() and not entity.has("progress") and int(entity.race)==1 and int(entity.kind)==13
+
+func _skill_tip(skill: Dictionary) -> String:
+	var rule="기본 능력" if skill.get("base",false) else str(ACData.building(int(skill.race),int(skill.building)).name)+" 연구 필요"
+	if skill.id=="sap_heal":return "%s · 자동 치료 · 사용 중 마나 초당 4\n치료 반경 4 · 버튼으로 켜기/끄기\n%s"%[rule,ACAbilities.description(str(skill.id))]
+	return "%s · 에너지 %d
+사거리 %s · 재사용 %d초
+%s"%[rule,int(skill.energy),_number(float(skill.range)),int(skill.cooldown),ACAbilities.description(str(skill.id))]
+
+func _skill(key: String) -> void:
+	var skill=ACAbilities.catalog(int(_unit.race),int(_unit.kind)).filter(func(d):return d.id==key)[0]
+	if skill.target=="self":main._send_command({"type":"skill","skill":key,"ids":main.selected.duplicate(),"pos":_unit.pos})
+	else:
+		main.pointer_skill=key;_target_order("skill");main._notify(str(skill.name)+": 대상 지정 · 우클릭 취소")

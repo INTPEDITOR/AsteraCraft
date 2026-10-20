@@ -300,7 +300,8 @@ func consume_effects(effects: Array, now: float) -> void:
 			play_unit(race, kind, position, "attack")
 		elif type in ["explosion", "death", "destroy"]:
 			var fatal=bool(effect.get("fatal",false)) or type=="death"
-			var cue="death_%d_%d"%[clampi(race,0,2),clampi(kind,0,12)] if fatal and not effect.get("source_building",false) else "explosion_%d"%clampi(race,0,2)
+			var death_race=clampi(race,0,2)
+			var cue="death_%d_%d"%[death_race,clampi(kind,0,ACData.unit_count(death_race)-1)] if fatal and not effect.get("source_building",false) else "explosion_%d"%death_race
 			_play_at(cue, _point(effect.get("to", effect.get("from", [0, 0]))), 0.66, 4 if fatal else 3, "combat")
 		elif type in ["harvest", "mine", "mining"]:
 			# Older worker-state fallback and explicit events share a cooldown.
@@ -316,15 +317,27 @@ func consume_effects(effects: Array, now: float) -> void:
 				continue
 			if id>=0:_healing_marks[id]=stamp
 			play_heal(str(effect.get("heal_kind","medic" if race==0 else "sap" if race==1 else "shield")),position,race)
+		elif type in ["board","unboard"]:
+			_play_at("%s_%d"%[type,clampi(race,0,2)],position,.55,2,"transport")
+		elif type=="nuclear_notice":
+			if director!=null:director.announce("nuclear",-1,0,5)
+		elif type in ["nuclear_ascent","nuclear_descent"]:
+			_play_at(type,position,.65,4,"combat")
+		elif type=="skill":
+			var nuclear=str(effect.get("skill",""))=="nuclear"
+			_play_at("skill_"+str(effect.get("skill","")).replace("_warning",""),position,.8 if nuclear else .45,5 if nuclear else 2,"combat")
 		elif type in ["ability", "cast", "warning", "repair"]:
 			if kind < 0:
 				kind = [4, 9, 5][clampi(race, 0, 2)]
 			play_unit(race, kind, position, "ability")
 
 func play_unit(race: int, kind: int, position: Vector2, category: String = "attack") -> bool:
-	if category=="attack" and float(ACData.unit(clampi(race,0,2),clampi(kind,0,12)).damage)<=0.0:
+	race=clampi(race,0,2)
+	if race==1 and kind==13:return false
+	kind=clampi(kind,0,ACData.unit_count(race)-1)
+	if category=="attack" and float(ACData.unit(race,kind).damage)<=0.0:
 		return false
-	return _play_at("unit_%d_%d" % [clampi(race, 0, 2), clampi(kind, 0, 12)], position, 0.74 if category == "attack" else 0.58, 3 if category == "attack" else 2, "combat")
+	return _play_at("unit_%d_%d" % [race,kind], position, 0.74 if category == "attack" else 0.58, 3 if category == "attack" else 2, "combat")
 
 func play_heal(kind: String, position: Vector2, race: int=0) -> bool:
 	if kind=="medic" or race==0:
@@ -347,8 +360,11 @@ func play_selection(race: int, kind: int) -> bool:
 	if now - float(_ui_marks.get("unit_select", -10.0)) < 0.42:
 		return false
 	_ui_marks["unit_select"] = now
+	if race==1 and kind==13:return _play("ui_select",.19,4,"ui",Vector2.ZERO,1.13)
 	# A brief low level mechanism/energy response complements the UI switch.
-	var cue := "heal_medic" if race==0 and kind==4 else "unit_%d_%d" % [clampi(race,0,2),clampi(kind,0,12)]
+	race=clampi(race,0,2)
+	kind=clampi(kind,0,ACData.unit_count(race)-1)
+	var cue := "heal_medic" if race==0 and kind==4 else "unit_%d_%d" % [race,kind]
 	return _play(cue,0.19,4,"ui",Vector2.ZERO,1.13)
 
 func _play_at(name: String, position: Vector2, gain: float, priority: int, group: String) -> bool:
@@ -385,7 +401,7 @@ func _play(name: String, gain: float, priority: int, group: String, screen: Vect
 		chosen = {}
 		candidate = {}
 		for voice in _voices:
-			if voice.player.playing and voice.group == "combat" and (candidate.is_empty() or float(voice.started) < float(candidate.started)):
+			if voice.player.playing and voice.group == "combat" and (candidate.is_empty() or int(voice.priority)<int(candidate.priority) or (int(voice.priority)==int(candidate.priority) and float(voice.started)<float(candidate.started))):
 				candidate = voice
 	if chosen.is_empty():
 		if candidate.is_empty() or int(candidate.priority) > priority:

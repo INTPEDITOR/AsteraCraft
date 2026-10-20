@@ -1,0 +1,1328 @@
+{
+  "cell": 128,
+  "commands": [
+    "move",
+    "attack",
+    "stop",
+    "hold",
+    "build",
+    "gather",
+    "repair",
+    "ability",
+    "unload",
+    "cancel",
+    "research",
+    "train",
+    "as",
+    "tera",
+    "population",
+    "rally"
+  ],
+  "skills": [
+    [
+      "stim",
+      "smoke",
+      "nuclear",
+      "scan",
+      "overcharge",
+      "field_repair"
+    ],
+    [
+      "neural",
+      "mind_control",
+      "shed",
+      "sap_reclaim",
+      "sap_bloom",
+      "carapace",
+      "scatter",
+      "root_surge"
+    ],
+    [
+      "judgment",
+      "silence",
+      "bind",
+      "discipline",
+      "march",
+      "barrier",
+      "purify",
+      "shockwave",
+      "pierce",
+      "verdict"
+    ]
+  ],
+  "atlases": [
+    {
+      "race": 0,
+      "kind": "commands",
+      "file": "res://assets/icons_commands_0_v060.png",
+      "columns": 8,
+      "rows": 4,
+      "source": "exec-2ad0cb52-d4eb-4576-99e0-f2904113dcab.png",
+      "regions": [
+        {
+          "left": 30,
+          "top": 46,
+          "width": 186,
+          "height": 174
+        },
+        {
+          "left": 252,
+          "top": 55,
+          "width": 179,
+          "height": 165
+        },
+        {
+          "left": 464,
+          "top": 46,
+          "width": 183,
+          "height": 174
+        },
+        {
+          "left": 689,
+          "top": 53,
+          "width": 175,
+          "height": 167
+        },
+        {
+          "left": 896,
+          "top": 49,
+          "width": 183,
+          "height": 171
+        },
+        {
+          "left": 1113,
+          "top": 53,
+          "width": 188,
+          "height": 167
+        },
+        {
+          "left": 1339,
+          "top": 49,
+          "width": 211,
+          "height": 171
+        },
+        {
+          "left": 1554,
+          "top": 37,
+          "width": 189,
+          "height": 183
+        },
+        {
+          "left": 35,
+          "top": 224,
+          "width": 175,
+          "height": 200
+        },
+        {
+          "left": 261,
+          "top": 272,
+          "width": 155,
+          "height": 150
+        },
+        {
+          "left": 459,
+          "top": 224,
+          "width": 185,
+          "height": 205
+        },
+        {
+          "left": 681,
+          "top": 224,
+          "width": 187,
+          "height": 202
+        },
+        {
+          "left": 901,
+          "top": 224,
+          "width": 180,
+          "height": 210
+        },
+        {
+          "left": 1126,
+          "top": 224,
+          "width": 167,
+          "height": 206
+        },
+        {
+          "left": 1336,
+          "top": 224,
+          "width": 214,
+          "height": 197
+        },
+        {
+          "left": 1554,
+          "top": 224,
+          "width": 199,
+          "height": 206
+        },
+        {
+          "left": 34,
+          "top": 452,
+          "width": 181,
+          "height": 211
+        },
+        {
+          "left": 229,
+          "top": 460,
+          "width": 210,
+          "height": 173
+        },
+        {
+          "left": 453,
+          "top": 457,
+          "width": 210,
+          "height": 181
+        },
+        {
+          "left": 686,
+          "top": 463,
+          "width": 181,
+          "height": 200
+        },
+        {
+          "left": 889,
+          "top": 465,
+          "width": 207,
+          "height": 185
+        },
+        {
+          "left": 1119,
+          "top": 458,
+          "width": 206,
+          "height": 189
+        },
+        {
+          "left": 1346,
+          "top": 472,
+          "width": 181,
+          "height": 159
+        },
+        {
+          "left": 1554,
+          "top": 466,
+          "width": 185,
+          "height": 197
+        },
+        {
+          "left": 29,
+          "top": 667,
+          "width": 191,
+          "height": 184
+        },
+        {
+          "left": 238,
+          "top": 667,
+          "width": 195,
+          "height": 176
+        },
+        {
+          "left": 465,
+          "top": 672,
+          "width": 176,
+          "height": 175
+        },
+        {
+          "left": 690,
+          "top": 667,
+          "width": 166,
+          "height": 184
+        },
+        {
+          "left": 890,
+          "top": 681,
+          "width": 217,
+          "height": 161
+        },
+        {
+          "left": 1111,
+          "top": 677,
+          "width": 156,
+          "height": 165
+        },
+        {
+          "left": 1380,
+          "top": 677,
+          "width": 170,
+          "height": 165
+        },
+        {
+          "left": 1554,
+          "top": 667,
+          "width": 193,
+          "height": 191
+        }
+      ]
+    },
+    {
+      "race": 0,
+      "kind": "buildings",
+      "file": "res://assets/icons_buildings_0_v060.png",
+      "columns": 4,
+      "rows": 4,
+      "source": "exec-fa548841-91d6-4cf8-b32a-9fb13ba9c95a.png",
+      "regions": [
+        {
+          "left": 18,
+          "top": 22,
+          "width": 294,
+          "height": 290
+        },
+        {
+          "left": 316,
+          "top": 22,
+          "width": 299,
+          "height": 290
+        },
+        {
+          "left": 636,
+          "top": 88,
+          "width": 294,
+          "height": 221
+        },
+        {
+          "left": 951,
+          "top": 20,
+          "width": 283,
+          "height": 292
+        },
+        {
+          "left": 13,
+          "top": 316,
+          "width": 299,
+          "height": 309
+        },
+        {
+          "left": 316,
+          "top": 316,
+          "width": 309,
+          "height": 309
+        },
+        {
+          "left": 633,
+          "top": 350,
+          "width": 299,
+          "height": 272
+        },
+        {
+          "left": 946,
+          "top": 316,
+          "width": 297,
+          "height": 306
+        },
+        {
+          "left": 18,
+          "top": 629,
+          "width": 294,
+          "height": 305
+        },
+        {
+          "left": 316,
+          "top": 629,
+          "width": 309,
+          "height": 292
+        },
+        {
+          "left": 637,
+          "top": 646,
+          "width": 302,
+          "height": 283
+        },
+        {
+          "left": 953,
+          "top": 674,
+          "width": 289,
+          "height": 245
+        },
+        {
+          "left": 38,
+          "top": 947,
+          "width": 274,
+          "height": 292
+        },
+        {
+          "left": 320,
+          "top": 976,
+          "width": 296,
+          "height": 244
+        },
+        {
+          "left": 638,
+          "top": 947,
+          "width": 295,
+          "height": 274
+        },
+        {
+          "left": 961,
+          "top": 943,
+          "width": 276,
+          "height": 279
+        }
+      ]
+    },
+    {
+      "race": 0,
+      "kind": "units",
+      "file": "res://assets/icons_units_0_v060.png",
+      "columns": 4,
+      "rows": 4,
+      "source": "exec-d3d7edcd-949b-4ab8-be3c-b84035f9f36d.png",
+      "regions": [
+        {
+          "left": 28,
+          "top": 54,
+          "width": 284,
+          "height": 254
+        },
+        {
+          "left": 316,
+          "top": 40,
+          "width": 290,
+          "height": 272
+        },
+        {
+          "left": 655,
+          "top": 62,
+          "width": 280,
+          "height": 241
+        },
+        {
+          "left": 974,
+          "top": 45,
+          "width": 236,
+          "height": 267
+        },
+        {
+          "left": 48,
+          "top": 361,
+          "width": 223,
+          "height": 257
+        },
+        {
+          "left": 323,
+          "top": 359,
+          "width": 293,
+          "height": 255
+        },
+        {
+          "left": 640,
+          "top": 359,
+          "width": 291,
+          "height": 263
+        },
+        {
+          "left": 952,
+          "top": 365,
+          "width": 287,
+          "height": 250
+        },
+        {
+          "left": 54,
+          "top": 689,
+          "width": 232,
+          "height": 250
+        },
+        {
+          "left": 326,
+          "top": 665,
+          "width": 296,
+          "height": 223
+        },
+        {
+          "left": 633,
+          "top": 673,
+          "width": 289,
+          "height": 220
+        },
+        {
+          "left": 959,
+          "top": 662,
+          "width": 267,
+          "height": 244
+        },
+        {
+          "left": 28,
+          "top": 943,
+          "width": 284,
+          "height": 273
+        },
+        {
+          "left": 316,
+          "top": 964,
+          "width": 309,
+          "height": 245
+        },
+        {
+          "left": 646,
+          "top": 945,
+          "width": 285,
+          "height": 235
+        },
+        {
+          "left": 958,
+          "top": 959,
+          "width": 267,
+          "height": 220
+        }
+      ]
+    },
+    {
+      "race": 1,
+      "kind": "commands",
+      "file": "res://assets/icons_commands_1_v060.png",
+      "columns": 8,
+      "rows": 4,
+      "source": "exec-df58edd0-1388-40aa-9cf0-db6ecb7bdb64.png",
+      "regions": [
+        {
+          "left": 14,
+          "top": 23,
+          "width": 194,
+          "height": 193
+        },
+        {
+          "left": 242,
+          "top": 30,
+          "width": 185,
+          "height": 179
+        },
+        {
+          "left": 451,
+          "top": 22,
+          "width": 204,
+          "height": 187
+        },
+        {
+          "left": 683,
+          "top": 25,
+          "width": 185,
+          "height": 183
+        },
+        {
+          "left": 900,
+          "top": 22,
+          "width": 194,
+          "height": 198
+        },
+        {
+          "left": 1113,
+          "top": 28,
+          "width": 201,
+          "height": 189
+        },
+        {
+          "left": 1345,
+          "top": 22,
+          "width": 202,
+          "height": 198
+        },
+        {
+          "left": 1571,
+          "top": 19,
+          "width": 182,
+          "height": 201
+        },
+        {
+          "left": 12,
+          "top": 239,
+          "width": 206,
+          "height": 197
+        },
+        {
+          "left": 236,
+          "top": 242,
+          "width": 198,
+          "height": 186
+        },
+        {
+          "left": 451,
+          "top": 242,
+          "width": 199,
+          "height": 182
+        },
+        {
+          "left": 668,
+          "top": 260,
+          "width": 211,
+          "height": 164
+        },
+        {
+          "left": 897,
+          "top": 241,
+          "width": 198,
+          "height": 195
+        },
+        {
+          "left": 1112,
+          "top": 251,
+          "width": 209,
+          "height": 181
+        },
+        {
+          "left": 1338,
+          "top": 260,
+          "width": 208,
+          "height": 168
+        },
+        {
+          "left": 1565,
+          "top": 240,
+          "width": 193,
+          "height": 190
+        },
+        {
+          "left": 13,
+          "top": 457,
+          "width": 203,
+          "height": 191
+        },
+        {
+          "left": 229,
+          "top": 446,
+          "width": 211,
+          "height": 217
+        },
+        {
+          "left": 452,
+          "top": 459,
+          "width": 204,
+          "height": 189
+        },
+        {
+          "left": 677,
+          "top": 452,
+          "width": 198,
+          "height": 201
+        },
+        {
+          "left": 902,
+          "top": 459,
+          "width": 180,
+          "height": 182
+        },
+        {
+          "left": 1117,
+          "top": 446,
+          "width": 202,
+          "height": 208
+        },
+        {
+          "left": 1351,
+          "top": 453,
+          "width": 184,
+          "height": 199
+        },
+        {
+          "left": 1562,
+          "top": 449,
+          "width": 200,
+          "height": 207
+        },
+        {
+          "left": 16,
+          "top": 669,
+          "width": 197,
+          "height": 191
+        },
+        {
+          "left": 224,
+          "top": 667,
+          "width": 218,
+          "height": 199
+        },
+        {
+          "left": 456,
+          "top": 677,
+          "width": 193,
+          "height": 181
+        },
+        {
+          "left": 667,
+          "top": 669,
+          "width": 211,
+          "height": 194
+        },
+        {
+          "left": 889,
+          "top": 671,
+          "width": 218,
+          "height": 191
+        },
+        {
+          "left": 1111,
+          "top": 676,
+          "width": 163,
+          "height": 186
+        },
+        {
+          "left": 1387,
+          "top": 677,
+          "width": 128,
+          "height": 186
+        },
+        {
+          "left": 1556,
+          "top": 669,
+          "width": 203,
+          "height": 197
+        }
+      ]
+    },
+    {
+      "race": 1,
+      "kind": "buildings",
+      "file": "res://assets/icons_buildings_1_v060.png",
+      "columns": 4,
+      "rows": 4,
+      "source": "exec-e4fd66a6-3d0e-41a1-b5de-ecca67b365da.png",
+      "regions": [
+        {
+          "left": 12,
+          "top": 26,
+          "width": 300,
+          "height": 286
+        },
+        {
+          "left": 316,
+          "top": 14,
+          "width": 303,
+          "height": 298
+        },
+        {
+          "left": 634,
+          "top": 18,
+          "width": 291,
+          "height": 294
+        },
+        {
+          "left": 947,
+          "top": 33,
+          "width": 297,
+          "height": 279
+        },
+        {
+          "left": 16,
+          "top": 338,
+          "width": 294,
+          "height": 283
+        },
+        {
+          "left": 331,
+          "top": 316,
+          "width": 290,
+          "height": 303
+        },
+        {
+          "left": 635,
+          "top": 316,
+          "width": 304,
+          "height": 306
+        },
+        {
+          "left": 948,
+          "top": 339,
+          "width": 289,
+          "height": 286
+        },
+        {
+          "left": 31,
+          "top": 632,
+          "width": 270,
+          "height": 307
+        },
+        {
+          "left": 323,
+          "top": 640,
+          "width": 302,
+          "height": 299
+        },
+        {
+          "left": 636,
+          "top": 692,
+          "width": 303,
+          "height": 226
+        },
+        {
+          "left": 943,
+          "top": 642,
+          "width": 286,
+          "height": 297
+        },
+        {
+          "left": 33,
+          "top": 943,
+          "width": 254,
+          "height": 289
+        },
+        {
+          "left": 331,
+          "top": 943,
+          "width": 273,
+          "height": 281
+        },
+        {
+          "left": 629,
+          "top": 954,
+          "width": 306,
+          "height": 274
+        },
+        {
+          "left": 944,
+          "top": 943,
+          "width": 293,
+          "height": 283
+        }
+      ]
+    },
+    {
+      "race": 1,
+      "kind": "units",
+      "file": "res://assets/icons_units_1_v060.png",
+      "columns": 4,
+      "rows": 4,
+      "source": "exec-37cc2897-401a-4637-95b1-94cc5065c483.png",
+      "regions": [
+        {
+          "left": 23,
+          "top": 24,
+          "width": 264,
+          "height": 271
+        },
+        {
+          "left": 332,
+          "top": 28,
+          "width": 289,
+          "height": 268
+        },
+        {
+          "left": 648,
+          "top": 35,
+          "width": 285,
+          "height": 258
+        },
+        {
+          "left": 974,
+          "top": 31,
+          "width": 267,
+          "height": 281
+        },
+        {
+          "left": 26,
+          "top": 316,
+          "width": 275,
+          "height": 304
+        },
+        {
+          "left": 329,
+          "top": 327,
+          "width": 292,
+          "height": 286
+        },
+        {
+          "left": 656,
+          "top": 333,
+          "width": 267,
+          "height": 282
+        },
+        {
+          "left": 968,
+          "top": 316,
+          "width": 271,
+          "height": 309
+        },
+        {
+          "left": 12,
+          "top": 648,
+          "width": 294,
+          "height": 291
+        },
+        {
+          "left": 330,
+          "top": 639,
+          "width": 287,
+          "height": 286
+        },
+        {
+          "left": 643,
+          "top": 662,
+          "width": 291,
+          "height": 259
+        },
+        {
+          "left": 970,
+          "top": 692,
+          "width": 274,
+          "height": 200
+        },
+        {
+          "left": 19,
+          "top": 943,
+          "width": 288,
+          "height": 299
+        },
+        {
+          "left": 337,
+          "top": 943,
+          "width": 274,
+          "height": 282
+        },
+        {
+          "left": 666,
+          "top": 943,
+          "width": 244,
+          "height": 284
+        },
+        {
+          "left": 965,
+          "top": 943,
+          "width": 251,
+          "height": 284
+        }
+      ]
+    },
+    {
+      "race": 2,
+      "kind": "commands",
+      "file": "res://assets/icons_commands_2_v060.png",
+      "columns": 8,
+      "rows": 4,
+      "source": "exec-37ba384a-e271-43db-ac00-e3e03acf39c1.png",
+      "regions": [
+        {
+          "left": 32,
+          "top": 37,
+          "width": 177,
+          "height": 176
+        },
+        {
+          "left": 255,
+          "top": 45,
+          "width": 174,
+          "height": 164
+        },
+        {
+          "left": 467,
+          "top": 33,
+          "width": 180,
+          "height": 181
+        },
+        {
+          "left": 674,
+          "top": 25,
+          "width": 203,
+          "height": 195
+        },
+        {
+          "left": 906,
+          "top": 42,
+          "width": 180,
+          "height": 165
+        },
+        {
+          "left": 1121,
+          "top": 43,
+          "width": 176,
+          "height": 177
+        },
+        {
+          "left": 1352,
+          "top": 44,
+          "width": 179,
+          "height": 168
+        },
+        {
+          "left": 1564,
+          "top": 19,
+          "width": 188,
+          "height": 201
+        },
+        {
+          "left": 31,
+          "top": 256,
+          "width": 178,
+          "height": 169
+        },
+        {
+          "left": 257,
+          "top": 256,
+          "width": 165,
+          "height": 164
+        },
+        {
+          "left": 464,
+          "top": 261,
+          "width": 181,
+          "height": 157
+        },
+        {
+          "left": 678,
+          "top": 253,
+          "width": 199,
+          "height": 179
+        },
+        {
+          "left": 921,
+          "top": 253,
+          "width": 167,
+          "height": 176
+        },
+        {
+          "left": 1137,
+          "top": 256,
+          "width": 160,
+          "height": 172
+        },
+        {
+          "left": 1345,
+          "top": 271,
+          "width": 187,
+          "height": 147
+        },
+        {
+          "left": 1566,
+          "top": 224,
+          "width": 191,
+          "height": 197
+        },
+        {
+          "left": 20,
+          "top": 457,
+          "width": 200,
+          "height": 191
+        },
+        {
+          "left": 224,
+          "top": 460,
+          "width": 192,
+          "height": 186
+        },
+        {
+          "left": 460,
+          "top": 457,
+          "width": 184,
+          "height": 199
+        },
+        {
+          "left": 669,
+          "top": 452,
+          "width": 211,
+          "height": 202
+        },
+        {
+          "left": 901,
+          "top": 464,
+          "width": 206,
+          "height": 192
+        },
+        {
+          "left": 1111,
+          "top": 452,
+          "width": 183,
+          "height": 204
+        },
+        {
+          "left": 1343,
+          "top": 452,
+          "width": 207,
+          "height": 203
+        },
+        {
+          "left": 1554,
+          "top": 462,
+          "width": 206,
+          "height": 188
+        },
+        {
+          "left": 10,
+          "top": 678,
+          "width": 210,
+          "height": 183
+        },
+        {
+          "left": 224,
+          "top": 672,
+          "width": 208,
+          "height": 179
+        },
+        {
+          "left": 462,
+          "top": 678,
+          "width": 189,
+          "height": 176
+        },
+        {
+          "left": 707,
+          "top": 668,
+          "width": 178,
+          "height": 196
+        },
+        {
+          "left": 889,
+          "top": 672,
+          "width": 218,
+          "height": 188
+        },
+        {
+          "left": 1111,
+          "top": 679,
+          "width": 169,
+          "height": 176
+        },
+        {
+          "left": 1392,
+          "top": 679,
+          "width": 111,
+          "height": 176
+        },
+        {
+          "left": 1559,
+          "top": 679,
+          "width": 192,
+          "height": 185
+        }
+      ]
+    },
+    {
+      "race": 2,
+      "kind": "buildings",
+      "file": "res://assets/icons_buildings_2_v060.png",
+      "columns": 4,
+      "rows": 4,
+      "source": "exec-1c81ac7d-8cee-4423-b302-3ee73d859c41.png",
+      "regions": [
+        {
+          "left": 12,
+          "top": 36,
+          "width": 300,
+          "height": 276
+        },
+        {
+          "left": 333,
+          "top": 36,
+          "width": 280,
+          "height": 276
+        },
+        {
+          "left": 701,
+          "top": 21,
+          "width": 168,
+          "height": 291
+        },
+        {
+          "left": 952,
+          "top": 42,
+          "width": 282,
+          "height": 270
+        },
+        {
+          "left": 14,
+          "top": 362,
+          "width": 298,
+          "height": 257
+        },
+        {
+          "left": 316,
+          "top": 316,
+          "width": 301,
+          "height": 309
+        },
+        {
+          "left": 638,
+          "top": 316,
+          "width": 301,
+          "height": 294
+        },
+        {
+          "left": 943,
+          "top": 316,
+          "width": 297,
+          "height": 308
+        },
+        {
+          "left": 17,
+          "top": 646,
+          "width": 295,
+          "height": 286
+        },
+        {
+          "left": 332,
+          "top": 646,
+          "width": 293,
+          "height": 287
+        },
+        {
+          "left": 629,
+          "top": 718,
+          "width": 310,
+          "height": 191
+        },
+        {
+          "left": 943,
+          "top": 654,
+          "width": 290,
+          "height": 281
+        },
+        {
+          "left": 34,
+          "top": 947,
+          "width": 242,
+          "height": 288
+        },
+        {
+          "left": 318,
+          "top": 967,
+          "width": 299,
+          "height": 257
+        },
+        {
+          "left": 658,
+          "top": 952,
+          "width": 248,
+          "height": 276
+        },
+        {
+          "left": 947,
+          "top": 946,
+          "width": 280,
+          "height": 284
+        }
+      ]
+    },
+    {
+      "race": 2,
+      "kind": "units",
+      "file": "res://assets/icons_units_2_v060.png",
+      "columns": 4,
+      "rows": 4,
+      "source": "exec-905e4572-d2aa-4aa3-993d-fafd33d2139d.png",
+      "regions": [
+        {
+          "left": 37,
+          "top": 42,
+          "width": 256,
+          "height": 269
+        },
+        {
+          "left": 341,
+          "top": 29,
+          "width": 256,
+          "height": 283
+        },
+        {
+          "left": 646,
+          "top": 25,
+          "width": 285,
+          "height": 287
+        },
+        {
+          "left": 970,
+          "top": 26,
+          "width": 252,
+          "height": 286
+        },
+        {
+          "left": 33,
+          "top": 321,
+          "width": 238,
+          "height": 304
+        },
+        {
+          "left": 334,
+          "top": 316,
+          "width": 277,
+          "height": 309
+        },
+        {
+          "left": 673,
+          "top": 316,
+          "width": 221,
+          "height": 299
+        },
+        {
+          "left": 959,
+          "top": 334,
+          "width": 266,
+          "height": 291
+        },
+        {
+          "left": 29,
+          "top": 629,
+          "width": 283,
+          "height": 310
+        },
+        {
+          "left": 316,
+          "top": 629,
+          "width": 300,
+          "height": 310
+        },
+        {
+          "left": 635,
+          "top": 639,
+          "width": 304,
+          "height": 300
+        },
+        {
+          "left": 946,
+          "top": 684,
+          "width": 285,
+          "height": 255
+        },
+        {
+          "left": 28,
+          "top": 943,
+          "width": 261,
+          "height": 269
+        },
+        {
+          "left": 324,
+          "top": 943,
+          "width": 293,
+          "height": 273
+        },
+        {
+          "left": 643,
+          "top": 943,
+          "width": 277,
+          "height": 273
+        },
+        {
+          "left": 953,
+          "top": 943,
+          "width": 276,
+          "height": 274
+        }
+      ]
+    }
+  ],
+  "additional_skills": {
+    "sap_heal": {
+      "race": 1,
+      "atlas": "res://assets/sap_support_v060.png",
+      "column": 0,
+      "row": 0
+    },
+    "sap_reclaim": {
+      "race": 1,
+      "atlas": "res://assets/sap_support_v060.png",
+      "column": 1,
+      "row": 0
+    },
+    "sap_bloom": {
+      "race": 1,
+      "atlas": "res://assets/sap_support_v060.png",
+      "column": 2,
+      "row": 0
+    }
+  },
+  "industrial_unit_icons": {
+    "race": 0,
+    "kinds": [
+      9,
+      10,
+      12,
+      15
+    ],
+    "source": "Matching painted industrial unit silhouettes, normalized into 128px slots",
+    "file": "assets/icons_units_0_v060.png"
+  }
+}

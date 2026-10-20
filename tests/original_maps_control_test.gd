@@ -31,6 +31,7 @@ func run() -> void:
 	var c=ACCore.new();c.setup({"map":0,"players":[{"race":1},{"race":0},{"race":2}]})
 	c.units.clear();c.buildings.clear();c.map.resources.clear();c.map.terrain.fill(0);c.map.reset_solids([]);c._sync_resource_obstacles()
 	var caster=c.add_unit(0,8,Vector2(40,40));var victim=c.add_unit(1,6,Vector2(43,40))
+	caster.energy=200;c.players[0].technologies={"mind_control":1}
 	c._recalculate_supply();c._update_vision();var hp=victim.hp;var id=victim.id
 	check(c.command(0,{"type":"ability","ids":[caster.id],"target":id})=="","targeted control accepted")
 	check(victim.owner==0 and victim.race==0 and victim.kind==6 and victim.hp==hp and victim.id==id,"identity and HP preserved, ownership transferred")
@@ -43,7 +44,7 @@ func run() -> void:
 	caster.ability_cd=0;check(c._mind_control(caster,second.id)!="" and caster.energy==0,"energy rejects")
 	caster.energy=200
 	for scenario in ["ally","far","fog","dead","loaded","passengers","building","cloaked"]:
-		var target=c.add_unit(1,1,Vector2(42,40));c._update_vision()
+		var target=c.add_unit(1,1,Vector2(42,40));c.vision_signatures.clear();c._update_vision()
 		if scenario=="ally":target.owner=0
 		if scenario=="far":target.pos=[60,40]
 		if scenario=="fog":c.visibility[0].fill(0)
@@ -53,7 +54,7 @@ func run() -> void:
 		if scenario=="building":target=c.add_building(1,2,Vector2(42,40),true)
 		if scenario=="cloaked":target=c.add_unit(2,10,Vector2(42,40))
 		check(c._mind_control(caster,target.id)!="" and caster.energy==200,"invalid target no cost "+scenario)
-	c._update_vision();caster.energy=200;caster.ability_cd=0
+	c.vision_signatures.clear();c._update_vision();caster.energy=200;caster.ability_cd=0
 	var worker=c.add_unit(1,0,Vector2(42,41));worker.build_queue=[{"kind":2,"pos":[50,50]}];worker.build_plan={"kind":2,"pos":[50,50]}
 	check(c._mind_control(caster,worker.id)=="" and worker.build_queue.is_empty() and not worker.has("build_plan"),"captured worker clears old construction")
 	check(c._start_construction(worker,2,Vector2(50,50))!="","foreign worker cannot build wrong faction structures")

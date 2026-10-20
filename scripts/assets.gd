@@ -30,8 +30,11 @@ var motion_regions: Dictionary={}
 var asset_regions: Dictionary={}
 var building_revision: Dictionary={}
 var _atlas_sources: Array=[]
+var v060_units: Dictionary={}
+var v060_effects: Dictionary={}
 
 func load_all() -> void:
+	_load_v060()
 	unit_frames.clear()
 	motion_frames.clear()
 	propulsion_frames.clear()
@@ -81,6 +84,9 @@ func load_all() -> void:
 	if FileAccess.file_exists("res://data/graphics_repairs_v05.json"):
 		graphics_repairs=JSON.parse_string(FileAccess.get_file_as_string("res://data/graphics_repairs_v05.json"))
 		motion_regions.units.merge(graphics_repairs.get("motions",{}),true)
+	if FileAccess.file_exists("res://data/motion_expansion_v060.json"):
+		var expanded=JSON.parse_string(FileAccess.get_file_as_string("res://data/motion_expansion_v060.json"))
+		motion_regions.units.merge(expanded.units,true)
 	if FileAccess.file_exists("res://data/asset_regions.json"):
 		asset_regions=JSON.parse_string(FileAccess.get_file_as_string("res://data/asset_regions.json"))
 	if FileAccess.file_exists("res://data/building_regions_v3.json"):
@@ -156,18 +162,21 @@ func load_all() -> void:
 
 func _load_citrus_bat() -> void:
 	var path="res://assets/citrus_bat_leaf_v059.png"
+	var expanded=ResourceLoader.exists("res://assets/citrus_bat_motion_v060.png")
+	if expanded:path="res://assets/citrus_bat_motion_v060.png"
 	if not ResourceLoader.exists(path):return
 	var source: Texture2D=load(path)
-	var cell=source.get_size()/Vector2(5,2)
+	var phases=8 if expanded else 2
+	var cell=source.get_size()/Vector2(5,phases)
 	var frames=[]
-	for row in range(2):
+	for row in range(phases):
 		for col in range(5):
 			var texture=AtlasTexture.new();texture.atlas=source
 			texture.region=Rect2(Vector2(col,row)*cell,cell)
 			# Register head/body pivots between raised and lowered wings.
-			var shift=[Vector2(-1,-95.5),Vector2(35,-86.5),Vector2(-8,-109.5),Vector2(4,-131.5),Vector2(0,-115.5)][col] if row==1 else Vector2.ZERO
-			frames.append({"texture":texture,"anchor":cell*.5+shift,"scale_hint":cell.x*.84,"embedded_pilot":true,"cell_size":cell})
-	directional_air["1:10"]={"frames":frames,"columns":5,"phases":2,"direction_flips":[false,false,false,false,false]}
+			var shift=[Vector2(-1,-95.5),Vector2(35,-86.5),Vector2(-8,-109.5),Vector2(4,-131.5),Vector2(0,-115.5)][col] if row==1 and not expanded else Vector2.ZERO
+			frames.append({"texture":texture,"anchor":cell*.5+shift,"scale_hint":224 if expanded else cell.x*.84,"embedded_pilot":true,"cell_size":cell})
+	directional_air["1:10"]={"frames":frames,"columns":5,"phases":phases,"fps":12 if expanded else 5,"direction_flips":[false,false,false,false,false]}
 
 func _load_graphics_v052() -> void:
 	if not FileAccess.file_exists("res://data/graphics_v052.json"):return
@@ -265,6 +274,7 @@ func _load_auxiliary_sprites() -> void:
 
 func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vector2) -> Dictionary:
 	var key="%d:%d"%[race,kind]
+	if key=="0:12" and v060_units.has(key):return {}
 	if not vehicle_frames.has(key):return {}
 	var directions=(vehicle_frames[key].size()-1)*2
 	var body_index=ACData.sprite_direction(body_direction,directions)
@@ -364,6 +374,9 @@ func _load_motions(race: int) -> void:
 			continue
 		var info=motion_regions.units[key]
 		var file=String(info.file)
+		var recolor="res://assets/citrus_palette_v060/r1_u%02d.png"%kind
+		if race==1 and ResourceLoader.exists(recolor):file=recolor
+		if key=="0:4" and not info.has("packed_root") and ResourceLoader.exists("res://assets/medic_registered_v060.png"):file="res://assets/medic_registered_v060.png"
 		if not ResourceLoader.exists(file):
 			continue
 		var source: Texture2D=load(file)
@@ -444,12 +457,23 @@ func _trim(source: Image, region: Rect2i, excluded: Array=[]) -> Texture2D:
 # action: idle, move/walk, attack, harvest/gather. clock is action elapsed seconds.
 func unit(race: int, kind: int, direction: Vector2, action: String="idle", clock: float=0.0) -> Dictionary:
 	var key="%d:%d"%[race,kind]
+	if v060_units.has(key):
+		var index=ACData.sprite_direction(direction,8)
+		var phase=posmod(int(clock*12),8) if action in ["walk","move","attack"] or ACData.unit(race,kind).air else 0
+		var frame: Dictionary=v060_units[key][int(index.column)*8+phase].duplicate()
+		frame.flip=bool(index.flip);frame.rotation=0.0;frame.frame=phase;frame.action=action
+		# The painted diagonal-down flamer row faces southwest. Canonical
+		# half-sheets require southeast before mirroring the western headings.
+		if key=="0:13" and int(index.column)==3:
+			frame.flip=not frame.flip
+			frame.source_mirror=true
+		return frame
 	if action=="attack" and repaired_fire.has(key):return fire_pose(race,kind,direction,clock)
 	if key=="0:8" and not drone_parts.is_empty():return drone(direction,clock).hull
 	if directional_air.has(key):
 		var info: Dictionary=directional_air[key]
 		var index=ACData.sprite_direction(direction,(int(info.columns)-1)*2)
-		var phase=posmod(int(clock*5),int(info.phases))
+		var phase=posmod(int(clock*float(info.get("fps",5))),int(info.phases))
 		var frame: Dictionary=info.frames[phase*int(info.columns)+int(index.column)].duplicate()
 		frame.flip=bool(index.flip)!=bool(info.direction_flips[int(index.column)]);frame.rotation=0.0;frame.frame=phase;frame.action=action
 		return frame
@@ -487,8 +511,13 @@ func unit(race: int, kind: int, direction: Vector2, action: String="idle", clock
 		var tick=maxi(0,int(floor(clock*fps)))
 		var row=int(rows[mini(tick,rows.size()-1) if action=="attack" else tick%rows.size()])
 		var index=ACData.sprite_direction(direction,(animations[0].size()-1)*2)
+		# Legacy back-facing spit frames had been painted as front-facing attacks.
+		# Keep the correct rear silhouette and let the registered projectile animate.
+		if key=="1:2" and action=="attack" and int(index.column)<=2:row=0
 		var frame=animations[mini(row,animations.size()-1)][int(index.column)].duplicate()
 		frame.flip=index.flip
+		var source_mirror=(key=="1:7" and action=="attack" and int(index.column) in [1,2,3,4,5,6]) or (key=="1:8" and action=="attack" and int(index.column) in [1,2]) or (key=="1:6" and int(index.column) in [1,2,3,4,5])
+		if source_mirror:frame.flip=not frame.flip;frame.source_mirror=true
 		frame.action=action
 		frame.frame=row
 		return frame
@@ -503,11 +532,105 @@ func unit(race: int, kind: int, direction: Vector2, action: String="idle", clock
 	frame.frame=0
 	return frame
 
+func _load_v060() -> void:
+	if ResourceLoader.exists("res://assets/rubble_v060.png"):
+		var source: Texture2D=load("res://assets/rubble_v060.png");var cell=source.get_size()/Vector2(6,3)
+		for race in range(3):
+			var frames=[]
+			for kind in range(6):
+				var texture=AtlasTexture.new();texture.atlas=source;texture.region=Rect2(Vector2(kind,race)*cell,cell);texture.filter_clip=true;frames.append(texture)
+			v060_effects["rubble_%d"%race]=frames
+	for item in [["nuclear",4,2],["warhead",8,2]]:
+		var path="res://assets/%s_v060.png"%item[0]
+		if item[0]=="nuclear" and ResourceLoader.exists("res://assets/nuclear32_v060.png"):path="res://assets/nuclear32_v060.png";item[2]=8
+		if not ResourceLoader.exists(path):continue
+		var source: Texture2D=load(path);var cell=source.get_size()/Vector2(item[1],item[2]);var frames=[]
+		for index in range(int(item[1])*int(item[2])):
+			var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+			texture.region=Rect2(Vector2(index%int(item[1]),index/int(item[1]))*cell,cell);frames.append(texture)
+		v060_effects["nuclear_cloud" if item[0]=="nuclear" else "warhead"]=frames
+	for item in [[0,13,"flamer"],[0,14,"carrier"],[0,15,"drone"],[2,13,"chaser"]]:
+		var path="res://assets/%s_v060.png"%item[2]
+		var registered="res://assets/registered_v060/%s.png"%item[2]
+		var packed=ResourceLoader.exists(registered)
+		if packed:path=registered
+		if not ResourceLoader.exists(path):continue
+		var source: Texture2D=load(path);var cell=source.get_size()/Vector2(8,5);var frames=[]
+		for direction in range(5):
+			for phase in range(8):
+				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+				texture.region=Rect2(Vector2(phase,direction)*cell,cell)
+				var airborne=ACData.unit(int(item[0]),int(item[1])).air
+				frames.append({"texture":texture,"anchor":cell*Vector2(.5,(.5 if airborne else .875) if packed else (.5 if airborne else .79)),"scale_hint":224.0 if packed else cell.x*.82,"cell_size":cell})
+		v060_units["%d:%d"%[item[0],item[1]]]=frames
+	if FileAccess.file_exists("res://data/industrial_units_v060.json"):
+		var industrial=JSON.parse_string(FileAccess.get_file_as_string("res://data/industrial_units_v060.json"))
+		for key in industrial.units:
+			var info: Dictionary=industrial.units[key]
+			var source: Texture2D=load(str(info.file));var frames=[]
+			for entry in info.frames:
+				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+				texture.region=Rect2(Vector2(int(entry.phase),int(entry.heading))*256,Vector2(256,256))
+				frames.append({"texture":texture,"anchor":ACData.point(info.anchor),"scale_hint":224.0,"cell_size":Vector2(256,256),"embedded_pilot":true,"industrial":true,"sprite_bounds":Rect2(entry.draw[0],entry.draw[1],entry.draw[2],entry.draw[3])})
+			v060_units[str(key)]=frames
+	var catalogs={
+		"skills_hyrax":["stim","smoke","nuclear","scan","overcharge","field_repair"],
+		"skills_citrus":["neural","mind_control","shed","sap_cycle","sap_inject","carapace","scatter","root_surge"],
+		"skills_owl":["judgment","silence","bind","discipline","march","barrier","purify","shockwave","pierce","verdict"],
+		"death":["juice","blood","explosion","blue_flame"]}
+	for key in catalogs:
+		var path="res://assets/%s_v060.png"%key
+		if not ResourceLoader.exists(path):continue
+		var source: Texture2D=load(path);var cell=source.get_size()/Vector2(8,catalogs[key].size())
+		for row in range(catalogs[key].size()):
+			var frames=[]
+			for phase in range(8):
+				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+				texture.region=Rect2(Vector2(phase,row)*cell,cell);frames.append(texture)
+			v060_effects[catalogs[key][row]]=frames
+	var support_path="res://assets/sap_support_v060.png"
+	if ResourceLoader.exists(support_path):
+		var source: Texture2D=load(support_path);var cell=source.get_size()/Vector2(8,4)
+		var keys=["sap_heal","sap_reclaim","sap_bloom"]
+		for row in range(keys.size()):
+			var frames=[]
+			for phase in range(8):
+				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+				texture.region=Rect2(Vector2(phase,row+1)*cell,cell);frames.append(texture)
+			v060_effects[keys[row]]=frames
+	for sheet in ["projectiles","impacts"]:
+		var path="res://assets/weapon_%s_v060.png"%sheet
+		if not ResourceLoader.exists(path):continue
+		var source: Texture2D=load(path);var cell=source.get_size()/Vector2(8,8)
+		var keys=["bullet","shell","missile","acid","seed","thorn","plasma","bolt"] if sheet=="projectiles" else ["claw","slash","bash","spark","flame","vine","beam","explosion"]
+		for row in range(keys.size()):
+			var frames=[]
+			for phase in range(8):
+				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+				texture.region=Rect2(Vector2(phase,row)*cell,cell);frames.append(texture)
+			v060_effects["weapon_"+keys[row]]=frames
+
+func skill_texture(key: String,progress: float) -> Texture2D:
+	if not v060_effects.has(key):return null
+	var frames: Array=v060_effects[key]
+	return frames[clampi(int(progress*frames.size()),0,frames.size()-1)]
+
+func warhead_texture(descending: bool,progress: float) -> Texture2D:
+	if not v060_effects.has("warhead"):return null
+	return v060_effects.warhead[(8 if descending else 0)+posmod(int(progress*32),8)]
+
+func rubble_texture(race: int,kind: int) -> Texture2D:
+	var key="rubble_%d"%race
+	if not v060_effects.has(key):return null
+	var variant=kind if kind<=2 else 3 if kind<=5 else 4 if kind<=10 else 5
+	return v060_effects[key][variant]
+
 func building(race: int, kind: int) -> Texture2D:
 	return building_frames.get("%d:%d"%[race,kind])
 
 func fire_pose(race: int,kind: int,direction: Vector2,clock: float=0.0) -> Dictionary:
 	var key="%d:%d"%[race,kind]
+	if v060_units.has(key):return {}
 	if not repaired_fire.has(key):return {}
 	var index=ACData.sprite_direction(direction,8)
 	var frame: Dictionary=repaired_fire[key][int(index.column)].duplicate()

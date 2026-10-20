@@ -1,0 +1,37 @@
+v0.6.0 industrial redesign production notes
+Generator: built-in ImageGen. Existing generated originals are retained.
+Runtime atlas: 256×256 fixed cells, 8 phases across, canonical N/NE/E/SE/S down.
+Western views use horizontal mirroring. No flat rotation is used for the painted hulls.
+
+Shared brief: rugged angular military-industrial RTS vehicles; mustard yellow armor,
+charcoal steel, cyan optics, high fixed RTS camera; transparent cutouts, whole body
+inside clean gutters. Interceptor: long narrow twin fork. Bomber: broad rectangular
+body, two orange rocket pods, three rear engines. Drone: compact round segmented
+ring, one cyan front sensor and twin rear engines. Fortress: six short mechanical
+legs, cyan glass dome, rear engine stack, three long cannon barrels.
+
+Direction repairs: interceptor N/S with nose tips respectively top/bottom;
+bomber S/SE with cockpit bottom/bottom-right and rear engines top/top-left;
+drone N/NE with rear engine outlets bottom/bottom-left and front sensor away;
+fortress S/SE with long cannon barrels down/down-right and visible open muzzles.
+Fortress down-facing gait: alternating tripod leg steps with stable hull/cannon.
+The south view uses seven generated gait poses plus a separately painted neutral
+pose to form eight phases. Other views use eight distinct painted gait poses.
+N/NE/E/SE were subsequently rebuilt as separate 2-column by 4-row eight-pose strips,
+using the verified three-cannon master. Exactly three long tubes remain visible
+in every phase. NE is the actual rear/top view pointing away toward upper-right;
+E points right and SE points down-right. Three independent cannon sockets fire
+in sequence. Previous inconsistent twin-barrel strips were rejected.
+The north view shows the physical rear: engines near the viewer and three cannon
+tubes on the far side pointing up. Final registration uses the lower chassis/feet
+span (200px) instead of including barrel length in body scale. Connected sprite
+components isolate adjacent cells, leaving at least eight pixels of clear gutter.
+Aircraft: rigid painted hull views with the existing eight-phase propulsion animation.
+
+Drone portrait: one 4:5 close front three-quarter portrait, full cyan sensor visible,
+same segmented round yellow industrial drone, warm defocused factory hangar filling
+the background, no text or empty margin.
+
+Applied source identities and registration rectangles/checksums are recorded in
+data/industrial_units_v060.json. Technical scripts register and pack painted views;
+they do not paint substitute hulls. Related production icons use the same hull art.

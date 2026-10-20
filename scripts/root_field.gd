@@ -7,8 +7,10 @@ const RADIUS=13.0
 const SEED_RADIUS=3.0
 const SPEED=.9
 const FADE_TIME=.55
+const WITHER_TIME=1.2
 const DIRECTIONS=[Vector2i(1,0),Vector2i(-1,0),Vector2i(0,1),Vector2i(0,-1),Vector2i(1,1),Vector2i(-1,1),Vector2i(1,-1),Vector2i(-1,-1)]
 var sources={}
+var retiring={}
 var coverage={}
 var memories={}
 var current={}
@@ -85,9 +87,9 @@ func update(core) -> void:
 		var mature=true
 		for source in sources.values():
 			if float(last_tick)/4.0<float(source.started)+(RADIUS-SEED_RADIUS)/SPEED+.25+FADE_TIME:mature=false;break
-		if mature:last_tick=tick;return
+		if mature and retiring.is_empty():last_tick=tick;return
 	if geometry!=geometry_signature:
-		geometry_signature=geometry;sources.clear();allowed.resize(WIDTH*WIDTH)
+		geometry_signature=geometry;sources.clear();retiring.clear();allowed.resize(WIDTH*WIDTH)
 		for y in range(WIDTH):
 			for x in range(WIDTH):allowed[y*WIDTH+x]=int(terrain_allows(core.map,Vector2i(x,y)))
 	source_signature=signature;last_tick=tick
@@ -97,14 +99,21 @@ func update(core) -> void:
 		if not sources.has(key):
 			sources[key]={"owner":int(building.owner),"started":core.time,"distances":_distances(core.map,building,core.center(building))}
 		kept[key]=sources[key]
+	for key in sources:
+		if kept.has(key):continue
+		var source=sources[key];var cells={};var last_born=-INF
+		for index in source.distances:
+			var born=_born(source,index)
+			if born>core.time:continue
+			cells[index]=[born,clampf((core.time-born)/FADE_TIME,0,1)]
+			last_born=maxf(last_born,born)
+		retiring[key]={"owner":source.owner,"died":core.time,"last_born":last_born,"cells":cells}
 	sources=kept;coverage.clear();current.clear()
 	for source in sources.values():
 		var owner=int(source.owner)
 		if not coverage.has(owner):coverage[owner]={}
 		for index in source.distances:
-			var distance=float(source.distances[index])/20.0
-			var jitter=float(posmod(index*173+owner*31,17))*.012
-			var born=float(source.started)+maxf(0,(distance-SEED_RADIUS)/SPEED)+(jitter if distance>SEED_RADIUS else -.55)
+			var born=_born(source,index)
 			if born>core.time:continue
 			coverage[owner][index]=minf(float(coverage[owner].get(index,INF)),born)
 	for owner in coverage:
@@ -112,7 +121,26 @@ func update(core) -> void:
 			var maturity=clampi(roundi((core.time-coverage[owner][index])/FADE_TIME*255),1,255)
 			var packed=int(index)|(int(owner)<<16)|(maturity<<18)
 			if not current.has(index) or maturity>int(current[index])>>18:current[index]=packed
+	# Visual residue has no construction authority. Freeze the reached cells at
+	# death and retract in reverse birth order; unseen changes stay in fog memory.
+	for key in retiring.keys():
+		var source=retiring[key];var remains=false
+		for index in source.cells:
+			var cell=source.cells[index]
+			var starts=float(source.died)+float(source.last_born)-float(cell[0])
+			var alpha=float(cell[1])*(1.0-clampf((core.time-starts)/WITHER_TIME,0,1))
+			var maturity=roundi(alpha*255)
+			if maturity<=0:continue
+			remains=true
+			var packed=int(index)|(int(source.owner)<<16)|(maturity<<18)
+			if not current.has(index) or maturity>int(current[index])>>18:current[index]=packed
+		if not remains:retiring.erase(key)
 	revision+=1
+
+func _born(source: Dictionary,index: int) -> float:
+	var distance=float(source.distances[index])/20.0
+	var jitter=float(posmod(index*173+int(source.owner)*31,17))*.012
+	return float(source.started)+maxf(0,(distance-SEED_RADIUS)/SPEED)+(jitter if distance>SEED_RADIUS else -.55)
 
 func contains(core, owner: int, point: Vector2) -> bool:
 	update(core)

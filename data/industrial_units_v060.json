@@ -1,0 +1,2834 @@
+{
+  "schema": 1,
+  "cell": [
+    256,
+    256
+  ],
+  "columns": 8,
+  "rows": 5,
+  "headings": [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S"
+  ],
+  "generator": "Built-in ImageGen; technical alpha registration and atlas packing only",
+  "brief": "Distinct rugged angular mustard-yellow and charcoal military designs, cyan instruments. True front/rear views and down-pointing triple cannon. Eight walking phases; aircraft rigid hull plus eight animated propulsion phases.",
+  "units": {
+    "0:9": {
+      "name": "interceptor",
+      "file": "res://assets/registered_v060/interceptor_industrial.png",
+      "anchor": [
+        128,
+        128
+      ],
+      "scale_hint": 224,
+      "rigid_hull": true,
+      "propulsion_phases": 8,
+      "walking_phases": 0,
+      "frames": [
+        {
+          "heading": 0,
+          "phase": 0,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 1,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 2,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 3,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 4,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 5,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 6,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 7,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 437,
+            "top": 20,
+            "width": 417,
+            "height": 715
+          },
+          "draw": [
+            63,
+            16,
+            131,
+            224
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 0,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 1,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 2,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 3,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 4,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 5,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 6,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 7,
+          "source": "interceptor",
+          "rect": {
+            "left": 201,
+            "top": 13,
+            "width": 167,
+            "height": 139
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            186
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 0,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 1,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 2,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 3,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 4,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 5,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 6,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 7,
+          "source": "interceptor",
+          "rect": {
+            "left": 397,
+            "top": 42,
+            "width": 181,
+            "height": 95
+          },
+          "draw": [
+            16,
+            69,
+            224,
+            118
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 0,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 1,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 2,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 3,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 4,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 5,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 6,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 7,
+          "source": "interceptor",
+          "rect": {
+            "left": 615,
+            "top": 15,
+            "width": 179,
+            "height": 147
+          },
+          "draw": [
+            16,
+            36,
+            224,
+            184
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 0,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 1,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 2,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 3,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 4,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 5,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 6,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 7,
+          "source": "interceptor_pair",
+          "rect": {
+            "left": 968,
+            "top": 128,
+            "width": 354,
+            "height": 692
+          },
+          "draw": [
+            71,
+            16,
+            115,
+            224
+          ]
+        }
+      ]
+    },
+    "0:10": {
+      "name": "bomber",
+      "file": "res://assets/registered_v060/bomber_industrial.png",
+      "anchor": [
+        128,
+        128
+      ],
+      "scale_hint": 224,
+      "rigid_hull": true,
+      "propulsion_phases": 8,
+      "walking_phases": 0,
+      "frames": [
+        {
+          "heading": 0,
+          "phase": 0,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 1,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 2,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 3,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 4,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 5,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 6,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 7,
+          "source": "bomber",
+          "rect": {
+            "left": 23,
+            "top": 20,
+            "width": 168,
+            "height": 151
+          },
+          "draw": [
+            16,
+            28,
+            224,
+            201
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 0,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 1,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 2,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 3,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 4,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 5,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 6,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 7,
+          "source": "bomber",
+          "rect": {
+            "left": 595,
+            "top": 32,
+            "width": 176,
+            "height": 142
+          },
+          "draw": [
+            16,
+            38,
+            224,
+            181
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 0,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 1,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 2,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 3,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 4,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 5,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 6,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 7,
+          "source": "bomber",
+          "rect": {
+            "left": 428,
+            "top": 45,
+            "width": 148,
+            "height": 120
+          },
+          "draw": [
+            16,
+            37,
+            224,
+            182
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 0,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 1,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 2,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 3,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 4,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 5,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 6,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 7,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 1134,
+            "top": 96,
+            "width": 760,
+            "height": 634
+          },
+          "draw": [
+            16,
+            35,
+            224,
+            187
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 0,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 1,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 2,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 3,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 4,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 5,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 6,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 7,
+          "source": "bomber_pair",
+          "rect": {
+            "left": 102,
+            "top": 63,
+            "width": 743,
+            "height": 681
+          },
+          "draw": [
+            16,
+            26,
+            224,
+            205
+          ]
+        }
+      ]
+    },
+    "0:12": {
+      "name": "fortress",
+      "file": "res://assets/registered_v060/fortress_industrial.png",
+      "anchor": [
+        128,
+        224
+      ],
+      "scale_hint": 224,
+      "rigid_hull": false,
+      "propulsion_phases": 0,
+      "walking_phases": 8,
+      "frames": [
+        {
+          "heading": 0,
+          "phase": 0,
+          "source": "fortress_N",
+          "rect": {
+            "left": 106,
+            "top": 20,
+            "width": 367,
+            "height": 346
+          },
+          "draw": [
+            28,
+            35,
+            200,
+            189
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 1,
+          "source": "fortress_N",
+          "rect": {
+            "left": 574,
+            "top": 25,
+            "width": 357,
+            "height": 354
+          },
+          "draw": [
+            31,
+            31,
+            195,
+            193
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 2,
+          "source": "fortress_N",
+          "rect": {
+            "left": 104,
+            "top": 392,
+            "width": 363,
+            "height": 361
+          },
+          "draw": [
+            29,
+            27,
+            198,
+            197
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 3,
+          "source": "fortress_N",
+          "rect": {
+            "left": 565,
+            "top": 394,
+            "width": 355,
+            "height": 352
+          },
+          "draw": [
+            32,
+            32,
+            193,
+            192
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 4,
+          "source": "fortress_N",
+          "rect": {
+            "left": 111,
+            "top": 761,
+            "width": 373,
+            "height": 370
+          },
+          "draw": [
+            27,
+            22,
+            203,
+            202
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 5,
+          "source": "fortress_N",
+          "rect": {
+            "left": 576,
+            "top": 764,
+            "width": 357,
+            "height": 353
+          },
+          "draw": [
+            31,
+            32,
+            195,
+            192
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 6,
+          "source": "fortress_N",
+          "rect": {
+            "left": 103,
+            "top": 1137,
+            "width": 371,
+            "height": 355
+          },
+          "draw": [
+            27,
+            31,
+            202,
+            193
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 7,
+          "source": "fortress_N",
+          "rect": {
+            "left": 568,
+            "top": 1140,
+            "width": 370,
+            "height": 349
+          },
+          "draw": [
+            27,
+            34,
+            202,
+            190
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 0,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 62,
+            "top": 7,
+            "width": 474,
+            "height": 343
+          },
+          "draw": [
+            24,
+            74,
+            208,
+            150
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 1,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 608,
+            "top": 9,
+            "width": 466,
+            "height": 338
+          },
+          "draw": [
+            26,
+            76,
+            204,
+            148
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 2,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 68,
+            "top": 346,
+            "width": 476,
+            "height": 322
+          },
+          "draw": [
+            24,
+            83,
+            209,
+            141
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 3,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 604,
+            "top": 335,
+            "width": 492,
+            "height": 346
+          },
+          "draw": [
+            20,
+            72,
+            216,
+            152
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 4,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 66,
+            "top": 685,
+            "width": 477,
+            "height": 345
+          },
+          "draw": [
+            24,
+            73,
+            209,
+            151
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 5,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 605,
+            "top": 681,
+            "width": 494,
+            "height": 327
+          },
+          "draw": [
+            20,
+            81,
+            217,
+            143
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 6,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 65,
+            "top": 1015,
+            "width": 476,
+            "height": 341
+          },
+          "draw": [
+            24,
+            74,
+            209,
+            150
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 7,
+          "source": "fortress_NE",
+          "rect": {
+            "left": 614,
+            "top": 1008,
+            "width": 476,
+            "height": 345
+          },
+          "draw": [
+            24,
+            73,
+            209,
+            151
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 0,
+          "source": "fortress_E",
+          "rect": {
+            "left": 112,
+            "top": 6,
+            "width": 522,
+            "height": 283
+          },
+          "draw": [
+            18,
+            104,
+            221,
+            120
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 1,
+          "source": "fortress_E",
+          "rect": {
+            "left": 768,
+            "top": 8,
+            "width": 517,
+            "height": 276
+          },
+          "draw": [
+            19,
+            107,
+            219,
+            117
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 2,
+          "source": "fortress_E",
+          "rect": {
+            "left": 91,
+            "top": 279,
+            "width": 550,
+            "height": 283
+          },
+          "draw": [
+            12,
+            104,
+            233,
+            120
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 3,
+          "source": "fortress_E",
+          "rect": {
+            "left": 783,
+            "top": 280,
+            "width": 508,
+            "height": 293
+          },
+          "draw": [
+            21,
+            100,
+            215,
+            124
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 4,
+          "source": "fortress_E",
+          "rect": {
+            "left": 120,
+            "top": 559,
+            "width": 522,
+            "height": 279
+          },
+          "draw": [
+            18,
+            106,
+            221,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 5,
+          "source": "fortress_E",
+          "rect": {
+            "left": 768,
+            "top": 561,
+            "width": 540,
+            "height": 279
+          },
+          "draw": [
+            14,
+            106,
+            229,
+            118
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 6,
+          "source": "fortress_E",
+          "rect": {
+            "left": 96,
+            "top": 826,
+            "width": 545,
+            "height": 284
+          },
+          "draw": [
+            13,
+            104,
+            231,
+            120
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 7,
+          "source": "fortress_E",
+          "rect": {
+            "left": 760,
+            "top": 830,
+            "width": 547,
+            "height": 284
+          },
+          "draw": [
+            12,
+            104,
+            232,
+            120
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 0,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 51,
+            "top": 22,
+            "width": 458,
+            "height": 348
+          },
+          "draw": [
+            26,
+            69,
+            204,
+            155
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 1,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 536,
+            "top": 16,
+            "width": 460,
+            "height": 356
+          },
+          "draw": [
+            26,
+            66,
+            204,
+            158
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 2,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 46,
+            "top": 383,
+            "width": 463,
+            "height": 366
+          },
+          "draw": [
+            25,
+            61,
+            206,
+            163
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 3,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 526,
+            "top": 385,
+            "width": 472,
+            "height": 360
+          },
+          "draw": [
+            23,
+            64,
+            210,
+            160
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 4,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 36,
+            "top": 757,
+            "width": 477,
+            "height": 357
+          },
+          "draw": [
+            22,
+            65,
+            212,
+            159
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 5,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 527,
+            "top": 752,
+            "width": 470,
+            "height": 367
+          },
+          "draw": [
+            24,
+            61,
+            209,
+            163
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 6,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 28,
+            "top": 1136,
+            "width": 487,
+            "height": 360
+          },
+          "draw": [
+            20,
+            64,
+            216,
+            160
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 7,
+          "source": "fortress_SE",
+          "rect": {
+            "left": 522,
+            "top": 1135,
+            "width": 487,
+            "height": 374
+          },
+          "draw": [
+            20,
+            58,
+            216,
+            166
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 0,
+          "source": "fortress_pair",
+          "rect": {
+            "left": 25,
+            "top": 15,
+            "width": 917,
+            "height": 692
+          },
+          "draw": [
+            28,
+            73,
+            200,
+            151
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 1,
+          "source": "fortress_gait",
+          "rect": {
+            "left": 174,
+            "top": 4,
+            "width": 290,
+            "height": 214
+          },
+          "draw": [
+            28,
+            76,
+            200,
+            148
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 2,
+          "source": "fortress_gait",
+          "rect": {
+            "left": 170,
+            "top": 215,
+            "width": 290,
+            "height": 210
+          },
+          "draw": [
+            28,
+            79,
+            200,
+            145
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 3,
+          "source": "fortress_gait",
+          "rect": {
+            "left": 174,
+            "top": 417,
+            "width": 293,
+            "height": 209
+          },
+          "draw": [
+            27,
+            80,
+            202,
+            144
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 4,
+          "source": "fortress_gait",
+          "rect": {
+            "left": 159,
+            "top": 623,
+            "width": 303,
+            "height": 214
+          },
+          "draw": [
+            24,
+            76,
+            209,
+            148
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 5,
+          "source": "fortress_gait",
+          "rect": {
+            "left": 167,
+            "top": 830,
+            "width": 306,
+            "height": 212
+          },
+          "draw": [
+            23,
+            78,
+            211,
+            146
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 6,
+          "source": "fortress_gait",
+          "rect": {
+            "left": 168,
+            "top": 1037,
+            "width": 298,
+            "height": 215
+          },
+          "draw": [
+            25,
+            76,
+            206,
+            148
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 7,
+          "source": "fortress_gait",
+          "rect": {
+            "left": 169,
+            "top": 1245,
+            "width": 298,
+            "height": 212
+          },
+          "draw": [
+            25,
+            78,
+            206,
+            146
+          ]
+        }
+      ]
+    },
+    "0:15": {
+      "name": "drone",
+      "file": "res://assets/registered_v060/drone_industrial.png",
+      "anchor": [
+        128,
+        128
+      ],
+      "scale_hint": 224,
+      "rigid_hull": true,
+      "propulsion_phases": 8,
+      "walking_phases": 0,
+      "frames": [
+        {
+          "heading": 0,
+          "phase": 0,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 1,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 2,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 3,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 4,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 5,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 6,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 0,
+          "phase": 7,
+          "source": "drone_pair",
+          "rect": {
+            "left": 161,
+            "top": 107,
+            "width": 638,
+            "height": 689
+          },
+          "draw": [
+            25,
+            16,
+            207,
+            224
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 0,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 1,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 2,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 3,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 4,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 5,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 6,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 1,
+          "phase": 7,
+          "source": "drone_pair",
+          "rect": {
+            "left": 981,
+            "top": 160,
+            "width": 690,
+            "height": 604
+          },
+          "draw": [
+            16,
+            30,
+            224,
+            196
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 0,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 1,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 2,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 3,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 4,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 5,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 6,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 2,
+          "phase": 7,
+          "source": "drone",
+          "rect": {
+            "left": 424,
+            "top": 37,
+            "width": 158,
+            "height": 118
+          },
+          "draw": [
+            16,
+            45,
+            224,
+            167
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 0,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 1,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 2,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 3,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 4,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 5,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 6,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 3,
+          "phase": 7,
+          "source": "drone",
+          "rect": {
+            "left": 231,
+            "top": 22,
+            "width": 149,
+            "height": 147
+          },
+          "draw": [
+            16,
+            18,
+            224,
+            221
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 0,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 1,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 2,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 3,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 4,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 5,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 6,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        },
+        {
+          "heading": 4,
+          "phase": 7,
+          "source": "drone",
+          "rect": {
+            "left": 33,
+            "top": 26,
+            "width": 145,
+            "height": 150
+          },
+          "draw": [
+            20,
+            16,
+            217,
+            224
+          ]
+        }
+      ]
+    }
+  },
+  "sources": {
+    "interceptor_pair": {
+      "sha256": "8a21ede77cd26ccbeb46970f176fcfd8a3f3a02d96a7896a83f12404405b1c27"
+    },
+    "interceptor": {
+      "sha256": "497c52dd80c3bb0041dd466ad1519a3a72a0ec318fe5f61552357a36e2a59fdd"
+    },
+    "bomber": {
+      "sha256": "5079bc534967359f510080b7780ff5f43ed6dfce47e8d25b8a22718977c0b102"
+    },
+    "bomber_pair": {
+      "sha256": "b02d7097d198debd94f8d46d4f3a4370afba6a1306c0444302090b3fb8194512"
+    },
+    "fortress_N": {
+      "sha256": "b89f8cdcd8e1986d71ccbaee06fab28a071d168fd619bc259a3a89e41c5a8c6f"
+    },
+    "fortress_NE": {
+      "sha256": "3fb707b8a8e84674e30e8935cb9bce649323d3c81444c17f26e314ddc8d14d4d"
+    },
+    "fortress_E": {
+      "sha256": "e3be6dbddd4c4aae5412f57d1486c70baceb81efe910d72d3f5720e611ebcb68"
+    },
+    "fortress_SE": {
+      "sha256": "a0775142c6095be362adddcc1a01e8e06843af746ccd2d7086a4f0f77b10d4e1"
+    },
+    "fortress_pair": {
+      "sha256": "329769a33af9d67642ff52e603cafd8174a3e0680c35bd18b644a798fecd8d9e"
+    },
+    "fortress_gait": {
+      "sha256": "adf0711bfa23ff3ef9133ee9c36b8cef39703d6b1c275917cbab42402fc516a0"
+    },
+    "drone_pair": {
+      "sha256": "3881f6f08226c1a8644df0fdc11e39eb33e53231e7d6960b0340cc4b9acf88bb"
+    },
+    "drone": {
+      "sha256": "2b2787941fc32e477a76759684d24ede4fd8044e37dfb73be69b0e5ed6bc58b6"
+    }
+  }
+}

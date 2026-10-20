@@ -2,6 +2,15 @@ class_name ACData
 extends RefCounted
 
 static var content: Dictionary = {}
+static var clearance_templates: Dictionary={}
+
+static func clearance_template(theme: int, size: Vector2i) -> Array:
+	if clearance_templates.is_empty():
+		var path="res://data/clearance_v060.json"
+		clearance_templates=JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else {"maps":[]}
+		if clearance_templates.get("geometry_sha256","")!=FileAccess.get_sha256("res://data/source_terrain_detail.json"):clearance_templates={"maps":[]}
+	var maps: Array=clearance_templates.get("maps",[])
+	return maps[theme].get("%d,%d"%[size.x,size.y],[]) if theme>=0 and theme<maps.size() else []
 
 static func get_data() -> Dictionary:
 	if content.is_empty():
@@ -15,6 +24,9 @@ static func unit(race: int, kind: int) -> Dictionary:
 
 static func building(race: int, kind: int) -> Dictionary:
 	return get_data().buildings[race][kind]
+
+static func unit_count(race: int) -> int:
+	return get_data().units[race].size()
 
 static func portrait_score(entity: Dictionary) -> int:
 	if entity.is_empty() or entity.has("progress"):return -1

@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "origin": "Original AI-generated raster artwork; technical grid registration only",
+  "sources": {
+    "medic": {
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-8b8ff923-dc4b-4fed-ba84-d3b26b45a0d4.png",
+      "prompt": "EDIT TARGET is the provided RTS medic sprite sheet. Preserve EXACT creature species, realistic brown hyrax face, mustard yellow mechanical armor, dark gloves and boots, cyan hexagonal ECG medical emblem. NO RED CROSS anywhere. Create a complete replacement sprite sheet with EXACTLY NINE equal columns and TWELVE equal rows (108 FULL BODY poses), transparent background, no text or frames. Every cell must have the whole head, hands, backpack and feet with generous transparent margin. Do NOT crop any pose, especially last rows. ALL cameras must preserve reference high 35-degree top down RTS view. Columns canonical facing: N, NNE, NE, ENE, E, ESE, SE, SSE, S (left-to-right; east/right-facing at middle; back view first, front view last). Row 1 idle. Rows 2-9 eight DISTINCT successive smooth walking keyframes in one complete stepping cycle: alternating feet, toe off, lifted knee, mid-swing, heel strike, opposite leg repeats. Rows 10-12 three successive healing poses reaching one arm forward with a SMALL cyan hand emitter, no opaque aura/background. Consistent model scale and foot-contact anchor in every cell. No extra characters in a cell. Exactly aligned 9x12 regular grid with no overlapping neighboring sprites. This is identity preserving motion expansion, not a redesign."
+    },
+    "bat": {
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-a40a4d92-4970-4524-99d8-b07335479e15.png",
+      "prompt": "EDIT TARGET is the provided original citrus bat sprite sheet. Preserve EXACT camera angle and model silhouette/identity: juicy orange segmented pulp body, long curling orange tail, dark organic implants, small cyan lens eyes, green citrus LEAF wings with green veins and woody edges, no leathery wings. Preserve high oblique 35-degree RTS view shown, NEVER a low side perspective. Create replacement sprite sheet EXACT FIVE equal columns by EIGHT equal rows (40 poses), transparent background, no text or frames. Columns must exactly match reference directions N, NE, E, SE, S. Each row is next temporal pose in a smooth 8-frame full wingbeat cycle, high raised wings to midstroke to low wings to recovery, leaf articulation gradual and distinct. Keep head/body orientation and body scale FIXED within each directional column across all eight rows, only wings articulate and tail flexes very slightly. Every pose entirely within its cell with generous 15% transparent padding, no clipping and no sprite fragments in adjacent cells. Include all leaf tips and full curled tail. Keep orange flesh + green leaves + cyan eye lenses visible in every front/side view. Precisely aligned 5x8 regular grid."
+    },
+    "medic-extra": {
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-9dfdfcb0-9ad6-44b9-bd9f-a1970f7c7b49.png",
+      "prompt": "Identity-preserving sprite motion expansion using provided complete sheet as reference. Produce EXACTLY NINE equal columns and TWO equal rows on transparent background, 18 full-body hyrax medic sprites. SAME mustard yellow armor, realistic brown hyrax, cyan hexagonal ECG emblems, dark boots and backpack; no red cross, no redesign, exact same high 35-degree top-down RTS camera. Column directions N, NNE, NE, ENE, E, ESE, SE, SSE, S. Row1: an additional eighth walking phase, returning right foot before next heel strike, one leg lifted, full body clear. Row2: additional third healing phase, one hand forward with small cyan glow, feet stationary. Each 18 sprite completely inside its equal cell with generous padding; no opaque glow rectangle, no crop and no overlapping cells. Keep body size consistent."
+    },
+    "bat-extra": {
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-47fe3092-ba96-486a-a16e-a16452791b2c.png",
+      "prompt": "Identity preserving expansion of provided citrus bat animation sheet, camera/model unchanged. Produce EXACT FIVE equally spaced full-body sprites in ONE horizontal row, transparent background. Directions exactly N, NE, E, SE, S, as reference columns. One new recovery wingbeat pose at middle-high wings, green citrus-leaf wings rising after downstroke, halfway between the sixth and seventh rows of reference. Preserve orange segmented pulp body, long curled tail, cyan lenses, woody wing edges, exact high oblique top-down 35-degree RTS view, never side-view aircraft camera. Same body orientation and scale within each reference direction. Whole wings and full tail inside each cell with 15% padding, no clipping, no text, no borrowed game art."
+    },
+    "walk-last": {
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-b11b405e-d4d3-4ca1-aec8-920ddee12fda.png",
+      "prompt": "Use reference to preserve brown hyrax MEDIC identity and yellow-black armor with CYAN HEXAGON ECG EMBLEM, NO red cross. Produce EXACTLY ONE HORIZONTAL ROW of NINE full-body sprites. NO second row. Wide horizontal sheet with generous transparent space above and below, at least 20% margin around every full sprite. All heads, hands, backpack and boots completely intact. Canonical directions N, NNE, NE, ENE, E, ESE, SE, SSE, S left to right, east faces RIGHT in center column. Same high 35 degree RTS camera as reference. Walking pose with left knee lifted, right foot planted, midway through the opposite stepping phase to reference first row. Same body proportions, same mustard yellow armor, brown hyrax face, dark boots. No text/grid/frame. Fully transparent background."
+    },
+    "heal-mid": {
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-a153f61c-43b8-4288-b49f-e5aa7b661be1.png",
+      "prompt": "Use reference to preserve brown hyrax MEDIC identity and yellow-black armor with CYAN HEXAGON ECG EMBLEM, NO red cross. Produce EXACTLY ONE HORIZONTAL ROW of NINE full-body sprites. NO second row. Wide horizontal sheet with generous transparent space above and below, at least 20% margin around every full sprite. All heads, hands, backpack and boots completely intact. Canonical directions N, NNE, NE, ENE, E, ESE, SE, SSE, S left to right, east faces RIGHT in center column. Same high 35 degree RTS camera as reference. Healing pose with hand extended a little farther, small cyan hand-emitter pulse near palm; both feet stationary. Same body proportions, same mustard yellow armor, brown hyrax face, dark boots. No text/grid/frame. Fully transparent background."
+    },
+    "heal-last": {
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1410c-7787-7743-a1e3-ecb0343b282c\\exec-a6643681-8f07-44ad-a36e-2009b984ad4c.png",
+      "prompt": "Use reference to preserve brown hyrax MEDIC identity and yellow-black armor with CYAN HEXAGON ECG EMBLEM, NO red cross. Produce EXACTLY ONE HORIZONTAL ROW of NINE full-body sprites. NO second row. Wide horizontal sheet with generous transparent space above and below, at least 20% margin around every full sprite. All heads, hands, backpack and boots completely intact. Canonical directions N, NNE, NE, ENE, E, ESE, SE, SSE, S left to right, east faces RIGHT in center column. Same high 35 degree RTS camera as reference. Healing pose with elbow drawing back slightly, small cyan hand-emitter pulse fading near palm; both feet stationary. Same body proportions, same mustard yellow armor, brown hyrax face, dark boots. No text/grid/frame. Fully transparent background."
+    }
+  },
+  "units": {
+    "0:4": {
+      "file": "res://assets/medic_motion_v060.png",
+      "columns": 9,
+      "rows": 12,
+      "packed_root": [
+        128,
+        224
+      ],
+      "scale_hint": 224,
+      "actions": {
+        "idle": [
+          0
+        ],
+        "walk": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "move": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "attack": [
+          9,
+          10,
+          11
+        ],
+        "heal": [
+          9,
+          10,
+          11
+        ],
+        "harvest": [
+          9,
+          10,
+          11
+        ],
+        "gather": [
+          9,
+          10,
+          11
+        ]
+      },
+      "action_fps": {
+        "walk": 9,
+        "move": 9,
+        "heal": 9
+      }
+    }
+  },
+  "bat": {
+    "file": "res://assets/citrus_bat_motion_v060.png",
+    "columns": 5,
+    "phases": 8,
+    "fps": 12,
+    "anchor": [
+      128,
+      128
+    ],
+    "scale_hint": 224
+  },
+  "registration_notes": "Overlapping final rows in the first medic source discarded. Complete isolated replacement strips supply final walk/heal poses."
+}

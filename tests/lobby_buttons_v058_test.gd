@@ -18,7 +18,7 @@ func run():
 	main.api_responses["/room/update"]={"room":observed}
 	pages.observer_button.pressed.emit()
 	check(main.api_requests.back().body.observer==true,"observer action wired")
-	check(not main.race_select.visible and pages.room_rows[0].race.visible,"observer label replaces faction option")
+	check(not main.race_select.visible and pages.room_rows[4].race.visible,"observer appears in the separate observer section")
 	check(not pages.ready_button.disabled and pages.ready_button.text=="호스팅 준비","observer host can ready")
 	pages.ready_button.pressed.emit();check(main.api_requests.back().body.ready==true,"host ready wired")
 	pages.add_bot_button.pressed.emit();check(main.api_requests.back().body.add_bot==true,"add bot wired")
@@ -30,14 +30,26 @@ func run():
 	main.map_select.item_selected.emit(2);check(main.api_requests.back().body.map==2,"map action wired")
 	main.mode_select.item_selected.emit(0);check(main.api_requests.back().body.mode=="ffa","mode action wired")
 	main.race_select.item_selected.emit(2);check(main.api_requests.back().body.race==2,"race action wired")
+	main.api_responses["/room/update"]={"error":"QA no room mutation"}
+	pages.room_rows[2].slot_button.pressed.emit()
+	check(main.api_requests.back().body.slot==2 and main.api_requests.back().body.closed==true,"host can close an individual empty player slot")
+	main.room.closed_slots=[2,3];pages.update_room_text()
+	check(pages.room_rows[2].nickname.text.contains("닫힌") and pages.room_rows[2].slot_button.text=="슬롯 열기","closed seat is visibly distinct and can reopen")
+	pages.room_rows[2].slot_button.pressed.emit()
+	check(main.api_requests.back().body.slot==2 and not main.api_requests.back().body.closed,"reopening targets the same seat")
+	main.room.closed_slots=[]
 	for i in range(3):
 		var bot=member.duplicate();bot.user="bot%d"%i;bot.bot=true;main.room.members.append(bot)
 	pages.update_room_text()
 	check(pages.add_bot_button.disabled,"full player slots disable add")
 	check(not pages.remove_bot_button.disabled,"bot removal available")
+	var bot_select=pages.room_rows[1].bot_select
+	bot_select.item_selected.emit(2)
+	check(main.api_requests.back().body.bot_id=="bot0" and main.api_requests.back().body.bot_race==2,"host bot faction selector targets the exact computer")
 	pages.remove_bot_button.pressed.emit();check(main.api_requests.back().body.remove_bot==true,"remove action wired")
 	main.room.locked=true;pages.update_room_text()
 	check(pages.ready_button.disabled and pages.observer_button.disabled and pages.team_button.disabled,"countdown locks changes")
+	check(pages.room_rows[1].bot_select.disabled,"countdown also locks bot faction")
 	main.api_responses["/room/leave"]={"error":"연결 실패"};pages.leave_room()
 	check(main.page=="room" and not main.room.is_empty(),"failed leave retains room")
 	main.api_responses["/room/leave"]={"ok":true};pages.leave_room()

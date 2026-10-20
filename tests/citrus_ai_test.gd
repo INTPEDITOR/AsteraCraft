@@ -17,6 +17,7 @@ func fixture(worker_count: int, larvae: int=1, extra_brood: bool=false) -> ACCor
 	c.map.terrain.fill(0)
 	c.map.buildable_map.fill(1)
 	c.map.resources.clear()
+	for i in range(8):c.map.resources.append({"id":100000+i,"type":"as","pos":[23+i*2,23],"amount":10000,"initial_amount":10000,"base":0,"busy":0.0,"collision_size":[2,1]})
 	c._sync_resource_obstacles()
 	c.map.reset_solids([])
 	var hq=c.add_building(0,0,Vector2(30,30),true)

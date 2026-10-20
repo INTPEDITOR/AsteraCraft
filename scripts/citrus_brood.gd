@@ -138,7 +138,6 @@ static func train(core, owner: int, source: Dictionary, kind: int, selected: Arr
 	var authority := mother(core,parent)
 	if authority.is_empty():return "12칸 이내의 완성된 군체모수 연결이 필요합니다"
 	_sync(core,authority)
-	if authority.queue.size()>=MAX_QUEUE:return "생산 대기열이 가득 찼습니다"
 	var definition := ACData.unit(RACE,kind)
 	if not core.prerequisites(owner,definition.requires):return "선행 기술 건물이 필요합니다"
 	var count := maxi(1,int(definition.get("production_count",1)))

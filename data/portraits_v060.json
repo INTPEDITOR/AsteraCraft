@@ -1,0 +1,588 @@
+{
+  "schema": 1,
+  "columns": 4,
+  "rows": 4,
+  "cell": [
+    256,
+    320
+  ],
+  "method": "Individual source rectangles normalized and packed on a fixed pixel grid; no generated layout coordinates used at runtime",
+  "portraits": [
+    {
+      "race": 0,
+      "kind": 0,
+      "rect": [
+        0,
+        0,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "5ddebdc2ae6d2c5a397e7ee91c5d2817aaa4f629cd4e5e793c7f88e6f67ac1ef"
+    },
+    {
+      "race": 0,
+      "kind": 1,
+      "rect": [
+        256,
+        0,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "2c56a9f360fc77b1904d3644c2cb53929507962f0c0f5a313877f08583425446"
+    },
+    {
+      "race": 0,
+      "kind": 2,
+      "rect": [
+        512,
+        0,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "90f98a46ecf1b556ebd5716c6ae3aef6ad471298c1edff6847a0183c791376d8"
+    },
+    {
+      "race": 0,
+      "kind": 3,
+      "rect": [
+        768,
+        0,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "5d7a043dfb4c0895f980a60e5c348ca20c03589a6b61f9ed97b51a31cb945523"
+    },
+    {
+      "race": 0,
+      "kind": 4,
+      "rect": [
+        0,
+        320,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "62ccb92d67352f946d1823dad8ad0708ec587a3c7f13264f4612a44a9dcf52fc"
+    },
+    {
+      "race": 0,
+      "kind": 5,
+      "rect": [
+        256,
+        320,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "02f9881870157cdb4d877abb71606a182bf41b080eca8e14c041dba697812de5"
+    },
+    {
+      "race": 0,
+      "kind": 6,
+      "rect": [
+        512,
+        320,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "03b49d4b731b69d05d4ecf368df184eac6ee58233f9edd20aea2126596db8ef0"
+    },
+    {
+      "race": 0,
+      "kind": 7,
+      "rect": [
+        768,
+        320,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "3ffe0c4936a15af4093f6c0b463d275971be39a4f148eaf55777dc536cde03ed"
+    },
+    {
+      "race": 0,
+      "kind": 8,
+      "rect": [
+        0,
+        640,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "62694cb6415c47a89d14d4b39049c0646c7420e0068c2766a02d069918d6a895"
+    },
+    {
+      "race": 0,
+      "kind": 9,
+      "rect": [
+        256,
+        640,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "5262b9a5707e817850e8aa732254ccdb840b306101638401a336cec1f89d7e04"
+    },
+    {
+      "race": 0,
+      "kind": 10,
+      "rect": [
+        512,
+        640,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "60ddc6e4ccf0d81bf07439d1bd57e96029fb0dc0049667cd8c523bc6cf375977"
+    },
+    {
+      "race": 0,
+      "kind": 11,
+      "rect": [
+        768,
+        640,
+        256,
+        320
+      ],
+      "source": "reviewed individual rectangle from hyrax repaint",
+      "sha256": "4b7e3cfe6915cf5556b3d8ebf4e0edcc607c181ee6ded226200ca82bf50c309a"
+    },
+    {
+      "race": 0,
+      "kind": 12,
+      "rect": [
+        0,
+        960,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "ba4d3225fb35d1b68a023330838d30f629496f55871defd0bcbce45449a3428b"
+    },
+    {
+      "race": 0,
+      "kind": 13,
+      "rect": [
+        256,
+        960,
+        256,
+        320
+      ],
+      "source": "flamer individual painting",
+      "sha256": "b68c6a9a477baea0979c0c283c13a919f755afbf82f2b4411a2444b09b41f5e8"
+    },
+    {
+      "race": 0,
+      "kind": 14,
+      "rect": [
+        512,
+        960,
+        256,
+        320
+      ],
+      "source": "carrier individual painting",
+      "sha256": "2892078e78f843d8aa36e856f5001d047214eaf767ab2f91e6dae14cf04aacde"
+    },
+    {
+      "race": 0,
+      "kind": 15,
+      "rect": [
+        768,
+        960,
+        256,
+        320
+      ],
+      "source": "Round industrial drone individual ImageGen portrait, complete cyan sensor and hangar background",
+      "sha256": "fa24165d0be54d43bca57cdcc176747ba6c0ab09242c28eef6fd377e5b2fa69a"
+    },
+    {
+      "race": 1,
+      "kind": 0,
+      "rect": [
+        0,
+        0,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "ef219d574b270ea2b08f21f12c68710234b562f27618bc6489b110d44764cdaa"
+    },
+    {
+      "race": 1,
+      "kind": 1,
+      "rect": [
+        256,
+        0,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "62e8efa13db30ca3b54335f00960ba23dc17c3c6bed270d10c60a7e4830376ca"
+    },
+    {
+      "race": 1,
+      "kind": 2,
+      "rect": [
+        512,
+        0,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "356baa131a9ca425c206f51c3973660c436740d44c281d4cfe96c25438473115"
+    },
+    {
+      "race": 1,
+      "kind": 3,
+      "rect": [
+        768,
+        0,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "3070108dc1e5bc4cbb75475d4b4f6851090d929c2c8382d390416cd0fe109847"
+    },
+    {
+      "race": 1,
+      "kind": 4,
+      "rect": [
+        0,
+        320,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "5280773b61df5b545e2ae859d4605ebcffe427f7352b18d599eee54bd93782cc"
+    },
+    {
+      "race": 1,
+      "kind": 5,
+      "rect": [
+        256,
+        320,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "977fb2885e155c81819339944fa27947b578a9de3da7e4a1a04f660b06ca23d1"
+    },
+    {
+      "race": 1,
+      "kind": 6,
+      "rect": [
+        512,
+        320,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "b3245c78b57c85d1a728f8089966620dd117d52fe9bd7fa454d8214646627538"
+    },
+    {
+      "race": 1,
+      "kind": 7,
+      "rect": [
+        768,
+        320,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "e799a0795e10230bcff899623364b80f60143422fd3779f0b91826dd285221bc"
+    },
+    {
+      "race": 1,
+      "kind": 8,
+      "rect": [
+        0,
+        640,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "1b848eb743ab122db1822c94f3d2ec7eec11116636611c63dbf110242534905b"
+    },
+    {
+      "race": 1,
+      "kind": 9,
+      "rect": [
+        256,
+        640,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "706148df19600ea1b763dc2c012d43d2e192e4e7ba38152b6890fc20150eb5da"
+    },
+    {
+      "race": 1,
+      "kind": 10,
+      "rect": [
+        512,
+        640,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "4708e6ba6ce91bf70961e04d644cebfd6d79182d345b52dd6b05c44b004928c1"
+    },
+    {
+      "race": 1,
+      "kind": 11,
+      "rect": [
+        768,
+        640,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "9d4a6342c76dc06b8c91b10f1e594672a9249b5358b3fc4a9d80bf82ef5a8b7f"
+    },
+    {
+      "race": 1,
+      "kind": 12,
+      "rect": [
+        0,
+        960,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "db3237a7ae70b4733faad4139a8dc2b0eaaade926db166cde8e176b0ca41536b"
+    },
+    {
+      "race": 1,
+      "kind": 13,
+      "rect": [
+        256,
+        960,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "5aaab7f66dfd4920c66b3ad9d232bed9b241332e2ddc67589084d945037fa0c9"
+    },
+    {
+      "race": 1,
+      "kind": 14,
+      "rect": [
+        512,
+        960,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "eda4dc41b6a81f62694a08e6ce48b857fc07215f3f9428b5f391f854e7df5908"
+    },
+    {
+      "race": 1,
+      "kind": 15,
+      "rect": [
+        768,
+        960,
+        256,
+        320
+      ],
+      "source": "citrus framing repair",
+      "sha256": "f1abc904134692dbb6addce5b39a17e5300fde72bd58cd9c54b07096975b95fc"
+    },
+    {
+      "race": 2,
+      "kind": 0,
+      "rect": [
+        0,
+        0,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "10557c03af2bf7b2d8ee8e7b9683f91cda188147fd90700f5dc2ae5a9fd432e0"
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "rect": [
+        256,
+        0,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "db97c20d2a110e3c58118a7bbd60048ef204a7bf25f01c6802a73f1ae2bc3489"
+    },
+    {
+      "race": 2,
+      "kind": 2,
+      "rect": [
+        512,
+        0,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "cacef5a1538751138b3f98e028de4352856dc713b7f1bb8742fe443f14e8275a"
+    },
+    {
+      "race": 2,
+      "kind": 3,
+      "rect": [
+        768,
+        0,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "d09a1fba6a79a996d5f5bd72ad1c7877b3a1d1cb0c034d92c48b73229fec8146"
+    },
+    {
+      "race": 2,
+      "kind": 4,
+      "rect": [
+        0,
+        320,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "227c8e3cf75ae001df0b76a1c74065252422f367435df9b6b970f0609a6e01a7"
+    },
+    {
+      "race": 2,
+      "kind": 5,
+      "rect": [
+        256,
+        320,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "097336bdc1596dbb6026d29d2086218880abe6559ab64e7cc18e01fe7241e6b4"
+    },
+    {
+      "race": 2,
+      "kind": 6,
+      "rect": [
+        512,
+        320,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "33111563d6b35c646216b914788b9961c2608004ec45bc164f65a93cf600e63b"
+    },
+    {
+      "race": 2,
+      "kind": 7,
+      "rect": [
+        768,
+        320,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "6133817451d2328c8553ca019027dc9e0204f34c19e0c618427b687e937aac31"
+    },
+    {
+      "race": 2,
+      "kind": 8,
+      "rect": [
+        0,
+        640,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "eff24e494692066cf4e5cf1f43ca0a8b40e7a824731c2c3f802c6a81160d9d57"
+    },
+    {
+      "race": 2,
+      "kind": 9,
+      "rect": [
+        256,
+        640,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "9ccc2c8b422bd094b572b918ef091e7c2a82e8698db12abc13e895c26140c7c3"
+    },
+    {
+      "race": 2,
+      "kind": 10,
+      "rect": [
+        512,
+        640,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "314d0e6dd2df01814626a568c8a715d9f4ed9e4768aead5a8005f0dd6de18576"
+    },
+    {
+      "race": 2,
+      "kind": 11,
+      "rect": [
+        768,
+        640,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "4209111acb97ca50bb1952462c368efa1fe47be18e4149467e1922c460b30dbe"
+    },
+    {
+      "race": 2,
+      "kind": 12,
+      "rect": [
+        0,
+        960,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "9ca53e11404924ff298dfa887f9146beb66bedeccc0b3031a514b18f776ff6fc"
+    },
+    {
+      "race": 2,
+      "kind": 13,
+      "rect": [
+        256,
+        960,
+        256,
+        320
+      ],
+      "source": "chaser individual painting",
+      "sha256": "25e12c05907381fa6e97a4ff5eccde5578043846ea36e22176fb1f2570f5a4b3"
+    },
+    {
+      "race": 2,
+      "kind": 14,
+      "rect": [
+        512,
+        960,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "02f6f6e350867dc43290977642f35f40b96ed6f1aadf863e6ed1ff2289875bfc"
+    },
+    {
+      "race": 2,
+      "kind": 15,
+      "rect": [
+        768,
+        960,
+        256,
+        320
+      ],
+      "source": "original approved faction portrait",
+      "sha256": "41313dd7990b28d3c0af00c24e3d6311e2f92110ef17309a7e573f6defd4138b"
+    }
+  ]
+}

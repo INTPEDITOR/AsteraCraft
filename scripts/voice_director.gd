@@ -84,7 +84,9 @@ func selection_clip(unit_race: int, kind: int, entity_id: int, now: float) -> St
 	last_entity=entity_id;last_click=now
 	var special=burst>5
 	var bank="special" if special else "normal"
-	var index=int(counts.get(key+bank,0))%5
+	var bank_size: int=catalog.units[key][bank].size()
+	if bank_size==0:return ""
+	var index=int(counts.get(key+bank,0))%bank_size
 	counts[key+bank]=index+1
 	return str(catalog.units[key][bank][index])
 
@@ -125,7 +127,7 @@ func error_event(message: String) -> String:
 	if "인구" in message and "부족" in message:return "supply"
 	if "대기열" in message:return "queue"
 	if "배양체" in message and ("없" in message or "부족" in message):return "brood"
-	if "에너지" in message and "부족" in message:return "energy"
+	if ("에너지" in message or "마나" in message) and ("부족" in message or "필요" in message):return "energy"
 	if "선행" in message or "기술 건물" in message:return "tech"
 	return ""
 

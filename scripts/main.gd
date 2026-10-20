@@ -11,10 +11,12 @@ var audio: ACAudio
 var terrain_artist:=ACTerrainRenderer.new()
 var root_artist=preload("res://scripts/root_renderer.gd").new()
 var construction_visual:=ConstructionVisual.new()
+var pointer_skill: String=""
 var pointer_order=""
 var render_rects: Dictionary={}
 var world_clip: Control
 var world_canvas: Control
+var nuclear_clouds: Dictionary={}
 var world_mask: Control
 var camera_velocity=Vector2.ZERO
 var pointer_position=Vector2.INF
@@ -54,6 +56,8 @@ var build_kind=-1
 var last_group_key=-1
 var last_group_time=-1000
 var root_viewer_signature=0
+var minimap_texture: ImageTexture
+var minimap_signature: int=-1
 var build_panel=false
 var spectator=false
 var paused=false
@@ -326,7 +330,7 @@ func _api(route: String,body: Dictionary,callback: Callable) -> void:
 	request.timeout=8
 	add_child(request)
 	api_busy=true
-	var headers=PackedStringArray(["Content-Type: application/json"])
+	var headers=PackedStringArray(["Content-Type: application/json","X-Astera-Protocol: 10"])
 	if session_token!="":headers.append("Authorization: Bearer "+session_token)
 	request.request_completed.connect(func(result,code,_headers,bytes):
 		api_busy=false
@@ -469,6 +473,22 @@ func _sync_world_canvas() -> void:
 	world_canvas.queue_redraw()
 	world_mask.size=size
 	world_mask.queue_redraw()
+	_sync_nuclear_clouds()
+
+func _sync_nuclear_clouds() -> void:
+	var active={}
+	for fx in state.get("effects",[]):
+		if fx.get("type","")!="skill" or fx.get("skill","")!="nuclear":continue
+		var frames: Array=assets.v060_effects.get("nuclear_cloud",[])
+		if frames.is_empty():continue
+		var id=int(fx.id);active[id]=true
+		if not nuclear_clouds.has(id):
+			var node=ACNuclearCloud.new();node.configure(frames[0].atlas,frames.size());world_canvas.add_child(node);nuclear_clouds[id]=node
+		var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0)
+		var point=_ground_point(ACData.point(fx.to))-world_clip.position
+		nuclear_clouds[id].update_cloud(point,float(fx.get("radius",5))*64*zoom,maxf(0,now-float(fx.started)),float(fx.until)-float(fx.started))
+	for id in nuclear_clouds.keys():
+		if not active.has(id):nuclear_clouds[id].queue_free();nuclear_clouds.erase(id)
 
 func _draw_world_mask() -> void:
 	if page!="game":return
@@ -480,6 +500,7 @@ func _world_transform(origin: Vector2=Vector2.ZERO,rotation: float=0.0,scale_val
 	world_canvas.draw_set_transform(origin-world_clip.position,rotation,scale_value)
 
 func _accept_visual_snapshot(units: Array,stamp: float,reset: bool=false) -> void:
+	if reset:_shot_origins.clear()
 	var next: Dictionary={}
 	for unit in units:
 		var id=int(unit.id)
@@ -558,17 +579,14 @@ func _release_pointer() -> void:
 
 func _sync_pointer() -> void:
 	if dedicated or DisplayServer.get_name()=="headless" or not is_inside_tree():return
-	# The entire application owns the pointer while focused, including menus
-	# and popups. Confinement must also be restored after a display-mode change.
 	var active=get_window().has_focus() and get_window().mode!=Window.MODE_MINIMIZED
-	var desired=Input.MOUSE_MODE_CONFINED if active else Input.MOUSE_MODE_VISIBLE
-	if active!=_pointer_confined or Input.mouse_mode!=desired:
-		_pointer_confined=active
+	# Native window movement must own the pointer. Only fullscreen gameplay
+	# confines it; windowed play and menus never warp the operating-system mouse.
+	var confine=active and page=="game" and not paused and get_window().mode in [Window.MODE_FULLSCREEN,Window.MODE_EXCLUSIVE_FULLSCREEN]
+	var desired=Input.MOUSE_MODE_CONFINED if confine else Input.MOUSE_MODE_VISIBLE
+	if confine!=_pointer_confined or Input.mouse_mode!=desired:
+		_pointer_confined=confine
 		Input.mouse_mode=desired
-	if active:
-		var point=get_viewport().get_mouse_position()
-		var safe=point.clamp(Vector2.ONE,size-Vector2.ONE)
-		if point!=safe:get_viewport().warp_mouse(safe)
 	_update_game_cursor(active)
 
 func _update_game_cursor(active: bool) -> void:
@@ -626,15 +644,17 @@ func _process(dt: float) -> void:
 		return
 	if page!="game" and elapsed<status_until+1:queue_redraw()
 	if page=="game":
+		var simulated_this_frame=false
 		if not paused and not replay_mode and not network_client and core!=null:
 			tick_accum+=minf(dt,.2)
 			while tick_accum>=.05:
+				simulated_this_frame=true
 				core.step(.05)
 				core.resolve_spells()
 				_accept_visual_snapshot(core.units,core.time)
 				tick_accum-=.05
 			if not is_equal_approx(float(state.get("time",-1)),core.time):
-				state=core.snapshot(local_slot)
+				state=core.snapshot(local_slot,true)
 			visual_clock=tick_accum
 			for e in core.events:
 				if not e.get("shown",false) and e.get("owner",-1)==local_slot and e.has("text"):
@@ -646,7 +666,7 @@ func _process(dt: float) -> void:
 		if replay_mode:_tick_replay(dt)
 		if not replay_mode and not paused:
 			replay_clock+=dt
-			if replay_clock>=replay_interval and not state.is_empty():
+			if replay_clock>=replay_interval and not state.is_empty() and (not simulated_this_frame or replay_clock>=replay_interval+.1):
 				replay_clock=fmod(replay_clock,replay_interval)
 				replay_frames.append(_encode_replay_frame(state))
 				if replay_frames.size()>36000:replay_frames.pop_front()
@@ -841,17 +861,22 @@ func _center(e: Dictionary) -> Vector2:
 		p+=Vector2(d.w,d.h)*.5
 	return p
 
+func _selection_center(unit: Dictionary) -> Vector2:
+	if render_rects.has(int(unit.id)):return Rect2(render_rects[int(unit.id)]).get_center()
+	var d=ACData.unit(int(unit.race),int(unit.kind))
+	return _ground_point(_visual_position(unit))-Vector2(0,(22.0 if d.air else float(d.get("visual_extent",32))*.38)*zoom)
+
 func _hit_test(mouse: Vector2, own_only: bool=false) -> int:
 	var best=INF
 	var chosen=-1
 	for e in state.get("units",[]):
 		if e.get("container",-1)>=0 or not _visible(e) or (own_only and int(e.owner)!=local_slot):continue
-		var p=_ground_point(_visual_position(e))
+		var p=_selection_center(e)
 		var d=ACData.unit(int(e.race),int(e.kind))
 		var radius=maxf(12,float(d.size)*13*zoom)
-		var rect: Rect2=render_rects.get(int(e.id),Rect2(p-Vector2(radius,radius*2),Vector2(radius*2,radius*2)))
+		var rect: Rect2=render_rects.get(int(e.id),Rect2(p-Vector2.ONE*radius,Vector2.ONE*radius*2))
 		if rect.grow(3).has_point(mouse) or mouse.distance_to(p)<radius:
-			var distance=mouse.distance_to(p-Vector2(0,rect.size.y*.35))/maxf(12,rect.size.y)
+			var distance=mouse.distance_to(p)/maxf(12,rect.size.y)
 			if distance<best:best=distance;chosen=int(e.id)
 	if chosen>=0:return chosen
 	for e in state.get("buildings",[]):
@@ -972,7 +997,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					var rect=Rect2(drag_start,mouse-drag_start).abs()
 					for e in state.units:
 						if selected.size()>=12:break
-						var point=_ground_point(_visual_position(e))
+						var point=_selection_center(e)
 						if int(e.owner)==local_slot and e.container<0 and rect.has_point(point) and _world_visible_at(point) and int(e.id) not in selected:selected.append(int(e.id))
 					if selected.is_empty():
 						for e in state.buildings:
@@ -1015,6 +1040,7 @@ func _confirm_pointer_target(point: Vector2,mouse: Vector2,minimap: bool=false) 
 		var target=-1 if minimap else _hit_test(mouse)
 		_issue_order("context" if target>=0 else "attack_move",point,target)
 	elif order=="rally":_set_rally(point)
+	elif order=="skill":_send_command({"type":"skill","skill":pointer_skill,"ids":selected,"pos":ACData.packed(point),"target":-1 if minimap else _hit_test(mouse)})
 	elif order=="ability":_send_command({"type":order,"ids":selected,"pos":ACData.packed(point),"target":-1 if minimap else _hit_test(mouse)})
 	else:
 		_issue_order("context" if order in ["gather","repair"] else order,point,-1 if minimap else _context_target(mouse,point))
@@ -1056,9 +1082,19 @@ func _building_accepts_rally(entity: Dictionary) -> bool:
 	if not entity.has("progress") or int(entity.owner)!=local_slot or float(entity.progress)<1:return false
 	var race=int(entity.race)
 	if race==1:return int(entity.kind) in [0,3]
-	for kind in range(13):
+	for kind in range(ACData.unit_count(race)):
 		if int(ACData.unit(race,kind).producer)==int(entity.kind):return true
 	return false
+
+func _select_brood(building_id: int) -> void:
+	var source=_entity(building_id)
+	if source.is_empty():return
+	var mother=int(source.id) if int(source.kind)==0 else int(source.get("brood_mother",-1))
+	selected=[];selected_resource=-1
+	for unit in state.get("units",[]):
+		if int(unit.owner)==local_slot and int(unit.race)==1 and int(unit.kind)==13 and int(unit.get("brood_mother",-1))==mother and unit.get("brood_state","idle")=="idle":selected.append(int(unit.id))
+	hud_signature="";_update_hud()
+	_notify("연결된 배양체 %d기 선택"%selected.size())
 
 func _set_rally(point: Vector2) -> bool:
 	var producers: Array=[]
@@ -1115,7 +1151,7 @@ func _make_actions() -> void:
 			if not build_panel:
 				_action("건설 [B]",func():build_panel=true;hud_signature="")
 			else:
-				for kind in range(13):
+				for kind in range(ACData.get_data().buildings[race].size()):
 					var d=ACData.building(race,kind)
 					_action("%s\n%d / %d"%[d.name,d.as,d.tera],func():build_kind=kind,assets.building(race,kind),d.description+" · %d×%d칸"%[d.w,d.h])
 		else:
@@ -1127,7 +1163,7 @@ func _make_actions() -> void:
 		if e.progress<1:
 			_action("건설 취소\n75% 환급",func():_send_command({"type":"cancel","id":e.id}))
 			return
-		for kind in range(13):
+		for kind in range(ACData.unit_count(race)):
 			var d=ACData.unit(race,kind)
 			if (race==1 and int(e.kind) in [0,3]) or (race!=1 and int(d.producer)==int(e.kind)):
 				var icon=assets.unit(race,kind,Vector2(1,1)).get("texture")
@@ -1159,7 +1195,6 @@ func _pause_menu() -> void:
 	_menus().pause()
 
 func _show_result() -> void:
-	_save_replay()
 	var won=local_slot in state.get("winners",[])
 	if audio!=null and audio.director!=null and not replay_mode and not spectator:
 		audio.director.announce("victory" if won else "defeat",int(state.players[local_slot].race),1.0,4)
@@ -1190,9 +1225,18 @@ func _save_replay() -> void:
 	if replay_frames.is_empty() or replay_mode:return
 	var dir=DirAccess.open("user://")
 	if not dir.dir_exists("replays"):dir.make_dir("replays")
-	var file="user://replays/%d.acr"%int(Time.get_unix_time_from_system())
+	var stamp=int(Time.get_unix_time_from_system())
+	var file="user://replays/%d-%d.acr"%[stamp,Time.get_ticks_usec()]
+	var suffix=0
+	while FileAccess.file_exists(file):
+		suffix+=1;file="user://replays/%d-%d-%d.acr"%[stamp,Time.get_ticks_usec(),suffix]
 	var f=FileAccess.open_compressed(file,FileAccess.WRITE,FileAccess.COMPRESSION_DEFLATE)
-	if f!=null:f.store_var({"version":"0.5.8","map":draw_map.theme,"map_layout":draw_map.source_info.get("origin","reference_inspired_original"),"slot":local_slot,"codec":replay_codec,"interval":replay_interval,"frames":replay_frames},false)
+	if f!=null:
+		f.store_var({"version":ACData.get_data().version,"map":draw_map.theme,"map_layout":draw_map.source_info.get("origin","reference_inspired_original"),"slot":local_slot,"codec":replay_codec,"interval":replay_interval,"frames":replay_frames},false)
+		f.flush()
+		var write_error=f.get_error();f.close()
+		_notify("리플레이를 저장했습니다." if write_error==OK else "리플레이를 저장하지 못했습니다.")
+	else:_notify("리플레이를 저장하지 못했습니다.")
 
 func _replay_state(frame) -> Dictionary:
 	if frame is Dictionary:
@@ -1208,6 +1252,9 @@ func _replay_state(frame) -> Dictionary:
 	return {}
 
 func _encode_replay_frame(snapshot: Dictionary):
+	# The local renderer uses a cheap read-only view. Internal paths/caches
+	# are stripped only for a recorded frame, never written into the replay.
+	if snapshot.get("_live_view",false) and core!=null:snapshot=core.snapshot(local_slot)
 	var raw=var_to_bytes(snapshot)
 	return {"size":raw.size(),"compressed":raw.compress(replay_codec)}
 
@@ -1516,8 +1563,11 @@ func _server_process(dt: float) -> void:
 	snapshot_clock-=dt
 	if snapshot_clock<=0:
 		snapshot_clock=.18
+		var encoded_views={}
 		for peer in peer_slots:
-			_receive_state.rpc_id(int(peer),var_to_bytes(core.snapshot(int(peer_slots[peer]))).compress(FileAccess.COMPRESSION_DEFLATE))
+			var viewer=int(peer_slots[peer])
+			if not encoded_views.has(viewer):encoded_views[viewer]=var_to_bytes(core.snapshot(viewer)).compress(FileAccess.COMPRESSION_DEFLATE)
+			_receive_state.rpc_id(int(peer),encoded_views[viewer])
 
 func _emit_result(result: Dictionary) -> void:
 	if result_sent:return
@@ -1544,15 +1594,25 @@ func _draw_root_ground(_view: Rect2) -> void:
 		root_viewer_signature=viewer;root_artist.chunks.clear();root_artist.pending.clear();root_artist.chunk_input=0
 	var packed=state.get("roots",PackedInt32Array())
 	if spectator and not network_client and not replay_mode and core!=null:packed=core.roots.snapshot(core,-1)
-	var fog_signature=hash([state.get("fog",[]),state.get("explored",[]),spectator])
+	var fog_signature=_fog_stamp()
 	root_artist.draw(world_canvas,draw_map,packed,_fog_value,zoom,world_to_screen,fog_signature)
 
 func _draw_world() -> void:
 	var view=_world_render_rect()
 	_world_transform()
 	world_canvas.draw_rect(view,Color("0a1119"))
-	terrain_artist.draw(world_canvas,draw_map,view,zoom,world_to_screen,screen_to_world,_fog_value,float(state.get("time",0)))
+	terrain_artist.draw(world_canvas,draw_map,view,zoom,world_to_screen,screen_to_world,_fog_value,float(state.get("time",0)),_fog_stamp())
 	_draw_root_ground(view)
+	for debris in state.get("rubble",[]):
+		var texture=assets.rubble_texture(int(debris.race),int(debris.kind))
+		if texture==null:continue
+		var point=_ground_point(ACData.point(debris.pos));var width=float(debris.width)*32*zoom
+		var dimensions=Vector2(width,width*texture.get_height()/float(texture.get_width()))
+		var opacity=1-smoothstep(.22,1.0,(float(state.time)-float(debris.started))/45.0)
+		var light=.38 if debris.get("fogged",false) else 1.0
+		world_canvas.draw_texture_rect(texture,Rect2(point-dimensions*Vector2(.5,.65),dimensions),false,Color(light,light,light,opacity))
+	for fx in state.get("effects",[]):
+		if fx.get("type","")=="death" and fx.get("death_style","") in ["juice","blood"]:_draw_effect(fx)
 	var objects: Array=[]
 	for res in state.get("resources",[]):
 		var p=ACData.point(res.pos)
@@ -1582,7 +1642,9 @@ func _draw_world() -> void:
 	for id in selected:
 		var producer=_entity(int(id))
 		if not producer.is_empty() and _building_accepts_rally(producer):_draw_rally_beacon(producer)
-	for fx in state.get("effects",[]):_draw_effect(fx)
+	for fx in state.get("effects",[]):
+		if fx.get("type","")=="death" and fx.get("death_style","") in ["juice","blood"]:continue
+		_draw_effect(fx)
 	var mouse=pointer_position if pointer_position.is_finite() else get_global_mouse_position()
 	if build_kind>=0 and _can_point_world(mouse):
 		var pos=_build_position(mouse)
@@ -1595,6 +1657,10 @@ func _draw_world() -> void:
 		world_canvas.draw_rect(rect,Color(.2,1,.5,.07))
 		world_canvas.draw_rect(rect,Color(.3,1,.5),false,1.5)
 	terrain_artist.draw_boundary_mask(world_canvas,draw_map,view,zoom,world_to_screen)
+
+func _fog_stamp() -> int:
+	var revision=core.fog_revision if not network_client and not replay_mode and core!=null else int(state.get("fog_revision",floorf(float(state.get("time",0))*5)))
+	return hash([revision,local_slot,spectator,network_client,replay_mode,draw_map.get_instance_id()])
 
 func _fog_value(index: int) -> int:
 	if spectator:return 2
@@ -1616,13 +1682,25 @@ func _draw_footprint(pos: Vector2,dimensions: Vector2,color: Color,fill: bool=fa
 	world_canvas.draw_polyline(points,color.lightened(.3),1.5,true)
 
 func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
-	if race==2:
+	if race==2 and kind not in [0,2]:
 		for tower in state.get("buildings",[]):
-			if int(tower.owner)!=local_slot or int(tower.kind)!=2 or tower.hp<=0 or tower.progress<1:continue
+			if int(tower.owner)!=local_slot or int(tower.kind)!=(0 if kind==1 else 2) or tower.hp<=0 or tower.progress<1:continue
 			var boundary=PackedVector2Array()
-			for i in range(65):boundary.append(_ground_point(_center(tower)+Vector2.from_angle(float(i)*TAU/64.0)*12.0))
-			world_canvas.draw_polyline(boundary,Color(.4,.75,1,.5),1.5,true)
+			for i in range(65):boundary.append(_ground_point(_center(tower)+Vector2.from_angle(float(i)*TAU/64.0)*(14.0 if kind==1 else 12.0)))
+			world_canvas.draw_polyline(boundary,Color(.45,.8,1,.65),2,true)
 	var definition=ACData.building(race,kind)
+	if race==2:
+		for x in range(int(definition.w)):
+			for y in range(int(definition.h)):
+				var cell=pos+Vector2(x,y)
+				var powered=kind in [0,1,2]
+				if not powered:
+					for tower in state.get("buildings",[]):
+						if int(tower.owner)==local_slot and int(tower.race)==2 and int(tower.kind)==2 and tower.hp>0 and tower.progress>=1 and cell.distance_squared_to(_center(tower))<=144:powered=true;break
+				var outline=PackedVector2Array()
+				for corner in [Vector2(-.5,-.5),Vector2(.5,-.5),Vector2(.5,.5),Vector2(-.5,.5),Vector2(-.5,-.5)]:outline.append(_ground_point(cell+corner))
+				world_canvas.draw_colored_polygon(outline.slice(0,4),Color(.2,.75,.7,.13) if powered and valid else Color(1,.15,.1,.2))
+				world_canvas.draw_polyline(outline,Color(.5,1,.8,.55) if powered and valid else Color(1,.4,.3,.7),1,true)
 	var texture=assets.building(race,kind)
 	if texture==null:return
 	var anchor=pos+Vector2(definition.w,definition.h)*.5
@@ -1686,6 +1764,7 @@ func _draw_building(e: Dictionary) -> void:
 			construction_visual.draw(world_canvas,int(e.race),int(e.kind),tex,rect,float(e.progress),idle_clock)
 		else:
 			if e.hp<float(d.hp)*.3:color=Color(1,.65,.5)
+			if not e.get("powered",true):color*=Color(.48,.52,.58)
 			world_canvas.draw_texture_rect(tex,rect,false,color)
 			if int(e.kind)==1:_draw_refinery_plume(e,rect)
 	if int(e.id) in selected:_draw_bars(sp+Vector2(0,front+6),e,d,mini(110,int(width*.65)))
@@ -1981,15 +2060,20 @@ func _render_minimap(canvas: CanvasItem) -> void:
 	if rect.size.x<=2 or rect.size.y<=2:return
 	var map_scale=rect.size/float(ACMap.SIZE)
 	canvas.draw_rect(rect,Color("151a1d"))
-	for y in range(0,128,2):
-		for x in range(0,128,2):
-			var index=y*128+x
-			var f=_fog_value(index)
-			if f==0:continue
-			var color=terrain_artist.terrain_color(draw_map,index)
-			if f==1:color*=.45
-			if draw_map.terrain[index]!=0:color=color.darkened(.35)
-			canvas.draw_rect(Rect2(rect.position+Vector2(x,y)*map_scale,map_scale*2),color)
+	var signature=_fog_stamp()
+	if minimap_texture==null or signature!=minimap_signature:
+		var image=Image.create(64,64,false,Image.FORMAT_RGBA8)
+		for y in range(64):
+			for x in range(64):
+				var index=y*256+x*2;var f=_fog_value(index)
+				var color=Color("151a1d") if f==0 else terrain_artist.terrain_color(draw_map,index)
+				if f==1:color*=.45
+				if f>0 and draw_map.terrain[index]!=0:color=color.darkened(.35)
+				image.set_pixel(x,y,color)
+		if minimap_texture==null:minimap_texture=ImageTexture.create_from_image(image)
+		else:minimap_texture.update(image)
+		minimap_signature=signature
+	canvas.draw_texture_rect(minimap_texture,rect,false)
 	for r in state.resources:
 		var p=ACData.point(r.pos)
 		if _fog_value(int(p.y)*128+int(p.x))>0 and r.amount>0:canvas.draw_rect(Rect2(rect.position+p*map_scale,Vector2(2,2)).intersection(rect),Color("f5cc50") if r.type=="as" else Color("6ac8ff"))
@@ -2040,7 +2124,9 @@ func _effect_sprite(index: int,point: Vector2,extent: float,angle: float=0.0,tin
 	world_canvas.draw_texture(tex,-tex.get_size()*.5,tint)
 	_world_transform(Vector2.ZERO)
 
-func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2) -> Vector2:
+var _shot_origins: Dictionary={}
+
+func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2,shot_index: int=-1) -> Vector2:
 	var ground=_ground_point(origin)
 	if source.is_empty():return ground-Vector2(0,15*zoom)
 	if source.has("progress"):
@@ -2048,19 +2134,27 @@ func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2) -> Vector2:
 		return ground-Vector2(0,float(definition.h)*12*zoom)+(target-origin).normalized()*16*zoom
 	var definition=ACData.unit(int(source.race),int(source.kind))
 	var direction=(target-origin).normalized()
-	var vehicle=assets.vehicle(int(source.race),int(source.kind),ACData.point(source.get("body_direction",source.facing)),direction)
+	var heading=_visual_facing(source) if source.has("id") else direction
+	var turret=_visual_facing(source,"turret_direction") if source.has("id") else direction
+	var vehicle=assets.vehicle(int(source.race),int(source.kind),ACData.point(source.get("body_direction",source.facing)),turret)
 	var extent=float(definition.get("visual_extent",40))*zoom
 	if not vehicle.is_empty():
 		var factor=extent/maxf(1,float(vehicle.chassis.scale_hint))
 		return ground+vehicle.mount*factor+vehicle.muzzle*factor*float(vehicle.turret_scale)
 	var elevated=ground-Vector2(0,(22 if definition.air else 0)*zoom)
-	var fire=assets.fire_pose(int(source.race),int(source.kind),direction,float(source.get("action_clock",0)))
+	var clock=float(source.get("action_clock",0))
+	if definition.air and source.has("id"):
+		clock=float(state.get("time",0))+minf(visual_clock,visual_step)+float(source.id)*.173
+		elevated.y-=sin(clock*1.7)*1.8*zoom
+		elevated.x+=sin(clock*.85)*.45*zoom
+	var fire=assets.fire_pose(int(source.race),int(source.kind),heading,clock)
 	if not fire.is_empty():return ground+fire.muzzle*extent/maxf(1,float(fire.scale_hint))
-	if assets.repaired_air.has("%d:%d"%[int(source.race),int(source.kind)]):
-		# The replacement aircraft rotate about their hull centre. Their nose
-		# is in the travel plane, not above a standing unit's foot anchor.
-		return elevated+direction*extent*.44
-	return elevated+Vector2(direction.x,direction.y*.65)*extent*.38-Vector2(0,extent*.38)
+	# A moving aircraft may aim at a target while its hull still faces its
+	# displacement. Register the socket against the body actually being drawn.
+	var pose=assets.unit(int(source.race),int(source.kind),heading,"attack",clock)
+	if pose.is_empty():return elevated
+	var offset=ACWeaponSockets.local_offset(pose,int(source.race),int(source.kind),heading,shot_index)
+	return elevated+offset*extent/maxf(1,float(pose.scale_hint))
 
 func _draw_effect(fx: Dictionary) -> void:
 	var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)
@@ -2073,17 +2167,48 @@ func _draw_effect(fx: Dictionary) -> void:
 	var race=int(fx.get("race",0))
 	var kind=str(fx.get("type","shot"))
 	var frame=mini(3,int(progress*4))
+	if kind=="nuclear_marker":
+		world_canvas.draw_circle(b,maxf(1.5,2.5*zoom),Color(1,.08,.04,.8+.2*sin(now*8)),true,-1,true)
+		return
+	if kind in ["nuclear_ascent","nuclear_descent"]:
+		var descending=kind=="nuclear_descent";var texture=assets.warhead_texture(descending,progress)
+		if texture!=null:
+			var position=b-Vector2((1-progress)*40 if descending else progress*20,(1-progress)*300 if descending else progress*300)*zoom
+			var dimensions=Vector2(30*zoom,30*zoom*texture.get_height()/float(texture.get_width()))
+			world_canvas.draw_texture_rect(texture,Rect2(position-dimensions*.5,dimensions),false)
+		return
+	if kind in ["skill","death"]:
+		var key=str(fx.get("death_style","")) if kind=="death" else str(fx.get("skill","")).replace("_warning","")
+		if key=="nuclear":return # A dedicated shader blends the long cloud animation.
+		var texture=assets.skill_texture("nuclear_cloud" if key=="nuclear" else key,progress)
+		if texture!=null:
+			var width=(float(fx.get("radius",5))*2*32 if key in ["nuclear","sap_bloom"] else float(fx.get("extent",90)) if kind=="death" else 180 if key=="verdict" else 120 if key in ["smoke","discipline"] else 72)*zoom
+			var dimensions=Vector2(width,width*texture.get_height()/float(texture.get_width()))
+			var color=Color(1,1,1,1-smoothstep(.6,1.0,progress)) if kind=="death" and key in ["juice","blood"] else Color.WHITE
+			world_canvas.draw_texture_rect(texture,Rect2(b-dimensions*Vector2(.5,.86 if key=="nuclear" else .5),dimensions),false,color)
+		return
 	if kind=="heal" or str(fx.get("projectile","")).begins_with("heal_"):
 		_draw_heal_effect(fx,a,b,progress)
 		return
 	if kind=="shot":
 		var source=_entity(int(fx.get("unit",-1)))
 		if not source.is_empty() and not source.has("progress") and ACData.unit(int(source.race),int(source.kind)).role in ["medic","healer_detector"]:return
-		a=_weapon_tip(source,ACData.point(fx.get("from",[0,0])),ACData.point(fx.get("to",[0,0])))
-		b.y-=12*zoom
+		var shot_id=int(fx.id)
+		var origin=ACData.point(fx.get("from",[0,0]))
+		if not _shot_origins.has(shot_id):
+			if source.is_empty():
+				source={"race":race,"kind":int(fx.get("kind",0)),"facing":ACData.packed((ACData.point(fx.to)-origin).normalized())}
+				if fx.get("source_building",false):source.progress=1
+			_shot_origins[shot_id]=(_weapon_tip(source,origin,ACData.point(fx.to),int(fx.get("barrel",-1)))-_ground_point(origin))/maxf(.01,zoom)
+			if _shot_origins.size()>512:_shot_origins.erase(_shot_origins.keys()[0])
+		a=_ground_point(origin)+_shot_origins[shot_id]*zoom
+		var victim=_entity(int(fx.get("target",-1)))
+		if not victim.is_empty() and not victim.has("progress"):b=_selection_center(victim)
+		else:b.y-=12*zoom
 		var p=a.lerp(b,progress)
 		var style=str(fx.get("projectile","bullet"))
 		var color=[Color("ffe19b"),Color("6bdbf4"),Color("ff697c")][race]
+		if _draw_weapon_effect(style,a,b,progress,color,float(fx.get("damage",0))):return
 		if race==1 and style not in ["bash","claw","slam","slash","blade","drill","vine"]:
 			var citrus: Texture2D=assets.citrus_projectile(style,progress>.86)
 			if citrus!=null:
@@ -2111,6 +2236,34 @@ func _draw_effect(fx: Dictionary) -> void:
 		_effect_sprite(12+frame,b-Vector2(0,18*zoom),21*zoom)
 	elif kind in ["repair","construct"]:_effect_sprite(12+frame,b,17*zoom)
 
+func _draw_weapon_effect(style: String,from: Vector2,to: Vector2,progress: float,tint: Color,damage: float) -> bool:
+	var key={"shotgun":"bullet","cannon":"shell","bomb":"shell","laser":"beam","blade":"slash","drill":"spark","tool":"spark","slam":"bash","spore":"acid","spell":"bolt"}.get(style,style)
+	var texture=assets.skill_texture("weapon_"+key,progress)
+	if texture==null:return false
+	var axis=(to-from).normalized();var angle=axis.angle()
+	if key=="beam":
+		var width=clampf(damage/8.0,1.5,4)*zoom
+		world_canvas.draw_line(from,to,Color(tint,(1-progress)*.7),width*2,true)
+		world_canvas.draw_line(from,to,Color(1,1,1,(1-progress)*.85),width*.65,true)
+		_world_transform(to,angle);world_canvas.draw_texture_rect(texture,Rect2(Vector2(-20,-20)*zoom,Vector2(40,40)*zoom),false);_world_transform()
+	elif key=="flame":
+		var length=maxf(24,from.distance_to(to))
+		_world_transform(from,angle);world_canvas.draw_texture_rect(texture,Rect2(Vector2(-length*.1,-length*.25),Vector2(length*1.2,length*.5)),false);_world_transform()
+	elif key in ["claw","slash","bash","spark","vine"]:
+		var width=(50 if key in ["bash","vine"] else 36)*zoom
+		_world_transform(to,angle);world_canvas.draw_texture_rect(texture,Rect2(Vector2.ONE*-width*.5,Vector2.ONE*width),false);_world_transform()
+	else:
+		var impact=progress>=.86
+		var phase=lerpf(.75,.999,inverse_lerp(.86,1,progress)) if impact else lerpf(.25,.749,fposmod(progress*4,1))
+		texture=assets.skill_texture("weapon_"+key,phase)
+		var width=(44 if impact and key in ["shell","missile","plasma"] else 30 if impact else 24)*zoom
+		_world_transform(to if impact else from.lerp(to,progress),0 if impact else angle)
+		world_canvas.draw_texture_rect(texture,Rect2(Vector2.ONE*-width*.5,Vector2.ONE*width),false);_world_transform()
+		if progress<.2:
+			var muzzle=assets.skill_texture("weapon_"+key,progress)
+			_world_transform(from,angle);world_canvas.draw_texture_rect(muzzle,Rect2(Vector2(-14,-14)*zoom,Vector2(28,28)*zoom),false);_world_transform()
+	return true
+
 func _draw_heal_effect(fx: Dictionary,from: Vector2,to: Vector2,progress: float) -> void:
 	var source=_entity(int(fx.get("unit",-1)))
 	var patient=_entity(int(fx.get("target",-1)))
@@ -2122,6 +2275,9 @@ func _draw_heal_effect(fx: Dictionary,from: Vector2,to: Vector2,progress: float)
 	var shield=str(fx.get("projectile",""))=="shield"
 	var tint=Color("bfe990") if sap else (Color("b2d5ff") if shield else Color("7dffd3"))
 	var strength=sin(PI*clampf(progress,0,1))*.8
+	if sap and not source.is_empty() and int(source.get("race",-1))==1 and int(source.get("kind",-1))==9:
+		var texture=assets.skill_texture("sap_heal",progress)
+		if texture!=null:world_canvas.draw_texture_rect(texture,Rect2(to-Vector2(24,30)*zoom,Vector2(48,48)*zoom),false)
 	if not shield:
 		world_canvas.draw_line(from,to,Color(tint,strength*.2),6*zoom,true)
 		world_canvas.draw_line(from,to,Color(tint,strength),1.5*zoom,true)
