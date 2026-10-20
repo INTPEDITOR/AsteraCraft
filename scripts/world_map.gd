@@ -14,6 +14,7 @@ var starts: Array = []
 var theme := 0
 var navigator := AStarGrid2D.new()
 var revision := 0
+var render_signature=0
 var render_regions: Array = []
 var ramps: Array = []
 var bridges: Array = []
@@ -126,14 +127,40 @@ func _make_original(map_id: int) -> void:
 			region.center=ACData.point(raw.center)
 			region.direction=ACData.point(raw.direction)
 			source_ramp_regions.append(region)
+		_clear_invisible_ground_collision()
 		source_info.collision_resolution=8
 		source_info.exact_source=false
-		source_info.geometry_policy="Original VF4 8px walk mask; AsteraCraft body clearance and original artwork"
+		source_info.geometry_policy="Visible ground is open; original visible walls, water and height seams retain body clearance"
 	_build_visual_relief()
 	for ramp in visual_ramps:ramps.append({"kind":"source","center":ACData.packed(ramp.center),"width":ramp.width})
 	_configure_navigation()
 
+func _clear_invisible_ground_collision() -> void:
+	# The user-facing ground artwork has no original CHK doodad geometry.
+	# Keep collision only where a visible wall/water/bank represents it.
+	for index in range(SIZE*SIZE):
+		if terrain[index]==0 or visual_role(index)==3:source_walk_masks[index]=0xffff
+	# Opening flat ground must never create a shortcut across a height seam.
+	# Only authored ramps may connect two different ground levels.
+	for y in range(SIZE):
+		for x in range(SIZE):
+			var index=y*SIZE+x
+			if terrain[index]!=0 and visual_role(index)!=3:continue
+			for axis in [Vector2i.RIGHT,Vector2i.DOWN]:
+				var next=Vector2i(x,y)+axis
+				if not inside(next):continue
+				var other=next.y*SIZE+next.x
+				if (terrain[other]!=0 and visual_role(other)!=3) or height_map[index]==height_map[other]:continue
+				var point=Vector2(x,y)+Vector2(axis)*.5;var ramp=false
+				for region in source_ramp_regions:
+					var delta=point-(region.center-Vector2.ONE*.5);var direction: Vector2=region.direction
+					if absf(delta.dot(direction))<=region.length*.5+1 and absf(delta.dot(Vector2(direction.y,-direction.x)))<=region.width*.5+1:ramp=true;break
+				if ramp:continue
+				if axis.x==1:source_walk_masks[index]&=0x7777;source_walk_masks[other]&=0xeeee
+				else:source_walk_masks[index]&=0x0fff;source_walk_masks[other]&=0xfff0
+
 func _build_visual_relief() -> void:
+	render_signature=hash([terrain,height_map,surface_map,visual_roles,theme])
 	visual_ramps.clear()
 	_visual_vertices.clear()
 	var authored=source_ramp_regions if not source_ramp_regions.is_empty() and terrain==PackedByteArray(_definition.terrain) and height_map==PackedByteArray(_definition.height_map) else []
@@ -435,7 +462,9 @@ func visual_boundary() -> PackedVector3Array:
 
 func _sample_visual_elevation(point: Vector2) -> float:
 	var warp=Vector2(sin(point.y*1.31+point.x*.17),sin(point.x*1.13-point.y*.23))*.18
-	var sample=point+warp-Vector2(.5,.5)
+	# Navigation and CHK entities use integer tile centres. Sampling at -0.5
+	# displaced the painted cliff half a tile from its physical boundary.
+	var sample=point+warp
 	var origin=Vector2i(floori(sample.x),floori(sample.y))
 	var fraction=sample-Vector2(origin)
 	fraction.x=smoothstep(0.0,1.0,fraction.x)
@@ -448,9 +477,10 @@ func _sample_visual_elevation(point: Vector2) -> float:
 	return value
 
 func reset_solids(buildings: Array) -> void:
+	render_signature=hash([terrain,height_map,surface_map,visual_roles,theme])
 	_last_buildings=buildings
 	for y in range(SIZE):
-		for x in range(SIZE):navigator.set_point_solid(Vector2i(x,y),terrain[y*SIZE+x]!=0)
+		for x in range(SIZE):navigator.set_point_solid(Vector2i(x,y),terrain[y*SIZE+x]!=0 and not (source_walk_masks.size()==SIZE*SIZE and visual_role(y*SIZE+x)==3))
 	for obstacle in resource_obstacles:
 		var rect: Rect2=obstacle
 		for y in range(maxi(0,ceili(rect.position.y)),mini(SIZE,ceili(rect.end.y))):
@@ -520,6 +550,20 @@ func source_ground_fits(dimensions: Vector2, pos: Vector2) -> bool:
 	var high=Vector2i(((pos+dimensions*.5+Vector2.ONE*.49999)*4).floor())+Vector2i.ONE
 	if low.x<0 or low.y<0 or high.x>512 or high.y>512:return false
 	return _detail_prefix[high.y*513+high.x]-_detail_prefix[low.y*513+high.x]-_detail_prefix[high.y*513+low.x]+_detail_prefix[low.y*513+low.x]==0
+
+func terrain_ground_fits(dimensions: Vector2,pos: Vector2) -> bool:
+	# Terrain-only query for a builder traversing its own unfinished scaffold.
+	# Other foundations and resources are still checked by the caller.
+	var scale=4 if source_detail_active else 1
+	var low=Vector2i(((pos-dimensions*.5+Vector2.ONE*.50001)*scale).floor())
+	var high=Vector2i(((pos+dimensions*.5+Vector2.ONE*.49999)*scale).floor())+Vector2i.ONE
+	if low.x<0 or low.y<0 or high.x>SIZE*scale or high.y>SIZE*scale:return false
+	for y in range(low.y,high.y):
+		for x in range(low.x,high.x):
+			if source_detail_active:
+				if (source_walk_masks[(y/4)*SIZE+x/4]&(1<<((y%4)*4+x%4)))==0:return false
+			elif terrain[y*SIZE+x]!=0:return false
+	return true
 
 func set_resource_obstacles(rects: Array) -> void:
 	resource_obstacles.clear()

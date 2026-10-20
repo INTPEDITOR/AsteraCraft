@@ -24,5 +24,5 @@ func _initialize():
 				active=next
 			templates[key]=rectangles
 		maps.append(templates);print("CLEARANCE_TEMPLATE ",theme," sizes=",templates.size())
-	FileAccess.open("res://data/clearance_v060.json",FileAccess.WRITE).store_string(JSON.stringify({"geometry_sha256":FileAccess.get_sha256("res://data/source_terrain_detail.json"),"cell_size":.25,"maps":maps}))
+	FileAccess.open("res://data/clearance_v060.json",FileAccess.WRITE).store_string(JSON.stringify({"geometry_sha256":FileAccess.get_sha256("res://data/source_terrain_detail.json"),"walk_policy":2,"cell_size":.25,"maps":maps}))
 	quit()

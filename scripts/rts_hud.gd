@@ -597,6 +597,7 @@ func update_hud(force: bool=false) -> void:
 	if not _unit.is_empty() and _unit.has("progress"):
 		current_signature+=str(_unit.get("nuke_job",{}).is_empty())+str(float(_unit.progress)>=1)+str(_unit.get("queue",[]).map(func(item):return item.kind))+str(_unit.get("research_queue",[]).map(func(item):return [item.kind,item.level]))
 	elif not _unit.is_empty():current_signature+=str(_unit.get("brood_state",""))+str(_unit.get("morph_kind",-1))+str(_unit.get("cloak_active",false))+str(_unit.get("cargo",[]))+str(_unit.get("drones",[]))+str(_unit.get("drone_queue",[]).size())
+	if not _unit.is_empty() and not _unit.has("progress"):current_signature+=str([_unit.get("anchored",false),_unit.has("deploy_until"),_unit.get("deploy_to",false)])
 	if not _unit.is_empty():
 		var owner: Dictionary=state.players[int(_unit.owner)]
 		current_signature+=str([_unit.race,_unit.kind,_unit.owner,owner.get("attack",0),owner.get("armor",0),owner.get("shield",0)])
@@ -615,6 +616,8 @@ func _number(value: float) -> String:
 	return str(int(value)) if is_equal_approx(value,round(value)) else "%.1f"%value
 
 func _update_details() -> void:
+	detail_label.autowrap_mode=TextServer.AUTOWRAP_OFF
+	detail_label.add_theme_font_size_override("font_size",14)
 	_unit={}
 	_resource={}
 	_definition={}
@@ -729,6 +732,7 @@ func _update_details() -> void:
 				var extra=float(_definition.get("bonus_"+armor_type,0))*(1 if _definition.get("burst_split_total",false) else shots)
 				if extra>0:lines[1]+=" · %s 총 +%s"%["경장갑" if armor_type=="light" else "중장갑",_number(extra)]
 		if _definition.role=="carrier":lines[1]="요격 드론 %d / 8 · 생산 대기 %d"%[_unit.get("drones",[]).size(),_unit.get("drone_queue",[]).size()]
+		if _definition.role=="flamer":lines[1]="초당 피해 %s · 방어 %d · 경장갑 초당 +%s"%[_number(float(attack)/float(_definition.period)),armor,_number(float(_definition.bonus_light)/float(_definition.period))]
 		if _definition.role=="transport":
 			var occupied=0.0
 			for cargo_id in _unit.get("cargo",[]):
@@ -824,10 +828,10 @@ func _input(event: InputEvent) -> void:
 	var point=get_canvas_transform().affine_inverse()*event.position
 	for button in action_buttons:
 		if is_instance_valid(button) and button.is_visible_in_tree() and button.get_global_rect().has_point(point):hovered=button;break
-	if hovered!=null:
+	if hovered!=null and _hover_help.get("button")!=hovered:
 		_hover_help={"button":hovered}
 		update_hud()
-	elif _hover_help.get("button") in action_buttons:
+	elif hovered==null and _hover_help.get("button") in action_buttons:
 		_hover_help={}
 		update_hud()
 
@@ -851,6 +855,8 @@ func _update_inline_help() -> void:
 	var content=_detail_content_rect()
 	detail_label.position.x=4
 	detail_label.size.x=content.size.x-8
+	detail_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	detail_label.clip_text=true
 	detail_label.text=str(button.get_meta("help_text"))
 	description_label.text=""
 
@@ -1150,7 +1156,12 @@ func _build_commands() -> void:
 		if role in ["siege","fortress","tree","shield"]:
 			var names={"siege":"공성 전개","fortress":"요새 전개","tree":"뿌리 고정","shield":"방패 전개"}
 			var title="전개 해제" if _unit.get("anchored",false) else names[role]
-			all.append(_command(title,KEY_Q,"Q",ICON_ABILITY,func():_ability(false),"현재 위치에서 전개 상태를 전환합니다."))
+			var help="현재 위치에서 전개 상태를 전환합니다."
+			if faction==0 and kind==5:
+				help="전개 2.5초 · 해제 1.8초\n고정 시 사거리 +3 · 최소 사거리 2.5"
+				if float(_unit.get("deploy_until",0))>float(main.state.time):title="전개 중" if _unit.get("deploy_to",false) else "해제 중"
+			all.append(_command(title,KEY_Q,"Q",ICON_ABILITY,func():_ability(false),help))
+			if faction==0 and kind==5:all[-1]["deploy_action"]=true
 		elif role=="transport":
 			all.append(_command("모두 내리기",KEY_D,"D",ICON_UNLOAD,func():_ability(false),"현재 위치에 탑승 유닛을 모두 내립니다.\n지상 유닛이 수송 유닛을 우클릭하면 탑승합니다."))
 		elif faction==0 and kind==7:
@@ -1303,16 +1314,19 @@ func _shell_button_style(state_index: int) -> StyleBox:
 func _cost_tip(definition: Dictionary) -> String:
 	var result="아스 %d · 테라 %d"%[int(definition.get("as",0)),int(definition.get("tera",0))]
 	if definition.has("role") and not definition.has("w"):
+		result+=" · 인구 %s · %d초"%[_number(float(definition.get("pop",0))*int(definition.get("production_count",1))),int(definition.get("time",0))]
 		var targets=str(definition.get("targets",""))
 		result+="\n%s · %s · %s"%["중장갑" if definition.get("armor_class","")=="heavy" else "경장갑","기계 (수리 가능)" if definition.get("material","")=="mechanical" else "생체","지상·공중 공격" if targets=="ga" else "지상 공격" if targets=="g" else "공중 공격" if targets=="a" else "지원 유닛 · 기본 공격 없음"]
 		if float(definition.get("damage",0))>0:
-			result+="\n기본 피해 %d · 사거리 %s · 공격 주기 %s초"%[int(definition.damage),_number(float(definition.range)),_number(float(definition.period))]
+			if definition.role=="flamer":result+="\n초당 피해 %s · 사거리 %s · 전방 범위 화염"%[_number(float(definition.damage)/float(definition.period)),_number(float(definition.range))]
+			else:result+="\n피해 %d · 사거리 %s · 주기 %s초"%[int(definition.damage),_number(float(definition.range)),_number(float(definition.period))]
 			if int(definition.get("burst_count",1))>1:
 				var total=float(definition.damage)*(1 if definition.get("burst_split_total",false) else int(definition.burst_count))
-				result+=" · %d연발 (발당 %s · 총 %s)"%[int(definition.burst_count),_number(total/int(definition.burst_count)),_number(total)]
+				result+=" · %d연발 · 총 %s"%[int(definition.burst_count),_number(total)]
 			if definition.has("damage_air"):result+=" · 공중 피해 %d"%int(definition.damage_air)
-			if float(definition.get("bonus_light",0))>0:result+=" · 경장갑 +%d"%int(definition.bonus_light)
+			if float(definition.get("bonus_light",0))>0:result+=(" · 경장갑 초당 +%s"%_number(float(definition.bonus_light)/float(definition.period))) if definition.role=="flamer" else " · 경장갑 +%d"%int(definition.bonus_light)
 			if float(definition.get("bonus_heavy",0))>0:result+=" · 중장갑 +%d"%int(definition.bonus_heavy)
+			if float(definition.get("splash_radius",0))>0:result+="\n범위 반경 %s · 주변 피해 %s%%"%[_number(float(definition.splash_radius)),_number(float(definition.get("splash_factor",1))*100)]
 	return result
 
 func _refresh_button_states(player: Dictionary,completed: Array) -> void:
@@ -1332,6 +1346,7 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 		var spec: Dictionary=button.get_meta("spec")
 		var cost: Dictionary=spec.cost
 		var reasons: Array[String]=[]
+		if spec.get("deploy_action",false) and float(_unit.get("deploy_until",0))>float(main.state.time):reasons.append("변신 중")
 		if race==1 and int(_unit.get("kind",-1))==3 and _unit.has("progress") and not _unit.get("brood_active",false):reasons.append("군체모수 연결 필요")
 		if cost.has("skill"):
 			var skill=ACAbilities.catalog(int(_unit.race),int(_unit.kind)).filter(func(d):return d.id==cost.skill)[0]
@@ -1367,7 +1382,7 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 		var blocked_hit=button.get_node_or_null("BlockedVoiceHit")
 		if blocked_hit!=null:blocked_hit.mouse_filter=Control.MOUSE_FILTER_STOP if button.disabled else Control.MOUSE_FILTER_IGNORE
 		var help_lines: Array[String]=[]
-		if not cost.is_empty() and not cost.has("skill"):help_lines.append(_cost_tip(cost)+(" · 건설 %d초"%int(cost.get("time",0)) if cost.has("w") else (" · 인구 %s · %d초"%[_number((float(cost.get("pop",0))*int(cost.get("production_count",1)))),int(cost.get("time",0))] if not cost.has("research_stat") else "")))
+		if not cost.is_empty() and not cost.has("skill"):help_lines.append(_cost_tip(cost)+(" · 건설 %d초"%int(cost.get("time",0)) if cost.has("w") else (" · 인구 %s · %d초"%[_number((float(cost.get("pop",0))*int(cost.get("production_count",1)))),int(cost.get("time",0))] if not cost.has("research_stat") and not cost.has("role") else "")))
 		if int(cost.get("production_count",1))>1:help_lines.append("1회 생산: %d마리"%int(cost.production_count))
 		var prerequisites: Array[String]=[]
 		for kind in cost.get("requires",[]):prerequisites.append(str(ACData.building(race,int(kind)).name))
@@ -1376,9 +1391,12 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 		if not missing.is_empty():help_lines.append("필요 건물: "+", ".join(missing))
 		for reason in reasons:
 			if not reason.begins_with("필요 건물"):help_lines.append(reason)
+		var generated_cost_lines=_cost_tip(cost).split("\n") if not cost.is_empty() else PackedStringArray()
 		var original=str(button.get_meta("base_help")).split("\n")
 		for line in original:
 			if help_lines.size()>=4:break
+			if cost.has("role") and not cost.has("w"):continue
+			if line in generated_cost_lines:continue
 			if not cost.is_empty() and (line.begins_with("아스 ") or line.begins_with("인구 ") or line.begins_with("규격 ")):continue
 			if line!="" and line not in help_lines:help_lines.append(line)
 		button.set_meta("help_text","\n".join(help_lines.slice(0,4)))
@@ -1518,11 +1536,14 @@ func _is_brood_entity(entity: Dictionary) -> bool:
 	return not entity.is_empty() and not entity.has("progress") and int(entity.race)==1 and int(entity.kind)==13
 
 func _skill_tip(skill: Dictionary) -> String:
-	var rule="기본 능력" if skill.get("base",false) else str(ACData.building(int(skill.race),int(skill.building)).name)+" 연구 필요"
-	if skill.id=="sap_heal":return "%s · 자동 치료 · 사용 중 마나 초당 4\n치료 반경 4 · 버튼으로 켜기/끄기\n%s"%[rule,ACAbilities.description(str(skill.id))]
-	return "%s · 에너지 %d
-사거리 %s · 재사용 %d초
-%s"%[rule,int(skill.energy),_number(float(skill.range)),int(skill.cooldown),ACAbilities.description(str(skill.id))]
+	var lines: Array[String]=[]
+	var player: Dictionary=main.state.players[main.local_slot]
+	if not ACAbilities.unlocked(player,skill):lines.append(str(ACData.building(int(skill.race),int(skill.building)).name)+" 연구 필요")
+	if skill.id=="sap_heal":return "자동 치료 · 반경 4\n체력 초당 8 회복 · 마나 초당 4\n클릭하여 자동 치료 켜기/끄기"
+	var cost="에너지 %d · "%int(skill.energy) if float(skill.energy)>0 else ""
+	lines.append(cost+"사거리 %s · 재사용 %d초"%[_number(float(skill.range)),int(skill.cooldown)])
+	lines.append(ACAbilities.description(str(skill.id)))
+	return "\n".join(lines)
 
 func _skill(key: String) -> void:
 	var skill=ACAbilities.catalog(int(_unit.race),int(_unit.kind)).filter(func(d):return d.id==key)[0]

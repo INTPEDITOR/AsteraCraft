@@ -83,8 +83,11 @@ async function main(){
   const preview=await sharp(file).extract({left:0,top:3*256,width:256,height:256}).png().toBuffer();
   const icon=await sharp(preview).trim().resize(112,112,{fit:'inside'}).png().toBuffer(),im=await sharp(icon).metadata();
   const old=await sharp('assets/icons_units_0_v060.png').png().toBuffer();
-  const blank=await sharp({create:{width:128,height:128,channels:4,background:'#1e2325'}}).composite([{input:icon,left:Math.round((128-im.width)/2),top:Math.round((128-im.height)/2)}]).png().toBuffer();
-  await sharp(old).composite([{input:blank,left:(kind%4)*128,top:Math.floor(kind/4)*128}]).png().toFile('assets/icons_units_0_v060.png');
+  const blank=await sharp({create:{width:128,height:128,channels:4,background:clear}}).composite([{input:icon,left:Math.round((128-im.width)/2),top:Math.round((128-im.height)/2)}]).png().toBuffer();
+  // 'over' cannot erase an old opaque backdrop. Clear the destination cell.
+  const atlas=await sharp(old).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+  for(let y=0;y<128;y++)atlas.data.fill(0,((Math.floor(kind/4)*128+y)*atlas.info.width+(kind%4)*128)*4,((Math.floor(kind/4)*128+y)*atlas.info.width+(kind%4+1)*128)*4);
+  await sharp(atlas.data,{raw:{width:atlas.info.width,height:atlas.info.height,channels:4}}).composite([{input:blank,left:(kind%4)*128,top:Math.floor(kind/4)*128}]).png().toFile('assets/icons_units_0_v060.png');
   console.log('Packed industrial unit',name,'canonical headings',5,'frames',40);
  }
  report.sources=Object.fromEntries(await Promise.all(Object.keys(cache).map(async name=>[name,{sha256:crypto.createHash('sha256').update(fs.readFileSync(cache[name].file)).digest('hex')}])));

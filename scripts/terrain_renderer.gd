@@ -33,6 +33,7 @@ var transition_textures: Array[Texture2D] = []
 var fog_samples := PackedFloat32Array()
 var last_stats: Dictionary = {}
 var _cache: Dictionary = {}
+var cache_builds=0
 
 func load_art() -> void:
 	loaded = true
@@ -166,13 +167,13 @@ func _load_cells(path: String, trim: bool) -> Array[Texture2D]:
 		result.append(ImageTexture.create_from_image(image.get_region(used)) if used.has_area() else null)
 	return result
 
-func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Callable, _unproject: Callable, fog: Callable, _clock: float, fog_revision: int=-1) -> void:
+func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Callable, _unproject: Callable, fog: Callable, _clock: float, fog_revision: int=-1,draw_fog: bool=true) -> void:
 	var started = Time.get_ticks_usec()
 	if not loaded:load_art()
 	canvas.texture_repeat = CanvasItem.TEXTURE_REPEAT_MIRROR
 	canvas.draw_rect(view,Color.BLACK)
 	var key = map.get_instance_id()
-	var signature = hash([map.terrain,map.height_map,map.surface_map,map.visual_roles,map.theme])
+	var signature = map.render_signature
 	if not _cache.has(key) or _cache[key].signature != signature:
 		if not _cache.has(key) and _cache.size()>=3:_cache.erase(_cache.keys()[0])
 		_cache[key] = _build_cache(map,signature)
@@ -188,8 +189,8 @@ func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Cal
 		canvas.draw_mesh(layer.mesh,_texture(layer.slot),transform,layer.tint)
 		calls += 1
 	_draw_props(canvas,map,clip,zoom,project,fog)
-	_update_fog(data,fog,fog_revision)
-	if data.fog_texture != null:
+	if draw_fog:_update_fog(data,fog,fog_revision)
+	if draw_fog and data.fog_texture != null:
 		_draw_cropped(canvas,data.fog_texture,world_rect,clip,Color.WHITE)
 		calls += 1
 	var detail=_texture(16+map.theme)
@@ -235,6 +236,7 @@ func _boundary_mask_mesh(map: ACMap) -> ArrayMesh:
 	return _mesh(builder)
 
 func _build_cache(map: ACMap, signature: int) -> Dictionary:
+	cache_builds+=1
 	var started = Time.get_ticks_usec()
 	var classes := PackedByteArray()
 	classes.resize(128*128)
@@ -255,7 +257,7 @@ func _build_cache(map: ACMap, signature: int) -> Dictionary:
 			var p = Vector2(gx*.5,gy*.5)
 			# Boundary displacement affects art alone, preserving every nav cell.
 			var warp = Vector2(sin(p.y*1.31+p.x*.17),sin(p.x*1.13-p.y*.23))*.18
-			var sample = p+warp-Vector2(.5,.5)
+			var sample = p+warp
 			var x = int(floor(sample.x))
 			var y = int(floor(sample.y))
 			var fraction = sample-Vector2(x,y)
@@ -843,7 +845,7 @@ func _ramp_mesh(map: ACMap, points: PackedVector2Array, levels: PackedFloat32Arr
 	return _mesh(builder) if not builder.vertices.is_empty() else null
 
 func _update_fog(data: Dictionary, fog: Callable, revision: int=-1) -> void:
-	if revision>=0 and data.get("fog_revision",-2)==revision and data.fog_texture!=null:return
+	if revision!=-1 and data.get("fog_revision",-2)==revision and data.fog_texture!=null:return
 	var now = Time.get_ticks_msec()
 	if now-int(data.fog_updated)<100:return
 	data.fog_updated=now

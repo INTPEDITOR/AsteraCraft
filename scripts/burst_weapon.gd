@@ -13,7 +13,7 @@ static func shoot(c,u: Dictionary,target: Dictionary) -> void:
 	u.facing=ACData.packed((c.center(target)-c.center(u)).normalized())
 	u.turret_direction=u.facing.duplicate();u._aiming=true
 	c._damage(u,target,base+float(c.players[u.owner].attack)*2.0/count,true,"attack",1.0/count,1.0/count if split else 1.0)
-	if d.role=="bomber":c._area_damage(u,c.center(target),1.3,base*.4,int(target.id),str(d.targets),1.0/count)
+	c._attack_splash(u,target,base,1.0/count,1.0/count if split else 1.0,1.0/count)
 	u.burst_shot=int(u.get("burst_shot",0))+1
 	u.fired=c.time
 	c._set_action(u,"attack",true)

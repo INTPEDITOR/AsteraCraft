@@ -1,6 +1,10 @@
 extends Control
 
 const Core=preload("res://scripts/core.gd")
+const REPLAYS_ENABLED=false
+var simulation_worker: ACSimulationWorker
+var _placement_requested=""
+var _placement_result={}
 const ConstructionVisual=preload("res://scripts/construction_visual.gd")
 const DEFAULT_ZOOM=1.75
 const MIN_ZOOM=1.0
@@ -16,6 +20,12 @@ var pointer_order=""
 var render_rects: Dictionary={}
 var world_clip: Control
 var world_canvas: Control
+var _world_effect_canvas: Control
+var _entity_canvases: Dictionary={}
+var _selection_bodies: Dictionary={}
+var _fog_canvas: ACFogCanvas
+var _root_canvas: Control
+var _object_canvas_offset=Vector2.ZERO
 var nuclear_clouds: Dictionary={}
 var world_mask: Control
 var camera_velocity=Vector2.ZERO
@@ -51,6 +61,7 @@ var zoom=DEFAULT_ZOOM
 var drag_start=Vector2.ZERO
 var dragging=false
 var middle_drag=false
+var minimap_drag=false
 var attack_mode=false
 var build_kind=-1
 var last_group_key=-1
@@ -131,6 +142,8 @@ var test_sent=false
 var test_deadline=0.0
 
 func _ready() -> void:
+	Engine.max_fps=144
+	if DisplayServer.get_name()!="headless":DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	name="Main"
 	get_viewport().mouse_exited.connect(func():pointer_position=Vector2(-1,-1))
 	get_window().focus_exited.connect(_release_pointer)
@@ -167,7 +180,7 @@ func _ready() -> void:
 		session_token=str(config.get("session_token",""))
 		test_surrender_after=float(config.get("surrender_after",2.0))
 		test_deadline=Time.get_ticks_msec()/1000.0+75
-		ui=Control.new()
+		ui=Control.new();ui.z_index=3300
 		add_child(ui)
 		_join_game(config)
 		return
@@ -188,7 +201,7 @@ func _ready() -> void:
 	if audio.director!=null:
 		audio.director.attack_visible=func(point: Vector2):return page=="game" and _world_visible_at(_ground_point(point))
 	_apply_settings(false)
-	ui=Control.new()
+	ui=Control.new();ui.z_index=3300
 	ui.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ui.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	add_child(ui)
@@ -349,11 +362,16 @@ func _api(route: String,body: Dictionary,callback: Callable) -> void:
 		request.queue_free()
 
 func _start_local(config: Dictionary) -> void:
+	_stop_simulation_worker()
+	for node in _entity_canvases.values():node.queue_free()
+	_entity_canvases.clear();_entity_by_id.clear();_entity_list=[];_entity_source={}
+	_placement_requested="";_placement_result={};_shot_origins.clear()
 	network_client=false
 	spectator=false
 	result_sent=false
 	groups={}
 	render_rects={}
+	_selection_bodies.clear()
 	tick_accum=0
 	core=Core.new()
 	core.setup(config)
@@ -369,6 +387,34 @@ func _start_local(config: Dictionary) -> void:
 	replay_codec=FileAccess.COMPRESSION_FASTLZ
 	replay_clock=0.0
 	_build_hud()
+
+func _stop_simulation_worker() -> void:
+	if simulation_worker!=null:simulation_worker.stop();simulation_worker=null
+
+func _exit_tree() -> void:
+	_stop_simulation_worker()
+
+func _start_simulation_worker() -> void:
+	if simulation_worker!=null or core==null:return
+	# The renderer gets a separate immutable map; navigation and source solids
+	# remain exclusively on the simulation thread.
+	draw_map=ACMap.new();draw_map.make(core.map.theme)
+	simulation_worker=ACSimulationWorker.new();simulation_worker.start(core)
+
+func _process_simulation_worker(dt: float) -> bool:
+	var output=simulation_worker.poll()
+	if not output.is_empty():
+		state=output.state
+		if output.has("placement"):_placement_result=output.placement
+		_accept_visual_snapshot(state.units,float(state.time))
+		for notice in output.notices:_notify(notice)
+		for error in output.errors:_notify(error);_voice_error(error)
+		if state.ended and not result_sent:result_sent=true;_show_result()
+	tick_accum=minf(.2,tick_accum+minf(dt,.1))
+	var steps=mini(2,floori(tick_accum/.05))
+	if steps>0 and simulation_worker.submit(steps,-1 if spectator else local_slot):tick_accum-=steps*.05
+	visual_clock=minf(visual_clock,.1)
+	return not output.is_empty()
 
 func _build_hud() -> void:
 	_clear_ui()
@@ -441,6 +487,7 @@ func _ground_point(p: Vector2) -> Vector2:
 	return world_to_screen(p)-Vector2(0,_elevation(p))
 
 func _ensure_world_canvas() -> void:
+	if is_instance_valid(ui):ui.z_index=3300
 	if is_instance_valid(world_clip):return
 	world_clip=Control.new()
 	world_clip.name="WorldViewportClip"
@@ -453,8 +500,15 @@ func _ensure_world_canvas() -> void:
 	world_canvas.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
 	world_clip.add_child(world_canvas)
 	world_canvas.draw.connect(_draw_world)
+	_fog_canvas=ACFogCanvas.new();world_canvas.add_child(_fog_canvas)
+	_root_canvas=Control.new();_root_canvas.mouse_filter=Control.MOUSE_FILTER_IGNORE;_root_canvas.z_index=1
+	world_canvas.add_child(_root_canvas);_root_canvas.draw.connect(_draw_retained_roots)
+	_world_effect_canvas=Control.new();_world_effect_canvas.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	_world_effect_canvas.z_index=3100;world_canvas.add_child(_world_effect_canvas)
+	_world_effect_canvas.draw.connect(_draw_world_overlay_canvas)
 	world_mask=Control.new()
 	world_mask.name="WorldOutsideMask"
+	world_mask.z_index=3200
 	world_mask.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	add_child(world_mask)
 	move_child(world_mask,world_clip.get_index()+1)
@@ -471,6 +525,13 @@ func _sync_world_canvas() -> void:
 	world_clip.size=clip.size
 	world_canvas.size=clip.size
 	world_canvas.queue_redraw()
+	_root_canvas.queue_redraw()
+	if spectator:_fog_canvas.hide()
+	else:
+		var fog=state.get("fog",PackedByteArray());var seen=state.get("explored",PackedByteArray())
+		if simulation_worker==null and not network_client and not replay_mode and core!=null:
+			fog=core.visibility[local_slot];seen=core.explored[local_slot]
+		_fog_canvas.update_masks(fog,seen,_fog_stamp(),Rect2(map_rect.position-world_clip.position,map_rect.size),Rect2(Vector2.ZERO,clip.size))
 	world_mask.size=size
 	world_mask.queue_redraw()
 	_sync_nuclear_clouds()
@@ -483,7 +544,7 @@ func _sync_nuclear_clouds() -> void:
 		if frames.is_empty():continue
 		var id=int(fx.id);active[id]=true
 		if not nuclear_clouds.has(id):
-			var node=ACNuclearCloud.new();node.configure(frames[0].atlas,frames.size());world_canvas.add_child(node);nuclear_clouds[id]=node
+			var node=ACNuclearCloud.new();node.configure(frames[0].atlas,frames.size());node.z_index=3102;world_canvas.add_child(node);nuclear_clouds[id]=node
 		var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0)
 		var point=_ground_point(ACData.point(fx.to))-world_clip.position
 		nuclear_clouds[id].update_cloud(point,float(fx.get("radius",5))*64*zoom,maxf(0,now-float(fx.started)),float(fx.until)-float(fx.started))
@@ -497,7 +558,7 @@ func _draw_world_mask() -> void:
 		if rect.has_area():world_mask.draw_rect(rect,Color.BLACK)
 
 func _world_transform(origin: Vector2=Vector2.ZERO,rotation: float=0.0,scale_value: Vector2=Vector2.ONE) -> void:
-	world_canvas.draw_set_transform(origin-world_clip.position,rotation,scale_value)
+	world_canvas.draw_set_transform(origin-world_clip.position-_object_canvas_offset,rotation,scale_value)
 
 func _accept_visual_snapshot(units: Array,stamp: float,reset: bool=false) -> void:
 	if reset:_shot_origins.clear()
@@ -575,6 +636,7 @@ func _release_pointer() -> void:
 	_cursor_key=""
 	camera_velocity=Vector2.ZERO
 	middle_drag=false
+	minimap_drag=false
 	dragging=false
 
 func _sync_pointer() -> void:
@@ -622,7 +684,7 @@ func _focus_home(reset_zoom: bool=false) -> void:
 			camera=_center(building)
 			break
 	_clamp_camera()
-	render_rects.clear()
+	render_rects.clear();_selection_bodies.clear()
 
 func _process(dt: float) -> void:
 	if network_client and remote_game.get("transport","")=="webrtc":
@@ -646,25 +708,10 @@ func _process(dt: float) -> void:
 	if page=="game":
 		var simulated_this_frame=false
 		if not paused and not replay_mode and not network_client and core!=null:
-			tick_accum+=minf(dt,.2)
-			while tick_accum>=.05:
-				simulated_this_frame=true
-				core.step(.05)
-				core.resolve_spells()
-				_accept_visual_snapshot(core.units,core.time)
-				tick_accum-=.05
-			if not is_equal_approx(float(state.get("time",-1)),core.time):
-				state=core.snapshot(local_slot,true)
-			visual_clock=tick_accum
-			for e in core.events:
-				if not e.get("shown",false) and e.get("owner",-1)==local_slot and e.has("text"):
-					e.shown=true
-					_notify(e.text)
-			if core.ended and not result_sent:
-				result_sent=true
-				_show_result()
+			_start_simulation_worker()
+			simulated_this_frame=_process_simulation_worker(dt)
 		if replay_mode:_tick_replay(dt)
-		if not replay_mode and not paused:
+		if REPLAYS_ENABLED and not replay_mode and not paused:
 			replay_clock+=dt
 			if replay_clock>=replay_interval and not state.is_empty() and (not simulated_this_frame or replay_clock>=replay_interval+.1):
 				replay_clock=fmod(replay_clock,replay_interval)
@@ -721,7 +768,7 @@ func _camera_input(dt: float) -> void:
 	if Input.is_key_pressed(KEY_UP):delta.y-=1
 	if Input.is_key_pressed(KEY_DOWN):delta.y+=1
 	var mouse=pointer_position if pointer_position.is_finite() else get_global_mouse_position()
-	if settings.edge_scroll and Rect2(Vector2.ZERO,size).has_point(mouse) and not dragging and not middle_drag:
+	if settings.edge_scroll and Rect2(Vector2.ZERO,size).has_point(mouse) and not dragging and not middle_drag and not minimap_drag and not _mini_rect().has_point(mouse):
 		var edge=10.0
 		if mouse.x<edge:delta.x-=1.0-mouse.x/edge
 		if mouse.x>size.x-edge:delta.x+=(mouse.x-(size.x-edge))/edge
@@ -735,26 +782,38 @@ func _camera_input(dt: float) -> void:
 	var previous=camera
 	camera+=_from_iso(camera_velocity*dt/zoom)
 	_clamp_camera()
-	if camera!=previous:render_rects.clear()
+	if camera!=previous:render_rects.clear();_selection_bodies.clear()
 
 func _view_snapshot() -> Dictionary:
-	if core!=null and not network_client and not replay_mode:
+	if simulation_worker==null and core!=null and not network_client and not replay_mode:
 		return core.snapshot(local_slot)
 	return state.duplicate(true)
 
 func _visible(e: Dictionary) -> bool:
 	if spectator or replay_mode:return true
 	if int(e.owner)==local_slot:return true
-	if not network_client and core!=null:return core.can_see(local_slot,e)
+	if simulation_worker==null and not network_client and core!=null:return core.can_see(local_slot,e)
 	return true
 
+var _entity_source: Dictionary={}
+var _entity_list: Array=[]
+var _entity_by_id: Dictionary={}
+var _entity_count=-1
+
+func _index_view_entities() -> void:
+	var count=state.get("buildings",[]).size()+state.get("units",[]).size()
+	if is_same(_entity_source,state) and count==_entity_count:return
+	_entity_source=state;_entity_count=count
+	_entity_list=state.get("buildings",[])+state.get("units",[]);_entity_by_id.clear()
+	for e in _entity_list:_entity_by_id[int(e.id)]=e
+
 func _entities() -> Array:
-	return state.get("buildings",[])+state.get("units",[])
+	_index_view_entities()
+	return _entity_list
 
 func _entity(id: int) -> Dictionary:
-	for e in _entities():
-		if int(e.id)==id:return e
-	return {}
+	_index_view_entities()
+	return _entity_by_id.get(id,{})
 
 func _selected_resource_data() -> Dictionary:
 	if selected_resource<0:return {}
@@ -852,7 +911,7 @@ func _focus_selection(portrait_only: bool=false) -> void:
 			if not entity.is_empty():target+=_center(entity);count+=1
 	if count==0:return
 	camera=target/float(count);camera_velocity=Vector2.ZERO
-	_clamp_camera();render_rects.clear();queue_redraw()
+	_clamp_camera();render_rects.clear();_selection_bodies.clear();queue_redraw()
 
 func _center(e: Dictionary) -> Vector2:
 	var p=ACData.point(e.pos)
@@ -862,9 +921,18 @@ func _center(e: Dictionary) -> Vector2:
 	return p
 
 func _selection_center(unit: Dictionary) -> Vector2:
+	if _selection_bodies.has(int(unit.id)):return Rect2(_selection_bodies[int(unit.id)]).get_center()
 	if render_rects.has(int(unit.id)):return Rect2(render_rects[int(unit.id)]).get_center()
 	var d=ACData.unit(int(unit.race),int(unit.kind))
 	return _ground_point(_visual_position(unit))-Vector2(0,(22.0 if d.air else float(d.get("visual_extent",32))*.38)*zoom)
+
+func _drag_hits_unit(rect: Rect2,unit: Dictionary) -> bool:
+	var middle=_selection_center(unit)
+	if rect.has_point(middle):return true
+	# Accept overlap with the central body, excluding a long barrel or empty
+	# atlas padding. A drag across most of a chassis should select that unit.
+	var bounds: Rect2=_selection_bodies.get(int(unit.id),render_rects.get(int(unit.id),Rect2(middle-Vector2.ONE*10*zoom,Vector2.ONE*20*zoom)))
+	return rect.intersects(Rect2(middle-bounds.size*.3,bounds.size*.6))
 
 func _hit_test(mouse: Vector2, own_only: bool=false) -> int:
 	var best=INF
@@ -903,6 +971,9 @@ func _select_army() -> void:
 	queue_redraw()
 
 func _input(event: InputEvent) -> void:
+	if page=="game" and (ui==null or ui.get_node_or_null("MenuModal")==null) and _handle_minimap_input(event):
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventMouse:
 		pointer_position=event.position
 		if _pointer_confined and not Rect2(Vector2.ZERO,size).has_point(pointer_position):
@@ -930,6 +1001,32 @@ func _input(event: InputEvent) -> void:
 	if page=="game" and event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_F2:
 		_select_army()
 		get_viewport().set_input_as_handled()
+
+func _minimap_camera(point: Vector2) -> void:
+	var rect=_mini_rect()
+	camera=((point-rect.position)/rect.size).clamp(Vector2.ZERO,Vector2.ONE)*ACMap.SIZE
+	camera_velocity=Vector2.ZERO
+	_clamp_camera();render_rects.clear();_selection_bodies.clear();queue_redraw()
+
+func _handle_minimap_input(event: InputEvent) -> bool:
+	if event is InputEventMouse:pointer_position=event.position
+	if event is InputEventMouseMotion and minimap_drag:
+		_minimap_camera(event.position);return true
+	if not event is InputEventMouseButton:return false
+	if event.button_index==MOUSE_BUTTON_LEFT and not event.pressed and minimap_drag:
+		minimap_drag=false;return true
+	if not event.pressed or not _mini_rect().has_point(event.position):return false
+	var point=(event.position-_mini_rect().position)/_mini_rect().size*ACMap.SIZE
+	if event.button_index==MOUSE_BUTTON_LEFT:
+		dragging=false
+		if not _confirm_pointer_target(point,event.position,true):
+			minimap_drag=true;_minimap_camera(event.position)
+		return true
+	if event.button_index==MOUSE_BUTTON_RIGHT:
+		attack_mode=false;pointer_order="";build_kind=-1
+		_issue_order("move",point,-1)
+		return true
+	return false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if page!="game" or (ui!=null and ui.get_node_or_null("MenuModal")!=null):return
@@ -962,7 +1059,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera-=_from_iso(event.relative/zoom)
 			camera_velocity=Vector2.ZERO
 			_clamp_camera()
-			render_rects.clear()
+			render_rects.clear();_selection_bodies.clear()
 		queue_redraw()
 	if event is InputEventMouseButton:
 		var mouse=event.position
@@ -973,13 +1070,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera+=focus-screen_to_world(mouse)
 			camera_velocity=Vector2.ZERO
 			_clamp_camera()
-			render_rects.clear()
+			render_rects.clear();_selection_bodies.clear()
 		if event.button_index==MOUSE_BUTTON_LEFT:
 			if event.pressed and _mini_rect().has_point(mouse):
 				if _confirm_pointer_target((mouse-_mini_rect().position)/_mini_rect().size*ACMap.SIZE,mouse,true):return
 				camera=(mouse-_mini_rect().position)/_mini_rect().size*ACMap.SIZE
 				_clamp_camera()
-				render_rects.clear()
+				render_rects.clear();_selection_bodies.clear()
 				return
 			if event.pressed and _can_point_world(mouse):
 				var pos=_command_point(mouse)
@@ -998,7 +1095,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					for e in state.units:
 						if selected.size()>=12:break
 						var point=_selection_center(e)
-						if int(e.owner)==local_slot and e.container<0 and rect.has_point(point) and _world_visible_at(point) and int(e.id) not in selected:selected.append(int(e.id))
+						if int(e.owner)==local_slot and e.hp>0 and e.container<0 and _visible(e) and _drag_hits_unit(rect,e) and _world_visible_at(point) and int(e.id) not in selected:selected.append(int(e.id))
 					if selected.is_empty():
 						for e in state.buildings:
 							if selected.size()>=12:break
@@ -1114,6 +1211,10 @@ func _send_command(cmd: Dictionary) -> void:
 			_remote_command.rpc_id(1,cmd)
 			if audio!=null:audio.play_ui("confirm")
 	elif core!=null:
+		if simulation_worker!=null:
+			simulation_worker.command(local_slot,cmd)
+			if audio!=null:audio.play_ui("confirm")
+			return
 		var error=core.command(local_slot,cmd)
 		if error!="":
 			_notify(error)
@@ -1367,6 +1468,7 @@ func _connected() -> void:
 	_authenticate_peer.rpc_id(1,str(remote_game.ticket))
 
 func _leave_network() -> void:
+	_stop_simulation_worker()
 	if network_client and not result_sent:_report_public_void()
 	if is_instance_valid(public_p2p):public_p2p.close();public_p2p.queue_free();public_p2p=null
 	if multiplayer.multiplayer_peer!=null:multiplayer.multiplayer_peer.close();multiplayer.multiplayer_peer=null
@@ -1588,12 +1690,16 @@ func _draw() -> void:
 	if state.is_empty():return
 	draw_rect(_world_render_rect(),Color("090e13"))
 
+func _draw_retained_roots() -> void:
+	var previous=world_canvas;world_canvas=_root_canvas
+	_world_transform();_draw_root_ground(_world_render_rect());world_canvas=previous
+
 func _draw_root_ground(_view: Rect2) -> void:
 	var viewer=hash([local_slot,spectator,network_client,replay_mode])
 	if viewer!=root_viewer_signature:
 		root_viewer_signature=viewer;root_artist.chunks.clear();root_artist.pending.clear();root_artist.chunk_input=0
 	var packed=state.get("roots",PackedInt32Array())
-	if spectator and not network_client and not replay_mode and core!=null:packed=core.roots.snapshot(core,-1)
+	if simulation_worker==null and spectator and not network_client and not replay_mode and core!=null:packed=core.roots.snapshot(core,-1)
 	var fog_signature=_fog_stamp()
 	root_artist.draw(world_canvas,draw_map,packed,_fog_value,zoom,world_to_screen,fog_signature)
 
@@ -1601,8 +1707,7 @@ func _draw_world() -> void:
 	var view=_world_render_rect()
 	_world_transform()
 	world_canvas.draw_rect(view,Color("0a1119"))
-	terrain_artist.draw(world_canvas,draw_map,view,zoom,world_to_screen,screen_to_world,_fog_value,float(state.get("time",0)),_fog_stamp())
-	_draw_root_ground(view)
+	terrain_artist.draw(world_canvas,draw_map,view,zoom,world_to_screen,screen_to_world,_fog_value,float(state.get("time",0)),_fog_stamp(),false)
 	for debris in state.get("rubble",[]):
 		var texture=assets.rubble_texture(int(debris.race),int(debris.kind))
 		if texture==null:continue
@@ -1614,6 +1719,7 @@ func _draw_world() -> void:
 	for fx in state.get("effects",[]):
 		if fx.get("type","")=="death" and fx.get("death_style","") in ["juice","blood"]:_draw_effect(fx)
 	var objects: Array=[]
+	var points={}
 	for res in state.get("resources",[]):
 		var p=ACData.point(res.pos)
 		if not draw_map.inside(Vector2i(p)):continue
@@ -1624,33 +1730,63 @@ func _draw_world() -> void:
 		if _fog_value(int(point.y)*128+int(point.x))==1 and view.grow(200).has_point(_ground_point(point)):objects.append(remembered)
 	for e in _entities():
 		if e.get("container",-1)>=0 or not _visible(e):continue
-		if view.grow(200).has_point(_ground_point(_center(e) if e.has("progress") else _visual_position(e))):objects.append(e)
-	objects.sort_custom(func(a,b):
-		var ay=_render_depth(a);var by=_render_depth(b)
-		return int(a.id)<int(b.id) if is_equal_approx(ay,by) else ay<by
-	)
-	render_rects.clear()
+		var point=_ground_point(_center(e) if e.has("progress") else _visual_position(e))
+		if view.grow(200).has_point(point):objects.append(e);points[int(e.id)]=point
+	_sync_entity_canvases(objects,points)
+	_world_effect_canvas.queue_redraw()
+
+func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
+	var active={};var now=Time.get_ticks_msec()*.001
 	for e in objects:
-		if e.has("amount"):
-			var sp=_ground_point(ACData.point(e.pos))
-			if e.type=="as" and e.amount>0:_draw_ore(sp,e)
-			elif e.type=="tera" and _resource_refinery(e).is_empty():_draw_vent(sp,e)
-			elif int(e.id)==selected_resource:_draw_resource_selection(sp,e)
-		elif e.has("progress"):_draw_building(e)
-		else:_draw_unit(e)
+		var id=int(e.id);active[id]=true
+		if not _entity_canvases.has(id):
+			var node=ACEntityCanvas.new();node.main=self;world_canvas.add_child(node);_entity_canvases[id]=node
+		var node: ACEntityCanvas=_entity_canvases[id]
+		node.entity=e
+		var point: Vector2=points.get(id,Vector2.INF)
+		if not point.is_finite():point=_ground_point(_center(e) if e.has("progress") else ACData.point(e.pos) if e.has("amount") else _visual_position(e))
+		var next_position=point-world_clip.position
+		if not node.position.is_equal_approx(next_position):node.position=next_position
+		var depth=_render_depth(e) if e.has("progress") or e.has("amount") else point.y+(10000 if ACData.unit(int(e.race),int(e.kind)).air else 0)
+		var layer=clampi(roundi(depth),2,3000)
+		if node.z_index!=layer:node.z_index=layer
+		if node.bounds.has_area():render_rects[id]=Rect2(node.bounds.position+point,node.bounds.size)
+		if node.body_bounds.has_area():_selection_bodies[id]=Rect2(node.body_bounds.position+point,node.body_bounds.size)
+		if now>=node.next_pose:
+			# Stagger twelve animation updates per second across the screen.
+			# The retained canvas transform still interpolates at display rate.
+			node.next_pose=(floorf(now*12.0-float(posmod(id,12))/12.0)+1+float(posmod(id,12))/12.0)/12.0
+			node.queue_redraw()
+	for id in _entity_canvases.keys():
+		if not active.has(id):_entity_canvases[id].queue_free();_entity_canvases.erase(id);render_rects.erase(id);_selection_bodies.erase(id)
+
+func _draw_world_overlay_canvas() -> void:
+	var previous=world_canvas;world_canvas=_world_effect_canvas
+	_world_transform();_draw_world_overlay();world_canvas=previous
+
+func _draw_world_overlay() -> void:
+	var view=_world_render_rect()
 	for contact in state.get("shimmers",[]):_draw_cloak_shimmer(contact)
 	for id in selected:
 		var producer=_entity(int(id))
 		if not producer.is_empty() and _building_accepts_rally(producer):_draw_rally_beacon(producer)
+	var flame_latest={}
+	for fx in state.get("effects",[]):
+		if fx.get("projectile","")=="flame":flame_latest[int(fx.get("unit",-1))]=int(fx.id)
 	for fx in state.get("effects",[]):
 		if fx.get("type","")=="death" and fx.get("death_style","") in ["juice","blood"]:continue
+		if fx.get("projectile","")=="flame" and flame_latest.get(int(fx.get("unit",-1)),-1)!=int(fx.id):continue
 		_draw_effect(fx)
 	var mouse=pointer_position if pointer_position.is_finite() else get_global_mouse_position()
 	if build_kind>=0 and _can_point_world(mouse):
 		var pos=_build_position(mouse)
 		var d=ACData.building(int(state.players[local_slot].race),build_kind)
 		var valid=true
-		if core!=null and not network_client:valid=core.placement(local_slot,build_kind,pos)==""
+		if simulation_worker==null and core!=null and not network_client:valid=core.placement(local_slot,build_kind,pos)==""
+		elif simulation_worker!=null:
+			var key="%d:%d:%s"%[local_slot,build_kind,str(pos)]
+			if key!=_placement_requested:simulation_worker.placement(local_slot,build_kind,pos,key);_placement_requested=key
+			valid=_placement_result.get("key","")==key and _placement_result.get("valid",false)
 		_draw_building_ghost(int(state.players[local_slot].race),build_kind,pos,valid)
 	if dragging:
 		var rect=Rect2(drag_start,get_global_mouse_position()-drag_start).abs()
@@ -1659,13 +1795,14 @@ func _draw_world() -> void:
 	terrain_artist.draw_boundary_mask(world_canvas,draw_map,view,zoom,world_to_screen)
 
 func _fog_stamp() -> int:
-	var revision=core.fog_revision if not network_client and not replay_mode and core!=null else int(state.get("fog_revision",floorf(float(state.get("time",0))*5)))
-	return hash([revision,local_slot,spectator,network_client,replay_mode,draw_map.get_instance_id()])
+	if spectator:return hash(["all_visible",draw_map.get_instance_id()])&0x7fffffff
+	var revision=int(core.vision_revisions.get(local_slot,0)) if simulation_worker==null and not network_client and not replay_mode and core!=null else int(state.get("fog_revision",floorf(float(state.get("time",0))*5)))
+	return hash([revision,local_slot,spectator,network_client,replay_mode,draw_map.get_instance_id()])&0x7fffffff
 
 func _fog_value(index: int) -> int:
 	if spectator:return 2
 	if index<0 or index>=128*128:return 0
-	if not network_client and not replay_mode and core!=null:
+	if simulation_worker==null and not network_client and not replay_mode and core!=null:
 		return 2 if core.visibility[local_slot][index] else (1 if core.explored[local_slot][index] else 0)
 	var fog=state.get("fog",[])
 	var seen=state.get("explored",[])
@@ -1774,6 +1911,12 @@ func _draw_building(e: Dictionary) -> void:
 		var fraction=clampf(1-float(q.left)/maxf(.01,float(q.total)),0,1)
 		_draw_segmented_bar(Rect2(sp+Vector2(-bar_width*.5,front+16),Vector2(bar_width,5)),fraction*float(d.hp),float(d.hp),Color("69bfd1"))
 
+func _deployment_progress(e: Dictionary) -> float:
+	if not e.has("deploy_until"):return 1.0 if e.get("anchored",false) else 0.0
+	var start=float(e.get("deploy_started",0));var now=float(state.get("time",0))+minf(visual_clock,visual_step)
+	var progress=clampf((now-start)/maxf(.01,float(e.deploy_until)-start),0,1)
+	return progress if e.get("deploy_to",false) else 1-progress
+
 func _draw_unit(e: Dictionary) -> void:
 	var d=ACData.unit(int(e.race),int(e.kind))
 	var foot=_ground_point(_visual_position(e))
@@ -1790,7 +1933,7 @@ func _draw_unit(e: Dictionary) -> void:
 		action="walk" if bool(motion.walking) else "idle"
 		animation_clock=float(motion.phase)/9.0
 	if d.air:animation_clock=float(state.get("time",0))+minf(visual_clock,visual_step)+float(e.id)*.173
-	var vehicle=assets.vehicle(int(e.race),int(e.kind),_visual_facing(e,"body_direction"),_visual_facing(e,"turret_direction"))
+	var vehicle=assets.vehicle(int(e.race),int(e.kind),_visual_facing(e,"body_direction"),_visual_facing(e,"turret_direction"),_deployment_progress(e))
 	var frame=vehicle.chassis if not vehicle.is_empty() else assets.unit(int(e.race),int(e.kind),_visual_facing(e),action,animation_clock)
 	if frame.is_empty():return
 	if not vehicle.is_empty() and action in ["walk","move"]:
@@ -1808,7 +1951,8 @@ func _draw_unit(e: Dictionary) -> void:
 		sp.y-=sin(animation_clock*1.7)*1.8*zoom
 		sp.x+=sin(animation_clock*.85)*.45*zoom
 	var extent=float(d.get("visual_extent",float(d.size)*(62 if d.air else 47)))*zoom
-	_cast_shadow(tex,frame.anchor,foot,extent/maxf(1,float(frame.scale_hint)),bool(frame.get("flip",false)),22*zoom if d.air else 0.0,1.0,float(frame.get("rotation",0)))
+	if d.air:
+		_cast_shadow(tex,frame.anchor,foot,extent/maxf(1,float(frame.scale_hint)),bool(frame.get("flip",false)),22*zoom if d.air else 0.0,1.0,float(frame.get("rotation",0)))
 	var color=Color(.96,.97,.98)
 	if e.get("cloaked",false):color.a=.42
 	if bool(d.air) and bool(e.get("moving",false)) and assets.propulsion_frames.size()==3:
@@ -1820,6 +1964,7 @@ func _draw_unit(e: Dictionary) -> void:
 		_world_transform()
 	var rect=_draw_drone(e,sp,extent,color,animation_clock) if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() else _draw_unit_frame(frame,sp,extent,color)
 	if not vehicle.is_empty():
+		_selection_bodies[int(e.id)]=rect
 		var factor=extent/maxf(1,float(frame.scale_hint))
 		var mount=sp+vehicle.mount*factor
 		if action in ["walk","move"]:mount.y-=sin(animation_clock*18.0)*.5*zoom
@@ -1892,18 +2037,16 @@ func _draw_unit_frame(frame: Dictionary,point: Vector2,extent: float,color: Colo
 	var anchor: Vector2=frame.get("anchor",texture.get_size()*.5)
 	var flip=bool(frame.get("flip",false))
 	var rotation=float(frame.get("rotation",0))
+	var source_bounds: Rect2=frame.get("sprite_bounds",Rect2(Vector2.ZERO,texture.get_size()))
 	_world_transform(point,rotation,Vector2(-factor if flip else factor,factor))
 	if frame.has("gait"):_draw_vehicle_gait(frame,color)
 	else:world_canvas.draw_texture(texture,-anchor,color)
 	_world_transform()
-	if absf(rotation)>.0001:
-		var transform=Transform2D(rotation,Vector2(-factor if flip else factor,factor),0,point)
-		var bounds=Rect2(transform*(-anchor),Vector2.ZERO)
-		for corner in [Vector2(texture.get_width(),0),texture.get_size(),Vector2(0,texture.get_height())]:
-			bounds=bounds.expand(transform*(corner-anchor))
-		return bounds
-	var left=point.x+(anchor.x-texture.get_width())*factor if flip else point.x-anchor.x*factor
-	return Rect2(left,point.y-anchor.y*factor,texture.get_width()*factor,texture.get_height()*factor)
+	var transform=Transform2D(rotation,Vector2(-factor if flip else factor,factor),0,point)
+	var bounds=Rect2(transform*(source_bounds.position-anchor),Vector2.ZERO)
+	for corner in [Vector2(source_bounds.end.x,source_bounds.position.y),source_bounds.end,Vector2(source_bounds.position.x,source_bounds.end.y)]:
+		bounds=bounds.expand(transform*(corner-anchor))
+	return bounds
 
 var _vehicle_gait_meshes: Dictionary={}
 
@@ -1967,16 +2110,22 @@ func _draw_bars(sp: Vector2,e: Dictionary,d: Dictionary,width: int) -> void:
 	if maximum_energy>0:
 		_draw_segmented_bar(Rect2(sp+Vector2(-width*.5,6),Vector2(width,4)),float(e.get("energy",0)),maximum_energy,Color("73b6ec"))
 
+var _bar_patterns: Dictionary={}
+
 func _draw_segmented_bar(rect: Rect2,value: float,maximum: float,color: Color) -> void:
-	world_canvas.draw_rect(rect.grow(1),Color(.015,.024,.024,.94))
 	var count=clampi(int(ceil(maximum/20.0)),1,mini(24,maxi(1,int(rect.size.x/3))))
-	var cell=rect.size.x/count
-	var filled=clampf(value/maxf(1,maximum),0,1)*count
-	for index in range(count):
-		var box=Rect2(rect.position+Vector2(index*cell,0),Vector2(maxf(1,cell-1),rect.size.y))
-		world_canvas.draw_rect(box,Color("1c3026"))
-		var portion=clampf(filled-index,0,1)
-		if portion>0:world_canvas.draw_rect(Rect2(box.position,Vector2(box.size.x*portion,box.size.y)),color)
+	var key=Vector3i(maxi(1,ceili(rect.size.x)),maxi(1,ceili(rect.size.y)),count)
+	if not _bar_patterns.has(key):
+		var image=Image.create(key.x,key.y,false,Image.FORMAT_RGBA8);image.fill(Color.TRANSPARENT)
+		for index in range(count):
+			var left=roundi(float(index)*key.x/count);var right=roundi(float(index+1)*key.x/count)-1
+			image.fill_rect(Rect2i(left,0,maxi(1,right-left),key.y),Color.WHITE)
+		_bar_patterns[key]=ImageTexture.create_from_image(image)
+	var pattern: Texture2D=_bar_patterns[key]
+	world_canvas.draw_rect(rect.grow(1),Color(.015,.024,.024,.94))
+	world_canvas.draw_texture_rect(pattern,rect,false,Color("1c3026"))
+	var fraction=clampf(value/maxf(1,maximum),0,1)
+	if fraction>0:world_canvas.draw_texture_rect_region(pattern,Rect2(rect.position,rect.size*Vector2(fraction,1)),Rect2(0,0,key.x*fraction,key.y),color)
 
 func _cast_shadow(texture: Texture2D,anchor: Vector2,foot: Vector2,factor: float,flip: bool=false,altitude: float=0.0,opacity: float=1.0,rotation: float=0.0) -> void:
 	# Project the object's actual alpha onto the ground with one shared light
@@ -1993,13 +2142,18 @@ func _cast_shadow(texture: Texture2D,anchor: Vector2,foot: Vector2,factor: float
 		world_canvas.draw_texture(texture,-anchor,Color(.025,.035,.045,(.10 if altitude>0 else .17)*opacity))
 	_world_transform()
 
+var _soft_shadow: GradientTexture2D
+
 func _world_shadow(point: Vector2,dimensions: Vector2,opacity: float=.3) -> void:
-	_world_transform(point,0,Vector2(1,dimensions.y/maxf(1,dimensions.x)))
-	var radius=dimensions.x*.5
-	world_canvas.draw_circle(Vector2.ZERO,radius,Color(0,0,0,opacity*.28))
-	world_canvas.draw_circle(Vector2.ZERO,radius*.8,Color(0,0,0,opacity*.34))
-	world_canvas.draw_circle(Vector2.ZERO,radius*.58,Color(0,0,0,opacity*.35))
+	if _soft_shadow==null:
+		var gradient=Gradient.new()
+		gradient.colors=PackedColorArray([Color(0,0,0,.9),Color(0,0,0,.65),Color.TRANSPARENT])
+		gradient.offsets=PackedFloat32Array([0,.4,1])
+		_soft_shadow=GradientTexture2D.new();_soft_shadow.gradient=gradient
+		_soft_shadow.width=64;_soft_shadow.height=64;_soft_shadow.fill=GradientTexture2D.FILL_RADIAL
+		_soft_shadow.fill_from=Vector2(.5,.5);_soft_shadow.fill_to=Vector2(1,.5)
 	_world_transform()
+	world_canvas.draw_texture_rect(_soft_shadow,Rect2(point-dimensions*.5,dimensions),false,Color(1,1,1,opacity))
 
 func _draw_ore(sp: Vector2,res: Dictionary) -> void:
 	if world_resources.size()!=2:return
@@ -2055,21 +2209,34 @@ func _draw_resource_selection(sp: Vector2,res: Dictionary) -> void:
 func _draw_minimap() -> void:
 	_render_minimap(self)
 
+var _minimap_ground: PackedByteArray
+var _minimap_ground_key=-1
+
 func _render_minimap(canvas: CanvasItem) -> void:
 	var rect=_mini_rect()
 	if rect.size.x<=2 or rect.size.y<=2:return
 	var map_scale=rect.size/float(ACMap.SIZE)
 	canvas.draw_rect(rect,Color("151a1d"))
 	var signature=_fog_stamp()
+	var ground_key=draw_map.render_signature
+	if ground_key!=_minimap_ground_key:
+		_minimap_ground_key=ground_key;_minimap_ground.resize(64*64*4)
+		for y in range(64):
+			for x in range(64):
+				var index=y*256+x*2;var color=terrain_artist.terrain_color(draw_map,index)
+				if draw_map.terrain[index]!=0:color=color.darkened(.35)
+				var offset=(y*64+x)*4
+				_minimap_ground[offset]=color.r8;_minimap_ground[offset+1]=color.g8;_minimap_ground[offset+2]=color.b8;_minimap_ground[offset+3]=255
 	if minimap_texture==null or signature!=minimap_signature:
-		var image=Image.create(64,64,false,Image.FORMAT_RGBA8)
+		var bytes=_minimap_ground.duplicate()
 		for y in range(64):
 			for x in range(64):
 				var index=y*256+x*2;var f=_fog_value(index)
-				var color=Color("151a1d") if f==0 else terrain_artist.terrain_color(draw_map,index)
-				if f==1:color*=.45
-				if f>0 and draw_map.terrain[index]!=0:color=color.darkened(.35)
-				image.set_pixel(x,y,color)
+				var offset=(y*64+x)*4
+				if f==0:bytes[offset]=21;bytes[offset+1]=26;bytes[offset+2]=29
+				elif f==1:
+					for channel in range(3):bytes[offset+channel]=int(bytes[offset+channel]*.45)
+		var image=Image.create_from_data(64,64,false,Image.FORMAT_RGBA8,bytes)
 		if minimap_texture==null:minimap_texture=ImageTexture.create_from_image(image)
 		else:minimap_texture.update(image)
 		minimap_signature=signature
@@ -2136,8 +2303,8 @@ func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2,shot_index: 
 	var direction=(target-origin).normalized()
 	var heading=_visual_facing(source) if source.has("id") else direction
 	var turret=_visual_facing(source,"turret_direction") if source.has("id") else direction
-	var vehicle=assets.vehicle(int(source.race),int(source.kind),ACData.point(source.get("body_direction",source.facing)),turret)
-	var extent=float(definition.get("visual_extent",40))*zoom
+	var vehicle=assets.vehicle(int(source.race),int(source.kind),_visual_facing(source,"body_direction") if source.has("id") else heading,turret,_deployment_progress(source))
+	var extent=float(definition.get("visual_extent",float(definition.size)*(62 if definition.air else 47)))*zoom
 	if not vehicle.is_empty():
 		var factor=extent/maxf(1,float(vehicle.chassis.scale_hint))
 		return ground+vehicle.mount*factor+vehicle.muzzle*factor*float(vehicle.turret_scale)
@@ -2207,6 +2374,10 @@ func _draw_effect(fx: Dictionary) -> void:
 		else:b.y-=12*zoom
 		var p=a.lerp(b,progress)
 		var style=str(fx.get("projectile","bullet"))
+		if style=="flame" and not source.is_empty():
+			origin=_visual_position(source);a=_weapon_tip(source,origin,ACData.point(fx.to))
+			var axis=(b-a).normalized()
+			b=a+axis*float(ACData.unit(int(source.race),int(source.kind)).range)*32*zoom
 		var color=[Color("ffe19b"),Color("6bdbf4"),Color("ff697c")][race]
 		if _draw_weapon_effect(style,a,b,progress,color,float(fx.get("damage",0))):return
 		if race==1 and style not in ["bash","claw","slam","slash","blade","drill","vine"]:
@@ -2247,8 +2418,13 @@ func _draw_weapon_effect(style: String,from: Vector2,to: Vector2,progress: float
 		world_canvas.draw_line(from,to,Color(1,1,1,(1-progress)*.85),width*.65,true)
 		_world_transform(to,angle);world_canvas.draw_texture_rect(texture,Rect2(Vector2(-20,-20)*zoom,Vector2(40,40)*zoom),false);_world_transform()
 	elif key=="flame":
+		texture=assets.skill_texture("weapon_flame",fposmod(elapsed*1.7,1.0))
 		var length=maxf(24,from.distance_to(to))
-		_world_transform(from,angle);world_canvas.draw_texture_rect(texture,Rect2(Vector2(-length*.1,-length*.25),Vector2(length*1.2,length*.5)),false);_world_transform()
+		var height=length*texture.get_height()/float(texture.get_width())
+		for side in [-1,1]:
+			_world_transform(from+axis.orthogonal()*side*1.6*zoom,angle+side*.12)
+			world_canvas.draw_texture_rect(texture,Rect2(0,-height*.5,length,height),false,Color(1,1,1,.86))
+		_world_transform()
 	elif key in ["claw","slash","bash","spark","vine"]:
 		var width=(50 if key in ["bash","vine"] else 36)*zoom
 		_world_transform(to,angle);world_canvas.draw_texture_rect(texture,Rect2(Vector2.ONE*-width*.5,Vector2.ONE*width),false);_world_transform()

@@ -31,7 +31,9 @@ var asset_regions: Dictionary={}
 var building_revision: Dictionary={}
 var _atlas_sources: Array=[]
 var v060_units: Dictionary={}
+var frame_cleanup: Dictionary={}
 var v060_effects: Dictionary={}
+var siege_layers: Dictionary={}
 
 func load_all() -> void:
 	_load_v060()
@@ -70,6 +72,8 @@ func load_all() -> void:
 	_atlas_sources.clear()
 	if FileAccess.file_exists("res://data/sprite_regions.json"):
 		sprite_regions=JSON.parse_string(FileAccess.get_file_as_string("res://data/sprite_regions.json"))
+	if FileAccess.file_exists("res://data/frame_cleanup_v061.json"):
+		frame_cleanup=JSON.parse_string(FileAccess.get_file_as_string("res://data/frame_cleanup_v061.json")).repairs
 	if FileAccess.file_exists("res://data/motion_regions.json"):
 		motion_regions=JSON.parse_string(FileAccess.get_file_as_string("res://data/motion_regions.json"))
 	if FileAccess.file_exists("res://data/motion_cache_v04.json"):
@@ -157,6 +161,7 @@ func load_all() -> void:
 				var frame=_anchored_region(source,image,cell,Vector2(.5,.96),.84,cell,Vector2.INF,250)
 				var used=image.get_region(cell).get_used_rect()
 				frame.muzzle=ACData.point(fire.muzzles[row][col])*Vector2(cell.size)-Vector2(used.position)-frame.anchor
+				frame=_repair_frame(frame,"fire:0:%d:%d"%[int(fire.kinds[row]),col])
 				sequence.append(frame)
 			repaired_fire["0:%d"%int(fire.kinds[row])]=sequence
 
@@ -267,13 +272,22 @@ func _load_auxiliary_sprites() -> void:
 					var local_cell=Rect2i(Vector2i.ZERO,cell.size)
 					pair[part]=_anchored_region(local_source,local_image,local_cell,Vector2(.5,.88),.84,local_cell,ACData.point(definition[part+"_root"]),float(info.scale_hint))
 				pair[part].source_mirror=bool(info.get("mirror_source",false)) or (part=="turret" and source_column in info.get("turret_mirror_columns",[]))
+				pair[part]=_repair_frame(pair[part],"vehicle:%s:%d:%s"%[key,source_column,part])
 			frames.append(pair)
 			source_column+=1
 		if bool(info.get("reverse_columns",false)):frames.reverse()
 		vehicle_frames[String(key)]=frames
 
-func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vector2) -> Dictionary:
+func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vector2,deploy_progress: float=0.0) -> Dictionary:
 	var key="%d:%d"%[race,kind]
+	if key=="0:5" and not siege_layers.is_empty():
+		var body_index=ACData.sprite_direction(body_direction,8);var turret_index=ACData.sprite_direction(turret_direction,8)
+		var stage=clampi(roundi(deploy_progress*6),0,6)
+		var body: Dictionary=siege_layers.chassis[stage*5+int(body_index.column)]
+		var weapon: Dictionary=siege_layers.turrets[int(turret_index.column)]
+		var chassis: Dictionary=body.frame.duplicate();chassis.flip=bool(body_index.flip)
+		var turret: Dictionary=weapon.frame.duplicate();turret.flip=bool(turret_index.flip)
+		return {"chassis":chassis,"turret":turret,"mount":ACData.point(body.mount)*Vector2(-1 if chassis.flip else 1,1),"pilot_mount":Vector2.ZERO,"muzzle":ACData.point(weapon.muzzle)*Vector2(-1 if turret.flip else 1,1),"turret_scale":float(siege_layers.turret_scale),"embedded_pilot":true,"deployment_stage":stage}
 	if key=="0:12" and v060_units.has(key):return {}
 	if not vehicle_frames.has(key):return {}
 	var directions=(vehicle_frames[key].size()-1)*2
@@ -402,9 +416,20 @@ func _load_motions(race: int) -> void:
 				if measured.has("regions"):cell=_region_rect(measured.regions[row][col],image.get_size())
 				var root=ACData.point(info.packed_root) if info.has("packed_root") else Vector2.INF
 				frames.append(_anchored_region(source,image,cell,anchor,float(info.get("scale_width",.84)),nominal,root,float(info.get("scale_hint",0))))
+				frames[-1]=_repair_frame(frames[-1],"motion:%s:%d:%d"%[key,row,col])
 			animations.append(frames)
 		motion_frames[key]=animations
 		unit_frames[key]=animations[0]
+
+func _repair_frame(frame: Dictionary,key: String) -> Dictionary:
+	if not frame_cleanup.has(key):return frame
+	var repair: Dictionary=frame_cleanup[key]
+	var texture=AtlasTexture.new();texture.atlas=load(str(repair.file));texture.filter_clip=true
+	texture.region=Rect2(repair.region[0],repair.region[1],repair.region[2],repair.region[3])
+	frame.texture=texture;frame.anchor+=ACData.point(repair.anchor_delta)
+	frame.sprite_bounds=Rect2(repair.bounds[0],repair.bounds[1],repair.bounds[2],repair.bounds[3])
+	frame.verified_cleanup=true
+	return frame
 
 func _region_rect(raw: Array,dimensions: Vector2i) -> Rect2i:
 	var pad=int(asset_regions.get("padding",2))
@@ -533,6 +558,14 @@ func unit(race: int, kind: int, direction: Vector2, action: String="idle", clock
 	return frame
 
 func _load_v060() -> void:
+	if FileAccess.file_exists("res://data/siege_layers_v061.json"):
+		siege_layers=JSON.parse_string(FileAccess.get_file_as_string("res://data/siege_layers_v061.json"))
+		var source: Texture2D=load(str(siege_layers.file))
+		for part in ["chassis","turrets"]:
+			for entry in siege_layers[part]:
+				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+				texture.region=Rect2(Vector2(int(entry.heading),int(entry.stage))*256,Vector2(256,256))
+				entry.frame={"texture":texture,"anchor":ACData.point(entry.anchor),"scale_hint":float(siege_layers.scale_hint),"cell_size":Vector2(256,256),"sprite_bounds":Rect2(entry.draw[0],entry.draw[1],entry.draw[2],entry.draw[3]),"layered_v061":true}
 	if ResourceLoader.exists("res://assets/rubble_v060.png"):
 		var source: Texture2D=load("res://assets/rubble_v060.png");var cell=source.get_size()/Vector2(6,3)
 		for race in range(3):
@@ -550,6 +583,7 @@ func _load_v060() -> void:
 			texture.region=Rect2(Vector2(index%int(item[1]),index/int(item[1]))*cell,cell);frames.append(texture)
 		v060_effects["nuclear_cloud" if item[0]=="nuclear" else "warhead"]=frames
 	for item in [[0,13,"flamer"],[0,14,"carrier"],[0,15,"drone"],[2,13,"chaser"]]:
+		var registration=JSON.parse_string(FileAccess.get_file_as_string("res://data/new_unit_frames_v060.json")).units.get(item[2],{})
 		var path="res://assets/%s_v060.png"%item[2]
 		var registered="res://assets/registered_v060/%s.png"%item[2]
 		var packed=ResourceLoader.exists(registered)
@@ -562,6 +596,9 @@ func _load_v060() -> void:
 				texture.region=Rect2(Vector2(phase,direction)*cell,cell)
 				var airborne=ACData.unit(int(item[0]),int(item[1])).air
 				frames.append({"texture":texture,"anchor":cell*Vector2(.5,(.5 if airborne else .875) if packed else (.5 if airborne else .79)),"scale_hint":224.0 if packed else cell.x*.82,"cell_size":cell})
+				if packed and registration.has("frames"):
+					var draw: Array=registration.frames[direction*8+phase].draw
+					frames.back().sprite_bounds=Rect2(draw[0],draw[1],draw[2],draw[3])
 		v060_units["%d:%d"%[item[0],item[1]]]=frames
 	if FileAccess.file_exists("res://data/industrial_units_v060.json"):
 		var industrial=JSON.parse_string(FileAccess.get_file_as_string("res://data/industrial_units_v060.json"))
@@ -609,6 +646,21 @@ func _load_v060() -> void:
 				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
 				texture.region=Rect2(Vector2(phase,row)*cell,cell);frames.append(texture)
 			v060_effects["weapon_"+keys[row]]=frames
+	if FileAccess.file_exists("res://data/units_art_v061.json"):
+		var carrier: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/units_art_v061.json")).units.carrier
+		var source: Texture2D=load(str(carrier.file));var frames=[]
+		for entry in carrier.frames:
+			var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+			texture.region=Rect2(Vector2(int(entry.phase),int(entry.heading))*256,Vector2(256,256))
+			frames.append({"texture":texture,"anchor":ACData.point(carrier.anchor),"scale_hint":224.0,"cell_size":Vector2(256,256),"embedded_pilot":true,"sprite_bounds":Rect2(entry.draw[0],entry.draw[1],entry.draw[2],entry.draw[3])})
+		v060_units["0:14"]=frames
+	if FileAccess.file_exists("res://data/flame_stream_v061.json"):
+		var info=JSON.parse_string(FileAccess.get_file_as_string("res://data/flame_stream_v061.json"))
+		var source: Texture2D=load(str(info.file));var frames=[]
+		for entry in info.frames:
+			var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
+			texture.region=Rect2(entry.region[0],entry.region[1],entry.region[2],entry.region[3]);frames.append(texture)
+		v060_effects.weapon_flame=frames
 
 func skill_texture(key: String,progress: float) -> Texture2D:
 	if not v060_effects.has(key):return null

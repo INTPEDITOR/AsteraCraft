@@ -52,7 +52,7 @@ func run():
 			var shots=c.effects.filter(func(e):return e.type=="shot")
 			check(shots.size()==3 and shots.map(func(e):return e.barrel)==[0,1,2],"three cannon barrels fire in sequence")
 			check(is_equal_approx(1000-t.hp,48+upgrades*2-float(t._definition.armor)-armor),"fortress keeps total damage and heavy bonus")
-			check(is_equal_approx(bystander.hp,1000),"salvo does not introduce unintended splash")
+			check(bystander.hp<1000,"three cannon shells damage nearby enemies with splash")
 	a=arena(12);c=a[0];u=a[1];t=a[2];u.anchored=true;t.pos=[48,40];c._rebuild_collision_index();c._update_vision();c._tick_unit_behavior(u,.01)
 	c.time=.25;ACCore.BURST.tick(c,u)
 	check(u.burst_left==1,"anchored range bonus retained during all three shots")

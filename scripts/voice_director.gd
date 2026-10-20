@@ -21,6 +21,9 @@ var baseline: Dictionary={}
 var previous_time := -1.0
 var next_scan := 0.0
 var pings: Array=[]
+const PING_COOLDOWN=8.0
+const PING_RADIUS=10.0
+var ping_history: Array=[]
 var race := 0
 var team_mode := false
 var spoken_entity := -1
@@ -37,6 +40,7 @@ func _ready() -> void:
 func reset() -> void:
 	unit_player.stop();announcer.stop()
 	counts.clear();marks.clear();baseline.clear();pings.clear()
+	ping_history.clear()
 	last_entity=-1;last_click=-100;burst=0;previous_time=-1;next_scan=0
 	pending_selection="";pending_notice="";pending_priority=-1;notice_priority=-1
 	last_played=""
@@ -192,8 +196,13 @@ func attack_notice(pos: Vector2, now: float, building: bool) -> void:
 		pending_attack_position=pos
 
 func add_ping(pos: Vector2, now: float) -> void:
-	for p in pings:
-		if pos.distance_to(p.pos)<6 and now-float(p.time)<2:return
+	# A separate history survives the four-second ring animation. Incoming
+	# damage must not refresh its timer or keep the minimap flashing forever.
+	ping_history=ping_history.filter(func(p):return now-float(p.time)<PING_COOLDOWN)
+	for p in ping_history:
+		if pos.distance_to(p.pos)<PING_RADIUS:return
+	if ping_history.size()>=64:ping_history.pop_front()
+	ping_history.append({"pos":pos,"time":now})
 	if pings.size()>=8:pings.pop_front()
 	pings.append({"pos":pos,"time":now})
 

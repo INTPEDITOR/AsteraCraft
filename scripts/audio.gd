@@ -223,6 +223,8 @@ func process_state(state: Dictionary, local_slot: int, camera: Vector2, zoom: fl
 	if _last_time >= 0.0 and now < _last_time - 0.01:
 		clear(true) # Replay seeks reset effects while the independent score continues.
 	_camera = camera
+	_zoom = clampf(zoom, 0.3, 2.0)
+	if is_equal_approx(now,_last_time):return
 	if director!=null:director.scan(state,local_slot)
 	_zoom = clampf(zoom, 0.3, 2.0)
 	_entities.clear()

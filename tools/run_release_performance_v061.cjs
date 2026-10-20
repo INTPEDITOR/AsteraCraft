@@ -1,0 +1,11 @@
+const fs=require('fs'),path=require('path'),cp=require('child_process');
+const root=path.resolve(__dirname,'..'),folder=path.join(root,'build/release-v061'),userData=path.join(folder,'performance-user-data');fs.mkdirSync(userData,{recursive:true});
+const isolated=path.join(folder,'empty');fs.mkdirSync(isolated,{recursive:true});
+for(const filename of ['Godot_v4.6-stable_win64_console.exe','Godot_v4.6-stable_win64.exe'])if(!fs.existsSync(path.join(isolated,filename)))fs.copyFileSync(path.resolve(root,'../tools/godot',filename),path.join(isolated,filename));
+fs.copyFileSync(path.join(root,'addons/webrtc_native/lib/libwebrtc_native.windows.template_debug.x86_64.dll'),path.join(isolated,'libwebrtc_native.windows.template_debug.x86_64.dll'));
+const exe=path.join(isolated,'Godot_v4.6-stable_win64_console.exe'),script=path.join(root,'tests/late_game_v061_test.gd'),log=path.join(folder,'late-game-godot.log');
+const child=cp.spawn(exe,['--path',folder,'--main-pack',path.join(folder,'AsteraCraft.pck'),'--script',script,'--log-file',log,'--','--player-fog'],{cwd:isolated,windowsHide:true,env:{...process.env,APPDATA:userData,ASTERA_PERFORMANCE_REPORT:path.join(root,'build/qa-v061-late-game-final.json')},stdio:['ignore','pipe','pipe']});
+fs.writeFileSync(path.join(folder,'performance-process.json'),JSON.stringify({pid:child.pid,engine:exe,main_pack:path.join(folder,'AsteraCraft.pck')}));
+process.on('SIGINT',()=>{child.kill();process.exit(130)});
+let output='';child.stdout.on('data',b=>{output+=b;process.stdout.write(b)});child.stderr.on('data',b=>{output+=b;process.stderr.write(b)});
+child.on('exit',code=>{fs.writeFileSync(path.join(folder,'late-game-console.log'),output);process.exitCode=code===0&&!/SCRIPT ERROR|ERROR:/.test(output)?0:1;console.log('RELEASE_LATE_GAME_EXIT '+code);});

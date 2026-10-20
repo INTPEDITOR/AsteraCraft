@@ -64,7 +64,7 @@ func _corner_value(corner: Vector2i, cells: Dictionary, map: ACMap) -> float:
 
 func build(map: ACMap, packed, fog: Callable) -> void:
 	build_count+=1
-	var geometry=hash([map.get_instance_id(),map.terrain,map.height_map,map.source_detail_active])
+	var geometry=hash([map.get_instance_id(),map.render_signature,map.source_detail_active])
 	if geometry!=geometry_key:
 		geometry_key=geometry;allowed_cache.clear();vertex_cache.clear()
 	var cells={};var candidates={}
@@ -110,10 +110,11 @@ func draw(canvas: CanvasItem, map: ACMap, packed, fog: Callable, zoom: float, pr
 	var transform=Transform2D(Vector2(zoom,0),Vector2(0,zoom),project.call(Vector2.ZERO))
 	for chunk in chunks.values():
 		if chunk.display_mesh!=null:canvas.draw_mesh(chunk.display_mesh,texture,transform)
-	if not pending.is_empty():canvas.call_deferred("queue_redraw")
+	# The battle viewport redraws every process frame. Deferred redraws here
+	# could rebuild several chunk batches inside one frame and cause a spike.
 
 func update_chunks(map: ACMap, packed, fog: Callable, fog_signature: int) -> void:
-	var geometry=hash([map.get_instance_id(),map.terrain,map.height_map,map.source_detail_active])
+	var geometry=hash([map.get_instance_id(),map.render_signature,map.source_detail_active])
 	if geometry!=geometry_key:
 		geometry_key=geometry;chunks.clear();pending.clear();chunk_input=0
 	var next=hash([geometry,packed,fog_signature])

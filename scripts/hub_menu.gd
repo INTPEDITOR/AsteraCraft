@@ -2,8 +2,8 @@ class_name ACHubMenu
 extends Control
 
 ## Backgrounds are cosmetic: menu entry never changes the next match's race/map.
-const NAV_NAMES := ["싱글플레이","멀티플레이","리플레이","환경 설정","게임 종료"]
-const NAV_TIPS := ["컴퓨터와 전투합니다.","커스텀 방 또는 래더에 입장합니다.","저장한 전투를 다시 봅니다.","화면·음향·조작을 설정합니다.","아스테라크래프트를 종료합니다."]
+const NAV_NAMES := ["싱글플레이","멀티플레이","환경 설정","게임 종료"]
+const NAV_TIPS := ["컴퓨터와 전투합니다.","커스텀 방 또는 래더에 입장합니다.","화면·음향·조작을 설정합니다.","아스테라크래프트를 종료합니다."]
 const BUTTON_WIDTH := 320.0
 const BUTTON_HEIGHT := 76.0
 static var _plate_cache: Dictionary = {}
@@ -132,9 +132,8 @@ func activate(index: int) -> void:
 	match index:
 		0:main._single_menu()
 		1:main._online_menu()
-		2:main._replay_menu()
-		3:main._settings_menu()
-		4:
+		2:main._settings_menu()
+		3:
 			if main.has_method("_quit_game"):main.call("_quit_game")
 			else:get_tree().quit()
 

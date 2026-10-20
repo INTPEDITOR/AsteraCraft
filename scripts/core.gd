@@ -55,8 +55,10 @@ var mining_waiters: Dictionary={}
 var vision_spans: Dictionary={}
 var vision_signatures: Dictionary={}
 var fog_revision: int=0
+var vision_revisions: Dictionary={}
 var path_cache: Dictionary={}
 var path_cache_revision: int=-1
+var _path_cache_clean_at=0.0
 var indexed_units: int=-1
 var indexed_buildings: int=-1
 var indexed_resources: int=-1
@@ -86,7 +88,7 @@ const ENTITY_CELL: float = 8.0
 const MAX_PATH_REQUESTS: int = 8
 const MAX_PRODUCTION_QUEUE: int = 5
 const MAX_BUILD_PLANS: int = 32
-const CONSTRUCTION_TOOL_REACH: float = .35
+const CONSTRUCTION_TOOL_REACH: float = .18
 const AS_UNLOAD_REACH: float = .35
 
 static func resource_size(type: String) -> Vector2:
@@ -182,6 +184,23 @@ func setup(config: Dictionary) -> void:
 			if worker.target>=0:worker.order="gather"
 	_recalculate_supply()
 	_update_vision()
+	_prime_navigation()
+
+func _prime_navigation() -> void:
+	# Construct body-clearance grids during loading, instead of on the first
+	# click or first appearance of a larger vehicle in the middle of a fight.
+	var warmed={}
+	var origin=ACData.point(units[0].pos) if not units.is_empty() else Vector2(64,64)
+	for player in players:
+		for kind in range(ACData.unit_count(int(player.race))):
+			var d=ACData.unit(int(player.race),kind)
+			if d.air or d.get("technical",false):continue
+			var size=collision_size(int(player.race),kind);var key=Vector2i((size*16).ceil())
+			if warmed.has(key):continue
+			warmed[key]=true;paths_this_tick=0
+			var probe={"id":-1,"race":player.race,"kind":kind,"blocked_clock":0,"order":"idle","_body_size":size}
+			_clearance_path_impl(probe,origin,origin)
+	paths_this_tick=0;path_time_this_tick=0;path_cache.clear()
 
 func starting_worker_row(hq: Dictionary) -> Array:
 	var race=int(hq.race)
@@ -426,6 +445,60 @@ func building_contact(worker: Dictionary, building: Dictionary, reach: float=CON
 
 func construction_reach(worker: Dictionary, building: Dictionary) -> bool:
 	return building_contact(worker,building,CONSTRUCTION_TOOL_REACH)
+
+func _builder_attached(w: Dictionary,b: Dictionary) -> bool:
+	return not b.is_empty() and not w.is_empty() and w.hp>0 and w.get("container",-1)<0 and w.order=="construct" and int(w.target)==int(b.id) and int(w.owner)==int(b.owner) and int(w.get("_construction_site",-1))==int(b.id) and _builder_walk_fits(w,b,ACData.point(w.pos))
+
+func _builder_walk_fits(w: Dictionary,b: Dictionary,p: Vector2) -> bool:
+	var size=_body_size(w)
+	if not map.terrain_ground_fits(size,p):return false
+	var body=Rect2(p-size*.5,size)
+	for other in buildings:
+		if other.hp>0 and int(other.id)!=int(b.id) and body.intersects(footprint(other)):return false
+	for node in _query_resources(p,3):
+		if (node.type!="as" or node.amount>0) and body.intersects(resource_rect(node)):return false
+	return body.get_center().distance_to(center(b))<footprint(b).size.length()+1.0
+
+func _release_builder(w: Dictionary) -> void:
+	if not w.has("_construction_site"):return
+	w.erase("_construction_site");w.erase("_construction_phase")
+	if w.hp<=0:return
+	if not _unit_fits(w,ACData.point(w.pos)):
+		var exit=ACData.point(w.get("_construction_exit",w.pos))
+		if not _unit_fits(w,exit):exit=unit_free_position(int(w.race),0,ACData.point(w.pos),int(w.id))
+		_set_unit_position(w,exit)
+	w.path=[];w.approach_target=-1;w.repath=0.0
+
+func _construct_hyrax(w: Dictionary,b: Dictionary,dt: float) -> void:
+	if not _builder_attached(w,b):
+		_release_builder(w)
+		if not construction_reach(w,b):_move_to_building(w,b,dt);return
+		w._construction_site=b.id;w._construction_phase="work"
+		w._construction_until=time+1.0;w._construction_exit=w.pos.duplicate()
+	if w._construction_phase=="work":
+		w.action_intent="construct"
+		w.facing=ACData.packed((center(b)-ACData.point(w.pos)).normalized())
+		if time<float(w._construction_until):return
+		# Deterministic variation keeps replay and network simulations identical.
+		var cycle=int(w.get("_construction_cycle",0))+1;w._construction_cycle=cycle
+		var angle=float(posmod(int(w.id)*37+cycle*61,101)-50)*.012
+		var direction=(center(b)-ACData.point(w.pos)).normalized().rotated(angle)
+		var half=footprint(b).size*.5+_body_size(w)*.5+Vector2.ONE*.16
+		var length=minf(half.x/maxf(.001,absf(direction.x)),half.y/maxf(.001,absf(direction.y)))
+		var goal=center(b)+direction*length
+		var clear=true;var origin=ACData.point(w.pos)
+		var steps=maxi(1,ceili(origin.distance_to(goal)/.15))
+		for i in range(steps+1):
+			if not _builder_walk_fits(w,b,origin.lerp(goal,float(i)/steps)):clear=false;break
+		if not clear:w._construction_until=time+.8;return
+		w._construction_phase="cross";w._construction_exit=ACData.packed(goal)
+	if w._construction_phase=="cross":
+		var p=ACData.point(w.pos);var goal=ACData.point(w._construction_exit)
+		var next=p.move_toward(goal,float(w._definition.speed)*dt*.8)
+		if _builder_walk_fits(w,b,next):
+			_set_unit_position(w,next);w.moving=p.distance_squared_to(next)>.000001
+		if next.distance_to(goal)<.02 or not w.moving:
+			w._construction_phase="work";w._construction_until=time+.8+float(posmod(int(w.id)+int(w._construction_cycle),5))*.12
 
 func building_approach(b: Dictionary, from: Vector2, unit: Dictionary={}) -> Vector2:
 	var d=ACData.building(int(b.race),int(b.kind))
@@ -694,6 +767,7 @@ func _start_construction(worker: Dictionary, kind: int, pos: Vector2) -> String:
 	var approach=building_approach(plan,ACData.point(worker.pos),worker)
 	if not construction_reach(worker,plan) and (not _unit_fits(worker,approach,false) or (not _ground_sweep(_body_size(worker),ACData.point(worker.pos),approach) and map.path(ACData.point(worker.pos),approach).is_empty())):return "건설 위치까지 이동할 수 없습니다"
 	var previous=entity(int(worker.target)) if worker.order=="construct" else {}
+	_release_builder(worker)
 	if not previous.is_empty() and previous.has("progress") and int(previous.worker)==int(worker.id):previous.worker=-1
 	_release_mining_claim(worker)
 	worker.build_plan=plan
@@ -1268,25 +1342,26 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 					if navigator.region.has_point(point) and not navigator.is_point_solid(point):
 						navigator.set_point_solid(point,true)
 						temporary.append(point)
-	var first=_clearance_free(navigator,from)
+	var first=_clearance_free(navigator,from,dimensions,true)
 	var last=_clearance_free(navigator,to)
 	var path: Array=[]
 	if first.x>=0 and last.x>=0:
 		perf.path_requests+=1
-		for point in navigator.get_id_path(first,last):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
+		for point in navigator.get_id_path(first,last,true):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
 	for point in temporary:navigator.set_point_solid(point,false)
 	if path.is_empty() and crowded:
-		first=_clearance_free(navigator,from)
+		first=_clearance_free(navigator,from,dimensions,true)
 		last=_clearance_free(navigator,to)
 		if first.x>=0 and last.x>=0:
 			perf.path_requests+=1
-			for point in navigator.get_id_path(first,last):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
+			for point in navigator.get_id_path(first,last,true):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
 	if not path.is_empty() and (Vector2(first)*navigator.cell_size).distance_to(from)<.3:path.pop_front()
 	if not crowded:path_cache[route_key]={"path":path.duplicate(false),"until":time+(2.0 if not path.is_empty() else .5)}
 	return path
 
-func _clearance_free(navigator: AStarGrid2D, near: Vector2) -> Vector2i:
+func _clearance_free(navigator: AStarGrid2D, near: Vector2,dimensions: Vector2=Vector2.ZERO,reachable_start: bool=false) -> Vector2i:
 	var origin=Vector2i((near/navigator.cell_size).round())
+	var require_sweep=reachable_start and _ground_fits_size(dimensions,near)
 	for ring in range(ceili(9.0/navigator.cell_size.x)):
 		var best=INF
 		var result=Vector2i(-1,-1)
@@ -1295,6 +1370,7 @@ func _clearance_free(navigator: AStarGrid2D, near: Vector2) -> Vector2i:
 				if maxi(absi(x),absi(y))!=ring:continue
 				var point=origin+Vector2i(x,y)
 				if navigator.region.has_point(point) and not navigator.is_point_solid(point):
+					if require_sweep and not _ground_sweep(dimensions,near,Vector2(point)*navigator.cell_size):continue
 					var distance=(Vector2(point)*navigator.cell_size).distance_squared_to(near)
 					if distance<best:best=distance;result=point
 		if result.x>=0:return result
@@ -1465,7 +1541,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		if p.distance_to(next)<.22:
 			if u.path.size()==1:
 				if p.distance_to(goal)<=reach:return true
-				if not _unit_fits(u,goal,false):return true
+				if not _unit_fits(u,goal,false) or not _ground_sweep(_body_size(u),p,goal):return true
 				next=goal
 			elif _ground_sweep(_body_size(u),p,ACData.point(u.path[1])):
 				u.path.pop_front()
@@ -1479,7 +1555,9 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 	if d.air:
 		_set_unit_position(u,(p+step).clamp(Vector2.ONE,Vector2(126,126)))
 	else:
-		movement=_advance_ground(u,step,goal,dt)
+		# Local avoidance must follow the routed corner, not steer back toward
+		# the final destination through the very obstacle the route avoids.
+		movement=_advance_ground(u,step,next,dt)
 	if movement.length_squared()>.00001:
 		u.facing=ACData.packed(movement.normalized())
 		u.moving=true
@@ -1501,6 +1579,11 @@ func step(dt: float) -> void:
 	if ended:
 		return
 	time+=dt
+	if time>=_path_cache_clean_at:
+		_path_cache_clean_at=time+2.0
+		for key in path_cache.keys():
+			if float(path_cache[key].until)<=time:path_cache.erase(key)
+		while path_cache.size()>1024:path_cache.erase(path_cache.keys()[0])
 	crowd_arrival_cache.clear();threat_indexes.clear()
 	paths_this_tick=0
 	var phase_start=Time.get_ticks_usec()
@@ -1585,7 +1668,7 @@ func _tick_building(b: Dictionary, dt: float) -> void:
 	if b.progress<1:
 		var w=entity(int(b.worker))
 		if int(b.race)==0:
-			if w.is_empty() or w.order!="construct" or int(w.target)!=int(b.id) or not construction_reach(w,b):
+			if not _builder_attached(w,b) and (w.is_empty() or w.hp<=0 or int(w.owner)!=int(b.owner) or w.order!="construct" or int(w.target)!=int(b.id) or not construction_reach(w,b)):
 				return
 		elif not b.get("initiated",false):
 			if w.is_empty() or w.order!="construct" or int(w.target)!=int(b.id) or not construction_reach(w,b):
@@ -1607,6 +1690,7 @@ func _tick_building(b: Dictionary, dt: float) -> void:
 		b.shield=minf(d.shield,b.shield+d.shield*amount)
 		if b.progress>=1:
 			if not w.is_empty() and int(b.race)==0:
+				_release_builder(w)
 				w.order="idle"
 			events.append({"owner":b.owner,"text":d.name+" 건설 완료"})
 		return
@@ -1733,6 +1817,7 @@ func _separate_units(dt: float, force_recovery: bool=true) -> void:
 	collision_recovery_revision=map.revision
 	for unit in units:
 		if unit.hp<=0 or unit.container>=0 or collision_layer(int(unit.race),int(unit.kind))!=COLLISION_GROUND:continue
+		if unit.has("_construction_site") and _builder_attached(unit,entity(int(unit._construction_site))):continue
 		if not _ground_fits_size(collision_size(int(unit.race),int(unit.kind)),ACData.point(unit.pos)):
 			_set_unit_position(unit,unit_free_position(int(unit.race),int(unit.kind),ACData.point(unit.pos),int(unit.id)))
 			unit.path=[]
@@ -1755,6 +1840,7 @@ func _separate_units(dt: float, force_recovery: bool=true) -> void:
 	# center; recover those exceptional states onto nearby unoccupied ground.
 	for unit in units:
 		if unit.hp<=0 or unit.container>=0 or unit.anchored or collision_layer(int(unit.race),int(unit.kind))!=COLLISION_GROUND:continue
+		if unit.has("_construction_site") and _builder_attached(unit,entity(int(unit._construction_site))):continue
 		if not _unit_fits(unit,ACData.point(unit.pos)):
 			_set_unit_position(unit,unit_free_position(int(unit.race),int(unit.kind),ACData.point(unit.pos),int(unit.id)))
 			unit.path=[]
@@ -1820,6 +1906,9 @@ func _tick_unit(u: Dictionary, dt: float) -> void:
 
 func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 	var d=u._definition if u.has("_definition") else ACData.unit(int(u.race),int(u.kind))
+	if u.has("_construction_site"):
+		var site=entity(int(u._construction_site))
+		if site.is_empty() or site.hp<=0 or site.progress>=1 or not _builder_attached(u,site):_release_builder(u)
 	u.moving=false
 	u.cooldown=maxf(0,u.cooldown-dt)
 	u.ability_cd=maxf(0,u.ability_cd-dt)
@@ -1831,6 +1920,10 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 		u.fleeing=false
 		if u.order=="move":u.order="idle";u.path=[]
 	_regenerate(u,d,dt)
+	if float(u.get("deploy_until",0))>time:
+		u.action_intent="deploy";return
+	elif u.has("deploy_until"):
+		u.anchored=bool(u.get("deploy_to",false));u.erase("deploy_until");u.erase("deploy_started")
 	if not u.get("channel",{}).is_empty() or float(u.get("self_repair_until",0))>time:
 		BURST.cancel(u);return
 	if NEW_UNITS.tick(self,u,dt):return
@@ -1858,7 +1951,9 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			u.order="idle"
 			_advance_build_queue(u)
 		else:
-			if construction_reach(u,b):
+			if int(u.race)==0:
+				_construct_hyrax(u,b,dt)
+			elif construction_reach(u,b):
 				u.action_intent="construct"
 			else:
 				_move_to_building(u,b,dt)
@@ -1910,7 +2005,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			target={}
 	if target.is_empty() and d.damage>0 and (u.order in ["idle","hold","attack_move"] or (d.role=="chaser" and u.order=="move")):
 		if time>=float(u.get("_scan_at",0.0)):
-			target=_find_target(u,maxf(float(d.range),7.0),str(d.targets))
+			target=_find_target(u,maxf(float(d.range)+(3 if u.anchored and d.role in ["siege","fortress"] else 0),7.0),str(d.targets))
 			u._auto_target=int(target.get("id",-1))
 			u._scan_at=time+.22+float(int(u.id)%5)*.012
 		else:
@@ -1928,11 +2023,15 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			var bd=ACData.building(int(target.race),int(target.kind))
 			attack_range+=minf(bd.w,bd.h)*.45
 		var melee=float(d.range)<=1.5
-		if distance<=attack_range or (melee and combat_body_gap(u,target)<=.12):
+		var too_close=bool(u.anchored) and d.role=="siege" and distance<float(d.get("minimum_range",2.5))
+		if not too_close and (distance<=attack_range or (melee and combat_body_gap(u,target)<=.12)):
 			u.facing=ACData.packed((center(target)-pos).normalized())
+			if d.role=="flamer":
+				_tick_flame(u,target,dt)
+				return
 			if u.cooldown<=0:
 				if d.role=="suicide":
-					_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage))
+					_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage),-1,str(d.targets))
 					_effect("explosion",u,center(target),.65,{"projectile":"explosion"})
 					u.hp=0
 				elif int(d.get("burst_count",1))>1:
@@ -1944,12 +2043,9 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 						if int(u.get("focus_target",-1))!=int(target.id):u.focus_target=target.id;u.focus_started=time
 						base*=1+minf(2,maxf(0,time-float(u.get("focus_started",time)))*.35)
 					_damage(u,target,base+players[u.owner].attack*2)
-					if float(d.get("splash_radius",0))>0:
-						_area_damage(u,center(target),float(d.splash_radius),base*float(d.get("splash_factor",.5)),int(target.id),str(d.targets))
+					_attack_splash(u,target,base)
 					if float(u.get("scatter_until",0))>time:_area_damage(u,center(target),2.2,base*.6,int(target.id),"g")
 					if float(u.get("pierce_until",0))>time:NEW_UNITS.pierce(self,u,target,base*.65)
-					if d.role in ["siege","bomber","golem","tree"]:
-						_area_damage(u,center(target),1.3,float(d.damage)*.4,int(target.id),str(d.targets))
 					if d.role in ["root","officer"]:
 						target.slow_until=time+2.0
 				u.cooldown=float(d.period)*(1.4 if float(u.get("attack_slow_until",0))>time else 1.0)
@@ -2101,6 +2197,9 @@ func _team_threat(candidate: Dictionary, owner: int) -> bool:
 	return center(candidate).distance_to(center(victim))<=float(definition.range)+1.0
 
 func _find_target(attacker: Dictionary, radius: float, targets: String) -> Dictionary:
+	var minimum=0.0
+	if not attacker.has("progress") and attacker.get("anchored",false) and ACData.unit(int(attacker.race),int(attacker.kind)).role=="siege":minimum=float(ACData.unit(int(attacker.race),int(attacker.kind)).get("minimum_range",2.5))
+	var minimum_squared=minimum*minimum
 	if attacker.get("order","")=="attack_move":
 		var threat: Dictionary={}
 		var nearest=radius*radius
@@ -2123,6 +2222,7 @@ func _find_target(attacker: Dictionary, radius: float, targets: String) -> Dicti
 					for candidate in grid.get(origin+Vector2i(dx,dy),[]):
 						if candidate.hp<=0 or allied(owner,int(candidate.owner)) or ("a" if _body_layer(candidate)==COLLISION_AIR else "g") not in targets:continue
 						var distance=pos.distance_squared_to(ACData.point(candidate.pos))
+						if distance<minimum_squared:continue
 						if distance>nearest or not can_see(owner,candidate) or not _team_threat(candidate,owner):continue
 						nearest=distance;threat=candidate
 		if not threat.is_empty():return threat
@@ -2139,6 +2239,7 @@ func _find_target(attacker: Dictionary, radius: float, targets: String) -> Dicti
 				for target in building_spatial.get(Vector2i(x,y),[]):
 					if target.hp<=0 or allied(int(attacker.owner),int(target.owner)) or players[target.owner].lost:continue
 					var distance=pos.distance_squared_to(center(target))
+					if distance<minimum_squared:continue
 					if distance<best and can_see(int(attacker.owner),target):best=distance;result=target
 	var origin=Vector2i((pos/COLLISION_CELL).floor())
 	for ring in range(ceili(radius/COLLISION_CELL)+1):
@@ -2155,6 +2256,7 @@ func _find_target(attacker: Dictionary, radius: float, targets: String) -> Dicti
 					var tx=float(target.pos[0])-pos.x
 					var ty=float(target.pos[1])-pos.y
 					var distance=tx*tx+ty*ty
+					if distance<minimum_squared:continue
 					if distance>=best:continue
 					if ("a" if _body_layer(target)==COLLISION_AIR else "g") not in targets:continue
 					if can_see(int(attacker.owner),target):best=distance;result=target
@@ -2205,6 +2307,7 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 		var style=projectile_style(attacker)
 		var travel=clampf(center(attacker).distance_to(center(target))/24.0,.12,.6)
 		if style in ["beam","laser","tool","bash","claw","slam","slash","blade","drill","spark"]:travel=.18
+		if style=="flame":travel=.2
 		_effect("shot",attacker,center(target),travel,{"target":int(target.id),"projectile":style,"damage":amount,"barrel":int(attacker.get("burst_shot",-1)),"target_air":not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air})
 	if target.hp<=0:
 		players[attacker.owner].kills+=1
@@ -2262,10 +2365,44 @@ func _flee_from_damage(unit: Dictionary, attacker: Dictionary) -> void:
 	# the pathfinder or extend an impossible movement indefinitely.
 	unit._flee_ready_at=time+.75
 
-func _area_damage(u: Dictionary, pos: Vector2, radius: float, damage: float, except_id: int = -1,targets: String="ga",armor_scale: float=1.0) -> void:
+func _tick_flame(u: Dictionary, target: Dictionary, dt: float) -> void:
+	# Integrate a continuous stream. Scale armor and bonuses by the same time
+	# fraction, otherwise short damage ticks multiply armor/upgrade effects.
+	var d: Dictionary=u._definition
+	var rate=1.0/(1.4 if float(u.get("attack_slow_until",0))>time else 1.0)
+	if float(u.get("stim_until",0))>time:rate/=.75
+	if float(u.get("bloom_until",0))>time:rate*=1.25
+	var fraction=dt*rate/float(d.period)
+	var show=time>=float(u.get("_flame_visual_at",0))
+	_damage(u,target,(float(d.damage)+players[u.owner].attack*2)*fraction,show,"attack",fraction,fraction)
+	# The entire visible jet burns, including enemies between the nozzle and
+	# the selected victim. A target-centered circle misses those enemies.
+	var origin=center(u);var axis=(center(target)-origin).normalized()
+	var reach=float(d.range)
+	var spread=float(d.get("flame_half_angle",18))*PI/180.0
+	for t in _query_entities(origin+axis*reach*.5,reach*.5+tan(spread)*reach+1):
+		if int(t.id)==int(target.id) or t.hp<=0 or t.get("container",-1)>=0 or allied(int(u.owner),int(t.owner)):continue
+		if not t.has("progress") and ACData.unit(int(t.race),int(t.kind)).air:continue
+		var delta=center(t)-origin;var along=delta.dot(axis)
+		var radius=minf(1.5,float(ACData.building(int(t.race),int(t.kind)).w)*.35) if t.has("progress") else float(t._definition.size)*.22
+		if along<0 or along>reach+radius or absf(delta.cross(axis))>tan(spread)*along+radius:continue
+		_damage(u,t,(float(d.damage)+players[u.owner].attack*2)*fraction,false,"attack",fraction,fraction)
+	if show:u._flame_visual_at=time+.12
+	u.fired=time
+	u.action_intent="attack"
+
+func _attack_splash(u: Dictionary,target: Dictionary,base: float,armor_scale: float=1.0,bonus_scale: float=1.0,upgrade_scale: float=1.0) -> void:
+	var d: Dictionary=u._definition
+	if float(d.get("splash_radius",0))<=0:return
+	var factor=float(d.get("splash_factor",.4))
+	# A ground detonation cannot hit aircraft passing above it (and vice versa).
+	var layer="g" if target.has("progress") or not ACData.unit(int(target.race),int(target.kind)).air else "a"
+	_area_damage(u,center(target),float(d.splash_radius),(base+float(players[u.owner].attack)*2*upgrade_scale)*factor,int(target.id),layer,armor_scale,bonus_scale*factor)
+
+func _area_damage(u: Dictionary, pos: Vector2, radius: float, damage: float, except_id: int = -1,targets: String="ga",armor_scale: float=1.0,bonus_scale: float=1.0) -> void:
 	for t in _query_entities(pos,radius):
 		if int(t.id)!=except_id and t.hp>0 and t.get("container",-1)<0 and not allied(int(u.owner),int(t.owner)) and center(t).distance_squared_to(pos)<=radius*radius:
-			if ("g" if t.has("progress") or not ACData.unit(int(t.race),int(t.kind)).air else "a") in targets:_damage(u,t,damage,false,"attack",armor_scale)
+			if ("g" if t.has("progress") or not ACData.unit(int(t.race),int(t.kind)).air else "a") in targets:_damage(u,t,damage,false,"attack",armor_scale,bonus_scale)
 
 func _mind_control(u: Dictionary, target_id: int) -> String:
 	# Validate on the authoritative simulation, including fog and concealed units.
@@ -2305,7 +2442,13 @@ func _ability(u: Dictionary, pos: Vector2) -> void:
 		if u.get("cloak_active",false):u.cloak_active=false
 		elif u.energy>=25:u.energy-=25;u.cloak_active=true
 		u.ability_cd=.5
-	elif d.role in ["siege","fortress","tree","shield"]:
+	elif int(u.race)==0 and d.role=="siege":
+		if float(u.get("deploy_until",0))>time:return
+		u.deploy_to=not bool(u.anchored);u.deploy_started=time
+		u.deploy_until=time+(2.5 if u.deploy_to else 1.8)
+		u.ability_cd=float(u.deploy_until)-time;u.order="hold";u.path=[]
+		BURST.cancel(u)
+	elif d.role in ["fortress","tree","shield"]:
 		u.anchored=not u.anchored
 		u.ability_cd=1.0
 	elif d.role=="transport":
@@ -2440,7 +2583,6 @@ func _update_vision() -> void:
 		var signature=hash(sources[owner])
 		if vision_signatures.get(owner,-1)==signature:continue
 		vision_signatures[owner]=signature
-		fog_revision+=1
 		var fog=PackedByteArray()
 		fog.resize(ACMap.SIZE*ACMap.SIZE)
 		fog.fill(0)
@@ -2453,6 +2595,11 @@ func _update_vision() -> void:
 				var start=y*ACMap.SIZE+maxi(0,source.x-span.y)
 				var finish=y*ACMap.SIZE+mini(ACMap.SIZE-1,source.x+span.y)
 				for index in range(start,finish+1):fog[index]=1;seen[index]=1
+		# Moving a source inside already covered terrain need not invalidate
+		# the terrain cover, root chunks and minimap on the display thread.
+		if fog!=visibility[owner] or seen!=explored[owner]:
+			fog_revision+=1
+			vision_revisions[owner]=int(vision_revisions.get(owner,0))+1
 		visibility[owner]=fog
 		explored[owner]=seen
 
@@ -2558,11 +2705,10 @@ func snapshot(owner: int = -1, live_view: bool=false) -> Dictionary:
 				us.append(copy);continue
 			copy.erase("path")
 			for internal in ["action_intent","activity_clock","approach_target","approach_revision","approach_goal","blocked_clock","nav_blocked","avoid_until","yield_visual_until","path_rev","repath","path_failed"]:copy.erase(internal)
+			copy.build_queue=u.build_queue if owner<0 or allied(owner,int(u.owner)) else []
 			for key in copy.keys():
 				if str(key).begins_with("_"):copy.erase(key)
-			for key in ["pos","goal","facing","body_direction","turret_direction","cargo","collision_size"]:
-				if copy.get(key) is Array:copy[key]=copy[key].duplicate(false)
-			copy.build_queue=u.build_queue.duplicate(true) if owner<0 or allied(owner,int(u.owner)) else []
+				elif copy[key] is Array or copy[key] is Dictionary:copy[key]=copy[key].duplicate(true)
 			us.append(copy)
 		elif u.hp>0 and int(u.container)<0 and is_cloaked(u):
 			var point=Vector2i(center(u))
@@ -2626,4 +2772,4 @@ func snapshot(owner: int = -1, live_view: bool=false) -> Dictionary:
 				var p=Vector2i(ACData.point(effect[key]))
 				if not map.inside(p) or visibility[owner][p.y*ACMap.SIZE+p.x]==0:visible=false
 		if visible:fx.append(effect.duplicate(true))
-	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"building_memory":_remembered_buildings(owner,bs),"resources":rs,"roots":roots.snapshot(self,owner),"effects":fx,"rubble":ruins,"shimmers":shimmers,"ended":ended,"winners":winners,"fog":fog,"explored":seen,"fog_revision":fog_revision,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original"),"_live_view":live_view}
+	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"building_memory":_remembered_buildings(owner,bs),"resources":rs,"roots":roots.snapshot(self,owner),"effects":fx,"rubble":ruins,"shimmers":shimmers,"ended":ended,"winners":winners,"fog":fog,"explored":seen,"fog_revision":int(vision_revisions.get(owner,0)) if owner>=0 else fog_revision,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original"),"_live_view":live_view}

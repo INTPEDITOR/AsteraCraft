@@ -40,7 +40,18 @@ static func tick(c,u: Dictionary,dt: float) -> bool:
 				c.collision_index_valid=false
 			return true
 		u.order="attack";u.target=target.id
-		return false
+		# A moving firing circuit, never a stationary ring of attack orders.
+		var middle=c.center(target);var radius=minf(float(d.range)*.8,2.4)+float(int(u.id)%3)*.18
+		var phase=float(u.get("_orbit_phase",float(posmod(int(u.id)*137,628))*.01))
+		phase+=dt*maxf(1.4,float(d.speed)/maxf(1,radius))
+		u._orbit_phase=phase
+		var goal=middle+Vector2.from_angle(phase)*radius
+		c._move(u,goal,dt,.05)
+		u._aiming=true;u.turret_direction=ACData.packed((middle-c.center(u)).normalized())
+		if c.center(u).distance_to(middle)<=float(d.range) and float(u.cooldown)<=0:
+			c._damage(u,target,float(d.damage)+c.players[u.owner].attack*2)
+			u.cooldown=float(d.period);u.fired=c.time;u.action_intent="attack"
+		return true
 	if d.role!="carrier":return false
 	if not u.has("drone_queue"):u.drone_queue=[]
 	if not u.has("drones"):u.drones=[]

@@ -130,7 +130,7 @@ func online() -> void:
 				discovery.forget_service()
 				main.online_status.text="로비에 연결하지 못했습니다. 다시 연결을 눌러 재탐색해 주세요."
 				return
-			if int(data.get("protocol",0))!=10:main.online_status.text="연결할 지휘관들이 모두 같은 버전의 게임을 실행해야 합니다.";return
+			if int(data.get("protocol",0))!=11:main.online_status.text="연결할 지휘관들이 모두 같은 버전의 게임을 실행해야 합니다.";return
 			_open_online_account(attempt)
 		)
 	)
@@ -307,6 +307,13 @@ func _room_seats(room: Dictionary) -> Array:
 					if seats[index].is_empty():seats[index]=member;break
 	return seats
 
+func _room_slot_closed(room: Dictionary,index: int) -> bool:
+	# JSON parses numbers as floats; Array membership compares Variant types.
+	# Compare integer seat IDs so real HTTP responses behave like local fixtures.
+	for slot in room.get("closed_slots",[]):
+		if int(slot)==index:return true
+	return false
+
 func room_menu() -> void:
 	if not _account_ready():account_menu();return
 	var p=open("room","커스텀 대기실",Vector2(1260,840))
@@ -360,7 +367,7 @@ func room_menu() -> void:
 		var seated: Dictionary=seats[index]
 		if index<4 and owner:
 			var slot_index=index
-			var slot_button=button(row,"슬롯 닫기",600,0,125,func():main._room_update({"slot":slot_index,"closed":not slot_index in main.room.get("closed_slots",[])}),36)
+			var slot_button=button(row,"슬롯 닫기",600,0,125,func():main._room_update({"slot":slot_index,"closed":not _room_slot_closed(main.room,slot_index)}),36)
 			slot_button.add_theme_font_size_override("font_size",14)
 			slot_button.set_meta("owner_only",true)
 			room_rows.back()["slot_button"]=slot_button;room_controls.append(slot_button)
@@ -441,10 +448,10 @@ func update_room_text() -> void:
 		var member: Dictionary=seats[index]
 		if row.has("slot_button"):
 			row.slot_button.visible=member.is_empty()
-			row.slot_button.text="슬롯 열기" if index in r.get("closed_slots",[]) else "슬롯 닫기"
+			row.slot_button.text="슬롯 열기" if _room_slot_closed(r,index) else "슬롯 닫기"
 			row.status.visible=not member.is_empty()
 		if member.is_empty():
-			var closed=index<4 and index in r.get("closed_slots",[])
+			var closed=index<4 and _room_slot_closed(r,index)
 			row.nickname.text=("닫힌 플레이어 슬롯 %d"%[index+1] if closed else "빈 플레이어 슬롯 %d"%[index+1]) if index<4 else "빈 관전자 슬롯"
 			row.race.text="";row.team.text="";row.status.text="닫힘" if closed else "참가 대기" if index<4 else "관전 대기"
 			row.status.modulate=Color("777e82")
@@ -578,7 +585,7 @@ func result(won: bool) -> Control:
 		var winners: Array=[]
 		for slot in main.state.get("winners",[]):
 			if int(slot)>=0 and int(slot)<main.state.players.size():winners.append(str(main.state.players[int(slot)].get("name","플레이어 %d"%(int(slot)+1))))
-		rows=[["전투 시간","%02d:%02d"%[seconds/60,seconds%60]],["승리 진영",", ".join(winners) if not winners.is_empty() else "없음"],["참여 방식","관전자"],["기록","관전 리플레이 저장"]]
+		rows=[["전투 시간","%02d:%02d"%[seconds/60,seconds%60]],["승리 진영",", ".join(winners) if not winners.is_empty() else "없음"],["참여 방식","관전자"]]
 	for index in range(rows.size()):
 		label(p,rows[index][0],64+index*55,320,21)
 		label(p,rows[index][1],64+index*55,400,21,340)
@@ -588,10 +595,6 @@ func result(won: bool) -> Control:
 	rating.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	rating.size.y=64
 	button(p,"메인 화면",0,425,300,leave)
-	var replay=button(p,"리플레이 보기",340,425,300,_watch_result_replay)
-	replay.disabled=main.replay_frames.is_empty()
-	var save=button(p,"리플레이 저장",680,425,300,func():main._save_replay())
-	save.disabled=main.replay_frames.is_empty()
 	return p
 
 func _watch_result_replay() -> void:
@@ -735,7 +738,6 @@ func pause() -> void:
 	modal.closed.connect(resume)
 	button(p,"계속하기",45,0,300,resume)
 	button(p,"환경 설정",45,75,300,settings)
-	button(p,"리플레이 저장",45,150,300,func():main._save_replay())
 	button(p,"항복",45,225,300,func():resume.call();main._send_command({"type":"surrender"}))
 	button(p,"메인 화면",45,300,300,func():
 		if not main.replay_mode and not main.state.get("ended",false):main._send_command({"type":"surrender"})

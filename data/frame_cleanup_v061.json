@@ -1,0 +1,1524 @@
+{
+  "repairs": {
+    "motion:0:0:4:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        0,
+        0,
+        177,
+        131
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        171,
+        125
+      ]
+    },
+    "motion:0:0:4:4": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        181,
+        0,
+        177,
+        133
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        171,
+        127
+      ]
+    },
+    "motion:0:0:4:6": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        362,
+        0,
+        167,
+        142
+      ],
+      "anchor_delta": [
+        -7,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        161,
+        136
+      ]
+    },
+    "motion:0:0:4:7": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        533,
+        0,
+        153,
+        138
+      ],
+      "anchor_delta": [
+        -8,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        147,
+        132
+      ]
+    },
+    "motion:0:0:4:8": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        690,
+        0,
+        126,
+        149
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        120,
+        143
+      ]
+    },
+    "motion:0:0:5:4": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        820,
+        0,
+        174,
+        133
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        168,
+        127
+      ]
+    },
+    "motion:0:0:5:7": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        998,
+        0,
+        157,
+        138
+      ],
+      "anchor_delta": [
+        -11,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        151,
+        132
+      ]
+    },
+    "motion:0:0:5:8": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1159,
+        0,
+        139,
+        145
+      ],
+      "anchor_delta": [
+        -13,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        133,
+        139
+      ]
+    },
+    "motion:0:4:1:1": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1302,
+        0,
+        176,
+        213
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        170,
+        207
+      ]
+    },
+    "motion:0:4:2:0": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1482,
+        0,
+        180,
+        210
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        174,
+        204
+      ]
+    },
+    "motion:0:4:3:0": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1666,
+        0,
+        180,
+        213
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        174,
+        207
+      ]
+    },
+    "motion:0:4:3:5": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1850,
+        0,
+        180,
+        214
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        174,
+        208
+      ]
+    },
+    "motion:0:4:4:0": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        0,
+        218,
+        178,
+        209
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        172,
+        203
+      ]
+    },
+    "motion:0:4:5:0": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        182,
+        218,
+        176,
+        213
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        170,
+        207
+      ]
+    },
+    "motion:0:4:6:0": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        362,
+        218,
+        182,
+        210
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        176,
+        204
+      ]
+    },
+    "motion:0:4:9:1": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        548,
+        218,
+        181,
+        209
+      ],
+      "anchor_delta": [
+        -7,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        175,
+        203
+      ]
+    },
+    "motion:0:4:9:2": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        733,
+        218,
+        177,
+        214
+      ],
+      "anchor_delta": [
+        -11,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        171,
+        208
+      ]
+    },
+    "motion:0:4:9:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        914,
+        218,
+        179,
+        210
+      ],
+      "anchor_delta": [
+        -4,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        173,
+        204
+      ]
+    },
+    "motion:0:4:9:7": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1097,
+        218,
+        163,
+        204
+      ],
+      "anchor_delta": [
+        -10,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        157,
+        198
+      ]
+    },
+    "motion:0:4:11:1": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1264,
+        218,
+        179,
+        215
+      ],
+      "anchor_delta": [
+        -11,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        173,
+        209
+      ]
+    },
+    "motion:0:4:11:2": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1447,
+        218,
+        176,
+        217
+      ],
+      "anchor_delta": [
+        -13,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        170,
+        211
+      ]
+    },
+    "motion:0:4:11:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1627,
+        218,
+        180,
+        218
+      ],
+      "anchor_delta": [
+        -5,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        174,
+        212
+      ]
+    },
+    "motion:0:4:11:5": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1811,
+        218,
+        181,
+        211
+      ],
+      "anchor_delta": [
+        -8,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        175,
+        205
+      ]
+    },
+    "motion:1:2:3:6": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        0,
+        440,
+        156,
+        143
+      ],
+      "anchor_delta": [
+        -13,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        150,
+        137
+      ]
+    },
+    "motion:1:2:4:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        160,
+        440,
+        166,
+        145
+      ],
+      "anchor_delta": [
+        -12,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        160,
+        139
+      ]
+    },
+    "motion:1:2:4:4": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        330,
+        440,
+        170,
+        140
+      ],
+      "anchor_delta": [
+        -11,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        164,
+        134
+      ]
+    },
+    "motion:1:4:4:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        504,
+        440,
+        160,
+        159
+      ],
+      "anchor_delta": [
+        -21,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        154,
+        153
+      ]
+    },
+    "motion:1:4:4:4": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        668,
+        440,
+        165,
+        157
+      ],
+      "anchor_delta": [
+        -20,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        159,
+        151
+      ]
+    },
+    "motion:1:4:4:5": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        837,
+        440,
+        154,
+        157
+      ],
+      "anchor_delta": [
+        -24,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        148,
+        151
+      ]
+    },
+    "motion:1:4:4:6": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        995,
+        440,
+        161,
+        151
+      ],
+      "anchor_delta": [
+        -22,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        155,
+        145
+      ]
+    },
+    "motion:1:6:3:6": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1160,
+        440,
+        146,
+        171
+      ],
+      "anchor_delta": [
+        3,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        140,
+        165
+      ]
+    },
+    "motion:1:12:4:2": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1310,
+        440,
+        168,
+        160
+      ],
+      "anchor_delta": [
+        2,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        162,
+        154
+      ]
+    },
+    "motion:1:12:4:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1482,
+        440,
+        157,
+        158
+      ],
+      "anchor_delta": [
+        -17,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        151,
+        152
+      ]
+    },
+    "motion:1:12:4:4": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1643,
+        440,
+        154,
+        158
+      ],
+      "anchor_delta": [
+        -21,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        148,
+        152
+      ]
+    },
+    "motion:1:12:4:5": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1801,
+        440,
+        153,
+        155
+      ],
+      "anchor_delta": [
+        -26,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        147,
+        149
+      ]
+    },
+    "motion:1:12:4:6": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        0,
+        615,
+        166,
+        166
+      ],
+      "anchor_delta": [
+        -11,
+        3
+      ],
+      "bounds": [
+        3,
+        3,
+        160,
+        160
+      ]
+    },
+    "motion:2:0:5:0": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        170,
+        615,
+        134,
+        148
+      ],
+      "anchor_delta": [
+        -10,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        128,
+        142
+      ]
+    },
+    "motion:2:0:5:1": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        308,
+        615,
+        143,
+        159
+      ],
+      "anchor_delta": [
+        -11,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        137,
+        153
+      ]
+    },
+    "motion:2:0:5:2": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        455,
+        615,
+        137,
+        167
+      ],
+      "anchor_delta": [
+        -10,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        131,
+        161
+      ]
+    },
+    "motion:2:0:5:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        596,
+        615,
+        141,
+        165
+      ],
+      "anchor_delta": [
+        -10,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        135,
+        159
+      ]
+    },
+    "motion:2:0:5:4": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        741,
+        615,
+        135,
+        158
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        129,
+        152
+      ]
+    },
+    "motion:2:0:5:5": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        880,
+        615,
+        140,
+        157
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        134,
+        151
+      ]
+    },
+    "motion:2:0:5:6": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1024,
+        615,
+        150,
+        154
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        144,
+        148
+      ]
+    },
+    "motion:2:0:5:7": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1178,
+        615,
+        133,
+        165
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        127,
+        159
+      ]
+    },
+    "motion:2:4:3:0": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1315,
+        615,
+        137,
+        158
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        131,
+        152
+      ]
+    },
+    "motion:2:4:3:1": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1456,
+        615,
+        146,
+        172
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        140,
+        166
+      ]
+    },
+    "motion:2:4:4:3": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1606,
+        615,
+        184,
+        137
+      ],
+      "anchor_delta": [
+        -13,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        178,
+        131
+      ]
+    },
+    "motion:2:4:4:4": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1794,
+        615,
+        191,
+        138
+      ],
+      "anchor_delta": [
+        -10,
+        -2
+      ],
+      "bounds": [
+        3,
+        3,
+        185,
+        132
+      ]
+    },
+    "motion:2:4:4:5": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        0,
+        791,
+        187,
+        139
+      ],
+      "anchor_delta": [
+        -14,
+        -1
+      ],
+      "bounds": [
+        3,
+        3,
+        181,
+        133
+      ]
+    },
+    "motion:2:4:4:6": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        191,
+        791,
+        180,
+        137
+      ],
+      "anchor_delta": [
+        -11,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        174,
+        131
+      ]
+    },
+    "motion:2:4:4:7": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        375,
+        791,
+        177,
+        132
+      ],
+      "anchor_delta": [
+        -13,
+        -8
+      ],
+      "bounds": [
+        3,
+        3,
+        171,
+        126
+      ]
+    },
+    "motion:2:4:4:8": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        556,
+        791,
+        157,
+        137
+      ],
+      "anchor_delta": [
+        -19,
+        -8
+      ],
+      "bounds": [
+        3,
+        3,
+        151,
+        131
+      ]
+    },
+    "motion:2:5:4:2": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        717,
+        791,
+        176,
+        142
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        170,
+        136
+      ]
+    },
+    "motion:2:5:4:7": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        897,
+        791,
+        170,
+        152
+      ],
+      "anchor_delta": [
+        1,
+        1
+      ],
+      "bounds": [
+        3,
+        3,
+        164,
+        146
+      ]
+    },
+    "vehicle:0:5:1:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1071,
+        791,
+        197,
+        192
+      ],
+      "anchor_delta": [
+        -3,
+        -114
+      ],
+      "bounds": [
+        3,
+        3,
+        191,
+        186
+      ]
+    },
+    "vehicle:0:5:2:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1272,
+        791,
+        212,
+        189
+      ],
+      "anchor_delta": [
+        9,
+        -137
+      ],
+      "bounds": [
+        3,
+        3,
+        206,
+        183
+      ]
+    },
+    "vehicle:0:5:3:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1488,
+        791,
+        214,
+        178
+      ],
+      "anchor_delta": [
+        9,
+        -164
+      ],
+      "bounds": [
+        3,
+        3,
+        208,
+        172
+      ]
+    },
+    "vehicle:0:5:3:turret": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1706,
+        791,
+        201,
+        161
+      ],
+      "anchor_delta": [
+        -4,
+        -135
+      ],
+      "bounds": [
+        3,
+        3,
+        195,
+        155
+      ]
+    },
+    "vehicle:0:5:4:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        0,
+        987,
+        217,
+        143
+      ],
+      "anchor_delta": [
+        2,
+        -197
+      ],
+      "bounds": [
+        3,
+        3,
+        211,
+        137
+      ]
+    },
+    "vehicle:0:5:5:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        221,
+        987,
+        220,
+        169
+      ],
+      "anchor_delta": [
+        -9,
+        -172
+      ],
+      "bounds": [
+        3,
+        3,
+        214,
+        163
+      ]
+    },
+    "vehicle:0:5:5:turret": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        445,
+        987,
+        198,
+        147
+      ],
+      "anchor_delta": [
+        -47,
+        -145
+      ],
+      "bounds": [
+        3,
+        3,
+        192,
+        141
+      ]
+    },
+    "vehicle:0:5:6:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        647,
+        987,
+        205,
+        179
+      ],
+      "anchor_delta": [
+        -19,
+        -163
+      ],
+      "bounds": [
+        3,
+        3,
+        199,
+        173
+      ]
+    },
+    "vehicle:0:5:6:turret": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        856,
+        987,
+        172,
+        155
+      ],
+      "anchor_delta": [
+        -50,
+        -142
+      ],
+      "bounds": [
+        3,
+        3,
+        166,
+        149
+      ]
+    },
+    "vehicle:0:5:7:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1032,
+        987,
+        179,
+        181
+      ],
+      "anchor_delta": [
+        -21,
+        -159
+      ],
+      "bounds": [
+        3,
+        3,
+        173,
+        175
+      ]
+    },
+    "vehicle:0:5:7:turret": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1215,
+        987,
+        136,
+        176
+      ],
+      "anchor_delta": [
+        -42,
+        -131
+      ],
+      "bounds": [
+        3,
+        3,
+        130,
+        170
+      ]
+    },
+    "vehicle:0:12:1:turret": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1355,
+        987,
+        185,
+        193
+      ],
+      "anchor_delta": [
+        -21,
+        -114
+      ],
+      "bounds": [
+        3,
+        3,
+        179,
+        187
+      ]
+    },
+    "vehicle:0:12:2:turret": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1544,
+        987,
+        200,
+        176
+      ],
+      "anchor_delta": [
+        -16,
+        -126
+      ],
+      "bounds": [
+        3,
+        3,
+        194,
+        170
+      ]
+    },
+    "vehicle:0:12:5:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        1748,
+        987,
+        211,
+        206
+      ],
+      "anchor_delta": [
+        -6,
+        -132
+      ],
+      "bounds": [
+        3,
+        3,
+        205,
+        200
+      ]
+    },
+    "vehicle:0:12:6:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        0,
+        1197,
+        207,
+        206
+      ],
+      "anchor_delta": [
+        -7,
+        -139
+      ],
+      "bounds": [
+        3,
+        3,
+        201,
+        200
+      ]
+    },
+    "vehicle:0:12:6:turret": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        211,
+        1197,
+        207,
+        180
+      ],
+      "anchor_delta": [
+        -16,
+        -121
+      ],
+      "bounds": [
+        3,
+        3,
+        201,
+        174
+      ]
+    },
+    "vehicle:0:12:7:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        422,
+        1197,
+        201,
+        202
+      ],
+      "anchor_delta": [
+        -14,
+        -138
+      ],
+      "bounds": [
+        3,
+        3,
+        195,
+        196
+      ]
+    },
+    "vehicle:0:12:8:chassis": {
+      "file": "res://assets/verified_v061/frames_0.png",
+      "region": [
+        627,
+        1197,
+        200,
+        199
+      ],
+      "anchor_delta": [
+        -2,
+        -138
+      ],
+      "bounds": [
+        3,
+        3,
+        194,
+        193
+      ]
+    },
+    "fire:0:2:2": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        0,
+        0,
+        288,
+        220
+      ],
+      "anchor_delta": [
+        -18,
+        -51
+      ],
+      "bounds": [
+        3,
+        3,
+        282,
+        214
+      ]
+    },
+    "fire:0:2:3": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        292,
+        0,
+        262,
+        205
+      ],
+      "anchor_delta": [
+        -35,
+        -56
+      ],
+      "bounds": [
+        3,
+        3,
+        256,
+        199
+      ]
+    },
+    "fire:0:2:4": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        558,
+        0,
+        166,
+        230
+      ],
+      "anchor_delta": [
+        -69,
+        -41
+      ],
+      "bounds": [
+        3,
+        3,
+        160,
+        224
+      ]
+    },
+    "fire:0:3:0": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        728,
+        0,
+        188,
+        242
+      ],
+      "anchor_delta": [
+        -39,
+        -15
+      ],
+      "bounds": [
+        3,
+        3,
+        182,
+        236
+      ]
+    },
+    "fire:0:7:0": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        920,
+        0,
+        183,
+        268
+      ],
+      "anchor_delta": [
+        -39,
+        11
+      ],
+      "bounds": [
+        3,
+        3,
+        177,
+        262
+      ]
+    },
+    "fire:0:7:2": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        1107,
+        0,
+        314,
+        219
+      ],
+      "anchor_delta": [
+        -3,
+        -33
+      ],
+      "bounds": [
+        3,
+        3,
+        308,
+        213
+      ]
+    },
+    "fire:0:7:3": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        1425,
+        0,
+        282,
+        214
+      ],
+      "anchor_delta": [
+        -35,
+        -32
+      ],
+      "bounds": [
+        3,
+        3,
+        276,
+        208
+      ]
+    },
+    "fire:0:7:4": {
+      "file": "res://assets/verified_v061/frames_1.png",
+      "region": [
+        1711,
+        0,
+        182,
+        247
+      ],
+      "anchor_delta": [
+        -67,
+        -13
+      ],
+      "bounds": [
+        3,
+        3,
+        176,
+        241
+      ]
+    }
+  }
+}

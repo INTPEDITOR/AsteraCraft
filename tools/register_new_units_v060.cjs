@@ -1,5 +1,7 @@
 // Exact per-frame packing of new painted sprites. Retain all40 source poses.
 const fs=require('fs'),sharp=require('C:/Users/Admin/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+// v061 flamer paintings cannot be sliced on the old equal grid. Preserve the
+// corrected whole-component registration whenever this legacy tool is reused.
 const clear={r:0,g:0,b:0,alpha:0};
 (async()=>{let report={columns:8,rows:5,cell:[256,256],units:{}};fs.mkdirSync('assets/registered_v060',{recursive:true});
  for(const name of ['flamer','carrier','drone','chaser']){
@@ -16,4 +18,5 @@ const clear={r:0,g:0,b:0,alpha:0};
   await sharp({create:{width:2048,height:1280,channels:4,background:clear}}).composite(pieces).png().toFile(`assets/registered_v060/${name}.png`);report.units[name]={anchor:air?[128,128]:[128,224],scale_hint:224,regions};console.log('Registered new unit',name,40);
  }
  fs.writeFileSync('data/new_unit_frames_v060.json',JSON.stringify(report,null,2));
+ require('child_process').execFileSync(process.execPath,['tools/repair_flamer_v061.cjs'],{stdio:'inherit'});
 })();
