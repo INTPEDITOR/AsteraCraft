@@ -17,5 +17,6 @@ async function upload(release,file,mime){const size=fs.statSync(file).size,hash=
  const asset=await upload(release,file,'application/zip');await upload(release,file+'.sha256','text/plain');
  if(release.draft)release=await api('/releases/'+release.id,'PATCH',{draft:false,make_latest:'true'});
  const verified=await api('/releases/tags/'+tag);if(verified.draft||!verified.assets.some(a=>a.name===path.basename(file)&&a.digest===asset.digest))throw Error('Published release verification failed');
- const result={url:verified.html_url,release_id:verified.id,commit:sha,asset:asset.browser_download_url,bytes:asset.size,digest:asset.digest};fs.writeFileSync(path.join(root,'build/github-v060-result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+ const publishedAsset=verified.assets.find(a=>a.name===path.basename(file));
+ const result={url:verified.html_url,release_id:verified.id,commit:sha,asset:publishedAsset.browser_download_url,bytes:publishedAsset.size,digest:publishedAsset.digest};fs.writeFileSync(path.join(root,'build/github-v060-result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
 })().catch(e=>{console.error(e.message);process.exitCode=1});
