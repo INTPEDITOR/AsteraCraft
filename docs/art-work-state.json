@@ -611,7 +611,7 @@
   ],
   "new_elements_require_user_confirmation": true,
   "excluded_new_lens": true,
-  "current_phase": "all44_connected_missing42_added_windows_build_complete_no_additional_qa",
+  "current_phase": "quick_review_completed_github_upload",
   "unnecessary_frames_policy": "No hangar, cargo-ramp, iris, fake attack or decorative idle additions. Unarmed units use existing idle, flight and death only. Do not fill an arbitrary frame total.",
   "integrated_unit_counts_by_race": {
     "0": 16,
@@ -699,5 +699,13 @@
         "bytes": 1202069220
       }
     ]
+  },
+  "quick_release_review": {
+    "checks": 139,
+    "failures": 0,
+    "exported_startup_exit": 0,
+    "full_art_review": false,
+    "scope": "Resource/action samples, all44 native visibility and obvious clipping, exported application startup.",
+    "report": "docs/RELEASE_SPRITES_20261024.md"
   }
 }

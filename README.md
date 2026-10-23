@@ -1,3 +1,5 @@
+> [2026-10-24 sprite preview / Windows download](https://github.com/INTPEDITOR/AsteraCraft/releases/tag/sprites-20261024) - all44 unit sprites connected, missing42 attack poses added; quick checks139/0. Full visual review of23 units remains deferred. [Report](docs/RELEASE_SPRITES_20261024.md).
+
 # 아스테라크래프트 (AsteraCraft) v0.5.8
 
 Godot 4.6으로 제작한 Windows용 2D 실시간 전략 게임입니다. 바위너구리 연합, 귤 변이 군체, 고대 부엉이 문명 중 하나를 선택해 아스와 테라를 채취하고 전투합니다.
