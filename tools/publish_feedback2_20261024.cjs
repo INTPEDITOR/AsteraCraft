@@ -18,16 +18,24 @@ async function api(route,method='GET',data){
  if((await api('/commits/main')).sha!==sha)throw Error('Exact source commit has not reached GitHub main');
  const releases=await api('/releases?per_page=100');let release=releases.find(r=>r.tag_name===tag);
  if(!release)release=await api('/releases','POST',{tag_name:tag,target_commitish:sha,name:'AsteraCraft 이동·전투·로딩 개선판 - 2026-10-24',body:body+'\n\nSource commit: '+sha,draft:true,prerelease:true});
- if(release.target_commitish!==sha)throw Error('Existing release points to another source commit');
+ if(release.target_commitish!==sha){
+  const changed=cp.execFileSync('git',['diff','--name-only',release.target_commitish,sha],{encoding:'utf8',cwd:root}).trim().split(/\r?\n/).filter(Boolean);
+  if(!release.draft||release.assets.length||changed.some(file=>file!=='tools/publish_feedback2_20261024.cjs'))throw Error('Existing release points to another runtime source commit');
+  release=await api('/releases/'+release.id,'PATCH',{target_commitish:sha,body:body+'\n\nSource commit: '+sha});
+  if(release.target_commitish!==sha)throw Error('Draft source update was not applied');
+ }
  const names=['AsteraCraft-Windows-'+tag+'.zip','AsteraCraft-Windows-'+tag+'.zip.sha256'];
  const wanted=fs.readFileSync(path.join(out,names[1]),'utf8').trim().split(/\s+/)[0];
  for(const name of names){
   const file=path.join(out,name),size=fs.statSync(file).size;let asset=release.assets.find(a=>a.name===name);
   if(!asset){
    console.log('Uploading '+name+' '+size+' bytes');
-   const stream=fs.createReadStream(file);let sent=0,last=Date.now();
-   stream.on('data',chunk=>{sent+=chunk.length;if(Date.now()-last>=30000){last=Date.now();console.log('UPLOAD_PROGRESS '+Math.floor(sent/size*100)+'% '+name);}});
-   const response=await fetch(release.upload_url.split('{')[0]+'?name='+encodeURIComponent(name),{method:'POST',headers:{...headers,'Content-Type':name.endsWith('.zip')?'application/zip':'text/plain','Content-Length':String(size)},body:stream,duplex:'half'});
+   const stream=fs.createReadStream(file);
+   // Reading bytesRead does not consume the body before fetch attaches to it.
+   const progress=setInterval(()=>console.log('UPLOAD_PROGRESS '+Math.floor(stream.bytesRead/size*100)+'% '+name),30000);
+   let response;
+   try{response=await fetch(release.upload_url.split('{')[0]+'?name='+encodeURIComponent(name),{method:'POST',headers:{...headers,'Content-Type':name.endsWith('.zip')?'application/zip':'text/plain','Content-Length':String(size)},body:stream,duplex:'half'});}
+   finally{clearInterval(progress);}
    asset=await response.json();if(!response.ok)throw Error('Upload '+response.status+' '+asset.message);
   }
   if(asset.size!==size||asset.state!=='uploaded'||(name.endsWith('.zip')&&asset.digest!=='sha256:'+wanted))throw Error('Uploaded asset integrity mismatch: '+name);
