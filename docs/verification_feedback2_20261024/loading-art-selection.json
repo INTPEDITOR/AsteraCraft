@@ -1,0 +1,21 @@
+{
+  "checks": 750,
+  "factions": [
+    {
+      "approved": 10,
+      "race": 0,
+      "seen": 10
+    },
+    {
+      "approved": 10,
+      "race": 1,
+      "seen": 10
+    },
+    {
+      "approved": 10,
+      "race": 2,
+      "seen": 10
+    }
+  ],
+  "failures": []
+}

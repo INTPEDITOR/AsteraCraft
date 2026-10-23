@@ -11,6 +11,8 @@ func _init() -> void:
 func texture(race: int, kind: String, index: int) -> Texture2D:
 	var key="%s:%d:%d"%[kind,race,index]
 	if _frames.has(key):return _frames[key]
+	var clean="res://assets/ui/clean_icons_20261024/%s_r%d_%02d.png"%[kind,race,index]
+	if not (kind=="commands" and index in [29,30]) and ResourceLoader.exists(clean):_frames[key]=load(clean);return _frames[key]
 	if kind=="commands" and index in [29,30]:
 		var cutout="res://assets/ui/page_icons_20261024/r%d_%d.png"%[race,index]
 		if ResourceLoader.exists(cutout):_frames[key]=load(cutout);return _frames[key]
@@ -28,6 +30,8 @@ func skill(race: int, id: String) -> Texture2D:
 	if race==1 and id in ["sap_heal","sap_reclaim","sap_bloom"]:
 		var key="support:"+id
 		if _frames.has(key):return _frames[key]
+		var clean="res://assets/ui/clean_icons_20261024/support_r1_%02d.png"%["sap_heal","sap_reclaim","sap_bloom"].find(id)
+		if ResourceLoader.exists(clean):_frames[key]=load(clean);return _frames[key]
 		var file="res://assets/sap_support_v060.png"
 		if not ResourceLoader.exists(file):return null
 		var source: Texture2D=load(file);var cell=source.get_size()/Vector2(8,4)

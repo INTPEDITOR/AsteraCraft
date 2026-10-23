@@ -1,0 +1,116 @@
+{
+  "mode": "builtin_image_gen",
+  "integration_approval": false,
+  "jobs": [
+    {
+      "id": "story-r2-01-v3",
+      "race": 2,
+      "number": 1,
+      "title": "성문에서 이어지는 엄호",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u01.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u02.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual owl spear guardian holds a cracked stone doorway open against falling rubble while one actual owl archer behind it fires through that opening to cover retreat outside frame. Guardian image1: white/ivory owl with gold-edged armor, red cape, ONE red-tipped short spear, no invented shield. Archer image2: white owl head, red cape, gold shoulder pieces, ONE gold/red bow and a single red arrow. Camera from INSIDE the doorway near guardian shoulder height, guardian on RIGHT braces the stone jamb and looks outward LEFT, archer on LEFT aims LEFT across the frame. Falling fragments show what the guardian is holding back. Cold morning rain outside and warm reflected light inside, tactile feathers and weathered stone, not two idle sentries."
+    },
+    {
+      "id": "story-r2-02-v3",
+      "race": 2,
+      "number": 2,
+      "title": "출격 경로를 읽는 성술사",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u05.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u06.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nAn actual owl mage actively works at a stone observatory's physical gold celestial map while its actual spherical detector hovers over a specific path on the map, revealing a safe passage through mountain storm clouds visible beyond. Mage identity: ivory owl, red/gold robe, LARGE GOLD ORBITAL HALO behind its head with THREE red nodes, and ONE gold circular staff as in image1. Do not turn it into the priest with a plain red ring staff. Detector image2 is an ivory SPHERE with three red round eyes, small pointed fin and gold beak accents, NO legs/wings/human face. A faint thin red path reflection and the mage pointing to that exact route makes purposeful navigation visible. Camera on the RIGHT, looking LEFT across the map at nearly eye height, midnight blue sky and dim observatory practical light, live-action feather/metal realism."
+    },
+    {
+      "id": "story-r2-03-v3",
+      "race": 2,
+      "number": 3,
+      "title": "폭풍 속의 호위 비행",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u09.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u11.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual ivory/red delta-wing fighter slips beneath the damaged wing-line of one actual owl transport to guide it safely between sheer mountain walls in a rainstorm. Fighter image1 is a compact ivory delta TRIANGLE with red wing panels, gold pointed nose and black canopy, no owl head or invented mechanical wings. Transport image2 is a low rectangular ivory hull with FOUR RED circular engine pods at its corners, small pointed owl-beak nose, no doors/open hatches or vertical skyscrapers. Transport has slight engine sputter at ONE existing red pod; fighter banks toward it to guide the turn. Camera directly ahead and slightly BELOW the pair, long view toward camera, noses level not downward. Mountain walls frame them, wet ceramic plates and red engine light reflected in real mist, no overhead catalogue view."
+    },
+    {
+      "id": "story-r2-04-v3",
+      "race": 2,
+      "number": 4,
+      "title": "대심판선 아래의 피난 항로",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u12.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u11.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nThe huge actual open-ring capital ship turns broadside into incoming distant fire to shield one damaged actual small owl transport passing through the protected air beneath its ring. Capital identity MUST match image1: a FLAT OPEN IVORY AND GOLD CIRCULAR RING with a red luminous inner channel, a single long pointed central/forward owl-beak spine and small red eye accents. The center is OPEN, not a solid disc; NO city, cathedral, towers, castle, deck or new turrets mounted on it. Small transport is the existing low ivory hull with FOUR red corner engine pods in image2. One faint impact spark at outer ring, tiny trail behind transport, clear shelter/escape interaction. Camera from FAR BELOW and a little ahead, looking UP through the huge open ring toward a bright storm-cloud gap; foreground ring edge recedes diagonally and transport flies toward us. Awe and believable immense scale, weathered ceramic and gold, restrained energy glow, not a plastic flying ornament."
+    },
+    {
+      "id": "story-r2-05-v3",
+      "race": 2,
+      "number": 5,
+      "title": "붕괴된 계단의 지휘",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u03.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u01.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nThe actual owl officer guides an actual small round owl worker across a broken temple stair while an actual spear guardian covers the rear, a small three-unit evacuation. Officer image1: ivory owl body, red shoulder guards and red tabard, gold chest accents, not a new crown or staff. Worker image3: ROUND armored ivory owl with huge RED round eyes, small gold feet, red chest accent, no mining gun or humanoid body. Guardian image2 retains its white feathers, red cape and ONE red-tipped spear. Officer on LEFT reaches an existing wing toward the worker stepping across the gap; guardian on RIGHT faces back toward falling rubble. Camera level with the small worker looking UP the staircase, strong upward front-to-back movement, not a left-to-right procession. Fine rain, broken marble edges and genuine owl feather detail, no unreferenced people."
+    },
+    {
+      "id": "story-r2-07-v3",
+      "race": 2,
+      "number": 7,
+      "title": "새 광맥을 발견한 축조자",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u00.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u06.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual round owl worker uncovers a small gold crystal seam inside a cave, while ONE actual detector sphere shines its existing red eyes toward a newly revealed opening above the seam. Worker: round ivory armored body, large red eyes, folded wings and gold claw feet exactly as image1, no human hands, drill, weapon or added antenna. Use its existing wing/claw to brush loose grit from the crystal. Detector: ivory spherical three-red-eye construct with top pointed fin as image2, no legs or new spotlight assembly; its natural red glow catches the dust near the opening. Camera deep inside the cave looking OUT, worker in RIGHT foreground turned LEFT toward the seam, detector beyond and above it; real shafts of cool daylight and warm crystal reflections. A quiet discovery story with two units investigating the SAME find, not idle mining mascots."
+    },
+    {
+      "id": "story-r2-08-v3",
+      "race": 2,
+      "number": 8,
+      "title": "그림자가 연 퇴로",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u10.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual dark owl stalker cuts a heavy fallen rope entangling a trapped actual small owl worker's path under a collapsed bridge. Stalker image1: dark almost-black owl feathers, white pointed face, red eye accents, black/gold armor, red hanging cape and TWO actual red curved hand-blades; keep owl anatomy, no human ninja face. Worker image2 is the small round ivory/red-eyed armored owl, no rifle or added arms. The near blade makes contact with the taut rope and cut fibers spring apart, worker moves toward the opening behind the stalker. Camera from behind the worker at its low eye height, viewing stalker's face and blade near frontal in RIGHT foreground, rope stretched diagonally toward LEFT. Deep shaded ravine with a single beam of natural light on feathers and fraying rope, precise visible rescue action, no gore."
+    },
+    {
+      "id": "story-r2-09-v3",
+      "race": 2,
+      "number": 9,
+      "title": "능선 아래를 겨누는 궤도창",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u08.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u02.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nThe actual floating orbital-lance unit and actual owl archer defend a high mountain ridge together. Archer in RIGHT foreground behind cracked stone aims its ONE existing bow toward the same distant canyon gap as the lance unit hovering just LEFT beyond the ridge. Lance identity image1: floating IVORY/GOLD CRESCENT shell around a long sharply pointed RED LANCE projecting forward, red inset accents, not a plane, animal or humanoid. The lance fires one restrained red beam from its actual lance tip toward the gap; archer has white feathers, red/gold cape and bow from image2. Camera at archer shoulder height from BEHIND and a little LEFT, eye-level across the mountains with horizon, not looking down onto the units. Shared aim and the archer's released single arrow show coordinated fire; dawn mist and wind in feathers, believable ceramic and gold."
+    },
+    {
+      "id": "story-r2-10-v3",
+      "race": 2,
+      "number": 10,
+      "title": "마지막 승선 전의 치료",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u04.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u03.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u11.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nAn actual owl priest kneels beside the wounded actual owl officer on a windswept stone landing terrace, stabilizing him with a faint cyan healing connection before evacuation. Priest image1: white feathers, red/gold robe, ONE long gold staff with a broad RED circular crystal head, NO mage orbital halo. Officer image2: ivory owl, red shoulder guards and tabard, gold chestplate, no extra weapon. Existing owl transport image3 hovers in the far background waiting, low ivory hull with FOUR RED corner engine pods, all closed with no new ramp/door. Camera intimate near the priest's shoulder at eye height looking RIGHT-to-LEFT toward the officer, transport softly visible beyond a natural arch. Strong real wind, feather edges, rain and late daylight; medical care is the clear foreground event, no army lineup or gore."
+    }
+  ]
+}

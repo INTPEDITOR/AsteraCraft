@@ -1,0 +1,12 @@
+{
+  "id": "story-r2-04-v4",
+  "race": 2,
+  "number": 4,
+  "title": "대심판선 아래의 피난 항로",
+  "refs": [
+    "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-04-v3.png",
+    "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u12.png"
+  ],
+  "prompt": "Precise identity-preserving correction of IMAGE1. Restore the central structure of this existing capital ship using the authoritative actual game-unit design IMAGE2.\nIMAGE1 incorrectly turns the vessel into an almost completely EMPTY RING with its raised body displaced to the right rim. The actual vessel in IMAGE2 has a long raised IVORY/GOLD CENTRAL SHIP SPINE running THROUGH THE MIDDLE of the ring, joined to the owl-beak front prow, with ONE tall sharply tapered triangular dorsal superstructure centered on that spine.\nRestore that original CENTRAL HULL: an elongated faceted ivory/gold ship-body bridge spans the ring opening along the ship's front-to-back axis, connecting the front owl-beak prow at lower/right to the rear inner ring edge at upper/left, passing visibly THROUGH the center of the opening. The ONE tall pointed ivory/gold triangular dorsal fin/superstructure must rise from the CENTER of that hull, as reference2, not merely from the outer rim. Move the currently displaced raised fin/body inward to its proper central location as necessary; do NOT leave an extra duplicate fin on the outer rim.\nThere should now be TWO open crescent-shaped gaps, one on either side of the restored central spine, rather than one uninterrupted empty donut hole. Preserve those two open gaps and the actual original central body shape; do not fill the ring with a solid saucer.\nKeep the existing giant ring, red inner channel, gold trim, owl-beak front prow, ship scale, realistic low underside camera, light, clouds, small transport, perspective, weathered textures and framing. Fit the added center structure into the SAME ring plane and SAME physical perspective with believable underside shadows. Match the actual simple pointed ship structure from reference2; this is NOT a building, city, cathedral, castle, tower cluster or invented weapon. No new design or extra units. Change ONLY the missing/displaced central hull and its proper connections; preserve everything else.",
+  "mode": "builtin_image_gen"
+}

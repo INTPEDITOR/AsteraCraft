@@ -140,10 +140,10 @@ func _frame(definition: Dictionary,clip: Dictionary,index: int) -> Dictionary:
 	if not region.has_area() or not Rect2(Vector2.ZERO,source.get_size()).encloses(region):return {}
 	var anchor=ACData.point(item.get("anchor",clip.get("anchor",definition.get("anchor",[region.size.x*.5,region.size.y*.8]))))
 	var scale_hint=float(item.get("scale_hint",clip.get("scale_hint",definition.get("scale_hint",maxf(region.size.x,region.size.y)))))
-	var cache_key=file+"|"+str(region)+"|"+str(anchor)+"|"+str(scale_hint)
+	var cache_key=file+"|"+str(region)+"|"+str(anchor)+"|"+str(scale_hint)+"|"+str(item.get("mirror_x",false))
 	if not _frames.has(cache_key):
 		var atlas=AtlasTexture.new();atlas.atlas=source;atlas.region=region;atlas.filter_clip=true
-		var frame={"texture":atlas,"anchor":anchor,"scale_hint":scale_hint,"cell_size":region.size,"flip":false,"rotation":0.0,"v062":true,"embedded_pilot":true}
+		var frame={"texture":atlas,"anchor":anchor,"scale_hint":scale_hint,"cell_size":region.size,"flip":bool(item.get("mirror_x",false)),"rotation":0.0,"v062":true,"embedded_pilot":true}
 		if bool(definition.get("staged16",false)):frame.staged16=true
 		if item.has("bounds"):
 			var b=item.bounds
@@ -177,7 +177,7 @@ func sample(definition: Dictionary,action: String,direction: Vector2,clock: floa
 	var frame=_frame(definition,clip,row*columns+int(facing.column))
 	if frame.is_empty():return {}
 	frame=frame.duplicate()
-	frame.flip=bool(facing.flip);frame.action=name;frame.frame=row;frame.fps=fps
+	frame.flip=bool(frame.get("flip",false))!=bool(facing.flip);frame.action=name;frame.frame=row;frame.fps=fps
 	return frame
 
 func unit(race: int,kind: int,direction: Vector2,action: String,clock: float) -> Dictionary:
@@ -219,6 +219,7 @@ func building(race: int,kind: int,progress: float,active: bool,direction: Vector
 	# Construction and independently aimed defense turrets retain their own art.
 	var action="construction" if progress<1 else "idle"
 	var phase=clampi(int(progress*4),0,3) if progress<1 else 0
+	if race==1 and progress<1:phase=1+clampi(int(progress*3),0,2)
 	var result=sample(definition,action,direction,clock,phase)
 	if progress>=1 and result.is_empty():
 		result=sample(definition,"construction",direction,0,4).duplicate()

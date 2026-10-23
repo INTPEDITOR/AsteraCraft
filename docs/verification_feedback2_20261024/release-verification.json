@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "windows": {
+    "passed": true,
+    "exit_code": 0,
+    "elapsed_ms": 28922,
+    "loading_art_textures": 30,
+    "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+  },
+  "icons": {
+    "passed": true,
+    "resolutions": [
+      16,
+      24,
+      32,
+      48,
+      64,
+      128,
+      256
+    ],
+    "icon_groups": 4,
+    "source_sha256": "708aaedee3ddb406695b2e2d4930feeabe810d187ab494345ab1a1d0890b687d"
+  },
+  "package": {
+    "passed": true,
+    "bytes": 1308911571,
+    "sha256": "d6eba1b9cfac3342d1de7ba5ae6c27f426731ca7308b3a00ee1f8310b036341b",
+    "files": [
+      "AsteraCraft.exe",
+      "AsteraCraft.pck",
+      "libwebrtc_native.windows.template_release.x86_64.dll",
+      "README.txt",
+      "game_icon.ico"
+    ]
+  },
+  "loading": {
+    "checks": 750,
+    "factions": [
+      {
+        "approved": 10,
+        "race": 0,
+        "seen": 10
+      },
+      {
+        "approved": 10,
+        "race": 1,
+        "seen": 10
+      },
+      {
+        "approved": 10,
+        "race": 2,
+        "seen": 10
+      }
+    ],
+    "failures": []
+  },
+  "network": {
+    "ok": true,
+    "endpoint": "https://asteracraft-matchmaking.changjin93.chatgpt.site/api",
+    "executable": "source Godot",
+    "transport": "native WebRTC direct",
+    "players": 2,
+    "observers": 1,
+    "hostProcess": "player PC",
+    "scope": "same PC, public HTTPS service",
+    "results": [
+      {
+        "slot": 0,
+        "code": 0,
+        "result": {
+          "slot": 0,
+          "time": 5.04999999999999,
+          "units": 4,
+          "winners": [
+            0
+          ]
+        }
+      },
+      {
+        "slot": 1,
+        "code": 0,
+        "result": {
+          "slot": 1,
+          "time": 5.04999999999999,
+          "units": 7,
+          "winners": [
+            0
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "code": 0,
+        "result": {
+          "slot": 0,
+          "time": 5.04999999999999,
+          "units": 11,
+          "winners": [
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "full_manual_sprite_audit": false
+}

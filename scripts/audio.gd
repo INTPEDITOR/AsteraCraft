@@ -244,6 +244,7 @@ func process_state(state: Dictionary, local_slot: int, camera: Vector2, zoom: fl
 		var fired := float(entity.get("fired", -99.0))
 		if fired < 0.0 or fired <= float(_fired_marks.get(id, -99.0)):
 			continue
+		if entity.get("beam_active",false) and now<float(_fired_marks.get(id,-99.0))+.65:continue
 		_fired_marks[id] = fired
 		if now - fired <= 0.65 and int(entity.get("container", -1)) < 0:
 			var kind := _weapon_kind(entity)
@@ -287,9 +288,9 @@ func _construction_sounds(buildings: Array, now: float) -> void:
 		var progress=float(building.get("progress",1));var old: Dictionary=_construction_marks.get(id,{})
 		var race=clampi(int(building.get("race",0)),0,2)
 		if progress>=1:
-			if not old.is_empty() and float(old.progress)<1:_play_at("construct_complete_%d"%race,_center(building),.28,1,"construction")
+			if not old.is_empty() and float(old.progress)<1:_play_at("construct_complete_%d"%race,_center(building),.66,4,"construction_finish")
 		elif old.is_empty() or (progress>float(old.progress)+.000001 and now>=float(old.next)):
-			_play_at("construct_%d"%race,_center(building),.31,1,"construction")
+			_play_at("construct_%d"%race,_center(building),.60 if old.is_empty() else .48,3 if old.is_empty() else 2,"construction_start" if old.is_empty() else "construction")
 			old.next=now+1.8+float(posmod(id,5))*.08
 		_construction_marks[id]={"progress":progress,"next":old.get("next",now+1.8)}
 	for id in _construction_marks.keys():
@@ -409,7 +410,7 @@ func _play(name: String, gain: float, priority: int, group: String, screen: Vect
 	if group=="construction":
 		var active=0
 		for voice in _voices:
-			if voice.player.playing and voice.group=="construction":active+=1
+			if voice.player.playing and str(voice.group).begins_with("construction"):active+=1
 		if active>=3:debug_stats.culled+=1;return false
 	var active_combat := 0
 	var chosen: Dictionary = {}

@@ -1,0 +1,759 @@
+{
+  "mode": "builtin_image_gen",
+  "images": [
+    {
+      "id": "story-r0-01-v3",
+      "race": 0,
+      "number": 1,
+      "title": "경계 속에서 이어지는 채굴",
+      "units": [
+        "0:0",
+        "0:7"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5b590eb0-22fd-43d0-a433-21d3f20e0ae3.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-01-v3.png",
+      "sha256": "8094d31baf155203496210876120924b5b9929fe1ad226156071fe0094c35860",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-01-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nAn actual yellow FOUR-WHEELED mining rover driven by a brown rock hyrax works two drills into a cracked gold crystal seam, while a single actual hooded hyrax scout guards the mine entrance. Rover has EXACTLY TWO steel conical front drills side by side, never three, and its driver sits exposed as reference. Scout wears its actual dark hood, yellow armor and long dark rifle. View from inside the crystal hollow: rover close RIGHT profile drills LEFT into the seam, small real chips falling; scout in distant LEFT silhouette turned outward covering the entrance. Low eye-height tunnel composition, shafts of natural morning light through dust, gold crystal and fur texture. The pair belongs together because mining needs cover, neither poses at the camera.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u00.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u07.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-01-v3.png"
+    },
+    {
+      "id": "story-r0-02-v3",
+      "race": 0,
+      "number": 2,
+      "title": "협곡을 건너는 엄호 사격",
+      "units": [
+        "0:1"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-44c436fa-8cba-46f4-9089-2f779b9755a0.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-02-v3.png",
+      "sha256": "fb8b488ccb5b6e03642bb8d5f8c3fda748e4398f72c3f62a099692ffbf3dc8a6",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-02-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nExactly two actual yellow-armored hyrax rifle infantry cross a damaged stone bridge under fire. One kneels in the LEFT foreground behind a broken parapet firing its existing dark rifle into a rocky gap outside the frame, while the second dashes AWAY from the camera toward safety at the far bank. Their sights and movement explain covering fire. Keep uncovered brown hyrax heads and correct yellow/black plated armor, no humans or extra equipment. Camera over the kneeling rifleman's shoulder at shoulder height looking along the bridge, near worker scale, no aerial view. Bullet marks on stone, dust, tense cloudy light, believable fur and scuffed metal.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u01.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-02-v3.png"
+    },
+    {
+      "id": "story-r0-03-v3",
+      "race": 0,
+      "number": 3,
+      "title": "길을 여는 전차와 돌격병",
+      "units": [
+        "0:5",
+        "0:2"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-03-v3.png",
+      "sha256": "07cc8d3fe90c99d0c2cbe3506472002a6d20869931f851858cacd67900c525eb",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-03-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft widescreen loading-background approval draft, cinematic live-action war photograph, landscape 16:9.\nPrimary request: Tell the single coherent story of opening a blocked canyon route under armored cover. An actual Hyrax assault trooper actively cuts through the twisted metal beam blocking the pass, while the actual Hyrax tracked tank covers the newly opening road. The severed beam visibly falls clear and sparks show the work in progress. Exactly one tank and one assault trooper.\nInput images: Image 1 is the tank identity, Image 2 the assault trooper identity; these small GAME SPRITES ONLY define anatomy, equipment and colors, not the camera or rendering. Image 3 demonstrates approved physical realism of fur, scratched yellow metal and natural environment; do not copy its lineup.\nSubject identity: yellow-and-black squat tank, continuous tracks, round central turret, ONE SMOOTH straight cannon with black muzzle, no drill, no wheels, no extra weapons. Small brown furry rock-hyrax assault soldier, uncovered natural hyrax face, yellow segmented armor and actual broad steel chainsaw from image 2; no human head.\nComposition: the camera is at the trooper's chest height, nearly head-on toward the tank beyond the obstruction. Tank stands in the middle distance facing almost directly toward camera, level cannon aimed slightly off-center down the road. Trooper in the right foreground facing inward toward the fallen beam. Subjects are interacting with the same obstacle and route. A broad ground-level shot with the horizon visible, never a top-down isometric sprite view. The cannon stays horizontal and does not point into the ground.\nStyle/material: believable full-scale live-action cinema frame, tactile rough fur, dirty steel with scratches and worn paint, heavy track treads with wet grit, weighty machinery under a grey dusty sky. Restrained natural diffuse light, realistic reflections and exposure, no toy gloss, no plastic figurines, no miniature tilt-shift, no cartoon proportions or bright product render. Detailed subject silhouettes remain readable.\nConstraints: only these two actual game-unit designs, no invented troops, no words, labels, logo, border or HUD. A narrative action, not a promotional pose or unrelated pair of units.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u05.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u02.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-f636d93c-eaf6-42bb-bb9d-4890683657cb.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-03-v3.png"
+    },
+    {
+      "id": "story-r0-04-v3",
+      "race": 0,
+      "number": 4,
+      "title": "방패 뒤의 응급 처치",
+      "units": [
+        "0:4",
+        "0:3",
+        "0:1"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-0b4a8729-2c07-44f5-9769-868d5ffb280b.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-04-v3.png",
+      "sha256": "16651bb886becc37bbb976d8fe1a39c5b1de47e806addaceae3a73a2a483ff83",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-04-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nAn actual hyrax MEDIC kneels to stabilize a wounded rifle infantry's arm while an actual shield trooper protects both from incoming grit. Medic retains yellow segmented armor, real brown furry head and the blue medical cross shoulder mark in reference1; no invented white robes or priest costume. Shield trooper has the yellow rectangular shield from reference2; rifle troop has reference3 armor and dark rifle laid beside him. Three existing unit types, one of each. Camera close at ground level on their RIGHT, looking LEFT toward the injured troop. Shield frames the upper left like shelter; a small subdued cyan medical light, no gore. Cold rain and wet gritty armor, physical first aid clearly visible, not idle grouping.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u04.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u03.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u01.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-04-v3.png"
+    },
+    {
+      "id": "story-r0-05-v4",
+      "race": 0,
+      "number": 5,
+      "title": "후퇴로를 지키는 이동요새",
+      "units": [
+        "0:12"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-dd3d4e44-7fa9-48cb-afaa-f697a56690b6.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-05-v4.png",
+      "sha256": "43258783a1eb22c4db387c975a42b7a275a97b0f452af3a6d0ea80e9a8df1997",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-05-v4.json",
+      "prompt": "Use case: precise-object-edit. Correct ONLY two identity errors in IMAGE1, preserving its convincing full-scale live-action realism, low-angle composition, original yellow four-legged fortress, retreating hyrax rifle infantry, dramatic canyon, lighting, dust, pose and story.\n1. The fortress must have EXACTLY THREE existing parallel smooth long cannon barrels, as the actual game-unit reference IMAGE2. Image1 incorrectly shows only TWO. Add the missing THIRD barrel beside the existing two, matched in physical diameter, length, segmented yellow/black armor, metal wear, mounting and perspective. Make all THREE distinct muzzle openings clearly countable. Use a compact triangular/adjacent arrangement consistent with the reference, parallel forward aim; do not multiply turrets, add drills, missiles, extra guns or change the legs.\n2. REMOVE the two unreferenced robot/turret figures on the far RIGHT distant rocky ledges. Those silhouettes are not actual game units and must not appear. Reconstruct ONLY natural canyon rock, dust and sky there. Distant incoming light streaks may remain without a visible invented enemy.\nEverything else must stay the same, including the single real hyrax trooper in the foreground and the fortress's FOUR articulated legs, massive scale and physical weight. No redesign, no new figures, no words, no UI. This is one small correction of an existing story scene, not a fresh composition.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-05-v3.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u12.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-05-v4.png"
+    },
+    {
+      "id": "story-r0-06-v4",
+      "race": 0,
+      "number": 6,
+      "title": "손상된 폭격기의 귀환",
+      "units": [
+        "0:9",
+        "0:10"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-f7430ce0-caa1-4e9f-8c4b-8d93ae168016.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-06-v4.png",
+      "sha256": "2032d52f4d50caef9b4a107f4cc469771b03ed0c9b679e375e0639b70e2997c0",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-06-v4.json",
+      "prompt": "Use case: photorealistic-natural. Recreate AsteraCraft loading artwork 06 as a believable live-action aerial escort, landscape16:9, no text/UI.\nExactly the TWO existing aircraft in images1 and2: a yellow/black narrow interceptor with its characteristic TWO LONG FORK NOSES and black cockpit; a wider compact blocky bomber with TWO bulky engine housings and recessed red panels. Keep their actual hull proportions and equipment, do not turn them into real-world jets or add wings, guns, rotors, turrets, wheel treads or new engines. The last image is only a benchmark for real-scale scratched yellow steel and natural photographic exposure, never copy that scene.\nStory: after surviving a storm, the slightly damaged bomber loses altitude and its interceptor escort banks close to guide it toward a safe break in the clouds. A faint trace of dark exhaust comes from one actual REAR engine of the bomber. Neither fires, no enemy or battle effect.\nCRITICAL CAMERA: one coherent long-lens air-to-air camera, nearly eye-level with both aircraft, positioned slightly BELOW and to their RIGHT. We see the interceptor's flank and LOWER surface, not its entire top as an isometric model. Bomber is just farther back on the SAME perspective/horizon. Both travel RIGHT to LEFT across frame with LEVEL noses. Interceptor a little higher and nearer, bomber behind and lower, with convincing larger physical mass. Show proper foreshortening of the fork noses and the bomber engine pods. Neither aircraft points down into the sea, floats on the water or appears pasted into a landscape.\nReal medium-distance aircraft photography: fine rivets, panels, restrained yellow reflections, worn dark metal, soft condensation slipping over hull edges, blue rear engine light kept modest. Overcast daylight with warm pale sunlight through broken cloud, broad ocean HORIZON in the distant LOWER third, no tiny diorama water, no glossy toy models or exaggerated cartoon blocks. Enough air and clouds surround both complete silhouettes. Their bank and guidance relationship clearly connects them, rather than two static sprites posed next to each other.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u09.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u10.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-06-v4.png"
+    },
+    {
+      "id": "story-r0-07-v3",
+      "race": 0,
+      "number": 7,
+      "title": "무너지는 착륙장의 철수",
+      "units": [
+        "0:11",
+        "0:4"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-398a9145-8f22-4467-84c4-d4dccf68a101.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-07-v3.png",
+      "sha256": "43c916e25b5db9f75d24bab61b61b7922d92b54446715a02f40835db0ea1a183",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-07-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nOne actual yellow troop TRANSPORT lifts away just as the rocky landing ledge starts to collapse into a canyon. A single actual yellow-armored hyrax medic in RIGHT foreground has stepped safely onto stable ground and raises an existing arm to signal a clear ascent. Transport retains the exact straight wings, compact cockpit, tail fin, paired side engine pods and yellow/black form in image1, no new ramp, opening cabin door or invented helicopter rotors. Medic real hyrax fur, yellow armor, blue shoulder medical cross. Camera from the stable ground close to medic's shoulder, watching transport rising almost head-on through falling dust and broken stones. A low frontal view with aircraft nose level on horizon, dramatic overcast backlight, clear evacuation context without a posed lineup.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u11.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u04.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-07-v3.png"
+    },
+    {
+      "id": "story-r0-08-v4",
+      "race": 0,
+      "number": 8,
+      "title": "열린 관문으로 빠져나오는 화염차",
+      "units": [
+        "0:13",
+        "0:0"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-33bee807-e858-49f9-a997-367622259a2e.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-08-v4.png",
+      "sha256": "28d577279e72df21caf8768d43990de253505ff5517563380a5f054c8ee72a75",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-08-v4.json",
+      "prompt": "Use case: photorealistic-natural. NEW AsteraCraft loading artwork08, live-action realistic landscape16:9, no text/UI.\nScene: a narrow wooden barricade in a rocky canyon has just burned through. The actual flame vehicle drives TOWARD CAMERA through the open gate, making the escape route safe for ONE actual hyrax mining rover following on the RIGHT behind it. Smoldering cut wooden posts and low embers at the sides show why this vehicle led the way. No active firing jets, no fighting, no enemy, no dense smoke obscuring the vehicle.\nThe authoritative flame vehicle image1 is LOW and compact: yellow/black TRACKED chassis, two short front cylindrical flame outlets SIDE BY SIDE AT THE SAME HEIGHT, two yellow side/rear fuel tanks, flat upper hatch. Do NOT stack the two nozzles vertically, do NOT make a tank turret, long cannon barrels, wheels or giant multi-level hull. Both short nozzles are mounted on the SAME flat front plate, separated LEFT and RIGHT, clearly countable and parallel. Camera almost directly in FRONT, slightly to the LEFT, at the height of the short nozzles. Both tracked supports contact the same road plane; no downward-tilted body or impossible suspension. Existing nozzles are dark and sooty with a faint amber residual glow only, nothing shooting toward camera.\nRover image2 retains its same small brown hyrax driver, FOUR wheels, yellow/black body and EXACTLY TWO conical front mining drills side by side; no third drill.\nUse last image only for full-scale metal/fur/rock photographic realism, not its tank design or composition. Natural soft canyon daylight with warm ember bounce, realistic steel weight, worn paint, dusty tracks and blackened wood. Clear frontal depth along the curving road, both silhouettes fully readable. Avoid toy plastic, thick neon flame symbols, comic proportions, elevated game camera, unrelated units and dramatic extra gadgets.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u13.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-08-v4.png"
+    },
+    {
+      "id": "story-r0-09-v5",
+      "race": 0,
+      "number": 9,
+      "title": "정찰드론이 찾아낸 해안길",
+      "units": [
+        "0:6",
+        "0:8"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-025aacee-8be9-4574-a743-8d7d0a2a228b.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-09-v5.png",
+      "sha256": "9668cab98b4cc56df9b86096e0f13b2c6c20047341e7a8f84441f79973d0c876",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-09-v5.json",
+      "prompt": "Use case: photorealistic-natural. AsteraCraft cinematic loading background, landscape 16:9, no text or interface.\nA calm exploration scene: an actual small twin-rotor reconnaissance drone has found the safe way around a flooded coastal road and guides the actual yellow utility/missile rover along the dry rock ledge. The rover cautiously follows the drone's path past the water, with fresh wet tire tracks showing its progress. No combat, firing, active weapon effects, smoke trail, pursuit or wounded characters. The story is route-finding and a careful passage after a storm.\nThe first two images define the TWO existing game-unit designs ONLY. Rover preserves the same chunky yellow/black wheeled chassis, cockpit and its original pair of red-tipped yellow payloads kept securely in transport position, as in image1, with the same wheel arrangement. Drone matches image2: blunt compact yellow fuselage, a single front cyan sensor, EXACTLY TWO round ducted rotors on one horizontal plane, no new sensor or third rotor. Do not invent a driver standing outside or any extra unit. Last input is a physical material reference only, not a composition template.\nCamera near the rover's axle height from the dry road AHEAD, looking almost head-on as the rover slowly approaches. Drone in the RIGHT middle distance hovers over a visible safe curved ledge leading toward us. Broad shoreline LEFT, receding coastal rock stacks, water level marks and the path's curve provide continuous realistic scale and depth. Bright soft daylight breaking through storm clouds, saturated but natural yellow paint, worn black metal and wet treads, blue-grey sea. Full-scale live-action adventure photography, not toys, a product pose, overhead game view or pasted objects. Keep the same realistic weathered materials as other Hyrax illustrations.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u06.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u08.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-09-v5.png"
+    },
+    {
+      "id": "story-r0-10-v5",
+      "race": 0,
+      "number": 10,
+      "title": "모함으로 모여드는 요격드론",
+      "units": [
+        "0:14",
+        "0:15"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-31f7df25-ea95-421f-9378-eef24ddd2951.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-10-v5.png",
+      "sha256": "8f05ae26f27184799200d60fbf42e8a561e32038d19330010092a424faa18e86",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r0-10-v5.json",
+      "prompt": "Precise masked object removal. The full-color yellow mothership and two drones picture is the edit target. The black image with a WHITE CURVED BRUSH REGION is a spatial REMOVAL MASK, not an image to output. Work ONLY inside that WHITE marked region at the CENTER-RIGHT BELOW and just behind the large carrier's nose. Completely ERASE the protruding ghost hull/dark duplicated body and shadow inside the white region, including the long translucent yellow/dark aircraft-shaped extension beneath the carrier and the extra hull edge extending behind its right side. Reconstruct EMPTY NATURAL CLOUDS and mist there, smoothly continuous with the surrounding cloud background. Do not preserve that masked extrusion as part of the carrier: the user explicitly wants those marked pixels removed. Where the mask touches the real carrier outline, end the main hull with a clean physically coherent short edge and then clouds; do not add a new lower hull or another elongated part. All pixels OUTSIDE the white mask must remain visually unchanged: preserve the existing main large ship outside mask, both small drones, their thrusters, colors, sky, framing, camera, lighting and weathered surfaces. Do not move, resize or redesign any unmasked object. No replacement ship, shadow, detached dark smear, extra wing, new object or text in the cleaned region. Return ONLY the repaired full-color original scene, never the mask or a collage.",
+      "references": [],
+      "game_file": "res://assets/loading_art_20261024/race0/story-r0-10-v5.png"
+    },
+    {
+      "id": "story-r1-01-v3",
+      "race": 1,
+      "number": 1,
+      "title": "피난로를 떠받치는 거목",
+      "units": [
+        "1:12",
+        "1:0"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-2dbe5472-6c59-4b31-81a7-1e82075ba441.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-01-v3.png",
+      "sha256": "1335ef9f7d0b7cff80ab269943a85af52fc32ccd46cd832c97d6c1cbb0341342",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-01-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nRain has softened the ancient grove. One walking citrus TREE with its actual gnarled trunk body, broad bark root legs, attached leaf canopy/oranges and cyan core braces a fallen trunk so a single small orange worker can pass underneath carrying one freshly mined gold crystal. Worker has its real one cyan antenna, leaf crown and two front mining claws; no gun. Camera from ground level inside the shaded arch of roots, looking toward the tree's huge bark front and the worker coming TOWARD us. Show bent roots gripping mud and the visible safe opening. The worker is a scale cue, not a crowd. Cool rainlit dawn and warm reflected gold crystal; detailed bark and soaked peel.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u12.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-01-v3.png"
+    },
+    {
+      "id": "story-r1-02-v3",
+      "race": 1,
+      "number": 2,
+      "title": "수로의 매복",
+      "units": [
+        "1:1"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-53ac7af9-b068-4e70-8216-3d35e68d73bf.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-02-v3.png",
+      "sha256": "aeb1d8a566878ee9f7c93eb2057820907c7e5219ef3f1d623b9ecbec9c6a5d5b",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-02-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nTwo actual citrus claw beasts prepare an ambush at a narrow forest stream. Their bodies are elongated segmented orange shells with green leaf crowns, dark small heads, cyan fittings and the long paired orange/green front claws of image 1, not generic ball spiders. One in RIGHT foreground parts hanging wet leaves with an existing claw while the second crouches farther LEFT across the stream, watching the same muddy approach. A freshly disturbed line of water ripples and heavy tracked vehicle marks reveal why they wait. No visible unreferenced enemy. Camera at their head height from the river bank, cross-stream RIGHT-to-LEFT view, full heads/claws readable, subdued mist rather than battle fireworks.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u01.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-02-v3.png"
+    },
+    {
+      "id": "story-r1-03-v3",
+      "race": 1,
+      "number": 3,
+      "title": "광맥을 지키는 분사체",
+      "units": [
+        "1:2",
+        "1:0"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-cda09238-9bc5-4f87-9ca3-382511ca5e56.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-03-v3.png",
+      "sha256": "16cb29184dd2237045f140e9e43f9246f1101ceb989be3b2bca0fc267b01a1ea",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-03-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nAt the mouth of a rocky gold-crystal mining hollow, a single actual spitter on the LEFT fires one fine stream of translucent orange citrus liquid across the entrance to hold an attacker outside the frame; on the RIGHT a small actual worker backs deeper into shelter with one mined crystal held between its existing two mining claws. The spitter has clustered orange lobes, low green armored head, short actual front nozzle, leaf shoulder plates, root legs and cyan top antenna. Worker has single round orange, attached leaf crown, one antenna and mining claws. Shooting toward the LEFT, worker moving toward the RIGHT, connected by the protective action. Camera low and nearly side-on from inside the mine, sunlight slicing through amber rock dust, believable liquid mist, readable peel and mechanism detail.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u02.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-03-v3.png"
+    },
+    {
+      "id": "story-r1-04-v3",
+      "race": 1,
+      "number": 4,
+      "title": "붕괴된 길의 구조",
+      "units": [
+        "1:3",
+        "1:0"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-0c5f5b48-3b21-4326-a0de-4319bdd5cc1b.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-04-v3.png",
+      "sha256": "eacf9b2f42377ce4c590877cf1507dc1bca7fe6d22a072ea1d2da1d08ac33fbd",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-04-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nOne actual massive citrus heavy quadruped pushes a fallen boulder SIDEWAYS out of a narrow root-lined canyon to free a trapped actual small worker visible just beyond it. Heavy beast RIGHT profile faces LEFT: broad orange body under overlapping green leaf armor, four stout green legs, real forward leaf horns and cyan glass module on back. Worker LEFT rear peeks through the opening, round orange with attached leaves, mining claws, single antenna. The boulder has visibly shifted leaving fresh scrapes in mud; the heavy beast's legs strain against the earth. Camera at worker eye height from the freed side, horizontal framing and an overcast sky strip above. Real rock weight, torn roots, scuffed leaf plates, no cartoon superhero pose.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u03.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-04-v3.png"
+    },
+    {
+      "id": "story-r1-05-v3",
+      "race": 1,
+      "number": 5,
+      "title": "교량을 지키는 마지막 돌격",
+      "units": [
+        "1:4",
+        "1:1"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-15eba992-ceef-4ea8-891a-ec1153e84267.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-05-v3.png",
+      "sha256": "84767afe185dd3ad982e0819733ad87d2cd8015a1a7cf55b0878e680e9aa1fbe",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-05-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nA damaged rope-and-root bridge is about to be overrun from the far side. One actual volatile citrus creature runs AWAY FROM CAMERA toward the far bank as a battered actual claw beast retreats toward the near bank, making the sacrifice and escape direction legible. Volatile has a rounded orange body, actual tall narrow cyan-tipped antenna, large attached green leaf side mantle and curved pointed root legs; NO new gun. Claw beast preserves segmented orange body and long foreclaws. No explosion yet, no gore and no invented enemies. Eye-level rear three-quarter view tracking the departing volatile, bridge diagonal into fog, retreating claw beast visible close RIGHT. Wet rope, sap and peel damage, restrained tense twilight.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u04.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u01.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-05-v3.png"
+    },
+    {
+      "id": "story-r1-06-v3",
+      "race": 1,
+      "number": 6,
+      "title": "덩굴에 붙잡힌 전차",
+      "units": [
+        "1:5",
+        "1:8"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-a79aebe0-d437-45c8-a0fd-2f89c8dead54.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-06-v3.png",
+      "sha256": "945b0dde94aa40d8bd21b1f9cac51dd6c09fb8d6ab1f0147a2eced25e2c0977a",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-06-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nA citrus root devourer anchors itself among broken roots and restrains a stuck tracked chassis OFF FRAME LEFT with its existing long bud-tipped vines stretched taut, while the actual compact parasite approaches along the SAME vines toward that obstacle. Only devourer and parasite visible, no unreferenced tank design. Devourer: actual orange-lobed open snap mouth, dark gunmetal central assembly, multiple broad woody root legs, two long looping vine arms ending in attached green buds, cyan core. Parasite: round orange body, attached green leaves, root legs, ONE existing forward cyan/metal drill and ONE cyan stalk. Camera directly in front of the devourer's mouth at low eye level, strong depth into the stretched vines, parasite in LEFT foreground pointing away and upward along the vine. Visible tension, bark splinters and dragging grooves explain the cooperative action. Cloudy forest trench, photoreal bronze and peel.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u05.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u08.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-06-v3.png"
+    },
+    {
+      "id": "story-r1-07-v3",
+      "race": 1,
+      "number": 7,
+      "title": "안개 속 포격 지원",
+      "units": [
+        "1:6",
+        "1:7"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-cbd3788a-d693-406d-b5e9-ec6e97fd7566.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-07-v3.png",
+      "sha256": "63669b96d80ee8326ffb9871901d15d6f753e364f302fd60f4704cfbacc7fa82",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-07-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nAn actual seed-mortar creature in the RIGHT foreground fires its single metal tube horizontally toward a distant rocky choke point LEFT. One actual thorn-flower spotter farther LEFT turns its actual forward barrel toward that same target from behind a root. Mortar identity: orange half-fruit with exposed cut flesh, ONE existing dark metal CANNON TUBE extending from the half-orange, cyan-tipped stem on top, leaf mantle and root legs, never an open bucket or giant cup. Thorn-flower: orange petal-like lobes around compact body, green leaf legs, cyan antenna and ONE short forward dark barrel. One seed projectile just leaves the actual mortar muzzle with a modest puff, no flamethrower. Camera behind mortar shoulder but at its level, RIGHT-to-LEFT aimed down a foggy ravine with a visible horizon, plausible recoil and a shared firing objective.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u06.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u07.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-07-v3.png"
+    },
+    {
+      "id": "story-r1-08-v6",
+      "race": 1,
+      "number": 8,
+      "title": "숲 가장자리의 대공 경계",
+      "units": [
+        "1:7",
+        "2:9"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-fdd6db55-d196-4f17-83df-84c4a6a8c83e.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-08-v6.png",
+      "sha256": "a9a3e08d0de7ff36345bc0f9db65bc0890f638d3f02bfb18dd8c1badb87663ce",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-08-v6.json",
+      "prompt": "Use case: photorealistic-natural. AsteraCraft widescreen 16:9 loading artwork, no text or UI.\nCreate a NEW warm daylight scene matching the natural moss-green, orange and soft gold forest atmosphere and physical realism of the LAST reference. Preserve its wet natural peel, leaves, bronze, restrained light and atmospheric depth, but use a completely different side-on shoreline composition. Do NOT recreate a dark blue night scene, moon or bare snowy mountain.\nStory: one existing Citrus thorn-flower guards a forest lakeshore from a distant enemy owl delta fighter. The thorn-flower stands in the LEFT foreground beside leafy ferns, side/front three-quarter view facing RIGHT. Its actual short cannon fires a few very small thin thorns UPWARD across the lake toward the distant fighter, showing active anti-air defense.\nIdentity from image1: narrow dark bronze chassis with SIX elongated pointed orange petal-shaped lobes in a radial flower fan, natural attached green leaves between them, slender green leaf/root legs, ONE slim cyan-tipped antenna and ONE short existing forward cannon. NOT a swollen bunch of round oranges or a healer, no new weapon. The single actual enemy delta fighter matches image2: flat ivory triangular delta wing, red wing panels, gold beak nose, black canopy.\nCRITICAL PERSPECTIVE: a single coherent 50mm eye-level camera, 1.2m above the path. The 1.3m-tall thorn-flower is about 5m from camera and occupies about 35% of frame height. The 8m-wide fighter is 300 METERS AWAY across the lake, just above distant treetops and no more than SIX PERCENT of frame width; it must look SMALL and recede naturally into atmospheric haze, NOT hover giant next to the defender and NOT pasted onto sky. Sun, shadows, haze and focus follow the same physical scene. The aircraft is an incident in the landscape, not a second giant foreground object.\nComposition: bright forest border on LEFT, sunlit mossy path curving from lower left to open lake on RIGHT, distant wooded ridge and a little pale sky across upper half. The thorn-flower's petal silhouette, leaf legs and short cannon clearly visible above low ferns. Small splashes of light on leaves and bronze, soft midday sun through woodland, real humidity and a continuous believable terrain. No worker, crystal mining, close overhead root, or same central fruit creature composition as the earlier pair. Camera nearly horizontal, no isometric view, no plastic figurines, neon, line-up, giant projectiles or alien unit designs. Exactly one actual thorn-flower and one very distant actual fighter.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u07.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u09.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-cbd3788a-d693-406d-b5e9-ec6e97fd7566.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-08-v6.png"
+    },
+    {
+      "id": "story-r1-09-v3",
+      "race": 1,
+      "number": 9,
+      "title": "부상 중갑수 치료",
+      "units": [
+        "1:9",
+        "1:3"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-09-v3.png",
+      "sha256": "a73c398ecb61d970da9a3ca881d63b1e7a13b9a314a834c0a6793677c652567d",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-09-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft widescreen loading-background approval draft, landscape 16:9 live-action creature cinema.\nPrimary request: Tell a quiet battlefield rescue: behind a massive protective tree root after fighting, the actual Citrus healer bends toward the actual wounded Citrus heavy beast and restores a damaged leaf-armored foreleg with a restrained thin cyan healing connection. The beast braces its damaged leg on the ground; the healer carefully supports it with a leaf limb. Exactly these two units, clearly helping one another.\nInput images: Image 1 is the actual healer identity, Image 2 the actual heavy beast identity; treat their sprite camera as a technical diagram ONLY. Image 3 is a material reference for realistic orange-peel pores, living leaf veins, worn bronze and natural forest atmosphere; do not copy that scene or its generic round unit.\nIdentity: the healer is a cluster of MANY individual orange fruit lobes on a dark bronze central structure, many green leaf limbs, with a cyan node atop the central stem. It is NOT one round orange and has NO gun or barrel. The heavy beast is a broad squat quadruped, orange peel body beneath overlapping green leaf armor, stout green claw legs, forward horn-like leaf extensions and a cyan glass module on its back. Preserve natural attached green leaves on every Citrus unit. Do not add human eyes, human hands, new creatures or weapons.\nComposition: low eye-level intimate medium-wide frame from the heavy beast's side. Wounded beast on the LEFT, healer enters from the RIGHT looking LEFT toward its patient, so the care relationship is unmistakable. Show the healer's clustered body and the beast's cyan back module, not only obscured backs. Root arches behind them; wet leaf litter and a few small scorch marks tell the aftermath. A plausible forest clearing with depth and a visible ground plane, not a top-down scene.\nStyle: live-action creature effects photography, realistic living orange skin with pores and slight bruises, fibrous wet leaves and veins, dirt and scratches on bronze joints, subtle natural rain and cool overcast light. Organic weight and full-scale texture, not toy fruit, not polished plastic, not a game render, no exaggerated neon VFX or cute figurine staging.\nConstraints: no gore, no soldiers or units other than the two referenced, no text, no interface, no logo. Focus on the actual act of healing, not two idle units posing together.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u09.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u03.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-a1f8fc59-41e6-45aa-958e-6967e50771e5.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-09-v3.png"
+    },
+    {
+      "id": "story-r1-10-v3",
+      "race": 1,
+      "number": 10,
+      "title": "산불을 벗어나는 수송대",
+      "units": [
+        "1:11",
+        "1:10"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-15392f47-bd6d-4d07-b067-b95b51ad88a5.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r1-10-v3.png",
+      "sha256": "40f9956ebd694cdee04af4593e8ee6e94b2aea4dd70fb0ed3d768a18fc0bfa8a",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r1-10-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading artwork approval draft, widescreen landscape 16:9, no words, no UI, no logo.\nStyle: convincingly real live-action cinema with physical full-scale creatures and machines, naturally imperfect light, tactile surfaces, realistic perspective and contact shadows. The technical sprite inputs define ONLY identity, equipment and faction colors. NEVER copy the game sprite's isometric camera or toy-like rendering. The final reference image is a material/realism benchmark ONLY, not a composition template.\nRules: show a small coherent cast of the referenced existing game units only, no invented unit types, no added weapons or new doors. A clear event and visible purposeful interaction, not a row of models posing. Vary orientation and shot type. All Citrus creatures MUST retain naturally attached green leaves with veins and orange peel pores, dark mechanical fittings and cyan accents in the actual reference locations. No plastic gloss, collectible toys, miniature blur, cartoon render or generic round-orange substitutes.\nScene, exact identities and camera:\nOne actual citrus leaf transport escapes from a smoke-filled grove, closely escorted by ONE actual citrus bat flying beside and slightly behind it. Both move toward the CAMERA with a slight LEFT bank, level flight, not nose-down. Transport: the same compact orange spherical hull with dark mechanical rim, attached large green leaf wings and THREE blue circular ports clustered on its lower front/side as in image1; no cabin windows, doors or invented rotors. Bat: same elongated orange BIRDLIKE pointed beak and curled orange torso, broad green leaf-membrane wings edged in orange, NOT a round orange with added bat wings. A scorched branch falls behind them into the smoke, showing the urgency of escape; no extra units. Camera nearly head-on from just below their flight level, treetops and burning forest far behind with realistic smoke and amber backlight, crisp believable leaf veins, peel and physical flight.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u11.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r1_u10.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d61a9ca8-6bb1-4226-b768-7fe540ee802c.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race1/story-r1-10-v3.png"
+    },
+    {
+      "id": "story-r2-01-v3",
+      "race": 2,
+      "number": 1,
+      "title": "성문에서 이어지는 엄호",
+      "units": [
+        "2:1",
+        "2:2"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-e41451f6-c14e-4945-a43d-bc2d12a36187.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-01-v3.png",
+      "sha256": "2886813b78e8c73230bc446b6cdbd3b2d35fbbf95d3a35e8faf81f0b8ed3da18",
+      "width": 1672,
+      "height": 940,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-01-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual owl spear guardian holds a cracked stone doorway open against falling rubble while one actual owl archer behind it fires through that opening to cover retreat outside frame. Guardian image1: white/ivory owl with gold-edged armor, red cape, ONE red-tipped short spear, no invented shield. Archer image2: white owl head, red cape, gold shoulder pieces, ONE gold/red bow and a single red arrow. Camera from INSIDE the doorway near guardian shoulder height, guardian on RIGHT braces the stone jamb and looks outward LEFT, archer on LEFT aims LEFT across the frame. Falling fragments show what the guardian is holding back. Cold morning rain outside and warm reflected light inside, tactile feathers and weathered stone, not two idle sentries.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u01.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u02.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-01-v3.png"
+    },
+    {
+      "id": "story-r2-02-v3",
+      "race": 2,
+      "number": 2,
+      "title": "출격 경로를 읽는 성술사",
+      "units": [
+        "2:5",
+        "2:6"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5b82704d-0cf7-4964-92c1-7a1e08c4561a.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-02-v3.png",
+      "sha256": "30c911593a31c35ba61546159635c007a5cb6eecf8f4656c5474238bd19dc1ff",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-02-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nAn actual owl mage actively works at a stone observatory's physical gold celestial map while its actual spherical detector hovers over a specific path on the map, revealing a safe passage through mountain storm clouds visible beyond. Mage identity: ivory owl, red/gold robe, LARGE GOLD ORBITAL HALO behind its head with THREE red nodes, and ONE gold circular staff as in image1. Do not turn it into the priest with a plain red ring staff. Detector image2 is an ivory SPHERE with three red round eyes, small pointed fin and gold beak accents, NO legs/wings/human face. A faint thin red path reflection and the mage pointing to that exact route makes purposeful navigation visible. Camera on the RIGHT, looking LEFT across the map at nearly eye height, midnight blue sky and dim observatory practical light, live-action feather/metal realism.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u05.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u06.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-02-v3.png"
+    },
+    {
+      "id": "story-r2-03-v3",
+      "race": 2,
+      "number": 3,
+      "title": "폭풍 속의 호위 비행",
+      "units": [
+        "2:9",
+        "2:11"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-85f38970-a540-42b6-8ea5-d57dfbfae15c.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-03-v3.png",
+      "sha256": "3053fb109a5b27eba8e4229bea7bb5f385479bc37d361c5725d95494b7f026a3",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-03-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual ivory/red delta-wing fighter slips beneath the damaged wing-line of one actual owl transport to guide it safely between sheer mountain walls in a rainstorm. Fighter image1 is a compact ivory delta TRIANGLE with red wing panels, gold pointed nose and black canopy, no owl head or invented mechanical wings. Transport image2 is a low rectangular ivory hull with FOUR RED circular engine pods at its corners, small pointed owl-beak nose, no doors/open hatches or vertical skyscrapers. Transport has slight engine sputter at ONE existing red pod; fighter banks toward it to guide the turn. Camera directly ahead and slightly BELOW the pair, long view toward camera, noses level not downward. Mountain walls frame them, wet ceramic plates and red engine light reflected in real mist, no overhead catalogue view.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u09.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u11.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-03-v3.png"
+    },
+    {
+      "id": "story-r2-04-v5",
+      "race": 2,
+      "number": 4,
+      "title": "대심판선 아래의 피난 항로",
+      "units": [
+        "2:12",
+        "2:11"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-f6850981-709f-4654-a049-64ac133ff7c1.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-04-v5.png",
+      "sha256": "e0aad8b923f22b016ff4504fa8c4b4930a58c7dc19062a7bf87103a89b9ebc19",
+      "width": 1672,
+      "height": 940,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-04-v5.json",
+      "prompt": "Use case: photorealistic-natural. A NEW AsteraCraft cinematic loading painting rendered as convincing live-action aircraft photography, landscape16:9, no words/UI.\nAuthoritative geometry: IMAGE1 contains FOUR DIRECTIONS OF THE SAME ACTUAL CAPITAL SHIP. Use them together to understand its true structure; do not copy the technical sprite camera.\nThis is a flat HORIZONTAL ivory-and-gold ring-shaped vessel, red luminous INNER RING channel, with ONE TALL NARROW UPRIGHT TAPERED IVORY MECHANICAL PYLON anchored EXACTLY AT THE CENTER OF THE RING. The pylon has the pointed gold-edged tip, slightly conical/triangular faceted base, dark inset panels and small red central details seen in all four source views. Its height is roughly half the ring's diameter, its base width about one quarter of the diameter. It stands VERTICALLY UP from the middle like the actual reference, clearly DISTINCT from the nose.\nA SMALL OWL-BEAK PROW with TWO red side eyes is attached ONLY to the FRONT OUTER RIM, as seen in source views1/2/3/4. Keep this forward owl head SMALL (about one sixth of ring diameter), not an enormous long bird face. It must not become an elongated spine across the opening. The central upright pylon and the small front rim prow are separate original features. Leave the two original curved open gaps between pylon base and ring. The ring stays almost horizontal, not an upright wheel, tilted torus arch or flying gate. No long diagonal bridge through the hole, no castle, buildings, dome, city or added turret.\nStory: after crossing a turbulent cloud bank, the great capital ship shelters ONE actual damaged owl transport in the calmer air alongside and BELOW its forward rim, guiding it into a patch of warm sunlight. Transport matches IMAGE2: compact low ivory hull, gold beak nose and FOUR red round corner engine pods, one existing pod with a little soot. No other units, no firing, no explosions.\nCAMERA: realistic aerial front three-quarter view from slightly ABOVE THE RING PLANE but BELOW THE PYLON TIP, looking across the vessel at about 12 degrees downward, a cinematic near-eye-level view with a distant level cloud HORIZON. Show the ring as a broad FLAT ELLIPSE in perspective, roughly 3 times wider than its projected height. The central mechanical pylon rises upright from its true middle and is completely visible; small owl nose sits at near/front-right rim. Transport is just one-sixth as wide as the capital and not pasted into the foreground. Keep the great ship imposing and full-size with believable physical proportions.\nSTYLE: image3 is only a material/lighting benchmark for tactile matte ivory, tarnished gold, deep red accents, warm natural rays and realistic atmospheric depth, not its characters or setting. Fine ceramic/metal scuffs, subtle restrained red inner-ring glow, weighty smooth hull panels, sunlight and cloud reflections unified on both aircraft. No toy gloss, miniature diorama blur, game screenshot, overhead isometric sprite view or unrelated anatomy. The central upright pylon must be the actual existing design from the four reference views, not an invented architecture.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\capital_actual_four_views.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u11.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-e41451f6-c14e-4945-a43d-bc2d12a36187.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-04-v5.png"
+    },
+    {
+      "id": "story-r2-05-v3",
+      "race": 2,
+      "number": 5,
+      "title": "붕괴된 계단의 지휘",
+      "units": [
+        "2:3",
+        "2:1",
+        "2:0"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-66923c85-e04e-4659-9d68-311c096bda77.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-05-v3.png",
+      "sha256": "c2d1479ead430db9b77e49b5f2bfd876267cde76d2c7062f9bb7b8b3c7b02b5a",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-05-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nThe actual owl officer guides an actual small round owl worker across a broken temple stair while an actual spear guardian covers the rear, a small three-unit evacuation. Officer image1: ivory owl body, red shoulder guards and red tabard, gold chest accents, not a new crown or staff. Worker image3: ROUND armored ivory owl with huge RED round eyes, small gold feet, red chest accent, no mining gun or humanoid body. Guardian image2 retains its white feathers, red cape and ONE red-tipped spear. Officer on LEFT reaches an existing wing toward the worker stepping across the gap; guardian on RIGHT faces back toward falling rubble. Camera level with the small worker looking UP the staircase, strong upward front-to-back movement, not a left-to-right procession. Fine rain, broken marble edges and genuine owl feather detail, no unreferenced people.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u03.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u01.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-05-v3.png"
+    },
+    {
+      "id": "story-r2-06-v3",
+      "race": 2,
+      "number": 6,
+      "title": "빔 엄호와 측면 공격",
+      "units": [
+        "2:13",
+        "2:7",
+        "0:3"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-06-v3.png",
+      "sha256": "5454e97639b1d6d772e957ff683e693953e3b6e3765cd162df261c46b0a84c20",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-06-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-background approval draft, landscape 16:9.\nPrimary request: Show ONE clear tactical event, a coordinated breach of a rocky choke point: the actual Owl constellation chaser holds an enemy Hyrax shield trooper under a single CONTINUOUS red beam, allowing the actual Owl stone-wing golem to advance around the trooper's exposed flank. The beam and converging movement explain why these two allies are present together.\nInput images: 1 actual constellation chaser identity, 2 actual stone-wing golem identity, 3 actual enemy Hyrax shield trooper identity, 4 material/lighting benchmark only for realistic Owl ivory ceramic, aged gold and convincing atmosphere. The tiny sprites define designs, NOT their isometric camera.\nIdentity: chaser is a low broad ivory armored MULTI-LEG WALKER with a dark red circular orbital assembly on top, gold rim and red sphere, and ONE large red cylindrical beam emitter mounted on its side. It is not a bird, fighter aircraft or humanoid. Golem is a massive biped owl-faced construct in ivory stone/ceramic armor with gold trim, large articulated fists, pointed stone-wing shoulder plates, red eye/core accents. Enemy is a single brown furry hyrax in yellow-black armor holding the yellow rectangular shield. No extra unit types, no inventions.\nComposition: ground-level eye-height camera placed behind and to the LEFT of the enemy shield trooper. Trooper left foreground behind a battered shield tilted into the beam; the chaser on the RIGHT midground fires LEFT into that shield, cannon horizontal. On the opposite side in the center-left background, the golem actively steps around a broken rock column toward the trooper's unprotected side, clenched fist raised. Visually legible triangle of roles: pinning beam, defending target, flanking ally. NOT two allied units standing beside each other. Keep the chaser's weapon and some of its top assembly readable.\nLighting/material: real live-action fantasy war-film frame, subdued dusty daylight through a ruined ivory stone causeway in rugged mountains, chipped fired ceramic, tarnished gold, grit, natural hyrax fur. Real scale, grounded weight and believable contact shadows, no doll-like gloss, no plastic toy aesthetic, no collectible miniature, no game screenshot. Restrained continuous beam, not multiple projectiles.\nConstraints: no gore, no text, no UI or borders, no unrelated armies. Render only the three referenced actual unit designs, coordinated purposeful action.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u13.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u07.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u03.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-4e2635a9-2dc7-475a-a114-a4eb3fc3e347.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-06-v3.png"
+    },
+    {
+      "id": "story-r2-07-v3",
+      "race": 2,
+      "number": 7,
+      "title": "새 광맥을 발견한 축조자",
+      "units": [
+        "2:0",
+        "2:6"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-78cb5044-d5f0-4cb1-9927-09c55a5f055b.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-07-v3.png",
+      "sha256": "6b14c63c33324a0b2e79392963776192ffb5fdc1a39442dd58be8aafa02bcf45",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-07-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual round owl worker uncovers a small gold crystal seam inside a cave, while ONE actual detector sphere shines its existing red eyes toward a newly revealed opening above the seam. Worker: round ivory armored body, large red eyes, folded wings and gold claw feet exactly as image1, no human hands, drill, weapon or added antenna. Use its existing wing/claw to brush loose grit from the crystal. Detector: ivory spherical three-red-eye construct with top pointed fin as image2, no legs or new spotlight assembly; its natural red glow catches the dust near the opening. Camera deep inside the cave looking OUT, worker in RIGHT foreground turned LEFT toward the seam, detector beyond and above it; real shafts of cool daylight and warm crystal reflections. A quiet discovery story with two units investigating the SAME find, not idle mining mascots.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u00.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u06.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-07-v3.png"
+    },
+    {
+      "id": "story-r2-08-v3",
+      "race": 2,
+      "number": 8,
+      "title": "그림자가 연 퇴로",
+      "units": [
+        "2:10",
+        "2:0"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-48d05960-96aa-4c98-b500-fa2ed61df521.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-08-v3.png",
+      "sha256": "ca25de580c16a63e4b39d78f589a9a259e2c1bc1f1d81d37d610a794eb5ff19d",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-08-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nOne actual dark owl stalker cuts a heavy fallen rope entangling a trapped actual small owl worker's path under a collapsed bridge. Stalker image1: dark almost-black owl feathers, white pointed face, red eye accents, black/gold armor, red hanging cape and TWO actual red curved hand-blades; keep owl anatomy, no human ninja face. Worker image2 is the small round ivory/red-eyed armored owl, no rifle or added arms. The near blade makes contact with the taut rope and cut fibers spring apart, worker moves toward the opening behind the stalker. Camera from behind the worker at its low eye height, viewing stalker's face and blade near frontal in RIGHT foreground, rope stretched diagonally toward LEFT. Deep shaded ravine with a single beam of natural light on feathers and fraying rope, precise visible rescue action, no gore.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u10.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-08-v3.png"
+    },
+    {
+      "id": "story-r2-09-v3",
+      "race": 2,
+      "number": 9,
+      "title": "능선 아래를 겨누는 궤도창",
+      "units": [
+        "2:8",
+        "2:2"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-c998121f-9a08-4670-b612-a97bde1c89a7.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-09-v3.png",
+      "sha256": "6e9dc69dcb82db65a5e7bdd30f56dfa57591bd7e85b185f04d90aa311be251cc",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-09-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nThe actual floating orbital-lance unit and actual owl archer defend a high mountain ridge together. Archer in RIGHT foreground behind cracked stone aims its ONE existing bow toward the same distant canyon gap as the lance unit hovering just LEFT beyond the ridge. Lance identity image1: floating IVORY/GOLD CRESCENT shell around a long sharply pointed RED LANCE projecting forward, red inset accents, not a plane, animal or humanoid. The lance fires one restrained red beam from its actual lance tip toward the gap; archer has white feathers, red/gold cape and bow from image2. Camera at archer shoulder height from BEHIND and a little LEFT, eye-level across the mountains with horizon, not looking down onto the units. Shared aim and the archer's released single arrow show coordinated fire; dawn mist and wind in feathers, believable ceramic and gold.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u08.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u02.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-09-v3.png"
+    },
+    {
+      "id": "story-r2-10-v3",
+      "race": 2,
+      "number": 10,
+      "title": "마지막 승선 전의 치료",
+      "units": [
+        "2:4",
+        "2:3",
+        "2:11"
+      ],
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-2707b878-f489-49d5-ba23-232cd0ad5c2a.png",
+      "preview": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r2-10-v3.png",
+      "sha256": "8fb3767a07babd8e12c8f3badd14f3dddd22893e3cd5f70f4650d020cadf7eed",
+      "width": 1672,
+      "height": 941,
+      "approved": true,
+      "status": "user_approved",
+      "prompt_record": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\records\\story-r2-10-v3.json",
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft cinematic loading-art approval draft, landscape widescreen 16:9, no writing/logo/UI.\nStyle: believable full-scale live-action fantasy/science-fiction cinema, real ivory owl feathers, matte chipped ivory ceramic or stone, tarnished gold, deep red cloth and energy, natural lighting, physically grounded weight and atmosphere. The sprite references are identity diagrams ONLY, NEVER copy their overhead isometric game camera or doll rendering. Last image is the approved material/realism benchmark only, not its scene.\nRequirements: only the actual referenced game-unit designs, small purposeful cast, readable storytelling and meaningful interaction. NO invented troops, armor parts, weapons, doors or false units. No plastic toys, collectible miniatures, character lineup, generic armored humans, top-down sprite view, or castles mounted on ships.\nStory, identities and camera:\nAn actual owl priest kneels beside the wounded actual owl officer on a windswept stone landing terrace, stabilizing him with a faint cyan healing connection before evacuation. Priest image1: white feathers, red/gold robe, ONE long gold staff with a broad RED circular crystal head, NO mage orbital halo. Officer image2: ivory owl, red shoulder guards and tabard, gold chestplate, no extra weapon. Existing owl transport image3 hovers in the far background waiting, low ivory hull with FOUR RED corner engine pods, all closed with no new ramp/door. Camera intimate near the priest's shoulder at eye height looking RIGHT-to-LEFT toward the officer, transport softly visible beyond a natural arch. Strong real wind, feather edges, rain and late daylight; medical care is the clear foreground event, no army lineup or gore.",
+      "references": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u04.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u03.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r2_u11.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-982730e3-deda-41e2-bc72-7c128368f4a8.png"
+      ],
+      "game_file": "res://assets/loading_art_20261024/race2/story-r2-10-v3.png"
+    }
+  ],
+  "counts": [
+    10,
+    10,
+    10
+  ],
+  "registered": 30
+}

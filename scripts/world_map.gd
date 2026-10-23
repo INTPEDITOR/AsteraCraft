@@ -2,8 +2,9 @@ class_name ACMap
 extends RefCounted
 
 const SIZE := 128
+const SOURCE_WALK_POLICY := 3
 const ELEVATION_PIXELS := 24.0
-const HQ_MINERAL_GAP := 3.0
+const HQ_MINERAL_GAP := 2.0
 var terrain := PackedByteArray()
 var height_map := PackedByteArray()
 var surface_map := PackedByteArray()
@@ -127,6 +128,8 @@ func _make_original(map_id: int) -> void:
 			region.center=ACData.point(raw.center)
 			region.direction=ACData.point(raw.direction)
 			source_ramp_regions.append(region)
+		var checksum=HashingContext.new();checksum.start(HashingContext.HASH_SHA256);checksum.update(source_walk_masks.to_byte_array())
+		source_info.walk_masks_sha256=checksum.finish().hex_encode()
 		source_info.collision_resolution=8
 		source_info.exact_source=true
 		source_info.geometry_policy="Original CHK/CV5/VF4 8-pixel walk masks; no terrain-opening overrides"

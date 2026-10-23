@@ -22,6 +22,7 @@ var add_bot_button: Button
 var remove_bot_button: Button
 var room_notice=""
 var room_notice_until=0
+var single_color_select: OptionButton
 
 func _init(controller: Control) -> void:
 	main=controller
@@ -71,7 +72,12 @@ func single() -> void:
 	preview.set_map(main.map_choice)
 	label(p,"128 × 128 · 최대 4명",385,350,18,545)
 	label(p,"내 종족",0)
-	option(p,ACData.get_data().race_names,0,40,300,main.race_choice,func(i):main.race_choice=i)
+	option(p,ACData.get_data().race_names,0,40,300,main.race_choice,func(i):
+		main.race_choice=i
+		if main.color_choice<0:single_color_select.select(ACPlayerColors.NATIVE[i])
+	)
+	label(p,"내 색상",425,300,21,545)
+	single_color_select=color_option(p,545,465,300,main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice],func(i):main.color_choice=i)
 	label(p,"전장",105)
 	option(p,ACLobbyMapPreview.map_names(),0,145,300,main.map_choice,func(i):main.map_choice=i;preview.set_map(i))
 	label(p,"컴퓨터 수",210)
@@ -81,10 +87,16 @@ func single() -> void:
 	option(p,["자유전","2 대 2 팀전"],0,420,300,1 if main.game_mode=="teams" else 0,func(i):main.game_mode="teams" if i==1 else "ffa")
 	button(p,"전투 시작",0,510,300,func():
 		var count=3 if main.game_mode=="teams" else main.bot_count
-		var players:Array=[{"name":main.account.get("nickname","지휘관"),"race":main.race_choice,"team":0}]
+		var players:Array=[{"name":main.account.get("nickname","지휘관"),"race":main.race_choice,"team":0,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice]}]
 		for i in range(count):players.append({"name":"컴퓨터 %d"%(i+1),"race":(main.race_choice+i+1)%3,"team":(i+1)%2,"bot":true,"difficulty":main.difficulty})
-		main._start_local({"map":main.map_choice,"mode":main.game_mode,"players":players})
+		main._begin_local({"map":main.map_choice,"mode":main.game_mode,"players":players})
 	,48)
+
+func color_option(parent: Control,x: float,y: float,width: float,selected: int,callback: Callable) -> OptionButton:
+	var picker=option(parent,ACPlayerColors.NAMES,x,y,width,selected,callback)
+	for index in range(ACPlayerColors.NAMES.size()):
+		var swatch=Image.create(14,14,false,Image.FORMAT_RGBA8);swatch.fill(ACPlayerColors.color(index));picker.set_item_icon(index,ImageTexture.create_from_image(swatch))
+	return picker
 
 func settings() -> void:
 	returning_to_game=main.page=="game"
@@ -232,8 +244,9 @@ func rooms() -> void:
 	var scope="온라인"
 	var p=open("rooms","멀티플레이 · "+scope,Vector2(1260,840))
 	label(p,"%s   ·   %d점"%[main.account.get("nickname","지휘관"),int(main.account.get("rating",1000))],0,650,21)
-	main.race_select=option(p,ACData.get_data().race_names,0,55,300,main.race_choice,func(i):main.race_choice=i)
-	button(p,"방 만들기",390,55,220,func():main._api("/room/create",{"race":main.race_choice,"map":main.map_choice,"mode":"ffa"},func(data):
+	main.race_select=option(p,ACData.get_data().race_names,0,55,220,main.race_choice,func(i):main.race_choice=i)
+	color_option(p,230,55,145,main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice],func(i):main.color_choice=i)
+	button(p,"방 만들기",390,55,220,func():main._api("/room/create",{"race":main.race_choice,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice],"map":main.map_choice,"mode":"ffa"},func(data):
 		if data.has("room"):main.room=data.room;main._room_menu()
 		else:main._notify(data.get("error","방을 만들지 못했습니다."))
 	))
@@ -287,7 +300,7 @@ func make_room_row(item: Dictionary) -> Panel:
 	description.size.y=56
 	description.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	description.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-	button(row,"입장",832,8,220,func():main._api("/room/join",{"id":item.id,"race":main.race_choice},func(result):
+	button(row,"입장",832,8,220,func():main._api("/room/join",{"id":item.id,"race":main.race_choice,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice]},func(result):
 		if result.has("room"):main.room=result.room;main._room_menu()
 		else:main._notify(result.get("error","입장하지 못했습니다."))
 	))
@@ -341,7 +354,8 @@ func room_menu() -> void:
 	room_title.clip_text=true
 	room_title.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 	label(p,"참가자",40,220,17,368)
-	label(p,"종족",40,220,17,600)
+	label(p,"종족",40,170,17,570)
+	label(p,"색상",40,100,17,750)
 	label(p,"팀",40,85,17,850)
 	label(p,"상태",40,120,17,950)
 	main.race_select=null
@@ -356,14 +370,15 @@ func room_menu() -> void:
 		style.set_border_width_all(1)
 		row.add_theme_stylebox_override("panel",style)
 		p.add_child(row)
-		var nick=label(row,"빈 슬롯",4,210,17,18)
+		var nick=label(row,"빈 슬롯",4,190,17,18)
 		nick.clip_text=true
 		nick.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-		var race=label(row,"",4,220,17,250)
+		var race=label(row,"",4,170,17,220)
+		var color=label(row,"",4,105,17,400)
 		var team=label(row,"",4,85,17,500)
 		var status=label(row,"",4,125,17,600)
 		for item in [nick,race,team,status]:item.size.y=29
-		room_rows.append({"nickname":nick,"race":race,"team":team,"status":status})
+		room_rows.append({"nickname":nick,"race":race,"color":color,"team":team,"status":status})
 		var seated: Dictionary=seats[index]
 		if index<4 and owner:
 			var slot_index=index
@@ -374,7 +389,7 @@ func room_menu() -> void:
 		if seated.get("bot",false) and owner:
 			race.visible=false
 			var bot_id=str(seated.user)
-			var bot_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],250,0,220,int(seated.race),func(i):main._room_update({"bot_id":bot_id,"bot_race":i}))
+			var bot_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],220,0,170,int(seated.race),func(i):main._room_update({"bot_id":bot_id,"bot_race":i}))
 			bot_select.size.y=36;bot_select.custom_minimum_size.y=36
 			bot_select.add_theme_font_size_override("font_size",17)
 			bot_select.set_meta("owner_only",true)
@@ -382,11 +397,20 @@ func room_menu() -> void:
 			room_controls.append(bot_select)
 		if seated.get("user","")==main.account.id:
 			race.visible=false
-			main.race_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],250,0,220,int(seated.race),func(i):main.race_choice=i;main._room_update({"race":i}))
+			main.race_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],220,0,170,int(seated.race),func(i):main.race_choice=i;main._room_update({"race":i}))
 			main.race_select.size.y=36
 			main.race_select.custom_minimum_size.y=36
 			main.race_select.add_theme_font_size_override("font_size",17)
 			room_controls.append(main.race_select)
+		if not seated.is_empty() and (seated.get("user","")==main.account.id or (seated.get("bot",false) and owner)):
+			color.hide()
+			var chosen_member=seated.duplicate()
+			var color_select=color_option(row,400,0,105,int(seated.get("color_id",ACPlayerColors.NATIVE[int(seated.race)])),func(i):
+				if chosen_member.get("bot",false):main._room_update({"bot_id":str(chosen_member.user),"bot_color_id":i})
+				else:main.color_choice=i;main._room_update({"color_id":i})
+			)
+			color_select.size.y=36;color_select.custom_minimum_size.y=36;color_select.add_theme_font_size_override("font_size",15)
+			room_rows.back()["color_select"]=color_select;room_controls.append(color_select)
 	main.room_detail=label(p,"",385,740,18,350)
 	main.room_detail.size.y=48
 	main.room_detail.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -451,6 +475,7 @@ func update_room_text() -> void:
 			row.slot_button.text="슬롯 열기" if _room_slot_closed(r,index) else "슬롯 닫기"
 			row.status.visible=not member.is_empty()
 		if member.is_empty():
+			row.color.text=""
 			var closed=index<4 and _room_slot_closed(r,index)
 			row.nickname.text=("닫힌 플레이어 슬롯 %d"%[index+1] if closed else "빈 플레이어 슬롯 %d"%[index+1]) if index<4 else "빈 관전자 슬롯"
 			row.race.text="";row.team.text="";row.status.text="닫힘" if closed else "참가 대기" if index<4 else "관전 대기"
@@ -458,6 +483,11 @@ func update_room_text() -> void:
 			continue
 		row.nickname.text=member.nickname+(" · 방장" if member.user==r.owner else "")
 		var observing=bool(member.get("observer",false))
+		var color_id=int(member.get("color_id",ACPlayerColors.NATIVE[int(member.race)]))
+		row.color.text="—" if observing else ACPlayerColors.NAMES[color_id];row.color.modulate=ACPlayerColors.color(color_id)
+		if row.has("color_select"):
+			row.color_select.visible=not observing;row.color_select.select(color_id)
+			for option_id in range(8):row.color_select.set_item_disabled(option_id,r.members.any(func(other):return not other.get("observer",false) and other.user!=member.user and int(other.get("color_id",-1))==option_id))
 		row.race.text="관전자" if observing else ["바위너구리","귤 변이 군체","고대 부엉이"][int(member.race)]
 		row.team.text=str(int(member.team)+1) if r.mode=="teams" and not observing else "—"
 		row.status.text="관전" if observing else ("준비 완료" if member.ready else "준비 대기")
@@ -502,9 +532,10 @@ func ladder() -> void:
 	var p=open("ladder","래더 매치 · 1 대 1 · "+scope,Vector2(1010,790))
 	label(p,"%s   ·   %d점   ·   %d승 %d패"%[main.account.nickname,int(main.account.rating),int(main.account.wins),int(main.account.losses)],0,850,22)
 	option(p,ACData.get_data().race_names,0,70,300,main.race_choice,func(i):main.race_choice=i)
+	color_option(p,330,70,190,main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice],func(i):main.color_choice=i)
 	main.queue_label=label(p,"세 전장 중 하나에서 비슷한 실력의 상대를 찾습니다.\n전장과 스타팅은 매칭 시 무작위로 정합니다.\n\n동일한 점수의 상대: 승리 +20 / 패배 -20\n상대가 200점 높으면: 승리 약 +30 / 패배 약 -10",155,850,21)
 	main.queue_label.size.y=230
-	button(p,"상대 찾기",0,385,300,func():main._api("/queue/join",{"race":main.race_choice},func(data):
+	button(p,"상대 찾기",0,385,300,func():main._api("/queue/join",{"race":main.race_choice,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice]},func(data):
 		if data.has("error"):main._notify(data.error)
 		else:main.queue_data={"queued":true};main.queue_label.text="상대를 찾고 있습니다…"
 	))
@@ -615,13 +646,7 @@ func _watch_result_replay() -> void:
 	main._build_hud()
 
 func connecting() -> void:
-	var p=open("connecting","전투 연결",Vector2(820,560))
-	label(p,"전장에 진입하고 있습니다…",55,650,25)
-	label(p,"다른 지휘관의 연결이 완료되면 전투를 시작합니다.",115,650,18)
-	var cancel=func():main._leave_network();main._rooms_menu()
-	button(p,"취소",0,235,220,cancel)
-	modal.closed.disconnect(modal.closed.get_connections()[0].callable)
-	modal.closed.connect(cancel)
+	main._begin_remote_loading()
 
 func replays() -> void:
 	var p=open("replays","리플레이",Vector2(1090,840))

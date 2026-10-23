@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "elapsed_ms": 28922,
+  "loading_art_textures": 30,
+  "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+}

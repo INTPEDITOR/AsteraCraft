@@ -1,9 +1,13 @@
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
-import hashlib, json
+import hashlib, json, re, sys
 root=Path(__file__).resolve().parents[1]
-out=root/'build/feedback_fixed_20261024'
-name='AsteraCraft-Windows-feedback-20261024.zip'
+folder=sys.argv[1] if len(sys.argv)>1 else 'feedback_fixed_20261024'
+tag=sys.argv[2] if len(sys.argv)>2 else 'feedback-20261024'
+if not re.fullmatch(r'[a-z0-9_-]{1,80}',folder) or not re.fullmatch(r'[a-z0-9_-]{1,80}',tag):
+    raise ValueError('Invalid build folder or release tag')
+out=root/'build'/folder
+name='AsteraCraft-Windows-'+tag+'.zip'
 files=['AsteraCraft.exe','AsteraCraft.pck','libwebrtc_native.windows.template_release.x86_64.dll','README.txt','game_icon.ico']
 archive=out/name
 with ZipFile(archive,'w',compression=ZIP_DEFLATED,compresslevel=1,allowZip64=True) as z:

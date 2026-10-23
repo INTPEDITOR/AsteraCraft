@@ -1,0 +1,12 @@
+{
+  "id": "story-r0-09-v5",
+  "race": 0,
+  "number": 9,
+  "title": "정찰드론이 찾아낸 해안길",
+  "refs": [
+    "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u06.png",
+    "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u08.png",
+    "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+  ],
+  "prompt": "Use case: photorealistic-natural. AsteraCraft cinematic loading background, landscape 16:9, no text or interface.\nA calm exploration scene: an actual small twin-rotor reconnaissance drone has found the safe way around a flooded coastal road and guides the actual yellow utility/missile rover along the dry rock ledge. The rover cautiously follows the drone's path past the water, with fresh wet tire tracks showing its progress. No combat, firing, active weapon effects, smoke trail, pursuit or wounded characters. The story is route-finding and a careful passage after a storm.\nThe first two images define the TWO existing game-unit designs ONLY. Rover preserves the same chunky yellow/black wheeled chassis, cockpit and its original pair of red-tipped yellow payloads kept securely in transport position, as in image1, with the same wheel arrangement. Drone matches image2: blunt compact yellow fuselage, a single front cyan sensor, EXACTLY TWO round ducted rotors on one horizontal plane, no new sensor or third rotor. Do not invent a driver standing outside or any extra unit. Last input is a physical material reference only, not a composition template.\nCamera near the rover's axle height from the dry road AHEAD, looking almost head-on as the rover slowly approaches. Drone in the RIGHT middle distance hovers over a visible safe curved ledge leading toward us. Broad shoreline LEFT, receding coastal rock stacks, water level marks and the path's curve provide continuous realistic scale and depth. Bright soft daylight breaking through storm clouds, saturated but natural yellow paint, worn black metal and wet treads, blue-grey sea. Full-scale live-action adventure photography, not toys, a product pose, overhead game view or pasted objects. Keep the same realistic weathered materials as other Hyrax illustrations."
+}

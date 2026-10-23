@@ -1,0 +1,24 @@
+[
+  {
+    "id": "story-r0-05-v4",
+    "race": 0,
+    "number": 5,
+    "title": "후퇴로를 지키는 이동요새",
+    "refs": [
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-05-v3.png",
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u12.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Correct ONLY two identity errors in IMAGE1, preserving its convincing full-scale live-action realism, low-angle composition, original yellow four-legged fortress, retreating hyrax rifle infantry, dramatic canyon, lighting, dust, pose and story.\n1. The fortress must have EXACTLY THREE existing parallel smooth long cannon barrels, as the actual game-unit reference IMAGE2. Image1 incorrectly shows only TWO. Add the missing THIRD barrel beside the existing two, matched in physical diameter, length, segmented yellow/black armor, metal wear, mounting and perspective. Make all THREE distinct muzzle openings clearly countable. Use a compact triangular/adjacent arrangement consistent with the reference, parallel forward aim; do not multiply turrets, add drills, missiles, extra guns or change the legs.\n2. REMOVE the two unreferenced robot/turret figures on the far RIGHT distant rocky ledges. Those silhouettes are not actual game units and must not appear. Reconstruct ONLY natural canyon rock, dust and sky there. Distant incoming light streaks may remain without a visible invented enemy.\nEverything else must stay the same, including the single real hyrax trooper in the foreground and the fortress's FOUR articulated legs, massive scale and physical weight. No redesign, no new figures, no words, no UI. This is one small correction of an existing story scene, not a fresh composition."
+  },
+  {
+    "id": "story-r0-09-v4",
+    "race": 0,
+    "number": 9,
+    "title": "경보와 동시에 발사되는 미사일",
+    "refs": [
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-09-v3.png",
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u06.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Fix ONLY missile inventory in IMAGE1. Keep the entire live-action coastal scene, two-rotor reconnaissance drone, actual wheeled yellow missile vehicle, camera, shadows, paint, dust, environment and firing story unchanged.\nThe actual game vehicle in IMAGE2 has a twin launcher carrying exactly TWO missiles total. In IMAGE1 one missile is already flying in the sky, but TWO more remain mounted, incorrectly making THREE.\nPreserve the ONE missile flying in the upper RIGHT with its smoke trail. Keep only ONE red-tipped yellow missile still seated on the vehicle. REMOVE the second loaded missile (the lower/nearer one) and show its now EMPTY EXISTING LAUNCH GUIDE underneath, with the same mounting perspective and metal finish. Exactly TWO missiles visible in the whole frame: ONE airborne, ONE still mounted. No additional missile hidden behind, no new tubes, weapons, barrels or ammunition. Do not change vehicle body or wheel count, and do not alter the actual drone's TWO ducted rotors. No text, UI or added unit."
+  }
+]

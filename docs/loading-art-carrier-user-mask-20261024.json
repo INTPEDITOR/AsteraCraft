@@ -1,0 +1,10 @@
+{
+  "id": "story-r0-10-v5",
+  "race": 0,
+  "mode": "builtin_image_gen",
+  "number": 10,
+  "title": "모함으로 모여드는 요격드론",
+  "source_target": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-0609a659-94e2-4043-8626-4a0e660ec6b6.png",
+  "mask": "User supplied black image with white curved removal region; conversation image, no local path.",
+  "prompt": "Precise masked object removal. The full-color yellow mothership and two drones picture is the edit target. The black image with a WHITE CURVED BRUSH REGION is a spatial REMOVAL MASK, not an image to output. Work ONLY inside that WHITE marked region at the CENTER-RIGHT BELOW and just behind the large carrier's nose. Completely ERASE the protruding ghost hull/dark duplicated body and shadow inside the white region, including the long translucent yellow/dark aircraft-shaped extension beneath the carrier and the extra hull edge extending behind its right side. Reconstruct EMPTY NATURAL CLOUDS and mist there, smoothly continuous with the surrounding cloud background. Do not preserve that masked extrusion as part of the carrier: the user explicitly wants those marked pixels removed. Where the mask touches the real carrier outline, end the main hull with a clean physically coherent short edge and then clouds; do not add a new lower hull or another elongated part. All pixels OUTSIDE the white mask must remain visually unchanged: preserve the existing main large ship outside mask, both small drones, their thrusters, colors, sky, framing, camera, lighting and weathered surfaces. Do not move, resize or redesign any unmasked object. No replacement ship, shadow, detached dark smear, extra wing, new object or text in the cleaned region. Return ONLY the repaired full-color original scene, never the mask or a collage."
+}

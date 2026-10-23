@@ -1,0 +1,114 @@
+{
+  "mode": "builtin_image_gen",
+  "integration_approval": false,
+  "jobs": [
+    {
+      "id": "story-r0-01-v3",
+      "race": 0,
+      "number": 1,
+      "title": "경계 속에서 이어지는 채굴",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u00.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u07.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nAn actual yellow FOUR-WHEELED mining rover driven by a brown rock hyrax works two drills into a cracked gold crystal seam, while a single actual hooded hyrax scout guards the mine entrance. Rover has EXACTLY TWO steel conical front drills side by side, never three, and its driver sits exposed as reference. Scout wears its actual dark hood, yellow armor and long dark rifle. View from inside the crystal hollow: rover close RIGHT profile drills LEFT into the seam, small real chips falling; scout in distant LEFT silhouette turned outward covering the entrance. Low eye-height tunnel composition, shafts of natural morning light through dust, gold crystal and fur texture. The pair belongs together because mining needs cover, neither poses at the camera."
+    },
+    {
+      "id": "story-r0-02-v3",
+      "race": 0,
+      "number": 2,
+      "title": "협곡을 건너는 엄호 사격",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u01.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nExactly two actual yellow-armored hyrax rifle infantry cross a damaged stone bridge under fire. One kneels in the LEFT foreground behind a broken parapet firing its existing dark rifle into a rocky gap outside the frame, while the second dashes AWAY from the camera toward safety at the far bank. Their sights and movement explain covering fire. Keep uncovered brown hyrax heads and correct yellow/black plated armor, no humans or extra equipment. Camera over the kneeling rifleman's shoulder at shoulder height looking along the bridge, near worker scale, no aerial view. Bullet marks on stone, dust, tense cloudy light, believable fur and scuffed metal."
+    },
+    {
+      "id": "story-r0-04-v3",
+      "race": 0,
+      "number": 4,
+      "title": "방패 뒤의 응급 처치",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u04.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u03.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u01.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nAn actual hyrax MEDIC kneels to stabilize a wounded rifle infantry's arm while an actual shield trooper protects both from incoming grit. Medic retains yellow segmented armor, real brown furry head and the blue medical cross shoulder mark in reference1; no invented white robes or priest costume. Shield trooper has the yellow rectangular shield from reference2; rifle troop has reference3 armor and dark rifle laid beside him. Three existing unit types, one of each. Camera close at ground level on their RIGHT, looking LEFT toward the injured troop. Shield frames the upper left like shelter; a small subdued cyan medical light, no gore. Cold rain and wet gritty armor, physical first aid clearly visible, not idle grouping."
+    },
+    {
+      "id": "story-r0-05-v3",
+      "race": 0,
+      "number": 5,
+      "title": "후퇴로를 지키는 이동요새",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u12.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u01.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nOne enormous actual walking fortress straddles a narrow canyon exit to cover a single hyrax rifle infantry retreating toward the camera. Fortress identity is strict: heavy yellow black armored superstructure on FOUR articulated mechanical walking legs, ONE upper turret with EXACTLY THREE parallel long smooth cannon barrels. NO tank tracks, wheels or drill barrels. Two legs may occlude behind the others but no missing full support. Camera down near the ground directly beside a retreating rifleman, looking UP at the imposing fortress. Its cannons aim level across the passage toward distant threat; one modest muzzle flash, a spent casing and dust kicked up by the feet. Full-scale immense machine, believable hydraulic joints and worn steel, not a little toy."
+    },
+    {
+      "id": "story-r0-06-v3",
+      "race": 0,
+      "number": 6,
+      "title": "손상된 폭격기의 귀환",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u09.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u10.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nAn actual long twin-prong-nosed yellow interceptor takes protective position beside an actual damaged broad twin-engine yellow bomber as both limp home over a stormy sea. Interceptor has the narrow TWO long fork noses, dark cockpit and blue exhaust from image1. Bomber from image2 has broad blocky fuselage, two bulky engine sides and red recessed weapon panels, never a conventional human jet. Damage is a small scuffed panel and faint trail only, not a new wing or weapon. Camera at their flight height from the LEFT and slightly in front so both fly RIGHT-to-LEFT with level noses. Bomber farther and lower to the right, interceptor close LEFT banks toward it; low sun breaks through cloud over the water. Photographic aircraft-scale detail, no top-down sprite pose or miniature sea."
+    },
+    {
+      "id": "story-r0-07-v3",
+      "race": 0,
+      "number": 7,
+      "title": "무너지는 착륙장의 철수",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u11.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u04.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nOne actual yellow troop TRANSPORT lifts away just as the rocky landing ledge starts to collapse into a canyon. A single actual yellow-armored hyrax medic in RIGHT foreground has stepped safely onto stable ground and raises an existing arm to signal a clear ascent. Transport retains the exact straight wings, compact cockpit, tail fin, paired side engine pods and yellow/black form in image1, no new ramp, opening cabin door or invented helicopter rotors. Medic real hyrax fur, yellow armor, blue shoulder medical cross. Camera from the stable ground close to medic's shoulder, watching transport rising almost head-on through falling dust and broken stones. A low frontal view with aircraft nose level on horizon, dramatic overcast backlight, clear evacuation context without a posed lineup."
+    },
+    {
+      "id": "story-r0-08-v3",
+      "race": 0,
+      "number": 8,
+      "title": "화염차가 지키는 탈출로",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u13.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u00.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nThe actual compact tracked twin-nozzle FLAME VEHICLE holds a narrow stone gateway with a brief horizontal sheet of fire, allowing an actual mining rover to escape through the gateway AWAY from danger. Flamer identity: yellow black LOW TRACKED body, two cylindrical fuel tanks, EXACTLY TWO SHORT FRONT FLAME NOZZLES from image1. No turret, drill, extra cannons, wheels or down-pointing gun. Rover image2 has exposed brown hyrax driver and EXACTLY TWO front drills, four wheels. Camera from road height HEAD-ON to the flame vehicle, enough side angle to see both nozzles aimed HORIZONTALLY to the LEFT at the same elevation as the vehicle. Show broad flat ground under it and near horizon behind, no downward pitch. Rover recedes into safe canyon RIGHT. Real heat distortion, restrained flame and smoke, weathered machine weight, not game-art flames."
+    },
+    {
+      "id": "story-r0-09-v3",
+      "race": 0,
+      "number": 9,
+      "title": "경보와 동시에 발사되는 미사일",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u06.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u08.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nAn actual missile rover responds to an actual reconnaissance drone's sighting: yellow FOUR-WHEELED missile vehicle on a coastal ridge launches ONE of its TWO existing yellow/red-tipped missiles toward a threat in the sky off-frame. The SECOND missile remains visibly on the actual twin launcher. In the left foreground, the actual small reconnaissance drone hovers and points toward the same sky with its single front cyan sensor; its yellow blunt fuselage has EXACTLY TWO circular DUCTED ROTORS, one on each side, no third rotor. Camera low under the hovering drone looking past to the missile rover, steep rising smoke trail to upper RIGHT, a wide coastal horizon. Only these two designs. Real rotor motion and exhaust, naturally overcast blue-grey daylight, no added antennas or weapons."
+    },
+    {
+      "id": "story-r0-10-v3",
+      "race": 0,
+      "number": 10,
+      "title": "모함으로 모여드는 요격드론",
+      "refs": [
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u14.png",
+        "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u15.png",
+        "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+      ],
+      "prompt": "Use case: photorealistic-natural\nAsset type: AsteraCraft loading-art approval draft, landscape widescreen 16:9, no text/UI/logo.\nRendering: physical full-scale live-action science-fiction film still, weathered yellow/black machines, real brown hyrax fur and anatomy, scratched painted metal, believable weight, natural film lighting and atmosphere. Do not render game sprites, toy miniatures, doll plastic, isometric game view, character selection lineup or a product display. First inputs are authoritative EXISTING UNIT designs, not camera/composition references; last image is a realism/material reference only. Preserve design, weapons and locomotion exactly, no invented unit types, weapons, doors or extra appendages. Show an intelligible event with a small cast working toward the same purpose.\nScene and exact camera:\nA damaged actual small yellow attack drone returns to formation beneath its actual heavy carrier as the pair retreats out of a thundercloud. Carrier identity is the flat broad angular yellow/black hull with pointed blue-dark nose and compact side engines of image1, no castle, deck tower, runway, rotor or newly opened hangar. Drone identity is the compact yellow disc/round hull with single cyan front eye and two small rear blue thrusters of image2. Exactly ONE carrier and TWO identical small drones: scuffed returning drone foreground joins its undamaged wingmate under the carrier, a clear recovery/escort event. Camera BELOW them in a bank of mist looking UP into the underside, carrier moves toward upper LEFT, thin daylight through storm clouds. Physical aircraft-scale panels and weight; no high-angle fleet lineup, weapons firing or visible extra doors."
+    }
+  ]
+}

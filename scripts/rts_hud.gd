@@ -150,6 +150,7 @@ var upgrade_badges: Array[Button]=[]
 
 func configure(controller: Control) -> void:
 	main=controller
+	if not main.state.is_empty():race=int(main.state.players[main.local_slot].race)
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
 	_font=get_theme_default_font()
@@ -163,14 +164,21 @@ func configure(controller: Control) -> void:
 
 func _build_surrender_prompt() -> void:
 	surrender_panel=PanelContainer.new();surrender_panel.hide();add_child(surrender_panel)
-	var style=StyleBoxFlat.new();style.bg_color=Color(.035,.045,.04,.97);style.border_color=Color("aa975d")
-	style.set_border_width_all(1);style.content_margin_left=10;style.content_margin_right=10;style.content_margin_top=8;style.content_margin_bottom=8
-	surrender_panel.add_theme_stylebox_override("panel",style)
+	surrender_panel.add_theme_stylebox_override("panel",ACRaceUI.board_style(race))
 	var column=VBoxContainer.new();surrender_panel.add_child(column)
+	column.add_theme_constant_override("separation",8)
+	var heading=Label.new();heading.text="항복 요청";heading.add_theme_font_size_override("font_size",18)
+	heading.add_theme_color_override("font_color",ACRaceUI.ACCENTS[race]);column.add_child(heading)
 	surrender_caption=Label.new();column.add_child(surrender_caption)
+	surrender_caption.add_theme_font_size_override("font_size",16)
+	surrender_caption.custom_minimum_size.x=280
+	surrender_caption.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	var row=HBoxContainer.new();column.add_child(row)
+	row.add_theme_constant_override("separation",12)
 	for accept in [true,false]:
-		var button=Button.new();button.text="승인" if accept else "거절";button.custom_minimum_size=Vector2(102,30);button.focus_mode=Control.FOCUS_NONE
+		var button=Button.new();button.text="승인" if accept else "거절";button.custom_minimum_size=Vector2(150,52);button.focus_mode=Control.FOCUS_NONE
+		button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		ACRaceUI.style_button(button,race)
 		var decision=accept
 		button.pressed.connect(func():
 			if surrender_bot>=0:main._send_command({"type":"surrender_response","bot":surrender_bot,"accept":decision}))
@@ -185,10 +193,14 @@ func _update_surrender_prompt() -> void:
 	surrender_panel.visible=surrender_bot>=0 and not main.state.get("ended",false)
 	if not surrender_panel.visible:return
 	var player: Dictionary=main.state.players[surrender_bot]
-	surrender_caption.text="%s: 항복을 승인하시겠습니까?"%str(player.get("name","컴퓨터"))
+	surrender_caption.text="%s의 항복을 받아들이시겠습니까?"%str(player.get("name","컴퓨터")).left(20)
 	surrender_panel.reset_size()
 	var mini=_minimap_frame_rect()
-	surrender_panel.position=Vector2(maxf(8,mini.position.x),maxf(44,mini.position.y-surrender_panel.size.y-10))
+	var x=clampf(mini.position.x,12,maxf(12,size.x-surrender_panel.size.x-12))
+	var top=size.y
+	# Decorations rise well above the minimap aperture; clear their silhouette.
+	for sample in range(int(x),int(x+surrender_panel.size.x)+1,2):top=minf(top,body_top_at(sample))
+	surrender_panel.position=Vector2(x,maxf(44,top-surrender_panel.size.y-24))
 
 func _process(_dt: float) -> void:
 	if main==null or _portrait_canvas==null:return
@@ -666,6 +678,7 @@ func update_hud(force: bool=false) -> void:
 	if not _unit.is_empty() and _unit.has("progress"):
 		current_signature+=str(_unit.get("nuke_job",{}).is_empty())+str(float(_unit.progress)>=1)+str(_unit.get("queue",[]).map(func(item):return item.kind))+str(_unit.get("research_queue",[]).map(func(item):return [item.kind,item.level]))
 	elif not _unit.is_empty():current_signature+=str(_unit.get("brood_state",""))+str(_unit.get("morph_kind",-1))+str(_unit.get("cloak_active",false))+str(_unit.get("cargo",[]))+str(_unit.get("drones",[]))+str(_unit.get("drone_queue",[]).size())
+	if _is_brood():current_signature+=str(main.selected.map(func(id):return main._entity(int(id)).get("brood_state","")))
 	if not _unit.is_empty() and not _unit.has("progress"):current_signature+=str([_unit.get("anchored",false),_unit.has("deploy_until"),_unit.get("deploy_to",false)])
 	if not _unit.is_empty():
 		var owner: Dictionary=state.players[int(_unit.owner)]
@@ -1210,9 +1223,13 @@ func _build_commands() -> void:
 	var all: Array[Dictionary]=[]
 	if not building:
 		if _is_brood():
-			if str(_unit.get("brood_state","idle"))=="morph":
+			var idle_pods=main.selected.filter(func(selected_id):
+				var pod=main._entity(int(selected_id))
+				return _is_brood_entity(pod) and int(pod.owner)==main.local_slot and float(pod.hp)>0 and str(pod.get("brood_state","idle"))=="idle"
+			)
+			if idle_pods.is_empty():
 				command_page=0
-				_present_commands([_command("배양 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel_morph","id":id}),"지불한 비용을 돌려받습니다. 취소한 배양체는 사망합니다.")])
+				_present_commands([_command("배양 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel_morph","id":id,"ids":main.selected.duplicate()}),"선택한 배양체의 배양을 취소하고 비용을 돌려받습니다. 취소한 배양체는 사망합니다.")])
 				return
 			for train in range(13):
 				var definition=ACData.unit(1,train)
@@ -1319,10 +1336,6 @@ func _show_paged(all: Array[Dictionary],building_menu: bool,brood_menu: bool=fal
 	visible.append(_command("%d / %d 다음"%[command_page+1,pages],KEY_BRACKETRIGHT,"]",30,func():command_page=(command_page+1)%pages;update_hud(true),"다음 명령 페이지"))
 	if building_menu:
 		visible.append(_command("돌아가기",KEY_X,"X",ICON_CANCEL,func():main.build_panel=false;main.build_kind=-1;command_page=0;update_hud(true),"건설 메뉴를 닫습니다."))
-	elif brood_menu:
-		if str(_unit.get("brood_state","idle"))=="morph":
-			var id=int(_unit.id)
-			visible.append(_command("변태 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel_morph","id":id}),"선택한 배양체의 변태를 취소합니다."))
 	elif not brood_menu:
 		var id=int(_unit.id)
 		visible.append(_command("생산 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel","id":id}),"마지막 생산 대기 항목을 취소합니다."))
@@ -1330,6 +1343,7 @@ func _show_paged(all: Array[Dictionary],building_menu: bool,brood_menu: bool=fal
 	_present_commands(visible)
 
 func _present_commands(specs: Array[Dictionary]) -> void:
+	specs=_arrange_commands(specs)
 	action_specs=specs
 	for index in range(mini(12,specs.size())):
 		var spec: Dictionary=specs[index]
@@ -1390,6 +1404,26 @@ func _present_commands(specs: Array[Dictionary]) -> void:
 		action_layer.add_child(button)
 		action_buttons.append(button)
 		if int(spec.key)>0:hover_hotkeys[int(spec.key)]=button
+
+func _arrange_commands(specs: Array[Dictionary]) -> Array[Dictionary]:
+	var arranged: Array[Dictionary]=[];arranged.resize(12);arranged.fill({})
+	var ordinary=[];var abilities=[];var cancellations=[]
+	for original_slot in range(specs.size()):
+		var spec=specs[original_slot]
+		if spec.is_empty():continue
+		if int(spec.icon) in [29,30]:arranged[original_slot]=spec
+		elif int(spec.icon)==ICON_CANCEL:cancellations.append(spec)
+		elif int(spec.icon) in [ICON_ABILITY,ICON_UNLOAD] or spec.get("cost",{}).has("skill"):abilities.append(spec)
+		else:ordinary.append(spec)
+	for index in range(abilities.size()):arranged[8+index]=abilities[index]
+	if not cancellations.is_empty():arranged[11]=cancellations.back()
+	# A rare second independent queue has its own cancel beside the main one.
+	if cancellations.size()>1:ordinary.append_array(cancellations.slice(0,cancellations.size()-1))
+	for spec in ordinary:
+		var slot=0
+		while slot<12 and not arranged[slot].is_empty():slot+=1
+		if slot<12:arranged[slot]=spec
+	return arranged
 
 func _command_style(state_index: int,disabled: bool=false) -> StyleBox:
 	return _shell_button_style(3 if disabled else state_index)
@@ -1561,7 +1595,10 @@ func _draw() -> void:
 	draw_rect(_minimap_frame_rect().grow(4),Color("101517"))
 	if _frame_art.size()==3 and _frame_art[race]!=null:
 		draw_texture_rect_region(_frame_art[race],shell_draw_rect(),Rect2(_frame_source_regions[race]))
+	# Clear painted/filtered slivers inside the known aperture after the shell.
+	draw_rect(_minimap_frame_rect().grow(-.5),Color("101517"))
 	if main.has_method("_render_minimap"):main._render_minimap(self)
+	draw_rect(mini.grow(.25),Color("101517"),false,1.5)
 	var content=_detail_content_rect()
 	if _hover_help.is_empty() and (main.selected.size()==1 or not _resource.is_empty()) and _unit_icon!=null:
 		_draw_fit(_unit_icon,_unit_preview_rect())

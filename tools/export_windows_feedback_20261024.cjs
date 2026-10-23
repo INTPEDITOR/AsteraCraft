@@ -1,5 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'build/feedback_fixed_20261024');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'..'),folder=process.argv[2]||'feedback_fixed_20261024';
+if(!/^[a-z0-9_-]{1,80}$/.test(folder))throw Error('Invalid build folder name');
+const out=path.join(root,'build',folder);fs.mkdirSync(out,{recursive:true});
 function run(exe,args){const p=cp.spawnSync(exe,args,{cwd:root,windowsHide:true,stdio:'inherit'});if(p.error)throw p.error;if(p.status!==0)throw Error(exe+' exited '+p.status);}
 run(process.execPath,['tools_run_godot.js','--headless','--path','.', '--export-release','Windows Desktop',path.join(out,'AsteraCraft.exe')]);
 // Godot's template icon is replaced in every packaged build. Keeping this in

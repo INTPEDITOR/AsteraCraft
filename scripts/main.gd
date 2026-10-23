@@ -3,6 +3,13 @@ extends Control
 const Core=preload("res://scripts/core.gd")
 const REPLAYS_ENABLED=false
 var simulation_worker: ACSimulationWorker
+var loading_job: ACBattleLoader
+var loading_screen: ACLoadingScreen
+var loading_config: Dictionary={}
+var loading_result: Dictionary={}
+var loading_local=false
+var loading_connected=false
+var loading_authenticated=false
 var _placement_requested=""
 var _placement_result={}
 const ConstructionVisual=preload("res://scripts/construction_visual.gd")
@@ -64,6 +71,9 @@ var zoom=DEFAULT_ZOOM
 var _zoom_target=DEFAULT_ZOOM
 var _zoom_anchor=Vector2.ZERO
 var _zoom_animating=false
+var color_choice=-1
+var player_palette=ACPlayerPalette.new()
+var _palette_entity: Dictionary={}
 var drag_start=Vector2.ZERO
 var dragging=false
 var middle_drag=false
@@ -214,6 +224,17 @@ func _ready() -> void:
 	_main_menu()
 	if "--smoke-game" in args:
 		_start_local({"map":0,"mode":"ffa","players":[{"name":"테스트","race":0},{"name":"봇","race":1,"bot":true,"difficulty":1}]})
+		if page=="game" and core!=null and not state.get("units",[]).is_empty():print("SMOKE_GAME_READY")
+		var art_catalog_path="res://data/loading_art_20261024.json"
+		if FileAccess.file_exists(art_catalog_path):
+			var art_catalog=JSON.parse_string(FileAccess.get_file_as_string(art_catalog_path));var art_ready=0;var art_expected=0
+			for item in art_catalog.get("images",[]):
+				if not item.get("approved",false):continue
+				art_expected+=1
+				var texture: Texture2D=load(str(item.file))
+				if texture!=null and texture.get_width()>=1200 and texture.get_height()>=675:art_ready+=1
+			if art_ready==art_expected:print("SMOKE_LOADING_ART_READY images=",art_ready)
+			else:push_error("Packaged loading artwork missing: %d/%d"%[art_ready,art_expected])
 	if "--capture-menu" in args:
 		_capture_later("user://menu.png")
 
@@ -349,7 +370,7 @@ func _api(route: String,body: Dictionary,callback: Callable) -> void:
 	request.timeout=8
 	add_child(request)
 	api_busy=true
-	var headers=PackedStringArray(["Content-Type: application/json","X-Astera-Protocol: 10"])
+	var headers=PackedStringArray(["Content-Type: application/json","X-Astera-Protocol: 11"])
 	if session_token!="":headers.append("Authorization: Bearer "+session_token)
 	request.request_completed.connect(func(result,code,_headers,bytes):
 		api_busy=false
@@ -367,7 +388,60 @@ func _api(route: String,body: Dictionary,callback: Callable) -> void:
 		callback.call({"error":"요청을 시작할 수 없습니다."})
 		request.queue_free()
 
-func _start_local(config: Dictionary) -> void:
+func _show_loading(faction: int,map_id: int,page_name: String) -> void:
+	_clear_ui();page=page_name
+	loading_screen=ACLoadingScreen.new();ui.add_child(loading_screen);loading_screen.configure(faction,map_id)
+	_sync_world_canvas();queue_redraw()
+
+func _begin_local(config: Dictionary) -> void:
+	_stop_simulation_worker()
+	loading_config=config.duplicate(true);loading_result={};loading_local=true
+	_show_loading(int(config.players[0].get("race",0)),int(config.get("map",0)),"loading")
+	loading_job=ACBattleLoader.new()
+	if loading_job.start(config,terrain_artist,true)!=OK:
+		loading_job=null;_start_local(config)
+
+func _begin_remote_loading() -> void:
+	if test_network:return
+	loading_local=false;loading_result={};loading_connected=false;loading_authenticated=false;state={}
+	var faction=race_choice
+	if remote_game.has("host_config") and local_slot<remote_game.host_config.players.size():faction=int(remote_game.host_config.players[local_slot].race)
+	_show_loading(faction,int(remote_game.get("map",0)),"connecting")
+	loading_screen.cancel_button.show()
+	loading_screen.cancel_requested.connect(func():_leave_network();_rooms_menu())
+	loading_screen.set_progress(0,"전투 연결 및 전장 준비 중")
+	loading_job=ACBattleLoader.new()
+	if loading_job.start(remote_game,terrain_artist,false)!=OK:
+		loading_job=null;_notify("전장 준비를 시작하지 못했습니다");_leave_network();_main_menu()
+
+func _poll_loading() -> void:
+	if loading_job!=null:
+		var status=loading_job.status()
+		if is_instance_valid(loading_screen):loading_screen.set_progress(float(status.progress)*(.98 if not loading_local else 1.0),status.caption)
+		if loading_job.finished():
+			loading_result=loading_job.finish();loading_job=null
+			if loading_local:
+				var prepared=loading_result;loading_result={}
+				_start_local(loading_config,prepared.core,prepared.map)
+				return
+	if not loading_local and page=="connecting" and not loading_result.is_empty():
+		if loading_connected and not loading_authenticated:
+			loading_authenticated=true
+			# Authentication is the host's existing start barrier. Send it only
+			# after this client has prepared its real map and terrain meshes.
+			_authenticate_peer.rpc_id(1,str(remote_game.ticket))
+		if is_instance_valid(loading_screen):loading_screen.set_progress(1.0 if loading_connected else .98,"다른 지휘관의 준비를 기다리는 중" if loading_connected else "전투 연결을 기다리는 중")
+		if not state.is_empty() and bool(state.get("battle_ready",true)):_finish_remote_loading()
+
+func _finish_remote_loading() -> void:
+	draw_map=loading_result.map;loading_result={}
+	if local_slot>=0 and local_slot<state.players.size():_remember_played_race(int(state.players[local_slot].race))
+	_focus_home(true);replay_frames=[];replay_codec=FileAccess.COMPRESSION_FASTLZ;replay_clock=0.0
+	paused=false;replay_mode=false;result_sent=false
+	if audio!=null:audio.clear(true);audio.set_paused(false)
+	_build_hud()
+
+func _start_local(config: Dictionary,prepared_core: ACCore=null,prepared_map: ACMap=null) -> void:
 	_stop_simulation_worker()
 	for node in _entity_canvases.values():node.queue_free()
 	_entity_canvases.clear();_entity_by_id.clear();_entity_list=[];_entity_source={}
@@ -379,9 +453,10 @@ func _start_local(config: Dictionary) -> void:
 	render_rects={}
 	_selection_bodies.clear()
 	tick_accum=0
-	core=Core.new()
-	core.setup(config)
-	draw_map=core.map
+	core=prepared_core
+	if core==null:
+		core=Core.new();core.setup(config)
+	draw_map=prepared_map if prepared_map!=null else core.map
 	local_slot=0
 	page="game"
 	state=core.snapshot(local_slot)
@@ -399,12 +474,13 @@ func _stop_simulation_worker() -> void:
 
 func _exit_tree() -> void:
 	_stop_simulation_worker()
+	if loading_job!=null:loading_job.finish();loading_job=null
 
 func _start_simulation_worker() -> void:
 	if simulation_worker!=null or core==null:return
 	# The renderer gets a separate immutable map; navigation and source solids
 	# remain exclusively on the simulation thread.
-	draw_map=ACMap.new();draw_map.make(core.map.theme)
+	if is_same(draw_map,core.map):draw_map=ACMap.new();draw_map.make(core.map.theme)
 	simulation_worker=ACSimulationWorker.new();simulation_worker.start(core)
 
 func _process_simulation_worker(dt: float) -> bool:
@@ -734,6 +810,7 @@ func _process(dt: float) -> void:
 	if dedicated:
 		_server_process(dt)
 		return
+	if loading_job!=null or page=="connecting":_poll_loading()
 	_sync_pointer()
 	if test_network:
 		if Time.get_ticks_msec()/1000.0>test_deadline:printerr("TEST CLIENT TIMEOUT");get_tree().quit(2)
@@ -1514,10 +1591,13 @@ func _join_game(game: Dictionary) -> void:
 	_menus().connecting()
 
 func _connected() -> void:
-	_authenticate_peer.rpc_id(1,str(remote_game.ticket))
+	if test_network:_authenticate_peer.rpc_id(1,str(remote_game.ticket))
+	else:loading_connected=true
 
 func _leave_network() -> void:
 	_stop_simulation_worker()
+	if loading_job!=null:loading_job.finish();loading_job=null
+	loading_result={};loading_connected=false;loading_authenticated=false
 	if network_client and not result_sent:_report_public_void()
 	if is_instance_valid(public_p2p):public_p2p.close();public_p2p.queue_free();public_p2p=null
 	if multiplayer.multiplayer_peer!=null:multiplayer.multiplayer_peer.close();multiplayer.multiplayer_peer=null
@@ -1634,18 +1714,7 @@ func _receive_state(bytes: PackedByteArray) -> void:
 			_leave_network()
 			get_tree().quit()
 		return
-	if page=="connecting":
-		if local_slot>=0 and local_slot<state.players.size():_remember_played_race(int(state.players[local_slot].race))
-		draw_map.make(int(state.theme),str(state.get("map_layout","reference_inspired_original")))
-		_focus_home(true)
-		replay_frames=[]
-		replay_codec=FileAccess.COMPRESSION_FASTLZ
-		replay_clock=0.0
-		paused=false
-		if audio!=null:audio.clear(true);audio.set_paused(false)
-		replay_mode=false
-		result_sent=false
-		_build_hud()
+	if page=="connecting" and not loading_result.is_empty() and bool(state.get("battle_ready",true)):_finish_remote_loading()
 	if state.get("ended",false) and not result_sent:
 		_report_public_result(state.winners,float(state.time))
 		result_sent=true
@@ -1690,7 +1759,7 @@ func _server_process(dt: float) -> void:
 			if countdown<0:countdown=0 if server_config.get("lobby_countdown_done",false) else 3
 			countdown-=dt
 			if countdown<=0:server_ready=true
-		elif now-server_created>60:
+		elif now-server_created>120:
 			_emit_result({"void":true,"reason":"경기 시작 전 접속 시간 초과"})
 			return
 	else:
@@ -1706,7 +1775,7 @@ func _server_process(dt: float) -> void:
 			return
 		if core.ended:
 			for peer in peer_slots:
-				var snapshot=core.snapshot(int(peer_slots[peer]))
+				var snapshot=_network_snapshot(int(peer_slots[peer]))
 				_receive_state.rpc_id(int(peer),var_to_bytes(snapshot).compress(FileAccess.COMPRESSION_DEFLATE))
 				_match_finished.rpc_id(int(peer),core.winners,core.time)
 			_emit_result({"winners":core.winners,"duration":core.time})
@@ -1717,8 +1786,13 @@ func _server_process(dt: float) -> void:
 		var encoded_views={}
 		for peer in peer_slots:
 			var viewer=int(peer_slots[peer])
-			if not encoded_views.has(viewer):encoded_views[viewer]=var_to_bytes(core.snapshot(viewer)).compress(FileAccess.COMPRESSION_DEFLATE)
+			if not encoded_views.has(viewer):encoded_views[viewer]=var_to_bytes(_network_snapshot(viewer)).compress(FileAccess.COMPRESSION_DEFLATE)
 			_receive_state.rpc_id(int(peer),encoded_views[viewer])
+
+func _network_snapshot(viewer: int) -> Dictionary:
+	var snapshot=core.snapshot(viewer)
+	snapshot.battle_ready=server_ready
+	return snapshot
 
 func _emit_result(result: Dictionary) -> void:
 	if result_sent:return
@@ -1801,6 +1875,10 @@ func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 			var node=ACEntityCanvas.new();node.main=self;world_canvas.add_child(node);_entity_canvases[id]=node
 		var node: ACEntityCanvas=_entity_canvases[id]
 		node.entity=e
+		if e.has("owner"):
+			var owner=int(e.owner)
+			var palette_id=int(state.players[owner].get("color_id",owner%8))
+			node.material=player_palette.material(int(e.race),palette_id,e.has("progress"))
 		var point: Vector2=points.get(id,Vector2.INF)
 		if not point.is_finite():point=_ground_point(_center(e) if e.has("progress") else ACData.point(e.pos) if e.has("amount") else _visual_position(e))
 		var next_position=point-world_clip.position
@@ -1810,12 +1888,13 @@ func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 		if node.z_index!=layer:node.z_index=layer
 		if node.bounds.has_area():render_rects[id]=Rect2(node.bounds.position+point,node.bounds.size)
 		if node.body_bounds.has_area():_selection_bodies[id]=Rect2(node.body_bounds.position+point,node.body_bounds.size)
-		if now>=node.next_pose:
+		if now>=node.next_pose or not is_equal_approx(node.drawn_zoom,zoom):
 			# Authored attack clips keep all their poses. Movement transforms
 			# still interpolate at display rate without repainting every frame.
 			var fps=12.0
 			if not e.has("progress") and not e.has("amount"):
 				var action=str(e.get("action","idle"))
+				if action=="idle" and _uses_wingbeat(e):action="walk"
 				var attack_duration=assets.sprites.action_length(int(e.race),int(e.kind),"attack")
 				var attack_window=minf(attack_duration,maxf(.15,float(ACData.unit(int(e.race),int(e.kind)).period)*.9))
 				if (not e.get("moving",false) or _moving_fire_pose(e)) and float(state.time)-float(e.get("fired",-99))<attack_window and assets.sprites.has_action(int(e.race),int(e.kind),"attack"):
@@ -1833,6 +1912,18 @@ func _draw_world_overlay_canvas() -> void:
 
 func _draw_world_overlay() -> void:
 	var view=_world_render_rect()
+	for unit in state.get("units",[]):
+		if not unit.get("beam_active",false) or unit.hp<=0:continue
+		var target=_entity(int(unit.get("beam_target",-1)))
+		if target.is_empty() or target.hp<=0 or not _visible(unit) or not _visible(target):continue
+		var end=_ground_point(_center(target))-Vector2(0,12*zoom)
+		var start=_weapon_tip(unit,_visual_position(unit),_center(target))
+		var focus=1.0+minf(2,maxf(0,float(state.time)-float(unit.get("focus_started",state.time)))*.35)
+		var width=(1.3+focus*.4)*zoom
+		world_canvas.draw_line(start,end,Color(1,.16,.28,.18),width*3,true)
+		world_canvas.draw_line(start,end,Color(1,.34,.44,.9),width,true)
+		world_canvas.draw_line(start,end,Color(1,.91,.86,.9),width*.38,true)
+		world_canvas.draw_circle(end,(2+focus*.5)*zoom,Color(1,.28,.38,.75),true,-1,true)
 	for contact in state.get("shimmers",[]):_draw_cloak_shimmer(contact)
 	for id in selected:
 		var producer=_entity(int(id))
@@ -1878,7 +1969,7 @@ func _fog_value(index: int) -> int:
 	return 2 if fog[index] else (1 if seen[index] else 0)
 
 func _team_color(owner: int) -> Color:
-	return [Color("64a8ff"),Color("ff6c66"),Color("8de187"),Color("d2a1ff")][owner%4]
+	return ACPlayerColors.color(int(state.players[owner].get("color_id",owner%8))) if owner>=0 and owner<state.get("players",[]).size() else Color.WHITE
 
 func _draw_footprint(pos: Vector2,dimensions: Vector2,color: Color,fill: bool=false) -> void:
 	var points=PackedVector2Array([_ground_point(pos),_ground_point(pos+Vector2(dimensions.x,0)),_ground_point(pos+dimensions),_ground_point(pos+Vector2(0,dimensions.y))])
@@ -1968,7 +2059,7 @@ func _draw_building(e: Dictionary) -> void:
 	var facing=_iso(ACData.point(e.get("facing",[0,1]))).normalized()
 	var authored=assets.sprites.building(int(e.race),int(e.kind),float(e.progress),active and e.get("powered",true),facing,idle_clock,attack_clock)
 	var tex=assets.building_idle(int(e.race),int(e.kind),idle_clock) if float(e.progress)>=1.0 else assets.building(int(e.race),int(e.kind))
-	if int(e.id) in selected:_draw_footprint(pos-Vector2(.5,.5) if int(e.kind)==1 else pos,Vector2(d.w,d.h),Color("64e996"))
+	if int(e.id) in selected:_draw_footprint(pos-Vector2(.5,.5) if int(e.kind)==1 else pos,Vector2(d.w,d.h),_team_color(int(e.owner)))
 	var width=float(d.w)*32.0*zoom
 	var front=float(d.h)*16.0*zoom
 	_world_shadow(sp+Vector2(0,front*.12),Vector2(width*.94,width*.58),.13)
@@ -2005,7 +2096,8 @@ func _draw_building(e: Dictionary) -> void:
 		if float(e.progress)>=1 and e.get("powered",true):
 			building_status_lights.draw(world_canvas,damage_texture,damage_rect,int(e.race),idle_clock,active)
 		var capacity=building_damage_visual.health_capacity(float(d.hp),float(e.progress))
-		building_damage_visual.draw(world_canvas,int(e.race),float(e.hp),capacity,damage_texture,damage_rect,idle_clock,int(e.id))
+		if building_damage_visual.received_damage(e):
+			building_damage_visual.draw(world_canvas,int(e.race),float(e.hp),capacity,damage_texture,damage_rect,idle_clock,int(e.id))
 	if int(e.id) in selected:_draw_bars(sp+Vector2(0,front+6),e,d,mini(110,int(width*.65)))
 	if int(e.id) in selected and not e.queue.is_empty():
 		var q=e.queue[0]
@@ -2023,6 +2115,9 @@ func _moving_fire_pose(e: Dictionary) -> bool:
 	# Carrier drones already fire while circling. Their authored muzzle pulse
 	# must remain visible during that existing movement, without stopping them.
 	return int(e.race)==0 and int(e.kind)==15 and assets.sprites.units.get("0:15",{}).get("staged16",false)
+
+func _uses_wingbeat(e: Dictionary) -> bool:
+	return (int(e.race)==1 and int(e.kind)==10) or (int(e.race)==2 and int(e.kind)==9)
 
 func _uses_fixed_hull(e: Dictionary) -> bool:
 	var d=ACData.unit(int(e.race),int(e.kind))
@@ -2046,7 +2141,9 @@ func _draw_unit(e: Dictionary) -> void:
 		if action=="idle" and assets.sprites.has_unit(int(e.race),int(e.kind)):
 			animation_clock=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
 		else:animation_clock=float(motion.phase)/maxf(1,float(assets.sprites.action_info(int(e.race),int(e.kind),"walk").get("fps",9)))
-	if d.air and action in ["idle","walk","move"]:animation_clock=float(state.get("time",0))+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
+	if d.air and action in ["idle","walk","move"]:
+		animation_clock=float(state.get("time",0))+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
+		if action=="idle" and _uses_wingbeat(e):action="walk"
 	if (not e.get("moving",false) or _moving_fire_pose(e)) and assets.sprites.has_action(int(e.race),int(e.kind),"attack"):
 		var age=float(state.time)-float(e.get("fired",-99))+(minf(visual_clock,visual_step) if not paused else 0.0)
 		var duration=assets.sprites.action_length(int(e.race),int(e.kind),"attack")
@@ -2065,7 +2162,7 @@ func _draw_unit(e: Dictionary) -> void:
 	# A single faint round contact shadow stays directly below every unit.
 	_world_shadow(foot,Vector2(radius*1.6,radius*1.1),.13)
 	_world_transform(foot,0,Vector2(1,.46))
-	if int(e.id) in selected:world_canvas.draw_arc(Vector2.ZERO,radius+4,0,TAU,36,Color("6bea9a"),1.6,true)
+	if int(e.id) in selected:world_canvas.draw_arc(Vector2.ZERO,radius+4,0,TAU,36,_team_color(int(e.owner)),1.6,true)
 	_world_transform(Vector2.ZERO)
 	var sp=foot-Vector2(0,22*zoom if d.air else 0)
 	if d.air and not _uses_fixed_hull(e):
@@ -2154,16 +2251,19 @@ func _draw_unit_frame(frame: Dictionary,point: Vector2,extent: float,color: Colo
 	if frame.has("summon_stage"):
 		var stage=clampi(int(frame.summon_stage),0,4)
 		var seal=assets.sprites.owl_summon_seal()
+		seal=seal.duplicate();seal.palette=false
 		if not seal.is_empty():seal_bounds=_draw_unit_frame(seal,point,extent*.92,Color(color,float(color.a)*[.55,.48,.32,.18,.07][stage]))
 		color*= [Color(1,.18,.12,0),Color(1,.2,.15,.20),Color(1,.52,.46,.45),Color(1,.82,.78,.74),Color(1,1,1,.96)][stage]
 	var texture: Texture2D=frame.texture
+	if not _palette_entity.is_empty() and frame.get("palette",true):texture=player_palette.marked(texture)
 	var factor=extent/maxf(1,float(frame.get("scale_hint",maxf(texture.get_width(),texture.get_height()))))
 	var anchor: Vector2=frame.get("anchor",texture.get_size()*.5)
 	var flip=bool(frame.get("flip",false))
 	var rotation=float(frame.get("rotation",0))
 	var source_bounds: Rect2=frame.get("sprite_bounds",Rect2(Vector2.ZERO,texture.get_size()))
 	_world_transform(point,rotation,Vector2(-factor if flip else factor,factor))
-	if frame.has("gait"):_draw_vehicle_gait(frame,color)
+	if frame.has("gait"):
+		var marked_frame=frame.duplicate();marked_frame.texture=texture;_draw_vehicle_gait(marked_frame,color)
 	else:world_canvas.draw_texture(texture,-anchor,color)
 	_world_transform()
 	var transform=Transform2D(rotation,Vector2(-factor if flip else factor,factor),0,point)
@@ -2292,19 +2392,32 @@ func _draw_ore(sp: Vector2,res: Dictionary) -> void:
 
 func _draw_vent(sp: Vector2,res: Dictionary) -> void:
 	if world_resources.size()!=2:return
+	var presence=_catalyst_presence(res)
+	if presence<=0:return
 	var tex: Texture2D=_resource_texture(res)
 	var rect=_resource_screen_rect(res)
+	# Keep the original deposit until the refinery's final construction phase.
+	# Its last 12% blends gently into the completed installation.
+	var fusion=1.0-presence
+	var fusion_scale=lerpf(1.0,.90,fusion)
+	rect=Rect2(rect.get_center()-rect.size*fusion_scale*.5-Vector2(0,5*zoom*fusion),rect.size*fusion_scale)
 	var dimensions=_resource_dimensions(res)*32*zoom
-	_world_shadow(sp,dimensions*Vector2(.9,.7),.28)
+	_world_shadow(sp,dimensions*Vector2(.9,.7),.28*presence)
 	if int(res.id)==selected_resource:_draw_resource_selection(sp,res)
-	world_canvas.draw_texture_rect(tex,rect,false,Color(.85,.84,.80) if float(res.amount)>0 else Color(.42,.45,.47))
+	var tint=Color(.85,.84,.80,presence) if float(res.amount)>0 else Color(.42,.45,.47,presence)
+	world_canvas.draw_texture_rect(tex,rect,false,tint)
 	if float(res.amount)>0:
 		var plume=assets.tera_plume(float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)+float(res.id)*.137)
 		if not plume.is_empty():
 			var factor=dimensions.x*.22/float(plume.scale_hint)
 			_world_transform(rect.position+rect.size*Vector2(.52,.46),0,Vector2.ONE*factor)
-			world_canvas.draw_texture(plume.texture,-plume.anchor,Color(.7,.85,.9,.30))
+			world_canvas.draw_texture(plume.texture,-plume.anchor,Color(.7,.85,.9,.30*presence))
 			_world_transform()
+
+func _catalyst_presence(resource: Dictionary) -> float:
+	var refinery=_resource_refinery(resource)
+	if refinery.is_empty():return 1.0
+	return 1.0-smoothstep(.88,1.0,float(refinery.progress))
 
 func _draw_refinery_plume(building: Dictionary,rect: Rect2) -> void:
 	if not building.get("tera_active",false):return
@@ -2468,9 +2581,13 @@ func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2,shot_index: 
 	var pose=assets.unit(int(source.race),int(source.kind),heading,"idle" if _uses_fixed_hull(source) else "attack",0.0 if _uses_fixed_hull(source) else clock)
 	if not pose.is_empty() and pose.get("staged16",false) and not pose.get("muzzles",[]).is_empty():
 		var sockets: Array=pose.muzzles
-		return elevated+Vector2(sockets[posmod(maxi(0,shot_index),sockets.size())])*extent/maxf(1,float(pose.scale_hint))
+		var muzzle=Vector2(sockets[posmod(maxi(0,shot_index),sockets.size())])
+		if pose.get("flip",false):muzzle.x=-muzzle.x
+		return elevated+muzzle*extent/maxf(1,float(pose.scale_hint))
 	if not pose.is_empty() and pose.get("staged16",false) and pose.has("muzzle"):
-		return elevated+Vector2(pose.muzzle)*extent/maxf(1,float(pose.scale_hint))
+		var muzzle=Vector2(pose.muzzle)
+		if pose.get("flip",false):muzzle.x=-muzzle.x
+		return elevated+muzzle*extent/maxf(1,float(pose.scale_hint))
 	var fire=assets.fire_pose(int(source.race),int(source.kind),heading,clock)
 	if not fire.is_empty():return ground+fire.muzzle*extent/maxf(1,float(fire.scale_hint))
 	if pose.is_empty():return elevated

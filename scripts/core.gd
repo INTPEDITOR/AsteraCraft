@@ -22,6 +22,7 @@ var rubble: Array=[]
 var events: Array = []
 var explored: Array = []
 var visibility: Array = []
+var aerial_visibility: Array = []
 var resource_memory: Array = []
 var building_memory: Array = []
 var spawn_slots: Array=[]
@@ -148,22 +149,27 @@ static func start_slots(player_count: int, seed: int, requested=[]) -> Array:
 		result[other]=value
 	return result.slice(0,clampi(player_count,0,4))
 
-func setup(config: Dictionary) -> void:
+func setup(config: Dictionary,progress: Callable=Callable()) -> void:
+	if progress.is_valid():progress.call(.02,"전장 지형 준비 중")
 	if config.has("seed"):rng.seed=int(config.seed)
 	else:rng.randomize()
 	match_seed=int(rng.seed)
 	map.make(int(config.get("map", 0)))
+	if progress.is_valid():progress.call(.20,"시작 기지와 유닛 배치 중")
 	mode = str(config.get("mode", "ffa"))
 	spawn_slots=start_slots(config.players.size(),int(rng.seed),config.get("spawn_slots",[]))
+	var player_colors=ACPlayerColors.resolve(config.players)
 	for i in range(config.players.size()):
 		var spec = config.players[i]
 		var p = {"name":str(spec.get("name","연구원")),"race":int(spec.get("race",0)),"team":int(spec.get("team",i)),"bot":bool(spec.get("bot",false)),"difficulty":int(spec.get("difficulty",1)),"as":50.0,"tera":0.0,"used":0.0,"cap":0.0,"reserved":0.0,"attack":0,"armor":0,"shield":0,"lost":false,"kills":0,"spent":0,"gathered":0,"ai_goal":0}
 		players.append(p)
+		p.color_id=player_colors[i]
 		var fog := PackedByteArray()
 		fog.resize(ACMap.SIZE * ACMap.SIZE)
 		fog.fill(0)
 		explored.append(fog)
 		visibility.append(fog.duplicate())
+		aerial_visibility.append(fog.duplicate())
 		resource_memory.append({})
 		building_memory.append({})
 		var start_index=int(spawn_slots[i])
@@ -175,6 +181,7 @@ func setup(config: Dictionary) -> void:
 		for worker_pos in starting_worker_row(hq):
 			add_unit(i,0,worker_pos)
 		p.home = hq.id
+		if progress.is_valid():progress.call(.20+.15*float(i+1)/config.players.size(),"시작 기지와 유닛 배치 중")
 	map.reset_solids(buildings)
 	_sync_resource_obstacles()
 	for building in buildings:CITRUS_BROOD.producer(self,building)
@@ -185,9 +192,9 @@ func setup(config: Dictionary) -> void:
 			if worker.target>=0:worker.order="gather"
 	_recalculate_supply()
 	_update_vision()
-	_prime_navigation()
+	_prime_navigation(progress)
 
-func _prime_navigation() -> void:
+func _prime_navigation(progress: Callable=Callable()) -> void:
 	# Construct body-clearance grids during loading, instead of on the first
 	# click or first appearance of a larger vehicle in the middle of a fight.
 	var warmed={}
@@ -201,7 +208,9 @@ func _prime_navigation() -> void:
 			warmed[key]=true;paths_this_tick=0
 			var probe={"id":-1,"race":player.race,"kind":kind,"blocked_clock":0,"order":"idle","_body_size":size}
 			_clearance_path_impl(probe,origin,origin)
+			if progress.is_valid():progress.call(.38+.26*minf(1,float(warmed.size())/16.0),"이동 경로 준비 중")
 	paths_this_tick=0;path_time_this_tick=0;path_cache.clear()
+	if progress.is_valid():progress.call(.65,"이동 경로 준비 완료")
 
 func starting_worker_row(hq: Dictionary) -> Array:
 	var race=int(hq.race)
@@ -386,16 +395,24 @@ func combat_body_gap(attacker: Dictionary, target: Dictionary) -> float:
 
 func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 	var rect=footprint(target) if target.has("progress") else collision_rect(target)
+	var present_middle=rect.get_center()
+	var target_moving=not target.has("progress") and bool(target.get("moving",false))
+	if target_moving:
+		var velocity=ACData.point(target.get("_movement_velocity",[0,0]))
+		var own=ACData.unit(int(attacker.race),int(attacker.kind))
+		var distance=ACData.point(attacker.pos).distance_to(present_middle)
+		var lead=velocity*minf(.45,distance/maxf(.1,float(own.speed)))*clampf((distance-float(own.range))*.5,0,1)
+		if _ground_sweep(_body_size(target),ACData.point(target.pos),ACData.point(target.pos)+lead):rect.position+=lead
 	var half=_body_size(attacker)*.5+Vector2.ONE*.04
 	var border=rect.grow_individual(half.x,half.y,half.x,half.y)
 	var origin=ACData.point(attacker.pos)
 	var middle=border.get_center()
-	if int(attacker.get("_surround_target",-1))==int(target.id) and time<float(attacker.get("_surround_retry",0)):
+	if not target_moving and int(attacker.get("_surround_target",-1))==int(target.id) and time<float(attacker.get("_surround_retry",0)):
 		var retained=middle+ACData.point(attacker._surround_offset)
 		if _unit_fits(attacker,retained,false):return retained
 	# Keep a claimed angle while approaching. Re-select only after obstruction
 	# or substantial target displacement; do not chase a new edge every tick.
-	if int(attacker.get("_surround_target",-1))==int(target.id) and time<float(attacker.get("_surround_until",0)) and float(attacker.blocked_clock)<.65:
+	if not target_moving and int(attacker.get("_surround_target",-1))==int(target.id) and time<float(attacker.get("_surround_until",0)) and float(attacker.blocked_clock)<.65:
 		var retained=middle+ACData.point(attacker._surround_offset)
 		if _unit_fits(attacker,retained):return retained
 	var facing=(origin-middle).angle()
@@ -411,7 +428,7 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 		var claimed=false
 		for other in neighbours:
 			if other.id==attacker.id or other.hp<=0 or int(other.get("_surround_target",-1))!=int(target.id) or time>=float(other.get("_surround_until",0)):continue
-			var reserved=middle+ACData.point(other._surround_offset)
+			var reserved=present_middle+ACData.point(other._surround_offset)
 			if collision_rect(attacker,candidate).grow(.05).intersects(collision_rect(other,reserved)):claimed=true;break
 		if claimed:continue
 		var score=origin.distance_squared_to(candidate)
@@ -435,7 +452,7 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 	# rather than shoving into an occupied edge and retrying 24 slots each tick.
 	if best==INF:result=origin
 	attacker._surround_target=int(target.id)
-	attacker._surround_offset=ACData.packed(result-middle)
+	attacker._surround_offset=ACData.packed(result-present_middle)
 	attacker._surround_until=time+1.25
 	attacker._surround_retry=time+(.65 if best==INF else .3)
 	return result
@@ -686,7 +703,7 @@ func placement(owner: int, kind: int, pos: Vector2, require_worker: bool = true)
 			if rect.intersects(Rect2(ACData.point(building.pos),Vector2(bd.w,bd.h))):return "다른 건물과 겹칩니다"
 	for r in map.resources:
 		if r.type=="as" and r.amount>0 and physical_rect.intersects(resource_rect(r).grow(ACMap.HQ_MINERAL_GAP if kind==0 else 0.0)):
-			return "본진은 아스 광물 가장자리에서 3칸 이상 떨어져야 합니다" if kind==0 else "아스 광물과 겹칩니다"
+			return "본진은 아스 광물 가장자리에서 %d칸 이상 떨어져야 합니다"%int(ACMap.HQ_MINERAL_GAP) if kind==0 else "아스 광물과 겹칩니다"
 		if r.type=="tera" and int(r.id)!=matched_vent and physical_rect.intersects(resource_rect(r)):
 			return "테라 매장지입니다"
 	if race==1 and kind!=0:
@@ -857,7 +874,15 @@ func command(owner: int, cmd: Dictionary) -> String:
 			if result=="":accepted=true
 			else:error=result;break
 		return "" if accepted else error
-	if type=="cancel_morph":return CITRUS_BROOD.cancel(self,owner,entity(int(cmd.get("id",-1))))
+	if type=="cancel_morph":
+		var cancelled=false;var error="진행 중인 변태가 없습니다"
+		for id in ids if not ids.is_empty() else [cmd.get("id",-1)]:
+			var pod=entity(int(id))
+			if not CITRUS_BROOD.is_pod(pod) or int(pod.owner)!=owner or pod.get("brood_state","")!="morph":continue
+			var result=CITRUS_BROOD.cancel(self,owner,pod)
+			if result=="":cancelled=true
+			else:error=result
+		return "" if cancelled else error
 	if type=="surrender":
 		players[owner].lost=true
 		_check_end()
@@ -1296,8 +1321,13 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 	var grid_factor=4 if detailed else (2 if large else 1)
 	var route_key="%d,%d>%d,%d:%d,%d"%[roundi(from.x*grid_factor),roundi(from.y*grid_factor),roundi(to.x*grid_factor),roundi(to.y*grid_factor),ceili(dimensions.x*16) if body_path else 0,ceili(dimensions.y*16) if body_path else 0]
 	if not crowded and path_cache.has(route_key) and float(path_cache[route_key].until)>time:
-		perf.path_cache_hits+=1
-		return path_cache[route_key].path.duplicate(false)
+		var cached: Array=path_cache[route_key].path
+		# Nearby continuous positions share a grid key, but a cliff corner may
+		# separate their first swept segment. Never reuse an unsafe entrance.
+		if cached.is_empty() or _ground_sweep(dimensions,from,ACData.point(cached[0])):
+			perf.path_cache_hits+=1
+			return cached.duplicate(false)
+		path_cache.erase(route_key)
 	if paths_this_tick>=MAX_PATH_REQUESTS:
 		unit._path_deferred=true
 		return []
@@ -1332,7 +1362,7 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 		nav.default_estimate_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.update()
 		var clearance=Vector2(key)/16.0
-		var template=ACData.clearance_template(map.theme,key) if detailed else []
+		var template=ACData.clearance_template(map.theme,key,str(map.source_info.get("walk_masks_sha256",""))) if detailed else []
 		if template.is_empty():
 			for x in range(ACMap.SIZE*grid_factor):
 				for y in range(ACMap.SIZE*grid_factor):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)/grid_factor))
@@ -1380,9 +1410,29 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 		if first.x>=0 and last.x>=0:
 			perf.path_requests+=1
 			for point in navigator.get_id_path(first,last,true):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
-	if not path.is_empty() and (Vector2(first)*navigator.cell_size).distance_to(from)<.3:path.pop_front()
+	if not path.is_empty() and (Vector2(first)*navigator.cell_size).distance_to(from)<.3:
+		if path.size()==1 or _ground_sweep(dimensions,from,ACData.point(path[1])):path.pop_front()
+	if not path.is_empty():path=_smooth_ground_path(Vector2(Vector2i((dimensions*16).ceil()))/16.0 if body_path else dimensions,from,path)
 	if not crowded:path_cache[route_key]={"path":path.duplicate(false),"until":time+(2.0 if not path.is_empty() else .5)}
 	return path
+
+func _smooth_ground_path(dimensions: Vector2, origin: Vector2, path: Array) -> Array:
+	# Keep turns first, then remove only those visible to the entire body.
+	# This avoids dense quarter-tile stair steps without cutting cliff corners.
+	var corners: Array=[]
+	for index in range(path.size()):
+		if index==0 or index==path.size()-1:
+			corners.append(path[index]);continue
+		var before=ACData.point(path[index])-ACData.point(path[index-1])
+		var after=ACData.point(path[index+1])-ACData.point(path[index])
+		if absf(before.cross(after))>.000001 or before.dot(after)<=0:corners.append(path[index])
+	var result: Array=[];var cursor=0;var previous=origin
+	while cursor<corners.size():
+		var chosen=cursor
+		for candidate in range(mini(cursor+12,corners.size()-1),cursor,-1):
+			if _ground_sweep(dimensions,previous,ACData.point(corners[candidate])):chosen=candidate;break
+		result.append(corners[chosen]);previous=ACData.point(corners[chosen]);cursor=chosen+1
+	return result
 
 func _clearance_free(navigator: AStarGrid2D, near: Vector2,dimensions: Vector2=Vector2.ZERO,reachable_start: bool=false) -> Vector2i:
 	var origin=Vector2i((near/navigator.cell_size).round())
@@ -1914,6 +1964,7 @@ func _tick_unit(u: Dictionary, dt: float) -> void:
 	_tick_unit_behavior(u,dt)
 	if u._definition.air and not u._air_handled:FLIGHT.coast(self,u,dt)
 	var displacement=ACData.point(u.pos)-previous_pos
+	u._movement_velocity=ACData.packed(displacement/maxf(.001,dt))
 	if displacement.length_squared()>.000001:u.body_direction=ACData.packed(displacement.normalized())
 	if not u._aiming:u.turret_direction=u.body_direction.duplicate()
 	var action=str(u.action_intent)
@@ -1933,6 +1984,7 @@ func _tick_unit(u: Dictionary, dt: float) -> void:
 
 func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 	var d=u._definition if u.has("_definition") else ACData.unit(int(u.race),int(u.kind))
+	if d.role=="chaser":u.beam_active=false
 	if u.has("_construction_site"):
 		var site=entity(int(u._construction_site))
 		if site.is_empty() or site.hp<=0 or site.progress>=1 or not _builder_attached(u,site):_release_builder(u)
@@ -2056,9 +2108,14 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			if d.role=="flamer":
 				_tick_flame(u,target,dt)
 				return
-			_strike_unit(u,target,d)
+			if d.role=="chaser":_tick_chaser_beam(u,target,dt)
+			else:_strike_unit(u,target,d)
 			if d.role=="chaser" and u.order in ["move","attack_move"]:_move(u,ACData.point(u.goal),dt)
 		elif u.order!="hold":
+			if d.role=="chaser":u.focus_target=-1
+			if melee and time<float(u.get("_melee_attack_until",-1.0)):
+				u.facing=ACData.packed((center(target)-pos).normalized())
+				return
 			if d.role=="chaser" and u.order=="move":_move(u,ACData.point(u.goal),dt)
 			elif melee:
 				var contact=_melee_approach(u,target)
@@ -2082,6 +2139,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 
 func _strike_unit(u: Dictionary,target: Dictionary,d: Dictionary) -> void:
 	if u.cooldown<=0:
+		if float(d.range)<=1.5:u._melee_attack_until=time+clampf(float(d.period)*.2,.08,.18)
 		if d.role=="suicide":
 			_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage),-1,str(d.targets))
 			_effect("explosion",u,center(target),.65,{"projectile":"explosion"})
@@ -2336,6 +2394,16 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 	attacker._last_attack_time=time
 	var d=ACData.building(int(target.race),int(target.kind)) if target.has("progress") else ACData.unit(int(target.race),int(target.kind))
 	var left=amount
+	if damage_kind=="attack" and not friendly and amount>0:
+		var from=Vector2i(center(attacker));var to=Vector2i(center(target))
+		if map.inside(from) and map.inside(to) and map.height_map[from.y*ACMap.SIZE+from.x]>map.height_map[to.y*ACMap.SIZE+to.x]:
+			# Receiving fire briefly exposes the small area it came from.
+			if not attacker.has("_attack_reveals"):attacker._attack_reveals={}
+			for viewer in range(players.size()):
+				if allied(viewer,int(target.owner)):
+					var old: Dictionary=attacker._attack_reveals.get(viewer,{})
+					if float(old.get("until",-1))<=time or Vector2i(ACData.point(old.get("pos",[-1,-1])))!=from:vision_clock=0
+					attacker._attack_reveals[viewer]={"until":time+1.5,"pos":ACData.packed(center(attacker))}
 	if damage_kind=="attack":
 		if not attacker.has("progress"):
 			var ad=ACData.unit(int(attacker.race),int(attacker.kind))
@@ -2425,6 +2493,17 @@ func _flee_from_damage(unit: Dictionary, attacker: Dictionary) -> void:
 	# Completely blocked passive units stay put; repeated damage cannot flood
 	# the pathfinder or extend an impossible movement indefinitely.
 	unit._flee_ready_at=time+.75
+
+func _tick_chaser_beam(u: Dictionary,target: Dictionary,dt: float) -> void:
+	var d: Dictionary=u._definition
+	if int(u.get("focus_target",-1))!=int(target.id):u.focus_target=target.id;u.focus_started=time
+	var focus=1.0+minf(2,maxf(0,time-float(u.focus_started))*.35)
+	var rate=1.0/(1.4 if float(u.get("attack_slow_until",0))>time else 1.0)
+	if float(u.get("stim_until",0))>time:rate/=.75
+	if float(u.get("bloom_until",0))>time:rate*=1.25
+	var fraction=dt*rate/float(d.period)
+	_damage(u,target,(float(d.damage)*focus+players[u.owner].attack*2)*fraction,false,"attack",fraction,fraction)
+	u.beam_active=target.hp>0;u.beam_target=int(target.id);u.fired=time;u.action_intent="attack"
 
 func _tick_flame(u: Dictionary, target: Dictionary, dt: float) -> void:
 	# Integrate a continuous stream. Scale armor and bonuses by the same time
@@ -2615,6 +2694,7 @@ func _recalculate_supply() -> void:
 func _update_vision() -> void:
 	var sources: Array=[]
 	for owner in range(players.size()):sources.append({})
+	if not vision_spans.has(2):vision_spans[2]=[Vector2i(-2,0),Vector2i(-1,1),Vector2i(0,2),Vector2i(1,1),Vector2i(2,0)]
 	for list in [units,buildings]:
 		for e in list:
 			if e.hp<=0 or e.get("container",-1)>=0:
@@ -2624,6 +2704,12 @@ func _update_vision() -> void:
 			if not e.has("progress") and ACData.unit(int(e.race),int(e.kind)).role in ["detector","healer_detector"]:
 				radius=12
 			var p=Vector2i(center(e))
+			for viewer in e.get("_attack_reveals",{}):
+				var exposure: Dictionary=e._attack_reveals[viewer]
+				if int(viewer)>=0 and int(viewer)<players.size() and float(exposure.until)>time:
+					var location=Vector2i(ACData.point(exposure.pos))
+					sources[int(viewer)][Vector4i(location.x,location.y,2,-1)]=true
+			var height=-1 if not e.has("progress") and ACData.unit(int(e.race),int(e.kind)).air else int(map.height_map[clampi(p.y,0,127)*ACMap.SIZE+clampi(p.x,0,127)])
 			if not vision_spans.has(radius):
 				var spans: Array=[]
 				for dy in range(-radius,radius+1):spans.append(Vector2i(dy,int(floor(sqrt(float(radius*radius-dy*dy))))))
@@ -2631,7 +2717,7 @@ func _update_vision() -> void:
 			for owner in range(players.size()):
 				if not allied(owner,int(e.owner)):
 					continue
-				sources[owner][Vector3i(p.x,p.y,radius)]=true
+				sources[owner][Vector4i(p.x,p.y,radius,height)]=true
 	for reveal in reveals:
 		var radius=int(reveal.radius);var point=Vector2i(ACData.point(reveal.pos))
 		if not vision_spans.has(radius):
@@ -2639,7 +2725,7 @@ func _update_vision() -> void:
 			for dy in range(-radius,radius+1):spans.append(Vector2i(dy,int(floor(sqrt(float(radius*radius-dy*dy))))))
 			vision_spans[radius]=spans
 		for owner in range(players.size()):
-			if allied(owner,int(reveal.owner)):sources[owner][Vector3i(point.x,point.y,radius)]=true
+			if allied(owner,int(reveal.owner)):sources[owner][Vector4i(point.x,point.y,radius,-1)]=true
 	for owner in range(players.size()):
 		var signature=hash(sources[owner])
 		if vision_signatures.get(owner,-1)==signature:continue
@@ -2647,6 +2733,7 @@ func _update_vision() -> void:
 		var fog=PackedByteArray()
 		fog.resize(ACMap.SIZE*ACMap.SIZE)
 		fog.fill(0)
+		var air_fog=fog.duplicate()
 		var seen: PackedByteArray=explored[owner].duplicate()
 		for source in sources[owner]:
 			perf.vision_sources+=1
@@ -2655,13 +2742,16 @@ func _update_vision() -> void:
 				if y<0 or y>=ACMap.SIZE:continue
 				var start=y*ACMap.SIZE+maxi(0,source.x-span.y)
 				var finish=y*ACMap.SIZE+mini(ACMap.SIZE-1,source.x+span.y)
-				for index in range(start,finish+1):fog[index]=1;seen[index]=1
+				for index in range(start,finish+1):
+					air_fog[index]=1
+					if source.w<0 or int(map.height_map[index])<=source.w:fog[index]=1;seen[index]=1
 		# Moving a source inside already covered terrain need not invalidate
 		# the terrain cover, root chunks and minimap on the display thread.
 		if fog!=visibility[owner] or seen!=explored[owner]:
 			fog_revision+=1
 			vision_revisions[owner]=int(vision_revisions.get(owner,0))+1
 		visibility[owner]=fog
+		aerial_visibility[owner]=air_fog
 		explored[owner]=seen
 
 func is_cloaked(e: Dictionary) -> bool:
@@ -2674,8 +2764,11 @@ func can_see(owner: int, e: Dictionary) -> bool:
 	if allied(owner,int(e.owner)):
 		return true
 	var p=Vector2i(center(e))
-	if not map.inside(p) or visibility[owner][p.y*ACMap.SIZE+p.x]==0:
-		return false
+	if not map.inside(p):return false
+	var index=p.y*ACMap.SIZE+p.x
+	var seen=visibility[owner][index]>0
+	if not e.has("progress") and ACData.unit(int(e.race),int(e.kind)).air and owner<aerial_visibility.size():seen=seen or aerial_visibility[owner][index]>0
+	if not seen:return false
 	if not e.has("progress"):
 		if is_cloaked(e):
 			for reveal in reveals:

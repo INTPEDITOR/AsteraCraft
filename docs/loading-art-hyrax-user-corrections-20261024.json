@@ -1,0 +1,37 @@
+[
+  {
+    "id": "story-r0-06-v4",
+    "race": 0,
+    "number": 6,
+    "title": "손상된 폭격기의 귀환",
+    "refs": [
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u09.png",
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u10.png",
+      "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+    ],
+    "prompt": "Use case: photorealistic-natural. Recreate AsteraCraft loading artwork 06 as a believable live-action aerial escort, landscape16:9, no text/UI.\nExactly the TWO existing aircraft in images1 and2: a yellow/black narrow interceptor with its characteristic TWO LONG FORK NOSES and black cockpit; a wider compact blocky bomber with TWO bulky engine housings and recessed red panels. Keep their actual hull proportions and equipment, do not turn them into real-world jets or add wings, guns, rotors, turrets, wheel treads or new engines. The last image is only a benchmark for real-scale scratched yellow steel and natural photographic exposure, never copy that scene.\nStory: after surviving a storm, the slightly damaged bomber loses altitude and its interceptor escort banks close to guide it toward a safe break in the clouds. A faint trace of dark exhaust comes from one actual REAR engine of the bomber. Neither fires, no enemy or battle effect.\nCRITICAL CAMERA: one coherent long-lens air-to-air camera, nearly eye-level with both aircraft, positioned slightly BELOW and to their RIGHT. We see the interceptor's flank and LOWER surface, not its entire top as an isometric model. Bomber is just farther back on the SAME perspective/horizon. Both travel RIGHT to LEFT across frame with LEVEL noses. Interceptor a little higher and nearer, bomber behind and lower, with convincing larger physical mass. Show proper foreshortening of the fork noses and the bomber engine pods. Neither aircraft points down into the sea, floats on the water or appears pasted into a landscape.\nReal medium-distance aircraft photography: fine rivets, panels, restrained yellow reflections, worn dark metal, soft condensation slipping over hull edges, blue rear engine light kept modest. Overcast daylight with warm pale sunlight through broken cloud, broad ocean HORIZON in the distant LOWER third, no tiny diorama water, no glossy toy models or exaggerated cartoon blocks. Enough air and clouds surround both complete silhouettes. Their bank and guidance relationship clearly connects them, rather than two static sprites posed next to each other."
+  },
+  {
+    "id": "story-r0-08-v4",
+    "race": 0,
+    "number": 8,
+    "title": "열린 관문으로 빠져나오는 화염차",
+    "refs": [
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u13.png",
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\references\\r0_u00.png",
+      "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5c82b4f4-d5b5-47fa-82a9-6af68898c73b.png"
+    ],
+    "prompt": "Use case: photorealistic-natural. NEW AsteraCraft loading artwork08, live-action realistic landscape16:9, no text/UI.\nScene: a narrow wooden barricade in a rocky canyon has just burned through. The actual flame vehicle drives TOWARD CAMERA through the open gate, making the escape route safe for ONE actual hyrax mining rover following on the RIGHT behind it. Smoldering cut wooden posts and low embers at the sides show why this vehicle led the way. No active firing jets, no fighting, no enemy, no dense smoke obscuring the vehicle.\nThe authoritative flame vehicle image1 is LOW and compact: yellow/black TRACKED chassis, two short front cylindrical flame outlets SIDE BY SIDE AT THE SAME HEIGHT, two yellow side/rear fuel tanks, flat upper hatch. Do NOT stack the two nozzles vertically, do NOT make a tank turret, long cannon barrels, wheels or giant multi-level hull. Both short nozzles are mounted on the SAME flat front plate, separated LEFT and RIGHT, clearly countable and parallel. Camera almost directly in FRONT, slightly to the LEFT, at the height of the short nozzles. Both tracked supports contact the same road plane; no downward-tilted body or impossible suspension. Existing nozzles are dark and sooty with a faint amber residual glow only, nothing shooting toward camera.\nRover image2 retains its same small brown hyrax driver, FOUR wheels, yellow/black body and EXACTLY TWO conical front mining drills side by side; no third drill.\nUse last image only for full-scale metal/fur/rock photographic realism, not its tank design or composition. Natural soft canyon daylight with warm ember bounce, realistic steel weight, worn paint, dusty tracks and blackened wood. Clear frontal depth along the curving road, both silhouettes fully readable. Avoid toy plastic, thick neon flame symbols, comic proportions, elevated game camera, unrelated units and dramatic extra gadgets."
+  },
+  {
+    "id": "story-r0-10-v4",
+    "race": 0,
+    "number": 10,
+    "title": "모함으로 모여드는 요격드론",
+    "refs": [
+      "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\loading_art_review_20261024\\candidates\\story-r0-10-v3.png",
+      "C:\\Users\\Admin\\AppData\\Local\\Temp\\codex-clipboard-2746ed27-1f8b-4010-81d8-267b266b31ba.png"
+    ],
+    "prompt": "Use case: precise-object-edit. Make ONLY the small removal requested by the user.\nIMAGE1 is the full approved composition target. IMAGE2 is a crop pointing out the problem: a separate faint elongated DARK DUPLICATE AIRCRAFT / SHADOW SILHOUETTE hangs in the clouds just BELOW and behind the large yellow mothership, like a translucent second hull. It is an artifact, not part of this unit.\nRemove that detached dark ghost/shadow silhouette completely and reconstruct continuous natural grey-white cloud and mist in its place, matched to nearby illumination. No aircraft-shaped shadow, reflection, duplicate lower hull or stretched dark smear should remain floating beneath the carrier.\nPRESERVE the REAL large carrier's complete actual hull, cockpit/nose, real underside surfaces, panel edges, side engines, yellow/black design and EXACT position, angle and size. Do NOT erase its legitimate attached lower hull or change its design. Preserve BOTH small yellow/cyan attack drones and their existing exhaust exactly. Keep the clouds, lighting, weathered materials, story, framing and everything else unchanged. No extra units, weapons, doors, light beams, text, UI, redesigned ship or full-scene regeneration. Only remove the separate floating ghost artifact shown in the crop."
+  }
+]

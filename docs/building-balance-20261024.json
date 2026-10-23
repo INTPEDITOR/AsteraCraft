@@ -1,0 +1,653 @@
+{
+  "scope": "Role and cost durability adjustment across all39 buildings; only hp/shield changed. Prices, build times, attacks, footprint, shield regeneration and repair rules unchanged.",
+  "changes": [
+    {
+      "race": 0,
+      "kind": 3,
+      "name": "전투병영",
+      "before": {
+        "hp": 1000
+      },
+      "after": {
+        "hp": 900
+      }
+    },
+    {
+      "race": 0,
+      "kind": 4,
+      "name": "기갑공장",
+      "before": {
+        "hp": 1200
+      },
+      "after": {
+        "hp": 1100
+      }
+    },
+    {
+      "race": 0,
+      "kind": 5,
+      "name": "항공격납고",
+      "before": {
+        "hp": 1050
+      },
+      "after": {
+        "hp": 1100
+      }
+    },
+    {
+      "race": 0,
+      "kind": 6,
+      "name": "장갑연구소",
+      "before": {
+        "hp": 750
+      },
+      "after": {
+        "hp": 800
+      }
+    },
+    {
+      "race": 0,
+      "kind": 7,
+      "name": "야전의료소",
+      "before": {
+        "hp": 650
+      },
+      "after": {
+        "hp": 700
+      }
+    },
+    {
+      "race": 0,
+      "kind": 8,
+      "name": "전술정보국",
+      "before": {
+        "hp": 700
+      },
+      "after": {
+        "hp": 750
+      }
+    },
+    {
+      "race": 0,
+      "kind": 11,
+      "name": "자동방어초소",
+      "before": {
+        "hp": 650
+      },
+      "after": {
+        "hp": 600
+      }
+    },
+    {
+      "race": 1,
+      "kind": 2,
+      "name": "양분저장낭",
+      "before": {
+        "hp": 400
+      },
+      "after": {
+        "hp": 425
+      }
+    },
+    {
+      "race": 1,
+      "kind": 3,
+      "name": "추가배양낭",
+      "before": {
+        "hp": 550
+      },
+      "after": {
+        "hp": 650
+      }
+    },
+    {
+      "race": 1,
+      "kind": 7,
+      "name": "익막둥지",
+      "before": {
+        "hp": 650
+      },
+      "after": {
+        "hp": 750
+      }
+    },
+    {
+      "race": 1,
+      "kind": 8,
+      "name": "군체신경핵",
+      "before": {
+        "hp": 650
+      },
+      "after": {
+        "hp": 750
+      }
+    },
+    {
+      "race": 1,
+      "kind": 11,
+      "name": "포자화관",
+      "before": {
+        "hp": 450
+      },
+      "after": {
+        "hp": 500
+      }
+    },
+    {
+      "race": 2,
+      "kind": 0,
+      "name": "대의회전당",
+      "before": {
+        "hp": 950,
+        "shield": 650
+      },
+      "after": {
+        "hp": 900,
+        "shield": 600
+      }
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "name": "촉매추출성소",
+      "before": {
+        "hp": 400,
+        "shield": 300
+      },
+      "after": {
+        "hp": 375,
+        "shield": 275
+      }
+    },
+    {
+      "race": 2,
+      "kind": 2,
+      "name": "규율탑",
+      "before": {
+        "hp": 300,
+        "shield": 250
+      },
+      "after": {
+        "hp": 275,
+        "shield": 225
+      }
+    },
+    {
+      "race": 2,
+      "kind": 3,
+      "name": "서약전당",
+      "before": {
+        "hp": 600,
+        "shield": 450
+      },
+      "after": {
+        "hp": 550,
+        "shield": 400
+      }
+    },
+    {
+      "race": 2,
+      "kind": 4,
+      "name": "석익조형소",
+      "before": {
+        "shield": 500
+      },
+      "after": {
+        "shield": 450
+      }
+    },
+    {
+      "race": 2,
+      "kind": 5,
+      "name": "천공회랑",
+      "before": {
+        "hp": 600
+      },
+      "after": {
+        "hp": 650
+      }
+    },
+    {
+      "race": 2,
+      "kind": 8,
+      "name": "황혼기록원",
+      "before": {
+        "hp": 400
+      },
+      "after": {
+        "hp": 450
+      }
+    },
+    {
+      "race": 2,
+      "kind": 9,
+      "name": "대심판성소",
+      "before": {
+        "hp": 700,
+        "shield": 600
+      },
+      "after": {
+        "hp": 650,
+        "shield": 550
+      }
+    },
+    {
+      "race": 2,
+      "kind": 11,
+      "name": "서약수문탑",
+      "before": {
+        "hp": 450,
+        "shield": 350
+      },
+      "after": {
+        "hp": 425,
+        "shield": 325
+      }
+    },
+    {
+      "race": 2,
+      "kind": 12,
+      "name": "천안심판탑",
+      "before": {
+        "hp": 400,
+        "shield": 300
+      },
+      "after": {
+        "hp": 375,
+        "shield": 275
+      }
+    }
+  ],
+  "audit": [
+    {
+      "race": 0,
+      "kind": 0,
+      "name": "중앙사령부",
+      "hp": 1500,
+      "shield": 0,
+      "total_durability": 1500,
+      "as": 400,
+      "tera": 0
+    },
+    {
+      "race": 0,
+      "kind": 1,
+      "name": "촉매정제소",
+      "hp": 650,
+      "shield": 0,
+      "total_durability": 650,
+      "as": 100,
+      "tera": 0
+    },
+    {
+      "race": 0,
+      "kind": 2,
+      "name": "보급창고",
+      "hp": 550,
+      "shield": 0,
+      "total_durability": 550,
+      "as": 100,
+      "tera": 0
+    },
+    {
+      "race": 0,
+      "kind": 3,
+      "name": "전투병영",
+      "hp": 900,
+      "shield": 0,
+      "total_durability": 900,
+      "as": 150,
+      "tera": 0
+    },
+    {
+      "race": 0,
+      "kind": 4,
+      "name": "기갑공장",
+      "hp": 1100,
+      "shield": 0,
+      "total_durability": 1100,
+      "as": 200,
+      "tera": 100
+    },
+    {
+      "race": 0,
+      "kind": 5,
+      "name": "항공격납고",
+      "hp": 1100,
+      "shield": 0,
+      "total_durability": 1100,
+      "as": 200,
+      "tera": 150
+    },
+    {
+      "race": 0,
+      "kind": 6,
+      "name": "장갑연구소",
+      "hp": 800,
+      "shield": 0,
+      "total_durability": 800,
+      "as": 150,
+      "tera": 100
+    },
+    {
+      "race": 0,
+      "kind": 7,
+      "name": "야전의료소",
+      "hp": 700,
+      "shield": 0,
+      "total_durability": 700,
+      "as": 100,
+      "tera": 75
+    },
+    {
+      "race": 0,
+      "kind": 8,
+      "name": "전술정보국",
+      "hp": 750,
+      "shield": 0,
+      "total_durability": 750,
+      "as": 150,
+      "tera": 125
+    },
+    {
+      "race": 0,
+      "kind": 9,
+      "name": "탄도시험장",
+      "hp": 850,
+      "shield": 0,
+      "total_durability": 850,
+      "as": 150,
+      "tera": 125
+    },
+    {
+      "race": 0,
+      "kind": 10,
+      "name": "중병기설계국",
+      "hp": 950,
+      "shield": 0,
+      "total_durability": 950,
+      "as": 200,
+      "tera": 200
+    },
+    {
+      "race": 0,
+      "kind": 11,
+      "name": "자동방어초소",
+      "hp": 600,
+      "shield": 0,
+      "total_durability": 600,
+      "as": 100,
+      "tera": 0
+    },
+    {
+      "race": 0,
+      "kind": 12,
+      "name": "추적대공포탑",
+      "hp": 550,
+      "shield": 0,
+      "total_durability": 550,
+      "as": 100,
+      "tera": 50
+    },
+    {
+      "race": 1,
+      "kind": 0,
+      "name": "군체모수",
+      "hp": 1400,
+      "shield": 0,
+      "total_durability": 1400,
+      "as": 350,
+      "tera": 0
+    },
+    {
+      "race": 1,
+      "kind": 1,
+      "name": "촉매흡수낭",
+      "hp": 600,
+      "shield": 0,
+      "total_durability": 600,
+      "as": 75,
+      "tera": 0
+    },
+    {
+      "race": 1,
+      "kind": 2,
+      "name": "양분저장낭",
+      "hp": 425,
+      "shield": 0,
+      "total_durability": 425,
+      "as": 75,
+      "tera": 0
+    },
+    {
+      "race": 1,
+      "kind": 3,
+      "name": "추가배양낭",
+      "hp": 650,
+      "shield": 0,
+      "total_durability": 650,
+      "as": 150,
+      "tera": 0
+    },
+    {
+      "race": 1,
+      "kind": 4,
+      "name": "발톱분화소",
+      "hp": 650,
+      "shield": 0,
+      "total_durability": 650,
+      "as": 100,
+      "tera": 0
+    },
+    {
+      "race": 1,
+      "kind": 5,
+      "name": "과즙분비샘",
+      "hp": 700,
+      "shield": 0,
+      "total_durability": 700,
+      "as": 125,
+      "tera": 50
+    },
+    {
+      "race": 1,
+      "kind": 6,
+      "name": "후피진화소",
+      "hp": 900,
+      "shield": 0,
+      "total_durability": 900,
+      "as": 150,
+      "tera": 75
+    },
+    {
+      "race": 1,
+      "kind": 7,
+      "name": "익막둥지",
+      "hp": 750,
+      "shield": 0,
+      "total_durability": 750,
+      "as": 150,
+      "tera": 100
+    },
+    {
+      "race": 1,
+      "kind": 8,
+      "name": "군체신경핵",
+      "hp": 750,
+      "shield": 0,
+      "total_durability": 750,
+      "as": 125,
+      "tera": 125
+    },
+    {
+      "race": 1,
+      "kind": 9,
+      "name": "원시과수핵",
+      "hp": 1000,
+      "shield": 0,
+      "total_durability": 1000,
+      "as": 200,
+      "tera": 200
+    },
+    {
+      "race": 1,
+      "kind": 10,
+      "name": "가시뿌리",
+      "hp": 500,
+      "shield": 0,
+      "total_durability": 500,
+      "as": 75,
+      "tera": 0
+    },
+    {
+      "race": 1,
+      "kind": 11,
+      "name": "포자화관",
+      "hp": 500,
+      "shield": 0,
+      "total_durability": 500,
+      "as": 75,
+      "tera": 25
+    },
+    {
+      "race": 1,
+      "kind": 12,
+      "name": "뿌리중계체",
+      "hp": 300,
+      "shield": 0,
+      "total_durability": 300,
+      "as": 50,
+      "tera": 0
+    },
+    {
+      "race": 2,
+      "kind": 0,
+      "name": "대의회전당",
+      "hp": 900,
+      "shield": 600,
+      "total_durability": 1500,
+      "as": 400,
+      "tera": 0
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "name": "촉매추출성소",
+      "hp": 375,
+      "shield": 275,
+      "total_durability": 650,
+      "as": 100,
+      "tera": 0
+    },
+    {
+      "race": 2,
+      "kind": 2,
+      "name": "규율탑",
+      "hp": 275,
+      "shield": 225,
+      "total_durability": 500,
+      "as": 100,
+      "tera": 0
+    },
+    {
+      "race": 2,
+      "kind": 3,
+      "name": "서약전당",
+      "hp": 550,
+      "shield": 400,
+      "total_durability": 950,
+      "as": 175,
+      "tera": 0
+    },
+    {
+      "race": 2,
+      "kind": 4,
+      "name": "석익조형소",
+      "hp": 650,
+      "shield": 450,
+      "total_durability": 1100,
+      "as": 225,
+      "tera": 100
+    },
+    {
+      "race": 2,
+      "kind": 5,
+      "name": "천공회랑",
+      "hp": 650,
+      "shield": 450,
+      "total_durability": 1100,
+      "as": 225,
+      "tera": 150
+    },
+    {
+      "race": 2,
+      "kind": 6,
+      "name": "율법제련소",
+      "hp": 450,
+      "shield": 350,
+      "total_durability": 800,
+      "as": 150,
+      "tera": 75
+    },
+    {
+      "race": 2,
+      "kind": 7,
+      "name": "천문관측소",
+      "hp": 450,
+      "shield": 350,
+      "total_durability": 800,
+      "as": 150,
+      "tera": 150
+    },
+    {
+      "race": 2,
+      "kind": 8,
+      "name": "황혼기록원",
+      "hp": 450,
+      "shield": 350,
+      "total_durability": 800,
+      "as": 150,
+      "tera": 150
+    },
+    {
+      "race": 2,
+      "kind": 9,
+      "name": "대심판성소",
+      "hp": 650,
+      "shield": 550,
+      "total_durability": 1200,
+      "as": 250,
+      "tera": 250
+    },
+    {
+      "race": 2,
+      "kind": 10,
+      "name": "복원성당",
+      "hp": 500,
+      "shield": 400,
+      "total_durability": 900,
+      "as": 125,
+      "tera": 100
+    },
+    {
+      "race": 2,
+      "kind": 11,
+      "name": "서약수문탑",
+      "hp": 425,
+      "shield": 325,
+      "total_durability": 750,
+      "as": 150,
+      "tera": 0
+    },
+    {
+      "race": 2,
+      "kind": 12,
+      "name": "천안심판탑",
+      "hp": 375,
+      "shield": 275,
+      "total_durability": 650,
+      "as": 125,
+      "tera": 75
+    }
+  ]
+}

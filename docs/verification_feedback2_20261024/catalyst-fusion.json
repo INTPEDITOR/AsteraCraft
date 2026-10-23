@@ -1,0 +1,77 @@
+{
+  "failures": [],
+  "frames": [
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r0-p012.png",
+      "presence": 1.0,
+      "progress": 0.12,
+      "race": 0
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r0-p060.png",
+      "presence": 1.0,
+      "progress": 0.6,
+      "race": 0
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r0-p094.png",
+      "presence": 0.500000000000001,
+      "progress": 0.94,
+      "race": 0
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r0-p100.png",
+      "presence": 0.0,
+      "progress": 1.0,
+      "race": 0
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r1-p012.png",
+      "presence": 1.0,
+      "progress": 0.12,
+      "race": 1
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r1-p060.png",
+      "presence": 1.0,
+      "progress": 0.6,
+      "race": 1
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r1-p094.png",
+      "presence": 0.500000000000001,
+      "progress": 0.94,
+      "race": 1
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r1-p100.png",
+      "presence": 0.0,
+      "progress": 1.0,
+      "race": 1
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r2-p012.png",
+      "presence": 1.0,
+      "progress": 0.12,
+      "race": 2
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r2-p060.png",
+      "presence": 1.0,
+      "progress": 0.6,
+      "race": 2
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r2-p094.png",
+      "presence": 0.500000000000001,
+      "progress": 0.94,
+      "race": 2
+    },
+    {
+      "image": "res://build/player_colors_20261024/catalyst-r2-p100.png",
+      "presence": 0.0,
+      "progress": 1.0,
+      "race": 2
+    }
+  ]
+}

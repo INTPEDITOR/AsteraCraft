@@ -1,0 +1,110 @@
+{
+  "user_approved_faction": {
+    "race": 1,
+    "name": "귤 변이 군체",
+    "count": 10
+  },
+  "user_approval_quote": "귤 10장 적용 OK",
+  "approval_question": "새로 보여드린 숲 가장자리의 대공 경계로 8번을 교체했습니다. 이 장면을 포함한 귤 원화 10장을 로딩 배경에 적용해도 될까요?",
+  "approved_ids": [
+    "story-r0-01-v3",
+    "story-r0-02-v3",
+    "story-r0-03-v3",
+    "story-r0-04-v3",
+    "story-r0-05-v4",
+    "story-r0-06-v4",
+    "story-r0-07-v3",
+    "story-r0-08-v4",
+    "story-r0-09-v5",
+    "story-r0-10-v5",
+    "story-r1-01-v3",
+    "story-r1-02-v3",
+    "story-r1-03-v3",
+    "story-r1-04-v3",
+    "story-r1-05-v3",
+    "story-r1-06-v3",
+    "story-r1-07-v3",
+    "story-r1-08-v6",
+    "story-r1-09-v3",
+    "story-r1-10-v3",
+    "story-r2-01-v3",
+    "story-r2-02-v3",
+    "story-r2-03-v3",
+    "story-r2-04-v5",
+    "story-r2-05-v3",
+    "story-r2-06-v3",
+    "story-r2-07-v3",
+    "story-r2-08-v3",
+    "story-r2-09-v3",
+    "story-r2-10-v3"
+  ],
+  "hyrax_race0": {
+    "approved": true,
+    "user_approval_quote": "바위너구리 10장 적용 OK",
+    "approved_scope": "Ten revised candidates including scene06v4, scene08v4 and masked-cleaned scene10v5.",
+    "earlier_reply": "바위너구리 후보 10장이 뭔지 모르겠음"
+  },
+  "owl_race2": {
+    "approved": true,
+    "user_approval_quote": "부엉이 10장 적용 OK",
+    "approved_scope": "Ten Owl images, including scene04v5 with the corrected upright central pylon.",
+    "earlier_feedback": "4번 대심판선 중앙에 구조물이 없어짐. / 뭔가 이상해졌어"
+  },
+  "integration_scope": "All thirty named images, ten for each faction, have explicit user integration approval. Rejected earlier variants are excluded.",
+  "approved_factions": [
+    {
+      "race": 1,
+      "name": "귤 변이 군체",
+      "count": 10,
+      "user_quote": "귤 10장 적용 OK",
+      "ids": [
+        "story-r1-01-v3",
+        "story-r1-02-v3",
+        "story-r1-03-v3",
+        "story-r1-04-v3",
+        "story-r1-05-v3",
+        "story-r1-06-v3",
+        "story-r1-07-v3",
+        "story-r1-08-v6",
+        "story-r1-09-v3",
+        "story-r1-10-v3"
+      ]
+    },
+    {
+      "race": 0,
+      "name": "바위너구리 연합",
+      "count": 10,
+      "user_quote": "바위너구리 10장 적용 OK",
+      "ids": [
+        "story-r0-01-v3",
+        "story-r0-02-v3",
+        "story-r0-03-v3",
+        "story-r0-04-v3",
+        "story-r0-05-v4",
+        "story-r0-06-v4",
+        "story-r0-07-v3",
+        "story-r0-08-v4",
+        "story-r0-09-v5",
+        "story-r0-10-v5"
+      ]
+    },
+    {
+      "race": 2,
+      "name": "고대 부엉이 문명",
+      "count": 10,
+      "user_quote": "부엉이 10장 적용 OK",
+      "ids": [
+        "story-r2-01-v3",
+        "story-r2-02-v3",
+        "story-r2-03-v3",
+        "story-r2-04-v5",
+        "story-r2-05-v3",
+        "story-r2-06-v3",
+        "story-r2-07-v3",
+        "story-r2-08-v3",
+        "story-r2-09-v3",
+        "story-r2-10-v3"
+      ]
+    }
+  ]
+}

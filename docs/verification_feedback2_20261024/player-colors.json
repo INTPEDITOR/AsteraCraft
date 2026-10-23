@@ -1,0 +1,15 @@
+{
+  "checks": 6,
+  "colors": [
+    "파랑",
+    "빨강",
+    "초록",
+    "보라",
+    "노랑",
+    "주황",
+    "청록",
+    "분홍"
+  ],
+  "failures": [],
+  "native_sprites_and_portraits_preserved": true
+}

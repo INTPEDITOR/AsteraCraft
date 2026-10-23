@@ -1,6 +1,10 @@
 const cp=require('node:child_process'),fs=require('node:fs'),path=require('node:path');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'build/feedback_fixed_20261024'),log=path.join(out,'exe-startup.log');
-const started=Date.now(),p=cp.spawn(path.join(out,'AsteraCraft.exe'),['--headless','--smoke-game','--quit-after','120','--log-file',log],{cwd:out,windowsHide:true,stdio:'inherit',env:{...process.env,APPDATA:path.join(root,'build/test-user-data')}});
+const root=path.resolve(__dirname,'..'),folder=process.argv[2]||'feedback_fixed_20261024';
+if(!/^[a-z0-9_-]{1,80}$/.test(folder))throw Error('Invalid build folder name');
+const out=path.join(root,'build',folder),log=path.join(out,'exe-startup.log');
+const catalog=path.join(root,'data/loading_art_20261024.json');
+const expectedArt=fs.existsSync(catalog)?JSON.parse(fs.readFileSync(catalog,'utf8')).images.filter(item=>item.approved).length:0;
+const started=Date.now(),p=cp.spawn(path.join(out,'AsteraCraft.exe'),['--headless','--quit-after','120','--log-file',log,'--','--smoke-game'],{cwd:out,windowsHide:true,stdio:'inherit',env:{...process.env,APPDATA:path.join(root,'build/test-user-data')}});
 const timer=setTimeout(()=>{p.kill();console.error('Exported startup timed out');process.exitCode=1;},120000);
 p.on('error',e=>{clearTimeout(timer);console.error(e.message);process.exitCode=1;});
-p.on('exit',code=>{clearTimeout(timer);const text=fs.existsSync(log)?fs.readFileSync(log,'utf8'):'';const passed=code===0&&text.includes('Godot Engine')&&!/SCRIPT ERROR|Parse Error|ERROR:/.test(text);fs.writeFileSync(path.join(out,'exe-smoke.json'),JSON.stringify({passed,exit_code:code,elapsed_ms:Date.now()-started,scope:'Exported Windows game opens packaged resources and starts a local computer match; no network match validation'},null,2));console.log('EXPORTED_GAME_SMOKE '+JSON.stringify({passed,exit_code:code}));if(!passed)process.exitCode=1;});
+p.on('exit',code=>{clearTimeout(timer);const text=fs.existsSync(log)?fs.readFileSync(log,'utf8'):'';const passed=code===0&&text.includes('SMOKE_GAME_READY')&&(!expectedArt||text.includes('SMOKE_LOADING_ART_READY images='+expectedArt))&&!/SCRIPT ERROR|Parse Error|ERROR:/.test(text);fs.writeFileSync(path.join(out,'exe-smoke.json'),JSON.stringify({passed,exit_code:code,elapsed_ms:Date.now()-started,loading_art_textures:expectedArt,scope:'Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation'},null,2));console.log('EXPORTED_GAME_SMOKE '+JSON.stringify({passed,exit_code:code,loading_art_textures:expectedArt}));if(!passed)process.exitCode=1;});

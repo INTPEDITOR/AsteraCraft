@@ -235,7 +235,16 @@ func _boundary_mask_mesh(map: ACMap) -> ArrayMesh:
 		_append_quad(builder,PackedVector2Array([inner_a,inner_b,outer_b,outer_a]),PackedVector2Array([Vector2.ZERO,Vector2.ZERO,Vector2.ZERO,Vector2.ZERO]),PackedFloat32Array([1,1,1,1]))
 	return _mesh(builder)
 
-func _build_cache(map: ACMap, signature: int) -> Dictionary:
+func prepare(map: ACMap,progress: Callable=Callable()) -> void:
+	var key=map.get_instance_id()
+	if not _cache.has(key) or _cache[key].signature!=map.render_signature:
+		if not _cache.has(key) and _cache.size()>=3:_cache.erase(_cache.keys()[0])
+		_cache[key]=_build_cache(map,map.render_signature,progress)
+	# Also prepare the southern boundary before the first playable frame.
+	_cache[key].boundary_mask=_boundary_mask_mesh(map)
+	if progress.is_valid():progress.call(1.0,"전장 화면 준비 완료")
+
+func _build_cache(map: ACMap, signature: int,progress: Callable=Callable()) -> Dictionary:
 	cache_builds+=1
 	var started = Time.get_ticks_usec()
 	var classes := PackedByteArray()
@@ -274,6 +283,7 @@ func _build_cache(map: ACMap, signature: int) -> Dictionary:
 					rise += weight*_rise(map,source%128,source/128)
 			points[index] = Vector2(p.x*32.0,clampf(p.y*32.0-rise,0,WORLD_PIXELS))
 	_apply_surface_regions(map,fields)
+	if progress.is_valid():progress.call(.16,"지형 표면 준비 중")
 	var layers: Array = []
 	var vertices = 0
 	var default_slot = 1 if map.theme==0 else (13 if map.theme==1 else 3)
@@ -294,6 +304,7 @@ func _build_cache(map: ACMap, signature: int) -> Dictionary:
 	if world_materials.size()==9:slots[5]=225+map.theme*3
 	for layer in range(7):
 		if diamond and layer in [1,2,3,6]:continue
+		if progress.is_valid():progress.call(.16+float(layer)*.065,"지형 표면 준비 중")
 		var builder = _builder()
 		for gy in range(GRID):
 			for gx in range(GRID):
@@ -337,6 +348,7 @@ func _build_cache(map: ACMap, signature: int) -> Dictionary:
 	if diamond:
 		var tiles=_diamond_layers(map,fields,levels)
 		layers.append_array(tiles.layers);vertices+=int(tiles.vertices)
+	if progress.is_valid():progress.call(.72,"절벽과 경사로 준비 중")
 	if rich and not diamond:
 		for material in [1,2,3,6,7,9,10,14,15]:
 			var noise=FastNoiseLite.new();noise.seed=7319+map.theme*127+material*83
@@ -384,6 +396,13 @@ func _build_cache(map: ACMap, signature: int) -> Dictionary:
 		vertices += builder.vertices.size()
 	var ramps_mesh=_ramp_mesh(map,points,levels)
 	if ramps_mesh!=null:layers.append({"mesh":ramps_mesh,"slot":192+map.theme*4 if quiet_materials.size()==12 else floor_slot,"role":"ramp","tint":Color(.93,.92,.89,1)})
+	# Imported minitiles also contain low rocks and irregular cliff feet. The
+	# smoothed height contours alone left these original obstacles looking flat.
+	var blockers=_source_blocker_geometry(map)
+	if progress.is_valid():progress.call(.84,"장애물과 물가 준비 중")
+	if blockers.mesh!=null:
+		layers.append({"mesh":blockers.mesh,"slot":192+map.theme*4+1 if quiet_materials.size()==12 else cliff_material_slot(map.theme),"role":"source_blockers","tint":Color(.66,.64,.60,1)})
+		vertices+=blockers.vertices
 	var cliffs = _cliff_mesh(map,points,fields[4]) if world_materials.size()!=9 else null
 	var cliff_slot=32+map.theme if _texture(32+map.theme)!=null else 9
 	if rich:cliff_slot=planet_base+8
@@ -397,7 +416,35 @@ func _build_cache(map: ACMap, signature: int) -> Dictionary:
 		# separate from seamless material transitions within a single level.
 		layers.append_array(_contour_banks(map,fields[5],.5,PackedFloat32Array(),false,"coast"))
 		for level in [.5,1.5]:layers.append_array(_contour_banks(map,levels,level,fields[4],true,"height_bank",fields[5]))
-	return {"signature":signature,"layers":layers,"vertices":vertices,"props":_scenery(map),"build_ms":float(Time.get_ticks_usec()-started)/1000.0,"fog_texture":null,"fog_hash":0,"fog_updated":-1000}
+	if progress.is_valid():progress.call(.94,"전장 장식 준비 중")
+	return {"signature":signature,"layers":layers,"vertices":vertices,"source_blocked_cells":blockers.cells,"props":_scenery(map),"build_ms":float(Time.get_ticks_usec()-started)/1000.0,"fog_texture":null,"fog_hash":0,"fog_updated":-1000}
+
+func cliff_material_slot(theme: int) -> int:
+	return 32+theme if _texture(32+theme)!=null else 9
+
+func _source_blocker_geometry(map: ACMap) -> Dictionary:
+	var builder=_builder();var cells=0
+	if map.source_walk_masks.size()!=128*128:return {"mesh":null,"cells":0,"vertices":0}
+	for y in range(512):
+		var x=0
+		while x<512:
+			if not _source_land_blocked(map,x,y):x+=1;continue
+			var start=x
+			# Short runs preserve the same subdivided terrain elevation plane.
+			while x<512 and x<start+2 and _source_land_blocked(map,x,y):x+=1;cells+=1
+			var low=(Vector2(start,y)*.25-Vector2.ONE*.5).max(Vector2.ZERO)
+			var high=(Vector2(x,y+1)*.25-Vector2.ONE*.5).min(Vector2.ONE*128)
+			if high.x<=low.x or high.y<=low.y:continue
+			var quad=PackedVector2Array();var uv=PackedVector2Array()
+			for p in [low,Vector2(high.x,low.y),high,Vector2(low.x,high.y)]:
+				quad.append(Vector2(p.x*32,p.y*32-map.visual_elevation(p)-3.0))
+				uv.append(p*32/128.0)
+			_append_quad(builder,quad,uv,PackedFloat32Array([1,1,1,1]))
+	return {"mesh":_mesh(builder) if not builder.vertices.is_empty() else null,"cells":cells,"vertices":builder.vertices.size()}
+
+func _source_land_blocked(map: ACMap,x: int,y: int) -> bool:
+	var index=(y/4)*128+x/4
+	return not map.is_water(index) and (map.source_walk_masks[index]&(1<<((y%4)*4+x%4)))==0
 
 func _apply_surface_regions(map: ACMap, fields: Array) -> void:
 	# Four coherent districts. Their shared world-space weights are constant
@@ -939,6 +986,17 @@ func _scenery(map: ACMap) -> Array:
 				var width=([35,63,84,62,27,38,28,50,76,54,58,34,40,65,86,64,44,84,34,44,26,40,50,72,52,78,62,70,32,25][kind])*rng.randf_range(.8,1.15)
 				result.append({"pos":p,"slot":slot,"kind":kind,"width":width,"structure":structure})
 	result=_diversify_scenery(map,result)
+	# These are authored solid rocks, not optional decorative scatter. They
+	# must remain visible even near bases and ramps, at their actual footprint.
+	if map.source_walk_masks.size()==128*128:
+		for y in range(1,127):
+			for x in range(1,127):
+				var index=y*128+x
+				if map.visual_role(index)!=3 or map.source_walk_masks[index]!=0 or (x+y)%2!=0:continue
+				var kind=1 if (x*7+y*13)%3!=0 else 13
+				var slot=map.theme*4+1 if kind==1 else 13+map.theme*8
+				if slot>=scenery_textures.size():continue
+				result.append({"pos":Vector2(x,y),"slot":slot,"kind":kind,"width":33.0,"structure":true,"source_obstacle":true})
 	result.sort_custom(func(a,b):return a.pos.y<b.pos.y)
 	return result
 

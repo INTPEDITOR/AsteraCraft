@@ -1,0 +1,366 @@
+{
+  "images": [
+    {
+      "id": "story-r0-01-v3",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-01-v3.png",
+      "approved": true,
+      "sha256": "8094d31baf155203496210876120924b5b9929fe1ad226156071fe0094c35860",
+      "title": "경계 속에서 이어지는 채굴",
+      "units": [
+        "0:0",
+        "0:7"
+      ]
+    },
+    {
+      "id": "story-r0-02-v3",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-02-v3.png",
+      "approved": true,
+      "sha256": "fb8b488ccb5b6e03642bb8d5f8c3fda748e4398f72c3f62a099692ffbf3dc8a6",
+      "title": "협곡을 건너는 엄호 사격",
+      "units": [
+        "0:1"
+      ]
+    },
+    {
+      "id": "story-r0-03-v3",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-03-v3.png",
+      "approved": true,
+      "sha256": "07cc8d3fe90c99d0c2cbe3506472002a6d20869931f851858cacd67900c525eb",
+      "title": "길을 여는 전차와 돌격병",
+      "units": [
+        "0:5",
+        "0:2"
+      ]
+    },
+    {
+      "id": "story-r0-04-v3",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-04-v3.png",
+      "approved": true,
+      "sha256": "16651bb886becc37bbb976d8fe1a39c5b1de47e806addaceae3a73a2a483ff83",
+      "title": "방패 뒤의 응급 처치",
+      "units": [
+        "0:4",
+        "0:3",
+        "0:1"
+      ]
+    },
+    {
+      "id": "story-r0-05-v4",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-05-v4.png",
+      "approved": true,
+      "sha256": "43258783a1eb22c4db387c975a42b7a275a97b0f452af3a6d0ea80e9a8df1997",
+      "title": "후퇴로를 지키는 이동요새",
+      "units": [
+        "0:12"
+      ]
+    },
+    {
+      "id": "story-r0-06-v4",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-06-v4.png",
+      "approved": true,
+      "sha256": "2032d52f4d50caef9b4a107f4cc469771b03ed0c9b679e375e0639b70e2997c0",
+      "title": "손상된 폭격기의 귀환",
+      "units": [
+        "0:9",
+        "0:10"
+      ]
+    },
+    {
+      "id": "story-r0-07-v3",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-07-v3.png",
+      "approved": true,
+      "sha256": "43c916e25b5db9f75d24bab61b61b7922d92b54446715a02f40835db0ea1a183",
+      "title": "무너지는 착륙장의 철수",
+      "units": [
+        "0:11",
+        "0:4"
+      ]
+    },
+    {
+      "id": "story-r0-08-v4",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-08-v4.png",
+      "approved": true,
+      "sha256": "28d577279e72df21caf8768d43990de253505ff5517563380a5f054c8ee72a75",
+      "title": "열린 관문으로 빠져나오는 화염차",
+      "units": [
+        "0:13",
+        "0:0"
+      ]
+    },
+    {
+      "id": "story-r0-09-v5",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-09-v5.png",
+      "approved": true,
+      "sha256": "9668cab98b4cc56df9b86096e0f13b2c6c20047341e7a8f84441f79973d0c876",
+      "title": "정찰드론이 찾아낸 해안길",
+      "units": [
+        "0:6",
+        "0:8"
+      ]
+    },
+    {
+      "id": "story-r0-10-v5",
+      "race": 0,
+      "file": "res://assets/loading_art_20261024/race0/story-r0-10-v5.png",
+      "approved": true,
+      "sha256": "8f05ae26f27184799200d60fbf42e8a561e32038d19330010092a424faa18e86",
+      "title": "모함으로 모여드는 요격드론",
+      "units": [
+        "0:14",
+        "0:15"
+      ]
+    },
+    {
+      "id": "story-r1-01-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-01-v3.png",
+      "approved": true,
+      "sha256": "1335ef9f7d0b7cff80ab269943a85af52fc32ccd46cd832c97d6c1cbb0341342",
+      "title": "피난로를 떠받치는 거목",
+      "units": [
+        "1:12",
+        "1:0"
+      ]
+    },
+    {
+      "id": "story-r1-02-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-02-v3.png",
+      "approved": true,
+      "sha256": "aeb1d8a566878ee9f7c93eb2057820907c7e5219ef3f1d623b9ecbec9c6a5d5b",
+      "title": "수로의 매복",
+      "units": [
+        "1:1"
+      ]
+    },
+    {
+      "id": "story-r1-03-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-03-v3.png",
+      "approved": true,
+      "sha256": "16cb29184dd2237045f140e9e43f9246f1101ceb989be3b2bca0fc267b01a1ea",
+      "title": "광맥을 지키는 분사체",
+      "units": [
+        "1:2",
+        "1:0"
+      ]
+    },
+    {
+      "id": "story-r1-04-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-04-v3.png",
+      "approved": true,
+      "sha256": "eacf9b2f42377ce4c590877cf1507dc1bca7fe6d22a072ea1d2da1d08ac33fbd",
+      "title": "붕괴된 길의 구조",
+      "units": [
+        "1:3",
+        "1:0"
+      ]
+    },
+    {
+      "id": "story-r1-05-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-05-v3.png",
+      "approved": true,
+      "sha256": "84767afe185dd3ad982e0819733ad87d2cd8015a1a7cf55b0878e680e9aa1fbe",
+      "title": "교량을 지키는 마지막 돌격",
+      "units": [
+        "1:4",
+        "1:1"
+      ]
+    },
+    {
+      "id": "story-r1-06-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-06-v3.png",
+      "approved": true,
+      "sha256": "945b0dde94aa40d8bd21b1f9cac51dd6c09fb8d6ab1f0147a2eced25e2c0977a",
+      "title": "덩굴에 붙잡힌 전차",
+      "units": [
+        "1:5",
+        "1:8"
+      ]
+    },
+    {
+      "id": "story-r1-07-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-07-v3.png",
+      "approved": true,
+      "sha256": "63669b96d80ee8326ffb9871901d15d6f753e364f302fd60f4704cfbacc7fa82",
+      "title": "안개 속 포격 지원",
+      "units": [
+        "1:6",
+        "1:7"
+      ]
+    },
+    {
+      "id": "story-r1-08-v6",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-08-v6.png",
+      "approved": true,
+      "sha256": "a9a3e08d0de7ff36345bc0f9db65bc0890f638d3f02bfb18dd8c1badb87663ce",
+      "title": "숲 가장자리의 대공 경계",
+      "units": [
+        "1:7",
+        "2:9"
+      ]
+    },
+    {
+      "id": "story-r1-09-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-09-v3.png",
+      "approved": true,
+      "sha256": "a73c398ecb61d970da9a3ca881d63b1e7a13b9a314a834c0a6793677c652567d",
+      "title": "부상 중갑수 치료",
+      "units": [
+        "1:9",
+        "1:3"
+      ]
+    },
+    {
+      "id": "story-r1-10-v3",
+      "race": 1,
+      "file": "res://assets/loading_art_20261024/race1/story-r1-10-v3.png",
+      "approved": true,
+      "sha256": "40f9956ebd694cdee04af4593e8ee6e94b2aea4dd70fb0ed3d768a18fc0bfa8a",
+      "title": "산불을 벗어나는 수송대",
+      "units": [
+        "1:11",
+        "1:10"
+      ]
+    },
+    {
+      "id": "story-r2-01-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-01-v3.png",
+      "approved": true,
+      "sha256": "2886813b78e8c73230bc446b6cdbd3b2d35fbbf95d3a35e8faf81f0b8ed3da18",
+      "title": "성문에서 이어지는 엄호",
+      "units": [
+        "2:1",
+        "2:2"
+      ]
+    },
+    {
+      "id": "story-r2-02-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-02-v3.png",
+      "approved": true,
+      "sha256": "30c911593a31c35ba61546159635c007a5cb6eecf8f4656c5474238bd19dc1ff",
+      "title": "출격 경로를 읽는 성술사",
+      "units": [
+        "2:5",
+        "2:6"
+      ]
+    },
+    {
+      "id": "story-r2-03-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-03-v3.png",
+      "approved": true,
+      "sha256": "3053fb109a5b27eba8e4229bea7bb5f385479bc37d361c5725d95494b7f026a3",
+      "title": "폭풍 속의 호위 비행",
+      "units": [
+        "2:9",
+        "2:11"
+      ]
+    },
+    {
+      "id": "story-r2-04-v5",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-04-v5.png",
+      "approved": true,
+      "sha256": "e0aad8b923f22b016ff4504fa8c4b4930a58c7dc19062a7bf87103a89b9ebc19",
+      "title": "대심판선 아래의 피난 항로",
+      "units": [
+        "2:12",
+        "2:11"
+      ]
+    },
+    {
+      "id": "story-r2-05-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-05-v3.png",
+      "approved": true,
+      "sha256": "c2d1479ead430db9b77e49b5f2bfd876267cde76d2c7062f9bb7b8b3c7b02b5a",
+      "title": "붕괴된 계단의 지휘",
+      "units": [
+        "2:3",
+        "2:1",
+        "2:0"
+      ]
+    },
+    {
+      "id": "story-r2-06-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-06-v3.png",
+      "approved": true,
+      "sha256": "5454e97639b1d6d772e957ff683e693953e3b6e3765cd162df261c46b0a84c20",
+      "title": "빔 엄호와 측면 공격",
+      "units": [
+        "2:13",
+        "2:7",
+        "0:3"
+      ]
+    },
+    {
+      "id": "story-r2-07-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-07-v3.png",
+      "approved": true,
+      "sha256": "6b14c63c33324a0b2e79392963776192ffb5fdc1a39442dd58be8aafa02bcf45",
+      "title": "새 광맥을 발견한 축조자",
+      "units": [
+        "2:0",
+        "2:6"
+      ]
+    },
+    {
+      "id": "story-r2-08-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-08-v3.png",
+      "approved": true,
+      "sha256": "ca25de580c16a63e4b39d78f589a9a259e2c1bc1f1d81d37d610a794eb5ff19d",
+      "title": "그림자가 연 퇴로",
+      "units": [
+        "2:10",
+        "2:0"
+      ]
+    },
+    {
+      "id": "story-r2-09-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-09-v3.png",
+      "approved": true,
+      "sha256": "6e9dc69dcb82db65a5e7bdd30f56dfa57591bd7e85b185f04d90aa311be251cc",
+      "title": "능선 아래를 겨누는 궤도창",
+      "units": [
+        "2:8",
+        "2:2"
+      ]
+    },
+    {
+      "id": "story-r2-10-v3",
+      "race": 2,
+      "file": "res://assets/loading_art_20261024/race2/story-r2-10-v3.png",
+      "approved": true,
+      "sha256": "8fb3767a07babd8e12c8f3badd14f3dddd22893e3cd5f70f4650d020cadf7eed",
+      "title": "마지막 승선 전의 치료",
+      "units": [
+        "2:4",
+        "2:3",
+        "2:11"
+      ]
+    }
+  ],
+  "approval_rule": "Only explicit user integration approval permits registration."
+}

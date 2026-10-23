@@ -1,0 +1,113 @@
+{
+  "scope": "Conservative first balance pass. Costs/population/movement/abilities and earlier halved matchup bonuses stay unchanged. Carrier drone HP70 stays unchanged. Not final competitive balance.",
+  "changes": [
+    {
+      "race": 2,
+      "kind": 2,
+      "name": "성문궁수",
+      "changes": {
+        "damage": {
+          "before": 28,
+          "after": 23
+        },
+        "shield": {
+          "before": 80,
+          "after": 65
+        },
+        "range": {
+          "before": 5.4,
+          "after": 5.0
+        }
+      },
+      "reason": "Reduce combined range, burst and regenerating shield efficiency."
+    },
+    {
+      "race": 0,
+      "kind": 1,
+      "name": "전열사수",
+      "changes": {
+        "hp": {
+          "before": 65,
+          "after": 70
+        }
+      },
+      "reason": "Small durability correction for basic ranged troops."
+    },
+    {
+      "race": 0,
+      "kind": 3,
+      "name": "방패보병",
+      "changes": {
+        "hp": {
+          "before": 165,
+          "after": 175
+        }
+      },
+      "reason": "Small durability correction for slow two-population melee troops."
+    },
+    {
+      "race": 1,
+      "kind": 1,
+      "name": "껍질발톱",
+      "changes": {
+        "hp": {
+          "before": 30,
+          "after": 34
+        }
+      },
+      "reason": "Small durability correction for fragile basic melee troops."
+    },
+    {
+      "race": 0,
+      "kind": 2,
+      "name": "돌격병",
+      "changes": {
+        "hp": {
+          "before": 100,
+          "after": 110
+        }
+      },
+      "reason": "Improve basic mobile melee survivability against similar-cost shield infantry."
+    },
+    {
+      "race": 1,
+      "kind": 2,
+      "name": "과즙분사체",
+      "changes": {
+        "hp": {
+          "before": 115,
+          "after": 100
+        },
+        "damage": {
+          "before": 12,
+          "after": 10
+        },
+        "splash_factor": {
+          "before": 0.55,
+          "after": 0.4
+        }
+      },
+      "reason": "Reduce combined early body durability and high splash efficiency against grouped infantry."
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "name": "서약수호자",
+      "changes": {
+        "hp": {
+          "before": 105,
+          "after": 100
+        },
+        "shield": {
+          "before": 60,
+          "after": 50
+        },
+        "damage": {
+          "before": 19,
+          "after": 17
+        }
+      },
+      "reason": "Reduce excess equal-cost close-combat efficiency while retaining shield infantry identity."
+    }
+  ]
+}

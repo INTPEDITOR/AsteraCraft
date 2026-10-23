@@ -16,9 +16,9 @@ func run():
 				var rect=Rect2(ACData.point(hq.pos)-Vector2.ONE*.5,Vector2(d.w,d.h));var gap=INF
 				for node in c.map.resources:
 					if node.type!="as" or node.amount<=0:continue
-					check(not rect.intersects(c.resource_rect(node).grow(3.0)),"starting headquarters respects mineral clearance")
+					check(not rect.intersects(c.resource_rect(node).grow(ACMap.HQ_MINERAL_GAP)),"starting headquarters respects mineral clearance")
 					if node.slot==owner:gap=minf(gap,ACMap.footprint_gap(rect,c.resource_rect(node)))
-				check(gap>=3 and gap<4,"starting headquarters hugs nearest legal mineral perimeter")
+				check(gap>=ACMap.HQ_MINERAL_GAP and gap<ACMap.HQ_MINERAL_GAP+1,"starting headquarters hugs nearest legal mineral perimeter")
 				var workers=[]
 				for unit in c.units:
 					if unit.owner==owner and unit.kind==0:workers.append(unit)
@@ -31,8 +31,8 @@ func run():
 	c.units.clear();c.buildings.clear();c.map.terrain.fill(0);c.map.buildable_map.fill(1)
 	c.map.resources=[{"id":100000,"type":"as","pos":[40.5,40],"collision_size":[2,1],"amount":1000,"initial_amount":1000,"busy":0,"slot":0}]
 	c.add_building(0,0,Vector2(20,20),true);c.map.reset_solids(c.buildings);c._sync_resource_obstacles()
-	check(c.placement(0,0,Vector2(44,40),false).contains("3칸"),"new headquarters rejected at two-tile gap")
-	check(c.placement(0,0,Vector2(45,40),false)=="","new headquarters allowed at exactly three tiles")
+	check(c.placement(0,0,Vector2(43,40),false).contains("2칸"),"new headquarters rejected at one-tile gap")
+	check(c.placement(0,0,Vector2(44,40),false)=="","new headquarters allowed at exactly two tiles")
 	check(c.placement(0,2,Vector2(42,40),false)=="","ordinary building may touch mineral boundary")
 	check(c.placement(0,2,Vector2(41,40),false)!="","ordinary building may not overlap mineral")
 	c.map.resources[0].amount=0;c._sync_resource_obstacles()

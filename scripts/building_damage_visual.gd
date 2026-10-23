@@ -4,6 +4,7 @@ extends RefCounted
 var _anchor_cache: Dictionary={}
 var _surface_cache: Dictionary={}
 var _juice_frames: Array=[]
+var _flame_meshes: Dictionary={}
 
 static func frame_rect(frame: Dictionary,foundation: Vector2,extent: float) -> Rect2:
 	var factor=extent/maxf(1,float(frame.scale_hint))
@@ -17,7 +18,7 @@ static func health_capacity(maximum: float,progress: float=1.0) -> float:
 static func damage_stage(hp: float, maximum: float) -> int:
 	if not is_finite(hp) or not is_finite(maximum) or maximum<=0:return 0
 	var ratio=clampf(hp/maximum,0.0,1.0)
-	if ratio>=1.0:return 0
+	if ratio>=.99999:return 0
 	if ratio>.75:return 1
 	if ratio>.5:return 2
 	if ratio>.25:return 3
@@ -27,6 +28,10 @@ static func plan(race: int,hp: float,maximum: float,remembered: bool=false) -> D
 	var level=0 if remembered else damage_stage(hp,maximum)
 	var severity=clampf(1.0-hp/maximum,0.0,1.0) if maximum>0 and is_finite(hp) and is_finite(maximum) else 0.0
 	return {"stage":level,"severity":severity,"count":level+1 if level>0 else 0,"effect":["red_fire","citrus_juice","blue_fire"][clampi(race,0,2)],"visible":level>0}
+
+static func received_damage(building: Dictionary) -> bool:
+	# Low construction HP is its growing capacity, not evidence of an attack.
+	return float(building.get("damaged",-99.0))>=0.0 and not building.get("remembered",false)
 
 func _anchors(texture: Texture2D) -> Array:
 	var key=texture.get_instance_id()
@@ -72,19 +77,30 @@ func draw(canvas: CanvasItem,race: int,hp: float,maximum: float,texture: Texture
 			_flame(canvas,point,strength,phase,scale_value,race==2)
 
 func _flame(canvas: CanvasItem,point: Vector2,severity: float,phase: float,scale_value: float,blue: bool) -> void:
-	var height=(9.0+severity*34.0)*(1.0+sin(phase)*.12)*scale_value
-	var width=(4.0+severity*11.0)*scale_value
-	var lean=sin(phase*.67)*width*.38
-	var color=Color(.18,.38,1.0,.66+.25*severity) if blue else Color(1.0,.13,.035,.66+.25*severity)
-	var hot=Color(.46,.87,1.0,.9) if blue else Color(1.0,.69,.08,.92)
-	var core=Color(.82,.98,1.0,.95) if blue else Color(1.0,.94,.60,.95)
-	var outer=PackedVector2Array([point+Vector2(-width*.4,0),point+Vector2(-width*.7,-height*.3),point+Vector2(-width*.3,-height*.57),point+Vector2(lean,-height),point+Vector2(width*.18,-height*.65),point+Vector2(width*.65,-height*.30),point+Vector2(width*.34,0)])
-	canvas.draw_colored_polygon(outer,color)
-	canvas.draw_colored_polygon(PackedVector2Array([point+Vector2(-width*.35,0),point+Vector2(-width*.32,-height*.3),point+Vector2(lean*.6,-height*.7),point+Vector2(width*.31,-height*.3),point+Vector2(width*.24,0)]),hot)
-	canvas.draw_colored_polygon(PackedVector2Array([point+Vector2(-width*.16,0),point+Vector2(lean*.3,-height*.36),point+Vector2(width*.18,0)]),core)
-	if severity>.45:
-		var rise=fposmod(phase*.17,1.0)
-		canvas.draw_circle(point+Vector2(sin(phase*1.3)*width*.4,-height*(.8+rise*.6)),maxf(.7,scale_value*(1.3-rise)),Color(hot,1.0-rise))
+	var tick=posmod(int(phase*2),24);var key=Vector2i(tick,1 if blue else 0)
+	if not _flame_meshes.has(key):
+		var vertices=PackedVector2Array();var colors=PackedColorArray();var indices=PackedInt32Array()
+		var clock=float(tick)*TAU/24
+		for row in range(17):
+			var t=float(row)/16;var fade=smoothstep(0,.13,t)*(1-smoothstep(.78,1,t))
+			var radius=pow(1-t,.72)*(.48+.12*sin(t*11-clock*2))
+			var center=sin(t*5-clock)*t*.22+sin(t*12+clock)*t*.05
+			for column in range(7):
+				var x=float(column-3)/3;var edge=pow(maxf(0,1-absf(x)),1.25)
+				vertices.append(Vector2(center+x*radius,-t))
+				var rim=Color("397ad9") if blue else Color("dc4921")
+				var hot=Color("78d9f4") if blue else Color("ffad43")
+				var core=Color("e6fbff") if blue else Color("fff0ba")
+				var color=rim.lerp(hot,edge*.8).lerp(core,pow(edge,4)*(1-t)*.9)
+				color.a=edge*fade*.86;colors.append(color)
+		for row in range(16):
+			for column in range(6):
+				var start=row*7+column;indices.append_array(PackedInt32Array([start,start+1,start+8,start,start+8,start+7]))
+		var arrays=[];arrays.resize(Mesh.ARRAY_MAX);arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_COLOR]=colors;arrays[Mesh.ARRAY_INDEX]=indices
+		var mesh=ArrayMesh.new();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_2D_VERTICES);_flame_meshes[key]=mesh
+	var height=(12+severity*25)*(1+sin(phase)*.08)*scale_value
+	var width=(7+severity*12)*scale_value
+	canvas.draw_mesh(_flame_meshes[key],null,Transform2D(0,Vector2(width,height),0,point))
 
 func _juice(canvas: CanvasItem,point: Vector2,rect: Rect2,severity: float,phase: float,scale_value: float,index: int) -> void:
 	if _juice_frames.is_empty():

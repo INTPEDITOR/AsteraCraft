@@ -17,11 +17,12 @@ func _initialize() -> void:
 	for race in range(3):
 		for kind in range(13):
 			var hashes={}
-			for stage in range(5):
-				var frame=art.sprites.building(race,kind,float(stage)/4.0,false,Vector2.DOWN,0)
+			var phases=4 if race==1 else 5
+			for stage in range(phases):
+				var frame=art.sprites.building(race,kind,float(stage)/float(phases-1),false,Vector2.DOWN,0)
 				check(not frame.is_empty(),"construction phase exists %d:%d/%d"%[race,kind,stage])
 				if frame.is_empty():continue
-				check((frame.action=="construction" and frame.frame==stage) if stage<4 else frame.action=="idle","four unfinished phases then original finished art %d:%d/%d"%[race,kind,stage])
+				check((frame.action=="construction" and frame.frame==stage+(1 if race==1 else 0)) if stage<phases-1 else frame.action=="idle","unfinished phases then original finished art %d:%d/%d"%[race,kind,stage])
 				var image: Image=frame.texture.get_image();hashes[digest(image)]=true
 				check(image.get_width()>4 and image.get_height()>4 and image.get_used_rect().has_area(),"nonempty phase pixels")
 				var scale_value=200.0/float(frame.scale_hint)
@@ -29,13 +30,13 @@ func _initialize() -> void:
 				var top_left=foundation-Vector2(frame.anchor)*scale_value
 				check((top_left+Vector2(frame.anchor)*scale_value).is_equal_approx(foundation),"foundation pivot remains fixed")
 				total+=1
-			check(hashes.size()==5,"four unfinished paintings plus distinct original complete art %d:%d"%[race,kind])
+			check(hashes.size()==phases,"all visible unfinished paintings plus distinct original complete art %d:%d"%[race,kind])
 			var almost=art.sprites.building(race,kind,.999999,false,Vector2.DOWN,100)
 			check(almost.action=="construction" and almost.frame==3,"complete art never appears before 100%% %d:%d"%[race,kind])
 			var last=art.sprites.sample(art.sprites.buildings["%d:%d"%[race,kind]],"construction",Vector2.DOWN,0,4)
 			check(digest(art.sprites.building(race,kind,1,false,Vector2.DOWN,0).texture.get_image())==digest(last.texture.get_image()),"completion displays exactly fifth construction painting %d:%d"%[race,kind])
-	check(total==195,"all39 buildings expose all195 construction phases")
+	check(total==182,"39 buildings expose182 phases after removing13 citrus worker introductions")
 	var result={"checks":checks,"failures":failures,"construction_frames":total,"passed":failures.is_empty()}
 	var f=FileAccess.open("res://build/visual_feedback_20261024/construction-test.json",FileAccess.WRITE);f.store_string(JSON.stringify(result,"\t"));f.close()
-	print("BUILDING_CONSTRUCTION5_TEST %d checks %d failures %d/195 phases"%[checks,failures.size(),total])
+	print("BUILDING_CONSTRUCTION5_TEST %d checks %d failures %d/182 phases"%[checks,failures.size(),total])
 	quit(0 if failures.is_empty() else 1)
