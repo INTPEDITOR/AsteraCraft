@@ -8,7 +8,7 @@ static func description(key: String) -> String:
 	return {
 		"stim":"아군 바이오닉 1기를 7초간 강화: 이동 +25%, 공격 주기 -25%.",
 		"smoke":"6초간 연막 안 아군이 받는 일반 공격 피해 35% 감소.",
-		"nuclear":"상승 4초 → 조준 11초 → 낙하 3초\n반경 5 · 최대 450 피해 · 유도 중 이동 불가",
+		"nuclear":"상승 4초 → 조준 11초 → 낙하 3초\n반경 5 · 최대 1,350 피해 · 유도 중 이동 불가",
 		"scan":"8초 동안 반경 10의 시야를 확보합니다.",
 		"overcharge":"0.5초 후 지정 지점 반경 1.5의 지상 적에게 100 피해.",
 		"field_repair":"6초간 정지하여 초당 체력 25 회복. 이동 명령 시 중단.",
@@ -175,7 +175,7 @@ static func update(c,dt: float) -> void:
 			"shockwave":radius=2.2;damage=45
 			"root_surge":radius=2.2;damage=60
 			"verdict":radius=1.5;damage=180
-			"nuclear":radius=5.0;damage=450
+			"nuclear":radius=5.0;damage=1350
 		var query_center=(c.center(caster)+point)*.5 if key=="verdict" else point
 		var query_radius=c.center(caster).distance_to(point)*.5+2 if key=="verdict" else radius+2
 		for target in c._query_entities(query_center,query_radius):

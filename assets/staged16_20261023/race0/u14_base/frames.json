@@ -1,0 +1,312 @@
+{
+  "status": "cropped_geometry_checked_direction_review_pending",
+  "cell_size": 384,
+  "frames": [
+    {
+      "direction": "N",
+      "angle_degrees": 0.0,
+      "source_region": [
+        538,
+        62,
+        717,
+        266
+      ],
+      "file": "00_N.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "NNE",
+      "angle_degrees": 22.5,
+      "source_region": [
+        726,
+        113,
+        906,
+        305
+      ],
+      "file": "01_NNE.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "NE",
+      "angle_degrees": 45.0,
+      "source_region": [
+        877,
+        237,
+        1071,
+        412
+      ],
+      "file": "02_NE.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "ENE",
+      "angle_degrees": 67.5,
+      "source_region": [
+        959,
+        398,
+        1188,
+        559
+      ],
+      "file": "03_ENE.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "E",
+      "angle_degrees": 90.0,
+      "source_region": [
+        988,
+        570,
+        1226,
+        709
+      ],
+      "file": "04_E.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "ESE",
+      "angle_degrees": 112.5,
+      "source_region": [
+        951,
+        720,
+        1185,
+        861
+      ],
+      "file": "05_ESE.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "SE",
+      "angle_degrees": 135.0,
+      "source_region": [
+        865,
+        843,
+        1072,
+        1022
+      ],
+      "file": "06_SE.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "SSE",
+      "angle_degrees": 157.5,
+      "source_region": [
+        716,
+        933,
+        895,
+        1130
+      ],
+      "file": "07_SSE.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "S",
+      "angle_degrees": 180.0,
+      "source_region": [
+        537,
+        974,
+        717,
+        1192
+      ],
+      "file": "08_S.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "SSW",
+      "angle_degrees": 202.5,
+      "source_region": [
+        359,
+        933,
+        538,
+        1131
+      ],
+      "file": "09_SSW.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "SW",
+      "angle_degrees": 225.0,
+      "source_region": [
+        183,
+        843,
+        389,
+        1022
+      ],
+      "file": "10_SW.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "WSW",
+      "angle_degrees": 247.5,
+      "source_region": [
+        70,
+        719,
+        304,
+        861
+      ],
+      "file": "11_WSW.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "W",
+      "angle_degrees": 270.0,
+      "source_region": [
+        29,
+        571,
+        268,
+        709
+      ],
+      "file": "12_W.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "WNW",
+      "angle_degrees": 292.5,
+      "source_region": [
+        69,
+        398,
+        296,
+        559
+      ],
+      "file": "13_WNW.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "NW",
+      "angle_degrees": 315.0,
+      "source_region": [
+        184,
+        237,
+        378,
+        412
+      ],
+      "file": "14_NW.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    },
+    {
+      "direction": "NNW",
+      "angle_degrees": 337.5,
+      "source_region": [
+        349,
+        113,
+        529,
+        304
+      ],
+      "file": "15_NNW.png",
+      "cell_size": 384,
+      "anchor": [
+        192,
+        316
+      ],
+      "pixel_scale": 1,
+      "crop_method": "original_figure_component_with_2px_edge",
+      "direction_review": "pending"
+    }
+  ],
+  "source": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\assets\\staged16_20261023\\race0\\sources\\u14_circular_simplified_v1.png",
+  "game_scale": "not integrated; scale_hint must be calibrated before integration"
+}

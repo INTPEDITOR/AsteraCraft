@@ -69,6 +69,17 @@ class ShellHotkey extends Control:
 		draw_rect(Rect2(Vector2.ZERO,size),Color(.035,.045,.04,.8))
 		draw_string(get_theme_default_font(),Vector2(0,10),caption,HORIZONTAL_ALIGNMENT_CENTER,size.x,9,Color("c7b776"))
 
+class PortraitCanvas extends Control:
+	var texture: Texture2D
+	func _draw() -> void:
+		if texture==null:return
+		draw_rect(Rect2(Vector2.ZERO,size),Color("080909"))
+		var area=Rect2(Vector2.ONE,size-Vector2.ONE*2)
+		var source_size=texture.get_size()
+		var scale=maxf(area.size.x/source_size.x,area.size.y/source_size.y)
+		var crop=area.size/scale
+		draw_texture_rect_region(texture,area,Rect2((source_size-crop)*.5,crop))
+
 var main: Control
 var race := 0
 var accent := Color("dfb64d")
@@ -107,6 +118,7 @@ var _unit: Dictionary = {}
 var _resource: Dictionary = {}
 var _definition: Dictionary = {}
 var _portrait: Texture2D
+var _portrait_canvas: PortraitCanvas
 var _unit_icon: Texture2D
 var _font: Font
 var _has_build_panel := false
@@ -139,7 +151,28 @@ func configure(controller: Control) -> void:
 	_font=get_theme_default_font()
 	_load_art()
 	_build_controls()
+	_portrait_canvas=PortraitCanvas.new()
+	_portrait_canvas.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	add_child(_portrait_canvas)
 	update_hud(true)
+
+func _process(_dt: float) -> void:
+	if main==null or _portrait_canvas==null:return
+	var showing=main.page=="game" and not main.state.is_empty()
+	_portrait_canvas.visible=showing
+	if not showing:return
+	var texture=_portrait
+	var leader=main._portrait_entity()
+	if not leader.is_empty() and not leader.has("progress"):
+		var clock=float(main.state.get("time",0))+(minf(main.visual_clock,main.visual_step) if not main.paused else 0.0)
+		var animated=main.assets.sprites.portrait(int(leader.race),int(leader.kind),clock)
+		if animated!=null:texture=animated
+	var area=_portrait_rect()
+	if _portrait_canvas.position!=area.position:_portrait_canvas.position=area.position
+	if _portrait_canvas.size!=area.size:_portrait_canvas.size=area.size;_portrait_canvas.queue_redraw()
+	if _portrait_canvas.texture!=texture:
+		_portrait_canvas.texture=texture
+		_portrait_canvas.queue_redraw()
 
 func _load_art() -> void:
 	texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
@@ -1470,14 +1503,6 @@ func _draw() -> void:
 	if _frame_art.size()==3 and _frame_art[race]!=null:
 		draw_texture_rect_region(_frame_art[race],shell_draw_rect(),Rect2(_frame_source_regions[race]))
 	if main.has_method("_render_minimap"):main._render_minimap(self)
-	var portrait=_portrait_rect()
-	if _portrait!=null:
-		draw_rect(portrait,Color("080909"))
-		var area=portrait.grow(-1)
-		var source_size=_portrait.get_size()
-		var scale=maxf(area.size.x/source_size.x,area.size.y/source_size.y)
-		var crop=area.size/scale
-		draw_texture_rect_region(_portrait,area,Rect2((source_size-crop)*.5,crop))
 	var content=_detail_content_rect()
 	if _hover_help.is_empty() and (main.selected.size()==1 or not _resource.is_empty()) and _unit_icon!=null:
 		_draw_fit(_unit_icon,_unit_preview_rect())

@@ -1,0 +1,785 @@
+{
+  "file": "res://assets/v062/race1/unit_00_heading_12.png",
+  "frames": [
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        0,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        42,
+        13,
+        130,
+        130
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        30,
+        38,
+        202,
+        202
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        192,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        38,
+        12,
+        131,
+        132
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        254,
+        37,
+        203,
+        205
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        384,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        35,
+        12,
+        131,
+        133
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        478,
+        36,
+        203,
+        206
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        576,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        32,
+        15,
+        132,
+        129
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        702,
+        41,
+        205,
+        201
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        768,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        34,
+        13,
+        128,
+        131
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        934,
+        38,
+        199,
+        203
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        960,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        29,
+        12,
+        129,
+        132
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        1156,
+        36,
+        200,
+        205
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        0,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        41,
+        14,
+        131,
+        130
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        29,
+        255,
+        203,
+        202
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        192,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        31,
+        14,
+        140,
+        129
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        243,
+        255,
+        218,
+        200
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        384,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        35,
+        14,
+        133,
+        131
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        478,
+        254,
+        207,
+        204
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        576,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        34,
+        16,
+        131,
+        127
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        705,
+        258,
+        203,
+        198
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        768,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        24,
+        17,
+        131,
+        126
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        918,
+        260,
+        203,
+        195
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        960,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        24,
+        17,
+        135,
+        127
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        1148,
+        260,
+        209,
+        198
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        0,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        41,
+        12,
+        137,
+        131
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        29,
+        474,
+        213,
+        204
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        192,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        40,
+        12,
+        138,
+        130
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        256,
+        474,
+        214,
+        202
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        384,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        38,
+        15,
+        140,
+        128
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        482,
+        478,
+        218,
+        199
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        576,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        36,
+        17,
+        144,
+        127
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        709,
+        481,
+        223,
+        198
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        768,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        39,
+        19,
+        131,
+        126
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        942,
+        484,
+        204,
+        195
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        960,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        33,
+        26,
+        127,
+        118
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        1161,
+        496,
+        198,
+        184
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        0,
+        576,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        43,
+        15,
+        129,
+        129
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        32,
+        695,
+        200,
+        200
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        192,
+        576,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        40,
+        17,
+        128,
+        127
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        257,
+        698,
+        199,
+        198
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        384,
+        576,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        37,
+        18,
+        131,
+        126
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        481,
+        700,
+        203,
+        196
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        576,
+        576,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        37,
+        18,
+        127,
+        126
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        710,
+        700,
+        198,
+        196
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        768,
+        576,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        34,
+        18,
+        128,
+        126
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        934,
+        700,
+        199,
+        196
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        960,
+        576,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        31,
+        26,
+        125,
+        118
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        1159,
+        713,
+        194,
+        184
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        0,
+        768,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        40,
+        26,
+        130,
+        120
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        28,
+        918,
+        202,
+        187
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        192,
+        768,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        35,
+        31,
+        138,
+        115
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        249,
+        926,
+        215,
+        178
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        384,
+        768,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        33,
+        36,
+        140,
+        109
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        474,
+        933,
+        218,
+        169
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        576,
+        768,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        27,
+        46,
+        140,
+        97
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        694,
+        949,
+        218,
+        151
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        768,
+        768,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        27,
+        59,
+        138,
+        80
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        923,
+        970,
+        215,
+        125
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_12.png",
+      "region": [
+        960,
+        768,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        143
+      ],
+      "bounds": [
+        27,
+        70,
+        132,
+        66
+      ],
+      "scale_hint": 128.09195402298852,
+      "source_bounds": [
+        1153,
+        987,
+        205,
+        102
+      ]
+    }
+  ]
+}

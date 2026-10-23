@@ -34,7 +34,7 @@ static func tick(c,u: Dictionary,dt: float) -> bool:
 		var mother=c.entity(int(u.get("mother",-1)))
 		if mother.is_empty() or mother.hp<=0 or int(mother.owner)!=int(u.owner):u.hp=0;return true
 		var target=c.entity(int(mother.get("drone_target",-1)))
-		if target.is_empty() or target.hp<=0 or not c.can_see(int(u.owner),target) or c.center(target).distance_to(c.center(mother))>11:
+		if target.is_empty() or target.hp<=0 or not c.attack_target_allowed(mother,target) or not c.can_see(int(u.owner),target) or c.center(target).distance_to(c.center(mother))>11:
 			if c._move(u,c.center(mother),dt,1.3):
 				u.container=mother.id;u.order="idle";u.air_velocity=[0,0]
 				c.collision_index_valid=false
@@ -62,13 +62,13 @@ static func tick(c,u: Dictionary,dt: float) -> bool:
 			var drone=c.add_unit(int(u.owner),15,c.center(u));drone.mother=u.id;drone.container=u.id
 			u.drones.append(drone.id);u.drone_queue.pop_front()
 	var target=c.entity(int(u.target)) if u.order=="attack" else {}
-	if not target.is_empty() and (target.hp<=0 or not c.can_see(int(u.owner),target)):target={}
+	if not target.is_empty() and (target.hp<=0 or not c.attack_target_allowed(u,target) or not c.can_see(int(u.owner),target)):target={}
 	if target.is_empty() and u.order in ["idle","hold","attack_move"]:
 		if c.time>=float(u.get("_carrier_scan",0)):
 			target=c._find_target(u,9,"ga");u._carrier_target=int(target.get("id",-1));u._carrier_scan=c.time+.3
 		else:target=c.entity(int(u.get("_carrier_target",-1)))
 	u.drone_target=-1
-	if not target.is_empty() and target.hp>0 and c.can_see(int(u.owner),target):
+	if not target.is_empty() and target.hp>0 and c.attack_target_allowed(u,target) and c.can_see(int(u.owner),target):
 		if c.center(target).distance_to(c.center(u))>8:
 			if u.order!="hold":c._move(u,c.center(target),dt,7.5)
 		else:

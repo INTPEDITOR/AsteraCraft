@@ -1,0 +1,703 @@
+{
+  "revision": "staged16_all_races_20261023",
+  "work_mode": "original_appearance_16_headings_7_walk_7_attack_7_death",
+  "new_generation_allowed": true,
+  "new_character_design_allowed": true,
+  "original_appearance_preserving_pose_edits_allowed": true,
+  "reference_policy": "existing runtime unit art for appearance; user-selected StarCraft1 original for direction, pose order and grid only",
+  "current_chat_art_work": "all_units_connected_unreviewed_building",
+  "handoff_document": "docs/ORIGINAL_SPRITES_NEW_CHAT_20261023.md",
+  "active_race": 1,
+  "active_race_name": "귤",
+  "regular_units": 16,
+  "citrus_art_status": "resumed_for_sprite_work_by_explicit_all_races_request",
+  "citrus_game_faction_unchanged": true,
+  "portraits_status": "cancelled_keep_existing",
+  "gameplay_policy": "unchanged_settings_and_functions",
+  "old_unit_images_allowed": true,
+  "rejected_citrus_inputs_allowed": false,
+  "layout": {
+    "walk_per_direction": 7,
+    "base_frames": 16,
+    "attack_per_direction": 7,
+    "angles_deg": [
+      0,
+      22.5,
+      45,
+      67.5,
+      90,
+      112.5,
+      135,
+      157.5,
+      180,
+      202.5,
+      225,
+      247.5,
+      270,
+      292.5,
+      315,
+      337.5
+    ],
+    "total_frames": 247,
+    "directions": 16,
+    "order": [
+      "N",
+      "NNE",
+      "NE",
+      "ENE",
+      "E",
+      "ESE",
+      "SE",
+      "SSE",
+      "S",
+      "SSW",
+      "SW",
+      "WSW",
+      "W",
+      "WNW",
+      "NW",
+      "NNW"
+    ],
+    "death_frames": 7,
+    "basic_image": "circular_ring_16_outward_north_clockwise_22_5_degrees",
+    "stage_order": [
+      "base",
+      "walk",
+      "attack",
+      "death"
+    ]
+  },
+  "accepted_units": [
+    "0:0",
+    "0:1",
+    "0:2",
+    "0:3",
+    "0:4",
+    "0:5",
+    "0:6",
+    "0:7",
+    "0:8",
+    "0:9",
+    "0:10",
+    "0:11",
+    "0:12",
+    "0:13",
+    "0:14",
+    "0:15",
+    "1:0",
+    "1:1",
+    "1:2",
+    "1:3",
+    "1:4"
+  ],
+  "integrated_units": [
+    "0:0",
+    "0:1",
+    "0:2",
+    "0:3",
+    "0:4",
+    "0:5",
+    "0:6",
+    "0:7",
+    "0:8",
+    "0:9",
+    "0:10",
+    "0:11",
+    "0:12",
+    "0:13",
+    "0:14",
+    "0:15",
+    "1:0",
+    "1:1",
+    "1:2",
+    "1:3",
+    "1:4",
+    "1:5",
+    "1:6",
+    "1:7",
+    "1:8",
+    "1:9",
+    "1:10",
+    "1:11",
+    "1:12",
+    "1:13",
+    "2:0",
+    "2:1",
+    "2:2",
+    "2:3",
+    "2:4",
+    "2:5",
+    "2:6",
+    "2:7",
+    "2:8",
+    "2:9",
+    "2:10",
+    "2:11",
+    "2:12",
+    "2:13"
+  ],
+  "source_user_request": "모두 16방향으로 해줘",
+  "usage_checkpoint": {
+    "used_percent": 40,
+    "remaining_percent": 60,
+    "window_minutes": 10080,
+    "user_remaining_percent_target": 50
+  },
+  "original_work_directory": "build/original_hyrax_20261023",
+  "source_extracted_units": 16,
+  "source_frame_records": 963,
+  "pose_edit_trials": [
+    {
+      "file": "build/original_hyrax_20261023/rejected/u00_identity_edit.png",
+      "unit_id": 0,
+      "status": "rejected",
+      "reason": "Middle headings remain too similar; locomotion uniqueness unverified; death sequence not verified. No retry or integration."
+    }
+  ],
+  "remake_review": {
+    "failures": [
+      "u00 action rows change chassis and bucket heading incorrectly",
+      "u01 direction and unique motion consistency not verified",
+      "u02 correction creates duplicate chainsaw blades and leaves missing row",
+      "magenta edit guides and contamination remain; no output accepted"
+    ],
+    "further_generation": "halted_after_repeated_quality_failures",
+    "pending_units": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "units_attempted": [
+      0,
+      1,
+      2
+    ],
+    "accepted_count": 0,
+    "integrated_count": 0,
+    "user_cancelled": false
+  },
+  "simplification": {
+    "micro_details": "reduce",
+    "all_units": true,
+    "circular_silhouettes": "must_not_overlap",
+    "preserve_race_role": true,
+    "worker_front_bucket": "remove"
+  },
+  "current_base_result": {
+    "component_count_pass": true,
+    "unit": "0:0",
+    "direction_review": "pending",
+    "individual_files": 16,
+    "integrated": false,
+    "cropped": "assets/staged16_20261023/race0/u00_base",
+    "source": "assets/staged16_20261023/race0/sources/u00_circular_simplified_v1.png",
+    "motion_frames": 0
+  },
+  "overnight_scope": {
+    "status": "in_progress",
+    "construction_stages": 5,
+    "building_count": 39,
+    "damage_visuals": [
+      "red_fire",
+      "citrus_juice",
+      "blue_fire"
+    ],
+    "validation": "required_in_game",
+    "units": "all_factions_actual_replacement"
+  },
+  "building_construction": {
+    "status": "integrated_tested",
+    "buildings": 39,
+    "stages_each": 5,
+    "runtime_frames_loaded": 195,
+    "test_checks": 859,
+    "failures": 0,
+    "catalog": "data/art_building_construction5.json"
+  },
+  "building_damage": {
+    "status": "integrated_tested",
+    "red_fire": true,
+    "orange_juice": true,
+    "blue_fire": true,
+    "health_test_checks": 109,
+    "game_smoke_checks": 84,
+    "failures": 0,
+    "construction_hp_capacity_corrected": true,
+    "fog_memory_private": true
+  },
+  "source_preservation": {
+    "checked_files": 711,
+    "changed": 0,
+    "missing": 0,
+    "game_json_unchanged": true
+  },
+  "integrated_new_unit_count": 44,
+  "all_units_complete": false,
+  "unit_goal_count": 44,
+  "hyrax_base_stage": {
+    "base_units": 16,
+    "headings_each": 16,
+    "frames": 256,
+    "complete_unit_replacements": 16,
+    "remaining_motion_work": 0,
+    "reviews": "build/staged16_20261023/reviews"
+  },
+  "current_unit_reviews": {
+    "0:2": {
+      "frames": 247,
+      "visual_review": "Reviewed 16 headings, single saw, 112 real walk and112 cut poses and7 deaths; correct rows salvaged, N/S repairs verified; sprite display scale calibrated against three preserved original runtime views.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:3": {
+      "frames": 247,
+      "visual_review": "Reviewed one shield on the same anatomical arm in16 headings, real knee gait and forward bash, corrected rear N/NNE using single-heading pose guides, verified7 collapse phases through actual fatal game damage.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:7": {
+      "frames": 247,
+      "visual_review": "Reviewed16 headings with black hood/charcoal shoulders and single scoped rifle; corrected WSW walk and SSE bracing direction, discarded overlapping flash sheet, registered muzzle endpoints, checked size against3 original views; accepted manifest game test113 checks and actual7 death phases passed.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:0": {
+      "frames": 247,
+      "visual_review": "Reviewed16 body headings and four tires/two drills/no bucket;112 wheel and suspension poses,112 drill extension and rotation poses; WSW corrected using single-heading14-frame source. Actual cardinal mining uses all7work phases and preserves5As per collection; game world rendering and source-tip registration verified.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:8": {
+      "frames": 135,
+      "unique_composed_rgba_frames": 119,
+      "painted_component_states": 30,
+      "visual_review": "Reviewed16 outward blunt hulls with two fixed same-plane rotors; seven genuinely drawn rotor phases composed for flight and shared unarmed hover; seven mechanical collapse poses. Added lens excluded by user. 247 stored canonical slots,119 unique whole-composite RGBA frames from30 painted component states. Game render, shadows, full bounds, real move order and fatal-damage airburst verified.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "hover_shares_flight": true,
+      "new_lens_used": false,
+      "excluded_hangar_and_ramp": true
+    },
+    "0:9": {
+      "frames": 247,
+      "visual_review": "Reviewed16 outward interceptor headings,112 authored thrust/bank flight poses,112 paired-barrel firing/recovery poses,and7 pitched crash/wreck poses. Registered solid armour mass,not changing engine/muzzle glow; all247 unique within their clips. Runtime1291 checks,actual16-heading game192 checks,all8 fatal collapse sequences177 checks passed. Mechanical airburst and wreck,whole-body shadows and complete selection/culling bounds visually reviewed; existing gameplay and originals unchanged.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:10": {
+      "frames": 247,
+      "visual_review": "Reviewed16 outward bomber headings and247 authored frames. Removed erroneous orange side fire in all112 attack poses while preserving the body and existing blue engines; correctedNNW flight/action14 poses against the original -30.8degree body reference. Registered two existing physical red rocket-pod caps for all headings/poses, using the existing salvo barrel indices to alternate five actual missiles. Reused only the already correct original western final phases instead of clipped cleanup frames. Runtime1291,actual game248,focused fatal collapse23 and existing burst45 checks passed; no new design elements or gameplay data changes.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:11": {
+      "frames": 135,
+      "visual_review": "Reviewed all 16 outward headings, 112 painted flight poses, 63 visible rear-ramp poses and 49 role slots reusing flight because rear hatch is occluded, 7 settling/crash poses with mechanical airburst. Native render 192/0; actual existing boarding/unloading 84/0; fatal collapse 23/0. No weapons, new gameplay state, front door, iris or decorative frames added.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "role_front_occlusion_reuse": 49,
+      "excluded_hangar_and_ramp": true
+    },
+    "0:14": {
+      "frames": 135,
+      "visual_review": "All 16 outward carrier headings, 112 flight poses, 112 actual hangar launch poses, 7 collapse poses with mechanical airburst reviewed. Missing NNW flight and incorrect NNW hangar row locally replaced; remaining source rows retained. Native rendering 192/0, actual drone production and docked-to-launched hangar event 23/0, death 23/0. Idle reuses existing flight; no direct weapon or extra decorative clip.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "excluded_hangar_and_ramp": true
+    },
+    "0:15": {
+      "frames": 247,
+      "visual_review": "Reviewed 16 outward headings, 112 flight and 112 firing poses, 7 mechanical shutdown/collapse poses with airburst. Missing SSE flight row locally repaired; original four SSE firing rows kept. Native world rendering and actual firing during its existing flight circuit passed 208/0, runtime 1291/0, fatal collapse 23/0. No new decoration, iris, gameplay numbers or stopped-flight attack behavior. Additional generated SSE attack row is unused.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:13": {
+      "frames": 247,
+      "visual_review": "Reviewed all 16 outward fixed-barrel tracked hull headings, 112 tread-motion poses, 112 two-nozzle firing poses, 7 mechanical collapse poses with existing explosion effects. Physical tread contacts register the ground anchor, not flame bounds. Runtime 1291/0, native world rendering and bounds 192/0, actual fatal-body rendering 23/0. No hangar, doors, new decorations or gameplay changes.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:5": {
+      "frames": 247,
+      "visual_review": "Independent authored lower tracked chassis and upper single-cannon turret. 16 static headings for each part, 112 real tread poses, 112 barrel-recoil poses and 7 whole-tank mechanical collapse poses; 247 logical action slots assembled from 263 required part images. All 256 independent heading pairs verified. Native world render 192/0; physical-layer and fixed-bearing native test 803/0; runtime1291/0; fatal collapse23/0. No mirrored headings, generated deployment, role, door, lens or extra recoil motion. Existing gameplay unchanged.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:6": {
+      "frames": 247,
+      "visual_review": "Independent six-wheel chassis and two-round launcher, 16 outward headings, 112 driving and 112 weapon poses, 7 collapse poses. Four unrequested eighth poses excluded; one clipped WNW recovery uses its genuine original neutral lower body. Incorrect red rear caps in SSE/S/SSW ready art replaced by corrected neutral pose: exactly two forward red tips and dark rear motors in all128 upper poses. Runtime1291/0; native world192/0; independent heading/actual missile origin test806/0 headless; fatal collapse23/0. Missile origin follows visible firing pose; existing single shot20 damage/1.2 sec unchanged. No doors, lens, role or new deployment frames.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "0:12": {
+      "frames": 247,
+      "visual_review": "Native sixteen outward headings and seven real walk/fire/death poses reviewed; existing large chassis/turret proportions retained, bad SSE/WSW/NNW upper yaws corrected without mirroring, 256 independent aim combinations attached at bearing. Three real distinct physical apertures verified through native core salvo120 checks; native layer803, world192, death23 and frame1291 checks passed. Mechanical collapse/explosion and complete padded cells verified; no extra role, hangar, door or lens frames.",
+      "runtime_test": true,
+      "game_render_test": true
+    },
+    "1:0": {
+      "frames": 247,
+      "visual_review": "Reviewed sixteen outward head/body/claw directions and all seven actual walk/work/collapse poses; corrected only the seven north work frames so the golden foreclaws remain on the north side and all rear support leaves stay green. Native all-phase draw/death/juice-fade24 checks and hash-bound runtime44 passed; real four-cardinal gather, seven-phase looping, five-ore removal and five-As deposit30 checks passed. Normal base/walk/death and the other105 work frames preserved byte-identical. No lens/door/new role art.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "validation": {
+        "runtime_report": "build/staged16_20261023/r1_u00-runtime-test.json",
+        "game_report": "build/staged16_20261023/r1_u00-game-test.json",
+        "runtime_checks": 44,
+        "game_checks": 24,
+        "game_display_server": "Windows",
+        "canonical_actions": [
+          "idle",
+          "death",
+          "walk",
+          "attack"
+        ],
+        "logical_frames": 247,
+        "aliases_excluded_from_count": [
+          "work"
+        ],
+        "source_catalog": "res://data/art_staged16_race1_drafts.json",
+        "visual_evidence": "Reviewed sixteen outward head/body/claw directions and all seven actual walk/work/collapse poses; corrected only the seven north work frames so the golden foreclaws remain on the north side and all rear support leaves stay green. Native all-phase draw/death/juice-fade24 checks and hash-bound runtime44 passed; real four-cardinal gather, seven-phase looping, five-ore removal and five-As deposit30 checks passed. Normal base/walk/death and the other105 work frames preserved byte-identical. No lens/door/new role art."
+      }
+    },
+    "1:1": {
+      "frames": 247,
+      "visual_review": "Reviewed actual crescent head/green neck versus rear segmented abdomen, not direction labels: corrected inward basic SSE/S/SSW and eight wrong walk/attack yaw rows with genuine new poses. Thirteen normal basic views, eight normal motion headings and all seven grounded collapse frames (132 frames) preserved byte-identical. Source contact sheets show fixed yaw, six support legs, existing two head blades and attached leaves; native all16x7 phases/death/juice fading20 and source-hash-bound runtime43 checks passed. No added lens, limbs, flames, doors or extra roles.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "validation": {
+        "runtime_report": "build/staged16_20261023/r1_u01-runtime-test.json",
+        "game_report": "build/staged16_20261023/r1_u01-game-test.json",
+        "runtime_checks": 43,
+        "game_checks": 20,
+        "game_display_server": "Windows",
+        "canonical_actions": [
+          "idle",
+          "death",
+          "walk",
+          "attack"
+        ],
+        "logical_frames": 247,
+        "aliases_excluded_from_count": [],
+        "source_catalog": "res://data/art_staged16_race1_drafts.json",
+        "visual_evidence": "Reviewed actual crescent head/green neck versus rear segmented abdomen, not direction labels: corrected inward basic SSE/S/SSW and eight wrong walk/attack yaw rows with genuine new poses. Thirteen normal basic views, eight normal motion headings and all seven grounded collapse frames (132 frames) preserved byte-identical. Source contact sheets show fixed yaw, six support legs, existing two head blades and attached leaves; native all16x7 phases/death/juice fading20 and source-hash-bound runtime43 checks passed. No added lens, limbs, flames, doors or extra roles."
+      }
+    },
+    "1:2": {
+      "frames": 247,
+      "visual_review": "Root reviewed all247 source poses, physical green-neck brown-jaw front axes and16 outward native headings. Only150 faulty poses changed;97 retained byte-identical including basic16/death7. All112 mouth sockets reviewed; actual native8 headings and16 first/repeated acid launches passed174 checks, displayed-phase origin error below0.00004px. Native20 checks verify all phases, fatal collapse with orange juice, grounded shadows, no clipping, and2s-to6s stain fade. Evidence build/visual_qa_20261023/r1_u02-visual-review.json.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "validation": {
+        "runtime_report": "build/staged16_20261023/r1_u02-runtime-test.json",
+        "game_report": "build/staged16_20261023/r1_u02-game-test.json",
+        "runtime_checks": 43,
+        "game_checks": 20,
+        "game_display_server": "Windows",
+        "canonical_actions": [
+          "idle",
+          "death",
+          "walk",
+          "attack"
+        ],
+        "logical_frames": 247,
+        "aliases_excluded_from_count": [],
+        "source_catalog": "res://data/art_staged16_race1_drafts.json",
+        "visual_evidence": "Root reviewed all247 source poses, physical green-neck brown-jaw front axes and16 outward native headings. Only150 faulty poses changed;97 retained byte-identical including basic16/death7. All112 mouth sockets reviewed; actual native8 headings and16 first/repeated acid launches passed174 checks, displayed-phase origin error below0.00004px. Native20 checks verify all phases, fatal collapse with orange juice, grounded shadows, no clipping, and2s-to6s stain fade. Evidence build/visual_qa_20261023/r1_u02-visual-review.json."
+      }
+    },
+    "1:3": {
+      "frames": 247,
+      "visual_review": "Root and independent source reviews confirm actual head/jaw front, rear carapace axis,4 support legs,2 jaws,2 feelers,1 retained dorsal canister and attached leaves. Only41 faulty poses changed;206 remain byte-identical including basic16/death7/NNWwalk. Fresh runtime43 and native20 pass all16 headings/all7 phases, clipping and grounded shadows. Native collapse with orange juice and2s-to6s stain fade reviewed. Existing core splash31 checks pass with gameplay data unchanged. Evidence build/visual_qa_20261023/r1_u03-visual-review.json.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "validation": {
+        "runtime_report": "build/staged16_20261023/r1_u03-runtime-test.json",
+        "game_report": "build/staged16_20261023/r1_u03-game-test.json",
+        "runtime_checks": 43,
+        "game_checks": 20,
+        "game_display_server": "Windows",
+        "canonical_actions": [
+          "idle",
+          "death",
+          "walk",
+          "attack"
+        ],
+        "logical_frames": 247,
+        "aliases_excluded_from_count": [],
+        "source_catalog": "res://data/art_staged16_race1_drafts.json",
+        "visual_evidence": "Root and independent source reviews confirm actual head/jaw front, rear carapace axis,4 support legs,2 jaws,2 feelers,1 retained dorsal canister and attached leaves. Only41 faulty poses changed;206 remain byte-identical including basic16/death7/NNWwalk. Fresh runtime43 and native20 pass all16 headings/all7 phases, clipping and grounded shadows. Native collapse with orange juice and2s-to6s stain fade reviewed. Existing core splash31 checks pass with gameplay data unchanged. Evidence build/visual_qa_20261023/r1_u03-visual-review.json."
+      }
+    },
+    "1:4": {
+      "frames": 247,
+      "visual_review": "Root reviewed all247 source cells and actual native16 outward headings by physical orange jaw versus rear harness and attached leaf. Only169 faulty poses replaced;78 original cells preserved byte-identical including basic16/death7. NW peak size aligned to its valid neighbors. Runtime43 and native20 pass clipping, grounded shadows, normal collapse with juice and2s-to6s fade. Actual self-detonation headless214/native214 verify seven existing attack cells, body gone by.65s, eight-second juice, unchanged immediate60light damage/radius/filtering, and separate enemy fatal death7. No new parts or roles. Evidence build/visual_qa_20261023/r1_u04-visual-review.json.",
+      "runtime_test": true,
+      "game_render_test": true,
+      "validation": {
+        "runtime_report": "build/staged16_20261023/r1_u04-runtime-test.json",
+        "game_report": "build/staged16_20261023/r1_u04-game-test.json",
+        "runtime_checks": 43,
+        "game_checks": 20,
+        "game_display_server": "Windows",
+        "canonical_actions": [
+          "idle",
+          "death",
+          "walk",
+          "attack"
+        ],
+        "logical_frames": 247,
+        "aliases_excluded_from_count": [],
+        "source_catalog": "res://data/art_staged16_race1_drafts.json",
+        "visual_evidence": "Root reviewed all247 source cells and actual native16 outward headings by physical orange jaw versus rear harness and attached leaf. Only169 faulty poses replaced;78 original cells preserved byte-identical including basic16/death7. NW peak size aligned to its valid neighbors. Runtime43 and native20 pass clipping, grounded shadows, normal collapse with juice and2s-to6s fade. Actual self-detonation headless214/native214 verify seven existing attack cells, body gone by.65s, eight-second juice, unchanged immediate60light damage/radius/filtering, and separate enemy fatal death7. No new parts or roles. Evidence build/visual_qa_20261023/r1_u04-visual-review.json."
+      }
+    }
+  },
+  "work_priority": "connect_existing_art_then_build_without_additional_QA",
+  "urgent_production": {
+    "status": "all_requested_unit_raw_sources_generated_review_deferred",
+    "instruction": "검수는 나중에 하고 일단 스프라이트 먼저 다 찍으라고",
+    "source_set_count": 44,
+    "race_source_set_counts": {
+      "hyrax": 16,
+      "citrus": 14,
+      "owl": 14
+    },
+    "previously_accepted_and_integrated_units": 6,
+    "new_unreviewed_unit_sets": 38,
+    "generated_raw_pngs": 218,
+    "generated_new_circular_base_sheets": 28,
+    "generated_new_paired_motion_sheets": 152,
+    "generated_new_death_sheets": 38,
+    "remaining_source_generation_units": 0,
+    "review_status": "reopened_by_user_full_qa_request",
+    "new_game_integration_status": "active_reviewed_repairs_only",
+    "requested_direction_frame_counts_are_not_verified_output_counts": true,
+    "manifest": "build/staged16_20261023/urgent-source-production-manifest.json"
+  },
+  "visual_qa": {
+    "death_effect_families": 5,
+    "death_effect_game_checks": 155,
+    "death_effect_game_failures": 0,
+    "accepted_six_collapse_checks": 133,
+    "accepted_six_collapse_failures": 0,
+    "direction_review": "reopened_all44_user_rejected_0:8_2:10_2:11_2:13",
+    "source_border_clipped_sheet_count": 7,
+    "turret_layer_repair": "requested_in_progress",
+    "all_units_complete": false,
+    "base_source_review": {
+      "checked": 44,
+      "safe_16_separation": 34,
+      "separation_problem_sources": 10,
+      "repair_or_further_review_units": 14,
+      "report": "docs/art-direction-reinspection-20261023.json",
+      "all_motion_frames_checked": false
+    },
+    "redesigns": {
+      "0:8": "complete_new_blunt_two_rotor_body_flight_hover_and_collapse_no_new_lens_accepted_game_tested",
+      "0:12": "base16_separate_parts_size_repaired_reviewed_draft_motion_and_live_integration_pending"
+    },
+    "direction_repair_game_test": {
+      "checks": 354,
+      "failures": 0,
+      "scope": "new_blunt_two_rotor_scout_and_owl_transport_direction_composition",
+      "report": "build/visual_qa_20261023/direction-repairs-game-test.json"
+    },
+    "partial_direction_repairs_applied": [
+      "0:8",
+      "2:11"
+    ],
+    "accepted_collapse_checks": 177,
+    "accepted_collapse_failures": 0,
+    "scout_full_game_test": {
+      "checks": 1504,
+      "failures": 0,
+      "accepted_manifest_loaded": true,
+      "lens_used": false
+    },
+    "source_edge_artifact_classification": {
+      "0:10:quartet04": "separate physical bodies recoverable at alpha224, but opaque gray contour remains; whole-pose transparency cleanup required, draft not accepted"
+    },
+    "bomber_side_flame_repair": {
+      "status": "accepted_applied",
+      "all16_attack_headings_repaired": true,
+      "two_existing_pod_sockets": true,
+      "actual_five_shot_game_checks": 248,
+      "failures": 0,
+      "game_image": "build/visual_qa_20261023/bomber-real-five-salvo.png",
+      "NNW_flight_action_repaired_frames": 14
+    },
+    "burst_rules_checks": 45,
+    "burst_rules_failures": 0,
+    "carrier_and_drone_application": {
+      "accepted_units": [
+        "0:14",
+        "0:15"
+      ],
+      "carrier_launch_checks": 0,
+      "drone_native_checks": 208,
+      "movement_mechanics_checks": 13,
+      "failures": 0,
+      "gameplay_changed": false,
+      "carrier_launch_status": "removed_by_explicit_user_correction"
+    },
+    "no_extra_role_visuals": {
+      "passed": true,
+      "checks": 20,
+      "hangar_used": false,
+      "cargo_ramp_used": false,
+      "unarmed_fake_attack_used": false,
+      "unarmed_11_runtime_checks": 715,
+      "unarmed_14_runtime_checks": 715,
+      "scout_runtime_game_checks": 1168,
+      "failures": 0
+    },
+    "extra_action_audit": {
+      "scope": "all13accepted_unit_definitions",
+      "beyond_walk_attack_death": [
+        "single_neutral_pose_per_heading",
+        "worker_work_shares_attack",
+        "medic_heal_shares_attack",
+        "scout_hover_shares_walk"
+      ],
+      "new_iris_used": false,
+      "new_hangar_used": false,
+      "new_cargo_ramp_used": false
+    },
+    "tank_independent_layers": {
+      "status": "accepted_applied",
+      "heading_pairs": 256,
+      "native_layer_checks": 803,
+      "native_world_checks": 192,
+      "failures": 0,
+      "new_role_or_deployment_frames": 0
+    },
+    "missile_truck_layers": {
+      "status": "accepted_applied",
+      "world_native_checks": 192,
+      "layer_and_real_missile_checks": 806,
+      "failures": 0,
+      "extra_eighth_source_poses_excluded": 4,
+      "clipped_recovery_replaced_from_existing_neutral": 1,
+      "wrong_rear_red_caps_corrected_headings": [
+        7,
+        8,
+        9
+      ],
+      "actual_missile_starts_on_visible_red_tip": true
+    }
+  },
+  "new_character_design_allowed_only_for": [
+    "0:8",
+    "0:12"
+  ],
+  "execution_order": [
+    "fortress_turret_size",
+    "scout_no_lens_flight_and_death",
+    "remaining_hyrax_units",
+    "citrus_14",
+    "owl_14",
+    "building_39_final_review"
+  ],
+  "new_elements_require_user_confirmation": true,
+  "excluded_new_lens": true,
+  "current_phase": "all44_connected_missing42_added_windows_build_complete_no_additional_qa",
+  "unnecessary_frames_policy": "No hangar, cargo-ramp, iris, fake attack or decorative idle additions. Unarmed units use existing idle, flight and death only. Do not fill an arbitrary frame total.",
+  "integrated_unit_counts_by_race": {
+    "0": 16,
+    "1": 14,
+    "2": 14
+  },
+  "accepted_unit_count": 21,
+  "applied_unreviewed_units": [
+    "1:5",
+    "1:6",
+    "1:7",
+    "1:8",
+    "1:9",
+    "1:10",
+    "1:11",
+    "1:12",
+    "1:13",
+    "2:0",
+    "2:1",
+    "2:2",
+    "2:3",
+    "2:4",
+    "2:5",
+    "2:6",
+    "2:7",
+    "2:8",
+    "2:9",
+    "2:10",
+    "2:11",
+    "2:12",
+    "2:13"
+  ],
+  "applied_unreviewed_unit_count": 23,
+  "all_units_connected": true,
+  "unreviewed_integration_provenance": {
+    "day": "2026-10-24",
+    "user_requested_skip_QA": true,
+    "instruction": "Connect all existing unit sprites and build without additional review.",
+    "qa_performed": false,
+    "status": "applied_unreviewed"
+  },
+  "known_missing_authored_actions": [],
+  "missing_authored_frame_count": 0,
+  "requested_missing_attack_fill_20261024": {
+    "poses_added": 42,
+    "units": [
+      {
+        "unit": "2:2",
+        "poses_added": 14,
+        "attack_sha256": "9b17fa5c187f0c9113d67bb1ca93497f89f4a708d37ebb0e2e8fb772108dd7ae",
+        "status": "applied_unreviewed"
+      },
+      {
+        "unit": "2:10",
+        "poses_added": 7,
+        "attack_sha256": "82090de69051524dead1df1f9ebc4ee0fae766336384ea5564baa5a4961f2d63",
+        "status": "applied_unreviewed"
+      },
+      {
+        "unit": "2:13",
+        "poses_added": 21,
+        "attack_sha256": "2847e0404bf4e7a9dbfed8db9d6b6d2e66ae27b06dd28df9d7222be37b4ad89f",
+        "status": "applied_unreviewed"
+      }
+    ],
+    "qa_performed": false
+  },
+  "windows_build": {
+    "status": "export_success",
+    "export_exit_code": 0,
+    "connected_units": 44,
+    "accepted_units_preserved": 21,
+    "applied_unreviewed_units": 23,
+    "requested_missing_frames_added": 42,
+    "known_missing_authored_frames": 0,
+    "additional_qa_performed": false,
+    "build_log_errors": [],
+    "files": [
+      {
+        "path": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\sprite_connected_20261024\\AsteraCraft.exe",
+        "bytes": 104437248
+      },
+      {
+        "path": "E:\\Codex\\ASTERACRAFT\\AsteraCraft\\build\\sprite_connected_20261024\\AsteraCraft.pck",
+        "bytes": 1202069220
+      }
+    ]
+  }
+}

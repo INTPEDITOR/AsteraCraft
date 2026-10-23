@@ -20,6 +20,7 @@ var air_pilot_mounts: Dictionary={}
 var repaired_air: Dictionary={}
 var directional_air: Dictionary={}
 var drone_parts: Dictionary={}
+var direction_repairs: Dictionary={}
 var graphics_repairs: Dictionary={}
 var repaired_fire: Dictionary={}
 var ground_textures: Array=[]
@@ -34,8 +35,18 @@ var v060_units: Dictionary={}
 var frame_cleanup: Dictionary={}
 var v060_effects: Dictionary={}
 var siege_layers: Dictionary={}
+var sprites=preload("res://scripts/sprite_library.gd").new()
 
 func load_all() -> void:
+	sprites.load_catalogs()
+	direction_repairs.clear()
+	var direction_path="res://data/art_direction_repairs_20261023.json"
+	if FileAccess.file_exists(direction_path):
+		var catalog=JSON.parse_string(FileAccess.get_file_as_string(direction_path))
+		if catalog is Dictionary:
+			for key in catalog.get("units",{}):
+				var entry: Dictionary=catalog.units[key]
+				if entry.get("status","")=="accepted_direction_repair":direction_repairs[str(key)]=entry
 	_load_v060()
 	unit_frames.clear()
 	motion_frames.clear()
@@ -208,10 +219,54 @@ func _load_graphics_v052() -> void:
 func drone(direction: Vector2,clock: float) -> Dictionary:
 	if drone_parts.is_empty():return {}
 	var index=ACData.sprite_direction(direction,8)
-	var hull: Dictionary=drone_parts.bodies[int(index.column)].duplicate()
-	hull.flip=bool(index.flip)
+	var hull=_direction_repair("0:8",direction)
+	if hull.is_empty():
+		hull=drone_parts.bodies[int(index.column)].duplicate()
+		hull.flip=bool(index.flip)
+	hull.separate_rotors=true
 	var rotor: Dictionary=drone_parts.rotors[posmod(int(clock*24),5)].duplicate()
+	if direction_repairs.get("0:8",{}).has("rotor"):
+		rotor=sprites.sample(direction_repairs["0:8"].rotor,"idle",Vector2.DOWN,clock)
+		rotor.rotor_component=true
 	return {"hull":hull,"rotor":rotor}
+
+func drone_mounts(hull: Dictionary,direction: Vector2,extent: float) -> Array:
+	var axis: Vector2=hull.get("rig_axis",direction)
+	var forward=Vector2(axis.x,axis.y/.55).normalized()
+	var side=Vector2(-forward.y,forward.x)
+	var mounts: Array=direction_repairs.get("0:8",{}).get("rotor_mounts",[[-.46,.02],[.46,.02],[0,-.55]])
+	var offsets: Array=[]
+	for raw in mounts:
+		var mount=ACData.point(raw)
+		var offset=(side*mount.x+forward*mount.y)*extent
+		offset.y*=.55
+		offsets.append(offset)
+	offsets.sort_custom(func(a,b):return a.y<b.y)
+	return offsets
+
+func _direction_repair(key: String,direction: Vector2) -> Dictionary:
+	if not direction_repairs.has(key):return {}
+	var frame=sprites.sample(direction_repairs[key],"idle",direction,0)
+	if not frame.is_empty():
+		frame.direction_repaired=true
+		frame.separate_rotors=bool(direction_repairs[key].get("separate_rotors",false))
+	return frame
+
+func death_info(race: int,kind: int) -> Dictionary:
+	var key="%d:%d"%[race,kind]
+	if sprites.units.get(key,{}).get("staged16",false) and sprites.has_action(race,kind,"death"):
+		return sprites.action_info(race,kind,"death")
+	var clip: Dictionary=direction_repairs.get(key,{}).get("actions",{}).get("death",{})
+	if not clip.is_empty():return clip
+	return sprites.action_info(race,kind,"death") if sprites.has_action(race,kind,"death") else {}
+
+func death_body(race: int,kind: int,direction: Vector2,clock: float) -> Dictionary:
+	var key="%d:%d"%[race,kind]
+	if sprites.units.get(key,{}).get("staged16",false) and sprites.has_action(race,kind,"death"):
+		return sprites.unit(race,kind,direction,"death",clock)
+	if direction_repairs.get(key,{}).get("actions",{}).has("death"):
+		return sprites.sample(direction_repairs[key],"death",direction,clock)
+	return sprites.unit(race,kind,direction,"death",clock) if sprites.has_action(race,kind,"death") else {}
 
 func _load_auxiliary_sprites() -> void:
 	var path="res://data/aux_sprites_v04.json"
@@ -278,7 +333,9 @@ func _load_auxiliary_sprites() -> void:
 		if bool(info.get("reverse_columns",false)):frames.reverse()
 		vehicle_frames[String(key)]=frames
 
-func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vector2,deploy_progress: float=0.0) -> Dictionary:
+func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vector2,deploy_progress: float=0.0,action: String="idle",clock: float=0.0) -> Dictionary:
+	if sprites.has_unit(race,kind):
+		return sprites.vehicle(race,kind,body_direction,turret_direction,action,clock,deploy_progress)
 	var key="%d:%d"%[race,kind]
 	if key=="0:5" and not siege_layers.is_empty():
 		var body_index=ACData.sprite_direction(body_direction,8);var turret_index=ACData.sprite_direction(turret_direction,8)
@@ -479,9 +536,27 @@ func _trim(source: Image, region: Rect2i, excluded: Array=[]) -> Texture2D:
 		piece.resize(maxi(1,int(piece.get_width()*factor)),maxi(1,int(piece.get_height()*factor)),Image.INTERPOLATE_LANCZOS)
 	return ImageTexture.create_from_image(piece)
 
+func unit_action_info(race: int,kind: int,action: String) -> Dictionary:
+	var definition: Dictionary=sprites.units.get("%d:%d"%[race,kind],{})
+	if action=="idle" and definition.get("staged16",false):
+		action=str(definition.get("idle_visual_action",action))
+	return sprites.action_info(race,kind,action)
+
 # action: idle, move/walk, attack, harvest/gather. clock is action elapsed seconds.
 func unit(race: int, kind: int, direction: Vector2, action: String="idle", clock: float=0.0) -> Dictionary:
 	var key="%d:%d"%[race,kind]
+	var completed_definition: Dictionary=sprites.units.get(key,{})
+	if completed_definition.get("staged16",false):
+		var visual_action=str(completed_definition.get("idle_visual_action","idle")) if action=="idle" else action
+		var completed=sprites.unit(race,kind,direction,visual_action,clock)
+		if not completed.is_empty():return completed
+	if action!="death":
+		var repair=_direction_repair(key,direction)
+		if not repair.is_empty():
+			repair.action=action
+			return repair
+	var authored=sprites.unit(race,kind,direction,action,clock)
+	if not authored.is_empty():return authored
 	if v060_units.has(key):
 		var index=ACData.sprite_direction(direction,8)
 		var phase=posmod(int(clock*12),8) if action in ["walk","move","attack"] or ACData.unit(race,kind).air else 0
@@ -678,6 +753,8 @@ func rubble_texture(race: int,kind: int) -> Texture2D:
 	return v060_effects[key][variant]
 
 func building(race: int, kind: int) -> Texture2D:
+	var authored=sprites.building(race,kind,1.0,false,Vector2.DOWN,0)
+	if not authored.is_empty():return authored.texture
 	return building_frames.get("%d:%d"%[race,kind])
 
 func fire_pose(race: int,kind: int,direction: Vector2,clock: float=0.0) -> Dictionary:

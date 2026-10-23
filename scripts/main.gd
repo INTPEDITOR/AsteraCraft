@@ -15,6 +15,8 @@ var audio: ACAudio
 var terrain_artist:=ACTerrainRenderer.new()
 var root_artist=preload("res://scripts/root_renderer.gd").new()
 var construction_visual:=ConstructionVisual.new()
+var building_damage_visual:=preload("res://scripts/building_damage_visual.gd").new()
+var death_visual:=preload("res://scripts/death_visual.gd").new()
 var pointer_skill: String=""
 var pointer_order=""
 var render_rects: Dictionary={}
@@ -539,15 +541,34 @@ func _sync_world_canvas() -> void:
 func _sync_nuclear_clouds() -> void:
 	var active={}
 	for fx in state.get("effects",[]):
-		if fx.get("type","")!="skill" or fx.get("skill","")!="nuclear":continue
-		var frames: Array=assets.v060_effects.get("nuclear_cloud",[])
-		if frames.is_empty():continue
+		var type=str(fx.get("type",""))
+		var key=str(fx.get("skill","")).replace("_warning","") if type=="skill" else "warhead_ascent" if type=="nuclear_ascent" else "warhead_descent" if type=="nuclear_descent" else ""
+		if key.is_empty():continue
+		var info=assets.sprites.effect_info(key)
+		var frames: Array=assets.v060_effects.get("nuclear_cloud",[]) if key=="nuclear" else []
+		if info.is_empty() and frames.is_empty():continue
 		var id=int(fx.id);active[id]=true
 		if not nuclear_clouds.has(id):
-			var node=ACNuclearCloud.new();node.configure(frames[0].atlas,frames.size());node.z_index=3102;world_canvas.add_child(node);nuclear_clouds[id]=node
+			var node=ACNuclearCloud.new() if key=="nuclear" else preload("res://scripts/effect_sprite.gd").new()
+			if info.is_empty():node.configure(frames[0].atlas,frames.size())
+			else:node.configure(info.texture,int(info.count),Vector2i(int(info.columns),int(info.rows)),ACData.point(info.get("pivot",[.5,.65])))
+			if key=="nuclear":node.phase_frames=info.get("phase_frames",[])
+			node.z_index=3102;world_canvas.add_child(node);nuclear_clouds[id]=node
 		var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0)
 		var point=_ground_point(ACData.point(fx.to))-world_clip.position
-		nuclear_clouds[id].update_cloud(point,float(fx.get("radius",5))*64*zoom,maxf(0,now-float(fx.started)),float(fx.until)-float(fx.started))
+		var duration=maxf(.01,float(fx.until)-float(fx.started))
+		var age=maxf(0,now-float(fx.started));var progress=clampf(age/duration,0,1)
+		var width=(float(fx.get("radius",5))*64 if key=="nuclear" else float(fx.get("radius",4))*64 if key=="sap_bloom" else 180 if key=="verdict" else 120 if key in ["smoke","discipline"] else 96 if key.begins_with("warhead_") else 72)*zoom
+		if not info.is_empty():width*=float(info.texture.get_width())/maxf(1,float(info.columns)*float(info.get("scale_hint",float(info.texture.get_width())/float(info.columns))))
+		if key=="nuclear":nuclear_clouds[id].update_cloud(point,width,age,duration)
+		else:
+			var frame=progress*(int(info.count)-1);var opacity=1.0
+			if str(fx.get("skill","")).ends_with("_warning"):frame*=.25;opacity=.55
+			if key.begins_with("warhead_"):
+				var travel=minf(600,size.y*.75)*zoom
+				point.y-=travel*(progress*progress if key=="warhead_ascent" else 1-progress*progress)
+				frame=fposmod(age*16,float(info.count))
+			nuclear_clouds[id].update_frame(point,width,frame,opacity)
 	for id in nuclear_clouds.keys():
 		if not active.has(id):nuclear_clouds[id].queue_free();nuclear_clouds.erase(id)
 
@@ -615,16 +636,19 @@ func _update_visual_motion(dt: float) -> void:
 			data.walking=false
 		elif distance>.0005:
 			# Advance feet/tracks by distance covered, not simulation time.
-			# One four-pose stride spans a body-sized distance in world tiles.
+			# Authored walk cycles advance by distance, keeping planted feet
+			# synchronized with movement at any simulation/display rate.
 			var stride=maxf(1.25,float(definition.size)*1.5)
-			data.phase=fposmod(float(data.phase)+distance*4.0/stride,4.0)
+			var phases=int(assets.sprites.action_info(int(unit.race),int(unit.kind),"walk").get("rows",4))
+			data.phase=fposmod(float(data.phase)+distance*phases/stride,float(phases))
 			data.walking=true
 		elif bool(data.walking):
 			# Settle onto the next shared idle pose before stopping the cycle.
 			var phase=float(data.phase)
-			var target=1.0 if phase<1 else (3.0 if phase<3 else 5.0)
+			var phases=int(assets.sprites.action_info(int(unit.race),int(unit.kind),"walk").get("rows",4))
+			var target=ceilf(phase/maxf(1,phases*.5))*maxf(1,phases*.5) if phases!=4 else 1.0 if phase<1 else (3.0 if phase<3 else 5.0)
 			data.phase=move_toward(phase,target,dt*12.0)
-			if is_equal_approx(float(data.phase),target):data.phase=fposmod(target,4.0);data.walking=false
+			if is_equal_approx(float(data.phase),target):data.phase=fposmod(target,float(phases));data.walking=false
 		visual_motion[id]=data
 	for id in visual_motion.keys():
 		if not alive.has(id):visual_motion.erase(id)
@@ -1135,7 +1159,7 @@ func _confirm_pointer_target(point: Vector2,mouse: Vector2,minimap: bool=false) 
 	if selected_resource>=0 or selected.is_empty():return true
 	if attacking:
 		var target=-1 if minimap else _hit_test(mouse)
-		_issue_order("context" if target>=0 else "attack_move",point,target)
+		_issue_order("attack" if target>=0 else "attack_move",point,target)
 	elif order=="rally":_set_rally(point)
 	elif order=="skill":_send_command({"type":"skill","skill":pointer_skill,"ids":selected,"pos":ACData.packed(point),"target":-1 if minimap else _hit_test(mouse)})
 	elif order=="ability":_send_command({"type":order,"ids":selected,"pos":ACData.packed(point),"target":-1 if minimap else _hit_test(mouse)})
@@ -1692,7 +1716,10 @@ func _draw() -> void:
 
 func _draw_retained_roots() -> void:
 	var previous=world_canvas;world_canvas=_root_canvas
-	_world_transform();_draw_root_ground(_world_render_rect());world_canvas=previous
+	_world_transform()
+	_draw_root_ground(_world_render_rect())
+	_draw_ground_remains()
+	world_canvas=previous
 
 func _draw_root_ground(_view: Rect2) -> void:
 	var viewer=hash([local_slot,spectator,network_client,replay_mode])
@@ -1708,16 +1735,6 @@ func _draw_world() -> void:
 	_world_transform()
 	world_canvas.draw_rect(view,Color("0a1119"))
 	terrain_artist.draw(world_canvas,draw_map,view,zoom,world_to_screen,screen_to_world,_fog_value,float(state.get("time",0)),_fog_stamp(),false)
-	for debris in state.get("rubble",[]):
-		var texture=assets.rubble_texture(int(debris.race),int(debris.kind))
-		if texture==null:continue
-		var point=_ground_point(ACData.point(debris.pos));var width=float(debris.width)*32*zoom
-		var dimensions=Vector2(width,width*texture.get_height()/float(texture.get_width()))
-		var opacity=1-smoothstep(.22,1.0,(float(state.time)-float(debris.started))/45.0)
-		var light=.38 if debris.get("fogged",false) else 1.0
-		world_canvas.draw_texture_rect(texture,Rect2(point-dimensions*Vector2(.5,.65),dimensions),false,Color(light,light,light,opacity))
-	for fx in state.get("effects",[]):
-		if fx.get("type","")=="death" and fx.get("death_style","") in ["juice","blood"]:_draw_effect(fx)
 	var objects: Array=[]
 	var points={}
 	for res in state.get("resources",[]):
@@ -1727,13 +1744,27 @@ func _draw_world() -> void:
 		objects.append(res)
 	for remembered in state.get("building_memory",[]):
 		var point=_center(remembered)
-		if _fog_value(int(point.y)*128+int(point.x))==1 and view.grow(200).has_point(_ground_point(point)):objects.append(remembered)
+		if _fog_value(int(point.y)*128+int(point.x))==1 and _building_screen_rect(remembered).intersects(view.grow(128)):objects.append(remembered)
 	for e in _entities():
 		if e.get("container",-1)>=0 or not _visible(e):continue
 		var point=_ground_point(_center(e) if e.has("progress") else _visual_position(e))
-		if view.grow(200).has_point(point):objects.append(e);points[int(e.id)]=point
+		var in_view=_building_screen_rect(e).intersects(view.grow(128)) if e.has("progress") else view.grow(200).has_point(point)
+		if in_view:objects.append(e);points[int(e.id)]=point
 	_sync_entity_canvases(objects,points)
 	_world_effect_canvas.queue_redraw()
+
+func _draw_ground_remains() -> void:
+	# Ground remains belong above living root tiles and below standing units.
+	for debris in state.get("rubble",[]):
+		var texture=assets.rubble_texture(int(debris.race),int(debris.kind))
+		if texture==null:continue
+		var point=_ground_point(ACData.point(debris.pos));var width=float(debris.width)*32*zoom
+		var dimensions=Vector2(width,width*texture.get_height()/float(texture.get_width()))
+		var opacity=1-smoothstep(.22,1.0,(float(state.time)-float(debris.started))/45.0)
+		var light=.38 if debris.get("fogged",false) else 1.0
+		world_canvas.draw_texture_rect(texture,Rect2(point-dimensions*Vector2(.5,.65),dimensions),false,Color(light,light,light,opacity))
+	for fx in state.get("effects",[]):
+		if fx.get("type","")=="death" and _death_is_ground(fx):_draw_effect(fx)
 
 func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 	var active={};var now=Time.get_ticks_msec()*.001
@@ -1753,9 +1784,18 @@ func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 		if node.bounds.has_area():render_rects[id]=Rect2(node.bounds.position+point,node.bounds.size)
 		if node.body_bounds.has_area():_selection_bodies[id]=Rect2(node.body_bounds.position+point,node.body_bounds.size)
 		if now>=node.next_pose:
-			# Stagger twelve animation updates per second across the screen.
-			# The retained canvas transform still interpolates at display rate.
-			node.next_pose=(floorf(now*12.0-float(posmod(id,12))/12.0)+1+float(posmod(id,12))/12.0)/12.0
+			# Authored attack clips keep all their poses. Movement transforms
+			# still interpolate at display rate without repainting every frame.
+			var fps=12.0
+			if not e.has("progress") and not e.has("amount"):
+				var action=str(e.get("action","idle"))
+				var attack_duration=assets.sprites.action_length(int(e.race),int(e.kind),"attack")
+				var attack_window=minf(attack_duration,maxf(.15,float(ACData.unit(int(e.race),int(e.kind)).period)*.9))
+				if (not e.get("moving",false) or _moving_fire_pose(e)) and float(state.time)-float(e.get("fired",-99))<attack_window and assets.sprites.has_action(int(e.race),int(e.kind),"attack"):
+					action="attack"
+				fps=clampf(float(assets.unit_action_info(int(e.race),int(e.kind),action).get("fps",12)),4,30)
+			var stagger=float(posmod(id,12))/12.0
+			node.next_pose=(floorf(now*fps-stagger)+1+stagger)/fps
 			node.queue_redraw()
 	for id in _entity_canvases.keys():
 		if not active.has(id):_entity_canvases[id].queue_free();_entity_canvases.erase(id);render_rects.erase(id);_selection_bodies.erase(id)
@@ -1774,7 +1814,8 @@ func _draw_world_overlay() -> void:
 	for fx in state.get("effects",[]):
 		if fx.get("projectile","")=="flame":flame_latest[int(fx.get("unit",-1))]=int(fx.id)
 	for fx in state.get("effects",[]):
-		if fx.get("type","")=="death" and fx.get("death_style","") in ["juice","blood"]:continue
+		if fx.get("type","")=="death":_draw_death_body(fx)
+		if fx.get("type","")=="death" and _death_is_ground(fx):continue
 		if fx.get("projectile","")=="flame" and flame_latest.get(int(fx.get("unit",-1)),-1)!=int(fx.id):continue
 		_draw_effect(fx)
 	var mouse=pointer_position if pointer_position.is_finite() else get_global_mouse_position()
@@ -1826,18 +1867,6 @@ func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
 			for i in range(65):boundary.append(_ground_point(_center(tower)+Vector2.from_angle(float(i)*TAU/64.0)*(14.0 if kind==1 else 12.0)))
 			world_canvas.draw_polyline(boundary,Color(.45,.8,1,.65),2,true)
 	var definition=ACData.building(race,kind)
-	if race==2:
-		for x in range(int(definition.w)):
-			for y in range(int(definition.h)):
-				var cell=pos+Vector2(x,y)
-				var powered=kind in [0,1,2]
-				if not powered:
-					for tower in state.get("buildings",[]):
-						if int(tower.owner)==local_slot and int(tower.race)==2 and int(tower.kind)==2 and tower.hp>0 and tower.progress>=1 and cell.distance_squared_to(_center(tower))<=144:powered=true;break
-				var outline=PackedVector2Array()
-				for corner in [Vector2(-.5,-.5),Vector2(.5,-.5),Vector2(.5,.5),Vector2(-.5,.5),Vector2(-.5,-.5)]:outline.append(_ground_point(cell+corner))
-				world_canvas.draw_colored_polygon(outline.slice(0,4),Color(.2,.75,.7,.13) if powered and valid else Color(1,.15,.1,.2))
-				world_canvas.draw_polyline(outline,Color(.5,1,.8,.55) if powered and valid else Color(1,.4,.3,.7),1,true)
 	var texture=assets.building(race,kind)
 	if texture==null:return
 	var anchor=pos+Vector2(definition.w,definition.h)*.5
@@ -1847,6 +1876,13 @@ func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
 	var height=width*texture.get_height()/texture.get_width()
 	var front=float(definition.h)*16*zoom
 	var tint=Color(.48,1,.66,.55) if valid else Color(1,.3,.24,.55)
+	var authored=assets.sprites.building(race,kind,1,false,Vector2.DOWN,0)
+	if not authored.is_empty():
+		var foundation=point+Vector2(0,front)
+		_draw_unit_frame(authored,foundation,width,tint)
+		var turret=assets.sprites.building_turret(race,kind,Vector2.DOWN,0)
+		if not turret.is_empty():_draw_unit_frame(turret,foundation+authored.get("mount",Vector2.ZERO)*width/maxf(1,float(authored.scale_hint)),width,tint)
+		return
 	world_canvas.draw_texture_rect(texture,Rect2(point+Vector2(-width*.5,front-height),Vector2(width,height)),false,tint)
 
 func _render_depth(e: Dictionary) -> float:
@@ -1857,6 +1893,19 @@ func _render_depth(e: Dictionary) -> float:
 		return _ground_point(ACData.point(e.pos)+Vector2(float(definition.w)*.5,float(definition.h)-.5)).y
 	var point=_ground_point(_visual_position(e))
 	return point.y+(10000 if ACData.unit(int(e.race),int(e.kind)).air else 0)
+
+func _building_screen_rect(e: Dictionary) -> Rect2:
+	var race=int(e.race);var kind=int(e.kind)
+	var d=ACData.building(race,kind)
+	var point=_ground_point(_center(e))
+	var width=float(d.w)*32*zoom;var front=float(d.h)*16*zoom
+	var frame=assets.sprites.building(race,kind,1,false,Vector2.DOWN,0)
+	if not frame.is_empty():
+		var factor=width/maxf(1,float(frame.scale_hint))
+		return Rect2(point+Vector2(0,front)-Vector2(frame.anchor)*factor,frame.texture.get_size()*factor)
+	var texture=assets.building(race,kind)
+	var height=width*texture.get_height()/texture.get_width() if texture!=null else width*1.5
+	return Rect2(point+Vector2(-width*.5,front-height),Vector2(width,height))
 
 func _draw_building(e: Dictionary) -> void:
 	var d=ACData.building(int(e.race),int(e.kind))
@@ -1872,6 +1921,10 @@ func _draw_building(e: Dictionary) -> void:
 	if e.get("remembered",false):
 		# A frozen last-seen silhouette is terrain intelligence, not a live
 		# entity: no idle motion, smoke, health bars, selection or target entry.
+		var remembered_frame=assets.sprites.building(int(e.race),int(e.kind),float(e.progress),false,Vector2.DOWN,0)
+		if not remembered_frame.is_empty():
+			render_rects[int(e.id)]=_draw_unit_frame(remembered_frame,sp+Vector2(0,float(d.h)*16*zoom),float(d.w)*32*zoom,Color(.40,.40,.43))
+			return
 		var remembered_texture=assets.building(int(e.race),int(e.kind))
 		if remembered_texture==null:return
 		var width=float(d.w)*32.0*zoom
@@ -1879,17 +1932,41 @@ func _draw_building(e: Dictionary) -> void:
 		var rect=Rect2(sp+Vector2(-width*.5,float(d.h)*16.0*zoom-height),Vector2(width,height))
 		for layer in construction_visual.shadow_layers(int(e.race),int(e.kind),remembered_texture,rect,float(e.progress)):
 			world_canvas.draw_texture_rect(layer.texture,layer.rect,false,Color(.40,.40,.43,float(layer.opacity)))
+		render_rects[int(e.id)]=rect
 		return
 	var idle_clock=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)+int(e.id)*.173
+	var active=not e.get("queue",[]).is_empty() or not str(e.get("research","")).is_empty() or bool(e.get("tera_active",false))
+	var attack_clock=maxf(0,float(state.time)-float(e.get("fired",-99)))+(minf(visual_clock,visual_step) if not paused else 0.0)
+	if attack_clock>=.75:attack_clock=-1
+	var facing=_iso(ACData.point(e.get("facing",[0,1]))).normalized()
+	var authored=assets.sprites.building(int(e.race),int(e.kind),float(e.progress),active and e.get("powered",true),facing,idle_clock,attack_clock)
 	var tex=assets.building_idle(int(e.race),int(e.kind),idle_clock) if float(e.progress)>=1.0 else assets.building(int(e.race),int(e.kind))
 	if int(e.id) in selected:_draw_footprint(pos-Vector2(.5,.5) if int(e.kind)==1 else pos,Vector2(d.w,d.h),Color("64e996"))
 	var width=float(d.w)*32.0*zoom
 	var front=float(d.h)*16.0*zoom
 	_world_shadow(sp+Vector2(0,front-6*zoom),Vector2(width*.94,float(d.h)*11*zoom),.27)
-	if tex!=null:
+	var damage_texture: Texture2D=null
+	var damage_rect=Rect2()
+	if not authored.is_empty():
+		var factor=width/maxf(1,float(authored.scale_hint))
+		var contact=sp+Vector2(0,front*.12)
+		var foundation=sp+Vector2(0,front)
+		var root=Vector2(authored.anchor)+(contact-foundation)/factor
+		_cast_shadow(authored.texture,root,contact,factor)
+		var color=Color(.96,.97,.98)
+		if not e.get("powered",true):color*=Color(.48,.52,.58)
+		var rect=_draw_unit_frame(authored,foundation,width,color)
+		damage_texture=authored.texture;damage_rect=building_damage_visual.frame_rect(authored,foundation,width)
+		if e.progress>=1:
+			var turret=assets.sprites.building_turret(int(e.race),int(e.kind),facing,idle_clock,attack_clock)
+			if not turret.is_empty():rect=rect.merge(_draw_unit_frame(turret,foundation+authored.get("mount",Vector2.ZERO)*factor,width,color))
+		render_rects[int(e.id)]=rect
+	elif tex!=null:
 		var height=width*tex.get_height()/tex.get_width()
 		var color=Color(.96,.97,.98)
 		var rect=Rect2(sp+Vector2(-width*.5,front-height),Vector2(width,height))
+		damage_texture=tex;damage_rect=rect
+		render_rects[int(e.id)]=rect
 		for layer in construction_visual.shadow_layers(int(e.race),int(e.kind),tex,rect,float(e.progress)):
 			var silhouette: Texture2D=layer.texture
 			var shadow_rect: Rect2=layer.rect
@@ -1899,11 +1976,17 @@ func _draw_building(e: Dictionary) -> void:
 			_cast_shadow(silhouette,root,contact,factor,false,0,float(layer.opacity))
 		if float(e.progress)<1:
 			construction_visual.draw(world_canvas,int(e.race),int(e.kind),tex,rect,float(e.progress),idle_clock)
+			if construction_visual.available(int(e.race),int(e.kind)):
+				var phase: Dictionary=construction_visual.frames["%d:%d"%[int(e.race),int(e.kind)]][ConstructionVisual.stage(float(e.progress))]
+				damage_texture=phase.texture
+				damage_rect=rect if phase.get("composite",false) else construction_visual.scaffold_rect(phase,rect)
 		else:
-			if e.hp<float(d.hp)*.3:color=Color(1,.65,.5)
 			if not e.get("powered",true):color*=Color(.48,.52,.58)
 			world_canvas.draw_texture_rect(tex,rect,false,color)
 			if int(e.kind)==1:_draw_refinery_plume(e,rect)
+	if damage_texture!=null:
+		var capacity=building_damage_visual.health_capacity(float(d.hp),float(e.progress))
+		building_damage_visual.draw(world_canvas,int(e.race),float(e.hp),capacity,damage_texture,damage_rect,idle_clock,int(e.id))
 	if int(e.id) in selected:_draw_bars(sp+Vector2(0,front+6),e,d,mini(110,int(width*.65)))
 	if int(e.id) in selected and not e.queue.is_empty():
 		var q=e.queue[0]
@@ -1916,6 +1999,11 @@ func _deployment_progress(e: Dictionary) -> float:
 	var start=float(e.get("deploy_started",0));var now=float(state.get("time",0))+minf(visual_clock,visual_step)
 	var progress=clampf((now-start)/maxf(.01,float(e.deploy_until)-start),0,1)
 	return progress if e.get("deploy_to",false) else 1-progress
+
+func _moving_fire_pose(e: Dictionary) -> bool:
+	# Carrier drones already fire while circling. Their authored muzzle pulse
+	# must remain visible during that existing movement, without stopping them.
+	return int(e.race)==0 and int(e.kind)==15 and assets.sprites.units.get("0:15",{}).get("staged16",false)
 
 func _draw_unit(e: Dictionary) -> void:
 	var d=ACData.unit(int(e.race),int(e.kind))
@@ -1931,12 +2019,20 @@ func _draw_unit(e: Dictionary) -> void:
 	elif d.get("role","")!="brood" and action in ["idle","walk","move"] and visual_motion.has(int(e.id)):
 		var motion: Dictionary=visual_motion[int(e.id)]
 		action="walk" if bool(motion.walking) else "idle"
-		animation_clock=float(motion.phase)/9.0
-	if d.air:animation_clock=float(state.get("time",0))+minf(visual_clock,visual_step)+float(e.id)*.173
-	var vehicle=assets.vehicle(int(e.race),int(e.kind),_visual_facing(e,"body_direction"),_visual_facing(e,"turret_direction"),_deployment_progress(e))
+		if action=="idle" and assets.sprites.has_unit(int(e.race),int(e.kind)):
+			animation_clock=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
+		else:animation_clock=float(motion.phase)/maxf(1,float(assets.sprites.action_info(int(e.race),int(e.kind),"walk").get("fps",9)))
+	if d.air and action in ["idle","walk","move"]:animation_clock=float(state.get("time",0))+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
+	if (not e.get("moving",false) or _moving_fire_pose(e)) and assets.sprites.has_action(int(e.race),int(e.kind),"attack"):
+		var age=float(state.time)-float(e.get("fired",-99))+(minf(visual_clock,visual_step) if not paused else 0.0)
+		var duration=assets.sprites.action_length(int(e.race),int(e.kind),"attack")
+		var window=minf(duration,maxf(.15,float(d.period)*.9))
+		if age>=0 and age<window:
+			action="attack";animation_clock=age*duration/maxf(.01,window)
+	var vehicle=assets.vehicle(int(e.race),int(e.kind),_visual_facing(e,"body_direction"),_visual_facing(e,"turret_direction"),_deployment_progress(e),action,animation_clock)
 	var frame=vehicle.chassis if not vehicle.is_empty() else assets.unit(int(e.race),int(e.kind),_visual_facing(e),action,animation_clock)
 	if frame.is_empty():return
-	if not vehicle.is_empty() and action in ["walk","move"]:
+	if not vehicle.is_empty() and action in ["walk","move"] and not frame.get("v062",false):
 		frame=frame.duplicate()
 		frame.gait=animation_clock*9.0
 		frame.walker=int(e.kind)==12
@@ -1952,7 +2048,12 @@ func _draw_unit(e: Dictionary) -> void:
 		sp.x+=sin(animation_clock*.85)*.45*zoom
 	var extent=float(d.get("visual_extent",float(d.size)*(62 if d.air else 47)))*zoom
 	if d.air:
-		_cast_shadow(tex,frame.anchor,foot,extent/maxf(1,float(frame.scale_hint)),bool(frame.get("flip",false)),22*zoom if d.air else 0.0,1.0,float(frame.get("rotation",0)))
+		if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() and (frame.get("separate_rotors",false) or not frame.get("v062",false)):
+			var parts=assets.drone(_visual_facing(e),animation_clock)
+			_cast_shadow(parts.hull.texture,parts.hull.anchor,foot,extent*.6/float(parts.hull.scale_hint),bool(parts.hull.get("flip",false)),22*zoom)
+			for offset in assets.drone_mounts(parts.hull,_visual_facing(e),extent):
+				_cast_shadow(parts.rotor.texture,parts.rotor.anchor,foot+offset*Vector2(1,.78),extent*.42/float(parts.rotor.scale_hint),false,22*zoom)
+		else:_cast_shadow(tex,frame.anchor,foot,extent/maxf(1,float(frame.scale_hint)),bool(frame.get("flip",false)),22*zoom,1.0,float(frame.get("rotation",0)))
 	var color=Color(.96,.97,.98)
 	if e.get("cloaked",false):color.a=.42
 	if bool(d.air) and bool(e.get("moving",false)) and assets.propulsion_frames.size()==3:
@@ -1962,15 +2063,16 @@ func _draw_unit(e: Dictionary) -> void:
 		_world_transform(sp-facing*extent*.27,Vector2.DOWN.angle_to(-facing))
 		world_canvas.draw_texture_rect(exhaust,Rect2(-extent*.14,-extent*.025,extent*.28,extent*.40),false,Color(1,1,1,color.a*.85))
 		_world_transform()
-	var rect=_draw_drone(e,sp,extent,color,animation_clock) if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() else _draw_unit_frame(frame,sp,extent,color)
+	var rect=_draw_drone(e,sp,extent,color,animation_clock) if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() and (frame.get("separate_rotors",false) or not frame.get("v062",false)) else _draw_unit_frame(frame,sp,extent,color)
 	if not vehicle.is_empty():
 		_selection_bodies[int(e.id)]=rect
 		var factor=extent/maxf(1,float(frame.scale_hint))
 		var mount=sp+vehicle.mount*factor
-		if action in ["walk","move"]:mount.y-=sin(animation_clock*18.0)*.5*zoom
-		var recoil=0.0
-		if action=="attack":recoil=sin(clampf(animation_clock/.20,0,1)*PI)*2.0*zoom
-		mount-=_visual_facing(e,"turret_direction")*recoil
+		if not frame.get("staged16",false):
+			if action in ["walk","move"]:mount.y-=sin(animation_clock*18.0)*.5*zoom
+			var recoil=0.0
+			if action=="attack":recoil=sin(clampf(animation_clock/.20,0,1)*PI)*2.0*zoom
+			mount-=_visual_facing(e,"turret_direction")*recoil
 		rect=rect.merge(_draw_unit_frame(vehicle.turret,mount,extent*vehicle.turret_scale,color))
 		if not vehicle.embedded_pilot:
 			var pilot=assets.pilot(_visual_facing(e,"turret_direction"))
@@ -1984,7 +2086,6 @@ func _draw_unit(e: Dictionary) -> void:
 	render_rects[int(e.id)]=rect
 	if int(e.id) in selected or float(state.time)-float(e.get("damaged",-99))<2.5:_draw_bars(Vector2(foot.x,rect.position.y-8),e,d,clampi(int(extent),26,80))
 	if e.get("carried",0)>0:world_canvas.draw_circle(foot+Vector2(7,-10)*zoom,3*zoom,Color("ffd354"))
-	if e.anchored and d.get("role","")!="brood":world_canvas.draw_arc(foot,radius+6,0,TAU,30,Color("e6c676"),1.3,true)
 
 func _draw_cloak_shimmer(contact: Dictionary) -> void:
 	var pos=ACData.point(contact.pos)
@@ -2010,15 +2111,9 @@ func _draw_cloak_shimmer(contact: Dictionary) -> void:
 func _draw_drone(e: Dictionary,sp: Vector2,extent: float,color: Color,clock: float) -> Rect2:
 	var direction=_visual_facing(e).normalized()
 	var parts=assets.drone(direction,clock)
-	var forward=Vector2(direction.x,direction.y/.55).normalized()
-	var side=Vector2(-forward.y,forward.x)
-	var modules: Array=[]
-	# Fixed airframe coordinates: two lateral rotors and one tail rotor.
-	for mount in [Vector2(-.46,.02),Vector2(.46,.02),Vector2(0,-.55)]:
-		var offset=(side*mount.x+forward*mount.y)*extent
-		offset.y*=.55
-		modules.append(offset)
-	modules.sort_custom(func(a,b):return a.y<b.y)
+	# Mounts belong to the selected authored hull, so fans cannot drift while
+	# the live heading moves between two stored body directions.
+	var modules=assets.drone_mounts(parts.hull,direction,extent)
 	_world_transform()
 	for offset in modules:
 		world_canvas.draw_line(sp,sp+offset,Color("252c30"),maxf(2,extent*.055),true)
@@ -2131,11 +2226,13 @@ func _cast_shadow(texture: Texture2D,anchor: Vector2,foot: Vector2,factor: float
 	# Project the object's actual alpha onto the ground with one shared light
 	# direction. Ground contact is crisp; elevated aircraft get a wider penumbra.
 	var softness=1.0+altitude*.065
-	var origin=foot+Vector2(.62,.32)*altitude-world_clip.position
+	# Retained entity canvases already carry their world position. Shadow
+	# vertices must use the same local origin as the body's drawing commands.
+	var origin=foot+Vector2(.62,.32)*altitude-world_clip.position-_object_canvas_offset
 	var x_axis=Vector2(-factor if flip else factor,0)
 	var y_axis=Vector2(-factor*.28,-factor*.16)
 	if altitude>0:
-		x_axis=Vector2(factor,0).rotated(rotation)*Vector2(1,.78)
+		x_axis=Vector2(-factor if flip else factor,0).rotated(rotation)*Vector2(1,.78)
 		y_axis=Vector2(0,factor).rotated(rotation)*Vector2(1,.78)
 	for offset in [Vector2(-softness,0),Vector2(softness,softness)]:
 		world_canvas.draw_set_transform_matrix(Transform2D(x_axis,y_axis,origin+offset))
@@ -2298,30 +2395,89 @@ func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2,shot_index: 
 	if source.is_empty():return ground-Vector2(0,15*zoom)
 	if source.has("progress"):
 		var definition=ACData.building(int(source.race),int(source.kind))
+		var heading=_iso(ACData.point(source.get("facing",ACData.packed(target-origin)))).normalized()
+		var body=assets.sprites.building(int(source.race),int(source.kind),1,false,heading,0,0)
+		var turret=assets.sprites.building_turret(int(source.race),int(source.kind),heading,0,0)
+		var pose=turret if not turret.is_empty() else body
+		if not pose.is_empty() and pose.has("muzzle"):
+			var width=float(definition.w)*32*zoom
+			var factor=width/maxf(1,float(body.scale_hint))
+			var muzzle=Vector2(pose.muzzle)
+			if pose.get("flip",false):muzzle.x=-muzzle.x
+			return ground+Vector2(0,float(definition.h)*16*zoom)+body.get("mount",Vector2.ZERO)*factor+muzzle*width/maxf(1,float(pose.scale_hint))
 		return ground-Vector2(0,float(definition.h)*12*zoom)+(target-origin).normalized()*16*zoom
 	var definition=ACData.unit(int(source.race),int(source.kind))
 	var direction=(target-origin).normalized()
 	var heading=_visual_facing(source) if source.has("id") else direction
 	var turret=_visual_facing(source,"turret_direction") if source.has("id") else direction
-	var vehicle=assets.vehicle(int(source.race),int(source.kind),_visual_facing(source,"body_direction") if source.has("id") else heading,turret,_deployment_progress(source))
+	var vehicle_action="idle";var vehicle_clock=0.0
+	var layered=assets.sprites.units.get("%d:%d"%[source.race,source.kind],{})
+	if layered.get("staged16",false) and (not source.get("moving",false) or _moving_fire_pose(source)):
+		var age=float(state.time)-float(source.get("fired",-99))+(minf(visual_clock,visual_step) if not paused else 0.0)
+		var duration=assets.sprites.action_length(int(source.race),int(source.kind),"attack")
+		var window=minf(duration,maxf(.15,float(definition.period)*.9))
+		if age>=0 and age<window:vehicle_action="attack";vehicle_clock=age*duration/maxf(.01,window)
+	var vehicle=assets.vehicle(int(source.race),int(source.kind),_visual_facing(source,"body_direction") if source.has("id") else heading,turret,_deployment_progress(source),vehicle_action,vehicle_clock)
 	var extent=float(definition.get("visual_extent",float(definition.size)*(62 if definition.air else 47)))*zoom
 	if not vehicle.is_empty():
 		var factor=extent/maxf(1,float(vehicle.chassis.scale_hint))
-		return ground+vehicle.mount*factor+vehicle.muzzle*factor*float(vehicle.turret_scale)
+		var socket: Vector2=vehicle.muzzle
+		if not vehicle.get("muzzles",[]).is_empty():socket=Vector2(vehicle.muzzles[posmod(maxi(0,shot_index),vehicle.muzzles.size())])
+		return ground+vehicle.mount*factor+socket*factor*float(vehicle.turret_scale)
 	var elevated=ground-Vector2(0,(22 if definition.air else 0)*zoom)
 	var clock=float(source.get("action_clock",0))
 	if definition.air and source.has("id"):
 		clock=float(state.get("time",0))+minf(visual_clock,visual_step)+float(source.id)*.173
+	# The painted firing pose restarts on each shot, including render
+	# interpolation. Its source-bound mouth must sample that same pose.
+	if layered.get("staged16",false) and vehicle_action=="attack":clock=vehicle_clock
+	if definition.air and source.has("id"):
 		elevated.y-=sin(clock*1.7)*1.8*zoom
 		elevated.x+=sin(clock*.85)*.45*zoom
-	var fire=assets.fire_pose(int(source.race),int(source.kind),heading,clock)
-	if not fire.is_empty():return ground+fire.muzzle*extent/maxf(1,float(fire.scale_hint))
 	# A moving aircraft may aim at a target while its hull still faces its
 	# displacement. Register the socket against the body actually being drawn.
 	var pose=assets.unit(int(source.race),int(source.kind),heading,"attack",clock)
+	if not pose.is_empty() and pose.get("staged16",false) and not pose.get("muzzles",[]).is_empty():
+		var sockets: Array=pose.muzzles
+		return elevated+Vector2(sockets[posmod(maxi(0,shot_index),sockets.size())])*extent/maxf(1,float(pose.scale_hint))
+	if not pose.is_empty() and pose.get("staged16",false) and pose.has("muzzle"):
+		return elevated+Vector2(pose.muzzle)*extent/maxf(1,float(pose.scale_hint))
+	var fire=assets.fire_pose(int(source.race),int(source.kind),heading,clock)
+	if not fire.is_empty():return ground+fire.muzzle*extent/maxf(1,float(fire.scale_hint))
 	if pose.is_empty():return elevated
+	if pose.get("v062",false) and pose.has("muzzle"):
+		var muzzle=Vector2(pose.muzzle)
+		if pose.get("flip",false):muzzle.x=-muzzle.x
+		return elevated+muzzle*extent/maxf(1,float(pose.scale_hint))
 	var offset=ACWeaponSockets.local_offset(pose,int(source.race),int(source.kind),heading,shot_index)
 	return elevated+offset*extent/maxf(1,float(pose.scale_hint))
+
+func _death_is_ground(fx: Dictionary) -> bool:
+	var profile=ACDeathVisual.profile(int(fx.get("race",0)),int(fx.get("kind",0)),bool(fx.get("source_building",false)))
+	return str(fx.get("death_effect",profile.key)) in ["blood_ground","juice_ground"]
+
+func _draw_death_body(fx: Dictionary) -> void:
+	if fx.get("source_building",false):return
+	var race=int(fx.get("race",0));var kind=int(fx.get("kind",0))
+	var clip=assets.death_info(race,kind)
+	var detonation=fx.get("body_action","")=="attack" and assets.sprites.units.get("%d:%d"%[race,kind],{}).get("staged16",false)
+	if detonation:
+		var attack_clip=assets.unit_action_info(race,kind,"attack")
+		if attack_clip.is_empty():detonation=false
+		else:clip=attack_clip
+	if clip.is_empty():return
+	var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)
+	var age=maxf(0,now-float(fx.get("started",now)))
+	var direction=_iso(ACData.point(fx.get("facing",[0,1]))).normalized()
+	var pose=assets.unit(race,kind,direction,"attack",age) if detonation else assets.death_body(race,kind,direction,age)
+	if pose.is_empty():return
+	var definition=ACData.unit(race,kind)
+	var length=float(clip.get("rows",clip.get("count",1)))/maxf(1,float(clip.get("fps",12)))
+	# The consumed bomb shows its attack once; only the ground stain persists.
+	var end=length+.15 if detonation else maxf(length+.15,float(fx.get("until",now))-float(fx.get("started",now)))
+	var opacity=1-smoothstep(length,end,age)
+	var point=_ground_point(ACData.point(fx.get("to",fx.get("pos",[0,0]))))-Vector2(0,22*zoom if definition.air else 0)
+	_draw_unit_frame(pose,point,float(definition.get("visual_extent",float(definition.size)*(62 if definition.air else 47)))*zoom,Color(1,1,1,opacity))
 
 func _draw_effect(fx: Dictionary) -> void:
 	var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)
@@ -2334,6 +2490,15 @@ func _draw_effect(fx: Dictionary) -> void:
 	var race=int(fx.get("race",0))
 	var kind=str(fx.get("type","shot"))
 	var frame=mini(3,int(progress*4))
+	if kind=="skill" and not assets.sprites.effect_info(str(fx.get("skill","")).replace("_warning","")).is_empty():return
+	if kind in ["nuclear_ascent","nuclear_descent"] and not assets.sprites.effect_info("warhead_ascent" if kind=="nuclear_ascent" else "warhead_descent").is_empty():return
+	if kind=="death":
+		var profile=ACDeathVisual.profile(race,int(fx.get("kind",0)),bool(fx.get("source_building",false)))
+		var effect=death_visual.sample(str(fx.get("death_effect",profile.key)),now-start,duration)
+		if not effect.is_empty():
+			var point=b-Vector2(0,22*zoom if bool(fx.get("airborne",profile.airborne)) else 0)
+			_draw_unit_frame(effect,point,float(fx.get("extent",90))*zoom,Color(1,1,1,float(effect.opacity)))
+			return
 	if kind=="nuclear_marker":
 		world_canvas.draw_circle(b,maxf(1.5,2.5*zoom),Color(1,.08,.04,.8+.2*sin(now*8)),true,-1,true)
 		return
@@ -2447,6 +2612,11 @@ func _draw_heal_effect(fx: Dictionary,from: Vector2,to: Vector2,progress: float)
 	if not patient.is_empty() and not patient.has("progress"):to=_ground_point(_visual_position(patient))
 	from-=Vector2(0,18*zoom)
 	to-=Vector2(0,14*zoom)
+	if not source.is_empty() and not source.has("progress") and assets.sprites.has_action(int(source.race),int(source.kind),"heal"):
+		var pose=assets.unit(int(source.race),int(source.kind),_visual_facing(source),"heal",0)
+		if pose.get("staged16",false) and pose.has("muzzle"):
+			var origin=_visual_position(source)
+			from=_weapon_tip(source,origin,origin+ACData.point(source.facing))
 	var sap=str(fx.get("projectile",""))=="heal_sap"
 	var shield=str(fx.get("projectile",""))=="shield"
 	var tint=Color("bfe990") if sap else (Color("b2d5ff") if shield else Color("7dffd3"))

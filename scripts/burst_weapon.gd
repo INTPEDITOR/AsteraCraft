@@ -28,7 +28,7 @@ static func start(c,u: Dictionary,target: Dictionary) -> void:
 static func tick(c,u: Dictionary) -> bool:
 	if int(u.get("burst_left",0))<=0:return false
 	var target: Dictionary=c.entity(int(u.burst_target))
-	if u.owner!=u.burst_owner or u.order not in ["attack","attack_move","idle","hold"] or target.is_empty() or target.hp<=0 or c.allied(int(u.owner),int(target.owner)) or not c.can_see(int(u.owner),target) or not c._can_attack(u._definition,target):
+	if u.owner!=u.burst_owner or u.order not in ["attack","attack_move","idle","hold"] or target.is_empty() or target.hp<=0 or not c.attack_target_allowed(u,target) or not c.can_see(int(u.owner),target) or not c._can_attack(u._definition,target):
 		cancel(u);return false
 	if u.order=="attack" and int(u.target)!=int(target.id):cancel(u);return false
 	var reach=float(u._definition.range)+.25

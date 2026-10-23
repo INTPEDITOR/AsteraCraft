@@ -1,0 +1,318 @@
+{
+	"cases": [
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:0",
+			"resource_pass": true,
+			"samples": 195
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:1",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:2",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:3",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:4",
+			"resource_pass": true,
+			"samples": 195
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:5",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:6",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:7",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:8",
+			"resource_pass": true,
+			"samples": 99
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:9",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:10",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:11",
+			"resource_pass": true,
+			"samples": 99
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:12",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:13",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:14",
+			"resource_pass": true,
+			"samples": 99
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "0:15",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:0",
+			"resource_pass": true,
+			"samples": 195
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:1",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:2",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:3",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:4",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:5",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:6",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:7",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:8",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:9",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:10",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:11",
+			"resource_pass": true,
+			"samples": 99
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:12",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "1:13",
+			"resource_pass": true,
+			"samples": 51
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:0",
+			"resource_pass": true,
+			"samples": 195
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:1",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:2",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:3",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:4",
+			"resource_pass": true,
+			"samples": 195
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:5",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:6",
+			"resource_pass": true,
+			"samples": 99
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:7",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:8",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:9",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:10",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:11",
+			"resource_pass": true,
+			"samples": 99
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:12",
+			"resource_pass": true,
+			"samples": 147
+		},
+		{
+			"bounds_pass": true,
+			"full_art_review": false,
+			"key": "2:13",
+			"resource_pass": true,
+			"samples": 147
+		}
+	],
+	"checks": 139,
+	"failures": [],
+	"native": "Windows",
+	"passed": true,
+	"scope": "Quick resource/action samples and actual all44 render bounds only; full direction/anatomy/animation review remains deferred.",
+	"unit_count": 44
+}

@@ -35,11 +35,16 @@ func run():
 	for reason in ["dead","allied","distant","hidden"]:
 		var a=arena();var c=a[0];var u=a[1];var t=a[2];c._tick_unit_behavior(u,.01)
 		if reason=="dead":t.hp=0
-		elif reason=="allied":t.owner=0
+		elif reason=="allied":c.mode="teams";c.players[1].team=c.players[0].team
 		elif reason=="distant":t.pos=[80,80]
 		else:c.visibility[0].fill(0)
 		c.time=.15;ACCore.BURST.tick(c,u)
 		check(u.burst_left==0,"invalid target cancels remaining shots: "+reason)
+	# An explicit Attack on one's own unit is legal in the current rules.
+	# It must not be confused with attacking another allied player's unit.
+	var own=arena();var own_core=own[0];var own_unit=own[1];var own_target=own[2]
+	own_core._tick_unit_behavior(own_unit,.01);own_target.owner=0;own_core.time=.15;ACCore.BURST.tick(own_core,own_unit)
+	check(own_unit.burst_left==3,"explicit own-target attack permission remains unchanged")
 	var a=arena();var c=a[0];var u=a[1];var t=a[2];t.hp=1;c._tick_unit_behavior(u,.01);c.time=.15;ACCore.BURST.tick(c,u)
 	check(c.players[0].kills==1,"lethal burst counts one kill")
 	for upgrades in [0,2]:

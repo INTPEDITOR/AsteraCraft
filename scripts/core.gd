@@ -500,7 +500,7 @@ func _construct_hyrax(w: Dictionary,b: Dictionary,dt: float) -> void:
 		if next.distance_to(goal)<.02 or not w.moving:
 			w._construction_phase="work";w._construction_until=time+.8+float(posmod(int(w.id)+int(w._construction_cycle),5))*.12
 
-func building_approach(b: Dictionary, from: Vector2, unit: Dictionary={}) -> Vector2:
+func building_approach(b: Dictionary, from: Vector2, unit: Dictionary={}, avoid: Vector2=Vector2.INF) -> Vector2:
 	var d=ACData.building(int(b.race),int(b.kind))
 	var p=Vector2i(ACData.point(b.pos))
 	var candidates: Array=[]
@@ -517,29 +517,45 @@ func building_approach(b: Dictionary, from: Vector2, unit: Dictionary={}) -> Vec
 		var half=_body_size(unit)*.5
 		for index in range(candidates.size()):
 			var candidate: Vector2=candidates[index]
-			if candidate.x<p.x:candidate.x=rect.position.x-half.x-.15
-			elif candidate.x>=p.x+int(d.w):candidate.x=rect.end.x+half.x+.15
-			if candidate.y<p.y:candidate.y=rect.position.y-half.y-.15
-			elif candidate.y>=p.y+int(d.h):candidate.y=rect.end.y+half.y+.15
+			# Keep both the target gap and movement tolerance inside tool reach.
+			if candidate.x<p.x:candidate.x=rect.position.x-half.x-.06
+			elif candidate.x>=p.x+int(d.w):candidate.x=rect.end.x+half.x+.06
+			if candidate.y<p.y:candidate.y=rect.position.y-half.y-.06
+			elif candidate.y>=p.y+int(d.h):candidate.y=rect.end.y+half.y+.06
 			candidates[index]=candidate
-	candidates.sort_custom(func(a,bp):return from.distance_squared_to(a)<from.distance_squared_to(bp))
+	candidates.sort_custom(func(a,bp):
+		var a_failed=a.distance_squared_to(avoid)<.25
+		var b_failed=bp.distance_squared_to(avoid)<.25
+		if a_failed!=b_failed:return not a_failed
+		return from.distance_squared_to(a)<from.distance_squared_to(bp))
 	var fallback=from
 	for candidate in candidates:
-		if fallback==from:fallback=candidate
 		if not unit.is_empty() and not _unit_fits(unit,candidate,false):continue
+		if fallback==from:fallback=candidate
 		if from.distance_to(candidate)<.7 or not map.path(from,candidate).is_empty():
 			return candidate
 	return fallback
 
-func _move_to_building(u: Dictionary, b: Dictionary, dt: float, reach: float=.12) -> bool:
-	if int(u.get("approach_target",-1))!=int(b.id) or int(u.get("approach_revision",-1))!=map.revision or (float(u.blocked_clock)>.6 and time>=float(u.get("_approach_retry",0))):
+func _move_to_building(u: Dictionary, b: Dictionary, dt: float, reach: float=.04) -> bool:
+	var changed=int(u.get("approach_target",-1))!=int(b.id) or int(u.get("approach_revision",-1))!=map.revision
+	if changed:u._approach_stalled=0.0
+	var stalled=maxf(float(u.blocked_clock),float(u.get("_approach_stalled",0)))
+	if changed or (stalled>.6 and time>=float(u.get("_approach_retry",0))):
+		var avoid=ACData.point(u.get("approach_goal",u.pos)) if not changed else Vector2.INF
 		u.approach_target=b.id
 		u.approach_revision=map.revision
 		u._approach_retry=time+.75
-		u.approach_goal=ACData.packed(building_approach(b,ACData.point(u.pos),u))
+		u.approach_goal=ACData.packed(building_approach(b,ACData.point(u.pos),u,avoid))
 		u.path=[]
-		u.repath=0.0
-	return _move(u,ACData.point(u.approach_goal),dt,reach)
+		u.repath=0.0;u.path_failed=false
+	var before=ACData.point(u.pos)
+	_move(u,ACData.point(u.approach_goal),dt,minf(reach,.04))
+	# An exhausted partial path is not arrival at the building. Count that
+	# stalled time too, so a different edge is tried and failure is reported.
+	var arrived=construction_reach(u,b)
+	if arrived or before.distance_squared_to(ACData.point(u.pos))>.000001:u._approach_stalled=0.0
+	else:u._approach_stalled=float(u.get("_approach_stalled",0))+dt
+	return arrived
 
 func _ground_sweep(dimensions: Vector2, from: Vector2, to: Vector2) -> bool:
 	# The imported map's summed-area collision table can prove the whole
@@ -814,6 +830,12 @@ func command(owner: int, cmd: Dictionary) -> String:
 	if ids.size()>12 and not bool(players[owner].bot) and not brood_selection:
 		return "한 번에 최대 12기까지 선택할 수 있습니다"
 	var type = str(cmd.get("type",""))
+	if type=="attack":
+		var attack_target=entity(int(cmd.get("target",-1)))
+		if attack_target.is_empty() or attack_target.hp<=0 or attack_target.get("container",-1)>=0 or not can_see(owner,attack_target):
+			return "공격할 대상을 지정하세요"
+		if allied(owner,int(attack_target.owner)) and int(attack_target.owner)!=owner:
+			return "다른 아군의 유닛은 공격할 수 없습니다"
 	if type=="skill":return ABILITIES.command(self,owner,cmd)
 	if type=="produce_nuke":return ABILITIES.produce_nuke(self,owner,entity(int(cmd.get("id",-1))))
 	if type=="cancel_nuke":return ABILITIES.cancel_nuke(self,owner,entity(int(cmd.get("id",-1))))
@@ -934,6 +956,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 		if u.is_empty() or u.has("progress") or int(u.owner)!=owner or u.container>=0:
 			continue
 		if u.get("technical",false):continue
+		if type=="attack" and int(u.id)==int(cmd.get("target",-1)):continue
 		if int(u.kind)==0:u.build_queue=[];u.erase("build_plan")
 		var was_fleeing=bool(u.get("fleeing",false))
 		u.fleeing=false
@@ -1723,6 +1746,7 @@ func _tick_building(b: Dictionary, dt: float) -> void:
 		b.cooldown=maxf(0,b.cooldown-dt)
 		var aa=int(b.kind)==(11 if int(b.race)==1 else 12)
 		var target=_find_target(b,9 if aa else 8,"a" if aa else "g")
+		if not target.is_empty():b.facing=ACData.packed((center(target)-center(b)).normalized())
 		if not target.is_empty() and b.cooldown<=0:
 			_damage(b,target,24 if aa else 15)
 			b.cooldown=1.0
@@ -1939,7 +1963,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 		elif construction_reach(u,plan):error=_arrive_construction(u)
 		else:
 			_move_to_building(u,plan,dt)
-			if float(u.blocked_clock)>6.0:error="건설 위치까지 이동할 수 없습니다"
+			if maxf(float(u.blocked_clock),float(u.get("_approach_stalled",0)))>6.0:error="건설 위치까지 이동할 수 없습니다"
 		if error!="":
 			u.erase("build_plan");u.order="idle";u.target=-1;u.path=[]
 			events.append({"owner":u.owner,"text":error,"created":time})
@@ -1999,7 +2023,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 	var target: Dictionary={}
 	if u.order=="attack":
 		target=entity(int(u.target))
-		if target.is_empty() or not can_see(int(u.owner),target):
+		if target.is_empty() or target.hp<=0 or not attack_target_allowed(u,target) or not can_see(int(u.owner),target):
 			u.order="attack_move"
 			u.target=-1
 			target={}
@@ -2010,7 +2034,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			u._scan_at=time+.22+float(int(u.id)%5)*.012
 		else:
 			target=entity(int(u.get("_auto_target",-1)))
-			if not target.is_empty() and not can_see(int(u.owner),target):target={}
+			if not target.is_empty() and (not attack_target_allowed(u,target) or not can_see(int(u.owner),target)):target={}
 	if d.role=="chaser" and (target.is_empty() or not _can_attack(d,target)):u.focus_target=-1
 	if not target.is_empty() and _can_attack(d,target):
 		u._aiming=true
@@ -2034,6 +2058,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 					_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage),-1,str(d.targets))
 					_effect("explosion",u,center(target),.65,{"projectile":"explosion"})
 					u.hp=0
+					_death_visual(u,int(u.id),"attack")
 				elif int(d.get("burst_count",1))>1:
 					BURST.start(self,u,target)
 				else:
@@ -2187,6 +2212,19 @@ func _can_attack(d: Dictionary, target: Dictionary) -> bool:
 		is_air=bool(ACData.unit(int(target.race),int(target.kind)).air)
 	return ("a" if is_air else "g") in str(d.targets)
 
+func forced_own_target(attacker: Dictionary,target: Dictionary) -> bool:
+	# Only an explicit Attack command permits damage to its single own target.
+	# Carrier drones inherit that permission from their mother's current order.
+	if int(attacker.owner)!=int(target.owner) or int(attacker.id)==int(target.id):return false
+	var authority=attacker
+	if attacker.has("mother"):
+		authority=entity(int(attacker.mother))
+		if authority.is_empty() or authority.hp<=0 or int(authority.owner)!=int(attacker.owner):return false
+	return authority.get("order","")=="attack" and int(authority.get("target",-1))==int(target.id) and int(authority.id)!=int(target.id)
+
+func attack_target_allowed(attacker: Dictionary,target: Dictionary) -> bool:
+	return not allied(int(attacker.owner),int(target.owner)) or forced_own_target(attacker,target)
+
 func _team_threat(candidate: Dictionary, owner: int) -> bool:
 	if candidate.has("progress"):return false
 	if time-float(candidate.get("_last_attack_time",-99))<=2.0 and allied(owner,int(candidate.get("_last_attack_owner",candidate.owner))):return true
@@ -2273,7 +2311,8 @@ func projectile_style(attacker: Dictionary) -> String:
 	return str(ACData.unit(int(attacker.race),int(attacker.kind)).get("weapon",styles[int(attacker.race)][clampi(int(attacker.kind),0,12)]))
 
 func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_projectile: bool=true,damage_kind: String="attack",armor_scale: float=1.0,bonus_scale: float=1.0) -> void:
-	if target.hp<=0 or allied(int(attacker.owner),int(target.owner)):
+	var friendly=allied(int(attacker.owner),int(target.owner))
+	if target.hp<=0 or (friendly and (damage_kind!="attack" or not forced_own_target(attacker,target))):
 		return
 	attacker._last_attack_owner=int(target.owner)
 	attacker._last_attack_time=time
@@ -2310,7 +2349,7 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 		if style=="flame":travel=.2
 		_effect("shot",attacker,center(target),travel,{"target":int(target.id),"projectile":style,"damage":amount,"barrel":int(attacker.get("burst_shot",-1)),"target_air":not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air})
 	if target.hp<=0:
-		players[attacker.owner].kills+=1
+		if not friendly:players[attacker.owner].kills+=1
 		if target.has("progress"):
 			var known=[]
 			var location=Vector2i(center(target))
@@ -2323,10 +2362,14 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 	elif not target.has("progress"):
 		_flee_from_damage(target,attacker)
 
-func _death_visual(target: Dictionary, attacker_id: int=-1) -> void:
+func _death_visual(target: Dictionary, attacker_id: int=-1, body_action: String="") -> void:
 	var d=ACData.building(int(target.race),int(target.kind)) if target.has("progress") else ACData.unit(int(target.race),int(target.kind))
 	var style="juice" if int(target.race)==1 else "blue_flame" if int(target.race)==2 else "explosion" if target.has("progress") or d.get("material","")=="mechanical" else "blood"
-	_effect("death",target,center(target),8.0 if style in ["juice","blood"] else .85,{"attacker":attacker_id,"fatal":true,"death_style":style,"extent":float(d.w)*32 if target.has("progress") else clampf(float(d.get("visual_extent",36))*1.4,26,140)})
+	var visual=ACDeathVisual.profile(int(target.race),int(target.kind),target.has("progress"))
+	if visual.key=="mechanical_airburst":style="explosion"
+	var extra={"attacker":attacker_id,"fatal":true,"death_style":style,"death_effect":visual.key,"airborne":visual.airborne,"facing":target.get("facing",[0,1]),"extent":float(d.w)*32 if target.has("progress") else clampf(float(d.get("visual_extent",36))*1.4,26,140)}
+	if not body_action.is_empty():extra.body_action=body_action
+	_effect("death",target,center(target),float(visual.duration),extra)
 
 func _flee_from_damage(unit: Dictionary, attacker: Dictionary) -> void:
 	var definition=unit._definition if unit.has("_definition") else ACData.unit(int(unit.race),int(unit.kind))
@@ -2401,7 +2444,7 @@ func _attack_splash(u: Dictionary,target: Dictionary,base: float,armor_scale: fl
 
 func _area_damage(u: Dictionary, pos: Vector2, radius: float, damage: float, except_id: int = -1,targets: String="ga",armor_scale: float=1.0,bonus_scale: float=1.0) -> void:
 	for t in _query_entities(pos,radius):
-		if int(t.id)!=except_id and t.hp>0 and t.get("container",-1)<0 and not allied(int(u.owner),int(t.owner)) and center(t).distance_squared_to(pos)<=radius*radius:
+		if int(t.id)!=except_id and t.hp>0 and t.get("container",-1)<0 and attack_target_allowed(u,t) and center(t).distance_squared_to(pos)<=radius*radius:
 			if ("g" if t.has("progress") or not ACData.unit(int(t.race),int(t.kind)).air else "a") in targets:_damage(u,t,damage,false,"attack",armor_scale,bonus_scale)
 
 func _mind_control(u: Dictionary, target_id: int) -> String:

@@ -38,6 +38,12 @@ static func tick(c, owner: int) -> void:
 		if not replacement.is_empty():
 			c._release_mining_claim(replacement)
 			b.worker=replacement.id;replacement.order="construct";replacement.target=b.id;replacement.path=[];replacement.approach_target=-1
+	# Supply may still be sufficient after a local tower is destroyed. Restore
+	# the actual factory's coverage before spending its replacement budget.
+	if race==2:
+		for b in c.buildings:
+			if int(b.owner)==owner and b.hp>0 and not c.building_powered(b):
+				power_site(c,owner,workers,ACData.point(b.pos),int(b.kind))
 	var queued_workers=0
 	for b in bases:
 		for q in b.queue:
@@ -56,6 +62,9 @@ static func tick(c, owner: int) -> void:
 		if race!=1 and workers.size()+queued_workers>=8 and army.size()<2:continue
 		# Preserve the shared brood pool for combat once an opening economy exists.
 		if race==1 and workers.size()>=8 and army.size()<workers.size()/2 and int(b.larva)<2:continue
+		var worker_data=ACData.unit(race,0)
+		var worker_budget=available_resources(c,owner)
+		if worker_budget.x<float(worker_data.as) or worker_budget.y<float(worker_data.tera):continue
 		if c.command(owner,{"type":"train","id":b.id,"kind":0})=="":queued_workers+=1
 	if p.cap-p.used-p.reserved<5 and p.cap<200:build(c,owner,2)
 	# Save for an expansion instead of spending the last minerals on another
@@ -65,7 +74,7 @@ static func tick(c, owner: int) -> void:
 		var option=expansion_site(c,owner,workers,hq)
 		if not option.is_empty():
 			var cost=float(ACData.building(race,0).get("as",400))
-			if p.as>=cost+50:expand(c,owner,workers,hq)
+			if available_resources(c,owner).x>=cost+50:expand(c,owner,workers,hq)
 			else:
 				var threats: Array=[]
 				for e in c.units+c.buildings:
@@ -85,12 +94,16 @@ static func tick(c, owner: int) -> void:
 		if not e.has("progress") and ACData.unit(int(e.race),int(e.kind)).air:enemy_air+=1
 	for b in c.buildings:
 		if int(b.owner)!=owner or b.progress<1 or b.hp<=0 or b.queue.size()>=2:continue
+		if not c.building_powered(b):continue
 		var choices: Array=[]
+		var budget=available_resources(c,owner)
+		var free_population=minf(200,float(p.cap))-float(p.used)-float(p.reserved)
 		for kind in range(1,ACData.unit_count(race)):
 			var d=ACData.unit(race,kind)
 			if d.get("spawn_only",false):continue
 			if (race!=1 and int(d.producer)!=int(b.kind)) or (race==1 and int(b.kind) not in [0,3]):continue
-			if not c.prerequisites(owner,d.requires) or d.as>p.as or d.tera>p.tera:continue
+			if not c.prerequisites(owner,d.requires) or d.as>budget.x or d.tera>budget.y:continue
+			if float(d.pop)*maxi(1,int(d.get("production_count",1)))>free_population:continue
 			if d.role in ["transport","detector"] and army.size()<12:continue
 			var count=0
 			for u in army:
@@ -101,16 +114,28 @@ static func tick(c, owner: int) -> void:
 		choices.sort_custom(func(a,b):return a.score>b.score)
 		if not choices.is_empty():c.command(owner,{"type":"train","id":b.id,"kind":choices[0].kind})
 	# Upgrades compete for real resources and run in designated buildings only.
-	if level>0 and army.size()>=8:
+	if level>0 and army.size()>=8 and available_resources(c,owner)==Vector2(p.as,p.tera):
 		for b in c.buildings:
 			if int(b.owner)!=owner or b.progress<1 or b.research!="":continue
 			for stat in ["attack","armor","shield"]:
 				if c.command(owner,{"type":"research","id":b.id,"stat":stat})=="":break
 	var headquarters_cost=float(ACData.building(race,0).get("as",400))
-	if c.time>=float(profile.expand) and workers.size()>=int(profile.workers)-2 and bases.size()<int(profile.bases) and p.as>=headquarters_cost+100:
+	if c.time>=float(profile.expand) and workers.size()>=int(profile.workers)-2 and bases.size()<int(profile.bases) and available_resources(c,owner).x>=headquarters_cost+100:
 		expand(c,owner,workers,hq)
 	redistribute(c,owner,workers,bases)
 	combat(c,owner,army,bases,visible,profile)
+
+static func available_resources(c,owner: int) -> Vector2:
+	var budget=Vector2(c.players[owner].as,c.players[owner].tera)
+	# The game charges a foundation on arrival, so travelling plans need a
+	# planning reservation. Never modify the player's real resource balance.
+	for worker in c.units:
+		if int(worker.owner)!=owner or worker.hp<=0 or worker.order!="build_move":continue
+		var plan: Dictionary=worker.get("build_plan",{})
+		if plan.is_empty():continue
+		var definition=ACData.building(int(worker.race),int(plan.kind))
+		budget-=Vector2(definition.as,definition.tera)
+	return budget
 
 static func builder(c,workers: Array,goal: Vector2) -> Dictionary:
 	var best: Dictionary={};var distance=INF
@@ -136,7 +161,8 @@ static func blocks_lane(c,owner: int,pos: Vector2,definition: Dictionary) -> boo
 static func build(c,owner: int,kind: int) -> bool:
 	if c.units.any(func(w):return int(w.owner)==owner and w.hp>0 and w.order=="build_move" and int(w.build_plan.kind)==kind):return false
 	var race=int(c.players[owner].race);var d=ACData.building(race,kind)
-	if c.players[owner].as<d.as or c.players[owner].tera<d.tera:return false
+	var budget=available_resources(c,owner)
+	if budget.x<d.as or budget.y<d.tera:return false
 	for b in c.buildings:
 		if int(b.owner)==owner and int(b.kind)==kind and b.hp>0 and b.progress<1:return false
 	var bases=c.buildings.filter(func(b):return int(b.owner)==owner and int(b.kind)==0 and b.hp>0 and b.progress>=1)
@@ -161,20 +187,27 @@ static func build(c,owner: int,kind: int) -> bool:
 	return false
 
 static func power_site(c,owner: int,workers: Array,anchor: Vector2,kind: int) -> bool:
-	if c.buildings.any(func(b):return b.owner==owner and b.kind==2 and b.hp>0 and b.progress<1 and c.center(b).distance_to(anchor)<10):return false
-	var d=ACData.building(2,kind)
+	for b in c.buildings:
+		if int(b.owner)==owner and int(b.kind)==2 and b.hp>0 and b.progress<1 and power_covers(anchor,kind,ACData.point(b.pos)):return false
+	for w in workers:
+		if w.hp>0 and w.order=="build_move" and int(w.build_plan.kind)==2 and power_covers(anchor,kind,ACData.point(w.build_plan.pos)):return false
+	if available_resources(c,owner).x<float(ACData.building(2,2).as):return false
 	for ring in range(3,8):
 		for offset in [Vector2(ring,0),Vector2(-ring,0),Vector2(0,ring),Vector2(0,-ring),Vector2(ring,ring),Vector2(-ring,-ring)]:
 			var pos=(anchor+offset).floor()
 			if c.placement(owner,2,pos)!="" or blocks_lane(c,owner,pos,ACData.building(2,2)):continue
-			var middle=pos+Vector2(1,1)
-			var covered=true
-			for corner in [anchor,anchor+Vector2(d.w-1,0),anchor+Vector2(0,d.h-1),anchor+Vector2(d.w-1,d.h-1)]:
-				if middle.distance_to(corner)>11.5:covered=false
-			if not covered:continue
+			if not power_covers(anchor,kind,pos):continue
 			var worker=builder(c,workers,pos)
 			if not worker.is_empty():return c.command(owner,{"type":"build","kind":2,"pos":ACData.packed(pos),"ids":[worker.id]})==""
 	return false
+
+static func power_covers(anchor: Vector2,kind: int,tower_pos: Vector2) -> bool:
+	var d=ACData.building(2,kind)
+	var tower=ACData.building(2,2)
+	var middle=tower_pos+Vector2(tower.w,tower.h)*.5
+	for corner in [anchor,anchor+Vector2(d.w-1,0),anchor+Vector2(0,d.h-1),anchor+Vector2(d.w-1,d.h-1)]:
+		if middle.distance_squared_to(corner)>144.0:return false
+	return true
 
 static func expansion_site(c,owner: int,workers: Array,hq: Dictionary) -> Dictionary:
 	var d=ACData.building(int(c.players[owner].race),0)
@@ -223,6 +256,9 @@ static func expand(c,owner: int,workers: Array,hq: Dictionary) -> bool:
 	if c.units.any(func(w):return int(w.owner)==owner and w.hp>0 and w.order=="build_move" and int(w.build_plan.kind)==0):return false
 	for b in c.buildings:
 		if int(b.owner)==owner and int(b.kind)==0 and b.hp>0 and b.progress<1:return false
+	var definition=ACData.building(int(c.players[owner].race),0)
+	var budget=available_resources(c,owner)
+	if budget.x<float(definition.as) or budget.y<float(definition.tera):return false
 	var choice=expansion_site(c,owner,workers,hq)
 	if choice.is_empty():return false
 	if int(c.players[owner].race)==2 and c.placement(owner,0,ACData.point(choice.pos)).contains("규율탑"):

@@ -10,6 +10,7 @@ var vertex_count=0
 var geometry_key=0
 var allowed_cache={}
 var vertex_cache={}
+var uv_cache={}
 var build_count=0
 var visibility_input=0
 var local_visibility_signature=0
@@ -46,11 +47,22 @@ func relevant_fog_signature(packed, fog: Callable) -> int:
 	return hash(values)
 
 func load_art() -> void:
-	var image=load("res://assets/citrus_root_ground_v058.png").get_image()
+	var file="res://assets/v062/terrain/citrus_root_ground.png"
+	if not ResourceLoader.exists(file):file="res://assets/citrus_root_ground_v058.png"
+	var image=load(file).get_image()
 	image.generate_mipmaps()
 	texture=CanvasTexture.new();texture.diffuse_texture=ImageTexture.create_from_image(image)
 	texture.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-	texture.texture_repeat=CanvasItem.TEXTURE_REPEAT_MIRROR
+	texture.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
+
+func _ground_uv(point: Vector2) -> Vector2:
+	# Smooth world-space variation breaks the visible tile rhythm without
+	# mirrors, seams, camera-dependent movement, or per-frame image generation.
+	var pixels=point*32.0
+	var warp=Vector2(
+		sin(pixels.y/173.0+pixels.x/457.0)*27.0+sin(pixels.y/311.0)*19.0,
+		sin(pixels.x/211.0-pixels.y/521.0)*25.0+sin(pixels.x/367.0)*21.0)
+	return (pixels+warp)/768.0
 
 func _corner_value(corner: Vector2i, cells: Dictionary, map: ACMap) -> float:
 	var total=0.0
@@ -66,7 +78,7 @@ func build(map: ACMap, packed, fog: Callable) -> void:
 	build_count+=1
 	var geometry=hash([map.get_instance_id(),map.render_signature,map.source_detail_active])
 	if geometry!=geometry_key:
-		geometry_key=geometry;allowed_cache.clear();vertex_cache.clear()
+		geometry_key=geometry;allowed_cache.clear();vertex_cache.clear();uv_cache.clear()
 	var cells={};var candidates={}
 	for value in packed:
 		var index=int(value)&0xffff;var cell=Vector2i(index%256,index/256)
@@ -89,7 +101,8 @@ func build(map: ACMap, packed, fog: Callable) -> void:
 			if not vertex_cache.has(corner):vertex_cache[corner]=Vector2(point.x*32,point.y*32-map.visual_elevation(point))
 			vertices.append(vertex_cache[corner])
 			# Continuous world UVs keep tiny growth tiles from looking like stamps.
-			uv.append(point*32.0/192.0);alpha.append(corners[corner])
+			if not uv_cache.has(corner):uv_cache[corner]=_ground_uv(point)
+			uv.append(uv_cache[corner]);alpha.append(corners[corner])
 		if maxf(maxf(alpha[0],alpha[1]),maxf(alpha[2],alpha[3]))<.001:continue
 		var start=builder.vertices.size()
 		builder.vertices.append_array(vertices);builder.uv.append_array(uv)
@@ -99,7 +112,7 @@ func build(map: ACMap, packed, fog: Callable) -> void:
 			var corner=cell+offsets[i]
 			if not corner_lights.has(corner):corner_lights[corner]=_corner_fog(corner,fog)
 			var visibility: Vector2=corner_lights[corner]
-			builder.colors.append(Color(.86*visibility.x,.79*visibility.x,.68*visibility.x,.88*alpha[i]*visibility.y))
+			builder.colors.append(Color(.9*visibility.x,.9*visibility.x,.9*visibility.x,.88*alpha[i]*visibility.y))
 		builder.indices.append_array(PackedInt32Array([start,start+1,start+2,start,start+2,start+3]))
 	vertex_count=builder.vertices.size()
 	mesh=ACTerrainRenderer.new()._mesh(builder) if vertex_count>0 else null

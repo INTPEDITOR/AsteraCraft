@@ -17,13 +17,15 @@ func run():
 	check(cast(c,scout,"nuclear",{},Vector2(44,40))=="" and scout.energy==0,"nuclear guidance works at zero energy")
 	c=arena();var mother=c.add_unit(0,14,Vector2(40,40));victim=c.add_unit(1,1,Vector2(44,40));victim.hp=10000
 	var drone=c.add_unit(0,15,Vector2(43,40));drone.mother=mother.id;mother.drone_target=victim.id;reveal(c)
+	var initial_shield=float(victim.shield)
 	var moving_samples=0;var previous=ACData.point(drone.pos);var positions=[]
 	for i in range(100):
 		c.time+=.05;drone.cooldown=maxf(0,drone.cooldown-.05);ACNewUnits.tick(c,drone,.05)
 		var p=ACData.point(drone.pos)
 		if p.distance_to(previous)>.01:moving_samples+=1
 		positions.append(p);previous=p
-	check(moving_samples>90 and victim.hp<10000,"carrier drone keeps flying throughout its firing circuit")
+	check(moving_samples>90,"carrier drone keeps flying throughout its firing circuit")
+	check(victim.hp<10000 or float(victim.shield)<initial_shield,"carrier drone damages the shielded target while flying")
 	check(positions.any(func(p):return p.y>40.5) and positions.any(func(p):return p.y<39.5),"drone flies around both sides of target")
 	mother.drone_target=-1;var before=victim.hp
 	for i in range(100):c.time+=.05;ACNewUnits.tick(c,drone,.05)

@@ -1,0 +1,753 @@
+{
+  "effects": {
+    "nuclear": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/nuclear.png",
+      "columns": 8,
+      "rows": 7,
+      "count": 52,
+      "pivot": [
+        0.5,
+        0.88
+      ],
+      "scale_hint": 330,
+      "phase_frames": [
+        0,
+        15,
+        23,
+        35,
+        51
+      ],
+      "source_frames": [
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 0,
+          "bounds": [
+            151,
+            277,
+            89,
+            42
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 1,
+          "bounds": [
+            132,
+            261,
+            135,
+            68
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 2,
+          "bounds": [
+            81,
+            241,
+            223,
+            98
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 3,
+          "bounds": [
+            39,
+            220,
+            289,
+            138
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 4,
+          "bounds": [
+            48,
+            199,
+            293,
+            135
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 5,
+          "bounds": [
+            38,
+            177,
+            317,
+            162
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 6,
+          "bounds": [
+            34,
+            157,
+            316,
+            183
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 7,
+          "bounds": [
+            19,
+            133,
+            332,
+            214
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 8,
+          "bounds": [
+            27,
+            84,
+            340,
+            250
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 9,
+          "bounds": [
+            44,
+            80,
+            312,
+            254
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 10,
+          "bounds": [
+            34,
+            63,
+            318,
+            276
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 11,
+          "bounds": [
+            16,
+            48,
+            337,
+            301
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 12,
+          "bounds": [
+            33,
+            44,
+            326,
+            290
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 13,
+          "bounds": [
+            31,
+            35,
+            339,
+            303
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 14,
+          "bounds": [
+            32,
+            19,
+            332,
+            320
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_01.png",
+          "sourceFrame": 15,
+          "bounds": [
+            27,
+            12,
+            320,
+            327
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 8,
+          "bounds": [
+            45,
+            38,
+            293,
+            300
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 9,
+          "bounds": [
+            41,
+            26,
+            301,
+            313
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 10,
+          "bounds": [
+            38,
+            18,
+            307,
+            321
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 11,
+          "bounds": [
+            36,
+            16,
+            313,
+            324
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 12,
+          "bounds": [
+            38,
+            18,
+            309,
+            319
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 13,
+          "bounds": [
+            36,
+            15,
+            313,
+            323
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 14,
+          "bounds": [
+            36,
+            13,
+            314,
+            326
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_02.png",
+          "sourceFrame": 15,
+          "bounds": [
+            36,
+            12,
+            313,
+            327
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 4,
+          "bounds": [
+            46,
+            25,
+            296,
+            312
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 5,
+          "bounds": [
+            47,
+            25,
+            298,
+            313
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 6,
+          "bounds": [
+            42,
+            22,
+            301,
+            317
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 7,
+          "bounds": [
+            40,
+            25,
+            301,
+            316
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 8,
+          "bounds": [
+            46,
+            28,
+            304,
+            310
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 9,
+          "bounds": [
+            38,
+            24,
+            316,
+            315
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 10,
+          "bounds": [
+            35,
+            21,
+            318,
+            318
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 11,
+          "bounds": [
+            31,
+            20,
+            316,
+            320
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 12,
+          "bounds": [
+            44,
+            13,
+            311,
+            323
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 13,
+          "bounds": [
+            38,
+            13,
+            316,
+            322
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 14,
+          "bounds": [
+            30,
+            13,
+            326,
+            326
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_03.png",
+          "sourceFrame": 15,
+          "bounds": [
+            29,
+            12,
+            320,
+            328
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 0,
+          "bounds": [
+            44,
+            21,
+            311,
+            322
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 1,
+          "bounds": [
+            48,
+            24,
+            306,
+            315
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 2,
+          "bounds": [
+            42,
+            27,
+            300,
+            310
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 3,
+          "bounds": [
+            37,
+            29,
+            299,
+            308
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 4,
+          "bounds": [
+            42,
+            12,
+            308,
+            328
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 5,
+          "bounds": [
+            42,
+            14,
+            305,
+            324
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 6,
+          "bounds": [
+            42,
+            19,
+            295,
+            320
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 7,
+          "bounds": [
+            44,
+            21,
+            286,
+            316
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 8,
+          "bounds": [
+            44,
+            15,
+            291,
+            320
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 9,
+          "bounds": [
+            41,
+            17,
+            298,
+            324
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 10,
+          "bounds": [
+            35,
+            19,
+            295,
+            320
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 11,
+          "bounds": [
+            39,
+            22,
+            275,
+            315
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 12,
+          "bounds": [
+            67,
+            26,
+            270,
+            314
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 13,
+          "bounds": [
+            69,
+            32,
+            269,
+            307
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 14,
+          "bounds": [
+            72,
+            46,
+            255,
+            293
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        },
+        {
+          "source": "assets/v062/effects/sources/nuclear_decay.png",
+          "sourceFrame": 15,
+          "bounds": [
+            95,
+            62,
+            182,
+            275
+          ],
+          "anchor": [
+            192,
+            337
+          ]
+        }
+      ]
+    }
+  }
+}

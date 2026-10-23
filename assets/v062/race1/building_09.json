@@ -1,0 +1,395 @@
+{
+  "file": "res://assets/v062/race1/building_09.png",
+  "frames": [
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        90,
+        138,
+        85,
+        84
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        102,
+        198,
+        116,
+        115
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        256,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        52,
+        97,
+        149,
+        126
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        357,
+        142,
+        203,
+        172
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        512,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        30,
+        55,
+        187,
+        171
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        634,
+        84,
+        256,
+        233
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        768,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        23,
+        30,
+        196,
+        201
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        932,
+        50,
+        268,
+        274
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        1024,
+        0,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        12,
+        18,
+        212,
+        215
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        1224,
+        34,
+        290,
+        293
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        0,
+        256,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        22,
+        12,
+        210,
+        213
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        9,
+        367,
+        287,
+        291
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        256,
+        256,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        22,
+        13,
+        217,
+        212
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        316,
+        368,
+        297,
+        290
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        512,
+        256,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        23,
+        12,
+        213,
+        215
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        624,
+        367,
+        291,
+        293
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        768,
+        256,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        16,
+        12,
+        217,
+        214
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        922,
+        366,
+        297,
+        292
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        1024,
+        256,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        18,
+        12,
+        212,
+        213
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        1232,
+        367,
+        290,
+        291
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        0,
+        512,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        24,
+        12,
+        212,
+        209
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        12,
+        680,
+        289,
+        286
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        256,
+        512,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        25,
+        12,
+        215,
+        213
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        320,
+        680,
+        293,
+        291
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        512,
+        512,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        19,
+        12,
+        220,
+        213
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        619,
+        680,
+        300,
+        291
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        768,
+        512,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        16,
+        12,
+        216,
+        212
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        922,
+        680,
+        295,
+        289
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/building_09.png",
+      "region": [
+        1024,
+        512,
+        256,
+        256
+      ],
+      "anchor": [
+        128,
+        224
+      ],
+      "bounds": [
+        17,
+        14,
+        215,
+        212
+      ],
+      "scale_hint": 210.17676767676755,
+      "source_bounds": [
+        1231,
+        682,
+        294,
+        289
+      ]
+    }
+  ]
+}

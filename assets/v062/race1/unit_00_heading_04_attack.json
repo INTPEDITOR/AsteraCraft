@@ -1,0 +1,317 @@
+{
+  "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+  "frames": [
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        0,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        48,
+        18,
+        97,
+        99
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        43,
+        85,
+        279,
+        285
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        192,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        43,
+        18,
+        102,
+        99
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        392,
+        85,
+        294,
+        285
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        384,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        38,
+        19,
+        109,
+        98
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        738,
+        88,
+        312,
+        282
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        576,
+        0,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        38,
+        16,
+        113,
+        103
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        1102,
+        77,
+        325,
+        295
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        0,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        42,
+        12,
+        138,
+        106
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        26,
+        409,
+        396,
+        303
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        192,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        42,
+        21,
+        111,
+        96
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        389,
+        436,
+        318,
+        276
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        384,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        41,
+        21,
+        112,
+        96
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        746,
+        436,
+        322,
+        276
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        576,
+        192,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        42,
+        21,
+        106,
+        97
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        1111,
+        435,
+        303,
+        277
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        0,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        43,
+        19,
+        111,
+        98
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        29,
+        771,
+        319,
+        282
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        192,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        43,
+        18,
+        99,
+        99
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        391,
+        768,
+        285,
+        285
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        384,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        45,
+        21,
+        100,
+        97
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        759,
+        775,
+        287,
+        278
+      ]
+    },
+    {
+      "file": "res://assets/v062/race1/unit_00_heading_04_attack.png",
+      "region": [
+        576,
+        384,
+        192,
+        192
+      ],
+      "anchor": [
+        96,
+        117
+      ],
+      "bounds": [
+        45,
+        20,
+        100,
+        97
+      ],
+      "scale_hint": 97.2448132780083,
+      "source_bounds": [
+        1121,
+        774,
+        286,
+        279
+      ]
+    }
+  ]
+}

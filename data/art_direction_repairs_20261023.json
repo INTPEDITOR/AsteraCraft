@@ -1,0 +1,1570 @@
+{
+  "units": {
+    "0:8": {
+      "status": "accepted_direction_repair",
+      "scope": "rigid_airframe_direction_only",
+      "directions": 16,
+      "full_circle": true,
+      "anchor": [
+        128,
+        128
+      ],
+      "scale_hint": 200,
+      "separate_rotors": true,
+      "actions": {
+        "idle": {
+          "file": "res://assets/direction_repairs_20261023/r0_u08_hull16.png",
+          "columns": 16,
+          "rows": 1,
+          "directions": 16,
+          "loop": false,
+          "frames": [
+            {
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                72,
+                59,
+                111,
+                137
+              ],
+              "heading": "N",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  578,
+                  33,
+                  725,
+                  215
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.01354490035804719,
+                -0.9999082636293645
+              ]
+            },
+            {
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                54,
+                58,
+                148,
+                139
+              ],
+              "heading": "NNE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  743,
+                  66,
+                  941,
+                  251
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.7698050039539275,
+                -0.6382791363404368
+              ]
+            },
+            {
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                37,
+                60,
+                181,
+                136
+              ],
+              "heading": "NE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  880,
+                  165,
+                  1123,
+                  346
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.8867447769834248,
+                -0.4622593433264666
+              ]
+            },
+            {
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                26,
+                71,
+                204,
+                114
+              ],
+              "heading": "ENE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  968,
+                  324,
+                  1242,
+                  475
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.9781461268763197,
+                -0.207918624651219
+              ]
+            },
+            {
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                24,
+                77,
+                207,
+                102
+              ],
+              "heading": "E",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  989,
+                  513,
+                  1268,
+                  647
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.9989048349056875,
+                0.04678814809373417
+              ]
+            },
+            {
+              "region": [
+                1280,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                29,
+                57,
+                197,
+                141
+              ],
+              "heading": "ESE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  984,
+                  664,
+                  1249,
+                  852
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.9243780104086837,
+                0.38147777638138153
+              ]
+            },
+            {
+              "region": [
+                1536,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                38,
+                46,
+                179,
+                163
+              ],
+              "heading": "SE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  897,
+                  800,
+                  1137,
+                  1018
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.7971404891666117,
+                0.6037938725518959
+              ]
+            },
+            {
+              "region": [
+                1792,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                54,
+                39,
+                147,
+                177
+              ],
+              "heading": "SSE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  764,
+                  886,
+                  960,
+                  1123
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.5866228182770681,
+                0.8098602775026505
+              ]
+            },
+            {
+              "region": [
+                2048,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                72,
+                36,
+                112,
+                183
+              ],
+              "heading": "S",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  580,
+                  920,
+                  728,
+                  1166
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                0.005418797980119541,
+                0.9999853182064478
+              ]
+            },
+            {
+              "region": [
+                2304,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                56,
+                40,
+                143,
+                175
+              ],
+              "heading": "SSW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  355,
+                  887,
+                  546,
+                  1122
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                -0.5768109212161198,
+                0.8168776904566627
+              ]
+            },
+            {
+              "region": [
+                2560,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                37,
+                47,
+                182,
+                161
+              ],
+              "heading": "SW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  171,
+                  801,
+                  415,
+                  1016
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                -0.8129806094601189,
+                0.5822907595367229
+              ]
+            },
+            {
+              "region": [
+                2816,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                28,
+                60,
+                199,
+                135
+              ],
+              "heading": "WSW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  58,
+                  670,
+                  325,
+                  850
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                -0.9415517800060168,
+                0.33686829112800304
+              ]
+            },
+            {
+              "region": [
+                3072,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                24,
+                75,
+                208,
+                105
+              ],
+              "heading": "W",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  34,
+                  509,
+                  314,
+                  648
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                -0.99971929392924,
+                0.023692474451224698
+              ]
+            },
+            {
+              "region": [
+                3328,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                30,
+                70,
+                195,
+                116
+              ],
+              "heading": "WNW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  73,
+                  309,
+                  335,
+                  463
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                -0.9643236587547925,
+                -0.2647260492769278
+              ]
+            },
+            {
+              "region": [
+                3584,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                40,
+                62,
+                176,
+                132
+              ],
+              "heading": "NW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  190,
+                  165,
+                  426,
+                  341
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                -0.8919920398043839,
+                -0.4520511043296041
+              ]
+            },
+            {
+              "region": [
+                3840,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                54,
+                59,
+                148,
+                137
+              ],
+              "heading": "NNW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race0\\sources\\r0_u08_blunt_hull16_v3.png",
+                "bounds": [
+                  364,
+                  69,
+                  561,
+                  251
+                ],
+                "sha256": "1947154e384e2c55513496fdd72919f5dd23bb62db590c315df1be01d38a212e"
+              },
+              "rig_axis": [
+                -0.771377471435768,
+                -0.6363778724636496
+              ]
+            }
+          ]
+        },
+        "death": {
+          "file": "res://assets/direction_repairs_20261023/r0_u08_collapse7.png",
+          "columns": 7,
+          "rows": 7,
+          "directions": 1,
+          "fps": 9,
+          "loop": false,
+          "anchor": [
+            192,
+            192
+          ],
+          "scale_hint": 200,
+          "frames": [
+            {
+              "region": [
+                0,
+                0,
+                384,
+                384
+              ],
+              "bounds": [
+                59,
+                116,
+                265,
+                151
+              ],
+              "source_components": [
+                [
+                  44,
+                  169,
+                  464,
+                  405
+                ]
+              ],
+              "anchor": [
+                192,
+                192
+              ]
+            },
+            {
+              "region": [
+                384,
+                0,
+                384,
+                384
+              ],
+              "bounds": [
+                64,
+                123,
+                256,
+                147
+              ],
+              "source_components": [
+                [
+                  492,
+                  166,
+                  897,
+                  396
+                ]
+              ],
+              "anchor": [
+                192,
+                192
+              ]
+            },
+            {
+              "region": [
+                768,
+                0,
+                384,
+                384
+              ],
+              "bounds": [
+                52,
+                103,
+                280,
+                197
+              ],
+              "source_components": [
+                [
+                  910,
+                  127,
+                  1354,
+                  438
+                ]
+              ],
+              "anchor": [
+                192,
+                192
+              ]
+            },
+            {
+              "region": [
+                1152,
+                0,
+                384,
+                384
+              ],
+              "bounds": [
+                63,
+                108,
+                257,
+                198
+              ],
+              "source_components": [
+                [
+                  1574,
+                  117,
+                  1647,
+                  177
+                ],
+                [
+                  1349,
+                  127,
+                  1662,
+                  406
+                ],
+                [
+                  1570,
+                  220,
+                  1756,
+                  430
+                ],
+                [
+                  1498,
+                  331,
+                  1560,
+                  413
+                ]
+              ],
+              "anchor": [
+                192,
+                192
+              ]
+            },
+            {
+              "region": [
+                1536,
+                0,
+                384,
+                384
+              ],
+              "bounds": [
+                60,
+                103,
+                263,
+                217
+              ],
+              "source_components": [
+                [
+                  260,
+                  488,
+                  310,
+                  529
+                ],
+                [
+                  183,
+                  500,
+                  254,
+                  607
+                ],
+                [
+                  95,
+                  507,
+                  173,
+                  561
+                ],
+                [
+                  268,
+                  531,
+                  335,
+                  601
+                ],
+                [
+                  347,
+                  539,
+                  404,
+                  585
+                ],
+                [
+                  47,
+                  553,
+                  95,
+                  623
+                ],
+                [
+                  86,
+                  572,
+                  200,
+                  629
+                ],
+                [
+                  278,
+                  578,
+                  372,
+                  722
+                ],
+                [
+                  235,
+                  606,
+                  297,
+                  651
+                ],
+                [
+                  51,
+                  618,
+                  213,
+                  721
+                ],
+                [
+                  341,
+                  621,
+                  464,
+                  752
+                ],
+                [
+                  210,
+                  645,
+                  268,
+                  703
+                ],
+                [
+                  132,
+                  692,
+                  167,
+                  744
+                ],
+                [
+                  174,
+                  714,
+                  215,
+                  766
+                ],
+                [
+                  336,
+                  720,
+                  382,
+                  770
+                ],
+                [
+                  217,
+                  722,
+                  292,
+                  813
+                ],
+                [
+                  67,
+                  723,
+                  96,
+                  756
+                ],
+                [
+                  292,
+                  733,
+                  327,
+                  768
+                ],
+                [
+                  380,
+                  756,
+                  461,
+                  828
+                ],
+                [
+                  164,
+                  783,
+                  183,
+                  802
+                ],
+                [
+                  318,
+                  793,
+                  357,
+                  831
+                ]
+              ],
+              "anchor": [
+                192,
+                192
+              ]
+            },
+            {
+              "region": [
+                1920,
+                0,
+                384,
+                384
+              ],
+              "bounds": [
+                69,
+                125,
+                245,
+                184
+              ],
+              "source_components": [
+                [
+                  662,
+                  543,
+                  689,
+                  572
+                ],
+                [
+                  735,
+                  563,
+                  788,
+                  601
+                ],
+                [
+                  582,
+                  574,
+                  638,
+                  624
+                ],
+                [
+                  696,
+                  599,
+                  748,
+                  650
+                ],
+                [
+                  560,
+                  617,
+                  579,
+                  637
+                ],
+                [
+                  661,
+                  631,
+                  698,
+                  669
+                ],
+                [
+                  811,
+                  644,
+                  844,
+                  664
+                ],
+                [
+                  593,
+                  654,
+                  633,
+                  689
+                ],
+                [
+                  687,
+                  684,
+                  734,
+                  727
+                ],
+                [
+                  533,
+                  688,
+                  565,
+                  720
+                ],
+                [
+                  456,
+                  697,
+                  489,
+                  761
+                ],
+                [
+                  776,
+                  699,
+                  818,
+                  757
+                ],
+                [
+                  604,
+                  703,
+                  658,
+                  750
+                ],
+                [
+                  795,
+                  750,
+                  827,
+                  788
+                ],
+                [
+                  723,
+                  754,
+                  739,
+                  777
+                ],
+                [
+                  572,
+                  756,
+                  596,
+                  775
+                ],
+                [
+                  669,
+                  763,
+                  714,
+                  808
+                ],
+                [
+                  736,
+                  815,
+                  757,
+                  833
+                ]
+              ],
+              "anchor": [
+                192,
+                192
+              ]
+            },
+            {
+              "region": [
+                2304,
+                0,
+                384,
+                384
+              ],
+              "bounds": [
+                121,
+                171,
+                142,
+                101
+              ],
+              "source_components": [
+                [
+                  1061,
+                  671,
+                  1076,
+                  688
+                ],
+                [
+                  1140,
+                  693,
+                  1166,
+                  717
+                ],
+                [
+                  1009,
+                  710,
+                  1023,
+                  722
+                ],
+                [
+                  1084,
+                  718,
+                  1098,
+                  736
+                ],
+                [
+                  1201,
+                  756,
+                  1216,
+                  771
+                ],
+                [
+                  993,
+                  757,
+                  1014,
+                  777
+                ],
+                [
+                  1040,
+                  769,
+                  1060,
+                  787
+                ],
+                [
+                  1106,
+                  776,
+                  1129,
+                  800
+                ],
+                [
+                  1177,
+                  813,
+                  1192,
+                  827
+                ]
+              ],
+              "anchor": [
+                192,
+                192
+              ]
+            }
+          ]
+        }
+      },
+      "rotor_mounts": [
+        [
+          -0.43,
+          0
+        ],
+        [
+          0.43,
+          0
+        ]
+      ],
+      "rotor": {
+        "directions": 1,
+        "anchor": [
+          128,
+          128
+        ],
+        "scale_hint": 200,
+        "actions": {
+          "idle": {
+            "file": "res://assets/direction_repairs_20261023/r0_u08_rotor7.png",
+            "columns": 7,
+            "rows": 7,
+            "directions": 1,
+            "fps": 24,
+            "loop": true,
+            "frames": [
+              {
+                "region": [
+                  0,
+                  0,
+                  256,
+                  256
+                ],
+                "bounds": [
+                  24,
+                  38,
+                  208,
+                  179
+                ],
+                "source_bounds": [
+                  10,
+                  225,
+                  309,
+                  482
+                ]
+              },
+              {
+                "region": [
+                  256,
+                  0,
+                  256,
+                  256
+                ],
+                "bounds": [
+                  24,
+                  38,
+                  207,
+                  180
+                ],
+                "source_bounds": [
+                  319,
+                  224,
+                  617,
+                  482
+                ]
+              },
+              {
+                "region": [
+                  512,
+                  0,
+                  256,
+                  256
+                ],
+                "bounds": [
+                  24,
+                  38,
+                  208,
+                  180
+                ],
+                "source_bounds": [
+                  627,
+                  224,
+                  926,
+                  482
+                ]
+              },
+              {
+                "region": [
+                  768,
+                  0,
+                  256,
+                  256
+                ],
+                "bounds": [
+                  24,
+                  38,
+                  208,
+                  180
+                ],
+                "source_bounds": [
+                  936,
+                  224,
+                  1235,
+                  482
+                ]
+              },
+              {
+                "region": [
+                  1024,
+                  0,
+                  256,
+                  256
+                ],
+                "bounds": [
+                  24,
+                  38,
+                  207,
+                  180
+                ],
+                "source_bounds": [
+                  1246,
+                  224,
+                  1544,
+                  482
+                ]
+              },
+              {
+                "region": [
+                  1280,
+                  0,
+                  256,
+                  256
+                ],
+                "bounds": [
+                  24,
+                  38,
+                  208,
+                  180
+                ],
+                "source_bounds": [
+                  1554,
+                  224,
+                  1853,
+                  482
+                ]
+              },
+              {
+                "region": [
+                  1536,
+                  0,
+                  256,
+                  256
+                ],
+                "bounds": [
+                  24,
+                  38,
+                  207,
+                  180
+                ],
+                "source_bounds": [
+                  1863,
+                  224,
+                  2161,
+                  482
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "component_policy": "existing_hull_and_two_rotors_only_no_added_iris"
+    },
+    "2:11": {
+      "status": "accepted_direction_repair",
+      "scope": "rigid_airframe_direction_only",
+      "directions": 16,
+      "full_circle": true,
+      "anchor": [
+        128,
+        128
+      ],
+      "scale_hint": 200,
+      "separate_rotors": false,
+      "actions": {
+        "idle": {
+          "file": "res://assets/direction_repairs_20261023/r2_u11_hull16.png",
+          "columns": 16,
+          "rows": 1,
+          "directions": 16,
+          "loop": false,
+          "frames": [
+            {
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                45,
+                54,
+                166,
+                147
+              ],
+              "heading": "N",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet00_v2.png",
+                "bounds": [
+                  55,
+                  185,
+                  452,
+                  535
+                ],
+                "sha256": "0f47898d4ba90e3831fef801174c8a401150d34fa64d5cdf171b14d2b006fee2"
+              }
+            },
+            {
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                30,
+                44,
+                195,
+                168
+              ],
+              "heading": "NNE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet00_v2.png",
+                "bounds": [
+                  583,
+                  164,
+                  1050,
+                  566
+                ],
+                "sha256": "0f47898d4ba90e3831fef801174c8a401150d34fa64d5cdf171b14d2b006fee2"
+              }
+            },
+            {
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                32,
+                46,
+                192,
+                163
+              ],
+              "heading": "NE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet00_v2.png",
+                "bounds": [
+                  1127,
+                  186,
+                  1587,
+                  576
+                ],
+                "sha256": "0f47898d4ba90e3831fef801174c8a401150d34fa64d5cdf171b14d2b006fee2"
+              }
+            },
+            {
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                34,
+                53,
+                187,
+                149
+              ],
+              "heading": "ENE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet00_v2.png",
+                "bounds": [
+                  1682,
+                  188,
+                  2130,
+                  543
+                ],
+                "sha256": "0f47898d4ba90e3831fef801174c8a401150d34fa64d5cdf171b14d2b006fee2"
+              }
+            },
+            {
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                28,
+                51,
+                199,
+                153
+              ],
+              "heading": "E",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet04_v3.png",
+                "bounds": [
+                  48,
+                  165,
+                  523,
+                  529
+                ],
+                "sha256": "0437b39c827e97c23d28ae61c15a8198a54e526b23a2f6e70cafb8a8838b206b"
+              }
+            },
+            {
+              "region": [
+                1280,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                28,
+                36,
+                199,
+                183
+              ],
+              "heading": "ESE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet04_v3.png",
+                "bounds": [
+                  570,
+                  124,
+                  1047,
+                  562
+                ],
+                "sha256": "0437b39c827e97c23d28ae61c15a8198a54e526b23a2f6e70cafb8a8838b206b"
+              }
+            },
+            {
+              "region": [
+                1536,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                27,
+                39,
+                201,
+                177
+              ],
+              "heading": "SE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet04_v3.png",
+                "bounds": [
+                  1124,
+                  115,
+                  1606,
+                  537
+                ],
+                "sha256": "0437b39c827e97c23d28ae61c15a8198a54e526b23a2f6e70cafb8a8838b206b"
+              }
+            },
+            {
+              "region": [
+                1792,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                35,
+                37,
+                186,
+                182
+              ],
+              "heading": "SSE",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet04_v3.png",
+                "bounds": [
+                  1673,
+                  116,
+                  2117,
+                  551
+                ],
+                "sha256": "0437b39c827e97c23d28ae61c15a8198a54e526b23a2f6e70cafb8a8838b206b"
+              }
+            },
+            {
+              "region": [
+                2048,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                40,
+                40,
+                176,
+                175
+              ],
+              "heading": "S",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet08_v3.png",
+                "bounds": [
+                  68,
+                  129,
+                  489,
+                  546
+                ],
+                "sha256": "6da7f80e4d5e732a32b83dfc09886b5acf2ad3334eae9561a1883718de3b11aa"
+              }
+            },
+            {
+              "region": [
+                2304,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                29,
+                39,
+                198,
+                178
+              ],
+              "heading": "SSW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet08_v3.png",
+                "bounds": [
+                  572,
+                  125,
+                  1046,
+                  550
+                ],
+                "sha256": "6da7f80e4d5e732a32b83dfc09886b5acf2ad3334eae9561a1883718de3b11aa"
+              }
+            },
+            {
+              "region": [
+                2560,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                26,
+                34,
+                204,
+                187
+              ],
+              "heading": "SW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet08_v3.png",
+                "bounds": [
+                  1102,
+                  122,
+                  1591,
+                  568
+                ],
+                "sha256": "6da7f80e4d5e732a32b83dfc09886b5acf2ad3334eae9561a1883718de3b11aa"
+              }
+            },
+            {
+              "region": [
+                2816,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                24,
+                36,
+                208,
+                183
+              ],
+              "heading": "WSW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet08_v3.png",
+                "bounds": [
+                  1629,
+                  141,
+                  2127,
+                  579
+                ],
+                "sha256": "6da7f80e4d5e732a32b83dfc09886b5acf2ad3334eae9561a1883718de3b11aa"
+              }
+            },
+            {
+              "region": [
+                3072,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                32,
+                56,
+                192,
+                144
+              ],
+              "heading": "W",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet12_v3.png",
+                "bounds": [
+                  69,
+                  188,
+                  528,
+                  530
+                ],
+                "sha256": "fef60d561ab549108e45c4cc669eb676944b8425f1c4c4aeb569bc78b75b53a1"
+              }
+            },
+            {
+              "region": [
+                3328,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                28,
+                51,
+                200,
+                154
+              ],
+              "heading": "WNW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet12_v3.png",
+                "bounds": [
+                  614,
+                  166,
+                  1093,
+                  533
+                ],
+                "sha256": "fef60d561ab549108e45c4cc669eb676944b8425f1c4c4aeb569bc78b75b53a1"
+              }
+            },
+            {
+              "region": [
+                3584,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                34,
+                40,
+                188,
+                175
+              ],
+              "heading": "NW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet12_v3.png",
+                "bounds": [
+                  1138,
+                  148,
+                  1587,
+                  567
+                ],
+                "sha256": "fef60d561ab549108e45c4cc669eb676944b8425f1c4c4aeb569bc78b75b53a1"
+              }
+            },
+            {
+              "region": [
+                3840,
+                0,
+                256,
+                256
+              ],
+              "bounds": [
+                39,
+                38,
+                178,
+                180
+              ],
+              "heading": "NNW",
+              "source": {
+                "file": "assets\\staged16_20261023\\race2\\sources\\r2_u11_direction_quartet12_v3.png",
+                "bounds": [
+                  1679,
+                  145,
+                  2104,
+                  576
+                ],
+                "sha256": "fef60d561ab549108e45c4cc669eb676944b8425f1c4c4aeb569bc78b75b53a1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "effects": {
+    "stim": {
+      "status": "rejected_source_overlap",
+      "file": "res://assets/v062/effects/stim.png",
+      "columns": 4,
+      "rows": 5,
+      "count": 20,
+      "pivot": [
+        0.49075940860215056,
+        0.43069556451612906
+      ],
+      "scale_hint": 118.75268817204302,
+      "source": "assets/v062/effects/sources/stim.png"
+    },
+    "smoke": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/smoke.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.443603515625,
+        0.7833251953125
+      ],
+      "scale_hint": 162.25,
+      "source": "assets/v062/effects/sources/smoke.png"
+    },
+    "scan": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/scan.png",
+      "columns": 4,
+      "rows": 5,
+      "count": 20,
+      "pivot": [
+        0.4884758141762452,
+        0.4341475095785441
+      ],
+      "scale_hint": 93.14176245210729,
+      "source": "assets/v062/effects/sources/scan.png"
+    },
+    "overcharge": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/overcharge.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.4852846746575343,
+        0.579462756849315
+      ],
+      "scale_hint": 177.8082191780822,
+      "source": "assets/v062/effects/sources/overcharge.png"
+    },
+    "field_repair": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/field_repair.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.47357908576051777,
+        0.730835355987055
+      ],
+      "scale_hint": 131.71521035598704,
+      "source": "assets/v062/effects/sources/field_repair.png"
+    },
+    "neural": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/neural.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.48378537735849053,
+        0.6405267295597484
+      ],
+      "scale_hint": 147.35849056603772,
+      "source": "assets/v062/effects/sources/neural.png"
+    },
+    "mind_control": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/mind_control.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.5028268914473684,
+        0.6371042351973684
+      ],
+      "scale_hint": 152.69736842105263,
+      "source": "assets/v062/effects/sources/mind_control.png"
+    },
+    "shed": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/shed.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.47894902737752165,
+        0.5767741354466859
+      ],
+      "scale_hint": 148.99135446685878,
+      "source": "assets/v062/effects/sources/shed.png"
+    },
+    "sap_cycle": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/sap_cycle.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.5035907033426184,
+        0.6579909470752089
+      ],
+      "scale_hint": 92.53481894150417,
+      "source": "assets/v062/effects/sources/sap_cycle.png"
+    },
+    "sap_inject": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/sap_inject.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.5270243710691824,
+        0.6459316037735849
+      ],
+      "scale_hint": 147.35849056603772,
+      "source": "assets/v062/effects/sources/sap_inject.png"
+    },
+    "carapace": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/carapace.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.48604910714285715,
+        0.5837053571428572
+      ],
+      "scale_hint": 160.71428571428572,
+      "source": "assets/v062/effects/sources/carapace.png"
+    },
+    "scatter": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/scatter.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.48553240740740744,
+        0.6461226851851851
+      ],
+      "scale_hint": 168.88888888888889,
+      "source": "assets/v062/effects/sources/scatter.png"
+    },
+    "root_surge": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/root_surge.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.5101701183431953,
+        0.7402690458579881
+      ],
+      "scale_hint": 166.62721893491124,
+      "source": "assets/v062/effects/sources/root_surge.png"
+    },
+    "sap_heal": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/sap_heal.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.5076729910714286,
+        0.5255766369047619
+      ],
+      "scale_hint": 146.01190476190476,
+      "source": "assets/v062/effects/sources/sap_heal.png"
+    },
+    "sap_reclaim": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/sap_reclaim.png",
+      "columns": 4,
+      "rows": 5,
+      "count": 20,
+      "pivot": [
+        0.48625,
+        0.4003125
+      ],
+      "scale_hint": 95.48,
+      "source": "assets/v062/effects/sources/sap_reclaim.png"
+    },
+    "sap_bloom": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/sap_bloom.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.4951990223463687,
+        0.6560317737430168
+      ],
+      "scale_hint": 129.66480446927375,
+      "source": "assets/v062/effects/sources/sap_bloom.png"
+    },
+    "judgment": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/judgment.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.453125,
+        0.67578125
+      ],
+      "scale_hint": 151.33333333333331,
+      "source": "assets/v062/effects/sources/judgment.png"
+    },
+    "silence": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/silence.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.48388671875,
+        0.58056640625
+      ],
+      "scale_hint": 156.0625,
+      "source": "assets/v062/effects/sources/silence.png"
+    },
+    "bind": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/bind.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.4861391129032258,
+        0.6691028225806452
+      ],
+      "scale_hint": 153.29032258064518,
+      "source": "assets/v062/effects/sources/bind.png"
+    },
+    "discipline": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/discipline.png",
+      "columns": 4,
+      "rows": 4,
+      "count": 16,
+      "pivot": [
+        0.49724559294871795,
+        0.44628906249999994
+      ],
+      "scale_hint": 79.67948717948718,
+      "source": "assets/v062/effects/sources/discipline.png"
+    },
+    "march": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/march.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.49737995426829273,
+        0.611351943597561
+      ],
+      "scale_hint": 151.58536585365854,
+      "source": "assets/v062/effects/sources/march.png"
+    },
+    "barrier": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/barrier.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.4680637668918919,
+        0.6219383445945945
+      ],
+      "scale_hint": 161.28378378378378,
+      "source": "assets/v062/effects/sources/barrier.png"
+    },
+    "purify": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/purify.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.505691225165563,
+        0.562603476821192
+      ],
+      "scale_hint": 175.56291390728475,
+      "source": "assets/v062/effects/sources/purify.png"
+    },
+    "shockwave": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/shockwave.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.48705760542168675,
+        0.611304593373494
+      ],
+      "scale_hint": 163.0120481927711,
+      "source": "assets/v062/effects/sources/shockwave.png"
+    },
+    "pierce": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/pierce.png",
+      "columns": 4,
+      "rows": 5,
+      "count": 20,
+      "pivot": [
+        0.4982603744939271,
+        0.3799658400809717
+      ],
+      "scale_hint": 108.21862348178138,
+      "source": "assets/v062/effects/sources/pierce.png"
+    },
+    "verdict": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/verdict.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.48508029513888884,
+        0.6954481336805556
+      ],
+      "scale_hint": 173.40277777777777,
+      "source": "assets/v062/effects/sources/verdict.png"
+    },
+    "warhead_ascent": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/warhead_ascent.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.46754626132930516,
+        0.449372167673716
+      ],
+      "scale_hint": 99.69788519637463,
+      "source": "assets/v062/effects/sources/warhead_ascent.png"
+    },
+    "warhead_descent": {
+      "status": "accepted",
+      "file": "res://assets/v062/effects/warhead_descent.png",
+      "columns": 4,
+      "rows": 6,
+      "count": 24,
+      "pivot": [
+        0.483986801242236,
+        0.6214334239130435
+      ],
+      "scale_hint": 102.48447204968943,
+      "source": "assets/v062/effects/sources/warhead_descent.png"
+    }
+  }
+}

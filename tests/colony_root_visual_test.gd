@@ -7,7 +7,9 @@ func run():
 	var h=main.core.buildings.filter(func(b):return b.owner==0 and b.kind==0)[0]
 	var n=main.core.add_building(0,3,ACData.point(h.pos)+Vector2(7,3),true)
 	main.core.add_building(0,12,ACData.point(h.pos)+Vector2(8,9),true)
-	ACCitrusBrood.producer(main.core,n);main.state=main.core.snapshot(-1);main.selected=[h.id];main.camera=main.core.center(h)+Vector2(5,5);main.zoom=.85
+	ACCitrusBrood.producer(main.core,n)
+	main.core.time=20;main.core.roots.update(main.core)
+	main.state=main.core.snapshot(-1);main.selected=[h.id];main.camera=main.core.center(h)+Vector2(5,5);main.zoom=.85
 	main._update_hud();main._sync_world_canvas();main.world_canvas.queue_redraw()
 	for i in range(8):await process_frame
 	await RenderingServer.frame_post_draw

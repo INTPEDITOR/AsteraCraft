@@ -26,4 +26,9 @@ func _draw_entity() -> void:
 	if main._selection_bodies.has(int(entity.id)):
 		body_bounds=main._selection_bodies[int(entity.id)]
 		body_bounds.position-=position+main.world_clip.position
+	# Explicit local bounds keep tall sprites alive while their ground origin
+	# is outside the viewport; include the contact shadow and selection bars.
+	if bounds.has_area():
+		var cull_bounds=bounds.merge(Rect2(Vector2(-32,-32),Vector2(64,64))).grow(128*main.zoom)
+		RenderingServer.canvas_item_set_custom_rect(get_canvas_item(),true,cull_bounds)
 	main.world_canvas=previous;main._object_canvas_offset=Vector2.ZERO

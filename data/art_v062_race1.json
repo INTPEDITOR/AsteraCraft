@@ -1,0 +1,8807 @@
+{
+  "schema": 1,
+  "race": 1,
+  "status": "in_progress",
+  "units": {
+    "1:13": {
+      "directions": 1,
+      "hemisphere": "static",
+      "scale_hint": 216,
+      "actions": {
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                64,
+                63,
+                143,
+                164
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                53,
+                83,
+                224,
+                258
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                64,
+                72,
+                139,
+                156
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                361,
+                97,
+                218,
+                245
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                60,
+                64,
+                142,
+                165
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                662,
+                85,
+                223,
+                259
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                54,
+                66,
+                148,
+                163
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                959,
+                87,
+                232,
+                255
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                54,
+                62,
+                138,
+                168
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                1266,
+                81,
+                217,
+                263
+              ]
+            }
+          ]
+        },
+        "morph": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 3,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                63,
+                55,
+                140,
+                159
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                52,
+                441,
+                219,
+                250
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                59,
+                52,
+                154,
+                171
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                352,
+                436,
+                241,
+                269
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                49,
+                42,
+                167,
+                186
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                644,
+                421,
+                262,
+                292
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                39,
+                24,
+                174,
+                207
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                935,
+                393,
+                273,
+                324
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                33,
+                12,
+                180,
+                219
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                1233,
+                373,
+                283,
+                343
+              ]
+            }
+          ]
+        },
+        "death": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 10,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                63,
+                94,
+                131,
+                149
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                52,
+                751,
+                205,
+                234
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                77,
+                100,
+                117,
+                129
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                380,
+                759,
+                183,
+                202
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                71,
+                106,
+                115,
+                124
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                678,
+                769,
+                180,
+                194
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                60,
+                123,
+                137,
+                103
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                968,
+                796,
+                215,
+                161
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/brood_13.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                227
+              ],
+              "bounds": [
+                46,
+                140,
+                158,
+                83
+              ],
+              "scale_hint": 160.6153846153846,
+              "source_bounds": [
+                1254,
+                822,
+                248,
+                130
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "buildings": {
+    "1:0": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                77,
+                124,
+                106,
+                95
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                95,
+                212,
+                121,
+                108
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                64,
+                86,
+                134,
+                131
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                388,
+                168,
+                153,
+                150
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                50,
+                56,
+                142,
+                161
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                679,
+                134,
+                162,
+                184
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                23,
+                37,
+                176,
+                184
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                955,
+                112,
+                201,
+                210
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                22,
+                26,
+                199,
+                195
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                1261,
+                100,
+                227,
+                223
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                36,
+                21,
+                203,
+                198
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                49,
+                412,
+                232,
+                226
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                30,
+                15,
+                200,
+                203
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                349,
+                406,
+                228,
+                232
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                26,
+                19,
+                204,
+                200
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                652,
+                410,
+                233,
+                228
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                16,
+                14,
+                209,
+                205
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                947,
+                404,
+                239,
+                234
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                19,
+                17,
+                207,
+                202
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                1258,
+                408,
+                236,
+                230
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                31,
+                17,
+                213,
+                201
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                43,
+                714,
+                243,
+                229
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                24,
+                12,
+                210,
+                206
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                342,
+                708,
+                240,
+                235
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                25,
+                15,
+                208,
+                204
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                650,
+                711,
+                237,
+                233
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                17,
+                14,
+                209,
+                205
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                949,
+                710,
+                239,
+                234
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_00.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                217
+              ],
+              "bounds": [
+                18,
+                17,
+                211,
+                202
+              ],
+              "scale_hint": 198.88217522658607,
+              "source_bounds": [
+                1257,
+                714,
+                241,
+                230
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:1": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                84,
+                145,
+                84,
+                86
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                91,
+                189,
+                119,
+                121
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                59,
+                77,
+                134,
+                161
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                363,
+                93,
+                189,
+                227
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                50,
+                43,
+                153,
+                195
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                658,
+                45,
+                217,
+                275
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                38,
+                31,
+                166,
+                210
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                948,
+                28,
+                234,
+                297
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                31,
+                19,
+                184,
+                225
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                1245,
+                11,
+                260,
+                318
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                42,
+                12,
+                177,
+                226
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                32,
+                351,
+                250,
+                319
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                38,
+                17,
+                180,
+                220
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                333,
+                358,
+                254,
+                311
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                36,
+                14,
+                178,
+                224
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                638,
+                354,
+                251,
+                316
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                37,
+                14,
+                182,
+                224
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                946,
+                354,
+                257,
+                316
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                35,
+                13,
+                180,
+                224
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                1251,
+                353,
+                254,
+                316
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                39,
+                15,
+                180,
+                223
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                28,
+                692,
+                255,
+                315
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                38,
+                13,
+                180,
+                224
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                333,
+                690,
+                255,
+                317
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                36,
+                15,
+                180,
+                222
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                638,
+                693,
+                254,
+                314
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                37,
+                14,
+                181,
+                224
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                946,
+                691,
+                256,
+                316
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_01.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                35,
+                13,
+                181,
+                224
+              ],
+              "scale_hint": 219.2682926829268,
+              "source_bounds": [
+                1251,
+                690,
+                256,
+                317
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:2": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                80,
+                113,
+                115,
+                116
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                92,
+                185,
+                147,
+                148
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                53,
+                63,
+                165,
+                168
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                365,
+                121,
+                211,
+                215
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                33,
+                38,
+                192,
+                189
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                646,
+                90,
+                245,
+                242
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                23,
+                26,
+                197,
+                209
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                941,
+                74,
+                252,
+                268
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                15,
+                14,
+                214,
+                221
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                1238,
+                59,
+                274,
+                283
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                30,
+                12,
+                214,
+                218
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                28,
+                392,
+                274,
+                279
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                27,
+                12,
+                217,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                331,
+                391,
+                277,
+                280
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                23,
+                12,
+                216,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                634,
+                391,
+                276,
+                280
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                20,
+                12,
+                214,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                937,
+                391,
+                274,
+                280
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                17,
+                12,
+                214,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                1240,
+                391,
+                274,
+                280
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                30,
+                12,
+                214,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                28,
+                714,
+                274,
+                280
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                27,
+                12,
+                217,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                331,
+                714,
+                277,
+                280
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                24,
+                12,
+                215,
+                218
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                635,
+                715,
+                275,
+                279
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                20,
+                12,
+                214,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                937,
+                714,
+                274,
+                280
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_02.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                17,
+                12,
+                214,
+                219
+              ],
+              "scale_hint": 214.177897574124,
+              "source_bounds": [
+                1240,
+                714,
+                274,
+                280
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:3": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                96,
+                111,
+                77,
+                71
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                110,
+                210,
+                105,
+                97
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                46,
+                85,
+                166,
+                105
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                349,
+                174,
+                227,
+                143
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                28,
+                46,
+                195,
+                149
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                631,
+                121,
+                266,
+                204
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                19,
+                31,
+                199,
+                163
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                927,
+                101,
+                272,
+                223
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                12,
+                21,
+                207,
+                176
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                1224,
+                87,
+                282,
+                241
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                33,
+                12,
+                209,
+                181
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                24,
+                379,
+                285,
+                247
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                36,
+                13,
+                203,
+                183
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                335,
+                380,
+                277,
+                250
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                28,
+                12,
+                208,
+                180
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                631,
+                379,
+                284,
+                246
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                21,
+                12,
+                207,
+                182
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                929,
+                379,
+                282,
+                249
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                13,
+                14,
+                211,
+                181
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                1225,
+                381,
+                288,
+                247
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                33,
+                14,
+                209,
+                182
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                24,
+                679,
+                286,
+                248
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                35,
+                14,
+                204,
+                183
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                334,
+                679,
+                278,
+                250
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                25,
+                13,
+                213,
+                181
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                627,
+                678,
+                291,
+                247
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                22,
+                14,
+                207,
+                180
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                931,
+                679,
+                283,
+                246
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_03.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                193
+              ],
+              "bounds": [
+                17,
+                15,
+                207,
+                179
+              ],
+              "scale_hint": 203.5858585858585,
+              "source_bounds": [
+                1231,
+                681,
+                282,
+                245
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:4": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                90,
+                115,
+                81,
+                78
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                100,
+                189,
+                115,
+                111
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                45,
+                84,
+                152,
+                121
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                343,
+                146,
+                215,
+                171
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                32,
+                51,
+                178,
+                156
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                632,
+                99,
+                252,
+                221
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                12,
+                19,
+                203,
+                189
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                911,
+                54,
+                288,
+                268
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                13,
+                12,
+                214,
+                197
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                1219,
+                43,
+                303,
+                279
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                28,
+                15,
+                209,
+                193
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                12,
+                376,
+                296,
+                273
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                25,
+                15,
+                208,
+                193
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                315,
+                376,
+                294,
+                273
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                18,
+                15,
+                209,
+                193
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                612,
+                376,
+                296,
+                273
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                14,
+                12,
+                210,
+                195
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                914,
+                373,
+                297,
+                276
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                13,
+                15,
+                213,
+                193
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                1219,
+                376,
+                301,
+                273
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                27,
+                17,
+                211,
+                191
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                11,
+                696,
+                298,
+                270
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                24,
+                12,
+                208,
+                196
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                314,
+                689,
+                295,
+                277
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                19,
+                12,
+                211,
+                193
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                614,
+                688,
+                298,
+                273
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                17,
+                12,
+                208,
+                195
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                918,
+                688,
+                294,
+                276
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_04.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                206
+              ],
+              "bounds": [
+                13,
+                18,
+                215,
+                189
+              ],
+              "scale_hint": 204.87210718635805,
+              "source_bounds": [
+                1219,
+                697,
+                304,
+                268
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:5": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                83,
+                149,
+                83,
+                82
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                95,
+                228,
+                107,
+                105
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                51,
+                102,
+                132,
+                130
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                362,
+                167,
+                170,
+                167
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                41,
+                66,
+                161,
+                165
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                656,
+                121,
+                208,
+                212
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                26,
+                38,
+                185,
+                193
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                944,
+                85,
+                238,
+                248
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                12,
+                12,
+                227,
+                221
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                1233,
+                52,
+                292,
+                284
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                27,
+                28,
+                210,
+                202
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                23,
+                394,
+                270,
+                260
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                27,
+                26,
+                211,
+                205
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                331,
+                391,
+                272,
+                264
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                31,
+                29,
+                210,
+                201
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                643,
+                396,
+                270,
+                259
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                25,
+                29,
+                210,
+                202
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                943,
+                395,
+                271,
+                260
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                25,
+                27,
+                206,
+                203
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                1250,
+                393,
+                265,
+                261
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                27,
+                26,
+                210,
+                204
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                24,
+                710,
+                271,
+                263
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                28,
+                26,
+                211,
+                205
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                332,
+                709,
+                272,
+                264
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                28,
+                30,
+                206,
+                199
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                639,
+                715,
+                265,
+                256
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                27,
+                27,
+                209,
+                203
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                945,
+                711,
+                269,
+                262
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_05.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                229
+              ],
+              "bounds": [
+                24,
+                29,
+                209,
+                202
+              ],
+              "scale_hint": 204.97991967871474,
+              "source_bounds": [
+                1249,
+                713,
+                269,
+                260
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:6": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                86,
+                106,
+                88,
+                84
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                94,
+                175,
+                125,
+                120
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                41,
+                62,
+                167,
+                140
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                337,
+                112,
+                238,
+                200
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                36,
+                45,
+                174,
+                158
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                637,
+                87,
+                248,
+                225
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                16,
+                29,
+                201,
+                176
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                915,
+                65,
+                286,
+                251
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                12,
+                19,
+                217,
+                194
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                1217,
+                51,
+                309,
+                276
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                33,
+                13,
+                206,
+                189
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                18,
+                384,
+                294,
+                270
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                29,
+                13,
+                208,
+                189
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                319,
+                384,
+                296,
+                270
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                28,
+                13,
+                205,
+                189
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                625,
+                384,
+                292,
+                270
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                23,
+                13,
+                206,
+                189
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                926,
+                384,
+                294,
+                270
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                19,
+                14,
+                210,
+                189
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                1227,
+                385,
+                300,
+                269
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                31,
+                12,
+                208,
+                191
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                16,
+                709,
+                296,
+                272
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                29,
+                13,
+                208,
+                189
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                319,
+                711,
+                297,
+                270
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                26,
+                13,
+                207,
+                190
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                622,
+                711,
+                295,
+                271
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                23,
+                13,
+                208,
+                189
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                925,
+                711,
+                296,
+                270
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_06.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                201
+              ],
+              "bounds": [
+                19,
+                12,
+                210,
+                191
+              ],
+              "scale_hint": 201.98307134220062,
+              "source_bounds": [
+                1227,
+                709,
+                299,
+                272
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:7": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                95,
+                177,
+                67,
+                62
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                107,
+                257,
+                94,
+                87
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                74,
+                134,
+                114,
+                105
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                385,
+                196,
+                159,
+                147
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                57,
+                79,
+                134,
+                162
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                668,
+                120,
+                188,
+                227
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                34,
+                27,
+                153,
+                216
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                943,
+                46,
+                214,
+                303
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                21,
+                12,
+                186,
+                232
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                1232,
+                26,
+                261,
+                325
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                50,
+                39,
+                167,
+                202
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                45,
+                382,
+                234,
+                283
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                47,
+                39,
+                167,
+                201
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                347,
+                383,
+                234,
+                282
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                47,
+                37,
+                165,
+                205
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                654,
+                380,
+                231,
+                287
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                37,
+                39,
+                171,
+                203
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                948,
+                382,
+                240,
+                285
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                35,
+                38,
+                170,
+                203
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                1252,
+                381,
+                238,
+                285
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                61,
+                27,
+                161,
+                214
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                60,
+                680,
+                226,
+                300
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                42,
+                37,
+                183,
+                205
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                341,
+                694,
+                257,
+                287
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                37,
+                26,
+                185,
+                215
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                641,
+                678,
+                259,
+                301
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                48,
+                46,
+                166,
+                196
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                963,
+                706,
+                233,
+                275
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_07.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                45,
+                42,
+                165,
+                199
+              ],
+              "scale_hint": 199.16307692307691,
+              "source_bounds": [
+                1266,
+                701,
+                231,
+                279
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:8": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                87,
+                141,
+                90,
+                91
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                97,
+                183,
+                124,
+                125
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                77,
+                109,
+                110,
+                128
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                391,
+                139,
+                152,
+                176
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                43,
+                70,
+                166,
+                172
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                651,
+                85,
+                229,
+                237
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                44,
+                46,
+                165,
+                196
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                959,
+                52,
+                228,
+                271
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                49,
+                24,
+                171,
+                220
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                1273,
+                22,
+                236,
+                304
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                46,
+                18,
+                174,
+                223
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                40,
+                355,
+                240,
+                308
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                51,
+                18,
+                175,
+                223
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                354,
+                355,
+                241,
+                308
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                45,
+                18,
+                175,
+                223
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                654,
+                355,
+                241,
+                308
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                43,
+                18,
+                175,
+                223
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                958,
+                355,
+                241,
+                308
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                46,
+                18,
+                173,
+                224
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                1269,
+                355,
+                239,
+                309
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                45,
+                15,
+                174,
+                225
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                39,
+                689,
+                240,
+                311
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                51,
+                12,
+                177,
+                229
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                354,
+                685,
+                244,
+                316
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                45,
+                13,
+                180,
+                229
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                653,
+                686,
+                248,
+                316
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                44,
+                17,
+                178,
+                225
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                960,
+                691,
+                245,
+                311
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_08.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                240
+              ],
+              "bounds": [
+                47,
+                17,
+                177,
+                224
+              ],
+              "scale_hint": 218.95,
+              "source_bounds": [
+                1270,
+                692,
+                244,
+                309
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:9": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                90,
+                138,
+                85,
+                84
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                102,
+                198,
+                116,
+                115
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                52,
+                97,
+                149,
+                126
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                357,
+                142,
+                203,
+                172
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                30,
+                55,
+                187,
+                171
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                634,
+                84,
+                256,
+                233
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                23,
+                30,
+                196,
+                201
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                932,
+                50,
+                268,
+                274
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                12,
+                18,
+                212,
+                215
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                1224,
+                34,
+                290,
+                293
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                22,
+                12,
+                210,
+                213
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                9,
+                367,
+                287,
+                291
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                22,
+                13,
+                217,
+                212
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                316,
+                368,
+                297,
+                290
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                23,
+                12,
+                213,
+                215
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                624,
+                367,
+                291,
+                293
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                16,
+                12,
+                217,
+                214
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                922,
+                366,
+                297,
+                292
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                18,
+                12,
+                212,
+                213
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                1232,
+                367,
+                290,
+                291
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                24,
+                12,
+                212,
+                209
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                12,
+                680,
+                289,
+                286
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                25,
+                12,
+                215,
+                213
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                320,
+                680,
+                293,
+                291
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                19,
+                12,
+                220,
+                213
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                619,
+                680,
+                300,
+                291
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                16,
+                12,
+                216,
+                212
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                922,
+                680,
+                295,
+                289
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_09.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                224
+              ],
+              "bounds": [
+                17,
+                14,
+                215,
+                212
+              ],
+              "scale_hint": 210.17676767676755,
+              "source_bounds": [
+                1231,
+                682,
+                294,
+                289
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:10": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                67,
+                59,
+                108,
+                80
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                59,
+                183,
+                168,
+                124
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                40,
+                18,
+                148,
+                125
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                324,
+                119,
+                229,
+                194
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                27,
+                24,
+                172,
+                122
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                611,
+                128,
+                267,
+                190
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                22,
+                17,
+                181,
+                130
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                910,
+                117,
+                281,
+                201
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                13,
+                14,
+                204,
+                140
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                1204,
+                112,
+                316,
+                218
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                44,
+                15,
+                187,
+                130
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                24,
+                437,
+                290,
+                202
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                40,
+                12,
+                189,
+                135
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                325,
+                431,
+                294,
+                209
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                38,
+                12,
+                189,
+                135
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                628,
+                431,
+                293,
+                209
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                32,
+                13,
+                187,
+                133
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                927,
+                433,
+                290,
+                207
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                28,
+                12,
+                188,
+                134
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                1227,
+                432,
+                292,
+                208
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                45,
+                15,
+                186,
+                132
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                25,
+                752,
+                288,
+                205
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                43,
+                15,
+                142,
+                132
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                329,
+                752,
+                221,
+                205
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                12,
+                21,
+                218,
+                124
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                588,
+                762,
+                339,
+                192
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                36,
+                15,
+                182,
+                131
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                932,
+                753,
+                283,
+                203
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                28,
+                15,
+                188,
+                131
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                1228,
+                752,
+                292,
+                204
+              ]
+            }
+          ]
+        },
+        "attack": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 12,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                45,
+                15,
+                186,
+                132
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                25,
+                752,
+                288,
+                205
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                43,
+                15,
+                142,
+                132
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                329,
+                752,
+                221,
+                205
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                12,
+                21,
+                218,
+                124
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                588,
+                762,
+                339,
+                192
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                36,
+                15,
+                182,
+                131
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                932,
+                753,
+                283,
+                203
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_10.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                145
+              ],
+              "bounds": [
+                28,
+                15,
+                188,
+                131
+              ],
+              "scale_hint": 184.31111111111113,
+              "source_bounds": [
+                1228,
+                752,
+                292,
+                204
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:11": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                87,
+                136,
+                96,
+                95
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                93,
+                177,
+                142,
+                140
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                66,
+                122,
+                131,
+                114
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                369,
+                156,
+                194,
+                169
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                56,
+                78,
+                154,
+                159
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                662,
+                92,
+                228,
+                235
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                53,
+                41,
+                157,
+                204
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                965,
+                36,
+                232,
+                301
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                47,
+                27,
+                172,
+                217
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                1263,
+                16,
+                255,
+                321
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                44,
+                29,
+                168,
+                208
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                29,
+                370,
+                249,
+                308
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                49,
+                31,
+                167,
+                206
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                344,
+                373,
+                247,
+                305
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                47,
+                28,
+                170,
+                210
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                648,
+                368,
+                252,
+                310
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                51,
+                30,
+                166,
+                208
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                962,
+                371,
+                245,
+                307
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                51,
+                31,
+                168,
+                206
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                1268,
+                373,
+                249,
+                305
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                48,
+                45,
+                160,
+                192
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                36,
+                731,
+                237,
+                284
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                49,
+                41,
+                160,
+                195
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                344,
+                726,
+                237,
+                288
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                41,
+                12,
+                179,
+                225
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                639,
+                683,
+                264,
+                333
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                45,
+                19,
+                175,
+                218
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                953,
+                693,
+                259,
+                323
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                45,
+                40,
+                171,
+                198
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                1259,
+                724,
+                253,
+                292
+              ]
+            }
+          ]
+        },
+        "attack": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 12,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                48,
+                45,
+                160,
+                192
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                36,
+                731,
+                237,
+                284
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                49,
+                41,
+                160,
+                195
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                344,
+                726,
+                237,
+                288
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                41,
+                12,
+                179,
+                225
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                639,
+                683,
+                264,
+                333
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                45,
+                19,
+                175,
+                218
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                953,
+                693,
+                259,
+                323
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_11.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                236
+              ],
+              "bounds": [
+                45,
+                40,
+                171,
+                198
+              ],
+              "scale_hint": 203.59183673469386,
+              "source_bounds": [
+                1259,
+                724,
+                253,
+                292
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "1:12": {
+      "directions": 1,
+      "scale_hint": 216,
+      "actions": {
+        "construction": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 1,
+          "loop": false,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                0,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                76,
+                131,
+                108,
+                103
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                79,
+                168,
+                155,
+                147
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                256,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                65,
+                88,
+                135,
+                145
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                370,
+                107,
+                193,
+                208
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                512,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                51,
+                68,
+                143,
+                165
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                658,
+                79,
+                204,
+                236
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                768,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                31,
+                29,
+                190,
+                210
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                936,
+                22,
+                272,
+                301
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                1024,
+                0,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                28,
+                24,
+                187,
+                219
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                1240,
+                16,
+                267,
+                314
+              ]
+            }
+          ]
+        },
+        "idle": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 5,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                0,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                41,
+                16,
+                178,
+                217
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                29,
+                358,
+                255,
+                311
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                256,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                51,
+                12,
+                183,
+                222
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                350,
+                352,
+                262,
+                318
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                512,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                41,
+                15,
+                184,
+                218
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                644,
+                357,
+                264,
+                312
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                768,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                41,
+                15,
+                175,
+                219
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                950,
+                356,
+                250,
+                314
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                1024,
+                256,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                33,
+                20,
+                184,
+                214
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                1247,
+                363,
+                263,
+                306
+              ]
+            }
+          ]
+        },
+        "active": {
+          "directions": 1,
+          "rows": 5,
+          "fps": 7,
+          "loop": true,
+          "frames": [
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                0,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                41,
+                15,
+                183,
+                219
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                29,
+                690,
+                262,
+                313
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                256,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                48,
+                12,
+                181,
+                221
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                346,
+                686,
+                259,
+                316
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                512,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                39,
+                15,
+                191,
+                218
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                641,
+                691,
+                274,
+                312
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                768,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                39,
+                15,
+                179,
+                219
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                948,
+                690,
+                256,
+                314
+              ]
+            },
+            {
+              "file": "res://assets/v062/race1/building_12.png",
+              "region": [
+                1024,
+                512,
+                256,
+                256
+              ],
+              "anchor": [
+                128,
+                232
+              ],
+              "bounds": [
+                35,
+                15,
+                184,
+                219
+              ],
+              "scale_hint": 213.83132530120483,
+              "source_bounds": [
+                1250,
+                690,
+                263,
+                313
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "portraits": {
+    "1:0": {
+      "file": "res://assets/v062/race1/unit_00_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; mechanical iris blink and body micro-motion",
+      "accepted": true
+    },
+    "1:1": {
+      "file": "res://assets/v062/race1/unit_01_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:2": {
+      "file": "res://assets/v062/race1/unit_02_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:3": {
+      "file": "res://assets/v062/race1/unit_03_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:4": {
+      "file": "res://assets/v062/race1/unit_04_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:5": {
+      "file": "res://assets/v062/race1/unit_05_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:6": {
+      "file": "res://assets/v062/race1/unit_06_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:7": {
+      "file": "res://assets/v062/race1/unit_07_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:8": {
+      "file": "res://assets/v062/race1/unit_08_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:9": {
+      "file": "res://assets/v062/race1/unit_09_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:10": {
+      "file": "res://assets/v062/race1/unit_10_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:11": {
+      "file": "res://assets/v062/race1/unit_11_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    },
+    "1:12": {
+      "file": "res://assets/v062/race1/unit_12_portrait.png",
+      "columns": 4,
+      "rows": 4,
+      "fps": 4,
+      "loop": true,
+      "frames": [
+        {
+          "region": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "region": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "source": "new native image generation; individually reviewed sixteen-frame animated portrait",
+      "accepted": true
+    }
+  }
+}
