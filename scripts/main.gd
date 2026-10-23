@@ -16,6 +16,7 @@ var terrain_artist:=ACTerrainRenderer.new()
 var root_artist=preload("res://scripts/root_renderer.gd").new()
 var construction_visual:=ConstructionVisual.new()
 var building_damage_visual:=preload("res://scripts/building_damage_visual.gd").new()
+var building_status_lights:=preload("res://scripts/building_status_lights.gd").new()
 var death_visual:=preload("res://scripts/death_visual.gd").new()
 var pointer_skill: String=""
 var pointer_order=""
@@ -60,6 +61,9 @@ var selected_resource: int=-1
 var groups: Dictionary={}
 var camera=Vector2(18,18)
 var zoom=DEFAULT_ZOOM
+var _zoom_target=DEFAULT_ZOOM
+var _zoom_anchor=Vector2.ZERO
+var _zoom_animating=false
 var drag_start=Vector2.ZERO
 var dragging=false
 var middle_drag=false
@@ -696,8 +700,17 @@ func _clamp_camera() -> void:
 	half=half.min(Vector2.ONE*ACMap.SIZE*.5)
 	camera=camera.clamp(half,Vector2.ONE*ACMap.SIZE-half)
 
+func _notification(what: int) -> void:
+	if what!=NOTIFICATION_RESIZED or page!="game" or state.is_empty():return
+	# Enlarging a window at the eastern/southern boundary must not leave the
+	# old camera limit exposing a strip outside the map.
+	_clamp_camera()
+	render_rects.clear();_selection_bodies.clear()
+	if is_instance_valid(world_clip):call_deferred("_sync_world_canvas")
+	queue_redraw()
+
 func _focus_home(reset_zoom: bool=false) -> void:
-	if reset_zoom:zoom=DEFAULT_ZOOM
+	if reset_zoom:zoom=DEFAULT_ZOOM;_zoom_target=zoom;_zoom_animating=false
 	camera_velocity=Vector2.ZERO
 	if reset_zoom:_accept_visual_snapshot(state.get("units",[]),float(state.get("time",0)),true)
 	var start_index=local_slot*2 if state.get("players",[]).size()==2 else local_slot
@@ -745,6 +758,7 @@ func _process(dt: float) -> void:
 			audio.set_paused(paused)
 			audio.process_state(state,local_slot,camera,zoom)
 		_camera_input(dt)
+		_update_zoom(dt)
 		_update_visual_motion(dt)
 		_sync_world_canvas()
 		hud_clock-=dt
@@ -1089,9 +1103,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		var mouse=event.position
 		if event.button_index==MOUSE_BUTTON_MIDDLE:middle_drag=event.pressed
 		if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN] and _can_point_world(mouse):
-			var focus=screen_to_world(mouse)
-			zoom=clampf(zoom*(1.12 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.0/1.12),_minimum_zoom(),MAX_ZOOM)
-			camera+=focus-screen_to_world(mouse)
+			_zoom_anchor=mouse
+			if not _zoom_animating:_zoom_target=zoom
+			_zoom_target=clampf(_zoom_target*(1.10 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.0/1.10),_minimum_zoom(),MAX_ZOOM)
+			_zoom_animating=true
 			camera_velocity=Vector2.ZERO
 			_clamp_camera()
 			render_rects.clear();_selection_bodies.clear()
@@ -1229,7 +1244,7 @@ func _set_rally(point: Vector2) -> bool:
 
 func _send_command(cmd: Dictionary) -> void:
 	if spectator or replay_mode or state.get("ended",false):return
-	if selected_resource>=0 and str(cmd.get("type",""))!="surrender":return
+	if selected_resource>=0 and str(cmd.get("type","")) not in ["surrender","surrender_response"]:return
 	if network_client:
 		if multiplayer.multiplayer_peer!=null and multiplayer.multiplayer_peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
 			_remote_command.rpc_id(1,cmd)
@@ -1382,6 +1397,16 @@ func _encode_replay_frame(snapshot: Dictionary):
 	if snapshot.get("_live_view",false) and core!=null:snapshot=core.snapshot(local_slot)
 	var raw=var_to_bytes(snapshot)
 	return {"size":raw.size(),"compressed":raw.compress(replay_codec)}
+
+func _update_zoom(dt: float) -> void:
+	if not _zoom_animating:return
+	var focus=screen_to_world(_zoom_anchor)
+	var target=clampf(_zoom_target,_minimum_zoom(),MAX_ZOOM)
+	zoom=lerpf(zoom,target,1.0-exp(-14.0*maxf(0,dt)))
+	if absf(zoom-target)<.0005:zoom=target;_zoom_animating=false
+	camera+=focus-screen_to_world(_zoom_anchor)
+	_clamp_camera()
+	render_rects.clear();_selection_bodies.clear()
 
 func _minimum_zoom() -> float:
 	return MIN_ZOOM if spectator or replay_mode else DEFAULT_ZOOM
@@ -1574,12 +1599,12 @@ func _remote_command(cmd: Dictionary) -> void:
 	command_windows[peer]=window
 	if window.count>100:return
 	if not cmd.get("type","") is String:return
-	if cmd.type not in ["surrender","build","train","cancel","research","rally","ability","stop","hold","context","move","attack","attack_move","morph","cancel_morph"]:return
+	if cmd.type not in ["surrender","surrender_response","produce_drone","cancel_drone","build","train","cancel","research","rally","ability","stop","hold","context","move","attack","attack_move","morph","cancel_morph"]:return
 	if not cmd.get("ids",[]) is Array:return
 	if cmd.get("ids",[]).size()>12:return
 	for id in cmd.get("ids",[]):
 		if not id is int:return
-	for key in ["id","kind","target","queue_index"]:
+	for key in ["id","kind","target","queue_index","bot"]:
 		if cmd.has(key) and not cmd[key] is int:return
 	if cmd.has("formation") and not cmd.formation is bool:return
 	if cmd.has("queued") and not cmd.queued is bool:return
@@ -1764,7 +1789,9 @@ func _draw_ground_remains() -> void:
 		var light=.38 if debris.get("fogged",false) else 1.0
 		world_canvas.draw_texture_rect(texture,Rect2(point-dimensions*Vector2(.5,.65),dimensions),false,Color(light,light,light,opacity))
 	for fx in state.get("effects",[]):
-		if fx.get("type","")=="death" and _death_is_ground(fx):_draw_effect(fx)
+		if fx.get("type","")=="death":
+			if not fx.get("airborne",false):_draw_death_body(fx)
+			if _death_is_ground(fx):_draw_effect(fx)
 
 func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 	var active={};var now=Time.get_ticks_msec()*.001
@@ -1814,7 +1841,7 @@ func _draw_world_overlay() -> void:
 	for fx in state.get("effects",[]):
 		if fx.get("projectile","")=="flame":flame_latest[int(fx.get("unit",-1))]=int(fx.id)
 	for fx in state.get("effects",[]):
-		if fx.get("type","")=="death":_draw_death_body(fx)
+		if fx.get("type","")=="death" and fx.get("airborne",false):_draw_death_body(fx)
 		if fx.get("type","")=="death" and _death_is_ground(fx):continue
 		if fx.get("projectile","")=="flame" and flame_latest.get(int(fx.get("unit",-1)),-1)!=int(fx.id):continue
 		_draw_effect(fx)
@@ -1944,15 +1971,12 @@ func _draw_building(e: Dictionary) -> void:
 	if int(e.id) in selected:_draw_footprint(pos-Vector2(.5,.5) if int(e.kind)==1 else pos,Vector2(d.w,d.h),Color("64e996"))
 	var width=float(d.w)*32.0*zoom
 	var front=float(d.h)*16.0*zoom
-	_world_shadow(sp+Vector2(0,front-6*zoom),Vector2(width*.94,float(d.h)*11*zoom),.27)
+	_world_shadow(sp+Vector2(0,front*.12),Vector2(width*.94,width*.58),.13)
 	var damage_texture: Texture2D=null
 	var damage_rect=Rect2()
 	if not authored.is_empty():
 		var factor=width/maxf(1,float(authored.scale_hint))
-		var contact=sp+Vector2(0,front*.12)
 		var foundation=sp+Vector2(0,front)
-		var root=Vector2(authored.anchor)+(contact-foundation)/factor
-		_cast_shadow(authored.texture,root,contact,factor)
 		var color=Color(.96,.97,.98)
 		if not e.get("powered",true):color*=Color(.48,.52,.58)
 		var rect=_draw_unit_frame(authored,foundation,width,color)
@@ -1967,13 +1991,6 @@ func _draw_building(e: Dictionary) -> void:
 		var rect=Rect2(sp+Vector2(-width*.5,front-height),Vector2(width,height))
 		damage_texture=tex;damage_rect=rect
 		render_rects[int(e.id)]=rect
-		for layer in construction_visual.shadow_layers(int(e.race),int(e.kind),tex,rect,float(e.progress)):
-			var silhouette: Texture2D=layer.texture
-			var shadow_rect: Rect2=layer.rect
-			var factor=shadow_rect.size.x/silhouette.get_width()
-			var contact=sp+Vector2(0,front*.12)
-			var root=(contact-shadow_rect.position)/factor
-			_cast_shadow(silhouette,root,contact,factor,false,0,float(layer.opacity))
 		if float(e.progress)<1:
 			construction_visual.draw(world_canvas,int(e.race),int(e.kind),tex,rect,float(e.progress),idle_clock)
 			if construction_visual.available(int(e.race),int(e.kind)):
@@ -1985,6 +2002,8 @@ func _draw_building(e: Dictionary) -> void:
 			world_canvas.draw_texture_rect(tex,rect,false,color)
 			if int(e.kind)==1:_draw_refinery_plume(e,rect)
 	if damage_texture!=null:
+		if float(e.progress)>=1 and e.get("powered",true):
+			building_status_lights.draw(world_canvas,damage_texture,damage_rect,int(e.race),idle_clock,active)
 		var capacity=building_damage_visual.health_capacity(float(d.hp),float(e.progress))
 		building_damage_visual.draw(world_canvas,int(e.race),float(e.hp),capacity,damage_texture,damage_rect,idle_clock,int(e.id))
 	if int(e.id) in selected:_draw_bars(sp+Vector2(0,front+6),e,d,mini(110,int(width*.65)))
@@ -2004,6 +2023,11 @@ func _moving_fire_pose(e: Dictionary) -> bool:
 	# Carrier drones already fire while circling. Their authored muzzle pulse
 	# must remain visible during that existing movement, without stopping them.
 	return int(e.race)==0 and int(e.kind)==15 and assets.sprites.units.get("0:15",{}).get("staged16",false)
+
+func _uses_fixed_hull(e: Dictionary) -> bool:
+	var d=ACData.unit(int(e.race),int(e.kind))
+	# The scout's separately authored rotor cycle is retained; jet hulls stay still.
+	return (bool(d.air) and str(d.get("material",""))=="mechanical" and not (int(e.race)==0 and int(e.kind)==8)) or (int(e.race)==1 and int(e.kind)==11) or (int(e.race)==2 and int(e.kind)==8)
 
 func _draw_unit(e: Dictionary) -> void:
 	var d=ACData.unit(int(e.race),int(e.kind))
@@ -2030,7 +2054,7 @@ func _draw_unit(e: Dictionary) -> void:
 		if age>=0 and age<window:
 			action="attack";animation_clock=age*duration/maxf(.01,window)
 	var vehicle=assets.vehicle(int(e.race),int(e.kind),_visual_facing(e,"body_direction"),_visual_facing(e,"turret_direction"),_deployment_progress(e),action,animation_clock)
-	var frame=vehicle.chassis if not vehicle.is_empty() else assets.unit(int(e.race),int(e.kind),_visual_facing(e),action,animation_clock)
+	var frame=vehicle.chassis if not vehicle.is_empty() else assets.unit(int(e.race),int(e.kind),_visual_facing(e),"idle" if _uses_fixed_hull(e) else action,0.0 if _uses_fixed_hull(e) else animation_clock)
 	if frame.is_empty():return
 	if not vehicle.is_empty() and action in ["walk","move"] and not frame.get("v062",false):
 		frame=frame.duplicate()
@@ -2038,22 +2062,16 @@ func _draw_unit(e: Dictionary) -> void:
 		frame.walker=int(e.kind)==12
 	var tex: Texture2D=frame.texture
 	var radius=float(d.size)*12*zoom
-	_world_shadow(foot,Vector2(radius*1.6,radius*.65),.17 if d.air else .25)
+	# A single faint round contact shadow stays directly below every unit.
+	_world_shadow(foot,Vector2(radius*1.6,radius*1.1),.13)
 	_world_transform(foot,0,Vector2(1,.46))
 	if int(e.id) in selected:world_canvas.draw_arc(Vector2.ZERO,radius+4,0,TAU,36,Color("6bea9a"),1.6,true)
 	_world_transform(Vector2.ZERO)
 	var sp=foot-Vector2(0,22*zoom if d.air else 0)
-	if d.air:
+	if d.air and not _uses_fixed_hull(e):
 		sp.y-=sin(animation_clock*1.7)*1.8*zoom
 		sp.x+=sin(animation_clock*.85)*.45*zoom
 	var extent=float(d.get("visual_extent",float(d.size)*(62 if d.air else 47)))*zoom
-	if d.air:
-		if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() and (frame.get("separate_rotors",false) or not frame.get("v062",false)):
-			var parts=assets.drone(_visual_facing(e),animation_clock)
-			_cast_shadow(parts.hull.texture,parts.hull.anchor,foot,extent*.6/float(parts.hull.scale_hint),bool(parts.hull.get("flip",false)),22*zoom)
-			for offset in assets.drone_mounts(parts.hull,_visual_facing(e),extent):
-				_cast_shadow(parts.rotor.texture,parts.rotor.anchor,foot+offset*Vector2(1,.78),extent*.42/float(parts.rotor.scale_hint),false,22*zoom)
-		else:_cast_shadow(tex,frame.anchor,foot,extent/maxf(1,float(frame.scale_hint)),bool(frame.get("flip",false)),22*zoom,1.0,float(frame.get("rotation",0)))
 	var color=Color(.96,.97,.98)
 	if e.get("cloaked",false):color.a=.42
 	if bool(d.air) and bool(e.get("moving",false)) and assets.propulsion_frames.size()==3:
@@ -2063,7 +2081,12 @@ func _draw_unit(e: Dictionary) -> void:
 		_world_transform(sp-facing*extent*.27,Vector2.DOWN.angle_to(-facing))
 		world_canvas.draw_texture_rect(exhaust,Rect2(-extent*.14,-extent*.025,extent*.28,extent*.40),false,Color(1,1,1,color.a*.85))
 		_world_transform()
+	var support_rect=Rect2()
+	if int(e.race)==0 and int(e.kind)==5 and frame.get("staged16",false):
+		var supports=assets.siege_supports(_visual_facing(e,"body_direction"),_deployment_progress(e),frame)
+		if not supports.is_empty():support_rect=_draw_unit_frame(supports,sp,extent,color)
 	var rect=_draw_drone(e,sp,extent,color,animation_clock) if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() and (frame.get("separate_rotors",false) or not frame.get("v062",false)) else _draw_unit_frame(frame,sp,extent,color)
+	if support_rect.has_area():rect=rect.merge(support_rect)
 	if not vehicle.is_empty():
 		_selection_bodies[int(e.id)]=rect
 		var factor=extent/maxf(1,float(frame.scale_hint))
@@ -2127,6 +2150,12 @@ func _draw_drone(e: Dictionary,sp: Vector2,extent: float,color: Color,clock: flo
 	return rect
 
 func _draw_unit_frame(frame: Dictionary,point: Vector2,extent: float,color: Color=Color.WHITE) -> Rect2:
+	var seal_bounds=Rect2()
+	if frame.has("summon_stage"):
+		var stage=clampi(int(frame.summon_stage),0,4)
+		var seal=assets.sprites.owl_summon_seal()
+		if not seal.is_empty():seal_bounds=_draw_unit_frame(seal,point,extent*.92,Color(color,float(color.a)*[.55,.48,.32,.18,.07][stage]))
+		color*= [Color(1,.18,.12,0),Color(1,.2,.15,.20),Color(1,.52,.46,.45),Color(1,.82,.78,.74),Color(1,1,1,.96)][stage]
 	var texture: Texture2D=frame.texture
 	var factor=extent/maxf(1,float(frame.get("scale_hint",maxf(texture.get_width(),texture.get_height()))))
 	var anchor: Vector2=frame.get("anchor",texture.get_size()*.5)
@@ -2141,7 +2170,7 @@ func _draw_unit_frame(frame: Dictionary,point: Vector2,extent: float,color: Colo
 	var bounds=Rect2(transform*(source_bounds.position-anchor),Vector2.ZERO)
 	for corner in [Vector2(source_bounds.end.x,source_bounds.position.y),source_bounds.end,Vector2(source_bounds.position.x,source_bounds.end.y)]:
 		bounds=bounds.expand(transform*(corner-anchor))
-	return bounds
+	return bounds.merge(seal_bounds) if seal_bounds.has_area() else bounds
 
 var _vehicle_gait_meshes: Dictionary={}
 
@@ -2431,12 +2460,12 @@ func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2,shot_index: 
 	# The painted firing pose restarts on each shot, including render
 	# interpolation. Its source-bound mouth must sample that same pose.
 	if layered.get("staged16",false) and vehicle_action=="attack":clock=vehicle_clock
-	if definition.air and source.has("id"):
+	if definition.air and source.has("id") and not _uses_fixed_hull(source):
 		elevated.y-=sin(clock*1.7)*1.8*zoom
 		elevated.x+=sin(clock*.85)*.45*zoom
 	# A moving aircraft may aim at a target while its hull still faces its
 	# displacement. Register the socket against the body actually being drawn.
-	var pose=assets.unit(int(source.race),int(source.kind),heading,"attack",clock)
+	var pose=assets.unit(int(source.race),int(source.kind),heading,"idle" if _uses_fixed_hull(source) else "attack",0.0 if _uses_fixed_hull(source) else clock)
 	if not pose.is_empty() and pose.get("staged16",false) and not pose.get("muzzles",[]).is_empty():
 		var sockets: Array=pose.muzzles
 		return elevated+Vector2(sockets[posmod(maxi(0,shot_index),sockets.size())])*extent/maxf(1,float(pose.scale_hint))

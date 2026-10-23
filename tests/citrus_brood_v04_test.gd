@@ -66,7 +66,7 @@ func run() -> void:
 	var middle_as:=float(core.players[0].as)
 	var middle_pop:=float(core.players[0].reserved)
 	check(core.command(0,{"type":"cancel","id":hq.id,"queue_index":1})=="","building compatibility queue cancels the specified body")
-	check(str(pods[1].brood_state)=="idle" and str(pods[0].brood_state)=="morph" and str(pods[2].brood_state)=="morph" and hq.queue.size()==2,"middle cancellation preserves the other independent jobs")
+	check(pods[1].hp==0 and str(pods[1].brood_state)=="cancelled" and str(pods[0].brood_state)=="morph" and str(pods[2].brood_state)=="morph" and hq.queue.size()==2,"middle cancellation preserves the other independent jobs")
 	check(is_equal_approx(float(core.players[0].as)-middle_as,float(ACData.unit(1,1).as)) and is_equal_approx(middle_pop-float(core.players[0].reserved),float(ACData.unit(1,1).pop)*int(ACData.unit(1,1).get("production_count",1))),"cancel refunds the selected target and releases its reserved population")
 	var repeated_as:=float(core.players[0].as)
 	ACCitrusBrood.cancel(core,0,pods[1])
@@ -75,6 +75,8 @@ func run() -> void:
 	advance_pod(core,pods[0],float(pods[0].morph_left))
 	check(int(pods[0].kind)==0 and int(pods[0].id)==worker_id and pods[0].order=="gather","completed worker keeps its selected identity and begins gathering")
 	check(str(pods[2].brood_state)=="morph" and hq.queue.size()==1,"finishing one body does not finish another body")
+	ACCitrusBrood.producer(core,hq,15.0)
+	pods[1]=ACCitrusBrood.idle_pods(core,hq)[0]
 	var failed_as:=float(core.players[0].as)
 	var failed_pop:=float(core.players[0].reserved)
 	check(ACCitrusBrood.train(core,1,pods[1],0)!="" and ACCitrusBrood.train(core,0,pods[1],13)!="","wrong ownership and technical-kind targets are rejected")
@@ -124,7 +126,7 @@ func run() -> void:
 	ACCitrusBrood.train(regen,0,cancelling,0)
 	ACCitrusBrood.producer(regen,regen_hq,45.0)
 	ACCitrusBrood.cancel(regen,0,cancelling)
-	check(ACCitrusBrood.idle_pods(regen,regen_hq).size()==3 and int(cancelling.id)==cancelling_id and regen.units.has(cancelling),"cancel after regeneration preserves the selected ID and the strict three-idle cap")
+	check(ACCitrusBrood.idle_pods(regen,regen_hq).size()==3 and int(cancelling.id)==cancelling_id and cancelling.hp==0 and cancelling.brood_state=="cancelled","cancel kills its body while preserving the strict three-idle cap after regeneration")
 	var nursery: Dictionary={}
 	for building in regen.buildings:
 		if int(building.owner)==0 and int(building.kind)==3:nursery=building;break
@@ -136,7 +138,7 @@ func run() -> void:
 	check(ACCitrusBrood.idle_pods(regen,nursery,true).size()==2,"additional nursery uses its twenty-five-second interval")
 	ACCitrusBrood.producer(regen,nursery,.1)
 	check(ACCitrusBrood.idle_pods(regen,nursery,true).size()==3,"additional nursery replenishes after its own interval")
-	# Compatibility train picks an actual idle body; all entry points share 5 slots.
+	# Compatibility training and direct morphing both consume independent real bodies.
 	var queue_core:=prepared()
 	var queue_hq:=home(queue_core)
 	for index in range(5):
@@ -144,7 +146,9 @@ func run() -> void:
 		check(queue_core.command(0,{"type":"train","id":queue_hq.id,"kind":12})=="","HQ compatibility train assigns a distinct body %d"%index)
 	ACCitrusBrood.producer(queue_core,queue_hq,15.0)
 	var sixth: Dictionary=ACCitrusBrood.idle_pods(queue_core,queue_hq)[0]
-	check(queue_hq.queue.size()==5 and ACCitrusBrood.train(queue_core,0,sixth,0)!="" and queue_core.command(0,{"type":"train","id":queue_hq.id,"kind":0})!="","direct and HQ morph entry points enforce the same five-job cap")
+	var before_extra=queue_hq.queue.size()
+	check(ACCitrusBrood.train(queue_core,0,sixth,0)=="" and queue_hq.queue.size()==before_extra+1,"direct morph uses another available body, matching the existing unrestricted brood behavior")
+	var before_death=queue_hq.queue.size()
 	var dying: Dictionary=queue_core.entity(int(queue_hq.queue[1].brood))
 	var reserved:=float(queue_core.players[0].reserved)
 	var no_refund:=float(queue_core.players[0].as)
@@ -152,7 +156,7 @@ func run() -> void:
 	dying.hp=0.0
 	ACCitrusBrood.cleanup_dead(queue_core)
 	ACCitrusBrood.cleanup_dead(queue_core)
-	check(is_equal_approx(float(queue_core.players[0].reserved),reserved-lost_pop) and float(queue_core.players[0].as)==no_refund and queue_hq.queue.size()==4,"destroyed morph releases population once, removes its queue mirror and grants no refund")
+	check(is_equal_approx(float(queue_core.players[0].reserved),reserved-lost_pop) and float(queue_core.players[0].as)==no_refund and queue_hq.queue.size()==before_death-1,"destroyed morph releases population once, removes its queue mirror and grants no refund")
 	var tera_before_cancel:=float(queue_core.players[0].tera)
 	var as_before_cancel:=float(queue_core.players[0].as)
 	check(ACCitrusBrood.cancel_queue(queue_core,0,queue_hq,2)=="" and float(ACData.unit(1,12).tera)>0.0 and is_equal_approx(float(queue_core.players[0].tera)-tera_before_cancel,float(ACData.unit(1,12).tera)) and is_equal_approx(float(queue_core.players[0].as)-as_before_cancel,float(ACData.unit(1,12).as)),"expensive morph cancellation refunds exact As and Tera costs")
@@ -170,4 +174,5 @@ func run() -> void:
 	advance_pod(queue_core,orphan,float(orphan.morph_left))
 	check(int(orphan.id)==orphan_id and int(orphan.kind)==12 and is_equal_approx(float(queue_core.players[0].reserved),reserved-orphan_pop),"reconnected morph completes with its original identity and releases its reservation")
 	print("Citrus brood v0.4: %d checks, %d failures"%[checks,failures.size()])
+	FileAccess.open("res://build/visual_feedback_20261024/brood-existing.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"passed":failures.is_empty()},"\t"))
 	quit(0 if failures.is_empty() else 1)

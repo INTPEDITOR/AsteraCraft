@@ -9,17 +9,20 @@ var effects: Dictionary={}
 var diagnostics: Array[String]=[]
 var _textures: Dictionary={}
 var _frames: Dictionary={}
+var _owl_summon_clip: Dictionary={}
 
 func load_catalogs() -> void:
 	units.clear();buildings.clear();portraits.clear();effects.clear();diagnostics.clear()
 	_textures.clear();_frames.clear()
+	_owl_summon_clip.clear()
 	for race in range(3):
 		var path="res://data/art_v062_race%d.json"%race
 		if not FileAccess.file_exists(path):continue
 		var catalog=JSON.parse_string(FileAccess.get_file_as_string(path))
 		if not catalog is Dictionary:
 			diagnostics.append("Invalid sprite catalog: "+path);continue
-		for section in ["units","buildings","portraits"]:
+		# Portrait replacement was cancelled; the HUD keeps its original atlas.
+		for section in ["units","buildings"]:
 			var target: Dictionary=units if section=="units" else buildings if section=="buildings" else portraits
 			for key in catalog.get(section,{}):
 				var entry: Dictionary=catalog[section][key]
@@ -33,11 +36,13 @@ func load_catalogs() -> void:
 			for key in staged.get("units",{}):
 				var entry: Dictionary=staged.units[key]
 				if entry.get("status","") in ["accepted","applied_unreviewed"]:units[str(key)]=entry
+	_load_display_corrections()
 	# Construction-only overrides keep existing idle, attack and turret art.
 	var construction_path="res://data/art_building_construction5.json"
 	if FileAccess.file_exists(construction_path):
 		var construction_catalog=JSON.parse_string(FileAccess.get_file_as_string(construction_path))
 		if construction_catalog is Dictionary:
+			_owl_summon_clip=construction_catalog.get("buildings",{}).get("2:0",{}).get("actions",{}).get("construction",{})
 			for key in construction_catalog.get("buildings",{}):
 				var addition: Dictionary=construction_catalog.buildings[key]
 				if addition.get("status","")!="accepted":continue
@@ -53,6 +58,34 @@ func load_catalogs() -> void:
 			for key in catalog.get("effects",{}):
 				var entry: Dictionary=catalog.effects[key]
 				if entry.get("status","accepted")=="accepted":effects[str(key)]=entry
+
+func _load_display_corrections() -> void:
+	var path="res://data/art_sprite_display_corrections_20261024.json"
+	if not FileAccess.file_exists(path):return
+	var catalog=JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not catalog is Dictionary:return
+	for key in catalog.get("units",{}):
+		if not units.has(key):continue
+		var change: Dictionary=catalog.units[key]
+		var definition: Dictionary=units[key].duplicate(true)
+		if change.has("scale_hint"):
+			var old_hint=float(definition.get("scale_hint",200));var hint=float(change.scale_hint)
+			definition.scale_hint=hint
+			for action in definition.get("actions",{}):
+				var clip: Dictionary=definition.actions[action]
+				var directions=int(clip.get("directions",16))
+				for index in range(clip.get("frames",[]).size()):
+					var frame: Dictionary=clip.frames[index]
+					var heading_factor=float(change.get("heading_factors",{}).get(str(index%directions),1)) if directions>1 else 1.0
+					frame.scale_hint=float(frame.get("scale_hint",old_hint))/old_hint*hint*heading_factor
+		for action in change.get("actions",{}):
+			if not definition.actions.has(action):continue
+			for item in change.actions[action].get("frame_overrides",[]):
+				var index=int(item.index)
+				if index<0 or index>=definition.actions[action].frames.size():continue
+				var frame: Dictionary=item.duplicate();frame.erase("index")
+				definition.actions[action].frames[index]=frame
+		units[key]=definition
 
 func effect_info(key: String) -> Dictionary:
 	var entry: Dictionary=effects.get(key,{})
@@ -171,11 +204,29 @@ func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vecto
 func building(race: int,kind: int,progress: float,active: bool,direction: Vector2,clock: float,attack_clock: float=-1) -> Dictionary:
 	var definition: Dictionary=buildings.get("%d:%d"%[race,kind],{})
 	if definition.is_empty():return {}
-	var action="construction" if progress<1 else "active" if active else "idle"
-	var phase=clampi(int(progress*5),0,4) if progress<1 else -1
-	if progress>=1 and attack_clock>=0 and definition.get("actions",{}).has("attack"):
-		action="attack";clock=attack_clock
-	return sample(definition,action,direction,clock,phase)
+	if progress>=1 and int(definition.get("actions",{}).get("construction",{}).get("rows",0))==5:
+		var complete=sample(definition,"construction",direction,0,4).duplicate()
+		if not complete.is_empty():complete.action="idle";complete.frame=0
+		return complete
+	if race==2 and progress<1:
+		# Only unfinished stage art appears over the council's existing seal.
+		# The complete painting is reserved for progress == 1.
+		var summoned=sample(definition,"construction",direction,0,clampi(int(progress*4),0,3)).duplicate()
+		if not summoned.is_empty():
+			summoned.action="construction";summoned.frame=clampi(int(progress*4),0,3);summoned.summon_stage=summoned.frame
+		return summoned
+	# Production never swaps full-building drawings (doors, breathing, resizing).
+	# Construction and independently aimed defense turrets retain their own art.
+	var action="construction" if progress<1 else "idle"
+	var phase=clampi(int(progress*4),0,3) if progress<1 else 0
+	var result=sample(definition,action,direction,clock,phase)
+	if progress>=1 and result.is_empty():
+		result=sample(definition,"construction",direction,0,4).duplicate()
+		if not result.is_empty():result.action="idle";result.frame=0
+	return result
+
+func owl_summon_seal() -> Dictionary:
+	return _frame({},_owl_summon_clip,0) if not _owl_summon_clip.is_empty() else {}
 
 func building_turret(race: int,kind: int,direction: Vector2,clock: float,attack_clock: float=-1) -> Dictionary:
 	var definition: Dictionary=buildings.get("%d:%d"%[race,kind],{})

@@ -3,6 +3,7 @@ extends RefCounted
 ## Read-only presentation of current building damage. No simulation effects.
 var _anchor_cache: Dictionary={}
 var _surface_cache: Dictionary={}
+var _juice_frames: Array=[]
 
 static func frame_rect(frame: Dictionary,foundation: Vector2,extent: float) -> Rect2:
 	var factor=extent/maxf(1,float(frame.scale_hint))
@@ -86,35 +87,14 @@ func _flame(canvas: CanvasItem,point: Vector2,severity: float,phase: float,scale
 		canvas.draw_circle(point+Vector2(sin(phase*1.3)*width*.4,-height*(.8+rise*.6)),maxf(.7,scale_value*(1.3-rise)),Color(hot,1.0-rise))
 
 func _juice(canvas: CanvasItem,point: Vector2,rect: Rect2,severity: float,phase: float,scale_value: float,index: int) -> void:
-	var length=minf((7.0+severity*31.0)*scale_value,maxf(4.0,rect.end.y-point.y))
-	var width=(1.2+severity*3.4)*scale_value
-	var centers=PackedVector2Array()
-	var ribbon=PackedVector2Array()
-	for step in range(9):
-		var t=step/8.0
-		var bend=sin(t*3.8+index*1.9)*sin(t*PI*.8)*(3.0+severity*4.0)*scale_value
-		centers.append(point+Vector2(bend,length*t))
-		var thickness=width*(.42+.42*sin(t*PI)+.17*cos(t*15.0+index))
-		ribbon.append(centers[step]+Vector2(-thickness,0))
-	for step in range(8,-1,-1):
-		var t=step/8.0
-		var thickness=width*(.42+.42*sin(t*PI)+.17*cos(t*15.0+index))
-		ribbon.append(centers[step]+Vector2(thickness,0))
-	canvas.draw_colored_polygon(ribbon,Color(.94,.32,.015,.83))
-	canvas.draw_circle(point,width*1.4,Color(1.0,.43,.025,.85))
-	canvas.draw_polyline(centers.slice(0,5),Color(1.0,.70,.13,.73),maxf(.7,width*.38),true)
-	var end=centers[8]
-	var fall=fposmod(phase*.16+index*.31,1.0)
-	var ground=Vector2(end.x,rect.end.y-3.0*scale_value)
-	var drop=end.lerp(ground,fall*fall)
-	var radius=width*(.65+.25*fall)
-	canvas.draw_circle(drop,radius,Color(1.0,.46,.025,.9))
-	canvas.draw_colored_polygon(PackedVector2Array([drop+Vector2(-radius*.8,0),drop+Vector2(0,-radius*2.4),drop+Vector2(radius*.8,0)]),Color(1.0,.46,.025,.9))
-	if severity>.5:
-		var pool=ground
-		var polygon=PackedVector2Array()
-		for step in range(16):
-			var angle=step*TAU/16.0
-			var wobble=1.0+.13*sin(step*2.8+index)
-			polygon.append(pool+Vector2(cos(angle)*width*3.2,sin(angle)*width*.8)*wobble)
-		canvas.draw_colored_polygon(polygon,Color(.93,.36,.015,.6))
+	if _juice_frames.is_empty():
+		var source: Texture2D=load("res://assets/effects/building_juice_drips_20261024.png")
+		if source==null:return
+		var cell=source.get_size()/Vector2(4,2)
+		for i in range(8):
+			var frame=AtlasTexture.new();frame.atlas=source;frame.filter_clip=true
+			frame.region=Rect2(Vector2(i%4,i/4)*cell,cell);_juice_frames.append(frame)
+	var length=minf((10.0+severity*28.0)*scale_value,maxf(4.0,rect.end.y-point.y))
+	var width=length*.75
+	var texture: Texture2D=_juice_frames[posmod(int(floor(phase*.75))+index,8)]
+	canvas.draw_texture_rect(texture,Rect2(point-Vector2(width*.5,0),Vector2(width,length)),false,Color(1,1,1,.42+.32*severity))

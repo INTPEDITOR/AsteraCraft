@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "elapsed_ms": 8912,
+  "scope": "Exported Windows game opens packaged resources and starts a local computer match; no network match validation"
+}

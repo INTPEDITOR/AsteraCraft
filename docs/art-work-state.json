@@ -5,7 +5,7 @@
   "new_character_design_allowed": true,
   "original_appearance_preserving_pose_edits_allowed": true,
   "reference_policy": "existing runtime unit art for appearance; user-selected StarCraft1 original for direction, pose order and grid only",
-  "current_chat_art_work": "all_units_connected_unreviewed_building",
+  "current_chat_art_work": "visual_feedback_repairs_and_explicit_gameplay_changes_20261024",
   "handoff_document": "docs/ORIGINAL_SPRITES_NEW_CHAT_20261023.md",
   "active_race": 1,
   "active_race_name": "귤",
@@ -707,5 +707,71 @@
     "full_art_review": false,
     "scope": "Resource/action samples, all44 native visibility and obvious clipping, exported application startup.",
     "report": "docs/RELEASE_SPRITES_20261024.md"
+  },
+  "gameplay_exceptions_20261024": [
+    "interceptor hp45->70 only",
+    "light/heavy counter bonus halved with ceil",
+    "multi-carrier drone production",
+    "morph cancel refunds and kills pod",
+    "building annihilation victory",
+    "AI surrender approval UI",
+    "melee chase algorithm repair"
+  ],
+  "feedback_20261024": {
+    "quick_review_23_complete": true,
+    "known_art_remaining": [],
+    "render_checks_before_latest_art": {
+      "checks": 199,
+      "failures": 0
+    },
+    "carrier_core_checks": {
+      "checks": 12,
+      "failures": 0
+    },
+    "latest_report_KST": "2026-10-24 04:46",
+    "estimated_completion_KST": "2026-10-24 05:00-05:30 before the added full map route audit",
+    "rough_completion_at_report": 0.55,
+    "note": "Quick23-unit art comparison and screenshot-targeted fixes, native/runtime checks passed. No exhaustive manual approval of every animation frame.",
+    "completed": [
+      "owl calm construction summons5",
+      "race construction SFX",
+      "citrus ground visibility",
+      "citrus HUD top clipping",
+      "command arrow background crop",
+      "right black map region resize",
+      "map original route/collision audit",
+      "melee chase hit logic",
+      "morph UI cancel-only/refund/death",
+      "all-buildings-destroyed victory",
+      "AI surrender accept/reject above minimap",
+      "exported exe original icon embedded",
+      "quick native checks and new Windows GitHub release"
+    ],
+    "pending": [
+      "package integrity and GitHub release upload"
+    ],
+    "latest_native_checks": {
+      "render": 199,
+      "construction": 898,
+      "gameplay": 42,
+      "carrier": 12,
+      "screen": 11,
+      "existing_brood": 66,
+      "failures": 0
+    },
+    "new_repairs_applied_native_loaded": [
+      "1:5 N machinery-preserving rear",
+      "1:6 four no-flash walk headings",
+      "1:7 240 fixed-body-scale living frames",
+      "1:8 left walk/attack and N attack",
+      "2:0 W walk7",
+      "2:2 NW one-body attack7",
+      "2:4 S one-staff attack/heal7",
+      "2:5 seven headings equipment-preserving walk/attack",
+      "2:10 left three headings walk/attack and N attack",
+      "2:13 N recoil/S attack/SW walk"
+    ],
+    "construction_policy": "Four unfinished stages below100%; fifth completed original painting only at100%, fixed afterwards.",
+    "map_policy": "All786432 imported8px static navigation cells match original maps, no ground-opening overrides."
   }
 }

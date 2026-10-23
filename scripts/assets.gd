@@ -35,6 +35,7 @@ var v060_units: Dictionary={}
 var frame_cleanup: Dictionary={}
 var v060_effects: Dictionary={}
 var siege_layers: Dictionary={}
+var siege_support_frames: Dictionary={}
 var sprites=preload("res://scripts/sprite_library.gd").new()
 
 func load_all() -> void:
@@ -136,7 +137,7 @@ func load_all() -> void:
 				if asset_regions.get("buildings",{}).has(key):
 					cell=_region_rect(asset_regions.buildings[key],image.get_size())
 				building_frames["%d:%d"%[race,kind]]=_trim(image,cell,building_revision.get("excluded_fragments",{}).get(key,[]))
-	_cache_building_idle()
+	# Building bodies remain static; production lights are a separate small part.
 	if ResourceLoader.exists("res://assets/terrain.png"):
 		var image=load("res://assets/terrain.png").get_image()
 		for i in range(3):
@@ -357,6 +358,28 @@ func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vecto
 	var turret: Dictionary=weapon.turret.duplicate()
 	turret.flip=bool(turret_index.flip)!=bool(turret.get("source_mirror",false))
 	return {"chassis":chassis,"turret":turret,"mount":body.mount*Vector2(-1 if chassis.flip else 1,1),"pilot_mount":weapon.pilot_mount*Vector2(-1 if turret.flip else 1,1),"muzzle":weapon.muzzle*Vector2(-1 if turret.flip else 1,1),"turret_scale":body.turret_scale,"embedded_pilot":body.embedded_pilot}
+
+func siege_supports(direction: Vector2,progress: float,body: Dictionary) -> Dictionary:
+	if progress<=0 or siege_layers.is_empty() or body.is_empty():return {}
+	var facing=ACData.sprite_direction(direction,8)
+	var stage=clampi(roundi(progress*6),1,6)
+	var key="%d:%d"%[int(facing.column),stage]
+	var baseline: Dictionary=siege_layers.chassis[int(facing.column)]
+	if not siege_support_frames.has(key):
+		var entry: Dictionary=siege_layers.chassis[stage*5+int(facing.column)]
+		var image: Image=entry.frame.texture.get_image()
+		var bytes=image.get_data()
+		var hull=Rect2i(baseline.draw[0],baseline.draw[1],baseline.draw[2],baseline.draw[3]).grow(1)
+		for y in range(image.get_height()):
+			for x in range(image.get_width()):
+				if hull.has_point(Vector2i(x,y)):bytes[(y*image.get_width()+x)*4+3]=0
+		var part=Image.create_from_data(image.get_width(),image.get_height(),false,Image.FORMAT_RGBA8,bytes)
+		var bounds=part.get_used_rect()
+		siege_support_frames[key]={"texture":ImageTexture.create_from_image(part),"anchor":ACData.point(entry.anchor),"cell_size":Vector2(part.get_size()),"sprite_bounds":Rect2(bounds),"action":"deploy","frame":stage,"stage":stage,"v062":true}
+	var result: Dictionary=siege_support_frames[key].duplicate()
+	result.flip=bool(facing.flip)
+	result.scale_hint=float(body.scale_hint)*float(baseline.draw[2])/maxf(1,body.get("sprite_bounds",Rect2(Vector2.ZERO,body.cell_size)).size.x)
+	return result
 
 func pilot(direction: Vector2,air: bool=false) -> Dictionary:
 	if pilot_frames.size()!=2:return {}
@@ -819,8 +842,4 @@ func _cache_building_idle() -> void:
 		building_idle_frames[key]=frames
 
 func building_idle(race: int, kind: int, clock: float) -> Texture2D:
-	var key="%d:%d"%[race,kind]
-	var frames: Array=building_idle_frames.get(key,[])
-	if frames.is_empty():return building(race,kind)
-	var cycle=[0,0,1,2,3,3,2,1]
-	return frames[int(cycle[posmod(int(floor(clock*2.5)),cycle.size())])]
+	return building(race,kind)

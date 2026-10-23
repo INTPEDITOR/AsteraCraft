@@ -22,6 +22,7 @@ var _seen_effects: Dictionary = {}
 var _fired_marks: Dictionary = {}
 var _mining_marks: Dictionary = {}
 var _healing_marks: Dictionary = {}
+var _construction_marks: Dictionary = {}
 var _ui_marks: Dictionary = {}
 var _entities: Dictionary = {}
 var _camera := Vector2.ZERO
@@ -212,6 +213,7 @@ func clear(keep_ui: bool=false) -> void:
 	_fired_marks.clear()
 	_mining_marks.clear()
 	_healing_marks.clear()
+	_construction_marks.clear()
 	_ui_marks.clear()
 	_entities.clear()
 	_last_time = -1.0
@@ -231,6 +233,7 @@ func process_state(state: Dictionary, local_slot: int, camera: Vector2, zoom: fl
 	for key in ["units", "buildings"]:
 		for entity in state.get(key, []):
 			_entities[int(entity.get("id", -1))] = entity
+	_construction_sounds(state.get("buildings",[]),now)
 	# Fired timestamps survive a dropped snapshot, unlike a short projectile effect.
 	for entity in _entities.values():
 		var id := int(entity.get("id", -1))
@@ -275,6 +278,22 @@ func process_state(state: Dictionary, local_slot: int, camera: Vector2, zoom: fl
 		for id in _healing_marks.keys():
 			if not _entities.has(id):_healing_marks.erase(id)
 	_last_time = now
+
+func _construction_sounds(buildings: Array, now: float) -> void:
+	var present={}
+	for building in buildings:
+		var id=int(building.get("id",-1));present[id]=true
+		if building.get("remembered",false) or not building.get("visible",true) or float(building.get("hp",0))<=0:continue
+		var progress=float(building.get("progress",1));var old: Dictionary=_construction_marks.get(id,{})
+		var race=clampi(int(building.get("race",0)),0,2)
+		if progress>=1:
+			if not old.is_empty() and float(old.progress)<1:_play_at("construct_complete_%d"%race,_center(building),.28,1,"construction")
+		elif old.is_empty() or (progress>float(old.progress)+.000001 and now>=float(old.next)):
+			_play_at("construct_%d"%race,_center(building),.31,1,"construction")
+			old.next=now+1.8+float(posmod(id,5))*.08
+		_construction_marks[id]={"progress":progress,"next":old.get("next",now+1.8)}
+	for id in _construction_marks.keys():
+		if not present.has(id):_construction_marks.erase(id)
 
 func consume_effects(effects: Array, now: float) -> void:
 	if not enabled or _paused:
@@ -387,6 +406,11 @@ func _play(name: String, gain: float, priority: int, group: String, screen: Vect
 	if stream == null:
 		debug_stats.missing += 1
 		return false
+	if group=="construction":
+		var active=0
+		for voice in _voices:
+			if voice.player.playing and voice.group=="construction":active+=1
+		if active>=3:debug_stats.culled+=1;return false
 	var active_combat := 0
 	var chosen: Dictionary = {}
 	var candidate: Dictionary = {}

@@ -47,7 +47,8 @@ func relevant_fog_signature(packed, fog: Callable) -> int:
 	return hash(values)
 
 func load_art() -> void:
-	var file="res://assets/v062/terrain/citrus_root_ground.png"
+	var file="res://assets/v062/terrain/citrus_root_ground_readable_20261024.png"
+	if not ResourceLoader.exists(file):file="res://assets/v062/terrain/citrus_root_ground.png"
 	if not ResourceLoader.exists(file):file="res://assets/citrus_root_ground_v058.png"
 	var image=load(file).get_image()
 	image.generate_mipmaps()

@@ -1,0 +1,13 @@
+{
+  "ground": {
+    "prompt": "Edit this supplied RTS citrus faction ground texture into a quieter, clearly readable terrain tile. Preserve painterly game rendering, top-down flat ground and natural citrus-root identity. Replace the busy gray-brown rock/wood jungle with a muted deep moss-green organic ground carpet over dark green soil, subtle sparse thin roots, a few small flat leaves, very low local contrast, no large trunks, no objects, no fruit or orange blobs, no flowers, no buildings, no units, no highlights that look like unit icons. Large uniform calm green areas make orange units highly visible. Seamless repeating square ground texture, even lighting, full opaque image, no border/text. This is only the ground texture; no new gameplay object.",
+    "generated_original": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-a33c33ca-d81b-4e98-86c4-7b22c57a3075.png",
+    "runtime": "assets/v062/terrain/citrus_root_ground_readable_20261024.png"
+  },
+  "hud_top": {
+    "prompt": "Repair only the clipped upper foliage edge of this existing citrus RTS HUD. The top leaf clusters are cut by the current image boundary, especially upper left. Extend transparent canvas ABOVE the existing image by roughly 60 pixels and complete the missing tops of those SAME leaves and vines. The finished leaf outlines must be fully contained with transparent margin above. Do not add fruit, extra ornaments, new panels, labels, lenses, animation or gameplay content. Keep the original HUD silhouette, panel arrangement, original fruit, buttons, colors and all existing lower artwork identical. Preserve its very wide horizontal aspect ratio and exact original panel proportions. Transparent background and transparent clear area above organic top border; no rectangular dark background. This is restoration of cropped leaf tips only.",
+    "generated_original": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-c1d5b0b5-1c50-4fdd-b60b-308c7c98802a.png",
+    "runtime": "assets/ui/hud_citrus_top_restored_20261024.png",
+    "processing": "Only top extension crop rows132..166 retained above original unchanged1963x330 HUD. Original panel coordinates translated30 source pixels to preserve screen positions."
+  }
+}

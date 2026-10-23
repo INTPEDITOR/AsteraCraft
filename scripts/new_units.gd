@@ -13,6 +13,16 @@ static func unload(c,carrier: Dictionary,id: int) -> bool:
 	return true
 
 static func command(c,owner: int,cmd: Dictionary) -> String:
+	if str(cmd.get("type",""))=="produce_drone" and cmd.has("ids"):
+		var accepted=false;var error="강철둥지 모함을 선택하세요";var seen={}
+		for raw_id in cmd.ids:
+			var id=int(raw_id)
+			if seen.has(id):continue
+			seen[id]=true
+			var result=command(c,owner,{"type":"produce_drone","id":id})
+			if result=="":accepted=true
+			else:error=result
+		return "" if accepted else error
 	var carrier=c.entity(int(cmd.get("id",-1)))
 	if carrier.is_empty() or carrier.has("progress") or carrier.hp<=0 or int(carrier.owner)!=owner or int(carrier.race)!=0 or int(carrier.kind)!=14:return "강철둥지 모함을 선택하세요"
 	if not carrier.has("drone_queue"):carrier.drone_queue=[]

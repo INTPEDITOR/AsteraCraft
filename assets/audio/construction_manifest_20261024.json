@@ -1,0 +1,49 @@
+{
+  "origin": "Original deterministic PCM synthesis",
+  "rate": 44100,
+  "channels": 1,
+  "cues": [
+    {
+      "file": "construct_0.wav",
+      "race": 0,
+      "complete": false,
+      "duration": 1.25,
+      "description": "restrained mechanical assembly and ratchets"
+    },
+    {
+      "file": "construct_complete_0.wav",
+      "race": 0,
+      "complete": true,
+      "duration": 0.85,
+      "description": "restrained mechanical assembly and ratchets"
+    },
+    {
+      "file": "construct_1.wav",
+      "race": 1,
+      "complete": false,
+      "duration": 1.25,
+      "description": "soft plant growth, rustle and sap resonance"
+    },
+    {
+      "file": "construct_complete_1.wav",
+      "race": 1,
+      "complete": true,
+      "duration": 0.85,
+      "description": "soft plant growth, rustle and sap resonance"
+    },
+    {
+      "file": "construct_2.wav",
+      "race": 2,
+      "complete": false,
+      "duration": 1.25,
+      "description": "calm crystalline summoning resonance"
+    },
+    {
+      "file": "construct_complete_2.wav",
+      "race": 2,
+      "complete": true,
+      "duration": 0.85,
+      "description": "calm crystalline summoning resonance"
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "rule": "ceil(old bonus / 2); minimum existing +1 preserved; base damage and other stats unchanged",
+  "changes": [
+    {
+      "race": 0,
+      "kind": 1,
+      "name": "전열사수",
+      "stat": "bonus_light",
+      "before": 2,
+      "after": 1
+    },
+    {
+      "race": 0,
+      "kind": 2,
+      "name": "돌격병",
+      "stat": "bonus_light",
+      "before": 4,
+      "after": 2
+    },
+    {
+      "race": 0,
+      "kind": 5,
+      "name": "굴착포 전차",
+      "stat": "bonus_heavy",
+      "before": 10,
+      "after": 5
+    },
+    {
+      "race": 0,
+      "kind": 6,
+      "name": "추적미사일 차륜차",
+      "stat": "bonus_heavy",
+      "before": 8,
+      "after": 4
+    },
+    {
+      "race": 0,
+      "kind": 7,
+      "name": "그림자 정찰병",
+      "stat": "bonus_light",
+      "before": 10,
+      "after": 5
+    },
+    {
+      "race": 0,
+      "kind": 9,
+      "name": "요격기",
+      "stat": "bonus_heavy",
+      "before": 8,
+      "after": 4
+    },
+    {
+      "race": 0,
+      "kind": 10,
+      "name": "강습폭격기",
+      "stat": "bonus_light",
+      "before": 2,
+      "after": 1
+    },
+    {
+      "race": 0,
+      "kind": 12,
+      "name": "이동요새",
+      "stat": "bonus_heavy",
+      "before": 8,
+      "after": 4
+    },
+    {
+      "race": 0,
+      "kind": 13,
+      "name": "화염돌파차",
+      "stat": "bonus_light",
+      "before": 9,
+      "after": 5
+    },
+    {
+      "race": 1,
+      "kind": 2,
+      "name": "과즙분사체",
+      "stat": "bonus_light",
+      "before": 3,
+      "after": 2
+    },
+    {
+      "race": 1,
+      "kind": 3,
+      "name": "후피거수",
+      "stat": "bonus_heavy",
+      "before": 10,
+      "after": 5
+    },
+    {
+      "race": 1,
+      "kind": 4,
+      "name": "과숙폭탄",
+      "stat": "bonus_light",
+      "before": 15,
+      "after": 8
+    },
+    {
+      "race": 1,
+      "kind": 6,
+      "name": "씨앗박격체",
+      "stat": "bonus_heavy",
+      "before": 8,
+      "after": 4
+    },
+    {
+      "race": 1,
+      "kind": 7,
+      "name": "가시꽃",
+      "stat": "bonus_heavy",
+      "before": 4,
+      "after": 2
+    },
+    {
+      "race": 1,
+      "kind": 10,
+      "name": "귤박쥐",
+      "stat": "bonus_light",
+      "before": 2,
+      "after": 1
+    },
+    {
+      "race": 1,
+      "kind": 12,
+      "name": "대과수",
+      "stat": "bonus_heavy",
+      "before": 10,
+      "after": 5
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "name": "서약수호자",
+      "stat": "bonus_light",
+      "before": 3,
+      "after": 2
+    },
+    {
+      "race": 2,
+      "kind": 2,
+      "name": "성문궁수",
+      "stat": "bonus_heavy",
+      "before": 10,
+      "after": 5
+    },
+    {
+      "race": 2,
+      "kind": 7,
+      "name": "고대석익병",
+      "stat": "bonus_light",
+      "before": 6,
+      "after": 3
+    },
+    {
+      "race": 2,
+      "kind": 8,
+      "name": "궤도창",
+      "stat": "bonus_heavy",
+      "before": 18,
+      "after": 9
+    },
+    {
+      "race": 2,
+      "kind": 9,
+      "name": "월익추적자",
+      "stat": "bonus_heavy",
+      "before": 10,
+      "after": 5
+    },
+    {
+      "race": 2,
+      "kind": 10,
+      "name": "황혼잠행자",
+      "stat": "bonus_light",
+      "before": 16,
+      "after": 8
+    },
+    {
+      "race": 2,
+      "kind": 12,
+      "name": "대심판선",
+      "stat": "bonus_heavy",
+      "before": 20,
+      "after": 10
+    },
+    {
+      "race": 2,
+      "kind": 13,
+      "name": "성좌추격기",
+      "stat": "bonus_heavy",
+      "before": 3,
+      "after": 2
+    }
+  ]
+}

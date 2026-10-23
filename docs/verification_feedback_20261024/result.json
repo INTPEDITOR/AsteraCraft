@@ -1,0 +1,7 @@
+{
+	"checks": 199,
+	"display": "Windows",
+	"failures": [],
+	"passed": true,
+	"scope": "Screenshot-driven rendering fixes; full art review remains incomplete"
+}

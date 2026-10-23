@@ -11,10 +11,9 @@ func _init() -> void:
 func texture(race: int, kind: String, index: int) -> Texture2D:
 	var key="%s:%d:%d"%[kind,race,index]
 	if _frames.has(key):return _frames[key]
-	var authored="res://assets/v062/race%d/icons/%s_%02d.png"%[race,kind,index]
-	if kind in ["units","buildings"] and ResourceLoader.exists(authored):
-		_frames[key]=load(authored)
-		return _frames[key]
+	if kind=="commands" and index in [29,30]:
+		var cutout="res://assets/ui/page_icons_20261024/r%d_%d.png"%[race,index]
+		if ResourceLoader.exists(cutout):_frames[key]=load(cutout);return _frames[key]
 	var file="res://assets/icons_%s_%d_v060.png"%[kind,race]
 	var columns=8 if kind=="commands" else 4
 	if index<0 or index>=columns*4 or not ResourceLoader.exists(file):return null

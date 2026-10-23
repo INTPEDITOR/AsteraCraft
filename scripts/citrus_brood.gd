@@ -232,7 +232,7 @@ static func cancel(core, owner: int, pod: Dictionary) -> String:
 		return "자신의 배양체를 선택하세요"
 	if str(pod.get("brood_state","idle"))!="morph":return "진행 중인 변태가 없습니다"
 	_release(core,pod,true)
-	pod.brood_state="idle"
+	pod.brood_state="cancelled"
 	pod.morph_kind=-1
 	pod.morph_left=0.0
 	pod.morph_total=0.0
@@ -240,21 +240,14 @@ static func cancel(core, owner: int, pod: Dictionary) -> String:
 	pod.morph_tera=0.0
 	pod.morph_pop=0.0
 	pod.order="idle"
-	pod.action="idle"
+	pod.action="death"
 	pod.action_started=float(core.time)
 	pod.action_clock=0.0
+	pod.hp=0.0
+	core._death_visual(pod,-1)
+	core.collision_index_valid=false
 	var parent := _parent(core,pod)
 	if not parent.is_empty():
-		# A regenerated free body may have filled this slot during the morph.
-		# Preserve the cancelled, selected ID and retire only a surplus free body.
-		var idle := idle_pods(core,parent,true)
-		for index in range(idle.size()-1,-1,-1):
-			if idle.size()<=IDLE_CAP:break
-			var excess: Dictionary=idle[index]
-			if int(excess.id)==int(pod.id):continue
-			core.units.erase(excess)
-			idle.remove_at(index)
-			core.collision_index_valid=false
 		_sync(core,parent)
 	return ""
 

@@ -101,6 +101,9 @@ var queue_layer: Control
 var production_meter: SegmentedMeter
 var energy_label: Label
 var menu_button: Button
+var surrender_panel: PanelContainer
+var surrender_caption: Label
+var surrender_bot=-1
 var menu_art: Array[Texture2D]=[]
 var title_label: Label
 var subtitle_label: Label
@@ -120,6 +123,7 @@ var _definition: Dictionary = {}
 var _portrait: Texture2D
 var _portrait_canvas: PortraitCanvas
 var _unit_icon: Texture2D
+var _current_drone_icon: Texture2D
 var _font: Font
 var _has_build_panel := false
 var _last_size := Vector2.ZERO
@@ -154,7 +158,37 @@ func configure(controller: Control) -> void:
 	_portrait_canvas=PortraitCanvas.new()
 	_portrait_canvas.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	add_child(_portrait_canvas)
+	_build_surrender_prompt()
 	update_hud(true)
+
+func _build_surrender_prompt() -> void:
+	surrender_panel=PanelContainer.new();surrender_panel.hide();add_child(surrender_panel)
+	var style=StyleBoxFlat.new();style.bg_color=Color(.035,.045,.04,.97);style.border_color=Color("aa975d")
+	style.set_border_width_all(1);style.content_margin_left=10;style.content_margin_right=10;style.content_margin_top=8;style.content_margin_bottom=8
+	surrender_panel.add_theme_stylebox_override("panel",style)
+	var column=VBoxContainer.new();surrender_panel.add_child(column)
+	surrender_caption=Label.new();column.add_child(surrender_caption)
+	var row=HBoxContainer.new();column.add_child(row)
+	for accept in [true,false]:
+		var button=Button.new();button.text="승인" if accept else "거절";button.custom_minimum_size=Vector2(102,30);button.focus_mode=Control.FOCUS_NONE
+		var decision=accept
+		button.pressed.connect(func():
+			if surrender_bot>=0:main._send_command({"type":"surrender_response","bot":surrender_bot,"accept":decision}))
+		row.add_child(button)
+
+func _update_surrender_prompt() -> void:
+	if surrender_panel==null:return
+	var requests: Array=main.state.get("surrender_requests",[])
+	surrender_bot=-1
+	for request in requests:
+		if int(request.recipient)==main.local_slot:surrender_bot=int(request.bot);break
+	surrender_panel.visible=surrender_bot>=0 and not main.state.get("ended",false)
+	if not surrender_panel.visible:return
+	var player: Dictionary=main.state.players[surrender_bot]
+	surrender_caption.text="%s: 항복을 승인하시겠습니까?"%str(player.get("name","컴퓨터"))
+	surrender_panel.reset_size()
+	var mini=_minimap_frame_rect()
+	surrender_panel.position=Vector2(maxf(8,mini.position.x),maxf(44,mini.position.y-surrender_panel.size.y-10))
 
 func _process(_dt: float) -> void:
 	if main==null or _portrait_canvas==null:return
@@ -162,11 +196,6 @@ func _process(_dt: float) -> void:
 	_portrait_canvas.visible=showing
 	if not showing:return
 	var texture=_portrait
-	var leader=main._portrait_entity()
-	if not leader.is_empty() and not leader.has("progress"):
-		var clock=float(main.state.get("time",0))+(minf(main.visual_clock,main.visual_step) if not main.paused else 0.0)
-		var animated=main.assets.sprites.portrait(int(leader.race),int(leader.kind),clock)
-		if animated!=null:texture=animated
 	var area=_portrait_rect()
 	if _portrait_canvas.position!=area.position:_portrait_canvas.position=area.position
 	if _portrait_canvas.size!=area.size:_portrait_canvas.size=area.size;_portrait_canvas.queue_redraw()
@@ -273,6 +302,12 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 		if complete:
 			native_path="res://assets/ui_hud_%d_complete_v060.png"%faction
 			_native_shell_geometry[faction]=COMMON_SHELL.duplicate(true)
+			if faction==1 and ResourceLoader.exists("res://assets/ui/hud_citrus_top_restored_20261024.png"):
+				native_path="res://assets/ui/hud_citrus_top_restored_20261024.png"
+				_native_shell_geometry[faction].crop=Rect2i(0,0,1963,360)
+				for bay in ["mini","detail","menu","portrait","command"]:
+					_native_shell_geometry[faction][bay].position.y+=30
+				for row in range(3):_native_shell_geometry[faction].rows[row]+=30
 		var native=_native_shell_geometry.has(faction) and ResourceLoader.exists(native_path)
 		if native:path=native_path
 		_frame_art.append(load(path) if ResourceLoader.exists(path) else null)
@@ -543,7 +578,7 @@ func _menu_rect() -> Rect2:
 	return shell_rect(_single_menu_source())
 
 func _single_menu_source() -> Rect2:
-	if _complete_shells[race]:return COMMON_SHELL.menu
+	if _complete_shells[race]:return _shell_geometry().menu
 	if race in [0,1] and _uniform_shells[race]:return Rect2(1267,292,177,42)
 	if race==2 and _uniform_shells[race]:return Rect2(1207,275,170,38)
 	return _shell_geometry().menu
@@ -589,6 +624,7 @@ func is_pointer_over_ui(point: Vector2) -> bool:
 
 func update_hud(force: bool=false) -> void:
 	if main==null or main.state.is_empty():return
+	_update_surrender_prompt()
 	if size!=_last_size:_layout();force=true
 	var state: Dictionary=main.state
 	var player: Dictionary=state.players[main.local_slot]
@@ -818,6 +854,14 @@ func _building_catalyst(building: Dictionary) -> Dictionary:
 		if str(resource.get("type",""))=="tera" and footprint.has_point(ACData.point(resource.pos)):return resource
 	return {}
 func _unit_texture(faction: int,kind: int) -> Texture2D:
+	if faction==0 and kind==8:
+		if _current_drone_icon==null:
+			var frame=main.assets.unit(0,8,Vector2(1,1),"idle",0)
+			if not frame.is_empty():
+				var icon=AtlasTexture.new();icon.atlas=frame.texture;icon.filter_clip=true
+				icon.region=frame.get("sprite_bounds",Rect2(Vector2.ZERO,frame.texture.get_size())).grow(6).intersection(Rect2(Vector2.ZERO,frame.texture.get_size()))
+				_current_drone_icon=icon
+		if _current_drone_icon!=null:return _current_drone_icon
 	var icon=command_art.texture(faction,"units",kind)
 	if icon!=null:return icon
 	return main.assets.unit(faction,kind,Vector2(1,1)).get("texture")
@@ -1144,6 +1188,15 @@ func _can_rally() -> bool:
 		if int(ACData.unit(int(_unit.race),kind).producer)==int(_unit.kind):return true
 	return false
 
+func _selected_carriers(available_only: bool=false) -> Array:
+	var ids: Array=[]
+	for id in main.selected:
+		var carrier=main._entity(int(id))
+		if carrier.is_empty() or carrier.has("progress") or int(carrier.owner)!=main.local_slot or int(carrier.race)!=0 or int(carrier.kind)!=14 or float(carrier.hp)<=0:continue
+		if available_only and carrier.get("drones",[]).size()+carrier.get("drone_queue",[]).size()>=8:continue
+		if int(id) not in ids:ids.append(int(id))
+	return ids
+
 func _build_commands() -> void:
 	for child in action_layer.get_children():child.hide();child.queue_free()
 	action_buttons.clear()
@@ -1157,6 +1210,10 @@ func _build_commands() -> void:
 	var all: Array[Dictionary]=[]
 	if not building:
 		if _is_brood():
+			if str(_unit.get("brood_state","idle"))=="morph":
+				command_page=0
+				_present_commands([_command("배양 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel_morph","id":id}),"지불한 비용을 돌려받습니다. 취소한 배양체는 사망합니다.")])
+				return
 			for train in range(13):
 				var definition=ACData.unit(1,train)
 				var train_id=train
@@ -1209,7 +1266,7 @@ func _build_commands() -> void:
 		if role=="priest":all.append(_command("자동 체력 회복",0,"",ICON_REPAIR,func():main._notify("에너지 2당 체력 1 자동 회복 · 초당 최대 10"),"부상한 아군 부엉이의 체력을 자동 회복합니다.
 체력 1당 에너지 2 · 최대 초당 체력 10"))
 		if role=="carrier":
-			all.append(_command("요격 드론 생산",KEY_Q,"Q",ICON_TRAIN,func():main._send_command({"type":"produce_drone","id":id}),"아스 25 · 테라 10 · 8초
+			all.append(_command("요격 드론 생산",KEY_Q,"Q",ICON_TRAIN,func():main._send_command({"type":"produce_drone","id":id,"ids":_selected_carriers()}),"선택한 각 모함에 1기씩 생산 · 모함당 아스 25 · 테라 10 · 8초
 모함당 생산 예약 포함 최대 8기",_unit_texture(0,15),{"as":25,"tera":10,"drone":true}))
 			all.append(_command("드론 생산 취소",KEY_X,"X",ICON_CANCEL,func():main._send_command({"type":"cancel_drone","id":id}),"마지막 드론 생산을 취소하고 비용을 반환합니다."))
 	else:
@@ -1405,7 +1462,7 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 				if not _unit.get("nuke_job",{}).is_empty():reasons.append("핵미사일 생산 중")
 				if int(player.get("nukes",0))>=3:reasons.append("핵미사일 최대 보유량")
 			elif cost.has("drone"):
-				if _unit.get("drones",[]).size()+_unit.get("drone_queue",[]).size()>=8:reasons.append("드론 최대 8기")
+				if _selected_carriers(true).is_empty():reasons.append("선택한 모함 모두 드론 최대 8기")
 			elif not cost.has("w"):
 				if float(player.get("used",0))+float(player.get("reserved",0))+(float(cost.get("pop",0))*int(cost.get("production_count",1)))>float(player.get("cap",0)):reasons.append("인구 한도 부족")
 				if not _is_brood() and _unit.get("queue",[]).size()>=5:reasons.append("생산 대기열 가득 참 · 최대 5기")
@@ -1500,6 +1557,8 @@ func _draw() -> void:
 	if _body_outline.size()>=3:
 		if _body_materials.size()==3:draw_colored_polygon(_body_outline,_material_tint(),_body_uvs,_body_materials[race])
 		else:draw_colored_polygon(_body_outline,[Color("514b35"),Color("593e2a"),Color("746b60")][race])
+	# Opaque backing stops world flashes showing through painted frame edges.
+	draw_rect(_minimap_frame_rect().grow(4),Color("101517"))
 	if _frame_art.size()==3 and _frame_art[race]!=null:
 		draw_texture_rect_region(_frame_art[race],shell_draw_rect(),Rect2(_frame_source_regions[race]))
 	if main.has_method("_render_minimap"):main._render_minimap(self)

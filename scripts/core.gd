@@ -30,6 +30,7 @@ var time: float = 0.0
 var next_id: int = 1
 var ended: bool = false
 var winners: Array = []
+var surrender_requests: Array = []
 var mode: String = "ffa"
 var ai_clock: float = 0.0
 var vision_clock: float = 0.0
@@ -830,6 +831,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 	if ids.size()>12 and not bool(players[owner].bot) and not brood_selection:
 		return "한 번에 최대 12기까지 선택할 수 있습니다"
 	var type = str(cmd.get("type",""))
+	if type=="surrender_response":return preload("res://scripts/ai_surrender.gd").respond(self,owner,cmd)
 	if type=="attack":
 		var attack_target=entity(int(cmd.get("target",-1)))
 		if attack_target.is_empty() or attack_target.hp<=0 or attack_target.get("container",-1)>=0 or not can_see(owner,attack_target):
@@ -1680,6 +1682,7 @@ func step(dt: float) -> void:
 		for owner in range(players.size()):
 			if players[owner].bot and not players[owner].lost:
 				_ai(owner)
+				preload("res://scripts/ai_surrender.gd").tick(self,owner)
 	if time>2:
 		_check_end()
 	perf.ai_us+=Time.get_ticks_usec()-phase_start
@@ -2053,41 +2056,56 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			if d.role=="flamer":
 				_tick_flame(u,target,dt)
 				return
-			if u.cooldown<=0:
-				if d.role=="suicide":
-					_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage),-1,str(d.targets))
-					_effect("explosion",u,center(target),.65,{"projectile":"explosion"})
-					u.hp=0
-					_death_visual(u,int(u.id),"attack")
-				elif int(d.get("burst_count",1))>1:
-					BURST.start(self,u,target)
-				else:
-					var target_air=not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air
-					var base=float(d.get("damage_air",d.damage)) if target_air else float(d.damage)
-					if d.role=="chaser":
-						if int(u.get("focus_target",-1))!=int(target.id):u.focus_target=target.id;u.focus_started=time
-						base*=1+minf(2,maxf(0,time-float(u.get("focus_started",time)))*.35)
-					_damage(u,target,base+players[u.owner].attack*2)
-					_attack_splash(u,target,base)
-					if float(u.get("scatter_until",0))>time:_area_damage(u,center(target),2.2,base*.6,int(target.id),"g")
-					if float(u.get("pierce_until",0))>time:NEW_UNITS.pierce(self,u,target,base*.65)
-					if d.role in ["root","officer"]:
-						target.slow_until=time+2.0
-				u.cooldown=float(d.period)*(1.4 if float(u.get("attack_slow_until",0))>time else 1.0)
-				if float(u.get("stim_until",0))>time:u.cooldown*=.75
-				if float(u.get("bloom_until",0))>time:u.cooldown/=1.25
-				u.fired=time
-				_set_action(u,"attack",true)
+			_strike_unit(u,target,d)
 			if d.role=="chaser" and u.order in ["move","attack_move"]:_move(u,ACData.point(u.goal),dt)
 		elif u.order!="hold":
 			if d.role=="chaser" and u.order=="move":_move(u,ACData.point(u.goal),dt)
-			elif melee:_move(u,_melee_approach(u,target),dt,.04)
+			elif melee:
+				var contact=_melee_approach(u,target)
+				# A nearby moving target needs its present contact point, rather than
+				# a cached waypoint left behind by the previous approach.
+				if pos.distance_squared_to(contact)<=64 and _ground_sweep(_body_size(u),pos,contact):
+					u.path=[ACData.packed(contact)];u.path_rev=map.revision;u._path_goal=ACData.packed(contact);u.repath=1.0;u.path_failed=false
+				_move(u,contact,dt,.04)
+				# Resolve actual contact in this simulation step. A moving opponent
+				# must not escape before the next tick's range check.
+				if ACData.point(u.pos).distance_to(center(target))<=attack_range or combat_body_gap(u,target)<=.12:
+					u.facing=ACData.packed((center(target)-ACData.point(u.pos)).normalized())
+					_strike_unit(u,target,d)
+					if is_equal_approx(float(u.fired),time):u.moving=false
 			else:_move(u,center(target),dt,attack_range*.85)
 	elif u.order in ["move","attack_move"]:
 		u.focus_target=-1
 		if _move(u,ACData.point(u.goal),dt):
 			u.order="idle"
 			u.fleeing=false
+
+func _strike_unit(u: Dictionary,target: Dictionary,d: Dictionary) -> void:
+	if u.cooldown<=0:
+		if d.role=="suicide":
+			_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage),-1,str(d.targets))
+			_effect("explosion",u,center(target),.65,{"projectile":"explosion"})
+			u.hp=0
+			_death_visual(u,int(u.id),"attack")
+		elif int(d.get("burst_count",1))>1:
+			BURST.start(self,u,target)
+		else:
+			var target_air=not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air
+			var base=float(d.get("damage_air",d.damage)) if target_air else float(d.damage)
+			if d.role=="chaser":
+				if int(u.get("focus_target",-1))!=int(target.id):u.focus_target=target.id;u.focus_started=time
+				base*=1+minf(2,maxf(0,time-float(u.get("focus_started",time)))*.35)
+			_damage(u,target,base+players[u.owner].attack*2)
+			_attack_splash(u,target,base)
+			if float(u.get("scatter_until",0))>time:_area_damage(u,center(target),2.2,base*.6,int(target.id),"g")
+			if float(u.get("pierce_until",0))>time:NEW_UNITS.pierce(self,u,target,base*.65)
+			if d.role in ["root","officer"]:
+				target.slow_until=time+2.0
+		u.cooldown=float(d.period)*(1.4 if float(u.get("attack_slow_until",0))>time else 1.0)
+		if float(u.get("stim_until",0))>time:u.cooldown*=.75
+		if float(u.get("bloom_until",0))>time:u.cooldown/=1.25
+		u.fired=time
+		_set_action(u,"attack",true)
 
 func _gather(u: Dictionary, dt: float) -> void:
 	var pos=ACData.point(u.pos)
@@ -2684,7 +2702,7 @@ func _check_end() -> void:
 				if int(b.kind)==0 and b.progress>=1:headquarters=true
 		if headquarters:players[i].hq_deadline=-1.0
 		elif float(players[i].get("hq_deadline",-1))<0:players[i].hq_deadline=time+60.0
-		if (not alive and not units.any(func(u):return int(u.owner)==i and u.hp>0)) or (not headquarters and time>=float(players[i].get("hq_deadline",INF))):
+		if not alive or (not headquarters and time>=float(players[i].get("hq_deadline",INF))):
 			players[i].lost=true
 	var teams: Array=[]
 	for i in range(players.size()):
@@ -2815,4 +2833,4 @@ func snapshot(owner: int = -1, live_view: bool=false) -> Dictionary:
 				var p=Vector2i(ACData.point(effect[key]))
 				if not map.inside(p) or visibility[owner][p.y*ACMap.SIZE+p.x]==0:visible=false
 		if visible:fx.append(effect.duplicate(true))
-	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"building_memory":_remembered_buildings(owner,bs),"resources":rs,"roots":roots.snapshot(self,owner),"effects":fx,"rubble":ruins,"shimmers":shimmers,"ended":ended,"winners":winners,"fog":fog,"explored":seen,"fog_revision":int(vision_revisions.get(owner,0)) if owner>=0 else fog_revision,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original"),"_live_view":live_view}
+	return {"time":time,"mode":mode,"players":ps,"units":us,"buildings":bs,"building_memory":_remembered_buildings(owner,bs),"resources":rs,"roots":roots.snapshot(self,owner),"effects":fx,"rubble":ruins,"shimmers":shimmers,"ended":ended,"winners":winners,"surrender_requests":surrender_requests.filter(func(r):return int(r.recipient)==owner and not players[int(r.bot)].lost).duplicate(true),"fog":fog,"explored":seen,"fog_revision":int(vision_revisions.get(owner,0)) if owner>=0 else fog_revision,"theme":map.theme,"map_layout":map.source_info.get("origin","reference_inspired_original"),"_live_view":live_view}

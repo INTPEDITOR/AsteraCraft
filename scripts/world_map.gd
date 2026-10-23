@@ -127,37 +127,12 @@ func _make_original(map_id: int) -> void:
 			region.center=ACData.point(raw.center)
 			region.direction=ACData.point(raw.direction)
 			source_ramp_regions.append(region)
-		_clear_invisible_ground_collision()
 		source_info.collision_resolution=8
-		source_info.exact_source=false
-		source_info.geometry_policy="Visible ground is open; original visible walls, water and height seams retain body clearance"
+		source_info.exact_source=true
+		source_info.geometry_policy="Original CHK/CV5/VF4 8-pixel walk masks; no terrain-opening overrides"
 	_build_visual_relief()
 	for ramp in visual_ramps:ramps.append({"kind":"source","center":ACData.packed(ramp.center),"width":ramp.width})
 	_configure_navigation()
-
-func _clear_invisible_ground_collision() -> void:
-	# The user-facing ground artwork has no original CHK doodad geometry.
-	# Keep collision only where a visible wall/water/bank represents it.
-	for index in range(SIZE*SIZE):
-		if terrain[index]==0 or visual_role(index)==3:source_walk_masks[index]=0xffff
-	# Opening flat ground must never create a shortcut across a height seam.
-	# Only authored ramps may connect two different ground levels.
-	for y in range(SIZE):
-		for x in range(SIZE):
-			var index=y*SIZE+x
-			if terrain[index]!=0 and visual_role(index)!=3:continue
-			for axis in [Vector2i.RIGHT,Vector2i.DOWN]:
-				var next=Vector2i(x,y)+axis
-				if not inside(next):continue
-				var other=next.y*SIZE+next.x
-				if (terrain[other]!=0 and visual_role(other)!=3) or height_map[index]==height_map[other]:continue
-				var point=Vector2(x,y)+Vector2(axis)*.5;var ramp=false
-				for region in source_ramp_regions:
-					var delta=point-(region.center-Vector2.ONE*.5);var direction: Vector2=region.direction
-					if absf(delta.dot(direction))<=region.length*.5+1 and absf(delta.dot(Vector2(direction.y,-direction.x)))<=region.width*.5+1:ramp=true;break
-				if ramp:continue
-				if axis.x==1:source_walk_masks[index]&=0x7777;source_walk_masks[other]&=0xeeee
-				else:source_walk_masks[index]&=0x0fff;source_walk_masks[other]&=0xfff0
 
 func _build_visual_relief() -> void:
 	render_signature=hash([terrain,height_map,surface_map,visual_roles,theme])

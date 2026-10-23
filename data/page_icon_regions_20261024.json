@@ -1,0 +1,68 @@
+[
+  {
+    "race": 0,
+    "index": 29,
+    "source_region": [
+      676,
+      387,
+      86,
+      122
+    ],
+    "file": "assets\\ui\\page_icons_20261024\\r0_29.png"
+  },
+  {
+    "race": 0,
+    "index": 30,
+    "source_region": [
+      771,
+      388,
+      83,
+      119
+    ],
+    "file": "assets\\ui\\page_icons_20261024\\r0_30.png"
+  },
+  {
+    "race": 1,
+    "index": 29,
+    "source_region": [
+      671,
+      387,
+      87,
+      122
+    ],
+    "file": "assets\\ui\\page_icons_20261024\\r1_29.png"
+  },
+  {
+    "race": 1,
+    "index": 30,
+    "source_region": [
+      788,
+      387,
+      87,
+      122
+    ],
+    "file": "assets\\ui\\page_icons_20261024\\r1_30.png"
+  },
+  {
+    "race": 2,
+    "index": 29,
+    "source_region": [
+      682,
+      387,
+      81,
+      122
+    ],
+    "file": "assets\\ui\\page_icons_20261024\\r2_29.png"
+  },
+  {
+    "race": 2,
+    "index": 30,
+    "source_region": [
+      791,
+      387,
+      81,
+      122
+    ],
+    "file": "assets\\ui\\page_icons_20261024\\r2_30.png"
+  }
+]

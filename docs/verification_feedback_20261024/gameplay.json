@@ -1,0 +1,29 @@
+{
+	"checks": 42,
+	"failures": [],
+	"maps": [
+		{
+			"blocked_cells": 64905,
+			"id": 0,
+			"mask_changes": 0,
+			"name": "투혼 1.4",
+			"navigation_changes": 0
+		},
+		{
+			"blocked_cells": 44278,
+			"id": 1,
+			"mask_changes": 0,
+			"name": "파이썬 1.3",
+			"navigation_changes": 0
+		},
+		{
+			"blocked_cells": 84473,
+			"id": 2,
+			"mask_changes": 0,
+			"name": "로스트템플 2.4",
+			"navigation_changes": 0
+		}
+	],
+	"melee_attacks": 43,
+	"passed": true
+}
