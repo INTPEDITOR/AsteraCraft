@@ -21,7 +21,7 @@ async function api(route,method='GET',data){
  if(release.target_commitish!==sha){
   const changed=cp.execFileSync('git',['diff','--name-only',release.target_commitish,sha],{encoding:'utf8',cwd:root}).trim().split(/\r?\n/).filter(Boolean);
   if(!release.draft||release.assets.length||changed.some(file=>file!=='tools/publish_feedback2_20261024.cjs'))throw Error('Existing release points to another runtime source commit');
-  release=await api('/releases/'+release.id,'PATCH',{target_commitish:sha,body:body+'\n\nSource commit: '+sha});
+  release=await api('/releases/'+release.id,'PATCH',{tag_name:tag,target_commitish:sha,body:body+'\n\nSource commit: '+sha});
   if(release.target_commitish!==sha)throw Error('Draft source update was not applied');
  }
  const names=['AsteraCraft-Windows-'+tag+'.zip','AsteraCraft-Windows-'+tag+'.zip.sha256'];
@@ -40,9 +40,9 @@ async function api(route,method='GET',data){
   }
   if(asset.size!==size||asset.state!=='uploaded'||(name.endsWith('.zip')&&asset.digest!=='sha256:'+wanted))throw Error('Uploaded asset integrity mismatch: '+name);
  }
- if(release.draft)release=await api('/releases/'+release.id,'PATCH',{draft:false,prerelease:true,make_latest:'false'});
- const verified=await api('/releases/tags/'+tag);const asset=verified.assets.find(a=>a.name===names[0]);
- if(verified.draft||!asset||asset.digest!=='sha256:'+wanted)throw Error('Published release confirmation failed');
+ if(release.draft)release=await api('/releases/'+release.id,'PATCH',{tag_name:tag,target_commitish:sha,draft:false,prerelease:true,make_latest:'false'});
+ const verified=await api('/releases/'+release.id);const asset=verified?.assets.find(a=>a.name===names[0]);
+ if(!verified||verified.tag_name!==tag||verified.draft||!asset||asset.digest!=='sha256:'+wanted)throw Error('Published release confirmation failed');
  const result={url:verified.html_url,asset:asset.browser_download_url,commit:sha,bytes:asset.size,sha256:wanted,validation};
  fs.writeFileSync(path.join(out,'github-result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
 })().catch(error=>{console.error(error.message);process.exitCode=1;});
