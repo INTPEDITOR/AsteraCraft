@@ -9,7 +9,7 @@ async function api(route,method='GET',body){const r=await fetch('https://api.git
  const sha=cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',cwd:root}).trim();
  if((await api('/commits/main')).sha!==sha)throw Error('Exact source commit has not reached GitHub main');
  const releases=await api('/releases?per_page=100');let release=releases.find(r=>r.tag_name===tag);
- if(!release)release=await api('/releases','POST',{tag_name:tag,target_commitish:sha,name:'AsteraCraft sprite preview - 2026-10-24',body:fs.readFileSync(path.join(root,'docs/RELEASE_SPRITES_20261024.md'),'utf8')+'\n\nSource commit: '+sha,draft:true,prerelease:true});
+ if(!release)release=await api('/releases','POST',{tag_name:tag,target_commitish:sha,name:'AsteraCraft sprite preview - 2026-10-24',body:fs.readFileSync(path.join(root,'docs/RELEASE_SPRITES_20261024.md'),'utf8').split('\n## Native overview captures')[0]+'\n\nReport and captures: https://github.com/'+repo+'/blob/'+sha+'/docs/RELEASE_SPRITES_20261024.md\n\nSource commit: '+sha,draft:true,prerelease:true});
  if(release.target_commitish!==sha)throw Error('Existing preview release points to another commit');
  const names=['AsteraCraft-Windows-sprites-20261024.zip','AsteraCraft-Windows-sprites-20261024.zip.sha256'];
  const wanted=fs.readFileSync(path.join(out,names[1]),'utf8').trim().split(/\s+/)[0];
