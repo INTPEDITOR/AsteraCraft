@@ -1,0 +1,22 @@
+{
+  "checks": 8,
+  "damage": 39,
+  "distance": 11.5,
+  "failures": [],
+  "passed": true,
+  "runtime": "actual Windows Godot renderer; normal deployment command; real allied spotter vision",
+  "screens": [
+    {
+      "detail": "체력  240 / 240 · 중장갑 · 기계\n공격 36 (36+0)  방어 3 (3+0) · 중장갑 +5\n사거리 7 · 이동 1.7 · 인구 3",
+      "file": "tank-mobile-range7.png"
+    },
+    {
+      "detail": "체력  240 / 240 · 중장갑 · 기계\n공격 36 (36+0)  방어 3 (3+0) · 중장갑 +5\n사거리 12 · 이동 1.7 · 인구 3",
+      "file": "tank-deployed-range12.png"
+    }
+  ],
+  "spotter": 16,
+  "tooltip": "전개 2.5초 · 해제 1.8초\n고정 사거리 12 (+5) · 최소 사거리 2.5",
+  "exit_code": 0,
+  "scope": "Final PCK rendered at 1920x1080 in matching Windows Godot engine, no source script/texture/data fallback; explicit test-only debug WebRTC DLL provided for editor engine. Real player deployment, allied spotter vision, range 11.5 shot and HUD 7 to 12 verified; shipping EXE/release DLL startup tested separately."
+}

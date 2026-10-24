@@ -1,0 +1,975 @@
+{
+  "cases": [
+    {
+      "attack_seconds": 1.4,
+      "body_gap": 0.0920009613037109,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.4,
+      "body_gap": 0.0919990539550781,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.45,
+      "body_gap": 0.0949611663818359,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.45,
+      "body_gap": 0.0949592590332031,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 0.75,
+      "body_gap": 0.0400009155273438,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.345998764038086,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.1,
+      "body_gap": 0.110960006713867,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 0.8,
+      "body_gap": 0.938959121704102,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 0,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.0400009155273438,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.0400009155273438,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.0400810241699219,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.0400791168212891,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 0.5,
+      "body_gap": 0.100000381469727,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 0.7,
+      "body_gap": 0.332000732421875,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 0.8,
+      "body_gap": 0.0400810241699219,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 0.55,
+      "body_gap": 0.954078674316406,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 2,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.85,
+      "body_gap": 0.268001556396484,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.85,
+      "body_gap": 0.268001556396484,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.85,
+      "body_gap": 0.41920280456543,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.85,
+      "body_gap": 0.419198989868164,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.10099983215332,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.2,
+      "body_gap": 0.704999923706055,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.4,
+      "body_gap": 0.372201919555664,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 0.9,
+      "body_gap": 1.35019874572754,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 3,
+      "race": 0
+    },
+    {
+      "attack_seconds": 1.35,
+      "body_gap": 0.0940017700195313,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.35,
+      "body_gap": 0.0939998626708984,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.4,
+      "body_gap": 0.0858402252197266,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.4,
+      "body_gap": 0.0858383178710938,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.7,
+      "body_gap": 0.116001129150391,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.251998901367188,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.1,
+      "body_gap": 0.0398406982421875,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.8,
+      "body_gap": 0.863840103149414,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 0,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.95,
+      "body_gap": 0.0599994659423828,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.95,
+      "body_gap": 0.0600013732910156,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.0396003723144531,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.0396003723144531,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.5,
+      "body_gap": 0.0459995269775391,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.7,
+      "body_gap": 0.230001449584961,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.75,
+      "body_gap": 0.0595989227294922,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.55,
+      "body_gap": 0.875600814819336,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 1,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.75,
+      "body_gap": 0.0789585113525391,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.75,
+      "body_gap": 0.0789604187011719,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.85,
+      "body_gap": 0.0671215057373047,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.85,
+      "body_gap": 0.0671195983886719,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.85,
+      "body_gap": 0.0649585723876953,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.25,
+      "body_gap": 0.248960494995117,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.4,
+      "body_gap": 0.0501194000244141,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.851119995117188,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 3,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.95,
+      "body_gap": 0.0400009155273438,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.95,
+      "body_gap": 0.0400009155273438,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.0403995513916016,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.0403995513916016,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.5,
+      "body_gap": 0.0400009155273438,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.7,
+      "body_gap": 0.200000762939453,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.75,
+      "body_gap": 0.0403995513916016,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.55,
+      "body_gap": 0.850400924682617,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 4,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.0480003356933594,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.0480022430419922,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.181600570678711,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.181600570678711,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.55,
+      "body_gap": 0.0579986572265625,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.7,
+      "body_gap": 0.5,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.8,
+      "body_gap": 0.161598205566406,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 0.55,
+      "body_gap": 1.09160041809082,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 8,
+      "race": 1
+    },
+    {
+      "attack_seconds": 1.3,
+      "body_gap": 0.0760021209716797,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.3,
+      "body_gap": 0.0760002136230469,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.35,
+      "body_gap": 0.0618400573730469,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.35,
+      "body_gap": 0.0618381500244141,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.7,
+      "body_gap": 0.0400009155273438,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.95,
+      "body_gap": 0.275999069213867,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.0398406982421875,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.75,
+      "body_gap": 0.911840438842773,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 0,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.5,
+      "body_gap": 0.124000549316406,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.5,
+      "body_gap": 0.124000549316406,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.5,
+      "body_gap": 0.275201797485352,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.5,
+      "body_gap": 0.275197982788086,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.8,
+      "body_gap": 0.0400009155273438,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.0,
+      "body_gap": 0.534000396728516,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.15,
+      "body_gap": 0.20720100402832,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.75,
+      "body_gap": 1.2151985168457,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 1,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.0700016021728516,
+      "building": false,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 10,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.05,
+      "body_gap": 0.0700016021728516,
+      "building": false,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 10,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.1,
+      "body_gap": 0.0412025451660156,
+      "building": false,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 10,
+      "race": 2
+    },
+    {
+      "attack_seconds": 1.1,
+      "body_gap": 0.04119873046875,
+      "building": false,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 10,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.55,
+      "body_gap": 0.0400009155273438,
+      "building": true,
+      "direction": [
+        -1.0,
+        0.0
+      ],
+      "kind": 10,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.75,
+      "body_gap": 0.30000114440918,
+      "building": true,
+      "direction": [
+        1.0,
+        0.0
+      ],
+      "kind": 10,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.85,
+      "body_gap": 0.0402011871337891,
+      "building": true,
+      "direction": [
+        0.0,
+        -1.0
+      ],
+      "kind": 10,
+      "race": 2
+    },
+    {
+      "attack_seconds": 0.55,
+      "body_gap": 1.07119941711426,
+      "building": true,
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "kind": 10,
+      "race": 2
+    }
+  ],
+  "checks": 265,
+  "failures": [],
+  "passed": true
+}

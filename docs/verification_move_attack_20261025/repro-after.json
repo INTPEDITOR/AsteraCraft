@@ -1,0 +1,24 @@
+{
+  "cases": [
+    {
+      "case": "manual_retreat",
+      "detour_clear": true,
+      "stale_target": -1
+    },
+    {
+      "case": "deferred_melee_approach",
+      "first": [
+        24.0,
+        27.0
+      ],
+      "retry": [
+        35.384,
+        27.0
+      ],
+      "retry_until": 10.35
+    }
+  ],
+  "checks": 7,
+  "failures": [],
+  "passed": true
+}

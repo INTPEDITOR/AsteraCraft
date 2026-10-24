@@ -1,0 +1,345 @@
+{
+	"failures": [],
+	"final_units": [
+		{
+			"blocked": 0.05,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				28.033,
+				23.033
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 19,
+			"order": "idle",
+			"position": [
+				25.475,
+				22.138
+			],
+			"route": [
+				[
+					28.033,
+					23.033
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.0,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				29.344,
+				23.033
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 20,
+			"order": "idle",
+			"position": [
+				26.803,
+				22.852
+			],
+			"route": [
+				[
+					29.344,
+					23.033
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.1,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				30.656,
+				23.033
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 21,
+			"order": "idle",
+			"position": [
+				28.146,
+				23.876
+			],
+			"route": [
+				[
+					30.656,
+					23.033
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.0,
+			"body_goal_clear": true,
+			"crowd_arrived": false,
+			"goal": [
+				31.967,
+				23.033
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 22,
+			"order": "idle",
+			"position": [
+				31.863,
+				23.458
+			],
+			"route": [
+				[
+					31.967,
+					23.033
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.55,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				28.033,
+				24.344
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 23,
+			"order": "idle",
+			"position": [
+				26.903,
+				21.861
+			],
+			"route": [
+				[
+					28.033,
+					24.344
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.05,
+			"body_goal_clear": true,
+			"crowd_arrived": false,
+			"goal": [
+				29.344,
+				24.344
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 24,
+			"order": "idle",
+			"position": [
+				29.313,
+				23.379
+			],
+			"route": [
+				[
+					29.344,
+					24.344
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.25,
+			"body_goal_clear": true,
+			"crowd_arrived": false,
+			"goal": [
+				30.656,
+				24.344
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 25,
+			"order": "idle",
+			"position": [
+				31.676,
+				25.819
+			],
+			"route": [
+				[
+					30.656,
+					24.344
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.2,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				31.967,
+				24.344
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 26,
+			"order": "idle",
+			"position": [
+				30.127,
+				26.386
+			],
+			"route": [
+				[
+					31.967,
+					24.344
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 2.4,
+			"body_goal_clear": true,
+			"crowd_arrived": false,
+			"goal": [
+				28.033,
+				25.656
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 27,
+			"order": "idle",
+			"position": [
+				28.078,
+				22.909
+			],
+			"route": [
+				[
+					28.0,
+					25.75
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.65,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				29.344,
+				25.656
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 28,
+			"order": "idle",
+			"position": [
+				30.469,
+				23.259
+			],
+			"route": [
+				[
+					29.344,
+					25.656
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.0,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				30.656,
+				25.656
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 29,
+			"order": "idle",
+			"position": [
+				32.813,
+				26.331
+			],
+			"route": [
+				[
+					30.656,
+					25.656
+				]
+			],
+			"static_goal_clear": true
+		},
+		{
+			"blocked": 0.0,
+			"body_goal_clear": false,
+			"crowd_arrived": false,
+			"goal": [
+				31.967,
+				25.656
+			],
+			"group": [
+				30.0,
+				25.0
+			],
+			"id": 30,
+			"order": "idle",
+			"position": [
+				31.883,
+				27.339
+			],
+			"route": [
+				[
+					31.967,
+					25.656
+				]
+			],
+			"static_goal_clear": true
+		}
+	],
+	"passed": true,
+	"runtime": "actual Godot renderer and normal right-click context command",
+	"samples": [
+		{
+			"arrived": 0,
+			"file": "tank-group-001.png",
+			"moving": 8,
+			"time": 0.05
+		},
+		{
+			"arrived": 0,
+			"file": "tank-group-100.png",
+			"moving": 12,
+			"time": 4.99999999999999
+		},
+		{
+			"arrived": 11,
+			"file": "tank-group-240.png",
+			"moving": 1,
+			"time": 12.0
+		},
+		{
+			"arrived": 12,
+			"file": "tank-group-600.png",
+			"moving": 0,
+			"time": 30.0000000000003
+		}
+	]
+}

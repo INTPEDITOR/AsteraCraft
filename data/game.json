@@ -1,5 +1,5 @@
 {
-  "version": "0.6.2",
+  "version": "0.6.3",
   "race_names": [
     "노바너",
     "이귤",
@@ -198,6 +198,7 @@
         "weapon": "shell",
         "max_energy": 200,
         "minimum_range": 2.5,
+        "deployed_range_bonus": 5.0,
         "deploy_time": 2.5,
         "undeploy_time": 1.8,
         "splash_radius": 1.4,

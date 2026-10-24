@@ -441,6 +441,7 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 		choices.append({"point":candidate,"score":score})
 	choices.sort_custom(func(a,b):return a.score<b.score)
 	var inspected=0
+	var deferred=false
 	for choice in choices:
 		if inspected>=4:break
 		inspected+=1
@@ -448,7 +449,9 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 		if _ground_sweep(_body_size(attacker),origin,candidate):
 			result=candidate;best=float(choice.score);break
 		# Compare reachable approaches around walls, not merely the closest edge.
+		attacker._path_deferred=false
 		var route=_clearance_path(attacker,origin,candidate)
+		if attacker._path_deferred:deferred=true;break
 		if route.is_empty() or ACData.point(route.back()).distance_to(candidate)>.8:continue
 		var length=0.0;var previous=origin
 		for waypoint in route:
@@ -456,7 +459,13 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 		if length*length<best:best=length*length;result=candidate
 	# If the target is already completely surrounded, wait behind the front
 	# rather than shoving into an occupied edge and retrying 24 slots each tick.
-	if best==INF:result=origin
+	if best==INF:
+		result=origin
+		if deferred:
+			# A busy planner has not established that this target is unreachable.
+			# Release the unused slot and retry when the next tick has a budget.
+			attacker._surround_until=time;attacker._surround_retry=time
+			return result
 	attacker._surround_target=int(target.id)
 	attacker._surround_offset=ACData.packed(result-present_middle)
 	attacker._surround_until=time+1.25
@@ -1018,12 +1027,18 @@ func command(owner: int, cmd: Dictionary) -> String:
 		u.erase("mining_base");u.erase("mining_anchor")
 		u.path=[]
 		u.approach_target=-1
+		u._auto_target=-1;u._scan_at=time
+		for key in ["_surround_target","_surround_offset","_surround_until","_surround_retry"]:u.erase(key)
+		u.blocked_clock=0.0;u.nav_blocked=0.0;u.avoid_until=-1.0
+		u._path_avoids_units=false
+		u.erase("_formation_anchor")
 		u.repath=0.0
 		u.path_failed=false
 		_release_mining_claim(u)
 		u.target=int(cmd.get("target",-1))
 		u.goal=cmd.get("pos",u.pos)
 		if cmd.get("formation",false) and type in ["move","context","attack_move"] and int(u.target)<0:
+			u._formation_anchor=ACData.packed(ACData.point(cmd.get("pos",u.pos)))
 			var offset=Vector2(order_index%columns-(columns-1)*.5,int(order_index/columns)-(columns-1)*.5)*spacing
 			u.goal=ACData.packed((ACData.point(u.goal)+offset).clamp(Vector2.ONE,Vector2(126,126)))
 			order_index+=1
@@ -1262,6 +1277,9 @@ func _set_unit_position(unit: Dictionary, pos: Vector2) -> void:
 		entity_spatial[broad].append(unit)
 
 func _unit_fits(unit: Dictionary, pos: Vector2, check_units: bool=true) -> bool:
+	# Validate the same millitile coordinate that _set_unit_position stores.
+	# Rounding a just-clear step afterwards can otherwise enter a cliff edge.
+	pos=ACData.point(ACData.packed(pos))
 	var layer=_body_layer(unit)
 	var dimensions=_body_size(unit)
 	if layer==COLLISION_GROUND and not _ground_fits_size(dimensions,pos):return false
@@ -1323,7 +1341,7 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 	# Treating every fighting body as a new map wall made an inaccessible
 	# target trigger repeated full-map searches through a dense battle.
 	var pursuing=unit.get("order","")=="attack" or int(unit.get("_auto_target",-1))>=0
-	var crowded=float(unit.blocked_clock)>.8 and not working_worker(unit) and not pursuing
+	var crowded=(float(unit.blocked_clock)>.8 or bool(unit.get("_path_avoids_units",false))) and not working_worker(unit) and not pursuing
 	if path_cache_revision!=map.revision:
 		path_cache.clear()
 		path_cache_revision=map.revision
@@ -1393,13 +1411,9 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 	var navigator: AStarGrid2D=clearance_paths[key] if body_path else map.navigator
 	var temporary: Array=[]
 	var grid_scale=1.0/navigator.cell_size.x
+	var blockers=_settled_route_blockers(unit) if crowded else []
 	if crowded:
-		for other in units:
-			if other.id==unit.id or other.hp<=0 or other.container>=0 or collision_layer(int(other.race),int(other.kind))!=COLLISION_GROUND or _workers_can_overlap(unit,other):continue
-			if other.moving and other.order not in ["idle","hold"]:continue
-			var rect=collision_rect(other)
-			rect.position-=dimensions*.5+Vector2.ONE*.05
-			rect.size+=dimensions+Vector2.ONE*.1
+		for rect in blockers:
 			for x in range(int(ceil(rect.position.x*grid_scale)),int(floor(rect.end.x*grid_scale))+1):
 				for y in range(int(ceil(rect.position.y*grid_scale)),int(floor(rect.end.y*grid_scale))+1):
 					var point=Vector2i(x,y)
@@ -1421,11 +1435,39 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 			for point in navigator.get_id_path(first,last,true):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
 	if not path.is_empty() and (Vector2(first)*navigator.cell_size).distance_to(from)<.3:
 		if path.size()==1 or _ground_sweep(dimensions,from,ACData.point(path[1])):path.pop_front()
-	if not path.is_empty():path=_smooth_ground_path(Vector2(Vector2i((dimensions*16).ceil()))/16.0 if body_path else dimensions,from,path)
+	if not path.is_empty():path=_smooth_ground_path(Vector2(Vector2i((dimensions*16).ceil()))/16.0 if body_path else dimensions,from,path,blockers)
+	unit._path_avoids_units=crowded
 	if not crowded:path_cache[route_key]={"path":path.duplicate(false),"until":time+(2.0 if not path.is_empty() else .5)}
 	return path
 
-func _smooth_ground_path(dimensions: Vector2, origin: Vector2, path: Array) -> Array:
+func _settled_route_blockers(unit: Dictionary) -> Array:
+	var result=[]
+	if working_worker(unit) or unit.get("order","")=="attack" or int(unit.get("_auto_target",-1))>=0:return result
+	var padding=_body_size(unit)*.5+Vector2.ONE*.05
+	for other in units:
+		if other.id==unit.id or other.hp<=0 or other.container>=0 or _body_layer(other)!=COLLISION_GROUND or _workers_can_overlap(unit,other):continue
+		if other.moving and other.order not in ["idle","hold"]:continue
+		var rect=collision_rect(other);rect.position-=padding;rect.size+=padding*2
+		result.append(rect)
+	return result
+
+func _route_sweep(dimensions: Vector2, from: Vector2, to: Vector2, blockers: Array) -> bool:
+	if not _ground_sweep(dimensions,from,to):return false
+	var delta=to-from
+	for rect in blockers:
+		var enter=0.0;var leave=1.0;var intersects=true
+		for axis in range(2):
+			if absf(delta[axis])<.000001:
+				if from[axis]<rect.position[axis] or from[axis]>rect.end[axis]:intersects=false;break
+			else:
+				var a=(rect.position[axis]-from[axis])/delta[axis]
+				var b=(rect.end[axis]-from[axis])/delta[axis]
+				enter=maxf(enter,minf(a,b));leave=minf(leave,maxf(a,b))
+				if enter>leave:intersects=false;break
+		if intersects:return false
+	return true
+
+func _smooth_ground_path(dimensions: Vector2, origin: Vector2, path: Array, blockers: Array=[]) -> Array:
 	# Keep turns first, then remove only those visible to the entire body.
 	# This avoids dense quarter-tile stair steps without cutting cliff corners.
 	var corners: Array=[]
@@ -1439,7 +1481,7 @@ func _smooth_ground_path(dimensions: Vector2, origin: Vector2, path: Array) -> A
 	while cursor<corners.size():
 		var chosen=cursor
 		for candidate in range(mini(cursor+12,corners.size()-1),cursor,-1):
-			if _ground_sweep(dimensions,previous,ACData.point(corners[candidate])):chosen=candidate;break
+			if _route_sweep(dimensions,previous,ACData.point(corners[candidate]),blockers):chosen=candidate;break
 		result.append(corners[chosen]);previous=ACData.point(corners[chosen]);cursor=chosen+1
 	return result
 
@@ -1464,24 +1506,48 @@ func _crowd_arrived(unit: Dictionary, goal: Vector2, reach: float) -> bool:
 	if unit.order not in ["move","attack_move"]:return false
 	var distance_squared=ACData.point(unit.pos).distance_squared_to(goal)
 	if distance_squared>16:return false
+	# Adjacent formation slots may be occupied by friends who stopped within
+	# their own arrival tolerance. Let this order settle nearby instead of
+	# circling forever around an exact slot covered by the same formation.
+	var formation=unit.get("_formation_anchor",[])
+	var formation_blocked=not formation.is_empty() and ACData.point(unit.goal).distance_squared_to(goal)<.01 and _unit_fits(unit,goal,false) and not _unit_fits(unit,goal)
+	var cache_key=goal if not formation_blocked else "formation:%d:%s:%s"%[int(unit.owner),goal,formation]
 	# A whole army can share one destination. Aggregate its settled occupants
 	# once per simulation step instead of repeating the same neighborhood scan.
-	if not crowd_arrival_cache.has(goal):
+	if not crowd_arrival_cache.has(cache_key):
 		var members={};var largest=.5
 		for other in _nearby_units(goal,3):
 			if other.hp<=0 or other.container>=0 or _body_layer(other)!=COLLISION_GROUND:continue
 			var distance=ACData.point(other.pos).distance_squared_to(goal)
 			if distance>=9 or (other.moving and other.order not in ["idle","hold"]):continue
-			if distance<.3025 or ACData.point(other.get("goal",other.pos)).distance_squared_to(goal)<.49:
+			var same_formation=formation_blocked and int(other.owner)==int(unit.owner) and other.get("_formation_anchor",[])==formation
+			if distance<.3025 or ACData.point(other.get("goal",other.pos)).distance_squared_to(goal)<.49 or same_formation:
 				members[int(other.id)]=true
 				largest=maxf(largest,float(other._body_size.x) if other.has("_body_size") else collision_size(int(other.race),int(other.kind)).x)
-		crowd_arrival_cache[goal]={"members":members,"largest":largest}
-	var cached: Dictionary=crowd_arrival_cache[goal]
+		crowd_arrival_cache[cache_key]={"members":members,"largest":largest}
+	var cached: Dictionary=crowd_arrival_cache[cache_key]
 	var count=cached.members.size()-(1 if cached.members.has(int(unit.id)) else 0)
 	if count==0:return false
 	var largest=maxf(float(cached.largest),float(unit._body_size.x) if unit.has("_body_size") else collision_size(int(unit.race),int(unit.kind)).x)
 	var arrival=maxf(reach,clampf(sqrt(float(count+1))*largest*1.1+.7,1.0,3.0))
 	return distance_squared<=arrival*arrival
+
+func _yield_idle_ally(unit: Dictionary, movement: Vector2, owner: int, remaining: int, visited: Dictionary) -> bool:
+	if remaining<0 or visited.has(int(unit.id)) or unit.anchored or unit.order!="idle" or not allied(owner,int(unit.owner)):return false
+	visited[int(unit.id)]=true
+	var next=ACData.point(ACData.packed(ACData.point(unit.pos)+movement))
+	if int(unit.kind)!=0:
+		var assigned=ACData.point(unit.goal)
+		if next.distance_to(assigned)>maxf(2.75,ACData.point(unit.pos).distance_to(assigned)+.001):return false
+	if not _unit_fits(unit,next,false):return false
+	if not _unit_fits(unit,next):
+		var box=collision_rect(unit,next).grow(COLLISION_SKIN*.5)
+		for other in _nearby_units(next):
+			if other.id==unit.id or other.hp<=0 or other.container>=0 or _body_layer(other)!=COLLISION_GROUND or _workers_can_overlap(unit,other):continue
+			if box.intersects(collision_rect(other)):_yield_idle_ally(other,movement,owner,remaining-1,visited)
+	if not _unit_fits(unit,next):return false
+	_set_unit_position(unit,next);unit.yield_visual_until=time+.12
+	return true
 
 func _request_room(unit: Dictionary, goal: Vector2, dt: float) -> void:
 	if working_worker(unit):return
@@ -1498,17 +1564,12 @@ func _request_room(unit: Dictionary, goal: Vector2, dt: float) -> void:
 		var sign_side=signf(lateral.dot(ACData.point(other.pos)-pos))
 		if sign_side==0:sign_side=1.0 if int(other.id)%2==0 else -1.0
 		for delta in [lateral*sign_side, direction, -lateral*sign_side]:
-			var next=ACData.point(other.pos)+delta*minf(.13,dt*2.0)
 			# Settled troops may yield locally, but repeated arrivals must not
 			# push an idle formation indefinitely away from its own orders.
 			# Mining workers keep their independent delivery/idle lane behavior.
-			if int(other.kind)!=0:
-				var assigned=ACData.point(other.goal)
-				if next.distance_to(assigned)>maxf(2.75,ACData.point(other.pos).distance_to(assigned)+.001):continue
-			if _unit_fits(other,next):
-				_set_unit_position(other,next)
-				other.yield_visual_until=time+.12
-				break
+			# A short chain can make room for an ally boxed in by its formation;
+			# each displacement still checks terrain, bodies and the yield limit.
+			if _yield_idle_ally(other,delta*minf(.13,dt*2.0),int(unit.owner),3,{int(unit.id):true}):break
 
 func _advance_ground(unit: Dictionary, desired: Vector2, goal: Vector2, dt: float) -> Vector2:
 	var original=ACData.point(unit.pos)
@@ -1520,8 +1581,8 @@ func _advance_ground(unit: Dictionary, desired: Vector2, goal: Vector2, dt: floa
 		var avoiding=time<float(unit.get("avoid_until",-1.0))
 		var movement_goal=(goal-pos).normalized()*part.length() if avoiding else part
 		var next=pos+movement_goal
-		var lookahead=pos+movement_goal.normalized()*maxf(.8,collision_size(int(unit.race),int(unit.kind)).x)
-		if _unit_fits(unit,next) and (not avoiding or _unit_fits(unit,lookahead)):
+		var lookahead=pos+movement_goal.normalized()*minf(pos.distance_to(goal),maxf(.8,_body_size(unit).x))
+		if _unit_fits(unit,next) and (not avoiding or _unit_fits(unit,lookahead,false)):
 			_set_unit_position(unit,next)
 			unit.avoid_until=-1.0
 			continue
@@ -1574,23 +1635,30 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 	if not d.air and float(u.blocked_clock)>.3:_request_room(u,goal,dt)
 	var next=goal
 	if not d.air:
+		var blockers=_settled_route_blockers(u) if bool(u.get("_path_avoids_units",false)) or float(u.blocked_clock)>.8 else []
 		var shortcut_check=time>=float(u.get("_shortcut_at",0)) or int(u.path_rev)!=map.revision or ACData.point(u.get("_shortcut_goal",ACData.packed(goal))).distance_squared_to(goal)>1
 		if shortcut_check:u._shortcut_at=time+.25+float(int(u.id)%5)*.015;u._shortcut_goal=ACData.packed(goal)
-		if shortcut_check and p.distance_squared_to(goal)<=144 and _ground_sweep(_body_size(u),p,goal):
+		if shortcut_check and p.distance_squared_to(goal)<=144 and _route_sweep(_body_size(u),p,goal,blockers):
 			u.path=[ACData.packed(goal)];u.path_failed=false;u.path_rev=map.revision;u.repath=3.0;u._path_goal=ACData.packed(goal)
 		u.repath-=dt
 		if u.path.is_empty() and u.path_failed and u.repath>0 and int(u.path_rev)==map.revision and ACData.point(u.get("_path_goal",ACData.packed(goal))).distance_squared_to(goal)<.01:return false
 		var goal_shifted=ACData.point(u.get("_path_goal",ACData.packed(goal))).distance_squared_to(goal)>1.0
 		if u.path.is_empty() or int(u.path_rev)!=map.revision or u.repath<=0 or goal_shifted:
 			u._path_deferred=false
-			u.path=_clearance_path(u,p,goal)
-			if u._path_deferred:return false
-			shortcut_check=true
-			u._path_goal=ACData.packed(goal)
-			u.path_failed=u.path.is_empty()
-			u.avoid_until=-1.0
-			u.path_rev=map.revision
-			u.repath=(.6 if u.path_failed else 3.0)+rng.randf()*.4
+			var planned_path=_clearance_path(u,p,goal)
+			if u._path_deferred:
+				# A refresh may be postponed by the per-tick budget. Continue the
+				# current safe route instead of discarding it and pausing in place.
+				if u.path.is_empty() or int(u.path_rev)!=map.revision or goal_shifted:return false
+			else:
+				u.path=planned_path
+				shortcut_check=true
+				u._path_goal=ACData.packed(goal)
+				u.path_failed=u.path.is_empty()
+				u.avoid_until=-1.0
+				u.path_rev=map.revision
+				u.repath=(.6 if u.path_failed else 3.0)+rng.randf()*.4
+				if bool(u.get("_path_avoids_units",false)):blockers=_settled_route_blockers(u)
 		if u.path.is_empty():
 			# AStar has no steps when start and destination round to the same
 			# clearance cell. A large body can still have almost one tile left
@@ -1608,7 +1676,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		if shortcut_check and not u.path.is_empty():
 			for index in range(mini(u.path.size()-1,16),0,-1):
 				var point=ACData.point(u.path[index])
-				if p.distance_squared_to(point)<=64 and _ground_sweep(_body_size(u),p,point):
+				if p.distance_squared_to(point)<=64 and _route_sweep(_body_size(u),p,point,blockers):
 					u.path=u.path.slice(index);break
 		next=ACData.point(u.path[0])
 		# Skip already-passed grid corners with a checked body sweep. Avoidance
@@ -1616,10 +1684,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		while u.path.size()>1:
 			var ahead=ACData.point(u.path[1])
 			if p.distance_to(ahead)>1.8:break
-			var clear=true
-			for sample in range(1,9):
-				if not _unit_fits(u,p.lerp(ahead,float(sample)/8.0),false):clear=false;break
-			if not clear:break
+			if not _route_sweep(_body_size(u),p,ahead,blockers):break
 			u.path.pop_front()
 			next=ahead
 		if p.distance_to(next)<.22:
@@ -1627,7 +1692,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 				if p.distance_to(goal)<=reach:return true
 				if not _unit_fits(u,goal,false) or not _ground_sweep(_body_size(u),p,goal):return true
 				next=goal
-			elif _ground_sweep(_body_size(u),p,ACData.point(u.path[1])):
+			elif _route_sweep(_body_size(u),p,ACData.point(u.path[1]),blockers):
 				u.path.pop_front()
 				next=ACData.point(u.path[0])
 	var direction=(next-p).normalized()
@@ -1852,6 +1917,7 @@ func _tick_tera(b: Dictionary, dt: float) -> void:
 func _displace_unit(unit: Dictionary, delta: Vector2) -> bool:
 	if unit.anchored:return false
 	var next=(ACData.point(unit.pos)+delta).clamp(Vector2.ONE,Vector2(126,126))
+	next=ACData.point(ACData.packed(next))
 	if collision_layer(int(unit.race),int(unit.kind))==COLLISION_GROUND and not _ground_fits_size(collision_size(int(unit.race),int(unit.kind)),next):return false
 	_set_unit_position(unit,next)
 	return true
@@ -2093,7 +2159,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			target={}
 	if target.is_empty() and d.damage>0 and (u.order in ["idle","hold","attack_move"] or (d.role=="chaser" and u.order=="move")):
 		if time>=float(u.get("_scan_at",0.0)):
-			target=_find_target(u,maxf(float(d.range)+(3 if u.anchored and d.role in ["siege","fortress"] else 0),7.0),str(d.targets))
+			target=_find_target(u,maxf(ACData.attack_range(d,bool(u.anchored)),7.0),str(d.targets))
 			u._auto_target=int(target.get("id",-1))
 			u._scan_at=time+.22+float(int(u.id)%5)*.012
 		else:
@@ -2104,9 +2170,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 		u._aiming=true
 		u.turret_direction=ACData.packed((center(target)-pos).normalized())
 		var distance=pos.distance_to(center(target))
-		var attack_range=float(d.range)
-		if u.anchored and d.role in ["siege","fortress"]:
-			attack_range+=3
+		var attack_range=ACData.attack_range(d,bool(u.anchored))
 		if target.has("progress"):
 			var bd=ACData.building(int(target.race),int(target.kind))
 			attack_range+=minf(bd.w,bd.h)*.45
@@ -2325,7 +2389,7 @@ func _find_target(attacker: Dictionary, radius: float, targets: String) -> Dicti
 	var minimum_squared=minimum*minimum
 	if attacker.get("order","")=="attack_move":
 		var threat: Dictionary={}
-		var nearest=radius*radius
+		var nearest=radius*radius+.00001
 		var owner=int(attacker.owner);var pos=center(attacker)
 		if not threat_indexes.has(owner):
 			var grid={}
@@ -2349,7 +2413,8 @@ func _find_target(attacker: Dictionary, radius: float, targets: String) -> Dicti
 						if distance>nearest or not can_see(owner,candidate) or not _team_threat(candidate,owner):continue
 						nearest=distance;threat=candidate
 		if not threat.is_empty():return threat
-	var best=radius*radius
+	# Firing accepts the exact range boundary; acquisition must include it too.
+	var best=radius*radius+.00001
 	var result: Dictionary={}
 	var pos=center(attacker)
 	if not collision_index_valid:_rebuild_collision_index()

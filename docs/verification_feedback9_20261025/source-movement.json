@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "status": "source fixed and locally verified; not deployed",
+  "baseline_release": "feedback8-20261025",
+  "baseline_commit": "33bf2e4b4e89ca656441a8cd8ebe7fd656887167",
+  "core_sha256": "bec4a4b33be53c755a58685a4c022648b824312c7c68a3ff06d19c066162000c",
+  "ground_unit_types": 31,
+  "continuity_checks": 101,
+  "formation_cases": 9,
+  "formation_vehicles_per_case": 12,
+  "formation_checks": 34989,
+  "before_formations_finished_within_55_seconds": 0,
+  "after_formations_finished": 9,
+  "map_crossing_journeys": 24,
+  "melee_checks": 8,
+  "brood_collision_checks": 17,
+  "native_tank_group": [
+    {
+      "arrived": 0,
+      "file": "tank-group-001.png",
+      "moving": 8,
+      "time": 0.05
+    },
+    {
+      "arrived": 0,
+      "file": "tank-group-100.png",
+      "moving": 12,
+      "time": 4.99999999999999
+    },
+    {
+      "arrived": 11,
+      "file": "tank-group-240.png",
+      "moving": 1,
+      "time": 12.0
+    },
+    {
+      "arrived": 12,
+      "file": "tank-group-600.png",
+      "moving": 0,
+      "time": 30.0000000000003
+    }
+  ],
+  "preserved": [
+    "unit speeds and combat statistics",
+    "source map walk masks and resource locations",
+    "unit art and collision sizes"
+  ],
+  "scope": "Controlled path-budget reproduction across all31 ground types; real source maps and normal right-click formation commands; actual rendered tank travel. Congestion may still require legitimate yielding; no claim of universal FPS performance."
+}

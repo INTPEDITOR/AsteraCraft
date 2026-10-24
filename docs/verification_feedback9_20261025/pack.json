@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "native_images": 12,
+  "checks": 35382,
+  "runs": [
+    {
+      "name": "native",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 0,
+      "cases": 0,
+      "result_file": null
+    },
+    {
+      "name": "repro",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 7,
+      "cases": 2,
+      "result_file": "build/move-attack-followup-20261025/feedback9/result.json"
+    },
+    {
+      "name": "continuity",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 101,
+      "cases": 0,
+      "result_file": "build/move-continuity-20261025/feedback9/result.json"
+    },
+    {
+      "name": "formations",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 34989,
+      "cases": 9,
+      "result_file": "build/group-move-continuity-20261025/feedback9/result.json"
+    },
+    {
+      "name": "melee",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 265,
+      "cases": 88,
+      "result_file": "build/move-attack-followup-20261025/melee-scenarios.json"
+    },
+    {
+      "name": "range",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 20,
+      "cases": 7,
+      "result_file": "build/move-attack-followup-20261025/siege-range.json"
+    }
+  ],
+  "scope": "Exact final Windows PCK mounted as main pack from export directory, no source script/texture/data fallback. The editor runtime receives its explicit test-only debug WebRTC DLL; the shipping release DLL is tested by the actual EXE separately. External drivers exercise packaged core/data/HUD, 12 native images, 31 ground types, 3 maps x 3 races x 12-unit formations, 88 melee contact scenarios, retreat/retry and seven tank range boundaries."
+}

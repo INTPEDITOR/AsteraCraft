@@ -68,6 +68,12 @@ static func entity_unit(entity: Dictionary,players: Array=[]) -> Dictionary:
 static func unit_count(race: int) -> int:
 	return get_data().units[race].size()
 
+static func attack_range(definition: Dictionary,anchored: bool=false) -> float:
+	var reach=float(definition.get("range",0))
+	if anchored and str(definition.get("role","")) in ["siege","fortress"]:
+		reach+=float(definition.get("deployed_range_bonus",3.0))
+	return reach
+
 static func portrait_score(entity: Dictionary) -> int:
 	if entity.is_empty() or entity.has("progress"):return -1
 	return int(unit(int(entity.race),int(entity.kind)).get("portrait_priority",0))

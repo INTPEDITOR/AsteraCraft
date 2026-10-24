@@ -882,7 +882,7 @@ func _update_details() -> void:
 		var bonus=int(owner.get("attack",0))*2 if float(_definition.get("damage",0))>0 else 0
 		var attack=int(_definition.get("damage",0))+bonus
 		var armor=int(_definition.get("armor",0))+int(owner.get("armor",0))
-		var lines=[hp+shield+" · "+("중장갑" if _definition.get("armor_class","")=="heavy" else "경장갑")+" · "+("기계" if _definition.get("material","")=="mechanical" else "생체"),"공격 %d (%d+%d)  방어 %d (%d+%d)"%[attack,int(_definition.get("damage",0)),bonus,armor,int(_definition.get("armor",0)),int(owner.get("armor",0))],"사거리 %s · 이동 %s · 인구 %s"%[_number(float(_definition.get("range",0))),_number(float(_definition.get("speed",0))),_number(float(_definition.get("pop",0)))]]
+		var lines=[hp+shield+" · "+("중장갑" if _definition.get("armor_class","")=="heavy" else "경장갑")+" · "+("기계" if _definition.get("material","")=="mechanical" else "생체"),"공격 %d (%d+%d)  방어 %d (%d+%d)"%[attack,int(_definition.get("damage",0)),bonus,armor,int(_definition.get("armor",0)),int(owner.get("armor",0))],"사거리 %s · 이동 %s · 인구 %s"%[_number(ACData.attack_range(_definition,bool(_unit.get("anchored",false)))),_number(float(_definition.get("speed",0))),_number(float(_definition.get("pop",0)))]]
 		if float(_definition.get("bonus_light",0))>0:lines[1]+=" · 경장갑 +%d"%int(_definition.bonus_light)
 		if float(_definition.get("bonus_heavy",0))>0:lines[1]+=" · 중장갑 +%d"%int(_definition.bonus_heavy)
 		if _definition.has("damage_air"):lines[1]+=" · 공중 %d"%int(_definition.damage_air)
@@ -1346,7 +1346,7 @@ func _build_commands() -> void:
 			var title="전개 해제" if _unit.get("anchored",false) else names[role]
 			var help="현재 위치에서 전개 상태를 전환합니다."
 			if faction==0 and kind==5:
-				help="전개 2.5초 · 해제 1.8초\n고정 시 사거리 +3 · 최소 사거리 2.5"
+				help="전개 2.5초 · 해제 1.8초\n고정 사거리 %s (+%s) · 최소 사거리 %s"%[_number(ACData.attack_range(_definition,true)),_number(float(_definition.get("deployed_range_bonus",3))),_number(float(_definition.get("minimum_range",2.5)))]
 				if float(_unit.get("deploy_until",0))>float(main.state.time):title="전개 중" if _unit.get("deploy_to",false) else "해제 중"
 			all.append(_command(title,KEY_Q,"Q",ICON_ABILITY,func():_ability(false),help))
 			if faction==0 and kind==5:all[-1]["deploy_action"]=true

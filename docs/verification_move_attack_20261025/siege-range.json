@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "deployed": true,
+      "distance": 11.5,
+      "expected": true,
+      "hit": true
+    },
+    {
+      "deployed": true,
+      "distance": 12.0,
+      "expected": true,
+      "hit": true
+    },
+    {
+      "deployed": true,
+      "distance": 12.2,
+      "expected": false,
+      "hit": false
+    },
+    {
+      "deployed": true,
+      "distance": 2.0,
+      "expected": false,
+      "hit": false
+    },
+    {
+      "deployed": true,
+      "distance": 2.6,
+      "expected": true,
+      "hit": true
+    },
+    {
+      "deployed": false,
+      "distance": 8.0,
+      "expected": false,
+      "hit": false
+    },
+    {
+      "deployed": false,
+      "distance": 6.9,
+      "expected": true,
+      "hit": true
+    }
+  ],
+  "checks": 20,
+  "failures": [],
+  "minimum_range": 2.5,
+  "passed": true,
+  "tank_deployed_range": 12,
+  "tank_mobile_range": 7
+}

@@ -1,0 +1,30 @@
+{
+  "cases": [
+    {
+      "case": "manual_retreat",
+      "detour_clear": false,
+      "stale_target": 20
+    },
+    {
+      "case": "deferred_melee_approach",
+      "first": [
+        24.0,
+        27.0
+      ],
+      "retry": [
+        24.0,
+        27.0
+      ],
+      "retry_until": 10.65
+    }
+  ],
+  "checks": 7,
+  "failures": [
+    "right-click movement releases previous automatic combat target",
+    "manual movement releases stale surround reservation",
+    "a retreating former combatant can route around parked allies",
+    "deferred search is not cached as an unreachable target",
+    "melee retries the reachable approach on the next free tick"
+  ],
+  "passed": false
+}

@@ -1,0 +1,273 @@
+{
+  "checks": 101,
+  "failures": [],
+  "observations": [
+    {
+      "case": "refresh_budget",
+      "distance": 0.13800048828125,
+      "expected_distance": 0.138,
+      "kind": 0,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.131999969482422,
+      "expected_distance": 0.132,
+      "kind": 1,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.191999435424805,
+      "expected_distance": 0.192,
+      "kind": 2,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0990009307861328,
+      "expected_distance": 0.099,
+      "kind": 3,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.149999618530273,
+      "expected_distance": 0.15,
+      "kind": 4,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0839996337890625,
+      "expected_distance": 0.084,
+      "kind": 5,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.16200065612793,
+      "expected_distance": 0.162,
+      "kind": 6,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.149999618530273,
+      "expected_distance": 0.15,
+      "kind": 7,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0659999847412109,
+      "expected_distance": 0.066,
+      "kind": 12,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.209999084472656,
+      "expected_distance": 0.21,
+      "kind": 13,
+      "path_retained": true,
+      "race": 0
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.143999099731445,
+      "expected_distance": 0.144,
+      "kind": 0,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.204000473022461,
+      "expected_distance": 0.204,
+      "kind": 1,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.13800048828125,
+      "expected_distance": 0.138,
+      "kind": 2,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.101999282836914,
+      "expected_distance": 0.102,
+      "kind": 3,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.204000473022461,
+      "expected_distance": 0.204,
+      "kind": 4,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0960006713867188,
+      "expected_distance": 0.096,
+      "kind": 5,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0839996337890625,
+      "expected_distance": 0.084,
+      "kind": 6,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0900001525878906,
+      "expected_distance": 0.09,
+      "kind": 7,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.186000823974609,
+      "expected_distance": 0.186,
+      "kind": 8,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0960006713867188,
+      "expected_distance": 0.096,
+      "kind": 9,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0599994659423828,
+      "expected_distance": 0.06,
+      "kind": 12,
+      "path_retained": true,
+      "race": 1
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.149999618530273,
+      "expected_distance": 0.15,
+      "kind": 0,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.125999450683594,
+      "expected_distance": 0.126,
+      "kind": 1,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.120000839233398,
+      "expected_distance": 0.12,
+      "kind": 2,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.125999450683594,
+      "expected_distance": 0.126,
+      "kind": 3,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.120000839233398,
+      "expected_distance": 0.12,
+      "kind": 4,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.11400032043457,
+      "expected_distance": 0.114,
+      "kind": 5,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0900001525878906,
+      "expected_distance": 0.09,
+      "kind": 7,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.0720005035400391,
+      "expected_distance": 0.072,
+      "kind": 8,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.180000305175781,
+      "expected_distance": 0.18,
+      "kind": 10,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "case": "refresh_budget",
+      "distance": 0.145000457763672,
+      "expected_distance": 0.145,
+      "kind": 13,
+      "path_retained": true,
+      "race": 2
+    },
+    {
+      "avoids_blocker": true,
+      "case": "parked_vehicle_detour",
+      "route": [
+        [
+          30.75,
+          28.25
+        ],
+        [
+          39.25,
+          27.75
+        ],
+        [
+          40.0,
+          27.0
+        ]
+      ]
+    }
+  ],
+  "passed": true
+}
