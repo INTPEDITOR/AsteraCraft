@@ -19,6 +19,10 @@ func _draw_entity() -> void:
 	main._world_transform()
 	if entity.has("amount"):
 		var point=main._ground_point(ACData.point(entity.pos))
+		# Deposits near the map edge can have their ground origin outside the
+		# viewport while the tall mineral sprite remains visible inside it.
+		bounds=main._resource_screen_rect(entity)
+		bounds.position-=position+main.world_clip.position
 		if entity.type=="as" and entity.amount>0:main._draw_ore(point,entity)
 		elif entity.type=="tera" and main._catalyst_presence(entity)>0:main._draw_vent(point,entity)
 		elif int(entity.id)==main.selected_resource:main._draw_resource_selection(point,entity)

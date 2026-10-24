@@ -74,5 +74,14 @@ static func tick(core,b: Dictionary,dt: float) -> void:
 		else:
 			if not player.has("technologies"):player.technologies={}
 			player.technologies[job.kind]=int(job.level)
+			var researched=definition(int(b.race),int(b.kind),str(job.kind))
+			if researched.has("unit_kind"):
+				for unit in core.units:
+					if int(unit.owner)==int(b.owner) and int(unit.race)==int(researched.race) and int(unit.kind)==int(researched.unit_kind):
+						var old: Dictionary=unit.get("_definition",ACData.unit(int(unit.race),int(unit.kind)))
+						var effective=ACData.unit_for_player(int(unit.race),int(unit.kind),player)
+						unit._definition=effective
+						if unit.hp>0:unit.hp=minf(float(effective.hp),float(unit.hp)+maxf(0,float(effective.hp)-float(old.hp)))
+						unit.cooldown=float(unit.cooldown)*float(effective.period)/maxf(.01,float(old.period))
 		core.events.append({"owner":b.owner,"text":"연구 완료: "+str(job.name)})
 	b.research_queue=queue;sync(b)

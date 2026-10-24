@@ -7,6 +7,7 @@ var rows=4
 var frame_count=16
 var pivot=Vector2(.5,.5)
 var cell_size=Vector2.ONE
+var frame_offsets: Array=[]
 static var _shared_shader: Shader
 static var _white: ImageTexture
 
@@ -26,9 +27,18 @@ uniform vec4 frame_uv;
 uniform vec4 next_uv;
 uniform float frame_blend;
 uniform float opacity=1.0;
+uniform vec2 frame_shift=vec2(0.0);
+uniform vec2 next_shift=vec2(0.0);
+uniform float edge_feather=0.0;
+vec4 registered_frame(vec2 q,vec4 region){
+ if(q.x<0.0||q.y<0.0||q.x>1.0||q.y>1.0)return vec4(0.0);
+ vec4 p=texture(atlas_image,region.xy+q*region.zw);
+ if(edge_feather>0.0)p.a*=smoothstep(0.0,edge_feather,q.x)*smoothstep(0.0,edge_feather,q.y)*(1.0-smoothstep(1.0-edge_feather,1.0,q.x))*(1.0-smoothstep(1.0-edge_feather,1.0,q.y));
+ return p;
+}
 void fragment() {
- vec4 a=texture(atlas_image,frame_uv.xy+UV*frame_uv.zw);
- vec4 b=texture(atlas_image,next_uv.xy+UV*next_uv.zw);
+ vec4 a=registered_frame(UV+frame_shift,frame_uv);
+ vec4 b=registered_frame(UV+next_shift,next_uv);
  vec4 p=mix(vec4(a.rgb*a.a,a.a),vec4(b.rgb*b.a,b.a),frame_blend);
  COLOR=vec4(p.rgb/max(p.a,0.00001),p.a*opacity);
 }"""
@@ -42,6 +52,8 @@ func update_frame(ground: Vector2,width: float,frame: float,opacity: float=1.0) 
 	for item in [["frame_uv",first],["next_uv",second]]:
 		var index=int(item[1])
 		shader_material.set_shader_parameter(item[0],Vector4(float(index%columns)/columns+inset.x,float(index/columns)/rows+inset.y,1.0/columns-inset.x*2,1.0/rows-inset.y*2))
+	shader_material.set_shader_parameter("frame_shift",ACData.point(frame_offsets[first]) if frame_offsets.size()==frame_count else Vector2.ZERO)
+	shader_material.set_shader_parameter("next_shift",ACData.point(frame_offsets[second]) if frame_offsets.size()==frame_count else Vector2.ZERO)
 	shader_material.set_shader_parameter("frame_blend",value-floor(value))
 	shader_material.set_shader_parameter("opacity",opacity)
 	scale=Vector2(width,width*cell_size.y/cell_size.x)

@@ -1,0 +1,26 @@
+{
+  "created": "2026-10-24",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit / new UI skin illustration. Create an entirely NEW painted combat HUD skin, using Image1 ONLY as an exact LAYOUT TEMPLATE and Image2 ONLY as a dark wood MATERIAL STYLE REFERENCE. Do NOT reuse or copy any existing wood/root ornament artwork from either image; design new bark carvings, intertwined roots and orange accents. Output one ultra-wide horizontal HUD strip matching Image1's original 1963x360 aspect and complete layout. The sixteen black openings MUST remain at the exact same relative positions and sizes as Image1: square minimap far left, very wide information panel in middle-left, a small horizontal menu pill above the tall portrait bay, and exactly FOUR columns by THREE rows of black command bays far right. No added buttons/holes. Preserve those black interiors clear, uncluttered and safely inset inside their borders. Draw a NEW substantial warm dark chestnut wood-and-root frame with realistic gnarly bark grain, subtle reddish sap, crisp layered root joints, a few small orange tangerine fruits or amber orange inlays embedded around the frame, tiny restrained cyan sap highlights. Rich natural dark wood similar in mood to Image2's menu frame, but distinctly newly drawn. Remove the lush bright green foliage and golden vine look. No metal frame, no leaves covering any opening, no thorns protruding into contents. A cohesive one-piece frame with elegantly varied branching around all panels; thick enough to look wooden, thin enough to leave the original black content bays fully clear. Consistent overhead RTS interface lighting. Keep ALL upper ornaments within the image so the HUD never has a chopped top. Leave genuine RGBA transparency outside the frame, including above its irregular top silhouette. Opaque charcoal black interiors. NO text, letters, icons, characters, game scene, logos, watermarks, or labels. New art must fill the original template's same bounding rectangle; do not put this HUD on a larger background or shift the panels.",
+  "source": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-5eebd60c-1871-43dd-810b-39823b647b8f.png",
+  "runtime": "res://assets/ui/hud_citrus_wood_new_20261024.png",
+  "newly_drawn_art": true,
+  "old_hud_used_as_layout_reference_only": true,
+  "menu_used_as_material_reference_only": true,
+  "source_pixels_unchanged": true,
+  "source_size": [
+    2001,
+    786
+  ],
+  "crop": [
+    0,
+    135,
+    2001,
+    405
+  ],
+  "display_aspect": [
+    1963,
+    360
+  ],
+  "openings": "Measured dark openings; preserved command grid 4x3, minimap, detail, menu and portrait; both other races unchanged."
+}

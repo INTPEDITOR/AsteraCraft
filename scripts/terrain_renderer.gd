@@ -25,6 +25,7 @@ var quiet_materials: Array[Texture2D] = []
 var world_materials: Array[Texture2D] = []
 var bank_materials: Array[Texture2D] = []
 var scenery_textures: Array[Texture2D] = []
+var rock_tiles: Array[Texture2D] = []
 const DIAMOND_SIZE=Vector2(192,96)
 const QUIET_WORLD_SPAN=384.0
 var relief_textures: Array[Texture2D] = []
@@ -108,6 +109,12 @@ func load_art() -> void:
 	for biome in ["frontier","basin","highland"]:
 		scenery_textures.append_array(_load_theme_cells("res://assets/map_decor_%s_worldart.png"%biome,true))
 	transition_textures = _load_cells("res://assets/terrain_transitions.png",false)
+	rock_tiles.clear()
+	var rocks=_read_image("res://assets/terrain_rock_tiles_20261024.png")
+	if rocks!=null:
+		var rock_cell=Vector2i(rocks.get_width()/3,rocks.get_height()/2)
+		for row in range(2):
+			for theme in range(3):rock_tiles.append(_filtered_texture(rocks.get_region(Rect2i(Vector2i(theme,row)*rock_cell,rock_cell))))
 	_cache.clear()
 
 func _load_bank_art() -> Array[Texture2D]:
@@ -198,6 +205,7 @@ func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Cal
 
 func _texture(slot: int) -> Texture2D:
 	if slot<0:return null
+	if slot>=256:return rock_tiles[slot-256] if rock_tiles.size()>slot-256 else null
 	if slot>=240:return bank_materials[slot-240] if bank_materials.size()>slot-240 else null
 	if slot>=224:return world_materials[slot-224] if world_materials.size()>slot-224 else null
 	if slot>=192:return quiet_materials[slot-192] if quiet_materials.size()>slot-192 else null
@@ -278,7 +286,9 @@ func _build_cache(map: ACMap, signature: int,progress: Callable=Callable()) -> D
 				for dx in range(2):
 					var weight = (fraction.x if dx==1 else 1.0-fraction.x)*(fraction.y if dy==1 else 1.0-fraction.y)
 					var source = clampi(y+dy,0,127)*128+clampi(x+dx,0,127)
-					fields[classes[source]][index] += weight
+					var water=map.visual_water_fraction(source)
+					fields[5][index]+=weight*water
+					if classes[source]!=5:fields[classes[source]][index]+=weight*(1.0-water)
 					levels[index]+=weight*float(map.height_map[source])
 					rise += weight*_rise(map,source%128,source/128)
 			points[index] = Vector2(p.x*32.0,clampf(p.y*32.0-rise,0,WORLD_PIXELS))
@@ -400,9 +410,8 @@ func _build_cache(map: ACMap, signature: int,progress: Callable=Callable()) -> D
 	# smoothed height contours alone left these original obstacles looking flat.
 	var blockers=_source_blocker_geometry(map)
 	if progress.is_valid():progress.call(.84,"장애물과 물가 준비 중")
-	if blockers.mesh!=null:
-		layers.append({"mesh":blockers.mesh,"slot":192+map.theme*4+1 if quiet_materials.size()==12 else cliff_material_slot(map.theme),"role":"source_blockers","tint":Color(.66,.64,.60,1)})
-		vertices+=blockers.vertices
+	layers.append_array(blockers.layers)
+	vertices+=blockers.vertices
 	var cliffs = _cliff_mesh(map,points,fields[4]) if world_materials.size()!=9 else null
 	var cliff_slot=32+map.theme if _texture(32+map.theme)!=null else 9
 	if rich:cliff_slot=planet_base+8
@@ -423,28 +432,96 @@ func cliff_material_slot(theme: int) -> int:
 	return 32+theme if _texture(32+theme)!=null else 9
 
 func _source_blocker_geometry(map: ACMap) -> Dictionary:
-	var builder=_builder();var cells=0
-	if map.source_walk_masks.size()!=128*128:return {"mesh":null,"cells":0,"vertices":0}
+	var result={"layers":[],"cells":0,"vertices":0,"boundary_segments":0}
+	if map.source_walk_masks.size()!=128*128 or rock_tiles.size()!=6:return result
+	# A continuous density contour rounds the original 8px minitile corners.
+	# It changes art only. No navigation data or passable ramp is rewritten.
+	var solid=PackedByteArray();solid.resize(512*512)
+	for y in range(512):
+		for x in range(512):
+			if _source_land_blocked(map,x,y):solid[y*512+x]=1;result.cells+=1
+	var density=PackedFloat32Array();density.resize(513*513)
+	var distance=PackedFloat32Array();distance.resize(513*513)
+	for y in range(513):
+		for x in range(513):
+			var amount=0.0
+			for dy in [-1,0]:
+				for dx in [-1,0]:amount+=solid[clampi(y+dy,0,511)*512+clampi(x+dx,0,511)]*.25
+			var i=y*513+x;density[i]=amount;distance[i]=0 if amount<1 else 64
+	# A lone blocked minitile has only 1/4 density at each corner and would
+	# vanish under the smooth contour threshold. Give these tiny original
+	# obstacles a small rounded rock mound as well, without changing collision.
+	for y in range(512):
+		for x in range(512):
+			if solid[y*512+x]==0:continue
+			var i=y*513+x
+			if maxf(maxf(density[i],density[i+1]),maxf(density[i+513],density[i+514]))>=.35:continue
+			for id in [i,i+1,i+513,i+514]:density[id]=maxf(density[id],.5)
+	# Distance to a free edge tapers narrow ends into small rocks instead of
+	# extruding an identical square column for every collision cell.
+	for y in range(513):
+		for x in range(513):
+			var i=y*513+x
+			if x>0:distance[i]=minf(distance[i],distance[i-1]+8)
+			if y>0:distance[i]=minf(distance[i],distance[i-513]+8)
+	for y in range(512,-1,-1):
+		for x in range(512,-1,-1):
+			var i=y*513+x
+			if x<512:distance[i]=minf(distance[i],distance[i+1]+8)
+			if y<512:distance[i]=minf(distance[i],distance[i+513]+8)
+	var top=_builder();var wall=_builder();var shadow=_builder()
 	for y in range(512):
 		var x=0
 		while x<512:
-			if not _source_land_blocked(map,x,y):x+=1;continue
-			var start=x
-			# Short runs preserve the same subdivided terrain elevation plane.
-			while x<512 and x<start+2 and _source_land_blocked(map,x,y):x+=1;cells+=1
-			var low=(Vector2(start,y)*.25-Vector2.ONE*.5).max(Vector2.ZERO)
-			var high=(Vector2(x,y+1)*.25-Vector2.ONE*.5).min(Vector2.ONE*128)
-			if high.x<=low.x or high.y<=low.y:continue
-			var quad=PackedVector2Array();var uv=PackedVector2Array()
-			for p in [low,Vector2(high.x,low.y),high,Vector2(low.x,high.y)]:
-				quad.append(Vector2(p.x*32,p.y*32-map.visual_elevation(p)-3.0))
-				uv.append(p*32/128.0)
-			_append_quad(builder,quad,uv,PackedFloat32Array([1,1,1,1]))
-	return {"mesh":_mesh(builder) if not builder.vertices.is_empty() else null,"cells":cells,"vertices":builder.vertices.size()}
+			var ids=[y*513+x,y*513+x+1,(y+1)*513+x+1,(y+1)*513+x]
+			if density[ids[0]]+density[ids[1]]+density[ids[2]]+density[ids[3]]<.35:x+=1;continue
+			var points=[]
+			for id in ids:
+				var p=(Vector2(id%513,id/513)*8.0-Vector2.ONE*16).clamp(Vector2.ZERO,Vector2.ONE*4096)
+				var rise=5.0+smoothstep(0,32,distance[id])*14.0
+				points.append({"p":p,"density":density[id],"rise":rise})
+			for tri in [[0,1,2],[0,2,3]]:
+				var polygon=[]
+				for edge in range(3):
+					var a=points[tri[edge]];var b=points[tri[(edge+1)%3]]
+					var inside_a=float(a.density)>=.35;var inside_b=float(b.density)>=.35
+					if inside_a:polygon.append(a)
+					if inside_a!=inside_b:
+						var t=(.35-float(a.density))/(float(b.density)-float(a.density))
+						polygon.append({"p":Vector2(a.p).lerp(b.p,t),"density":.35,"rise":5.0})
+				if polygon.size()<3:continue
+				for index in range(1,polygon.size()-1):
+					for point in [polygon[0],polygon[index],polygon[index+1]]:
+						var p: Vector2=point.p
+						top.indices.append(top.vertices.size())
+						top.vertices.append(_rock_project(map,p,float(point.rise)));top.uv.append(p/192.0);top.colors.append(Color.WHITE)
+				for edge in range(polygon.size()):
+					var a=polygon[edge];var b=polygon[(edge+1)%polygon.size()]
+					if not is_equal_approx(float(a.density),.35) or not is_equal_approx(float(b.density),.35):continue
+					var delta: Vector2=Vector2(b.p)-Vector2(a.p)
+					if delta.length()<.01:continue
+					var normal=Vector2(delta.y,-delta.x).normalized()
+					result.boundary_segments+=1
+					if normal.y<-.05:continue
+					var foot_a=_rock_project(map,a.p,0);var foot_b=_rock_project(map,b.p,0)
+					var u0=(Vector2(a.p).dot(Vector2(absf(normal.y),absf(normal.x))))/96.0;var u1=u0+delta.length()/96.0
+					_append_quad(wall,PackedVector2Array([_rock_project(map,a.p,float(a.rise)),_rock_project(map,b.p,float(b.rise)),foot_b,foot_a]),PackedVector2Array([Vector2(u0,0),Vector2(u1,0),Vector2(u1,.35),Vector2(u0,.35)]),PackedFloat32Array([1,1,1,1]))
+					_append_quad(shadow,PackedVector2Array([foot_a,foot_b,foot_b+normal*4+Vector2(2,1),foot_a+normal*4+Vector2(2,1)]),PackedVector2Array([Vector2.ZERO,Vector2.ZERO,Vector2.ZERO,Vector2.ZERO]),PackedFloat32Array([.25,.25,0,0]))
+			x+=1
+	for layer in [{"builder":shadow,"slot":-1,"role":"source_rock_shadow","tint":Color(.04,.035,.03,1)},{"builder":top,"slot":256+map.theme,"role":"source_rock_top","tint":Color(.86,.85,.82,1)},{"builder":wall,"slot":259+map.theme,"role":"source_rock_wall","tint":Color(.74,.72,.68,1)}]:
+		if layer.builder.vertices.is_empty():continue
+		result.vertices+=layer.builder.vertices.size()
+		result.layers.append({"mesh":_mesh(layer.builder),"slot":layer.slot,"role":layer.role,"tint":layer.tint})
+	return result
+
+func _rock_project(map: ACMap,p: Vector2,rise: float) -> Vector2:
+	return p-Vector2(0,map.visual_elevation(p/32.0)+rise)
 
 func _source_land_blocked(map: ACMap,x: int,y: int) -> bool:
 	var index=(y/4)*128+x/4
-	return not map.is_water(index) and (map.source_walk_masks[index]&(1<<((y%4)*4+x%4)))==0
+	var bit=1<<((y%4)*4+x%4)
+	if map.is_water(index) or (map.source_water_masks.size()==128*128 and (map.source_water_masks[index]&bit)!=0):return false
+	return (map.source_walk_masks[index]&bit)==0
 
 func _apply_surface_regions(map: ACMap, fields: Array) -> void:
 	# Four coherent districts. Their shared world-space weights are constant
@@ -544,9 +621,10 @@ func _contour_banks(map: ACMap, field: PackedFloat32Array, threshold: float, gat
 	for kind in range(3):
 		if faces[kind].vertices.is_empty():continue
 		var slot=240+map.theme*5+(3 if role=="coast" else kind) if bank_materials.size()==15 else 224+map.theme*3
+		if rock_tiles.size()==6:slot=259+map.theme
 		result.append({"mesh":_mesh(faces[kind]),"slot":slot,"role":role,"piece_kind":kind,"modules":counts,"joins":joins if kind==0 else [],"tint":Color(.86,.85,.82,1)})
 	if lip.vertices.is_empty():return []
-	result.append({"mesh":_mesh(lip),"slot":226+map.theme*3,"role":role+"_rim","tint":Color(1.08,1.06,1.00,1)})
+	result.append({"mesh":_mesh(lip),"slot":256+map.theme if rock_tiles.size()==6 else 226+map.theme*3,"role":role+"_rim","tint":Color(1.08,1.06,1.00,1)})
 	if not shadow.vertices.is_empty():result.append({"mesh":_mesh(shadow),"slot":-1,"role":role+"_shadow","tint":Color(.035,.035,.04,1)})
 	return result
 
@@ -986,17 +1064,8 @@ func _scenery(map: ACMap) -> Array:
 				var width=([35,63,84,62,27,38,28,50,76,54,58,34,40,65,86,64,44,84,34,44,26,40,50,72,52,78,62,70,32,25][kind])*rng.randf_range(.8,1.15)
 				result.append({"pos":p,"slot":slot,"kind":kind,"width":width,"structure":structure})
 	result=_diversify_scenery(map,result)
-	# These are authored solid rocks, not optional decorative scatter. They
-	# must remain visible even near bases and ramps, at their actual footprint.
-	if map.source_walk_masks.size()==128*128:
-		for y in range(1,127):
-			for x in range(1,127):
-				var index=y*128+x
-				if map.visual_role(index)!=3 or map.source_walk_masks[index]!=0 or (x+y)%2!=0:continue
-				var kind=1 if (x*7+y*13)%3!=0 else 13
-				var slot=map.theme*4+1 if kind==1 else 13+map.theme*8
-				if slot>=scenery_textures.size():continue
-				result.append({"pos":Vector2(x,y),"slot":slot,"kind":kind,"width":33.0,"structure":true,"source_obstacle":true})
+	# Authored obstacles are now continuous rock terrain tiles, not repeated
+	# scenery sprites. Optional decorative scatter above is independent.
 	result.sort_custom(func(a,b):return a.pos.y<b.pos.y)
 	return result
 
@@ -1055,12 +1124,12 @@ func _bank_decor_clear(map: ACMap, p: Vector2) -> bool:
 		for x in range(cell.x-2,cell.x+3):
 			if x<0 or y<0 or x>=128 or y>=128:return false
 			var index=y*128+x
-			if map.is_water(index) or map.height_map[index]!=height or map.visual_role(index)==1:return false
+			if map.visual_water_fraction(index)>.05 or map.height_map[index]!=height or map.visual_role(index)==1:return false
 	return not _near_bank_ramp(map,p*32.0)
 
 func _scenery_safe(map: ACMap, p: Vector2) -> bool:
 	if p.x<2 or p.y<2 or p.x>125 or p.y>125:return false
-	if map.is_water(int(p.y)*128+int(p.x)):return false
+	if map.visual_water_fraction(int(p.y)*128+int(p.x))>.05:return false
 	if map.visual_role(int(p.y)*128+int(p.x))==3:return false
 	for start in map.starts:
 		if p.distance_to(ACData.point(start))<8:return false
@@ -1089,4 +1158,4 @@ func terrain_color(map: ACMap, index: int) -> Color:
 	if index<0 or index>=map.terrain.size():return Color.BLACK
 	if map.is_water(index):return WATER_COLOR
 	var surface = int(map.surface_map[index]) if map.surface_map.size()>index else _surface_fallback(map,index)
-	return [Color("706c57"),Color("a09267"),Color("89816a"),Color("a19c83"),Color("848a86"),Color("a7a290"),Color("3b403b"),WATER_COLOR][surface]
+	return [Color("706c57"),Color("a09267"),Color("89816a"),Color("a19c83"),Color("848a86"),Color("a7a290"),Color("3b403b"),WATER_COLOR][surface].lerp(WATER_COLOR,map.visual_water_fraction(index))

@@ -44,11 +44,11 @@ func _run() -> void:
 		seen[menu.background_index]=true
 		check(menu.background_index==remembered_race,"repeated entry preserves last played faction background")
 		check(harness.race_choice==1 and harness.map_choice==2,"background selection preserves match settings")
-		check(menu.nav_buttons.size()==5,"five menu actions")
+		check(menu.nav_buttons.size()==4,"four current menu actions")
 		check(menu.button_plates.size()==9,"three faction and three button states loaded")
 		check(menu.button_art_path=="res://assets/ui_native/main_","menu uses native generated art")
 		check(menu.title_art!=null,"menu uses current generated title artwork")
-		for index in range(5):
+		for index in range(4):
 			var button: Button=menu.nav_buttons[index]
 			check(button.position.x==58 and button.size==Vector2(320,76),"navigation keeps exact native dimensions in left column")
 			var style=button.get_theme_stylebox("normal")
@@ -59,7 +59,7 @@ func _run() -> void:
 			if index>0:check(button.position.y>=menu.nav_buttons[index-1].get_rect().end.y,"menu actions do not overlap")
 		if entry==0:
 			for button in menu.nav_buttons:button.pressed.emit()
-			check(harness.actions==["single","online","replay","settings","exit"],"all navigation buttons call their actions")
+			check(harness.actions==["single","online","settings","exit"],"all current navigation buttons call their actions")
 			if "--capture" in OS.get_cmdline_user_args():
 				for faction in range(3):
 					menu.choose_background(faction)

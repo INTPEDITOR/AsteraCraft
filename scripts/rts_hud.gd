@@ -320,6 +320,11 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 				for bay in ["mini","detail","menu","portrait","command"]:
 					_native_shell_geometry[faction][bay].position.y+=30
 				for row in range(3):_native_shell_geometry[faction].rows[row]+=30
+			if faction==1 and ResourceLoader.exists("res://assets/ui/hud_citrus_wood_new_20261024.png"):
+				native_path="res://assets/ui/hud_citrus_wood_new_20261024.png"
+				# Measured dark openings in newly authored art. Keep the previous
+				# displayed height and nearly identical centers, with safe padding.
+				_native_shell_geometry[faction]={"crop":Rect2i(0,135,2001,405),"display_height":360.0/1963.0,"mini":Rect2(55,243,244,233),"detail":Rect2(355,264,868,211),"menu":Rect2(1280,224,171,28),"portrait":Rect2(1277,276,176,204),"command":Rect2(1512,245,435,243),"cols":[1517,1631,1744,1856],"rows":[250,337,423],"slot":Vector2(86,60)}
 		var native=_native_shell_geometry.has(faction) and ResourceLoader.exists(native_path)
 		if native:path=native_path
 		_frame_art.append(load(path) if ResourceLoader.exists(path) else null)
@@ -608,7 +613,7 @@ func shell_draw_rect() -> Rect2:
 	var height=HEIGHT
 	if _uniform_shells.size()==3 and _uniform_shells[race]:
 		var crop=_frame_source_regions[race]
-		height=float(crop.size.y)*size.x/crop.size.x
+		height=float(_native_shell_geometry[race].get("display_height",float(crop.size.y)/crop.size.x))*size.x
 	return Rect2(0,size.y-height,size.x,height)
 
 func _shell_geometry() -> Dictionary:
@@ -625,7 +630,10 @@ func command_slot_rect(index: int) -> Rect2:
 
 func minimap_rect() -> Rect2:
 	var hole=_minimap_frame_rect()
-	var extent=minf(hole.size.x,hole.size.y)
+	# The painted opening has rounded inner corners and foliage/metal lips.
+	# Use a square safely inside it, shared by terrain, markers and input.
+	var inset=maxf(3.0,minf(hole.size.x,hole.size.y)*.035)
+	var extent=maxf(1,minf(hole.size.x,hole.size.y)-inset*2)
 	return Rect2(hole.get_center()-Vector2.ONE*extent*.5,Vector2.ONE*extent)
 
 func view_rect() -> Rect2:
@@ -730,7 +738,8 @@ func _update_details() -> void:
 	_unit=main._entity(int(main.selected[0]))
 	if _unit.is_empty():return
 	var building=_unit.has("progress")
-	_definition=ACData.building(int(_unit.race),int(_unit.kind)) if building else ACData.unit(int(_unit.race),int(_unit.kind))
+	_definition=(ACData.building(int(_unit.race),int(_unit.kind)) if building else ACData.entity_unit(_unit,main.state.get("players",[]))).duplicate()
+	_definition.hp=ACData.max_health(_unit,main.state.get("players",[]))
 	_unit_icon=_building_texture(int(_unit.race),int(_unit.kind)) if building else _unit_texture(int(_unit.race),int(_unit.kind))
 	_portrait=portraits.get("%d:%d"%[int(_unit.race),int(_unit.kind)]) if not building else (building_portraits[int(_unit.race)] if building_portraits.size()==3 else _unit_icon)
 	if _is_brood():
@@ -819,7 +828,7 @@ func _update_details() -> void:
 			var occupied=0.0
 			for cargo_id in _unit.get("cargo",[]):
 				var passenger=main._entity(int(cargo_id))
-				if not passenger.is_empty():occupied+=maxf(1,float(ACData.unit(int(passenger.race),int(passenger.kind)).pop))
+				if not passenger.is_empty():occupied+=maxf(1,float(ACData.entity_unit(passenger,main.state.get("players",[])).pop))
 			lines[1]="탑승 %d기 · 사용 용량 %s / 8"%[_unit.get("cargo",[]).size(),_number(occupied)]
 		if float(_unit.get("bloom_until",0))>float(main.state.time):lines[1]+=" · 개화: 공격속도 +25%% (%d초)"%ceili(float(_unit.bloom_until)-float(main.state.time))
 		if _definition.role=="healer_detector":lines[2]+=" · 자동 치료 "+("켜짐" if _unit.get("sap_heal_enabled",true) else "꺼짐")
@@ -1020,7 +1029,7 @@ func _build_cargo() -> void:
 			if not passenger.is_empty():
 				var icon=TextureRect.new();icon.texture=_unit_texture(int(passenger.race),int(passenger.kind));icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 				icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);icon.material=_cargo_material;icon.mouse_filter=Control.MOUSE_FILTER_IGNORE;slot.add_child(icon)
-				var name=str(ACData.unit(int(passenger.race),int(passenger.kind)).name)
+				var name=str(ACData.entity_unit(passenger,main.state.get("players",[])).name)
 				_set_inline_help(slot,name,"탑승 중" if role=="transport" else "출격 중" if int(passenger.container)<0 else "탑재 중",false)
 				var carrier_id=int(_unit.id);var passenger_id=int(passenger.id)
 				slot.pressed.connect(func():
@@ -1123,7 +1132,7 @@ func _build_selection() -> void:
 		var entity: Dictionary=main._entity(int(main.selected[index]))
 		if entity.is_empty():continue
 		var id=int(entity.id)
-		var definition: Dictionary=ACData.building(int(entity.race),int(entity.kind)) if entity.has("progress") else ACData.unit(int(entity.race),int(entity.kind))
+		var definition: Dictionary=ACData.building(int(entity.race),int(entity.kind)) if entity.has("progress") else ACData.entity_unit(entity,main.state.get("players",[]))
 		var texture: Texture2D=_building_texture(int(entity.race),int(entity.kind)) if entity.has("progress") else _unit_texture(int(entity.race),int(entity.kind))
 		if str(definition.get("role",""))=="brood":texture=main.assets.unit(1,13,Vector2(1,1),"morph" if str(entity.get("brood_state","idle"))=="morph" else "idle",float(main.state.get("time",0))).get("texture")
 		var button=Button.new()
@@ -1148,7 +1157,8 @@ func _build_selection() -> void:
 		caption.add_theme_font_size_override("font_size",roundi(10*scale))
 		caption.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		button.add_child(caption)
-		_set_inline_help(button,str(definition.name),"체력 %d / %d\n클릭: 한 기 선택 · Shift: 선택 해제"%[ceili(entity.hp),int(definition.hp)],false)
+		var maximum=ACData.max_health(entity,main.state.get("players",[]))
+		_set_inline_help(button,str(definition.name),"체력 %d / %d\n클릭: 한 기 선택 · Shift: 선택 해제"%[ceili(entity.hp),int(maximum)],false)
 		button.add_theme_stylebox_override("normal",_shell_button_style(0))
 		button.add_theme_stylebox_override("hover",_shell_button_style(1))
 		button.add_theme_stylebox_override("pressed",_shell_button_style(2))
@@ -1156,12 +1166,12 @@ func _build_selection() -> void:
 		var hp=SegmentedMeter.new()
 		hp.position=Vector2(3,21 if has_energy else 25)*scale
 		hp.size=Vector2(cell_width-6*scale,2*scale)
-		hp.set_values(float(entity.hp),float(definition.hp),Color("8bbf64"))
+		hp.set_values(float(entity.hp),maximum,Color("8bbf64"))
 		hp.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		button.add_child(hp)
 		button.set_meta("entity_id",id)
 		button.set_meta("hp_bar",hp)
-		button.set_meta("max_hp",float(definition.hp))
+		button.set_meta("max_hp",maximum)
 		if has_energy:
 			var energy=SegmentedMeter.new()
 			energy.position=Vector2(3,25)*scale
@@ -1250,7 +1260,7 @@ func _build_commands() -> void:
 		all.append(_command("이동",KEY_M,"M",ICON_MOVE,func():_target_order("move"),"지정한 위치로 이동합니다."))
 		if float(_definition.get("damage",0))>0 or _definition.get("role","")=="carrier" or main.selected.any(func(selected_id):
 			var troop=main._entity(int(selected_id))
-			return not troop.is_empty() and not troop.has("progress") and int(troop.owner)==main.local_slot and float(ACData.unit(int(troop.race),int(troop.kind)).damage)>0):
+			return not troop.is_empty() and not troop.has("progress") and int(troop.owner)==main.local_slot and float(ACData.entity_unit(troop,main.state.get("players",[])).damage)>0):
 			all.append(_command("공격",KEY_A,"A",ICON_ATTACK,func():main.set("pointer_order","");main.attack_mode=true;main.build_kind=-1,"적 유닛을 공격하거나 지정 위치로 공격 이동합니다."))
 		all.append(_command("정지",KEY_S,"S",ICON_STOP,func():_send("stop"),"현재 명령을 중단합니다."))
 		all.append(_command("위치 사수",KEY_H,"H",ICON_HOLD,func():_send("hold"),"위치를 지키며 사거리 안의 적을 공격합니다."))
@@ -1302,8 +1312,9 @@ func _build_commands() -> void:
 				var level=ACResearch.level(main.state.players[main.local_slot],stat_id)
 				for job in _unit.get("research_queue",[]):
 					if str(job.kind)==stat_id:level+=1
-				var cost={"as":research.as+level*float(research.get("step",0)),"tera":research.tera+level*float(research.get("step",0)),"research_stat":stat_id,"level":level,"max_level":research.get("max_level",1)}
-				all.append(_command(str(research.name),0,"",ICON_RESEARCH,func():main._send_command({"type":"research","id":id,"stat":stat_id}),_cost_tip(cost)+"\n예약 포함 %d / %d단계\n완료 시 종족 전체에 적용됩니다."%[level,int(research.get("max_level",1))],command_art.research(faction,stat_id),cost))
+				var cost={"as":research.as+level*float(research.get("step",0)),"tera":research.tera+level*float(research.get("step",0)),"research_stat":stat_id,"level":level,"max_level":research.get("max_level",1),"requires":research.get("requires",[])}
+				var effect_tip=str(research.get("description","완료 시 해당 기술의 대상 유닛에 적용됩니다."))+"\n연구 %d초"%int(research.time)
+				all.append(_command(str(research.name),0,"",ICON_RESEARCH,func():main._send_command({"type":"research","id":id,"stat":stat_id}),_cost_tip(cost)+"\n예약 포함 %d / %d단계\n"%[level,int(research.get("max_level",1))]+effect_tip,command_art.research(faction,stat_id),cost))
 			if faction==0 and kind==8:
 				all.append(_command("핵미사일 생산",0,"",ICON_TRAIN,func():main._send_command({"type":"produce_nuke","id":id}),"아스 300 · 테라 200 · 75초
 유도 연구 필요 · 최대 3발 보유",command_art.skill(faction,"nuclear"),{"as":300,"tera":200,"nuke":true}))
@@ -1476,6 +1487,7 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 			var skill=ACAbilities.catalog(int(_unit.race),int(_unit.kind)).filter(func(d):return d.id==cost.skill)[0]
 			if not ACAbilities.unlocked(player,skill):reasons.append("연구 필요: "+str(skill.name))
 			if float(_unit.get("energy",0))<float(skill.energy):reasons.append("에너지 부족")
+			if float(skill.get("hp_cost",0))>0 and float(_unit.hp)<=float(skill.hp_cost):reasons.append("체력%d 초과 필요"%int(skill.hp_cost))
 			var remaining=float(_unit.get("skill_ready",{}).get(str(skill.id),0))-float(main.state.time)
 			if skill.id=="mind_control":remaining=maxf(remaining,float(_unit.get("ability_cd",0)))
 			if remaining>0:reasons.append("재사용 대기 %d초"%ceili(remaining))
@@ -1596,7 +1608,8 @@ func _draw() -> void:
 	if _frame_art.size()==3 and _frame_art[race]!=null:
 		draw_texture_rect_region(_frame_art[race],shell_draw_rect(),Rect2(_frame_source_regions[race]))
 	# Clear painted/filtered slivers inside the known aperture after the shell.
-	draw_rect(_minimap_frame_rect().grow(-.5),Color("101517"))
+	if race!=1 or not "hud_citrus_wood_new_20261024" in _frame_art[race].resource_path:
+		draw_rect(_minimap_frame_rect().grow(-.5),Color("101517"))
 	if main.has_method("_render_minimap"):main._render_minimap(self)
 	draw_rect(mini.grow(.25),Color("101517"),false,1.5)
 	var content=_detail_content_rect()
@@ -1662,6 +1675,7 @@ func _skill_tip(skill: Dictionary) -> String:
 	if not ACAbilities.unlocked(player,skill):lines.append(str(ACData.building(int(skill.race),int(skill.building)).name)+" 연구 필요")
 	if skill.id=="sap_heal":return "자동 치료 · 반경 4\n체력 초당 8 회복 · 마나 초당 4\n클릭하여 자동 치료 켜기/끄기"
 	var cost="에너지 %d · "%int(skill.energy) if float(skill.energy)>0 else ""
+	if float(skill.get("hp_cost",0))>0:cost+="체력 %d · "%int(skill.hp_cost)
 	lines.append(cost+"사거리 %s · 재사용 %d초"%[_number(float(skill.range)),int(skill.cooldown)])
 	lines.append(ACAbilities.description(str(skill.id)))
 	return "\n".join(lines)

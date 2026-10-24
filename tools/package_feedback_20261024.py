@@ -9,6 +9,7 @@ if not re.fullmatch(r'[a-z0-9_-]{1,80}',folder) or not re.fullmatch(r'[a-z0-9_-]
 out=root/'build'/folder
 name='AsteraCraft-Windows-'+tag+'.zip'
 files=['AsteraCraft.exe','AsteraCraft.pck','libwebrtc_native.windows.template_release.x86_64.dll','README.txt','game_icon.ico']
+if (out/'LICENSES-LevelUp.txt').is_file():files.append('LICENSES-LevelUp.txt')
 archive=out/name
 with ZipFile(archive,'w',compression=ZIP_DEFLATED,compresslevel=1,allowZip64=True) as z:
     for item in files:z.write(out/item,item)

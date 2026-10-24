@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-24",
+  "tool": "built-in image_gen",
+  "approval": "User explicitly requested passive research and new icons to be made and applied",
+  "icons": [
+    {
+      "id": "frontline_vitality",
+      "race": 0,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. A rugged yellow-and-black industrial infantry armored breastplate with one clear bright red medical PLUS badge. Health/maximum vitality upgrade. No face, no gun.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-04612340-7c9b-40ef-b351-ba54cabd4743.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/frontline_vitality.png"
+    },
+    {
+      "id": "missile_autoloader",
+      "race": 0,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. A yellow-black mechanical missile autoloader: two short silver missiles inside a circular steel feed mechanism with a small clear clockwise amber motion arc. Attack rate upgrade. No text, no gun fire.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-785b185f-1a72-4888-87dc-681fa4d1075d.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/missile_autoloader.png"
+    },
+    {
+      "id": "transport_thrusters",
+      "race": 0,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. Twin compact yellow-black aircraft engine nozzles with vivid cyan exhaust trails angled straight back, chunky industrial steel. Movement speed upgrade, no vehicle body.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-338734f8-3a0f-4532-8e3c-1263078d8be3.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/transport_thrusters.png"
+    },
+    {
+      "id": "claw_overdrive",
+      "race": 1,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. Three serrated green leaf-and-bark claws with orange rind armored roots, a vivid cyan nerve node and three short repeating amber slash streaks. Faster melee attack research.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-674c92a9-b8e0-45cd-96d4-f4f3e29d9599.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/claw_overdrive.png"
+    },
+    {
+      "id": "root_range",
+      "race": 1,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. A single long tapered wooden vine spear wrapped with deep green leaf fibers, orange sap jewel at base, a cyan tip reaching toward a small distant target ring. Increased reach, not a bow or human weapon.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-a6de24bd-63ec-4ab3-91e5-33dcf1314416.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/root_range.png"
+    },
+    {
+      "id": "guardian_march",
+      "race": 2,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. A pair of elegant ivory-and-gold armored owl talon boots seen in a clear forward stride, crimson cloth and pale gold speed streaks behind. Movement speed upgrade, no human feet or faces.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-3a171643-4b89-4416-9399-d5b4f1b674a3.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/guardian_march.png"
+    },
+    {
+      "id": "golem_range",
+      "race": 2,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. An ivory stone-and-gold owl-style crystalline cannon barrel with a ruby-red crystal at the muzzle and a single narrow red trajectory extending toward a tiny distant target ring. Range upgrade, no full unit or faces.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-287e3488-62b6-45ca-a2d5-b151c8b63032.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/golem_range.png"
+    },
+    {
+      "id": "flamer_range",
+      "race": 0,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. A yellow-black industrial flame nozzle emitting one compact extended orange flame tongue toward a distant small amber target ring. Longer flamethrower reach, heavy steel shape, no vehicle or character.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-5dc94b67-8d1b-444f-b003-3cb35e411071.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/flamer_range.png"
+    },
+    {
+      "id": "bomb_shell",
+      "race": 1,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. A thick layered orange tangerine shell with deep green leaf armor wrapped protectively around a small glowing orange core, a small cyan reinforcing clasp. Tougher living explosive shell/health upgrade. No blast, no faces.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-6d13ad01-a50e-4b8c-99c1-12e2471ce46c.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/bomb_shell.png"
+    },
+    {
+      "id": "bat_range",
+      "race": 1,
+      "prompt": "Use case: stylized-concept. Asset type: ONE newly painted square RTS research command icon, transparent RGBA background. Use the attached icon ONLY as a faction material/palette and clarity reference, do not reuse or copy its exact shield shape. One bold, immediately recognizable centered upgrade emblem with rich hand-painted realistic 2.5D detail, strong silhouette, dark edge contrast. It must read clearly at48x48px. Occupy the central76% square, leave at least12% completely transparent margin on ALL sides. No enclosing frame, no buttons, no scene or backdrop, no ground shadow, no letters, numbers, text, labels, watermark or other icons. Never clip a tip or place stray dots outside emblem. No sprite atlas, exactly ONE icon in this image. Two green veined membrane wing tips framing a bright orange biomechanical sensing organ, one cyan lens projecting a long narrow teal targeting line to a small target ring. Citrus flying creature range upgrade, no dragon or mammal face.",
+      "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-e3ec5a21-bc9f-4f6c-a7cb-20e8265a7e02.png",
+      "runtime": "res://assets/ui/passive_upgrades_20261024/bat_range.png"
+    }
+  ]
+}

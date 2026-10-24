@@ -19,6 +19,11 @@ var button_art_path := ""
 var _last_size := Vector2.ZERO
 var title_art: Texture2D
 var _shade: GradientTexture2D
+var update_panel: PanelContainer
+var update_label: Label
+var update_button: Button
+var update_bar: ProgressBar
+var updater: Node
 
 func configure(controller: Control) -> void:
 	main=controller
@@ -39,6 +44,9 @@ func configure(controller: Control) -> void:
 	choose_background()
 	_load_button_art()
 	_build_navigation()
+	if main.has_method("_game_updater"):
+		updater=main._game_updater()
+		if updater.install_enabled:_build_update_panel()
 	_layout()
 	set_process(true)
 	queue_redraw()
@@ -150,7 +158,29 @@ func _layout() -> void:
 		nav_buttons[index].position=Vector2(58,top+index*spacing)
 		nav_buttons[index].size=Vector2(BUTTON_WIDTH,BUTTON_HEIGHT)
 	_last_size=size
+	if update_panel!=null:update_panel.position=Vector2(maxf(12,size.x-444),maxf(12,size.y-145));update_panel.size=Vector2(420,120)
 	queue_redraw()
+
+func _build_update_panel() -> void:
+	update_panel=PanelContainer.new();add_child(update_panel)
+	var plate=StyleBoxFlat.new();plate.bg_color=Color(.025,.035,.04,.93);plate.border_color=Color("967c45");plate.set_border_width_all(1);plate.set_corner_radius_all(6);plate.set_content_margin_all(14)
+	update_panel.add_theme_stylebox_override("panel",plate)
+	var column=VBoxContainer.new();column.add_theme_constant_override("separation",7);update_panel.add_child(column)
+	update_label=Label.new();update_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;update_label.custom_minimum_size=Vector2(390,36);update_label.add_theme_font_size_override("font_size",14);column.add_child(update_label)
+	update_bar=ProgressBar.new();update_bar.custom_minimum_size=Vector2(390,8);update_bar.show_percentage=false;column.add_child(update_bar)
+	update_button=Button.new();update_button.custom_minimum_size=Vector2(0,34);update_button.add_theme_font_size_override("font_size",14);column.add_child(update_button)
+	update_button.pressed.connect(func():updater.activate())
+	updater.changed.connect(_refresh_update_panel)
+	_refresh_update_panel()
+
+func _refresh_update_panel() -> void:
+	if update_panel==null or not is_instance_valid(update_panel):return
+	update_label.text=str(updater.message)
+	var busy=updater.state in ["checking","downloading","verifying","installing"]
+	update_button.disabled=busy
+	update_button.text="업데이트" if updater.state=="available" else "업데이트하고 다시 시작" if updater.state=="ready" else "다시 시도" if updater.state in ["failed","error"] else "확인 중…" if busy else "새 버전 확인"
+	update_bar.visible=updater.state in ["downloading","verifying","ready","installing"]
+	update_bar.value=float(updater.progress)*100
 
 func _process(_dt: float) -> void:
 	if size!=_last_size:_layout()

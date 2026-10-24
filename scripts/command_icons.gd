@@ -43,5 +43,10 @@ func skill(race: int, id: String) -> Texture2D:
 	return texture(race,"commands",16+index) if index>=0 else null
 
 func research(race: int, id: String) -> Texture2D:
+	var custom="res://assets/ui/passive_upgrades_20261024/"+id+".png"
+	if ResourceLoader.exists(custom):
+		if not _frames.has(custom):_frames[custom]=load(custom)
+		return _frames[custom]
+	if race==0 and id=="frontline_vitality":return texture(0,"commands",27)
 	var index={"attack":26,"armor":27,"shield":28}.get(id,-1)
 	return texture(race,"commands",int(index)) if index>=0 else skill(race,id)

@@ -6,9 +6,9 @@ static func catalog(race: int, kind: int) -> Array:
 
 static func description(key: String) -> String:
 	return {
-		"stim":"아군 바이오닉 1기를 7초간 강화: 이동 +25%, 공격 주기 -25%.",
+		"stim":"자신 체력10 소모 · 7초간 이동 +25%, 공격 주기 -25%\n체력10 이하 사용 불가",
 		"smoke":"6초간 연막 안 아군이 받는 일반 공격 피해 35% 감소.",
-		"nuclear":"상승 4초 → 조준 11초 → 낙하 3초\n반경 5 · 최대 1,350 피해 · 유도 중 이동 불가",
+		"nuclear":"상승 4초 → 조준 11초 → 낙하 3초\n반경 5 · 최대 1,350 피해 · 자신과 아군도 피해\n유도 중 이동 불가",
 		"scan":"8초 동안 반경 10의 시야를 확보합니다.",
 		"overcharge":"0.5초 후 지정 지점 반경 1.5의 지상 적에게 100 피해.",
 		"field_repair":"6초간 정지하여 초당 체력 25 회복. 이동 명령 시 중단.",
@@ -71,7 +71,7 @@ static func use(c,u: Dictionary,key: String,point: Vector2,target_id: int=-1) ->
 		point=c.center(target)
 	if str(s.target)!="self" and c.center(u).distance_to(point)>float(s.range):return "기술 사거리 밖입니다"
 	if key=="mind_control":return c._mind_control(u,int(target.id))
-	if key=="stim" and ACData.unit(int(target.race),int(target.kind)).get("material","")!="biological":return "바이오닉 유닛에게만 사용할 수 있습니다"
+	if key=="stim" and float(u.hp)<=10:return "체력이10보다 높아야 합니다"
 	if key=="bind" and float(target.get("control_guard_until",0))>c.time:return "대상이 구속 저항 중입니다"
 	if key=="root_surge" and not u.anchored:return "뿌리내린 상태에서 사용하세요"
 	if key=="nuclear" and int(player.get("nukes",0))<=0:return "전술정보국에서 핵미사일을 생산하세요"
@@ -83,7 +83,7 @@ static func use(c,u: Dictionary,key: String,point: Vector2,target_id: int=-1) ->
 	u.skill_ready[key]=c.time+float(s.cooldown)
 	u.fired=c.time;u._aiming=true
 	match key:
-		"stim":target.stim_until=c.time+7
+		"stim":u.hp-=10;u.stim_until=c.time+7
 		"smoke","discipline":
 			c.ability_zones.append({"owner":u.owner,"caster":u.id,"skill":key,"pos":ACData.packed(point),"until":c.time+6,"next":c.time})
 			effect(c,u,key,point,6)
@@ -143,7 +143,7 @@ static func update(c,dt: float) -> void:
 	c.reveals=c.reveals.filter(func(r):return float(r.until)>c.time)
 	for u in c.units:
 		if float(u.get("ward_until",0))<=c.time:u.ward=0.0
-		if float(u.get("self_repair_until",0))>c.time and u.hp>0:u.hp=minf(ACData.unit(int(u.race),int(u.kind)).hp,float(u.hp)+dt*25)
+		if float(u.get("self_repair_until",0))>c.time and u.hp>0:u.hp=minf(ACData.max_health(u,c.players),float(u.hp)+dt*25)
 		var channel: Dictionary=u.get("channel",{})
 		if channel.is_empty():continue
 		if u.hp<=0 or u.order!="channel" or int(u.owner)!=int(channel.owner) or float(u.get("silenced_until",0))>c.time:
@@ -179,7 +179,8 @@ static func update(c,dt: float) -> void:
 		var query_center=(c.center(caster)+point)*.5 if key=="verdict" else point
 		var query_radius=c.center(caster).distance_to(point)*.5+2 if key=="verdict" else radius+2
 		for target in c._query_entities(query_center,query_radius):
-			if target.hp<=0 or target.get("container",-1)>=0 or c.allied(int(event.owner),int(target.owner)):continue
+			if target.hp<=0 or target.get("container",-1)>=0:continue
+			if key!="nuclear" and c.allied(int(event.owner),int(target.owner)):continue
 			if key in ["root_surge","shockwave","overcharge"] and not target.has("progress") and ACData.unit(int(target.race),int(target.kind)).air:continue
 			var distance=c.center(target).distance_to(point)
 			if key=="verdict":
@@ -187,7 +188,7 @@ static func update(c,dt: float) -> void:
 				if delta.dot(axis)<0 or delta.dot(axis)>11 or absf(delta.cross(axis))>1:continue
 			elif distance>radius:continue
 			var amount=damage*clampf(1-distance/radius*.65,.25,1) if key=="nuclear" else damage
-			c._damage(caster,target,amount,false,"spell")
+			c._damage(caster,target,amount,false,"nuclear" if key=="nuclear" else "spell")
 			if key in ["root_surge","shockwave"]:target.slow_until=c.time+2
 		var visual_source={"id":caster.id,"owner":event.owner,"race":0,"kind":7,"pos":event.pos} if key=="nuclear" else caster
 		effect(c,visual_source,key,point,16.0 if key=="nuclear" else .8,{"radius":radius})

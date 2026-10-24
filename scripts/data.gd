@@ -3,6 +3,8 @@ extends RefCounted
 
 static var content: Dictionary = {}
 static var clearance_templates: Dictionary={}
+static var _unit_research: Dictionary={}
+static var _effective_units: Dictionary={}
 
 static func clearance_template(theme: int, size: Vector2i, walk_masks_sha256: String="") -> Array:
 	if clearance_templates.is_empty():
@@ -26,6 +28,42 @@ static func unit(race: int, kind: int) -> Dictionary:
 
 static func building(race: int, kind: int) -> Dictionary:
 	return get_data().buildings[race][kind]
+
+static func max_health(entity: Dictionary,players: Array=[]) -> float:
+	# Public snapshots carry the visible cap without exposing enemy research.
+	if entity.has("max_hp"):return float(entity.max_hp)
+	return float(building(int(entity.race),int(entity.kind)).hp) if entity.has("progress") else float(entity_unit(entity,players).hp)
+
+static func unit_research(race: int,kind: int) -> Dictionary:
+	if _unit_research.is_empty():
+		for entry in get_data().get("research",[]):
+			if entry.has("unit_kind"):_unit_research["%d:%d"%[int(entry.race),int(entry.unit_kind)]]=entry
+	return _unit_research.get("%d:%d"%[race,kind],{})
+
+static func unit_for_player(race: int,kind: int,player: Dictionary) -> Dictionary:
+	var base=unit(race,kind);var research=unit_research(race,kind)
+	if research.is_empty() or int(player.get("technologies",{}).get(research.id,0))<=0:return base
+	var key=str(research.id)
+	if not _effective_units.has(key):
+		var effective=base.duplicate();var stat=str(research.stat)
+		effective[stat]=float(base[stat])*float(research.get("multiply",1))+float(research.get("add",0))
+		effective._research_id=key
+		_effective_units[key]=effective
+	return _effective_units[key]
+
+static func entity_unit(entity: Dictionary,players: Array=[]) -> Dictionary:
+	if entity.has("_definition"):return entity._definition
+	var race=int(entity.race);var kind=int(entity.kind)
+	if entity.has("effective_stats"):
+		var key="visible:%d:%d:%s"%[race,kind,str(entity.effective_stats)]
+		if not _effective_units.has(key):
+			var effective=unit(race,kind).duplicate()
+			for stat in ["hp","speed","range","period"]:
+				if entity.effective_stats.has(stat):effective[stat]=entity.effective_stats[stat]
+			_effective_units[key]=effective
+		return _effective_units[key]
+	var owner=int(entity.get("owner",-1))
+	return unit_for_player(race,kind,players[owner]) if owner>=0 and owner<players.size() else unit(race,kind)
 
 static func unit_count(race: int) -> int:
 	return get_data().units[race].size()

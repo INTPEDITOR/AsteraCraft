@@ -91,7 +91,7 @@ static func tick(c, owner: int) -> void:
 		if enemy.hp>0 and not c.allied(owner,int(enemy.owner)) and c.can_see(owner,enemy):visible.append(enemy)
 	var enemy_air=0
 	for e in visible:
-		if not e.has("progress") and ACData.unit(int(e.race),int(e.kind)).air:enemy_air+=1
+		if not e.has("progress") and c.unit_data(e).air:enemy_air+=1
 	for b in c.buildings:
 		if int(b.owner)!=owner or b.progress<1 or b.hp<=0 or b.queue.size()>=2:continue
 		if not c.building_powered(b):continue
@@ -117,7 +117,15 @@ static func tick(c, owner: int) -> void:
 	if level>0 and army.size()>=8 and available_resources(c,owner)==Vector2(p.as,p.tera):
 		for b in c.buildings:
 			if int(b.owner)!=owner or b.progress<1 or b.research!="":continue
-			for stat in ["attack","armor","shield"]:
+			var choices=[]
+			for item in ACResearch.catalog(int(b.race),int(b.kind)):
+				if not item.has("unit_kind") or ACResearch.level(p,str(item.id))>0:continue
+				var count=0
+				for unit in c.units:
+					if int(unit.owner)==owner and int(unit.race)==int(item.race) and int(unit.kind)==int(item.unit_kind) and unit.hp>0:count+=1
+				if count>=(1 if ACData.unit(int(item.race),int(item.unit_kind)).role=="transport" else 3):choices.append(str(item.id))
+			choices.append_array(["attack","armor","shield"])
+			for stat in choices:
 				if c.command(owner,{"type":"research","id":b.id,"stat":stat})=="":break
 	var headquarters_cost=float(ACData.building(race,0).get("as",400))
 	if c.time>=float(profile.expand) and workers.size()>=int(profile.workers)-2 and bases.size()<int(profile.bases) and available_resources(c,owner).x>=headquarters_cost+100:
@@ -300,7 +308,7 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 			if enemy.has("progress") and c.center(enemy).distance_to(home)<distance:distance=c.center(enemy).distance_to(home);target=enemy
 	var fighting=0
 	for u in army:
-		if ACData.unit(int(u.race),int(u.kind)).damage>0:fighting+=1
+		if c.unit_data(u).damage>0:fighting+=1
 	var slot=posmod(int(p.spawn_slot)+1+int(p.ai_goal),4)
 	if slot==int(p.spawn_slot):p.ai_goal=(int(p.ai_goal)+1)%3;slot=posmod(int(p.spawn_slot)+1+int(p.ai_goal),4)
 	var goal: Vector2=c.center(target) if not target.is_empty() else ACData.point(c.map.starts[slot])
@@ -315,7 +323,7 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 	var attack=not wave.is_empty()
 	var ready=0
 	for u in army:
-		if float(ACData.unit(int(u.race),int(u.kind)).damage)>0 and c.center(u).distance_squared_to(rally)<=64:ready+=1
+		if float(c.unit_data(u).damage)>0 and c.center(u).distance_squared_to(rally)<=64:ready+=1
 	var threshold=int(profile.attack)+mini(16,floori(c.time/600)*4)
 	if not defend and not attack and fighting>=threshold and ready>=ceili(fighting*float(profile.assembly)):
 		for u in army:
@@ -323,13 +331,13 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 		p._ai_wave_size=wave.size();attack=true
 	p._ai_wave=wave
 	for u in army:
-		var d=ACData.unit(int(u.race),int(u.kind))
+		var d=c.unit_data(u)
 		if d.role=="parasite" and float(u.energy)>=200 and float(u.ability_cd)<=0:
 			var choice: Dictionary={};var value=-1.0
 			for enemy in visible:
 				if enemy.has("progress") or enemy.hp<=0 or enemy.get("technical",false) or enemy.get("container",-1)>=0 or not enemy.get("cargo",[]).is_empty() or c.allied(owner,int(enemy.owner)):continue
 				if c.center(u).distance_squared_to(c.center(enemy))>36:continue
-				var ed=ACData.unit(int(enemy.race),int(enemy.kind));var worth=float(ed.get("as",0))+float(ed.get("tera",0))*1.5
+				var ed=c.unit_data(enemy);var worth=float(ed.get("as",0))+float(ed.get("tera",0))*1.5
 				if worth>value:value=worth;choice=enemy
 			if not choice.is_empty():c._mind_control(u,int(choice.id))
 		if int(u.race)==0 and int(u.kind)==7 and not u.get("cloak_active",false) and float(u.energy)>=30 and (attack or c.time-float(u.damaged)<5):c._ability(u,c.center(u))

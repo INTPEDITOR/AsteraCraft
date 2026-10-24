@@ -51,7 +51,7 @@ func load_catalogs() -> void:
 				var definition: Dictionary=buildings.get(str(key),{"directions":1,"actions":{}}).duplicate(true)
 				definition.actions.construction=clip
 				buildings[str(key)]=definition
-	for effect_path in ["res://data/art_v062_effects.json","res://data/art_v062_nuclear.json"]:
+	for effect_path in ["res://data/art_v062_effects.json","res://data/art_v062_nuclear.json","res://data/art_nuclear_stable_20261024.json"]:
 		if not FileAccess.file_exists(effect_path):continue
 		var catalog=JSON.parse_string(FileAccess.get_file_as_string(effect_path))
 		if catalog is Dictionary:

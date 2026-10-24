@@ -1,0 +1,490 @@
+{
+  "terrain": [
+    {
+      "build_ms": 11333.787,
+      "source_cells": 51538,
+      "theme": 0,
+      "unchanged_navigation_and_resources": true,
+      "vertices": 1876625,
+      "water_minitiles": 13367,
+      "water_rock_or_bridge_conflicts": 0
+    },
+    {
+      "build_ms": 10621.34,
+      "source_cells": 38275,
+      "theme": 1,
+      "unchanged_navigation_and_resources": true,
+      "vertices": 1729107,
+      "water_minitiles": 6003,
+      "water_rock_or_bridge_conflicts": 0
+    },
+    {
+      "build_ms": 11074.864,
+      "source_cells": 53017,
+      "theme": 2,
+      "unchanged_navigation_and_resources": true,
+      "vertices": 1904262,
+      "water_minitiles": 31456,
+      "water_rock_or_bridge_conflicts": 0
+    }
+  ],
+  "navigation": {
+    "checks": 786720,
+    "failures": [],
+    "maps": [
+      {
+        "ramps": 12,
+        "recovered_walk_minitiles": 9757,
+        "theme": 0,
+        "traversals": 24
+      },
+      {
+        "ramps": 6,
+        "recovered_walk_minitiles": 6509,
+        "theme": 1,
+        "traversals": 12
+      },
+      {
+        "ramps": 4,
+        "recovered_walk_minitiles": 8986,
+        "theme": 2,
+        "traversals": 8
+      }
+    ]
+  },
+  "original": {
+    "checks": 246132,
+    "failures": [],
+    "maps": [
+      {
+        "id": 0,
+        "name": "투혼 1.4",
+        "source": "(4) 투혼1.4.scm",
+        "exact_tiles": 16384,
+        "water_tiles": 257,
+        "ramps": 12,
+        "source_intentional_rotation_mismatches": 2286,
+        "starts": [
+          [
+            119,
+            8.5
+          ],
+          [
+            9,
+            7.5
+          ],
+          [
+            9,
+            117.5
+          ],
+          [
+            119,
+            118.5
+          ]
+        ],
+        "resources": 122
+      },
+      {
+        "id": 1,
+        "name": "파이썬 1.3",
+        "source": "(4)Python 1.3(o).scx",
+        "exact_tiles": 16384,
+        "water_tiles": 176,
+        "ramps": 6,
+        "source_intentional_rotation_mismatches": 1552,
+        "starts": [
+          [
+            85,
+            7.5
+          ],
+          [
+            118,
+            41.5
+          ],
+          [
+            44,
+            120.5
+          ],
+          [
+            10,
+            86.5
+          ]
+        ],
+        "resources": 122
+      },
+      {
+        "id": 2,
+        "name": "로스트템플 2.4",
+        "source": "(4)Lost Temple 2.4 PGT.scm",
+        "exact_tiles": 16384,
+        "water_tiles": 1116,
+        "ramps": 4,
+        "source_intentional_rotation_mismatches": 8812,
+        "starts": [
+          [
+            9,
+            88.5
+          ],
+          [
+            29,
+            119.5
+          ],
+          [
+            59,
+            7.5
+          ],
+          [
+            119,
+            28.5
+          ]
+        ],
+        "resources": 114
+      }
+    ],
+    "policy": "Preserve authored water/walls/heights/ramps and intentional source asymmetry; no original image pixels copied"
+  },
+  "visual": {
+    "checks": 199,
+    "display": "Windows",
+    "failures": [],
+    "passed": true,
+    "scope": "Screenshot-driven rendering fixes; full art review remains incomplete"
+  },
+  "feedback": {
+    "checks": 47,
+    "failures": [],
+    "resources": [
+      {
+        "id": 100009,
+        "pos": [
+          2.5,
+          5
+        ],
+        "rect": [
+          84,
+          79.3991012573242,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100011,
+        "pos": [
+          1.5,
+          6
+        ],
+        "rect": [
+          28,
+          135.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100013,
+        "pos": [
+          2.5,
+          7
+        ],
+        "rect": [
+          84,
+          191.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100015,
+        "pos": [
+          2.5,
+          8
+        ],
+        "rect": [
+          84,
+          247.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100018,
+        "pos": [
+          1.5,
+          9
+        ],
+        "rect": [
+          28,
+          303.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100021,
+        "pos": [
+          2.5,
+          10
+        ],
+        "rect": [
+          84,
+          359.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100024,
+        "pos": [
+          2.5,
+          11
+        ],
+        "rect": [
+          84,
+          415.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100027,
+        "pos": [
+          5.5,
+          12
+        ],
+        "rect": [
+          252,
+          471.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100028,
+        "pos": [
+          3.5,
+          12
+        ],
+        "rect": [
+          140,
+          471.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100108,
+        "pos": [
+          8.5,
+          1.5
+        ],
+        "rect": [
+          364,
+          -91,
+          224,
+          112
+        ],
+        "retained": true
+      }
+    ]
+  },
+  "nuclear": {
+    "checks": 27,
+    "failures": [],
+    "fixed_origin": "(800.0, 623.0)",
+    "fixed_scale": "(640.0, 640.0)",
+    "frames": 24,
+    "minimaps": [
+      {
+        "hole": "[P: (52.16505, 681.5588), S: (177.6872, 177.6872)]",
+        "map": "[P: (58.38412, 687.7779), S: (165.2491, 165.2491)]",
+        "race": 0
+      },
+      {
+        "hole": "[P: (43.97801, 684.8192), S: (195.1024, 168.8119)]",
+        "map": "[P: (63.03169, 690.7275), S: (156.9951, 156.9951)]",
+        "race": 1
+      },
+      {
+        "hole": "[P: (52.16505, 681.5588), S: (177.6872, 177.6872)]",
+        "map": "[P: (58.38412, 687.7779), S: (165.2491, 165.2491)]",
+        "race": 2
+      }
+    ]
+  },
+  "friendlyFire": {
+    "checks": 7,
+    "damage": 999,
+    "failures": [],
+    "ordinary_friendly_spell_protection": true,
+    "radius": 5
+  },
+  "bat": {
+    "checks": 93,
+    "displacement": "(3.109001, -3.109001)",
+    "failures": [],
+    "original_atlases_unchanged": true,
+    "unit": "1:10"
+  },
+  "stim": {
+    "attack_period_multiplier": 0.75,
+    "casters": [
+      1,
+      2
+    ],
+    "checks": 19,
+    "duration": 7,
+    "failures": [],
+    "hp_cost": 10,
+    "minimum_hp_exclusive": 10,
+    "speed_multiplier": 1.25
+  },
+  "contact": {
+    "checks": 88,
+    "failures": [],
+    "ground_types": 31,
+    "headings": 8,
+    "scope": "31 ground types representative contact gallery, tank contact registration eight headings/five deploy phases; all frames not a full art audit"
+  },
+  "startup": {
+    "checks": 10,
+    "failures": []
+  },
+  "font": {
+    "buttons_measured": 25,
+    "checks": 88,
+    "failures": [],
+    "font": "LevelUp Regular, user ZIP, SIL OFL1.1"
+  },
+  "finalScreen": {
+    "checks": 11,
+    "display": "Windows",
+    "failures": [],
+    "passed": true
+  },
+  "passives": {
+    "checks": 187,
+    "failures": [],
+    "movement": [
+      {
+        "actual": 0.504001617431641,
+        "expected": 0.504,
+        "unit": "0:11"
+      },
+      {
+        "actual": 0.377998352050781,
+        "expected": 0.378,
+        "unit": "2:1"
+      }
+    ],
+    "range_attacks": [
+      {
+        "distance": 4.9,
+        "fired": 10,
+        "unit": "1:5"
+      },
+      {
+        "distance": 4.2,
+        "fired": 10,
+        "unit": "2:7"
+      },
+      {
+        "distance": 4.4,
+        "fired": 10,
+        "unit": "0:13"
+      },
+      {
+        "distance": 5,
+        "fired": 10,
+        "unit": "1:10"
+      }
+    ],
+    "units": 10
+  },
+  "passiveIcons": {
+    "checks": 10,
+    "failures": [],
+    "icons": 10,
+    "separate_files_prevent_atlas_neighbor_bleed": true
+  },
+  "frontline": {
+    "base_hp": 70,
+    "building": "0:3",
+    "checks": 29,
+    "cost": [
+      100,
+      100
+    ],
+    "failures": [],
+    "other_passives_added": false,
+    "researched_hp": 85,
+    "time": 45,
+    "unit": "0:1"
+  },
+  "updaterController": {
+    "automatic_attempts_per_process": 1,
+    "checks": 20,
+    "failed_tag_requires_manual_retry": true,
+    "failures": [],
+    "ordinary_match_can_continue": true
+  },
+  "updaterWindows": {
+    "passed": true,
+    "checks": 64,
+    "cases": 8,
+    "scope": "Real Windows helper exercised on disposable files: verified install, digest rejection, path/entry allowlist, duplicates, missing files, interrupted-copy rollback and saved terminal state; restart confirmation tested separately with exported game"
+  },
+  "updaterFeed": {
+    "passed": true,
+    "scope": "Actual official GitHub release metadata over Godot HTTPS only; no archive download or installation",
+    "state": "available",
+    "target": {
+      "bytes": 1308911571,
+      "sha256": "d6eba1b9cfac3342d1de7ba5ae6c27f426731ca7308b3a00ee1f8310b036341b",
+      "tag": "feedback2-20261024",
+      "url": "https://github.com/INTPEDITOR/AsteraCraft/releases/download/feedback2-20261024/AsteraCraft-Windows-feedback2-20261024.zip"
+    }
+  },
+  "updaterExported": {
+    "passed": true,
+    "checks": 11,
+    "elapsed_seconds": 23.26,
+    "phase": "confirmed",
+    "tag": "feedback3-20261024",
+    "scope": "Actual Windows helper replaces a disposable feedback2 installation with the final feedback3 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+  },
+  "updaterBootRollback": {
+    "passed": true,
+    "checks": 7,
+    "new_start_attempts": 1,
+    "recovery_start_attempts": 1,
+    "phase": "failed",
+    "scope": "Real Windows helper launched a deliberately crashing self-authored executable, restored all previous files, persisted failure and restarted the previous test executable exactly once."
+  },
+  "exportedSmoke": {
+    "passed": true,
+    "exit_code": 0,
+    "elapsed_ms": 26923,
+    "loading_art_textures": 30,
+    "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+  },
+  "passiveBot": {
+    "checks": 9,
+    "failures": [],
+    "passed": true,
+    "scope": "Three-race AI queues and pays for an appropriate army passive, then completes its actual research."
+  },
+  "limitations": {
+    "nuclear_audio": "New VARCO candidates could not play/download; old sound retained. Computer Use stopped on Windows URL validation.",
+    "network": "No new Internet/LAN validation in this feedback batch; protocol/payload unchanged. Authoritative public match host runs the elected player build.",
+    "legacyMenu": "menu_v04_test was also attempted:13 failures/66 checks. It still assumes108 resources, four lobby slots and an older result/replay fixture. Its replay fixture emitted decompression/missing-resource errors. Those runtime replay paths were not changed in this batch; no claim of replay validation."
+  }
+}

@@ -35,7 +35,13 @@ func run():
 				var label="map %d ramp %s kind %d"%[theme,ramp.center,kind]
 				check(not route.is_empty(),"route "+label)
 				if route.is_empty():continue
-				var start=ACData.point(route[0]);var goal=ACData.point(route[-1])
+				# Shortened movement paths omit the starting point. Read the same
+				# snapped entrance from the clearance grid instead of mistaking
+				# the first (often final) waypoint for the ramp's entry landing.
+				var dimensions=c._body_size(unit)
+				var nav: AStarGrid2D=c.clearance_paths[Vector2i((dimensions*16).ceil())]
+				var start=Vector2(c._clearance_free(nav,a,dimensions,true))*nav.cell_size
+				var goal=ACData.point(route[-1])
 				check(start.distance_to(a)<3 and goal.distance_to(b)<3,"landings stay near source ramp "+label)
 				check((start-center).dot(axis)<0 and (goal-center).dot(axis)>0,"route crosses ramp "+label)
 				var previous=start

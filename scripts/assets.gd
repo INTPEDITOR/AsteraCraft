@@ -336,7 +336,26 @@ func _load_auxiliary_sprites() -> void:
 
 func vehicle(race: int,kind: int,body_direction: Vector2,turret_direction: Vector2,deploy_progress: float=0.0,action: String="idle",clock: float=0.0) -> Dictionary:
 	if sprites.has_unit(race,kind):
-		return sprites.vehicle(race,kind,body_direction,turret_direction,action,clock,deploy_progress)
+		var result=sprites.vehicle(race,kind,body_direction,turret_direction,action,clock,deploy_progress)
+		if race==0 and kind==5 and deploy_progress>0 and not siege_layers.is_empty() and not result.is_empty() and not sprites.units["0:5"].body.get("actions",{}).has("deploy"):
+			# Use the complete authored deployment, including the hull over its
+			# supports. Cutting a rectangular hull hole out of a second sprite
+			# left exposed straight cuts where its legs met the newer chassis.
+			var facing=ACData.sprite_direction(body_direction,8)
+			var stage=clampi(roundi(deploy_progress*6),0,6)
+			var entry: Dictionary=siege_layers.chassis[stage*5+int(facing.column)]
+			var chassis: Dictionary=entry.frame.duplicate()
+			var baseline: Dictionary=siege_layers.chassis[int(facing.column)]
+			chassis.scale_hint=float(result.chassis.scale_hint)*float(baseline.draw[2])/maxf(1,result.chassis.get("sprite_bounds",Rect2(Vector2.ZERO,result.chassis.cell_size)).size.x)
+			chassis.flip=bool(facing.flip);chassis.staged16=true;chassis.complete_deployment=true;chassis.action="deploy";chassis.frame=stage;chassis.stage=stage
+			# The old atlas anchor included ground-shadow padding below the
+			# support pads. Register the contact plane, keeping the selection
+			# circle fixed. Ease this fixed correction during unfolding.
+			var contact_offset=Vector2(0,32*smoothstep(0,1,deploy_progress))
+			chassis.anchor-=contact_offset
+			chassis.contact_offset=contact_offset
+			result.chassis=chassis;result.mount=ACData.point(entry.mount)*Vector2(-1 if facing.flip else 1,1)+contact_offset;result.deployment_stage=stage
+		return result
 	var key="%d:%d"%[race,kind]
 	if key=="0:5" and not siege_layers.is_empty():
 		var body_index=ACData.sprite_direction(body_direction,8);var turret_index=ACData.sprite_direction(turret_direction,8)

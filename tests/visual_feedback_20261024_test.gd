@@ -15,8 +15,8 @@ class FeedbackProbe:
 	func _draw_unit(e: Dictionary) -> void:
 		drawing_unit=int(e.id);super._draw_unit(e);drawing_unit=-1
 	func _draw_death_body(fx: Dictionary) -> void:
-		if world_canvas==_root_canvas:corpses_on_floor+=1
-		if world_canvas==_world_effect_canvas:corpses_on_overlay+=1
+		if world_canvas==_root_canvas or (world_canvas is ACPlayerOverlayCanvas and world_canvas.z_index==1):corpses_on_floor+=1
+		if world_canvas==_world_effect_canvas or (world_canvas is ACPlayerOverlayCanvas and world_canvas.z_index>1):corpses_on_overlay+=1
 		super._draw_death_body(fx)
 	func _draw_unit_frame(frame: Dictionary,point: Vector2,extent: float,color: Color=Color.WHITE) -> Rect2:
 		if frame.get("action","")=="walk":phases_seen[int(frame.frame)]=true
@@ -53,8 +53,8 @@ func run() -> void:
 		for kind in range(16 if race==0 else 14):
 			var portrait: AtlasTexture=main.battle_hud.portraits.get("%d:%d"%[race,kind])
 			check(portrait!=null and "faces_v0" in portrait.atlas.resource_path,"original portrait %d:%d"%[race,kind])
-	var old_icon: AtlasTexture=main.battle_hud._unit_texture(0,2)
-	check(old_icon.atlas.resource_path=="res://assets/icons_units_0_v060.png","clipped replacement icons use the original complete atlas again")
+	var old_icon: Texture2D=main.battle_hud._unit_texture(0,2)
+	check("clean_icons_20261024" in old_icon.resource_path,"current command icons use clean independent crops")
 	var drone=main.battle_hud._unit_texture(0,8)
 	var drone_image=drone.get_image();drone_image.save_png(OUT+"drone-current-icon.png")
 	check(drone_image.get_used_rect().has_area() and Rect2i(Vector2i.ONE*2,drone_image.get_size()-Vector2i.ONE*4).encloses(drone_image.get_used_rect()),"current two-rotor drone icon fits with transparent padding")
@@ -150,7 +150,7 @@ func run() -> void:
 	check(portrait.atlas.resource_path=="res://assets/building_portraits_v4.png","the cited natural owl building portrait keeps its exact original source")
 	check(portrait.region.size.is_equal_approx(portrait.atlas.get_size()*Vector2(.84/3.0,.52)),"the original owl building portrait crop and aspect are preserved")
 	c.units.clear();c.effects.clear();c.buildings.clear();main.selected=[];main.camera=Vector2(64,64);main.zoom=1.75
-	var tree=c.add_building(1,0,Vector2(62,62),true);tree.hp=ACData.building(1,0).hp*.35;c.time=22
+	var tree=c.add_building(1,0,Vector2(62,62),true);tree.hp=ACData.building(1,0).hp*.35;c.time=22;tree.damaged=c.time
 	await refresh();await shot("citrus-juice-damage")
 	check(main.building_damage_visual._juice_frames.size()==8,"citrus building damage uses the transparent eight-frame liquid asset")
 	check(main.projected_shadows==0,"buildings also keep only the faint round contact shadow")

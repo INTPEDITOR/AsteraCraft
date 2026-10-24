@@ -30,6 +30,8 @@ var visual_roles := PackedByteArray()
 var _visual_elevations := PackedFloat32Array()
 var _visual_vertices: Dictionary = {}
 var source_walk_masks := PackedInt32Array()
+var source_water_masks := PackedInt32Array()
+var _visual_water_fractions := PackedFloat32Array()
 var source_ramp_regions: Array = []
 var source_detail_active := false
 var _detail_prefix := PackedInt32Array()
@@ -51,6 +53,7 @@ func make(map_id: int, layout: String="source_chk_cv5_vf4") -> void:
 	_last_buildings=[]
 	visual_roles.clear()
 	source_walk_masks.clear()
+	source_water_masks.clear();_visual_water_fractions.clear()
 	source_ramp_regions.clear()
 	source_detail_active=false
 	if layout=="source_chk_cv5_vf4" and FileAccess.file_exists("res://data/original_maps.json"):
@@ -133,6 +136,16 @@ func _make_original(map_id: int) -> void:
 		source_info.collision_resolution=8
 		source_info.exact_source=true
 		source_info.geometry_policy="Original CHK/CV5/VF4 8-pixel walk masks; no terrain-opening overrides"
+	var semantics_path="res://data/source_terrain_semantics_20261024.json"
+	if FileAccess.file_exists(semantics_path):
+		var semantics=JSON.parse_string(FileAccess.get_file_as_string(semantics_path))
+		if semantics.get("source_sha256","")==FileAccess.get_sha256("res://data/original_maps.json"):
+			source_water_masks=PackedInt32Array(semantics.maps[map_id].water_masks)
+			_visual_water_fractions.resize(SIZE*SIZE)
+			for i in range(SIZE*SIZE):
+				var bits=int(source_water_masks[i]);var count=0
+				for bit in range(16):count+=int((bits&(1<<bit))!=0)
+				_visual_water_fractions[i]=count/16.0
 	_build_visual_relief()
 	for ramp in visual_ramps:ramps.append({"kind":"source","center":ACData.packed(ramp.center),"width":ramp.width})
 	_configure_navigation()
@@ -147,7 +160,7 @@ func _build_visual_relief() -> void:
 	for y in range(SIZE):
 		for x in range(SIZE):
 			var index=y*SIZE+x
-			_visual_elevations[index]=-18.0 if is_water(index) else float(height_map[index])*ELEVATION_PIXELS+(6.0 if visual_role(index)==1 else 0.0)
+			_visual_elevations[index]=lerpf(float(height_map[index])*ELEVATION_PIXELS+(6.0 if visual_role(index)==1 else 0.0),-18.0,visual_water_fraction(index))
 			if terrain[index]!=0:continue
 			for offset in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
 				var other=Vector2i(x,y)+offset
@@ -397,6 +410,10 @@ func is_water(index: int) -> bool:
 	# Water is a source terrain family, never a synonym for impassable ground.
 	# Rock doodads and plateau interiors retain their original land identity.
 	return terrain[index]==2
+
+func visual_water_fraction(index: int) -> float:
+	if index<0 or index>=terrain.size():return 0
+	return _visual_water_fractions[index] if _visual_water_fractions.size()==SIZE*SIZE else (1.0 if is_water(index) else 0.0)
 
 ## Shared visual plane for terrain, units, resources, picking and rally markers.
 ## Navigation and authored height levels remain unchanged.

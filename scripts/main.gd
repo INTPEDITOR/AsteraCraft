@@ -32,6 +32,7 @@ var world_clip: Control
 var world_canvas: Control
 var _world_effect_canvas: Control
 var _entity_canvases: Dictionary={}
+var _player_overlay_canvases: Dictionary={}
 var _selection_bodies: Dictionary={}
 var _fog_canvas: ACFogCanvas
 var _root_canvas: Control
@@ -39,6 +40,8 @@ var _object_canvas_offset=Vector2.ZERO
 var nuclear_clouds: Dictionary={}
 var world_mask: Control
 var camera_velocity=Vector2.ZERO
+var _camera_boundary_signature=-1
+var _camera_southern_rise=0.0
 var pointer_position=Vector2.INF
 var visual_previous: Dictionary={}
 var visual_current: Dictionary={}
@@ -133,6 +136,7 @@ var accept_button: Button
 var map_select: OptionButton
 var mode_select: OptionButton
 var settings: Dictionary=ACSettings.defaults()
+var game_updater: Node
 var font: Font
 
 # Dedicated server state. Only this authority owns gameplay and results.
@@ -302,6 +306,11 @@ func _option(parent: Node,items: Array,pos: Vector2,width: float,index: int,chan
 	parent.add_child(o)
 	return o
 
+func _game_updater() -> Node:
+	if game_updater==null:
+		game_updater=load("res://scripts/game_updater.gd").new();add_child(game_updater);game_updater.configure(self)
+	return game_updater
+
 func _main_menu() -> void:
 	page="main"
 	if audio!=null:audio.set_music_context(-1)
@@ -445,6 +454,8 @@ func _start_local(config: Dictionary,prepared_core: ACCore=null,prepared_map: AC
 	_stop_simulation_worker()
 	for node in _entity_canvases.values():node.queue_free()
 	_entity_canvases.clear();_entity_by_id.clear();_entity_list=[];_entity_source={}
+	for node in _player_overlay_canvases.values():node.queue_free()
+	_player_overlay_canvases.clear()
 	_placement_requested="";_placement_result={};_shot_origins.clear()
 	network_client=false
 	spectator=false
@@ -633,6 +644,8 @@ func _sync_nuclear_clouds() -> void:
 			if info.is_empty():node.configure(frames[0].atlas,frames.size())
 			else:node.configure(info.texture,int(info.count),Vector2i(int(info.columns),int(info.rows)),ACData.point(info.get("pivot",[.5,.65])))
 			if key=="nuclear":node.phase_frames=info.get("phase_frames",[])
+			node.frame_offsets=info.get("frame_offsets",[])
+			node.shader_material.set_shader_parameter("edge_feather",float(info.get("edge_feather",0)))
 			node.z_index=3102;world_canvas.add_child(node);nuclear_clouds[id]=node
 		var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0)
 		var point=_ground_point(ACData.point(fx.to))-world_clip.position
@@ -693,7 +706,7 @@ func _visual_position(unit: Dictionary) -> Vector2:
 func _visual_facing(unit: Dictionary,field: String="facing") -> Vector2:
 	# A moving aircraft's hull and pilot follow displacement, even if weapon
 	# targeting updated facing during the same simulation tick.
-	if field=="facing" and ACData.unit(int(unit.race),int(unit.kind)).air and bool(unit.get("moving",false)):
+	if field=="facing" and ACData.entity_unit(unit,state.get("players",[])).air and bool(unit.get("moving",false)):
 		field="body_direction"
 	var current=ACData.point(unit.get(field,unit.facing))
 	var id=int(unit.id)
@@ -708,7 +721,7 @@ func _update_visual_motion(dt: float) -> void:
 		var id=int(unit.id)
 		alive[id]=true
 		var position=_visual_position(unit)
-		var definition=ACData.unit(int(unit.race),int(unit.kind))
+		var definition=ACData.entity_unit(unit,state.get("players",[]))
 		var data: Dictionary=visual_motion.get(id,{"pos":position,"phase":1.0,"walking":false})
 		var distance=position.distance_to(data.pos)
 		data.pos=position
@@ -771,10 +784,21 @@ func _update_game_cursor(active: bool) -> void:
 		Input.set_custom_mouse_cursor(cursor.texture,Input.CURSOR_ARROW,cursor.hotspot)
 
 func _clamp_camera() -> void:
-	# The gameplay viewport stays over the map, including at corner starts.
-	var half=_view_rect().size/(64.0*zoom)
-	half=half.min(Vector2.ONE*ACMap.SIZE*.5)
-	camera=camera.clamp(half,Vector2.ONE*ACMap.SIZE-half)
+	# Projection is centered on the gameplay area, but terrain renders behind
+	# the top bar and the HUD. Those unequal margins require asymmetric bounds.
+	var center=_view_rect().get_center();var render=_world_render_rect()
+	var lower=(center-render.position)/(32.0*zoom)
+	var upper=Vector2.ONE*ACMap.SIZE-(render.end-center)/(32.0*zoom)
+	# The raised southern perimeter also has to reach transparent HUD gaps.
+	var signature=hash([draw_map.get_instance_id(),draw_map.render_signature])
+	if signature!=_camera_boundary_signature:
+		_camera_boundary_signature=signature;_camera_southern_rise=0.0
+		for point in draw_map.visual_boundary():
+			if point.y>=ACMap.SIZE:_camera_southern_rise=maxf(_camera_southern_rise,float(point.z))
+	upper.y-=_camera_southern_rise/32.0
+	for axis in range(2):
+		if lower[axis]>upper[axis]:lower[axis]=ACMap.SIZE*.5;upper[axis]=lower[axis]
+	camera=camera.clamp(lower,upper)
 
 func _notification(what: int) -> void:
 	if what!=NOTIFICATION_RESIZED or page!="game" or state.is_empty():return
@@ -1038,7 +1062,7 @@ func _center(e: Dictionary) -> Vector2:
 func _selection_center(unit: Dictionary) -> Vector2:
 	if _selection_bodies.has(int(unit.id)):return Rect2(_selection_bodies[int(unit.id)]).get_center()
 	if render_rects.has(int(unit.id)):return Rect2(render_rects[int(unit.id)]).get_center()
-	var d=ACData.unit(int(unit.race),int(unit.kind))
+	var d=ACData.entity_unit(unit,state.get("players",[]))
 	return _ground_point(_visual_position(unit))-Vector2(0,(22.0 if d.air else float(d.get("visual_extent",32))*.38)*zoom)
 
 func _drag_hits_unit(rect: Rect2,unit: Dictionary) -> bool:
@@ -1055,7 +1079,7 @@ func _hit_test(mouse: Vector2, own_only: bool=false) -> int:
 	for e in state.get("units",[]):
 		if e.get("container",-1)>=0 or not _visible(e) or (own_only and int(e.owner)!=local_slot):continue
 		var p=_selection_center(e)
-		var d=ACData.unit(int(e.race),int(e.kind))
+		var d=ACData.entity_unit(e,state.get("players",[]))
 		var radius=maxf(12,float(d.size)*13*zoom)
 		var rect: Rect2=render_rects.get(int(e.id),Rect2(p-Vector2.ONE*radius,Vector2.ONE*radius*2))
 		if rect.grow(3).has_point(mouse) or mouse.distance_to(p)<radius:
@@ -1071,7 +1095,7 @@ func _hit_test(mouse: Vector2, own_only: bool=false) -> int:
 	return -1
 
 func _select_army() -> void:
-	var army=state.get("units",[]).filter(func(u):return int(u.owner)==local_slot and int(u.kind)!=0 and ACData.unit(int(u.race),int(u.kind)).get("role","")!="brood" and u.get("container",-1)<0 and float(u.get("hp",0))>0)
+	var army=state.get("units",[]).filter(func(u):return int(u.owner)==local_slot and int(u.kind)!=0 and ACData.entity_unit(u,state.get("players",[])).get("role","")!="brood" and u.get("container",-1)<0 and float(u.get("hp",0))>0)
 	army.sort_custom(func(a,b):
 		var ad=ACData.point(a.pos).distance_squared_to(camera)
 		var bd=ACData.point(b.pos).distance_squared_to(camera)
@@ -1282,7 +1306,7 @@ func _issue_order(type: String,pos: Vector2,target: int) -> void:
 		if e.is_empty() or int(e.owner)!=local_slot:continue
 		if e.has("progress"):
 			if _building_accepts_rally(e):producers.append(id)
-		elif ACData.unit(int(e.race),int(e.kind)).get("role","")!="brood":troops.append(id)
+		elif ACData.entity_unit(e,state.get("players",[])).get("role","")!="brood":troops.append(id)
 	if not producers.is_empty():_set_rally(pos)
 	if troops.is_empty():return
 	if target>=0 or troops.size()<2:
@@ -1850,6 +1874,7 @@ func _draw_world() -> void:
 		var in_view=_building_screen_rect(e).intersects(view.grow(128)) if e.has("progress") else view.grow(200).has_point(point)
 		if in_view:objects.append(e);points[int(e.id)]=point
 	_sync_entity_canvases(objects,points)
+	_sync_player_overlays()
 	_world_effect_canvas.queue_redraw()
 
 func _draw_ground_remains() -> void:
@@ -1864,8 +1889,39 @@ func _draw_ground_remains() -> void:
 		world_canvas.draw_texture_rect(texture,Rect2(point-dimensions*Vector2(.5,.65),dimensions),false,Color(light,light,light,opacity))
 	for fx in state.get("effects",[]):
 		if fx.get("type","")=="death":
-			if not fx.get("airborne",false):_draw_death_body(fx)
 			if _death_is_ground(fx):_draw_effect(fx)
+
+func _sync_player_overlays() -> void:
+	var active={}
+	for fx in state.get("effects",[]):
+		if fx.get("type","")!="death" or fx.get("source_building",false):continue
+		var p=ACData.point(fx.get("to",fx.get("pos",[0,0])))
+		if not draw_map.inside(Vector2i(p)) or _fog_value(int(p.y)*128+int(p.x))==0:continue
+		_sync_player_overlay("death:%d"%int(fx.id),"death",fx,3100 if fx.get("airborne",false) else 1,active)
+	for id in selected:
+		var producer=_entity(int(id))
+		if not producer.is_empty() and _building_accepts_rally(producer):_sync_player_overlay("rally:%d"%int(id),"rally",producer,3100,active)
+	var mouse=pointer_position if pointer_position.is_finite() else get_global_mouse_position()
+	if build_kind>=0 and _can_point_world(mouse):
+		var pos=_build_position(mouse);var valid=true
+		if simulation_worker==null and core!=null and not network_client:valid=core.placement(local_slot,build_kind,pos)==""
+		elif simulation_worker!=null:
+			var key="%d:%d:%s"%[local_slot,build_kind,str(pos)]
+			if key!=_placement_requested:simulation_worker.placement(local_slot,build_kind,pos,key);_placement_requested=key
+			valid=_placement_result.get("key","")==key and _placement_result.get("valid",false)
+		_sync_player_overlay("ghost","ghost",{"owner":local_slot,"race":int(state.players[local_slot].race),"kind":build_kind,"pos":ACData.packed(pos),"valid":valid},3101,active)
+	for key in _player_overlay_canvases.keys():
+		if not active.has(key):_player_overlay_canvases[key].queue_free();_player_overlay_canvases.erase(key)
+
+func _sync_player_overlay(key: String,role: String,data: Dictionary,layer: int,active: Dictionary) -> void:
+	active[key]=true
+	if not _player_overlay_canvases.has(key):
+		var node=ACPlayerOverlayCanvas.new();node.main=self;world_canvas.add_child(node);_player_overlay_canvases[key]=node
+	var node: ACPlayerOverlayCanvas=_player_overlay_canvases[key]
+	var owner=int(data.get("owner",-1));var race=clampi(int(data.get("race",0)),0,2)
+	var color_id=int(data.get("color_id",state.players[owner].get("color_id",ACPlayerColors.NATIVE[race]) if owner>=0 and owner<state.players.size() else ACPlayerColors.NATIVE[race]))
+	node.data=data;node.role=role;node.z_index=layer;node.material=player_palette.material(race,color_id,false if role=="death" else true)
+	node.size=world_clip.size;node.queue_redraw()
 
 func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 	var active={};var now=Time.get_ticks_msec()*.001
@@ -1883,7 +1939,7 @@ func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 		if not point.is_finite():point=_ground_point(_center(e) if e.has("progress") else ACData.point(e.pos) if e.has("amount") else _visual_position(e))
 		var next_position=point-world_clip.position
 		if not node.position.is_equal_approx(next_position):node.position=next_position
-		var depth=_render_depth(e) if e.has("progress") or e.has("amount") else point.y+(10000 if ACData.unit(int(e.race),int(e.kind)).air else 0)
+		var depth=_render_depth(e) if e.has("progress") or e.has("amount") else point.y+(10000 if ACData.entity_unit(e,state.get("players",[])).air else 0)
 		var layer=clampi(roundi(depth),2,3000)
 		if node.z_index!=layer:node.z_index=layer
 		if node.bounds.has_area():render_rects[id]=Rect2(node.bounds.position+point,node.bounds.size)
@@ -1896,7 +1952,7 @@ func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 				var action=str(e.get("action","idle"))
 				if action=="idle" and _uses_wingbeat(e):action="walk"
 				var attack_duration=assets.sprites.action_length(int(e.race),int(e.kind),"attack")
-				var attack_window=minf(attack_duration,maxf(.15,float(ACData.unit(int(e.race),int(e.kind)).period)*.9))
+				var attack_window=minf(attack_duration,maxf(.15,float(ACData.entity_unit(e,state.get("players",[])).period)*.9))
 				if (not e.get("moving",false) or _moving_fire_pose(e)) and float(state.time)-float(e.get("fired",-99))<attack_window and assets.sprites.has_action(int(e.race),int(e.kind),"attack"):
 					action="attack"
 				fps=clampf(float(assets.unit_action_info(int(e.race),int(e.kind),action).get("fps",12)),4,30)
@@ -1916,37 +1972,19 @@ func _draw_world_overlay() -> void:
 		if not unit.get("beam_active",false) or unit.hp<=0:continue
 		var target=_entity(int(unit.get("beam_target",-1)))
 		if target.is_empty() or target.hp<=0 or not _visible(unit) or not _visible(target):continue
-		var end=_ground_point(_center(target))-Vector2(0,12*zoom)
 		var start=_weapon_tip(unit,_visual_position(unit),_center(target))
+		var end=_link_target_point(target,start)
 		var focus=1.0+minf(2,maxf(0,float(state.time)-float(unit.get("focus_started",state.time)))*.35)
 		var width=(1.3+focus*.4)*zoom
-		world_canvas.draw_line(start,end,Color(1,.16,.28,.18),width*3,true)
-		world_canvas.draw_line(start,end,Color(1,.34,.44,.9),width,true)
-		world_canvas.draw_line(start,end,Color(1,.91,.86,.9),width*.38,true)
-		world_canvas.draw_circle(end,(2+focus*.5)*zoom,Color(1,.28,.38,.75),true,-1,true)
+		_draw_link(start,end,width,Color(1,.28,.38),.95+.05*sin(float(state.time)*11))
 	for contact in state.get("shimmers",[]):_draw_cloak_shimmer(contact)
-	for id in selected:
-		var producer=_entity(int(id))
-		if not producer.is_empty() and _building_accepts_rally(producer):_draw_rally_beacon(producer)
 	var flame_latest={}
 	for fx in state.get("effects",[]):
 		if fx.get("projectile","")=="flame":flame_latest[int(fx.get("unit",-1))]=int(fx.id)
 	for fx in state.get("effects",[]):
-		if fx.get("type","")=="death" and fx.get("airborne",false):_draw_death_body(fx)
 		if fx.get("type","")=="death" and _death_is_ground(fx):continue
 		if fx.get("projectile","")=="flame" and flame_latest.get(int(fx.get("unit",-1)),-1)!=int(fx.id):continue
 		_draw_effect(fx)
-	var mouse=pointer_position if pointer_position.is_finite() else get_global_mouse_position()
-	if build_kind>=0 and _can_point_world(mouse):
-		var pos=_build_position(mouse)
-		var d=ACData.building(int(state.players[local_slot].race),build_kind)
-		var valid=true
-		if simulation_worker==null and core!=null and not network_client:valid=core.placement(local_slot,build_kind,pos)==""
-		elif simulation_worker!=null:
-			var key="%d:%d:%s"%[local_slot,build_kind,str(pos)]
-			if key!=_placement_requested:simulation_worker.placement(local_slot,build_kind,pos,key);_placement_requested=key
-			valid=_placement_result.get("key","")==key and _placement_result.get("valid",false)
-		_draw_building_ghost(int(state.players[local_slot].race),build_kind,pos,valid)
 	if dragging:
 		var rect=Rect2(drag_start,get_global_mouse_position()-drag_start).abs()
 		world_canvas.draw_rect(rect,Color(.2,1,.5,.07))
@@ -1993,7 +2031,10 @@ func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
 	var width=float(definition.w)*32*zoom
 	var height=width*texture.get_height()/texture.get_width()
 	var front=float(definition.h)*16*zoom
-	var tint=Color(.48,1,.66,.55) if valid else Color(1,.3,.24,.55)
+	# Neutral body tint preserves the selected pigment; only the footprint
+	# communicates valid/invalid placement, independently of the shader.
+	var tint=Color(1,1,1,.55)
+	_draw_footprint(pos,Vector2(definition.w,definition.h),Color(.3,1,.5,.75) if valid else Color(1,.25,.2,.9))
 	var authored=assets.sprites.building(race,kind,1,false,Vector2.DOWN,0)
 	if not authored.is_empty():
 		var foundation=point+Vector2(0,front)
@@ -2001,7 +2042,7 @@ func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
 		var turret=assets.sprites.building_turret(race,kind,Vector2.DOWN,0)
 		if not turret.is_empty():_draw_unit_frame(turret,foundation+authored.get("mount",Vector2.ZERO)*width/maxf(1,float(authored.scale_hint)),width,tint)
 		return
-	world_canvas.draw_texture_rect(texture,Rect2(point+Vector2(-width*.5,front-height),Vector2(width,height)),false,tint)
+	world_canvas.draw_texture_rect(player_palette.marked(texture) if not _palette_entity.is_empty() else texture,Rect2(point+Vector2(-width*.5,front-height),Vector2(width,height)),false,tint)
 
 func _render_depth(e: Dictionary) -> float:
 	if e.has("amount"):
@@ -2010,7 +2051,7 @@ func _render_depth(e: Dictionary) -> float:
 		var definition=ACData.building(int(e.race),int(e.kind))
 		return _ground_point(ACData.point(e.pos)+Vector2(float(definition.w)*.5,float(definition.h)-.5)).y
 	var point=_ground_point(_visual_position(e))
-	return point.y+(10000 if ACData.unit(int(e.race),int(e.kind)).air else 0)
+	return point.y+(10000 if ACData.entity_unit(e,state.get("players",[])).air else 0)
 
 func _building_screen_rect(e: Dictionary) -> Rect2:
 	var race=int(e.race);var kind=int(e.kind)
@@ -2120,12 +2161,12 @@ func _uses_wingbeat(e: Dictionary) -> bool:
 	return (int(e.race)==1 and int(e.kind)==10) or (int(e.race)==2 and int(e.kind)==9)
 
 func _uses_fixed_hull(e: Dictionary) -> bool:
-	var d=ACData.unit(int(e.race),int(e.kind))
+	var d=ACData.entity_unit(e,state.get("players",[]))
 	# The scout's separately authored rotor cycle is retained; jet hulls stay still.
 	return (bool(d.air) and str(d.get("material",""))=="mechanical" and not (int(e.race)==0 and int(e.kind)==8)) or (int(e.race)==1 and int(e.kind)==11) or (int(e.race)==2 and int(e.kind)==8)
 
 func _draw_unit(e: Dictionary) -> void:
-	var d=ACData.unit(int(e.race),int(e.kind))
+	var d=ACData.entity_unit(e,state.get("players",[]))
 	var foot=_ground_point(_visual_position(e))
 	var animation_clock=float(e.get("action_clock",state.time))+(minf(visual_clock,visual_step) if not paused else 0.0)
 	var action=str(e.get("action","idle"))
@@ -2179,7 +2220,7 @@ func _draw_unit(e: Dictionary) -> void:
 		world_canvas.draw_texture_rect(exhaust,Rect2(-extent*.14,-extent*.025,extent*.28,extent*.40),false,Color(1,1,1,color.a*.85))
 		_world_transform()
 	var support_rect=Rect2()
-	if int(e.race)==0 and int(e.kind)==5 and frame.get("staged16",false):
+	if int(e.race)==0 and int(e.kind)==5 and frame.get("staged16",false) and not frame.get("complete_deployment",false):
 		var supports=assets.siege_supports(_visual_facing(e,"body_direction"),_deployment_progress(e),frame)
 		if not supports.is_empty():support_rect=_draw_unit_frame(supports,sp,extent,color)
 	var rect=_draw_drone(e,sp,extent,color,animation_clock) if int(e.race)==0 and int(e.kind)==8 and not assets.drone_parts.is_empty() and (frame.get("separate_rotors",false) or not frame.get("v062",false)) else _draw_unit_frame(frame,sp,extent,color)
@@ -2215,7 +2256,7 @@ func _draw_cloak_shimmer(contact: Dictionary) -> void:
 	var frame=assets.unit(int(contact.race),int(contact.kind),ACData.point(contact.facing),"idle",0)
 	if frame.is_empty():return
 	var texture: Texture2D=frame.texture
-	var d=ACData.unit(int(contact.race),int(contact.kind))
+	var d=ACData.entity_unit(contact,state.get("players",[]))
 	var factor=float(d.get("visual_extent",30))*zoom/float(frame.scale_hint)
 	var flip=bool(frame.get("flip",false))
 	_world_transform(point,0,Vector2(-factor if flip else factor,factor))
@@ -2317,6 +2358,7 @@ func _draw_rally_beacon(building: Dictionary) -> void:
 	if not _world_render_rect().grow(80).has_point(screen):return
 	var texture=assets.rally(int(building.race))
 	if texture==null:return
+	if not _palette_entity.is_empty():texture=player_palette.marked(texture)
 	var width=28*zoom
 	var dimensions=Vector2(width,width*texture.get_height()/float(texture.get_width()))
 	_world_shadow(screen,Vector2(width,width*.35),.17)
@@ -2326,8 +2368,9 @@ func _energy_capacity(e: Dictionary,d: Dictionary) -> float:
 	return maxf(0,float(e.get("max_energy",d.get("max_energy",200 if d.get("role","") in ["medic","mage","priest"] else 0))))
 
 func _draw_bars(sp: Vector2,e: Dictionary,d: Dictionary,width: int) -> void:
-	var hp_color=Color("65c976") if float(e.hp)>float(d.hp)*.35 else Color("f16b58")
-	_draw_segmented_bar(Rect2(sp-Vector2(width*.5,0),Vector2(width,5)),float(e.hp),float(d.hp),hp_color)
+	var maximum=ACData.max_health(e,state.get("players",[]))
+	var hp_color=Color("65c976") if float(e.hp)>maximum*.35 else Color("f16b58")
+	_draw_segmented_bar(Rect2(sp-Vector2(width*.5,0),Vector2(width,5)),float(e.hp),maximum,hp_color)
 	if float(d.get("shield",0))>0:
 		_draw_segmented_bar(Rect2(sp-Vector2(width*.5,6),Vector2(width,4)),float(e.shield),float(d.shield),Color("e884a3"))
 	var maximum_energy=_energy_capacity(e,d)
@@ -2548,7 +2591,7 @@ func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2,shot_index: 
 			if pose.get("flip",false):muzzle.x=-muzzle.x
 			return ground+Vector2(0,float(definition.h)*16*zoom)+body.get("mount",Vector2.ZERO)*factor+muzzle*width/maxf(1,float(pose.scale_hint))
 		return ground-Vector2(0,float(definition.h)*12*zoom)+(target-origin).normalized()*16*zoom
-	var definition=ACData.unit(int(source.race),int(source.kind))
+	var definition=ACData.entity_unit(source,state.get("players",[]))
 	var direction=(target-origin).normalized()
 	var heading=_visual_facing(source) if source.has("id") else direction
 	var turret=_visual_facing(source,"turret_direction") if source.has("id") else direction
@@ -2670,7 +2713,7 @@ func _draw_effect(fx: Dictionary) -> void:
 		return
 	if kind=="shot":
 		var source=_entity(int(fx.get("unit",-1)))
-		if not source.is_empty() and not source.has("progress") and ACData.unit(int(source.race),int(source.kind)).role in ["medic","healer_detector"]:return
+		if not source.is_empty() and not source.has("progress") and ACData.entity_unit(source,state.get("players",[])).role in ["medic","healer_detector"]:return
 		var shot_id=int(fx.id)
 		var origin=ACData.point(fx.get("from",[0,0]))
 		if not _shot_origins.has(shot_id):
@@ -2685,10 +2728,18 @@ func _draw_effect(fx: Dictionary) -> void:
 		else:b.y-=12*zoom
 		var p=a.lerp(b,progress)
 		var style=str(fx.get("projectile","bullet"))
+		if style in ["beam","laser"] and not source.is_empty() and source.has("id"):
+			# A light connection follows the live rendered muzzle, unlike a
+			# travelling projectile which keeps its historical launch position.
+			origin=_center(source) if source.has("progress") else _visual_position(source)
+			var target_point=ACData.point(fx.to) if victim.is_empty() else (_center(victim) if victim.has("progress") else _visual_position(victim))
+			a=_weapon_tip(source,origin,target_point,int(fx.get("barrel",-1)))
+			if not victim.is_empty():b=_link_target_point(victim,a)
+			p=a.lerp(b,progress)
 		if style=="flame" and not source.is_empty():
 			origin=_visual_position(source);a=_weapon_tip(source,origin,ACData.point(fx.to))
 			var axis=(b-a).normalized()
-			b=a+axis*float(ACData.unit(int(source.race),int(source.kind)).range)*32*zoom
+			b=a+axis*float(ACData.entity_unit(source,state.get("players",[])).range)*32*zoom
 		var color=[Color("ffe19b"),Color("6bdbf4"),Color("ff697c")][race]
 		if _draw_weapon_effect(style,a,b,progress,color,float(fx.get("damage",0))):return
 		if race==1 and style not in ["bash","claw","slam","slash","blade","drill","vine"]:
@@ -2705,8 +2756,7 @@ func _draw_effect(fx: Dictionary) -> void:
 		else:
 			if progress<.4:_effect_sprite(frame,a,24*zoom,0,Color(color,.8))
 			if style in ["laser","beam"]:
-				world_canvas.draw_line(a,b,Color(color,(1-progress)*.7),2.5*zoom,true)
-				_effect_sprite(8+frame if race==2 else 4+frame,b,27*zoom)
+				_draw_link(a,b,1.7*zoom,color,1-smoothstep(.55,1,progress))
 			else:
 				world_canvas.draw_line(p-(b-a).normalized()*12*zoom,p,Color(color,.65),1.8*zoom,true)
 				_effect_sprite(4+frame if race==1 else (8+frame if race==2 else frame),p,(18 if race==0 else 28)*zoom,(b-a).angle())
@@ -2725,9 +2775,7 @@ func _draw_weapon_effect(style: String,from: Vector2,to: Vector2,progress: float
 	var axis=(to-from).normalized();var angle=axis.angle()
 	if key=="beam":
 		var width=clampf(damage/8.0,1.5,4)*zoom
-		world_canvas.draw_line(from,to,Color(tint,(1-progress)*.7),width*2,true)
-		world_canvas.draw_line(from,to,Color(1,1,1,(1-progress)*.85),width*.65,true)
-		_world_transform(to,angle);world_canvas.draw_texture_rect(texture,Rect2(Vector2(-20,-20)*zoom,Vector2(40,40)*zoom),false);_world_transform()
+		_draw_link(from,to,width,tint,1-smoothstep(.55,1,progress))
 	elif key=="flame":
 		texture=assets.skill_texture("weapon_flame",fposmod(elapsed*1.7,1.0))
 		var length=maxf(24,from.distance_to(to))
@@ -2771,12 +2819,81 @@ func _draw_heal_effect(fx: Dictionary,from: Vector2,to: Vector2,progress: float)
 		var texture=assets.skill_texture("sap_heal",progress)
 		if texture!=null:world_canvas.draw_texture_rect(texture,Rect2(to-Vector2(24,30)*zoom,Vector2(48,48)*zoom),false)
 	if not shield:
-		world_canvas.draw_line(from,to,Color(tint,strength*.2),6*zoom,true)
-		world_canvas.draw_line(from,to,Color(tint,strength),1.5*zoom,true)
+		if not patient.is_empty():to=_link_target_point(patient,from)
+		_draw_link(from,to,1.3*zoom,tint,strength)
 		world_canvas.draw_circle(from.lerp(to,fposmod(progress*2,1)),2.2*zoom,Color(tint,strength))
 	_world_transform(to,0,Vector2(1,.5))
 	world_canvas.draw_arc(Vector2.ZERO,(8+progress*10)*zoom,0,TAU,24,Color(tint,strength*.7),1.4*zoom,true)
 	_world_transform()
+
+var _link_contact_images: Dictionary={}
+
+func _link_target_point(target: Dictionary,from: Vector2) -> Vector2:
+	var center: Vector2
+	var radius: Vector2
+	if target.has("progress"):
+		var rect=_building_screen_rect(target)
+		center=rect.position+rect.size*Vector2(.5,.56);radius=rect.size*Vector2(.27,.23)
+		# A tree/winged building is not a filled rectangle or ellipse. Find the
+		# first actual opaque surface along the incoming ray, including gaps
+		# between branches, so the contact glow cannot hang in empty air.
+		var frame=assets.sprites.building(int(target.race),int(target.kind),1,false,Vector2.DOWN,0)
+		var texture: Texture2D=frame.texture if not frame.is_empty() else assets.building(int(target.race),int(target.kind))
+		if texture!=null and rect.has_area():
+			var key=texture.get_instance_id()
+			if not _link_contact_images.has(key):
+				var image=texture.get_image()
+				if image.is_compressed():image.decompress()
+				_link_contact_images[key]=image
+			var image: Image=_link_contact_images[key]
+			var direction=(from-center).normalized();var reach=rect.size.length()*.6
+			for step in range(97):
+				var point=center+direction*reach*(1-step/96.0)
+				if not rect.has_point(point):continue
+				var uv=(point-rect.position)/rect.size
+				var pixel=Vector2i(uv*Vector2(image.get_size())).clamp(Vector2i.ZERO,image.get_size()-Vector2i.ONE)
+				if image.get_pixelv(pixel).a>.45:return point-direction*1.2*zoom
+	else:
+		center=_selection_center(target)
+		var extent=float(ACData.entity_unit(target,state.get("players",[])).get("visual_extent",36))*zoom
+		radius=Vector2(.20,.16)*extent
+	var delta=from-center
+	if delta.length_squared()<.01:return center
+	var ratio=Vector2(delta.x/maxf(1,radius.x),delta.y/maxf(1,radius.y)).length()
+	return center+delta/maxf(1,ratio)
+
+var _link_strip: Texture2D
+var _link_glow: GradientTexture2D
+
+func _draw_link(from: Vector2,to: Vector2,width: float,tint: Color,strength: float=1.0) -> void:
+	var delta=to-from;var length=delta.length()
+	if length<.1 or strength<=0:return
+	if _link_strip==null:
+		var image=Image.create(64,32,false,Image.FORMAT_RGBA8)
+		for y in range(32):
+			for x in range(64):
+				var t=x/63.0;var edge=(y-15.5)/15.5
+				var alpha=exp(-edge*edge*5.0)*smoothstep(0,.08,t)*(1-smoothstep(.92,1,t))
+				image.set_pixel(x,y,Color(1,1,1,alpha))
+		_link_strip=ImageTexture.create_from_image(image)
+		var gradient=Gradient.new();gradient.offsets=PackedFloat32Array([0,.22,1]);gradient.colors=PackedColorArray([Color.WHITE,Color(1,1,1,.45),Color.TRANSPARENT])
+		_link_glow=GradientTexture2D.new();_link_glow.gradient=gradient;_link_glow.width=64;_link_glow.height=64;_link_glow.fill=GradientTexture2D.FILL_RADIAL;_link_glow.fill_from=Vector2(.5,.5);_link_glow.fill_to=Vector2(1,.5)
+	var axis=delta/length;var normal=axis.orthogonal();var fade=minf(length*.25,maxf(3*zoom,width*2.5))
+	_world_transform(from,axis.angle())
+	world_canvas.draw_texture_rect(_link_strip,Rect2(0,-width*3,length,width*6),false,Color(tint,strength*.36))
+	_world_transform()
+	var stations=[0.0,fade,maxf(fade,length-fade),length]
+	for band in [0,1]:
+		var w=width*(.55 if band==0 else .19)
+		var color=tint if band==0 else tint.lerp(Color.WHITE,.82)
+		for i in range(3):
+			var a=from+axis*float(stations[i]);var b=from+axis*float(stations[i+1])
+			var wa=w*(.12 if i==0 else 1);var wb=w*(.12 if i==2 else 1)
+			world_canvas.draw_polygon(PackedVector2Array([a-normal*wa,b-normal*wb,b+normal*wb,a+normal*wa]),PackedColorArray([Color(color,strength*(.15 if i==0 else .85)),Color(color,strength*(.15 if i==2 else .85)),Color(color,strength*(.15 if i==2 else .85)),Color(color,strength*(.15 if i==0 else .85))]))
+	for point in [from,to]:
+		var radius=maxf(3*zoom,width*2.1)
+		world_canvas.draw_texture_rect(_link_glow,Rect2(point-Vector2.ONE*radius,Vector2.ONE*radius*2),false,Color(tint,strength*.72))
+		world_canvas.draw_circle(point,maxf(.65,width*.4),Color(tint.lerp(Color.WHITE,.8),strength*.85),true,-1,true)
 
 func _report_public_void() -> void:
 	if remote_game.get("transport","")!="webrtc" or public_reported or (spectator and not remote_game.get("is_host",false)):return

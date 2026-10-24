@@ -2296,17 +2296,19 @@
     {
       "race": 0,
       "kinds": [
-        4
+        1,
+        2
       ],
       "id": "stim",
-      "name": "전투자극주사",
-      "target": "ally",
-      "energy": 40,
+      "name": "전투자극제",
+      "target": "self",
+      "energy": 0,
       "cooldown": 12,
-      "range": 6,
+      "range": 0,
       "building": 7,
       "as": 100,
-      "tera": 100
+      "tera": 100,
+      "hp_cost": 10
     },
     {
       "race": 0,
@@ -2663,6 +2665,172 @@
     }
   ],
   "research": [
+    {
+      "id": "frontline_vitality",
+      "name": "전열사수 강화 전투복",
+      "description": "전열사수 최대 체력15 증가(70→85).",
+      "race": 0,
+      "unit_kind": 1,
+      "building": 3,
+      "stat": "hp",
+      "add": 15,
+      "as": 100,
+      "tera": 100,
+      "time": 45,
+      "requires": [],
+      "max_level": 1
+    },
+    {
+      "id": "missile_autoloader",
+      "name": "자동 장전기",
+      "description": "추적미사일 차륜차 공격 주기1.2초→0.9초.",
+      "race": 0,
+      "unit_kind": 6,
+      "building": 4,
+      "stat": "period",
+      "multiply": 0.75,
+      "as": 150,
+      "tera": 150,
+      "time": 75,
+      "requires": [
+        10
+      ],
+      "max_level": 1
+    },
+    {
+      "id": "transport_thrusters",
+      "name": "고출력 추진기",
+      "description": "장갑수송정 이동 속도50% 증가.",
+      "race": 0,
+      "unit_kind": 11,
+      "building": 5,
+      "stat": "speed",
+      "multiply": 1.5,
+      "as": 150,
+      "tera": 100,
+      "time": 60,
+      "requires": [
+        10
+      ],
+      "max_level": 1
+    },
+    {
+      "id": "claw_overdrive",
+      "name": "과활성 신경절",
+      "description": "껍질발톱 공격 속도50% 증가(공격 간격0.65→약0.43초).",
+      "race": 1,
+      "unit_kind": 1,
+      "building": 4,
+      "stat": "period",
+      "multiply": 0.6666666666666666,
+      "as": 200,
+      "tera": 200,
+      "time": 90,
+      "requires": [
+        9
+      ],
+      "max_level": 1
+    },
+    {
+      "id": "root_range",
+      "name": "장축 덩굴",
+      "description": "덩굴포식자 사거리3.5→5.0.",
+      "race": 1,
+      "unit_kind": 5,
+      "building": 6,
+      "stat": "range",
+      "add": 1.5,
+      "as": 150,
+      "tera": 150,
+      "time": 75,
+      "requires": [],
+      "max_level": 1
+    },
+    {
+      "id": "guardian_march",
+      "name": "신속 행군",
+      "description": "서약수호자 이동 속도50% 증가.",
+      "race": 2,
+      "unit_kind": 1,
+      "building": 3,
+      "stat": "speed",
+      "multiply": 1.5,
+      "as": 150,
+      "tera": 150,
+      "time": 75,
+      "requires": [
+        7
+      ],
+      "max_level": 1
+    },
+    {
+      "id": "golem_range",
+      "name": "장거리 결정포",
+      "description": "고대석익병 사거리2.8→4.3.",
+      "race": 2,
+      "unit_kind": 7,
+      "building": 4,
+      "stat": "range",
+      "add": 1.5,
+      "as": 150,
+      "tera": 150,
+      "time": 75,
+      "requires": [
+        7
+      ],
+      "max_level": 1
+    },
+    {
+      "id": "flamer_range",
+      "name": "장축 화염노즐",
+      "description": "화염돌파차 사거리3.2→4.5.",
+      "race": 0,
+      "unit_kind": 13,
+      "building": 4,
+      "stat": "range",
+      "add": 1.3,
+      "as": 150,
+      "tera": 150,
+      "time": 60,
+      "requires": [
+        9
+      ],
+      "max_level": 1
+    },
+    {
+      "id": "bomb_shell",
+      "name": "과숙 보호외피",
+      "description": "과숙폭탄 최대 체력40→65.",
+      "race": 1,
+      "unit_kind": 4,
+      "building": 4,
+      "stat": "hp",
+      "add": 25,
+      "as": 150,
+      "tera": 150,
+      "time": 60,
+      "requires": [
+        6
+      ],
+      "max_level": 1
+    },
+    {
+      "id": "bat_range",
+      "name": "익막 표적감각",
+      "description": "귤박쥐 사거리4.1→5.1.",
+      "race": 1,
+      "unit_kind": 10,
+      "building": 7,
+      "stat": "range",
+      "add": 1,
+      "as": 150,
+      "tera": 150,
+      "time": 75,
+      "requires": [
+        8
+      ],
+      "max_level": 1
+    },
     {
       "id": "stim",
       "name": "전투자극주사 해금",

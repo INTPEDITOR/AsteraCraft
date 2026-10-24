@@ -1,0 +1,117 @@
+param(
+ [Parameter(Mandatory=$true)][string]$GameDirectory,
+ [Parameter(Mandatory=$true)][string]$Archive,
+ [Parameter(Mandatory=$true)][string]$ArchiveSha256,
+ [Parameter(Mandatory=$true)][string]$Tag,
+ [Parameter(Mandatory=$true)][string]$StateFile,
+ [int]$WaitPid=0,
+ [switch]$SkipRestart,
+ [switch]$SimulateFailureAfterCopy
+)
+$ErrorActionPreference='Stop'
+$env:PSModulePath=[IO.Path]::Combine($PSHOME,'Modules')+';'+$env:PSModulePath
+$allowed=@('AsteraCraft.exe','AsteraCraft.pck','libwebrtc_native.windows.template_release.x86_64.dll','README.txt','game_icon.ico','LICENSES-LevelUp.txt')
+$required=@('AsteraCraft.exe','AsteraCraft.pck','libwebrtc_native.windows.template_release.x86_64.dll')
+$gameRoot=[IO.Path]::GetFullPath($GameDirectory).TrimEnd([char]92)
+if($gameRoot -eq [IO.Path]::GetPathRoot($gameRoot).TrimEnd([char]92)){throw 'Drive root is not an installation directory'}
+$zipPath=[IO.Path]::GetFullPath($Archive)
+$statePath=[IO.Path]::GetFullPath($StateFile)
+$backup=Join-Path $gameRoot '.asteracraft-update-backup'
+$staging=Join-Path $gameRoot '.asteracraft-update-stage'
+$exePath=Join-Path $gameRoot 'AsteraCraft.exe'
+$changed=$false;$oldExited=$WaitPid -eq 0;$launched=$null;$backedUp=@();$installed=@()
+$lock=$null
+function Save-State([string]$Phase,[string]$Detail='') {
+ $folder=[IO.Path]::GetDirectoryName($statePath)
+ [IO.Directory]::CreateDirectory($folder)|Out-Null
+ $json=@{tag=$Tag;phase=$Phase;detail=$Detail}|ConvertTo-Json -Compress
+ [IO.File]::WriteAllText($statePath,$json,[Text.UTF8Encoding]::new($false))
+}
+function Safe-File([string]$Folder,[string]$Name) {
+ if($allowed -notcontains $Name){throw 'Unexpected game file'}
+ $full=[IO.Path]::GetFullPath((Join-Path $Folder $Name))
+ $prefix=[IO.Path]::GetFullPath($Folder).TrimEnd([char]92)+[IO.Path]::DirectorySeparatorChar
+ if(-not $full.StartsWith($prefix,[StringComparison]::OrdinalIgnoreCase)){throw 'Path escaped expected folder'}
+ return $full
+}
+try {
+ if(-not [IO.File]::Exists($exePath)){throw 'Installed game executable not found'}
+ try{$lock=[IO.File]::Open((Join-Path $gameRoot '.asteracraft-update.lock'),[IO.FileMode]::OpenOrCreate,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)}catch{exit 2}
+ if($ArchiveSha256 -notmatch '^[a-fA-F0-9]{64}$'){throw 'Invalid archive digest'}
+ $hasher=[Security.Cryptography.SHA256]::Create();$inputFile=[IO.File]::OpenRead($zipPath)
+ try{$actualDigest=[BitConverter]::ToString($hasher.ComputeHash($inputFile)).Replace('-','').ToLowerInvariant()}finally{$inputFile.Dispose();$hasher.Dispose()}
+ if($actualDigest -ne $ArchiveSha256.ToLowerInvariant()){throw 'Archive digest mismatch'}
+ if($Tag -notmatch '^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$'){throw 'Invalid version tag'}
+ [IO.Directory]::CreateDirectory($staging)|Out-Null
+ Add-Type -AssemblyName System.IO.Compression.FileSystem
+ $zip=[IO.Compression.ZipFile]::OpenRead($zipPath)
+ try {
+  $seen=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+  [long]$total=0
+  foreach($entry in $zip.Entries){
+   if($entry.FullName -ne $entry.Name -or $allowed -notcontains $entry.Name -or -not $seen.Add($entry.Name)){throw 'Unexpected, duplicate or nested archive entry'}
+   $total+=$entry.Length
+   if($entry.Length -le 0 -or $total -gt 8589934592){throw 'Invalid extracted file size'}
+  }
+  foreach($name in $required){if(-not $seen.Contains($name)){throw 'Required game file missing'}}
+  foreach($entry in $zip.Entries){
+   $destination=Safe-File $staging $entry.Name
+   $source=$entry.Open();$output=[IO.File]::Create($destination)
+   try{$source.CopyTo($output)}finally{$source.Dispose();$output.Dispose()}
+   $installed+=$entry.Name
+  }
+ }finally{$zip.Dispose()}
+ if($WaitPid -gt 0){
+  $previous=Get-Process -Id $WaitPid -ErrorAction SilentlyContinue
+  if($null -ne $previous){
+   if([IO.Path]::GetFullPath($previous.Path) -ne $exePath){throw 'Waiting process is not this game'}
+   if(-not $previous.WaitForExit(60000)){throw 'Game did not exit in time'}
+  }
+  $oldExited=$true
+ }
+ [IO.Directory]::CreateDirectory($backup)|Out-Null
+ foreach($name in $installed){
+  $current=Safe-File $gameRoot $name
+  if([IO.File]::Exists($current)){Copy-Item -LiteralPath $current -Destination (Safe-File $backup $name) -Force;$backedUp+=$name}
+ }
+ foreach($name in $installed){
+  $changed=$true
+  Copy-Item -LiteralPath (Safe-File $staging $name) -Destination (Safe-File $gameRoot $name) -Force
+ }
+ if($SimulateFailureAfterCopy){throw 'Simulated interrupted installation'}
+ if($SkipRestart){Save-State 'confirmed';exit 0}
+ Save-State 'installing'
+ # This is the interactive game requested by the user; the helper stays hidden.
+ $launched=Start-Process -FilePath $exePath -WorkingDirectory $gameRoot -WindowStyle Normal -PassThru
+ $confirmed=$false
+ for($attempt=0;$attempt -lt 60;$attempt++){
+  Start-Sleep -Milliseconds 500
+  try{$result=Get-Content -LiteralPath $statePath -Raw|ConvertFrom-Json;if($result.tag -eq $Tag -and $result.phase -eq 'confirmed'){$confirmed=$true;break}}catch{}
+  if($launched.HasExited){break}
+ }
+ if(-not $confirmed){throw 'New version did not confirm startup'}
+ foreach($name in $installed){$temporary=Safe-File $staging $name;if([IO.File]::Exists($temporary)){Remove-Item -LiteralPath $temporary -Force -ErrorAction SilentlyContinue}}
+ $updateRoot=[IO.Path]::GetDirectoryName($statePath).TrimEnd([char]92)+[IO.Path]::DirectorySeparatorChar
+ if($zipPath.StartsWith($updateRoot,[StringComparison]::OrdinalIgnoreCase)){Remove-Item -LiteralPath $zipPath -Force -ErrorAction SilentlyContinue}
+ exit 0
+} catch {
+ $reason=$_.Exception.Message
+ if($null -ne $launched -and -not $launched.HasExited){try{$launched.Kill();$launched.WaitForExit(5000)|Out-Null}catch{}}
+ if($changed){
+  foreach($name in $installed){
+   $current=Safe-File $gameRoot $name
+   try{
+    if($backedUp -contains $name){Copy-Item -LiteralPath (Safe-File $backup $name) -Destination $current -Force}
+    elseif([IO.File]::Exists($current)){Remove-Item -LiteralPath $current -Force}
+   }catch{$reason+='; rollback: '+$_.Exception.Message}
+  }
+ }
+ Save-State 'failed' $reason
+ if(-not $SkipRestart -and $oldExited -and [IO.File]::Exists($exePath)){
+  Start-Process -FilePath $exePath -WorkingDirectory $gameRoot -WindowStyle Normal|Out-Null
+ }
+ Write-Error $reason -ErrorAction Continue
+ exit 1
+} finally {
+ if($null -ne $lock){$lock.Dispose()}
+}
