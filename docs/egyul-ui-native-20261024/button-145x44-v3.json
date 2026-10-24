@@ -1,0 +1,20 @@
+{
+  "id": "button-145x44",
+  "kind": "button",
+  "size": [
+    145,
+    44
+  ],
+  "revision": 3,
+  "intended_size": [
+    145,
+    44
+  ],
+  "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-f94c97cf-9d78-4550-8c3e-99a9651997d9.png",
+  "prompt": "Use case: sketch-to-render. EDIT THE PROVIDED GEOMETRY GUIDE. Preserve the gray rectangle's exact outline, width-to-height ratio, size and position; replace gray and pink with finished game UI artwork. Keep the outline proportion exactly3.29545:1, NOT a long narrow pill. Draw a compact rectangular living citrus-root button with slightly rounded corners, thin intertwined chestnut-brown roots, dark orange citrus-peel endcaps, tiny glowing amber sap and ONE small cyan nerve bead. Most of the button is a plain charcoal-black opaque center for a UI label. Frame must stay INSIDE the guide outline, with no oversized fruit, flowers or leaves. Crisp realistic hand-painted organic RTS UI. No words, letters, icons, texture sheets, other buttons, metal, photo background or watermark. The reference provides GEOMETRY ONLY. Keep all the surrounding area genuinely transparent RGBA. This is a distinct small145x44pixel button design, not a wide main-menu button. Preserve the original geometry exactly.",
+  "tool": "built-in image_gen",
+  "status": "approved_applied",
+  "runtime_connected": true,
+  "runtime": "res://assets/ui/egyul_native_20261024/button-145x44.png",
+  "application_approval": "User: 그대로 적용해줘; follow-up size and common-position corrections"
+}

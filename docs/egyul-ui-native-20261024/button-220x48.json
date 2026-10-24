@@ -1,0 +1,16 @@
+{
+  "id": "button-220x48",
+  "kind": "button",
+  "intended_size": [
+    220,
+    48
+  ],
+  "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-f9aff172-52c3-4bf0-9570-51bc6731c6af.png",
+  "prompt": "Use case: sketch-to-render. Create ONE newly drawn standalone living-citrus game button for the220x48pixel control in Image1. Image1 specifies its very shallow wide proportions. Image2 is ONLY the approved HUD style reference. This is a separate drawing for this smaller button, NOT a scaled/cropped/reused version of the320x76button. Use fine intertwined warm brown grafted roots, small orange peel endcaps, a little amber sap and one tiny cyan nerve bud; keep accents sparse at this small size. Dark charcoal flat central face with broad clear text space; thin unobtrusive top/bottom borders, leaf tips only at ends. The intended silhouette is4.58times as wide as high; do not make a tall ornate frame. Keep all decorations inside the button rectangle. Crisp realistic painted RTS interface. No letters, numbers, text, icons or extra objects. Real transparent RGBA outside the standalone silhouette. Make this button its own appropriate composition for220x48, do not stretch any existing artwork.",
+  "tool": "built-in image_gen",
+  "status": "approved_applied",
+  "approval": "User: 이 디자인으로 크기별 제작 진행",
+  "runtime_connected": true,
+  "runtime": "res://assets/ui/egyul_native_20261024/button-220x48.png",
+  "application_approval": "User: 그대로 적용해줘; follow-up size and common-position corrections"
+}

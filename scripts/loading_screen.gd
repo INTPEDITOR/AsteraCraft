@@ -33,7 +33,9 @@ func configure(faction: int,map_id: int) -> void:
 			_last_art[race]=path
 	background_path=path
 	background=load(path)
-	board=Panel.new();board.add_theme_stylebox_override("panel",ACRaceUI.board_style(race));add_child(board)
+	if race==1:board=ACEgyulNativeUI.frame(ACEgyulNativeUI.LOADING)
+	else:board=Panel.new();board.add_theme_stylebox_override("panel",ACRaceUI.board_style(race))
+	add_child(board)
 	title=_label(ACData.get_data().race_names[race],25,ACRaceUI.ACCENTS[race])
 	subtitle=_label(ACLobbyMapPreview.map_names()[clampi(map_id,0,2)]+" · 전장 진입",17,Color("c5c8c6"))
 	phase=_label("전장 준비 중",17,Color("deded7"))
@@ -53,7 +55,7 @@ func set_progress(value: float,text: String) -> void:
 
 func _layout() -> void:
 	if board==null:return
-	board.size=Vector2(minf(760,size.x-60),300)
+	board.size=Vector2(760 if race==1 else minf(760,size.x-60),300)
 	board.position=Vector2((size.x-board.size.x)*.5,maxf(30,size.y*.70-board.size.y*.5))
 	# Keep all text and the bar inside the artwork's thick inner frame.
 	title.position=Vector2(84,64);title.size=Vector2(board.size.x-168,34)
@@ -61,7 +63,8 @@ func _layout() -> void:
 	phase.position=Vector2(84,160);phase.size=Vector2(board.size.x-284,28)
 	percent.position=Vector2(board.size.x-184,151);percent.size=Vector2(100,38)
 	bar.position=Vector2(84,204);bar.size=Vector2(board.size.x-168,18)
-	cancel_button.size=Vector2(180,44);cancel_button.position=Vector2((size.x-180)*.5,minf(size.y-56,board.position.y+board.size.y+18))
+	var cancel_width=220 if race==1 else 180
+	cancel_button.size=Vector2(cancel_width,44);cancel_button.position=Vector2((size.x-cancel_width)*.5,minf(size.y-56,board.position.y+board.size.y+18))
 	_last_size=size;queue_redraw()
 
 func _process(_dt: float) -> void:

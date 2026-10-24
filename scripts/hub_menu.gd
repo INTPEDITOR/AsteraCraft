@@ -108,16 +108,26 @@ func _build_navigation() -> void:
 
 func _refresh_button_styles() -> void:
 	for button in nav_buttons:
+		if background_index==1:
+			ACEgyulNativeUI.button(button,ACEgyulNativeUI.MAIN)
+			continue
+		button.custom_minimum_size=Vector2.ZERO;button.add_theme_font_size_override("font_size",22)
 		button.add_theme_stylebox_override("normal",_button_style(0))
 		button.add_theme_stylebox_override("hover",_button_style(1))
 		button.add_theme_stylebox_override("pressed",_button_style(2))
 		button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
 	if update_button!=null:
-		for entry in [["normal",0],["hover",1],["pressed",2],["disabled",2]]:
-			update_button.add_theme_stylebox_override(entry[0],_button_style(entry[1]))
+		if background_index==1:ACEgyulNativeUI.button(update_button)
+		else:
+			update_button.custom_minimum_size=Vector2(220,48)
+			for state in ["normal","hover","pressed","disabled"]:
+				var plate=StyleBoxTexture.new();plate.texture=load("res://assets/ui_native/modal_220x48_r%d_%s.png"%[background_index,"pressed" if state=="disabled" else state])
+				for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]:plate.set_texture_margin(side,0);plate.set_content_margin(side,0)
+				update_button.add_theme_stylebox_override(state,plate)
 		update_button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
 		var fill=StyleBoxFlat.new();fill.bg_color=[Color("e4b548"),Color("d58b32"),Color("d55450")][background_index]
 		update_bar.add_theme_stylebox_override("fill",fill)
+	_layout()
 
 func _button_style(state_index: int) -> StyleBox:
 	if button_plates.size()==9:
@@ -155,15 +165,19 @@ func _play_ui(cue: String) -> void:
 	if audio!=null:audio.play_ui(cue)
 
 func _layout() -> void:
+	var extent=Vector2(BUTTON_WIDTH,BUTTON_HEIGHT)
 	var top=clampf(size.y*.30,238,290)
 	var spacing=86.0
 	if top+4*spacing+BUTTON_HEIGHT>size.y-60:
 		spacing=maxf(60,(size.y-60-top-BUTTON_HEIGHT)/4)
 	for index in range(nav_buttons.size()):
 		nav_buttons[index].position=Vector2(58,top+index*spacing)
-		nav_buttons[index].size=Vector2(BUTTON_WIDTH,BUTTON_HEIGHT)
+		nav_buttons[index].size=extent
 	_last_size=size
-	if update_panel!=null:update_panel.position=Vector2(maxf(12,size.x-224),maxf(12,size.y-78));update_panel.size=Vector2(200,50)
+	if update_panel!=null:
+		var width=220
+		update_panel.position=Vector2(maxf(12,size.x-width-24),maxf(12,size.y-78));update_panel.size=Vector2(width,50)
+		update_bar.custom_minimum_size.x=width
 	queue_redraw()
 
 func _build_update_panel() -> void:

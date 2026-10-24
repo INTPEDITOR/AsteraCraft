@@ -4,7 +4,7 @@ extends Control
 signal closed
 
 var content: Control
-var board: NinePatchRect
+var board: Control
 var heading: Label
 var close_button: Button
 var controller: Control
@@ -14,6 +14,7 @@ static var _board_art: Dictionary={}
 static var _native_plates: Dictionary={}
 var button_race=0
 var board_art_path=""
+var native_scroll: ScrollContainer
 
 func configure(main: Control,title: String,extent: Vector2) -> void:
 	controller=main
@@ -27,7 +28,52 @@ func configure(main: Control,title: String,extent: Vector2) -> void:
 	veil.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	veil.mouse_filter=Control.MOUSE_FILTER_STOP
 	add_child(veil)
-	board=NinePatchRect.new()
+	board=_create_board()
+	add_child(board)
+	heading=Label.new()
+	heading.text=title
+	heading.position=Vector2(220,95)
+	heading.add_theme_font_size_override("font_size",27 if button_race==1 else 29)
+	heading.add_theme_color_override("font_color",Color("dfc583"))
+	board.add_child(heading)
+	close_button=Button.new()
+	close_button.text="×"
+	close_button.size=Vector2(44,42)
+	close_button.add_theme_font_size_override("font_size",28)
+	for state in ["normal","hover","pressed","focus"]:close_button.add_theme_stylebox_override(state,StyleBoxEmpty.new())
+	close_button.pressed.connect(func():closed.emit())
+	board.add_child(close_button)
+	content=Control.new()
+	content.mouse_filter=Control.MOUSE_FILTER_PASS
+	native_scroll=ScrollContainer.new();native_scroll.position=Vector2(125,170)
+	board.add_child(native_scroll);native_scroll.add_child(content)
+	var matching=ACEgyulNativeUI.matching_theme(main.theme) if button_race==1 else main.theme.duplicate()
+	for state in ["normal","hover","pressed","disabled","focus"]:matching.set_stylebox(state,"CheckButton",StyleBoxEmpty.new())
+	theme=matching
+	_layout()
+	call_deferred("_fit_native_content")
+	set_process(true)
+
+func _fit_native_content() -> void:
+	# Reflow ordinary controls into the fixed plate. Only overflowing content
+	# scrolls; the approved border itself never changes dimensions.
+	var room=native_scroll.size
+	var needed=room
+	for child in content.get_children():
+		if not child is Control:continue
+		if child is Label or child is LineEdit or child is ScrollContainer or child is Tree or child is ACSettingsPanel:
+			child.size.x=minf(child.size.x,maxf(1,room.x-child.position.x))
+			if child is ACSettingsPanel:child.size.y=minf(child.size.y,room.y)
+		needed=needed.max(child.position+child.size)
+	content.custom_minimum_size=needed
+
+func _create_board() -> Control:
+	if button_race==1:
+		var id=ACEgyulNativeUI.board_id(wanted_size)
+		board_art_path=ACEgyulNativeUI.ROOT+id+".png"
+		return ACEgyulNativeUI.frame(id)
+	var legacy=NinePatchRect.new()
+	var board=legacy
 	board.mouse_filter=Control.MOUSE_FILTER_STOP
 	var art="res://assets/modal_board_r%d_v3.png"%button_race
 	if not ResourceLoader.exists(art):art="res://assets/modal_board_v3.png"
@@ -67,33 +113,19 @@ func configure(main: Control,title: String,extent: Vector2) -> void:
 		fallback.add_theme_stylebox_override("panel",plate)
 		fallback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		board.add_child(fallback)
-	add_child(board)
-	heading=Label.new()
-	heading.text=title
-	heading.position=Vector2(130,80)
-	heading.add_theme_font_size_override("font_size",29)
-	heading.add_theme_color_override("font_color",Color("dfc583"))
-	board.add_child(heading)
-	close_button=Button.new()
-	close_button.text="×"
-	close_button.size=Vector2(44,42)
-	close_button.add_theme_font_size_override("font_size",28)
-	for state in ["normal","hover","pressed","focus"]:close_button.add_theme_stylebox_override(state,StyleBoxEmpty.new())
-	close_button.pressed.connect(func():closed.emit())
-	board.add_child(close_button)
-	content=Control.new()
-	content.position=Vector2(75,140)
-	content.mouse_filter=Control.MOUSE_FILTER_PASS
-	board.add_child(content)
-	var matching=main.theme.duplicate()
-	for state in ["normal","hover","pressed","disabled","focus"]:
-		matching.set_stylebox(state,"CheckButton",StyleBoxEmpty.new())
-	theme=matching
-	_layout()
-	set_process(true)
+	return legacy
 
 func style_control(control: BaseButton,extent: Vector2) -> void:
-	control.size=extent
+	var compact=extent.y<=36 or str(control.get_parent().name).begins_with("PlayerSlot")
+	var standard=Vector2(105,36) if compact else Vector2(220,48)
+	if not control is OptionButton:control.position.x+=roundf((extent.x-standard.x)*.5)
+	extent=standard
+	if button_race==1:
+		var id=ACEgyulNativeUI.SMALL if compact else ACEgyulNativeUI.SELECT if control is OptionButton else ACEgyulNativeUI.ACTION
+		ACEgyulNativeUI.button(control,id)
+		return
+	control.add_theme_font_size_override("font_size",13 if compact else 16)
+	if control is OptionButton:control.fit_to_longest_item=false;control.alignment=HORIZONTAL_ALIGNMENT_CENTER
 	for state_name in ["normal","hover","pressed"]:
 		var path="res://assets/ui_native/modal_%dx%d_r%d_%s.png"%[int(extent.x),int(extent.y),button_race,state_name]
 		var style: StyleBox
@@ -113,22 +145,24 @@ func style_control(control: BaseButton,extent: Vector2) -> void:
 			fallback.border_color=Color("a38a4c")
 			fallback.set_border_width_all(2)
 			style=fallback
-		style.content_margin_left=32
-		style.content_margin_right=32
-		style.content_margin_top=7
-		style.content_margin_bottom=7
+		style.content_margin_left=12 if compact else 24
+		style.content_margin_right=12 if compact else 24
+		style.content_margin_top=0
+		style.content_margin_bottom=0
 		control.add_theme_stylebox_override(state_name,style)
 	var disabled=control.get_theme_stylebox("normal").duplicate()
 	if disabled is StyleBoxTexture:disabled.modulate_color=Color(.45,.45,.45,.8)
 	control.add_theme_stylebox_override("disabled",disabled)
 	control.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
+	control.custom_minimum_size=extent;control.size=extent;control.set_deferred("size",extent)
 
 func _layout() -> void:
-	board.size=wanted_size.min(size-Vector2(50,50))
+	board.size=ACEgyulNativeUI.texture(ACEgyulNativeUI.board_id(wanted_size)).get_size()
+	native_scroll.size=board.size-Vector2(250,255)
+	content.custom_minimum_size=wanted_size-Vector2(150,215)
 	board.position=(size-board.size)*.5
-	content.size=board.size-Vector2(150,215)
 	heading.size=Vector2(board.size.x-320,48)
-	close_button.position=Vector2(board.size.x-170,80)
+	close_button.position=Vector2(board.size.x-170,95)
 	_last_size=size
 
 func _process(_dt: float) -> void:

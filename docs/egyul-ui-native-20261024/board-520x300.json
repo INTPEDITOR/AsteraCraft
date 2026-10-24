@@ -1,0 +1,20 @@
+{
+  "id": "board-520x300",
+  "size": [
+    520,
+    300
+  ],
+  "kind": "board",
+  "use": "surrender",
+  "intended_size": [
+    520,
+    300
+  ],
+  "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-51d73254-ad2b-4cd3-a2c0-2bd8844e6c10.png",
+  "prompt": "Repaint ONLY the gray rectangle in this guide as ONE empty living-citrus RTS dialog plate. Keep the exact outline, position, width, height and 520:300 proportions. Substantial warm chestnut intertwined roots, dark-orange citrus-peel corner shells, glossy amber sap and tiny cyan nerve knots. A couple of very small green leaf tips at the corners, no large flowers. Realistic hand-painted organic UI, moderate thin borders, a vast opaque plain charcoal-black interior for text, progress bar and buttons. ALL art remains INSIDE the gray rectangle. Remove gray and pink completely. No text, glyphs, icons, scenery, other windows, metal or watermarks. Outside is transparent alpha0, no drop shadow, glow, vignette, aura, background or floor. New independent composition specifically FOR this 520x300px surrender window; preserve the guide geometry rather than stretching another frame.",
+  "tool": "built-in image_gen",
+  "status": "approved_applied",
+  "runtime_connected": true,
+  "runtime": "res://assets/ui/egyul_native_20261024/board-520x300.png",
+  "application_approval": "User: 그대로 적용해줘; follow-up size and common-position corrections"
+}

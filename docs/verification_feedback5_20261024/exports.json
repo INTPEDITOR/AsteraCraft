@@ -1,0 +1,71 @@
+{
+  "pack": {
+    "passed": true,
+    "exit_code": 0,
+    "native_images": 9,
+    "scope": "Exported Windows PCK mounted as main pack without source fallback; all9 native images decoded, helper/HUD/metadata available, source work directory absent"
+  },
+  "windows_startup": {
+    "passed": true,
+    "exit_code": 0,
+    "elapsed_ms": 41254,
+    "loading_art_textures": 30,
+    "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+  },
+  "package": {
+    "passed": true,
+    "bytes": 1337934837,
+    "sha256": "de031e77aae2c6919034ebe163a1287c45580fab27343791de9af85c57dc2a07",
+    "files": [
+      "AsteraCraft.exe",
+      "AsteraCraft.pck",
+      "libwebrtc_native.windows.template_release.x86_64.dll",
+      "README.txt",
+      "game_icon.ico",
+      "LICENSES-LevelUp.txt"
+    ]
+  },
+  "update_install": {
+    "passed": true,
+    "checks": 11,
+    "elapsed_seconds": 25.7,
+    "phase": "confirmed",
+    "tag": "feedback5-20261024",
+    "scope": "Actual Windows helper replaces a disposable feedback4_20261024 installation with the final feedback5_20261024 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+  },
+  "saved_resolution_and_music": {
+    "checks": 7,
+    "continuous_music": true,
+    "failures": [],
+    "first_screen_resolution": [
+      1280,
+      720
+    ],
+    "passed": true
+  },
+  "menu_positions": {
+    "passed": true,
+    "menus": 7,
+    "factions": 3,
+    "comparisons": 14
+  },
+  "hud_and_ui": {
+    "passed": true,
+    "checks": 2119,
+    "native_controls": 101,
+    "resolution_combinations": 18
+  },
+  "windows_icon": {
+    "passed": true,
+    "embedded_sizes": [
+      16,
+      24,
+      32,
+      48,
+      64,
+      128,
+      256
+    ]
+  },
+  "passed": true
+}

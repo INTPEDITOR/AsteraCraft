@@ -1,0 +1,20 @@
+{
+  "id": "board-820x650",
+  "size": [
+    820,
+    650
+  ],
+  "kind": "board",
+  "use": "compact menus",
+  "intended_size": [
+    820,
+    650
+  ],
+  "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-da030441-09dd-4620-96e4-741c81a3f33d.png",
+  "prompt": "Repaint ONLY the gray rounded rectangle in the supplied layout guide as ONE living-citrus RTS window frame. Preserve the gray rectangle's exact OUTLINE, size, position and 820:650 aspect ratio; keep the1536x1024canvas. Replace gray/pink with a complete frame of substantial intertwined chestnut bark roots, glossy dark-orange citrus-peel corner shells, amber sap pockets and small cyan nerve knots. A few deep-green leaf tips and tiny white citrus blossoms at two opposite corners. Detailed realistic painted UI matching a living citrus-tree HUD. Keep the borders moderately thin (about3percent of the width), and leave a vast opaque charcoal-black empty interior for title, text and buttons. All decoration stays INSIDE the guide outline and OUT of the central content area. No text, glyphs, icons, characters, metal, scenery or other panels. Outside the frame remains transparent alpha0 with no shadow, outer glow, floor, aura, gradient or vignette. A separate new composition ONLY for this 820x650px window, never a stretched/cropped/nine-sliced version of another frame.",
+  "tool": "built-in image_gen",
+  "status": "approved_applied",
+  "runtime_connected": true,
+  "runtime": "res://assets/ui/egyul_native_20261024/board-820x650.png",
+  "application_approval": "User: 그대로 적용해줘; follow-up size and common-position corrections"
+}

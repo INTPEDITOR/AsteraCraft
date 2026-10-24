@@ -1,0 +1,131 @@
+{
+  "status": "user_approved_and_connected",
+  "approval": "User: 그대로 적용해줘; subsequent common size and position corrections",
+  "tool": "built-in image_gen",
+  "items": [
+    {
+      "id": "button-320x76",
+      "use": "all faction main navigation",
+      "size": [
+        320,
+        76
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/button-320x76.png",
+      "sha256": "781354fb927f53cc8074b51b563833bd93c2db1412909a95d2277806f11ed92f",
+      "prompt_record": "docs/egyul-ui-native-20261024/button-320x76-v2.json",
+      "source_sha256": "b45102f371b18565e744afabcd2a82ca56749953bcdb5478195af6f04e84b22d",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "button-220x48",
+      "use": "standard menu actions and dropdowns",
+      "size": [
+        220,
+        48
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/button-220x48.png",
+      "sha256": "486e61ae58df967a07f9e4ffdb018fa70b64e7bd77a7d4433d3336f0ca604c5f",
+      "prompt_record": "docs/egyul-ui-native-20261024/button-220x48.json",
+      "source_sha256": "257c10e69ff355ed6d8db833d430e442faf02f60d90d819eceb4acf0c5cf8bd3",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "button-145x44",
+      "use": "compact surrender dialog actions",
+      "size": [
+        145,
+        44
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/button-145x44.png",
+      "sha256": "3d9ea97f148d72c36dcce6e29ec713974e129d77ef70704df1962987768a8c50",
+      "prompt_record": "docs/egyul-ui-native-20261024/button-145x44-v3.json",
+      "source_sha256": "a277386cb0ed1a47437b0aa6e6115255f10d36c61a4883c5ac212868b4a6d768",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "button-105x36",
+      "use": "compact room controls",
+      "size": [
+        105,
+        36
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/button-105x36.png",
+      "sha256": "401d1a1a25f44b6ed6587bd650ffa073418e212e50a9d9da3f8288b4748afa7f",
+      "prompt_record": "docs/egyul-ui-native-20261024/button-105x36.json",
+      "source_sha256": "57f287e73d2ac09dd34a86b156668c400b1f1f52faa46c60264637ca55a7cdec",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "board-1260x840",
+      "size": [
+        1260,
+        840
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/board-1260x840.png",
+      "sha256": "c6f0bd2044ef37d10775cdb13b615f55ec4916524063c618dd69cda793ab1d72",
+      "prompt_record": "docs/egyul-ui-native-20261024/board-1260x840.json",
+      "source_sha256": "37ae4f329110dd99e13bc66426398792c48065ae0e2d3d777f4837f57449fe55",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "board-1060x840",
+      "size": [
+        1060,
+        840
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/board-1060x840.png",
+      "sha256": "fe54b88ec9470fddb2ba5e61755dd68ff062656e22fa914c3389aa8e774bd005",
+      "prompt_record": "docs/egyul-ui-native-20261024/board-1060x840.json",
+      "source_sha256": "18ca611d9a7ea2d45da94575e5ee980f5ee5dfa1d962636dcf3d9651683d39e9",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "board-820x650",
+      "size": [
+        820,
+        650
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/board-820x650.png",
+      "sha256": "68a9645b60f24dfe643968c1e487bfe674027306ae98546d0df393d2c3b0e8fe",
+      "prompt_record": "docs/egyul-ui-native-20261024/board-820x650.json",
+      "source_sha256": "5e95c9204083b1a35392e76e6a94941e1daf0937bff7cbe543ee1507fc7f20fd",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "board-760x300",
+      "size": [
+        760,
+        300
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/board-760x300.png",
+      "sha256": "c8faa80eb0a102e7eb3c42d2df9906cb1aebe5f245d2d9c1a3f8fbc64b25aeb7",
+      "prompt_record": "docs/egyul-ui-native-20261024/board-760x300.json",
+      "source_sha256": "988fdfc81951fc3ae5755ea58e6eb4daf00b99e311252579532b2fbb457e4deb",
+      "runtime_scale": 1,
+      "nine_slice": false
+    },
+    {
+      "id": "board-520x300",
+      "size": [
+        520,
+        300
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/board-520x300.png",
+      "sha256": "2cc60e94100cc28cf02b173cc545c1fa2809a210d3b75e6f9213d6fabab965ad",
+      "prompt_record": "docs/egyul-ui-native-20261024/board-520x300.json",
+      "source_sha256": "66eeb6eb59dc4f92f805ac8f4cf58c87b4ec81ba57416fdf8d8c729fc989b609",
+      "runtime_scale": 1,
+      "nine_slice": false
+    }
+  ],
+  "common_faction_controls": true,
+  "hud_source_unchanged": true,
+  "verification": "docs/verification_feedback5_20261024/checks.json"
+}

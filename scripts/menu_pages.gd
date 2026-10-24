@@ -213,7 +213,7 @@ func account_menu() -> void:
 	main.online_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	main.online_status.size.y=70
 	button(p,"로그인",0,195,300,func():authenticate(false))
-	button(p,"회원 가입",335,195,300,func():authenticate(true))
+	button(p,"회원 가입",310,195,300,func():authenticate(true))
 	button(p,"돌아가기",0,345,220,_account_back)
 	auth_nick.grab_focus()
 
@@ -246,12 +246,12 @@ func rooms() -> void:
 	label(p,"%s   ·   %d점"%[main.account.get("nickname","지휘관"),int(main.account.get("rating",1000))],0,650,21)
 	main.race_select=option(p,ACData.get_data().race_names,0,55,220,main.race_choice,func(i):main.race_choice=i)
 	color_option(p,230,55,145,main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice],func(i):main.color_choice=i)
-	button(p,"방 만들기",390,55,220,func():main._api("/room/create",{"race":main.race_choice,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice],"map":main.map_choice,"mode":"ffa"},func(data):
+	button(p,"방 만들기",480,55,220,func():main._api("/room/create",{"race":main.race_choice,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice],"map":main.map_choice,"mode":"ffa"},func(data):
 		if data.has("room"):main.room=data.room;main._room_menu()
 		else:main._notify(data.get("error","방을 만들지 못했습니다."))
 	))
-	button(p,"새로고침",630,55,220,main._fetch_rooms)
-	button(p,"계정",870,55,220,account_menu)
+	button(p,"새로고침",720,55,220,main._fetch_rooms)
+	button(p,"계정",780,0,220,account_menu)
 	var scroll=ScrollContainer.new()
 	scroll.position=Vector2(0,130)
 	scroll.size=Vector2(1095,365)
@@ -262,7 +262,7 @@ func rooms() -> void:
 	scroll.add_child(main.room_list)
 	button(p,"래더 매치",0,530,220,main._ladder_menu)
 	button(p,"순위표",280,530,220,main._leaderboard_menu)
-	button(p,"뒤로",840,530,220,main._main_menu)
+	button(p,"뒤로",790,530,220,main._main_menu)
 	main._fetch_rooms()
 
 func fetch_rooms() -> void:
@@ -289,7 +289,7 @@ func fetch_rooms() -> void:
 
 func make_room_row(item: Dictionary) -> Panel:
 	var row=Panel.new()
-	row.custom_minimum_size=Vector2(1060,64)
+	row.custom_minimum_size=Vector2(1010 if modal.button_race==1 else 1060,64)
 	row.size_flags_horizontal=Control.SIZE_SHRINK_BEGIN
 	var background=StyleBoxFlat.new()
 	background.bg_color=Color(.025,.035,.045,.78)
@@ -300,7 +300,7 @@ func make_room_row(item: Dictionary) -> Panel:
 	description.size.y=56
 	description.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	description.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-	button(row,"입장",832,8,220,func():main._api("/room/join",{"id":item.id,"race":main.race_choice,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice]},func(result):
+	button(row,"입장",800 if modal.button_race==1 else 832,8,220,func():main._api("/room/join",{"id":item.id,"race":main.race_choice,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice]},func(result):
 		if result.has("room"):main.room=result.room;main._room_menu()
 		else:main._notify(result.get("error","입장하지 못했습니다."))
 	))
@@ -391,7 +391,7 @@ func room_menu() -> void:
 			var bot_id=str(seated.user)
 			var bot_select=option(row,ACData.get_data().race_names,220,0,170,int(seated.race),func(i):main._room_update({"bot_id":bot_id,"bot_race":i}))
 			bot_select.size.y=36;bot_select.custom_minimum_size.y=36
-			bot_select.add_theme_font_size_override("font_size",17)
+			bot_select.add_theme_font_size_override("font_size",13)
 			bot_select.set_meta("owner_only",true)
 			room_rows.back()["bot_select"]=bot_select
 			room_controls.append(bot_select)
@@ -400,7 +400,7 @@ func room_menu() -> void:
 			main.race_select=option(row,ACData.get_data().race_names,220,0,170,int(seated.race),func(i):main.race_choice=i;main._room_update({"race":i}))
 			main.race_select.size.y=36
 			main.race_select.custom_minimum_size.y=36
-			main.race_select.add_theme_font_size_override("font_size",17)
+			main.race_select.add_theme_font_size_override("font_size",13)
 			room_controls.append(main.race_select)
 		if not seated.is_empty() and (seated.get("user","")==main.account.id or (seated.get("bot",false) and owner)):
 			color.hide()
@@ -409,7 +409,7 @@ func room_menu() -> void:
 				if chosen_member.get("bot",false):main._room_update({"bot_id":str(chosen_member.user),"bot_color_id":i})
 				else:main.color_choice=i;main._room_update({"color_id":i})
 			)
-			color_select.size.y=36;color_select.custom_minimum_size.y=36;color_select.add_theme_font_size_override("font_size",15)
+			color_select.size.y=36;color_select.custom_minimum_size.y=36;color_select.add_theme_font_size_override("font_size",13)
 			room_rows.back()["color_select"]=color_select;room_controls.append(color_select)
 	main.room_detail=label(p,"",385,740,18,350)
 	main.room_detail.size.y=48
@@ -437,8 +437,34 @@ func room_menu() -> void:
 	button(p,"방 나가기",830,520,220,leave_room)
 	modal.closed.disconnect(modal.closed.get_connections()[0].callable)
 	modal.closed.connect(leave_room)
+	_fit_native_room(p)
 	update_room_text()
 	main.poll_clock=.15
+
+func _fit_native_room(parent: Control) -> void:
+	for child in parent.get_children():
+		if not child is Control:continue
+		if child.position.x>=350:child.position.x-=60
+		if child==room_preview:child.size=Vector2(260,260)
+		if child is Label:
+			var header={"종족":470,"색상":590,"팀":705,"상태":800}
+			if header.has(child.text):child.position.x=header[child.text]
+		if child==team_button:child.position=Vector2(290,420)
+		elif child==observer_button:child.position=Vector2(530,420)
+		elif child==add_bot_button:child.position=Vector2(290,475)
+		elif child==remove_bot_button:child.position=Vector2(530,475)
+		elif child==ready_button:child.position=Vector2(290,530)
+		elif child is Button and child.text=="방 나가기":child.position=Vector2(770,530)
+		if not str(child.name).begins_with("PlayerSlot"):continue
+		child.size.x=700
+		for entry in child.get_children():
+			if not entry is Control:continue
+			if entry.position.x==220:entry.position.x=180
+			elif entry.position.x==400:entry.position.x=300
+			elif entry.position.x==500:entry.position.x=415
+			elif entry is Button and not entry is OptionButton:entry.position.x=565
+			elif entry.position.x==600:entry.position.x=510
+			if entry is Label:entry.size.x=minf(entry.size.x,150 if entry.position.x==18 else 110 if entry.position.x==180 else 70 if entry.position.x==415 else 180)
 
 func show_room_notice(message: String) -> void:
 	room_notice=message;room_notice_until=Time.get_ticks_msec()+6000

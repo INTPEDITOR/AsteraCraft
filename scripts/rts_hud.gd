@@ -166,6 +166,7 @@ func configure(controller: Control) -> void:
 func _build_surrender_prompt() -> void:
 	surrender_panel=PanelContainer.new();surrender_panel.hide();add_child(surrender_panel)
 	surrender_panel.add_theme_stylebox_override("panel",ACRaceUI.board_style(race))
+	if race==1:surrender_panel.custom_minimum_size=Vector2(520,300)
 	var column=VBoxContainer.new();surrender_panel.add_child(column)
 	column.add_theme_constant_override("separation",8)
 	var heading=Label.new();heading.text="항복 요청";heading.add_theme_font_size_override("font_size",18)
@@ -175,11 +176,14 @@ func _build_surrender_prompt() -> void:
 	surrender_caption.custom_minimum_size.x=280
 	surrender_caption.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	var row=HBoxContainer.new();column.add_child(row)
+	if race==1:row.alignment=BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation",12)
 	for accept in [true,false]:
 		var button=Button.new();button.text="승인" if accept else "거절";button.custom_minimum_size=Vector2(150,52);button.focus_mode=Control.FOCUS_NONE
 		button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		ACRaceUI.style_button(button,race)
+		if race==1:ACEgyulNativeUI.button(button,ACEgyulNativeUI.DIALOG)
+		button.custom_minimum_size=Vector2(145,44);button.size=Vector2(145,44);button.size_flags_horizontal=Control.SIZE_SHRINK_CENTER
 		var decision=accept
 		button.pressed.connect(func():
 			if surrender_bot>=0:main._send_command({"type":"surrender_response","bot":surrender_bot,"accept":decision}))
@@ -208,6 +212,9 @@ func _process(_dt: float) -> void:
 	var showing=main.page=="game" and not main.state.is_empty()
 	_portrait_canvas.visible=showing
 	if not showing:return
+	# Reflow the command buttons in the same frame as the shell on resize,
+	# including paused battles, instead of waiting for the .2s snapshot refresh.
+	if size!=_last_size:update_hud(true)
 	var texture=_portrait
 	var area=_portrait_rect()
 	if _portrait_canvas.position!=area.position:_portrait_canvas.position=area.position
@@ -330,6 +337,13 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 				native_path="res://assets/ui/egyul_hud_living_common_20261024.png"
 				_native_shell_geometry[faction]=COMMON_SHELL.duplicate(true)
 				_frame_slices[faction]=living_egyul_slices()
+				# Measure the approved art's actual dark openings, then keep the
+				# same bay sizes as the other two races around these true centres.
+				_native_shell_geometry[faction].mini=Rect2(72,62,218,218)
+				_native_shell_geometry[faction].portrait=Rect2(1270,107,148,178)
+				_native_shell_geometry[faction].menu=Rect2(1262,51,166,27)
+				_native_shell_geometry[faction].cols=[1501,1606,1711,1817]
+				_native_shell_geometry[faction].rows=[75,158,234]
 		var native=_native_shell_geometry.has(faction) and ResourceLoader.exists(native_path)
 		if native:path=native_path
 		_frame_art.append(load(path) if ResourceLoader.exists(path) else null)
@@ -1416,7 +1430,7 @@ func _present_commands(specs: Array[Dictionary]) -> void:
 			image.texture_repeat=CanvasItem.TEXTURE_REPEAT_DISABLED
 			image.flip_h=false
 			var glyph_size=Vector2(minf(54,slot.size.x-8),minf(46,slot.size.y-4))
-			image.position=(slot.size-glyph_size)*.5+Vector2(3,0)
+			image.position=(slot.size-glyph_size)*.5
 			image.size=glyph_size
 			# Preserve full-colour building and equipment artwork.
 			image.set_meta("command_image",true)

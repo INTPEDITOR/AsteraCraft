@@ -1,0 +1,17 @@
+{
+  "id": "button-320x76",
+  "kind": "button",
+  "intended_size": [
+    320,
+    76
+  ],
+  "revision": 2,
+  "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-be218931-f841-4320-89d6-8e0d4625807f.png",
+  "prompt": "Use case: sketch-to-render. Asset type: ONE final RTS menu button, dedicated to native320x76pixels. Image1 is a geometry guide, not a style reference: preserve its1536x1024canvas and EXACT outer rounded rectangle silhouette x70..1466,y348..676, aspect ratio320:76. Replace ONLY that rectangle with a finished living-citrus button: warm chestnut grafted roots, orange citrus-peel endcaps, amber sap, tiny cyan living veins and restrained small green leaves. Thin intertwined organic top and bottom roots; substantial orange-peel/root endcaps; a wide opaque dark charcoal central label area. The central usable charcoal area must be at least75%of total width and60%of total height. Stay precisely inside the guide silhouette. All ornament must fit inside, no petals/leaves projecting outward, no extra canvas or drop shadow. Keep the guide's exact4.21:1 proportions, front-on symmetrical interface artwork, realistic painted materials, clean readability at native320x76pixels. True transparent RGBA everywhere outside the button. NO text, letters, icons, second button, board, large HUD, metal, checkerboard or pink guide outlines. This is one dedicated320x76artwork, not a stretched existing button.",
+  "tool": "built-in image_gen",
+  "status": "approved_applied",
+  "approval": "User requested all race button sizes match; existing style and application approved.",
+  "runtime_connected": true,
+  "runtime": "res://assets/ui/egyul_native_20261024/button-320x76.png",
+  "application_approval": "User: 그대로 적용해줘; follow-up size and common-position corrections"
+}

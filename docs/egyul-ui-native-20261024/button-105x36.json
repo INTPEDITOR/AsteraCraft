@@ -1,0 +1,19 @@
+{
+  "id": "button-105x36",
+  "size": [
+    105,
+    36
+  ],
+  "kind": "button",
+  "intended_size": [
+    105,
+    36
+  ],
+  "source": "C:\\Users\\Admin\\.codex\\generated_images\\01a1658f-18eb-7781-929a-256a0df7e051\\exec-d08ba22e-5840-486d-af44-06e4eb2e362e.png",
+  "prompt": "Sketch-to-render UI asset. Edit ONLY the flat gray rounded rectangle in the supplied1536x1024guide. Preserve its exact outer shape, width, height, position and aspect ratio 105:36. Do not crop/reframe the canvas or change the rectangle. Replace all gray and pink with a finished living-citrus game button: glossy intertwined chestnut-brown roots, dark orange citrus-peel endcaps, small amber sap pockets and a tiny cyan nerve bead. Keep ALL artwork within the given outline. This is a NEW design composed independently FOR a 105x36px button. Thin borders, small endcaps; at least82percent width and65percent height of plain opaque charcoal-black label space. No leaves, flowers, large fruit, hanging ornaments, text, letters, symbols, icons, other buttons, metal, landscape or watermark. Outside the outline stays genuinely transparent alpha0, no drop shadows, outer glow, aura, haze, background or gradient. Keep the supplied geometry exactly.",
+  "tool": "built-in image_gen",
+  "status": "approved_applied",
+  "runtime_connected": true,
+  "runtime": "res://assets/ui/egyul_native_20261024/button-105x36.png",
+  "application_approval": "User: 그대로 적용해줘; follow-up size and common-position corrections"
+}
