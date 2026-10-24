@@ -5,12 +5,12 @@ extends RefCounted
 ## dimensions are used; controls reflow or scroll instead of stretching art.
 const ROOT="res://assets/ui/egyul_native_20261024/"
 const MAIN="button-320x76"
-const ACTION="button-220x48"
-const SELECT="button-220x48"
+const ACTION="button-220x48-v2"
+const SELECT="button-220x48-v2"
 const SMALL="button-105x36"
 const DIALOG="button-145x44"
-const LARGE="board-1260x840"
-const MEDIUM="board-1060x840"
+const LARGE="board-1260x840-v2"
+const MEDIUM="board-1060x840-v2"
 const COMPACT="board-820x650"
 const LOADING="board-760x300"
 const SURRENDER="board-520x300"
@@ -28,7 +28,7 @@ class Frame:
 		mouse_filter=Control.MOUSE_FILTER_STOP
 	func _draw() -> void:
 		if art==null:return
-		if art_id in [ACEgyulNativeUI.LARGE,ACEgyulNativeUI.MEDIUM]:
+		if art_id in ["board-1260x840","board-1060x840"]:
 			var backing=StyleBoxFlat.new();backing.bg_color=Color("101516");backing.set_corner_radius_all(60)
 			draw_style_box(backing,Rect2(Vector2(90,100),art.get_size()-Vector2(180,200)))
 		draw_texture(art,Vector2.ZERO)
@@ -57,7 +57,7 @@ static func button(control: BaseButton,id=ACTION) -> void:
 	control.size_flags_horizontal=Control.SIZE_SHRINK_CENTER;control.size_flags_vertical=Control.SIZE_SHRINK_CENTER
 	for state in ["normal","hover","pressed","disabled"]:control.add_theme_stylebox_override(state,plate(id,state))
 	control.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
-	control.add_theme_font_size_override("font_size",20 if id==MAIN else 13 if id==SMALL else 16)
+	control.add_theme_font_size_override("font_size",22 if id==MAIN else 13 if id==SMALL else 16)
 	control.add_theme_color_override("font_color",Color("ebd2a0"));control.add_theme_color_override("font_hover_color",Color("fff1c8"))
 	control.add_theme_color_override("font_pressed_color",Color("e0bf82"));control.add_theme_color_override("font_disabled_color",Color("9a8f79"))
 	control.add_theme_color_override("font_shadow_color",Color(0,0,0,.9));control.add_theme_constant_override("shadow_offset_y",1)
@@ -75,6 +75,7 @@ static func button(control: BaseButton,id=ACTION) -> void:
 	# otherwise leave an initially larger control at its previous dimensions.
 	control.size=extent
 	control.set_deferred("size",extent)
+	if control is Button:ACCenteredButtonCaption.apply(control)
 
 static func matching_theme(original: Theme) -> Theme:
 	var theme=original.duplicate()

@@ -120,6 +120,23 @@ func style_control(control: BaseButton,extent: Vector2) -> void:
 	var standard=Vector2(105,36) if compact else Vector2(220,48)
 	if not control is OptionButton:control.position.x+=roundf((extent.x-standard.x)*.5)
 	extent=standard
+	if compact:
+		# One shared small plate for every faction; no faction image is resized.
+		for state_name in ["normal","hover","pressed","disabled"]:
+			var plate=StyleBoxFlat.new()
+			plate.bg_color=Color("10151c") if state_name=="disabled" else Color("182129")
+			plate.border_color=Color("a38a4c");plate.set_border_width_all(2)
+			plate.content_margin_left=12;plate.content_margin_right=12
+			plate.content_margin_top=0;plate.content_margin_bottom=0
+			control.add_theme_stylebox_override(state_name,plate)
+		control.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
+		control.add_theme_font_size_override("font_size",13)
+		for colour_name in ["font_color","font_hover_color","font_pressed_color","font_disabled_color"]:
+			control.add_theme_color_override(colour_name,Color("a99a7c") if colour_name=="font_disabled_color" else Color("f5deb0"))
+		control.custom_minimum_size=extent;control.size=extent;control.set_deferred("size",extent)
+		if control is OptionButton:control.fit_to_longest_item=false;control.alignment=HORIZONTAL_ALIGNMENT_CENTER
+		if control is Button:ACCenteredButtonCaption.apply(control)
+		return
 	if button_race==1:
 		var id=ACEgyulNativeUI.SMALL if compact else ACEgyulNativeUI.SELECT if control is OptionButton else ACEgyulNativeUI.ACTION
 		ACEgyulNativeUI.button(control,id)
@@ -155,6 +172,7 @@ func style_control(control: BaseButton,extent: Vector2) -> void:
 	control.add_theme_stylebox_override("disabled",disabled)
 	control.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
 	control.custom_minimum_size=extent;control.size=extent;control.set_deferred("size",extent)
+	if control is Button:ACCenteredButtonCaption.apply(control)
 
 func _layout() -> void:
 	board.size=ACEgyulNativeUI.texture(ACEgyulNativeUI.board_id(wanted_size)).get_size()

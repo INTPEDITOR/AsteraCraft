@@ -19,7 +19,7 @@
     },
     {
       "id": "button-220x48",
-      "use": "standard menu actions and dropdowns",
+      "use": "archived thin original replaced by approved v2",
       "size": [
         220,
         48
@@ -29,7 +29,8 @@
       "prompt_record": "docs/egyul-ui-native-20261024/button-220x48.json",
       "source_sha256": "257c10e69ff355ed6d8db833d430e442faf02f60d90d819eceb4acf0c5cf8bd3",
       "runtime_scale": 1,
-      "nine_slice": false
+      "nine_slice": false,
+      "runtime_connected": false
     },
     {
       "id": "button-145x44",
@@ -47,7 +48,7 @@
     },
     {
       "id": "button-105x36",
-      "use": "compact room controls",
+      "use": "archived faction art; room small buttons now share the same105x36flat plate",
       "size": [
         105,
         36
@@ -57,7 +58,8 @@
       "prompt_record": "docs/egyul-ui-native-20261024/button-105x36.json",
       "source_sha256": "57f287e73d2ac09dd34a86b156668c400b1f1f52faa46c60264637ca55a7cdec",
       "runtime_scale": 1,
-      "nine_slice": false
+      "nine_slice": false,
+      "runtime_connected": false
     },
     {
       "id": "board-1260x840",
@@ -70,7 +72,9 @@
       "prompt_record": "docs/egyul-ui-native-20261024/board-1260x840.json",
       "source_sha256": "37ae4f329110dd99e13bc66426398792c48065ae0e2d3d777f4837f57449fe55",
       "runtime_scale": 1,
-      "nine_slice": false
+      "nine_slice": false,
+      "runtime_connected": false,
+      "use": "archived patchy original replaced by opaque centre v2"
     },
     {
       "id": "board-1060x840",
@@ -83,7 +87,9 @@
       "prompt_record": "docs/egyul-ui-native-20261024/board-1060x840.json",
       "source_sha256": "18ca611d9a7ea2d45da94575e5ee980f5ee5dfa1d962636dcf3d9651683d39e9",
       "runtime_scale": 1,
-      "nine_slice": false
+      "nine_slice": false,
+      "runtime_connected": false,
+      "use": "archived patchy original replaced by opaque centre v2"
     },
     {
       "id": "board-820x650",
@@ -123,9 +129,54 @@
       "source_sha256": "66eeb6eb59dc4f92f805ac8f4cf58c87b4ec81ba57416fdf8d8c729fc989b609",
       "runtime_scale": 1,
       "nine_slice": false
+    },
+    {
+      "id": "button-220x48-v2",
+      "use": "standard menu actions, dropdowns, loading cancel and updater",
+      "size": [
+        220,
+        48
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png",
+      "sha256": "80f5fbfd0779c96fb170971267380d5a36a4d897effb487df594f98fe933e898",
+      "prompt_record": "docs/egyul-ui-native-20261024/button-220x48-v2.json",
+      "source_sha256": "30446389ac7862442d06f211c081e183acfd7793d3153267f1dfd8b6d149ee2f",
+      "runtime_scale": 1,
+      "nine_slice": false,
+      "runtime_connected": true
+    },
+    {
+      "id": "board-1260x840-v2",
+      "use": "large modal board, opaque even centre",
+      "size": [
+        1260,
+        840
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/board-1260x840-v2.png",
+      "sha256": "ae3ebd6331576507016ed01a7c0233bbe3beb05908cc7d5e9848989b49f90993",
+      "prompt_record": "docs/egyul-ui-native-20261024/board-1260x840-v2.json",
+      "source_sha256": "635ae50288939ae5e0178df768b3b378f1d183a76e7cbceab732359410740cc2",
+      "runtime_scale": 1,
+      "nine_slice": false,
+      "runtime_connected": true
+    },
+    {
+      "id": "board-1060x840-v2",
+      "use": "medium modal board, opaque even centre",
+      "size": [
+        1060,
+        840
+      ],
+      "file": "res://assets/ui/egyul_native_20261024/board-1060x840-v2.png",
+      "sha256": "2dac22df8f88677ea0abdcc20accd00b2318ed52277ed5cb2261214d4ff7a8f9",
+      "prompt_record": "docs/egyul-ui-native-20261024/board-1060x840-v2.json",
+      "source_sha256": "e1d7af2eb4ee17398b926022aede9eac6faa70c313d3d132444c65cf03774c4f",
+      "runtime_scale": 1,
+      "nine_slice": false,
+      "runtime_connected": true
     }
   ],
   "common_faction_controls": true,
   "hud_source_unchanged": true,
-  "verification": "docs/verification_feedback5_20261024/checks.json"
+  "verification": "docs/verification_feedback6_20261024/checks.json"
 }

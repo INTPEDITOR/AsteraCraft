@@ -19,7 +19,7 @@ func run():
 			if selected_race>=0 and selected_race!=race:continue
 			var c=load("res://tests/core_profile_probe_v060.gd").new() if OS.get_environment("ASTERA_PROFILE")=="1" else ACCore.new();c.setup({"map":theme,"seed":6020,"spawn_slots":[0,2],"players":[{"race":race},{"race":race}]});c.ai_clock=100000
 			for node in c.map.resources:node.amount=1000000
-			var battle=c.map.nearest_free(Vector2(64,64));var replay=load("res://scripts/main.gd").new();var frame_bytes=0;var windows=[]
+			var battle=c.map.nearest_free(Vector2(64,64));var windows=[]
 			for phase in range(4):
 				var population=[50,100,150,200][phase]
 				while c.units.filter(func(u):return not u.get("technical",false)).size()<population:
@@ -32,24 +32,22 @@ func run():
 					if worker:u.order="gather";u.target=c.nearest_resource(ACData.point(u.pos),"as",owner)
 					else:u.order="attack_move";u.goal=ACData.packed(battle)
 				c._recalculate_supply()
-				var times=[];var replay_times=[];var start_gathered=c.players[0].gathered+c.players[1].gathered
+				var times=[];var start_gathered=c.players[0].gathered+c.players[1].gathered
 				if c.has_method("profile_report"):c.timings.clear()
 				for tick in range(ticks):
 					if tick%300==0:
 						for u in c.units:
 							if int(u.kind)!=0 and not u.get("technical",false):u.order="attack_move";u.goal=ACData.packed(battle+Vector2(0,2 if (tick/300)%2==0 else -2))
 					var started=Time.get_ticks_usec();c.step(DT);c.resolve_spells();times.append((Time.get_ticks_usec()-started)/1000.0)
-					if tick%2==0:
-						started=Time.get_ticks_usec();var packed=replay._encode_replay_frame(c.snapshot(0));replay_times.append((Time.get_ticks_usec()-started)/1000.0);frame_bytes+=packed.compressed.size();replay.replay_frames.append(packed)
 					if c.ended:failures.append("unexpected end %d/%d/%d"%[theme,race,phase]);break
 				var total=0.0
 				for value in times:total+=value
-				var result={"population":population,"simulated_seconds":c.time,"mean_ms":total/times.size(),"p95_ms":percentile(times,.95),"max_ms":times[-1],"encode_p95_ms":percentile(replay_times,.95),"gathered":c.players[0].gathered+c.players[1].gathered-start_gathered,"effects":c.effects.size(),"events":c.events.size(),"replay_bytes":frame_bytes,"replay_frames":replay.replay_frames.size(),"resident_bytes":OS.get_static_memory_usage()}
+				var result={"population":population,"simulated_seconds":c.time,"mean_ms":total/times.size(),"p95_ms":percentile(times,.95),"max_ms":times[-1],"gathered":c.players[0].gathered+c.players[1].gathered-start_gathered,"effects":c.effects.size(),"events":c.events.size(),"resident_bytes":OS.get_static_memory_usage()}
 				if result.gathered<=0:failures.append("mining stalled %d/%d/%d"%[theme,race,phase])
 				if c.effects.size()>1500 or c.events.size()>1000:failures.append("unbounded effects/events %d/%d"%[theme,race])
 				windows.append(result);print("LONG_WINDOW ",JSON.stringify({"map":theme,"race":race,"window":result}))
 				if c.has_method("profile_report"):print("LONG_PROFILE ",population," ",JSON.stringify(c.profile_report()))
 				FileAccess.open("res://build/qa-v060/%s-progress.json"%output,FileAccess.WRITE).store_string(JSON.stringify({"completed":report,"current":{"map":theme,"race":race,"windows":windows},"failures":failures}))
-			report.append({"map":theme,"race":race,"windows":windows});replay.replay_frames.clear();replay.free()
+			report.append({"map":theme,"race":race,"windows":windows})
 	FileAccess.open("res://build/qa-v060/%s.json"%output,FileAccess.WRITE).store_string(JSON.stringify({"cases":report,"failures":failures,"timing_scope":"concurrent stability load; not player FPS" if OS.get_environment("ASTERA_STRESS_CONCURRENT")=="1" else "headless simulation"},"  "))
 	print("LONG_BATTLE_V060 ",JSON.stringify({"cases":report.size(),"minutes_each":ticks*DT*4/60,"failures":failures}));quit(0 if failures.is_empty() else 1)

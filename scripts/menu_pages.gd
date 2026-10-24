@@ -15,7 +15,6 @@ var room_member_ids: Array=[]
 var room_rows: Array=[]
 var room_preview: ACLobbyMapPreview
 var room_map_name: Label
-var replay_file=""
 var observer_button: Button
 var team_button: Button
 var add_bot_button: Button
@@ -81,7 +80,7 @@ func single() -> void:
 	label(p,"전장",105)
 	option(p,ACLobbyMapPreview.map_names(),0,145,300,main.map_choice,func(i):main.map_choice=i;preview.set_map(i))
 	label(p,"컴퓨터 수",210)
-	option(p,["1명 · 1 대 1","2명 · 3인 자유전","3명 · 4인 자유전"],0,250,300,main.bot_count-1,func(i):main.bot_count=i+1)
+	option(p,["1명","2명","3명"],0,250,300,main.bot_count-1,func(i):main.bot_count=i+1)
 	label(p,"컴퓨터 난이도",315)
 	option(p,["쉬움","보통","어려움"],0,355,300,main.difficulty,func(i):main.difficulty=i)
 	option(p,["자유전","2 대 2 팀전"],0,420,300,1 if main.game_mode=="teams" else 0,func(i):main.game_mode="teams" if i==1 else "ffa")
@@ -618,7 +617,7 @@ func leaderboard() -> void:
 	button(p,"돌아가기",0,525,220,main._rooms_menu)
 
 func result(won: bool) -> Control:
-	var observing=main.spectator or main.replay_mode
+	var observing=main.spectator
 	var p=open("game","관전 종료" if observing else ("승리" if won else "패배"),Vector2(940,760))
 	modal.heading.modulate=Color("ddd6c0") if observing else (Color("f0d17b") if won else Color("e99183"))
 	var leave=func():
@@ -654,130 +653,8 @@ func result(won: bool) -> Control:
 	button(p,"메인 화면",0,425,300,leave)
 	return p
 
-func _watch_result_replay() -> void:
-	if main.replay_frames.is_empty():return
-	main._leave_network()
-	main.core=null
-	main.replay_mode=true
-	main.replay_index=0
-	main.replay_clock=0
-	replay_file=""
-	main.state=main._replay_state(main.replay_frames[0])
-	main.selected=[]
-	main.selected_resource=-1
-	main.paused=false
-	main._focus_home(true)
-	main._begin_replay()
-	close()
-	main._build_hud()
-
 func connecting() -> void:
 	main._begin_remote_loading()
-
-func replays() -> void:
-	var p=open("replays","리플레이",Vector2(1090,840))
-	var dir=DirAccess.open("user://replays")
-	var files=PackedStringArray()
-	if dir!=null:
-		for file in dir.get_files():
-			if file.get_extension().to_lower()=="acr":files.append(file)
-		files.sort()
-		files.reverse()
-	var scroll=ScrollContainer.new()
-	scroll.position=Vector2(0,0)
-	scroll.size=Vector2(940,480)
-	p.add_child(scroll)
-	var list=VBoxContainer.new()
-	list.name="ReplayList"
-	list.add_theme_constant_override("separation",12)
-	scroll.add_child(list)
-	for file in files:
-		var row=Panel.new()
-		row.set_meta("replay_file",file)
-		row.custom_minimum_size=Vector2(920,64)
-		var style=StyleBoxFlat.new()
-		style.bg_color=Color(.035,.045,.05,.85)
-		style.border_color=Color(.53,.45,.28,.5)
-		style.set_border_width_all(1)
-		row.add_theme_stylebox_override("panel",style)
-		list.add_child(row)
-		var filename=label(row,file+(" · 재생 중" if main.replay_mode and replay_file==_replay_path(file) else ""),18,410,19,14)
-		filename.clip_text=true
-		filename.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-		button(row,"재생",450,8,220,func():_load_replay(file))
-		button(row,"삭제",690,8,220,func():confirm_replay_delete(file))
-	if files.is_empty():label(p,"저장된 리플레이가 없습니다.",40,900,22)
-	button(p,"돌아가기",0,520,220,main._main_menu)
-
-func _replay_path(file: String) -> String:
-	if file=="" or file.get_file()!=file or file.get_extension().to_lower()!="acr" or file.contains(":") or file.contains("/") or file.contains("\\"):return ""
-	var user_directory=DirAccess.open("user://")
-	var replays_directory=DirAccess.open("user://replays")
-	if user_directory==null or replays_directory==null or user_directory.is_link("replays") or replays_directory.is_link(file):return ""
-	var directory=ProjectSettings.globalize_path("user://replays").simplify_path()
-	var target=directory.path_join(file).simplify_path()
-	if target.get_base_dir()!=directory or DirAccess.dir_exists_absolute(target):return ""
-	return target
-
-func _load_replay(file: String) -> bool:
-	var path=_replay_path(file)
-	if path=="" or not FileAccess.file_exists(path):main._notify("리플레이 파일을 찾지 못했습니다.");return false
-	var stream=FileAccess.open_compressed(path,FileAccess.READ,FileAccess.COMPRESSION_DEFLATE)
-	if stream==null:main._notify("리플레이를 열지 못했습니다.");return false
-	var replay=stream.get_var(false)
-	stream.close()
-	if not replay is Dictionary or not replay.get("frames") is Array or replay.frames.is_empty():main._notify("리플레이 기록이 올바르지 않습니다.");return false
-	main.replay_codec=int(replay.get("codec",FileAccess.COMPRESSION_DEFLATE))
-	var first=main._replay_state(replay.frames[0])
-	var slot=int(replay.get("slot",-1))
-	var map=int(replay.get("map",-1))
-	if not first.get("players") is Array or slot<0 or slot>=first.players.size() or map<0 or map>2:main._notify("리플레이 기록이 올바르지 않습니다.");return false
-	main._leave_network()
-	main.replay_frames=replay.frames
-	main.replay_mode=true
-	main.replay_index=0
-	main.replay_clock=0
-	main.local_slot=slot
-	main.state=first
-	main.draw_map.make(map,str(replay.get("map_layout",first.get("map_layout","reference_inspired_original"))))
-	main._focus_home(true)
-	main._begin_replay()
-	main.paused=false
-	main.core=null
-	replay_file=path
-	close()
-	main._build_hud()
-	return true
-
-func confirm_replay_delete(file: String) -> void:
-	if _replay_path(file)=="":main._notify("삭제할 리플레이 경로가 올바르지 않습니다.");return
-	var p=open("replay_delete","리플레이 삭제",Vector2(820,560))
-	modal.closed.disconnect(modal.closed.get_connections()[0].callable)
-	modal.closed.connect(replays)
-	label(p,"이 리플레이를 삭제할까요?",25,650,24)
-	var filename=label(p,file,90,650,20)
-	filename.clip_text=true
-	filename.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-	var status=label(p,"",145,650,17)
-	button(p,"삭제",0,235,220,func():
-		if _delete_replay(file)==OK:replays()
-		else:status.text="리플레이를 삭제하지 못했습니다. 다시 시도해 주세요."
-	)
-	button(p,"취소",260,235,220,replays)
-
-func _delete_replay(file: String) -> int:
-	var path=_replay_path(file)
-	if path=="" or not FileAccess.file_exists(path):return ERR_INVALID_PARAMETER
-	var result=DirAccess.remove_absolute(path)
-	if result==OK and main.replay_mode and replay_file==path:
-		main.replay_mode=false
-		main.replay_frames=[]
-		main.replay_index=0
-		main.replay_clock=0
-		main.core=null
-		main.paused=false
-		replay_file=""
-	return result
 
 func pause() -> void:
 	if main.page!="game":return
@@ -791,7 +668,7 @@ func pause() -> void:
 	button(p,"환경 설정",45,75,300,settings)
 	button(p,"항복",45,225,300,func():resume.call();main._send_command({"type":"surrender"}))
 	button(p,"메인 화면",45,300,300,func():
-		if not main.replay_mode and not main.state.get("ended",false):main._send_command({"type":"surrender"})
+		if not main.state.get("ended",false):main._send_command({"type":"surrender"})
 		main._leave_network()
 		main.core=null
 		main.paused=false

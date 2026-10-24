@@ -7,7 +7,7 @@ static var boards: Dictionary={}
 static func board_style(race: int) -> StyleBoxTexture:
 	if race==1:
 		var native=ACEgyulNativeUI.plate(ACEgyulNativeUI.SURRENDER)
-		native.content_margin_left=84;native.content_margin_right=84;native.content_margin_top=64;native.content_margin_bottom=72
+		native.content_margin_left=84;native.content_margin_right=84;native.content_margin_top=72;native.content_margin_bottom=72
 		return native
 	if not boards.has(race):
 		var image=load("res://assets/modal_board_r%d_v3.png"%race).get_image()
@@ -35,4 +35,5 @@ static func style_button(button: Button,race: int) -> void:
 	button.add_theme_color_override("font_hover_color",Color.WHITE)
 	button.add_theme_color_override("font_shadow_color",Color(0,0,0,.9))
 	button.add_theme_constant_override("shadow_offset_y",1)
-	button.add_theme_font_size_override("font_size",15)
+	button.add_theme_font_size_override("font_size",16)
+	ACCenteredButtonCaption.apply(button)

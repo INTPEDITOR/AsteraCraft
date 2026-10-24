@@ -1,7 +1,6 @@
 extends Control
 
 const Core=preload("res://scripts/core.gd")
-const REPLAYS_ENABLED=false
 var simulation_worker: ACSimulationWorker
 var loading_job: ACBattleLoader
 var loading_screen: ACLoadingScreen
@@ -97,13 +96,6 @@ var elapsed=0.0
 var tick_accum=0.0
 var hud_clock=0.0
 var hud_signature=""
-var replay_clock=0.0
-var replay_frames: Array=[]
-var replay_mode=false
-var replay_index=0
-var replay_codec=FileAccess.COMPRESSION_FASTLZ
-var replay_interval=.2
-var replay_span=.2
 var local_slot=0
 var race_choice=0
 var map_choice=0
@@ -444,8 +436,8 @@ func _poll_loading() -> void:
 func _finish_remote_loading() -> void:
 	draw_map=loading_result.map;loading_result={}
 	if local_slot>=0 and local_slot<state.players.size():_remember_played_race(int(state.players[local_slot].race))
-	_focus_home(true);replay_frames=[];replay_codec=FileAccess.COMPRESSION_FASTLZ;replay_clock=0.0
-	paused=false;replay_mode=false;result_sent=false
+	_focus_home(true)
+	paused=false;result_sent=false
 	if audio!=null:audio.clear(true);audio.set_paused(false)
 	_build_hud()
 
@@ -473,10 +465,6 @@ func _start_local(config: Dictionary,prepared_core: ACCore=null,prepared_map: AC
 	_remember_played_race(int(state.players[local_slot].race))
 	_focus_home(true)
 	paused=false
-	replay_mode=false
-	replay_frames=[]
-	replay_codec=FileAccess.COMPRESSION_FASTLZ
-	replay_clock=0.0
 	_build_hud()
 
 func _stop_simulation_worker() -> void:
@@ -624,7 +612,7 @@ func _sync_world_canvas() -> void:
 	if spectator:_fog_canvas.hide()
 	else:
 		var fog=state.get("fog",PackedByteArray());var seen=state.get("explored",PackedByteArray())
-		if simulation_worker==null and not network_client and not replay_mode and core!=null:
+		if simulation_worker==null and not network_client and core!=null:
 			fog=core.visibility[local_slot];seen=core.explored[local_slot]
 		_fog_canvas.update_masks(fog,seen,_fog_stamp(),Rect2(map_rect.position-world_clip.position,map_rect.size),Rect2(Vector2.ZERO,clip.size))
 	world_mask.size=size
@@ -693,7 +681,7 @@ func _accept_visual_snapshot(units: Array,stamp: float,reset: bool=false) -> voi
 	else:
 		visual_previous=visual_current
 		visual_current=next
-		visual_step=clampf(stamp-visual_state_time,.025,10.0 if replay_mode else .3)
+		visual_step=clampf(stamp-visual_state_time,.025,.3)
 	visual_state_time=stamp
 	visual_clock=0.0
 
@@ -702,7 +690,7 @@ func _visual_position(unit: Dictionary) -> Vector2:
 	var id=int(unit.id)
 	if not visual_previous.has(id) or not visual_current.has(id):return current
 	var previous=visual_previous[id]
-	if int(previous.container)!=int(unit.get("container",-1)) or ACData.point(previous.pos).distance_squared_to(current)>(400 if replay_mode else 16):return current
+	if int(previous.container)!=int(unit.get("container",-1)) or ACData.point(previous.pos).distance_squared_to(current)>16:return current
 	return ACData.point(previous.pos).lerp(current,clampf(visual_clock/visual_step,0,1))
 
 func _visual_facing(unit: Dictionary,field: String="facing") -> Vector2:
@@ -850,17 +838,9 @@ func _process(dt: float) -> void:
 		return
 	if page!="game" and elapsed<status_until+1:queue_redraw()
 	if page=="game":
-		var simulated_this_frame=false
-		if not paused and not replay_mode and not network_client and core!=null:
+		if not paused and not network_client and core!=null:
 			_start_simulation_worker()
-			simulated_this_frame=_process_simulation_worker(dt)
-		if replay_mode:_tick_replay(dt)
-		if REPLAYS_ENABLED and not replay_mode and not paused:
-			replay_clock+=dt
-			if replay_clock>=replay_interval and not state.is_empty() and (not simulated_this_frame or replay_clock>=replay_interval+.1):
-				replay_clock=fmod(replay_clock,replay_interval)
-				replay_frames.append(_encode_replay_frame(state))
-				if replay_frames.size()>36000:replay_frames.pop_front()
+			_process_simulation_worker(dt)
 		if audio!=null:
 			audio.set_paused(paused)
 			audio.process_state(state,local_slot,camera,zoom)
@@ -930,12 +910,12 @@ func _camera_input(dt: float) -> void:
 	if camera!=previous:render_rects.clear();_selection_bodies.clear()
 
 func _view_snapshot() -> Dictionary:
-	if simulation_worker==null and core!=null and not network_client and not replay_mode:
+	if simulation_worker==null and core!=null and not network_client:
 		return core.snapshot(local_slot)
 	return state.duplicate(true)
 
 func _visible(e: Dictionary) -> bool:
-	if spectator or replay_mode:return true
+	if spectator:return true
 	if int(e.owner)==local_slot:return true
 	if simulation_worker==null and not network_client and core!=null:return core.can_see(local_slot,e)
 	return true
@@ -1350,7 +1330,7 @@ func _set_rally(point: Vector2) -> bool:
 	return true
 
 func _send_command(cmd: Dictionary) -> void:
-	if spectator or replay_mode or state.get("ended",false):return
+	if spectator or state.get("ended",false):return
 	if selected_resource>=0 and str(cmd.get("type","")) not in ["surrender","surrender_response"]:return
 	if network_client:
 		if multiplayer.multiplayer_peer!=null and multiplayer.multiplayer_peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
@@ -1379,7 +1359,7 @@ func _portrait_entity() -> Dictionary:
 	return ACData.portrait_leader(list)
 
 func _selection_voice() -> void:
-	if audio==null or audio.director==null or replay_mode:return
+	if audio==null or audio.director==null:return
 	var leader=_portrait_entity()
 	if not leader.is_empty() and int(leader.get("owner",-1))==local_slot:audio.director.select_unit(leader)
 
@@ -1443,7 +1423,7 @@ func _pause_menu() -> void:
 
 func _show_result() -> void:
 	var won=local_slot in state.get("winners",[])
-	if audio!=null and audio.director!=null and not replay_mode and not spectator:
+	if audio!=null and audio.director!=null and not spectator:
 		audio.director.announce("victory" if won else "defeat",int(state.players[local_slot].race),1.0,4)
 	var p=_menus().result(won)
 	if network_client and not remote_game.is_empty() and not spectator:
@@ -1468,43 +1448,6 @@ func _fetch_rating(panel: Control, won: bool, attempts: int) -> void:
 			if rating!=null and remote_game.get("ranked",false):rating.text="래더 결과를 아직 확인하지 못했습니다. 순위표에서 다시 확인하세요."
 	)
 
-func _save_replay() -> void:
-	if replay_frames.is_empty() or replay_mode:return
-	var dir=DirAccess.open("user://")
-	if not dir.dir_exists("replays"):dir.make_dir("replays")
-	var stamp=int(Time.get_unix_time_from_system())
-	var file="user://replays/%d-%d.acr"%[stamp,Time.get_ticks_usec()]
-	var suffix=0
-	while FileAccess.file_exists(file):
-		suffix+=1;file="user://replays/%d-%d-%d.acr"%[stamp,Time.get_ticks_usec(),suffix]
-	var f=FileAccess.open_compressed(file,FileAccess.WRITE,FileAccess.COMPRESSION_DEFLATE)
-	if f!=null:
-		f.store_var({"version":ACData.get_data().version,"map":draw_map.theme,"map_layout":draw_map.source_info.get("origin","reference_inspired_original"),"slot":local_slot,"codec":replay_codec,"interval":replay_interval,"frames":replay_frames},false)
-		f.flush()
-		var write_error=f.get_error();f.close()
-		_notify("리플레이를 저장했습니다." if write_error==OK else "리플레이를 저장하지 못했습니다.")
-	else:_notify("리플레이를 저장하지 못했습니다.")
-
-func _replay_state(frame) -> Dictionary:
-	if frame is Dictionary:
-		if frame.has("compressed"):
-			var length=int(frame.get("size",0))
-			if length<=0 or length>16777216:return {}
-			var decoded=bytes_to_var(frame.compressed.decompress(length,replay_codec))
-			return decoded if decoded is Dictionary else {}
-		return frame
-	if frame is PackedByteArray:
-		var decoded=bytes_to_var(frame.decompress_dynamic(16777216,replay_codec))
-		return decoded if decoded is Dictionary else {}
-	return {}
-
-func _encode_replay_frame(snapshot: Dictionary):
-	# The local renderer uses a cheap read-only view. Internal paths/caches
-	# are stripped only for a recorded frame, never written into the replay.
-	if snapshot.get("_live_view",false) and core!=null:snapshot=core.snapshot(local_slot)
-	var raw=var_to_bytes(snapshot)
-	return {"size":raw.size(),"compressed":raw.compress(replay_codec)}
-
 func _update_zoom(dt: float) -> void:
 	if not _zoom_animating:return
 	var focus=screen_to_world(_zoom_anchor)
@@ -1516,37 +1459,7 @@ func _update_zoom(dt: float) -> void:
 	render_rects.clear();_selection_bodies.clear()
 
 func _minimum_zoom() -> float:
-	return MIN_ZOOM if spectator or replay_mode else DEFAULT_ZOOM
-
-func _begin_replay() -> void:
-	replay_index=0;replay_clock=0.0
-	state=_replay_state(replay_frames[0])
-	_accept_visual_snapshot(state.get("units",[]),float(state.get("time",0)),true)
-	_next_replay_frame()
-
-func _next_replay_frame() -> bool:
-	if replay_index+1>=replay_frames.size():return false
-	var next=_replay_state(replay_frames[replay_index+1])
-	if next.is_empty():paused=true;return false
-	replay_span=clampf(float(next.get("time",0))-float(state.get("time",0)),.025,10.0)
-	replay_index+=1
-	state=next
-	_accept_visual_snapshot(state.get("units",[]),float(state.get("time",0)))
-	visual_step=replay_span
-	return true
-
-func _tick_replay(dt: float) -> void:
-	if replay_frames.is_empty():return
-	if not paused:
-		replay_clock+=dt
-		var steps=0
-		while replay_clock>=replay_span and steps<8:
-			replay_clock-=replay_span;steps+=1
-			if not _next_replay_frame():replay_clock=replay_span;paused=true;break
-	visual_clock=minf(replay_clock,replay_span)
-
-func _replay_menu() -> void:
-	_menus().replays()
+	return MIN_ZOOM if spectator else DEFAULT_ZOOM
 
 func _load_settings() -> void:
 	settings=ACSettings.load_file()
@@ -1851,11 +1764,11 @@ func _draw_retained_roots() -> void:
 	world_canvas=previous
 
 func _draw_root_ground(_view: Rect2) -> void:
-	var viewer=hash([local_slot,spectator,network_client,replay_mode])
+	var viewer=hash([local_slot,spectator,network_client])
 	if viewer!=root_viewer_signature:
 		root_viewer_signature=viewer;root_artist.chunks.clear();root_artist.pending.clear();root_artist.chunk_input=0
 	var packed=state.get("roots",PackedInt32Array())
-	if simulation_worker==null and spectator and not network_client and not replay_mode and core!=null:packed=core.roots.snapshot(core,-1)
+	if simulation_worker==null and spectator and not network_client and core!=null:packed=core.roots.snapshot(core,-1)
 	var fog_signature=_fog_stamp()
 	root_artist.draw(world_canvas,draw_map,packed,_fog_value,zoom,world_to_screen,fog_signature)
 
@@ -1999,13 +1912,13 @@ func _draw_world_overlay() -> void:
 
 func _fog_stamp() -> int:
 	if spectator:return hash(["all_visible",draw_map.get_instance_id()])&0x7fffffff
-	var revision=int(core.vision_revisions.get(local_slot,0)) if simulation_worker==null and not network_client and not replay_mode and core!=null else int(state.get("fog_revision",floorf(float(state.get("time",0))*5)))
-	return hash([revision,local_slot,spectator,network_client,replay_mode,draw_map.get_instance_id()])&0x7fffffff
+	var revision=int(core.vision_revisions.get(local_slot,0)) if simulation_worker==null and not network_client and core!=null else int(state.get("fog_revision",floorf(float(state.get("time",0))*5)))
+	return hash([revision,local_slot,spectator,network_client,draw_map.get_instance_id()])&0x7fffffff
 
 func _fog_value(index: int) -> int:
 	if spectator:return 2
 	if index<0 or index>=128*128:return 0
-	if simulation_worker==null and not network_client and not replay_mode and core!=null:
+	if simulation_worker==null and not network_client and core!=null:
 		return 2 if core.visibility[local_slot][index] else (1 if core.explored[local_slot][index] else 0)
 	var fog=state.get("fog",[])
 	var seen=state.get("explored",[])

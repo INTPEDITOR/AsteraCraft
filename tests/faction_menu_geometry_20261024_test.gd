@@ -13,11 +13,11 @@ func run() -> void:
 	var baseline={};var report=[]
 	for race in range(3):
 		main.settings.last_played_race=race
-		for page in ["single","settings","account_menu","rooms","room_menu","leaderboard","replays"]:
+		for page in ["single","settings","account_menu","rooms","room_menu","leaderboard"]:
 			main._menus().call(page);await frames(5)
 			var rows=geometry(main._menus().modal)
 			if race==0:baseline[page]=rows
 			else:check(rows==baseline[page],"same button sizes and global positions: "+page+" race "+str(race))
 			report.append({"race":race,"page":page,"buttons":rows})
-	var result={"passed":failures.is_empty(),"checks":checks,"failures":failures,"menus":7,"factions":3,"matrix":report}
-	FileAccess.open(OUT+"menu-matrix.json",FileAccess.WRITE).store_string(JSON.stringify(result,"\t"));print("FACTION_MENU_GEOMETRY ",JSON.stringify({"passed":result.passed,"checks":checks,"failures":failures,"menus":7,"factions":3}));quit(0 if failures.is_empty() else 1)
+	var result={"passed":failures.is_empty(),"checks":checks,"failures":failures,"menus":6,"factions":3,"matrix":report}
+	FileAccess.open(OUT+"menu-matrix.json",FileAccess.WRITE).store_string(JSON.stringify(result,"\t"));print("FACTION_MENU_GEOMETRY ",JSON.stringify({"passed":result.passed,"checks":checks,"failures":failures,"menus":6,"factions":3}));quit(0 if failures.is_empty() else 1)

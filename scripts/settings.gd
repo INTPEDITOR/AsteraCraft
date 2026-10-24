@@ -4,6 +4,15 @@ extends RefCounted
 const FILE := "user://settings.json"
 const RESOLUTIONS := [[1280,720],[1440,900],[1600,900],[1920,1080],[2560,1440],[3840,2160]]
 const WINDOW_MODES := ["windowed","fullscreen","borderless"]
+const GAME_CANVAS := Vector2i(1600,900)
+
+static func keep_game_aspect() -> void:
+	var tree=Engine.get_main_loop() as SceneTree
+	if tree==null:return
+	var window=tree.root
+	window.content_scale_size=GAME_CANVAS
+	window.content_scale_mode=Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	window.content_scale_aspect=Window.CONTENT_SCALE_ASPECT_KEEP
 
 static func defaults() -> Dictionary:
 	return {"edge_scroll":true,"edge_scroll_speed":1.0,"fullscreen":false,"window_mode":"windowed","resolution":[1600,900],"volume":0.65,"sfx_volume":0.65,"music_volume":0.60,"voice_volume":0.80,"last_played_race":0}
@@ -53,6 +62,7 @@ static func save_file(value: Dictionary, filename: String = FILE) -> bool:
 	return true
 
 static func apply_display(value: Dictionary) -> void:
+	keep_game_aspect()
 	if DisplayServer.get_name()=="headless":
 		return
 	var clean := normalize(value)

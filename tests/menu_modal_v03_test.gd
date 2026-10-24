@@ -72,9 +72,7 @@ func run() -> void:
 	await process_frame
 	await press_key(KEY_ESCAPE)
 	check(main.page=="main"&&modal_count(main)==0&&main.ui.get_node("MainHub")==hub,"ESC closes settings and preserves exact background")
-	main._replay_menu()
-	await process_frame
-	check(modal_count(main)==1,"replays use same modal layer")
+	check(not main.has_method("_replay_menu"),"replay menu removed")
 	main._main_menu()
 	await process_frame
 	check(modal_count(main)==0&&main.ui.get_node("MainHub")==hub,"closing returns to exact same main hub")

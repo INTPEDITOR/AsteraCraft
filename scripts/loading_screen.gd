@@ -63,8 +63,9 @@ func _layout() -> void:
 	phase.position=Vector2(84,160);phase.size=Vector2(board.size.x-284,28)
 	percent.position=Vector2(board.size.x-184,151);percent.size=Vector2(100,38)
 	bar.position=Vector2(84,204);bar.size=Vector2(board.size.x-168,18)
-	var cancel_width=220 if race==1 else 180
-	cancel_button.size=Vector2(cancel_width,44);cancel_button.position=Vector2((size.x-cancel_width)*.5,minf(size.y-56,board.position.y+board.size.y+18))
+	var cancel_width=220
+	cancel_button.custom_minimum_size=Vector2(cancel_width,48)
+	cancel_button.size=Vector2(cancel_width,48);cancel_button.position=Vector2((size.x-cancel_width)*.5,minf(size.y-60,board.position.y+board.size.y+18))
 	_last_size=size;queue_redraw()
 
 func _process(_dt: float) -> void:

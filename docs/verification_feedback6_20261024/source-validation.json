@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "published": false,
+  "checks": {
+    "checks": {
+      "passed": true,
+      "checks": 1407
+    },
+    "captions": {
+      "passed": true,
+      "checks": 42
+    },
+    "aspect": {
+      "passed": true,
+      "checks": 30
+    },
+    "no-replay": {
+      "passed": true,
+      "checks": 19
+    },
+    "startup": {
+      "passed": true,
+      "checks": 7
+    },
+    "buttons": {
+      "contexts": 16,
+      "factions": 3,
+      "control_size_mismatches": []
+    }
+  }
+}

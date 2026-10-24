@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "tag": "feedback6-20261024",
+  "checks": {
+    "source": {
+      "passed": true,
+      "published": false,
+      "checks": {
+        "checks": {
+          "passed": true,
+          "checks": 1407
+        },
+        "captions": {
+          "passed": true,
+          "checks": 42
+        },
+        "aspect": {
+          "passed": true,
+          "checks": 30
+        },
+        "no-replay": {
+          "passed": true,
+          "checks": 19
+        },
+        "startup": {
+          "passed": true,
+          "checks": 7
+        },
+        "buttons": {
+          "contexts": 16,
+          "factions": 3,
+          "control_size_mismatches": []
+        }
+      }
+    },
+    "pack": {
+      "passed": true,
+      "exit_code": 0,
+      "native_images": 12,
+      "scope": "Exported Windows PCK mounted as main pack without source fallback; all12 native images decoded, helper/HUD/metadata available, source work directory absent"
+    },
+    "windows_game": {
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_ms": 35668,
+      "loading_art_textures": 30,
+      "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+    },
+    "package": {
+      "passed": true,
+      "bytes": 1340610855,
+      "sha256": "704e2fdcb291af1daa84b632f0f5f535c4db4bc5535bfec490680cb47d96acc8",
+      "files": [
+        "AsteraCraft.exe",
+        "AsteraCraft.pck",
+        "libwebrtc_native.windows.template_release.x86_64.dll",
+        "README.txt",
+        "game_icon.ico",
+        "LICENSES-LevelUp.txt"
+      ]
+    },
+    "actual_update": {
+      "passed": true,
+      "checks": 11,
+      "elapsed_seconds": 24.45,
+      "phase": "confirmed",
+      "tag": "feedback6-20261024",
+      "scope": "Actual Windows helper replaces a disposable feedback5_20261024 installation with the final feedback6_20261024 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+    }
+  },
+  "internet_lan_match_tested_this_patch": false,
+  "new_nuclear_sound_included": false
+}

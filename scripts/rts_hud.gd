@@ -140,6 +140,7 @@ var _native_shell_geometry: Dictionary = {
 	2:{"crop":Rect2i(15,218,1954,341),"mini":Rect2(120,295,220,210),"detail":Rect2(405,296,748,208),"menu":Rect2(1220,283,36,20),"portrait":Rect2(1218,327,150,180),"command":Rect2(1435,296,422,206),"cols":[1435,1546,1658,1769],"rows":[296,371,446],"slot":Vector2(88,56)}
 }
 var _frame_body_profiles: Array[PackedInt32Array] = []
+var _authored_shell_profiles: Dictionary={}
 var _body_materials: Array[Texture2D] = []
 var _body_outline:=PackedVector2Array()
 var _body_uvs:=PackedVector2Array()
@@ -168,6 +169,7 @@ func _build_surrender_prompt() -> void:
 	surrender_panel.add_theme_stylebox_override("panel",ACRaceUI.board_style(race))
 	if race==1:surrender_panel.custom_minimum_size=Vector2(520,300)
 	var column=VBoxContainer.new();surrender_panel.add_child(column)
+	column.alignment=BoxContainer.ALIGNMENT_CENTER
 	column.add_theme_constant_override("separation",8)
 	var heading=Label.new();heading.text="항복 요청";heading.add_theme_font_size_override("font_size",18)
 	heading.add_theme_color_override("font_color",ACRaceUI.ACCENTS[race]);column.add_child(heading)
@@ -344,13 +346,27 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 				_native_shell_geometry[faction].menu=Rect2(1262,51,166,27)
 				_native_shell_geometry[faction].cols=[1501,1606,1711,1817]
 				_native_shell_geometry[faction].rows=[75,158,234]
+			if faction==1 and ResourceLoader.exists("res://assets/ui/egyul_hud_flush_20261024.png"):
+				native_path="res://assets/ui/egyul_hud_flush_20261024.png"
+				var layout=JSON.parse_string(FileAccess.get_file_as_string("res://data/egyul_hud_flush_20261024.json"))
+				var b=layout.body_crop;var crop=Rect2i(b[0],b[1],b[2],b[3])
+				var geometry={"crop":crop,"display_height":269.0/1600.0}
+				for bay in ["mini","detail","menu","portrait"]:
+					var r=layout.geometry[bay];geometry[bay]=Rect2(r[0],r[1],r[2],r[3])
+				geometry.cols=layout.geometry.cols;geometry.rows=layout.geometry.rows
+				geometry.slot=Vector2(layout.geometry.slot[0],layout.geometry.slot[1])
+				geometry.command=Rect2(Vector2(geometry.cols[0],geometry.rows[0]),Vector2(geometry.cols[3]-geometry.cols[0],geometry.rows[2]-geometry.rows[0])+geometry.slot)
+				_native_shell_geometry[faction]=geometry
+				var full=Rect2(0,0,1600,269)
+				_frame_slices[faction]=[{"source":full,"target":full}]
+				_authored_shell_profiles[faction]=PackedInt32Array(layout.body_profile)
 		var native=_native_shell_geometry.has(faction) and ResourceLoader.exists(native_path)
 		if native:path=native_path
 		_frame_art.append(load(path) if ResourceLoader.exists(path) else null)
 		_uniform_shells.append(native)
 		var legacy_region=[Rect2i(0,200,1983,417),Rect2i(0,128,1983,502),Rect2i(0,110,1904,509)][faction]
 		_frame_source_regions.append(_native_shell_geometry[faction].crop if native else legacy_region)
-		_frame_body_profiles.append(_make_sliced_body_profile(_frame_art[faction],_frame_slices[faction]) if _frame_slices.has(faction) else _make_body_profile(_frame_art[faction],_frame_source_regions[faction]))
+		_frame_body_profiles.append(_authored_shell_profiles[faction] if _authored_shell_profiles.has(faction) else _make_sliced_body_profile(_frame_art[faction],_frame_slices[faction]) if _frame_slices.has(faction) else _make_body_profile(_frame_art[faction],_frame_source_regions[faction]))
 
 static func living_egyul_slices() -> Array:
 	# Fit decorative margins to the common layout without editing source pixels.
@@ -626,7 +642,7 @@ func _detail_content_rect() -> Rect2:
 	if _frame_slices.has(race):
 		# Keep text clear of the living frame's inward roots and sap droplets.
 		var inset=Vector2(26,24)*shell_draw_rect().size.x/1963.0
-		return Rect2(area.position+inset,area.size-Vector2(inset.x*2,inset.y))
+		return Rect2(area.position+inset,area.size-inset*2)
 	return area
 
 func _command_frame_rect() -> Rect2:
@@ -658,6 +674,7 @@ func shell_draw_rect() -> Rect2:
 	if _uniform_shells.size()==3 and _uniform_shells[race]:
 		var crop=_frame_source_regions[race]
 		height=float(_native_shell_geometry[race].get("display_height",float(crop.size.y)/crop.size.x))*size.x
+	height=roundf(height)
 	return Rect2(0,size.y-height,size.x,height)
 
 func _shell_geometry() -> Dictionary:
@@ -711,7 +728,7 @@ func update_hud(force: bool=false) -> void:
 		while font_size>14 and _font.get_string_size(label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x>label.size.x:font_size-=1
 		label.add_theme_font_size_override("font_size",font_size)
 	var seconds=int(state.get("time",0))
-	timer_label.text="%02d:%02d   ·   %s"%[int(seconds/60),seconds%60,"리플레이" if main.replay_mode else "실시간 전투"]
+	timer_label.text="%02d:%02d   ·   %s"%[int(seconds/60),seconds%60,"실시간 전투"]
 	title_label.text=str(ACData.get_data().race_names[race])
 	title_label.add_theme_color_override("font_color",accent.lightened(.2))
 	status_label.text=main.status_text if main.elapsed<main.status_until else ("공격할 위치를 지정하세요" if main.attack_mode else ("건설 위치를 지정하세요 · 우클릭 취소" if main.build_kind>=0 else ""))
@@ -1006,7 +1023,7 @@ func _update_inline_help() -> void:
 func queue_slot_rect(index: int) -> Rect2:
 	var content=_detail_content_rect()
 	var gap=4.0
-	var width=maxf(20,(content.size.x-104-gap*4)/5.0)
+	var width=minf(90,maxf(20,(content.size.x-104-gap*4)/5.0))
 	return Rect2(content.position+Vector2(100+index*(width+gap),content.size.y-40),Vector2(width,32))
 
 func _build_queue() -> void:
@@ -1050,7 +1067,7 @@ func _build_queue() -> void:
 			_set_inline_help(button,("진행 중: " if index==0 else "대기: ")+str(definition.name),"클릭하면 이 항목을 취소하고 지불한 자원을 반환합니다.",false)
 			var queue_index=index
 			button.pressed.connect(func():_play_ui("confirm");main._send_command({"type":"cancel_research" if researching else "cancel","id":building_id,"queue_index":queue_index}))
-			button.disabled=int(_unit.owner)!=main.local_slot or main.replay_mode or bool(main.state.get("ended",false))
+			button.disabled=int(_unit.owner)!=main.local_slot or bool(main.state.get("ended",false))
 		else:
 			button.mouse_filter=Control.MOUSE_FILTER_IGNORE
 			button.disabled=true
@@ -1557,7 +1574,7 @@ func _refresh_button_states(player: Dictionary,completed: Array) -> void:
 				if float(player.get("used",0))+float(player.get("reserved",0))+(float(cost.get("pop",0))*int(cost.get("production_count",1)))>float(player.get("cap",0)):reasons.append("인구 한도 부족")
 				if not _is_brood() and _unit.get("queue",[]).size()>=5:reasons.append("생산 대기열 가득 참 · 최대 5기")
 				if race==1 and not _is_brood() and int(_unit.get("larva",0))<=0:reasons.append("배양체 필요")
-		button.disabled=not reasons.is_empty() or main.replay_mode or bool(main.state.get("ended",false))
+		button.disabled=not reasons.is_empty() or bool(main.state.get("ended",false))
 		button.set_meta("blocked_reasons",reasons)
 		var blocked_hit=button.get_node_or_null("BlockedVoiceHit")
 		if blocked_hit!=null:blocked_hit.mouse_filter=Control.MOUSE_FILTER_STOP if button.disabled else Control.MOUSE_FILTER_IGNORE
@@ -1630,7 +1647,7 @@ func handle_hotkey(event: InputEventKey) -> bool:
 	return false
 
 func _blocked_command_voice(button: Button) -> void:
-	if main.replay_mode or bool(main.state.get("ended",false)):return
+	if bool(main.state.get("ended",false)):return
 	for reason in button.get_meta("blocked_reasons",[]):
 		var message=str(reason)
 		if message.begins_with("필요 건물:"):message="선행 건물이 필요합니다"

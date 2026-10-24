@@ -1,0 +1,30 @@
+{
+  "key": "medium",
+  "size": [
+    1060,
+    840
+  ],
+  "source": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-514942db-9ba9-4e9d-b5f1-8d46e9911f9c.png",
+  "prompt": "Precise local colour/opacity repair. Edit this existing 1060x840citrus-root UI board. Keep the entire outer frame, all roots, branches, embedded orange citrus segments, white flowers, leaves, cyan points, amber sap and outer silhouette EXACTLY as in the reference, same position/size/colour. Change ONLY the inner dark CONTENT PANEL. Currently its centre has irregular almost transparent holes, patchy black stains and cloudy tonal edges. Replace this interior with a single continuous opaque dark charcoal grey surface, evenly lit, approximately RGB(30,32,32), with only extremely subtle fine grain. The centre must be filled with real opaque pixels with essentially uniform opacity across its whole area, no cutout hole or transparent blobs. No central black patch, no mottled/cloudy shading, no vignette, no smoke, no large black bands. A stable neutral grey panel like an ordinary game dialog background; texture variation at most a few RGB levels. Preserve the existing natural inner frame boundary and every leaf/sap tip overhanging it. Do NOT redraw the decorative border, do NOT change colours or shapes of its ornaments, do NOT add/remove flowers or branches. Preserve native1060x840canvas dimensions and layout; full original board is visible. Transparency ONLY outside the outer frame; interior fully opaque. No red/pink matte, no extra background glow, no text/icons/logos or extra objects. This is a repair of two bad interior backgrounds, not a new frame concept.",
+  "tool": "built-in image_gen",
+  "status": "user_approved_and_connected",
+  "runtime_connected": true,
+  "native_file": "work\\egyul-hud-edge-20261024\\board-1060x840-v2.png",
+  "native_size": [
+    1060,
+    840
+  ],
+  "uniform_export_scale": 0.7520143240823635,
+  "native_sha256": "2dac22df8f88677ea0abdcc20accd00b2318ed52277ed5cb2261214d4ff7a8f9",
+  "source_sha256": "e1d7af2eb4ee17398b926022aede9eac6faa70c313d3d132444c65cf03774c4f",
+  "centre_alpha_range": [
+    249,
+    253
+  ],
+  "centre_r_range": [
+    26,
+    34
+  ],
+  "approval": "User: \ub450 \uc7a5 \ubaa8\ub450 \uc801\uc6a9",
+  "file": "res://assets/ui/egyul_native_20261024/board-1060x840-v2.png"
+}

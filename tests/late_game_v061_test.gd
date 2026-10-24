@@ -43,8 +43,8 @@ func run():
 		var sum=0.0;for value in values:sum+=value
 		values.sort();result.append({"simulation_minutes_from":window*5,"samples":values.size(),"mean_fps":1000/(sum/values.size()),"p95_frame_ms":values[mini(values.size()-1,int(values.size()*.95))],"p99_frame_ms":values[mini(values.size()-1,int(values.size()*.99))],"sub_60_frames":values.filter(func(ms):return ms>1000.0/60).size()})
 	main._stop_simulation_worker()
-	var report={"duration":main.state.time,"player_fog":viewer>=0,"entities":c.units.size(),"visible_entities":main.state.units.size(),"viewport":[root.size.x,root.size.y],"gpu":RenderingServer.get_video_adapter_name(),"render_nodes":main._entity_canvases.size(),"path_cache":c.path_cache.size(),"effects":c.effects.size(),"replay_frames":main.replay_frames.size(),"terrain_builds":main.terrain_artist.cache_builds,"windows":result}
+	var report={"duration":main.state.time,"player_fog":viewer>=0,"entities":c.units.size(),"visible_entities":main.state.units.size(),"viewport":[root.size.x,root.size.y],"gpu":RenderingServer.get_video_adapter_name(),"render_nodes":main._entity_canvases.size(),"path_cache":c.path_cache.size(),"effects":c.effects.size(),"replay_recording_removed":not main.has_method("_encode_replay_frame"),"terrain_builds":main.terrain_artist.cache_builds,"windows":result}
 	var file=OS.get_environment("ASTERA_PERFORMANCE_REPORT")
 	if file=="":file="res://build/qa-v061-late-game-final.json"
 	FileAccess.open(file,FileAccess.WRITE).store_string(JSON.stringify(report,"  "));print("LATE_GAME_V061 ",JSON.stringify(report))
-	main.queue_free();await frames(2);quit(0 if float(report.duration)>=1500 and report.replay_frames==0 and report.path_cache<=1024 else 1)
+	main.queue_free();await frames(2);quit(0 if float(report.duration)>=1500 and report.replay_recording_removed and report.path_cache<=1024 else 1)

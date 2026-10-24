@@ -1,0 +1,30 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Geometry-locked UI artwork. IMAGE1 defines the correct balanced TALL outer plate and large dark inset. Keep its shape and aspect exactly: outer x33..1503,y300..710, inner dark inset x95..1441,y360..650. Top/bottom border thicknesses are IDENTICAL. Transform the brown outer ring into natural chestnut citrus-root material, with tiny embedded amber details and tiny cyan points; preserve the black centre's position/size. Image2 is style reference ONLY: its whole wooden outline is too low/thin and has empty padding above/below. Your corrected wood plate must be noticeably taller overall thanImage2 and fully surround the same generous central dark opening, with equal upper and lower wood thickness. At final220x48the outer wooden plate itself must occupy the full48pixel height; the black centre stays32-33pixels tall and centered, so there are7-8pixel wood borders BOTH above AND below. Do not count leaves, glow or shadow as height. No tiny2pixel twig borders around a38pixel-tall object; no empty vertical gutters. No huge side fruit that alone determines height. The central panel is broad and tall, with natural but restrained root outlines. No leaves extending past the plate, no orange background glow, no shadow, no red/pink matte. Truly transparent RGBA outside the complete single button. Front-facing UI view, no text, icons, logos, arrow. Same1536x1024canvas and exactImage1object footprint. Fresh artwork, no stretching an input.",
+  "source": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-b600e160-2abb-473c-a4f4-d4c45cfabf5f.png",
+  "runtime_connected": true,
+  "status": "user_approved_and_connected",
+  "native_size": [
+    220,
+    48
+  ],
+  "scaled_source_size": [
+    220,
+    53
+  ],
+  "source_crop": [
+    19,
+    297,
+    1517,
+    658
+  ],
+  "uniform_export_scale": 0.14686248331108145,
+  "native_border_crop_y": 2,
+  "dark_centre_y_range": [
+    7,
+    42
+  ],
+  "native_sha256": "80f5fbfd0779c96fb170971267380d5a36a4d897effb487df594f98fe933e898",
+  "approval": "User: \uc774 \ubc84\ud2bc\uc73c\ub85c \uc801\uc6a9",
+  "file": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+}

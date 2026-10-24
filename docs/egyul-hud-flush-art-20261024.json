@@ -1,0 +1,9 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Precise edit of this same living citrus-root HUD. Keep every dark window position/size and the entire middle95% unchanged. Keep roots/embedded citrus/small white flowers/nodes/sap and the naturally irregular upper silhouette. The left/right edges already extend off canvas: keep that. TWO local corrections only: (1) remove the new tall bark/foliage spurs which rise above the HUD at the very left and right edges; those side edges should start at the low normal corner height of the nearby flower/citrus, not tall horns. The original main upper root line and leaves in the middle are NOT touched. (2) make the bottom of the HUD itself a straight full-bleed cut THROUGH the thick natural bottom roots, so no transparent gaps or plank backing appears below: do not add a bar, do not straighten the upper roots. Remove all red/pink colored matte pixels/fringes, leave natural antialiased RGBA edges. The object is an ultra-wide HUD with body height269 at width1600. No padding on left/right/bottom of the HUD object; transparency is above the natural top ONLY. No leaf or root abruptly chopped by a horizontal top seam; no new large branches or tall growth. No text, portraits, icons, marks, labels or terrain. Preserve the exact original natural style and proportions.",
+  "source": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-21a1182e-dbf7-402f-81cf-25e9343be0f8.png",
+  "runtime_connected": false,
+  "status": "candidate_edge_fullbleed_native_export_pending",
+  "approval": "User: \uc774 HUD\ub85c \uc801\uc6a9",
+  "native_sha256": "5823483640400ec92a7676d726f5cad4fdde2abbca0e2f33c866c7b49e6a4384"
+}

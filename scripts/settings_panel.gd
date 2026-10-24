@@ -26,7 +26,7 @@ func configure(main: Control, page_builder, back: Callable) -> void:
 	for resolution in resolution_values:
 		labels.append("%d × %d" % [resolution[0],resolution[1]])
 	controls.resolution = pages.option(self,labels,340,38,220,resolution_values.find(current),func(index):controller._set_setting("resolution",resolution_values[index].duplicate()))
-	pages.label(self,"전체 화면에서는 모니터 해상도를 사용합니다.",91,760,15)
+	pages.label(self,"모든 화면 모드에서 게임 화면은 16:9를 유지합니다.",91,760,15)
 	var edge := CheckButton.new()
 	edge.name = "EdgeScroll"
 	edge.text = "가장자리 화면 이동"

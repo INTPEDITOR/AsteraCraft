@@ -1,0 +1,10 @@
+{
+	"checks": 7,
+	"continuous_music": true,
+	"failures": [],
+	"first_screen_resolution": [
+		1280,
+		720
+	],
+	"passed": true
+}

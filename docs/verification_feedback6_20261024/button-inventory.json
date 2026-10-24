@@ -1,0 +1,2531 @@
+{
+	"contexts": 16,
+	"control_size_mismatches": [],
+	"factions": 3,
+	"matrix": [
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 4), S: (318, 67)]",
+						"painted_size": "(318, 67)",
+						"path": "res://assets/ui_native/main_r0_normal.png"
+					},
+					"position": "(58.0, 270.0)",
+					"size": "(320.0, 76.0)",
+					"text": "싱글플레이",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 4), S: (318, 67)]",
+						"painted_size": "(318, 67)",
+						"path": "res://assets/ui_native/main_r0_normal.png"
+					},
+					"position": "(58.0, 356.0)",
+					"size": "(320.0, 76.0)",
+					"text": "멀티플레이",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 4), S: (318, 67)]",
+						"painted_size": "(318, 67)",
+						"path": "res://assets/ui_native/main_r0_normal.png"
+					},
+					"position": "(58.0, 442.0)",
+					"size": "(320.0, 76.0)",
+					"text": "환경 설정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 4), S: (318, 67)]",
+						"painted_size": "(318, 67)",
+						"path": "res://assets/ui_native/main_r0_normal.png"
+					},
+					"position": "(58.0, 528.0)",
+					"size": "(320.0, 76.0)",
+					"text": "게임 종료",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(1356.0, 822.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 확인",
+					"type": "Button"
+				}
+			],
+			"page": "main",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "최신 버전",
+					"type": "Button"
+				}
+			],
+			"page": "update_current",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 받기",
+					"type": "Button"
+				}
+			],
+			"page": "update_available",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "다운로드 50%",
+					"type": "Button"
+				}
+			],
+			"page": "update_downloading",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 재시도",
+					"type": "Button"
+				}
+			],
+			"page": "update_failed",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 240.0)",
+					"size": "(220.0, 48.0)",
+					"text": "아라아울",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(840.0, 665.0)",
+					"size": "(220.0, 48.0)",
+					"text": "빨강",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 345.0)",
+					"size": "(220.0, 48.0)",
+					"text": "황철 분지",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 450.0)",
+					"size": "(220.0, 48.0)",
+					"text": "1명 · 1 대 1",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 555.0)",
+					"size": "(220.0, 48.0)",
+					"text": "보통",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "자유전",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(335.0, 710.0)",
+					"size": "(220.0, 48.0)",
+					"text": "전투 시작",
+					"type": "Button"
+				}
+			],
+			"page": "single",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(395.0, 238.0)",
+					"size": "(220.0, 48.0)",
+					"text": "창 모드",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(735.0, 238.0)",
+					"size": "(220.0, 48.0)",
+					"text": "1440 × 900",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(245.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(395.0, 343.0)",
+					"size": "(245.0, 42.0)",
+					"text": "가장자리 화면 이동",
+					"type": "CheckButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(395.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "확인",
+					"type": "Button"
+				}
+			],
+			"page": "settings",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1040.0, 220.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(555.0, 490.0)",
+					"size": "(220.0, 48.0)",
+					"text": "로그인",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(865.0, 490.0)",
+					"size": "(220.0, 48.0)",
+					"text": "회원 가입",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(515.0, 640.0)",
+					"size": "(220.0, 48.0)",
+					"text": "돌아가기",
+					"type": "Button"
+				}
+			],
+			"page": "account_menu",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "아라아울",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(525.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "빨강",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(775.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "방 만들기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(1015.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "새로고침",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(1075.0, 200.0)",
+					"size": "(220.0, 48.0)",
+					"text": "계정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "래더 매치",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(575.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "순위표",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(1085.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "뒤로",
+					"type": "Button"
+				}
+			],
+			"page": "rooms",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 565.0)",
+					"size": "(220.0, 48.0)",
+					"text": "황철 분지",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(295.0, 625.0)",
+					"size": "(220.0, 48.0)",
+					"text": "팀전",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(765.0, 272.0)",
+					"size": "(105.0, 36.0)",
+					"text": "이귤",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(885.0, 272.0)",
+					"size": "(105.0, 36.0)",
+					"text": "초록",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(765.0, 311.0)",
+					"size": "(105.0, 36.0)",
+					"text": "노바너",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(885.0, 311.0)",
+					"size": "(105.0, 36.0)",
+					"text": "보라",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(1150.0, 350.0)",
+					"size": "(105.0, 36.0)",
+					"text": "슬롯 닫기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(1150.0, 389.0)",
+					"size": "(105.0, 36.0)",
+					"text": "슬롯 닫기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(585.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "팀 변경",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(825.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "관전자로 전환",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(585.0, 675.0)",
+					"size": "(220.0, 48.0)",
+					"text": "컴퓨터 추가",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(825.0, 675.0)",
+					"size": "(220.0, 48.0)",
+					"text": "컴퓨터 제거",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(585.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "준비",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(1065.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "방 나가기",
+					"type": "Button"
+				}
+			],
+			"page": "room_menu",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(395.0, 725.0)",
+					"size": "(220.0, 48.0)",
+					"text": "돌아가기",
+					"type": "Button"
+				}
+			],
+			"page": "leaderboard",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(690.0, 798.0)",
+					"size": "(220.0, 48.0)",
+					"text": "연결 취소",
+					"type": "Button"
+				}
+			],
+			"page": "loading",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(70.0968, 48.90912)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1214.468, 684.8)",
+					"size": "(70.0968, 48.90912)",
+					"text": "",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(70.0968, 48.90912)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1304.126, 684.8)",
+					"size": "(70.0968, 48.90912)",
+					"text": "",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(135.3031, 22.00909)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1022.109, 665.2364)",
+					"size": "(135.3031, 22.00909)",
+					"text": "",
+					"type": "Button"
+				}
+			],
+			"page": "battle",
+			"queue_slot_size": "(90.0, 32.0)",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(84.0, 143.0)",
+					"size": "(145.0, 44.0)",
+					"text": "승인",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(241.0, 143.0)",
+					"size": "(145.0, 44.0)",
+					"text": "거절",
+					"type": "Button"
+				}
+			],
+			"page": "surrender",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1040.0, 220.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(600.0, 295.0)",
+					"size": "(220.0, 48.0)",
+					"text": "계속하기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(600.0, 370.0)",
+					"size": "(220.0, 48.0)",
+					"text": "환경 설정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(600.0, 520.0)",
+					"size": "(220.0, 48.0)",
+					"text": "항복",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(600.0, 595.0)",
+					"size": "(220.0, 48.0)",
+					"text": "메인 화면",
+					"type": "Button"
+				}
+			],
+			"page": "pause",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (218, 48)]",
+						"painted_size": "(218, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r0_normal.png"
+					},
+					"position": "(435.0, 625.0)",
+					"size": "(220.0, 48.0)",
+					"text": "메인 화면",
+					"type": "Button"
+				}
+			],
+			"page": "result",
+			"race": 0
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (0, 0), S: (320, 75)]",
+						"painted_size": "(320, 75)",
+						"path": "res://assets/ui/egyul_native_20261024/button-320x76.png"
+					},
+					"position": "(58.0, 270.0)",
+					"size": "(320.0, 76.0)",
+					"text": "싱글플레이",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (0, 0), S: (320, 75)]",
+						"painted_size": "(320, 75)",
+						"path": "res://assets/ui/egyul_native_20261024/button-320x76.png"
+					},
+					"position": "(58.0, 356.0)",
+					"size": "(320.0, 76.0)",
+					"text": "멀티플레이",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (0, 0), S: (320, 75)]",
+						"painted_size": "(320, 75)",
+						"path": "res://assets/ui/egyul_native_20261024/button-320x76.png"
+					},
+					"position": "(58.0, 442.0)",
+					"size": "(320.0, 76.0)",
+					"text": "환경 설정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (0, 0), S: (320, 75)]",
+						"painted_size": "(320, 75)",
+						"path": "res://assets/ui/egyul_native_20261024/button-320x76.png"
+					},
+					"position": "(58.0, 528.0)",
+					"size": "(320.0, 76.0)",
+					"text": "게임 종료",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(1356.0, 822.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 재시도",
+					"type": "Button"
+				}
+			],
+			"page": "main",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "최신 버전",
+					"type": "Button"
+				}
+			],
+			"page": "update_current",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 받기",
+					"type": "Button"
+				}
+			],
+			"page": "update_available",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "다운로드 50%",
+					"type": "Button"
+				}
+			],
+			"page": "update_downloading",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 재시도",
+					"type": "Button"
+				}
+			],
+			"page": "update_failed",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 240.0)",
+					"size": "(220.0, 48.0)",
+					"text": "아라아울",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(840.0, 665.0)",
+					"size": "(220.0, 48.0)",
+					"text": "빨강",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 345.0)",
+					"size": "(220.0, 48.0)",
+					"text": "황철 분지",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 450.0)",
+					"size": "(220.0, 48.0)",
+					"text": "1명 · 1 대 1",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 555.0)",
+					"size": "(220.0, 48.0)",
+					"text": "보통",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "자유전",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(335.0, 710.0)",
+					"size": "(220.0, 48.0)",
+					"text": "전투 시작",
+					"type": "Button"
+				}
+			],
+			"page": "single",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(395.0, 238.0)",
+					"size": "(220.0, 48.0)",
+					"text": "창 모드",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(735.0, 238.0)",
+					"size": "(220.0, 48.0)",
+					"text": "1440 × 900",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(245.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(395.0, 343.0)",
+					"size": "(245.0, 42.0)",
+					"text": "가장자리 화면 이동",
+					"type": "CheckButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(395.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "확인",
+					"type": "Button"
+				}
+			],
+			"page": "settings",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1040.0, 220.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(555.0, 490.0)",
+					"size": "(220.0, 48.0)",
+					"text": "로그인",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(865.0, 490.0)",
+					"size": "(220.0, 48.0)",
+					"text": "회원 가입",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(515.0, 640.0)",
+					"size": "(220.0, 48.0)",
+					"text": "돌아가기",
+					"type": "Button"
+				}
+			],
+			"page": "account_menu",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "아라아울",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(525.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "빨강",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(775.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "방 만들기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(1015.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "새로고침",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(1075.0, 200.0)",
+					"size": "(220.0, 48.0)",
+					"text": "계정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "래더 매치",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(575.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "순위표",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(1085.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "뒤로",
+					"type": "Button"
+				}
+			],
+			"page": "rooms",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 565.0)",
+					"size": "(220.0, 48.0)",
+					"text": "황철 분지",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(295.0, 625.0)",
+					"size": "(220.0, 48.0)",
+					"text": "팀전",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(765.0, 272.0)",
+					"size": "(105.0, 36.0)",
+					"text": "이귤",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(885.0, 272.0)",
+					"size": "(105.0, 36.0)",
+					"text": "초록",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(765.0, 311.0)",
+					"size": "(105.0, 36.0)",
+					"text": "노바너",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(885.0, 311.0)",
+					"size": "(105.0, 36.0)",
+					"text": "보라",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(1150.0, 350.0)",
+					"size": "(105.0, 36.0)",
+					"text": "슬롯 닫기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(1150.0, 389.0)",
+					"size": "(105.0, 36.0)",
+					"text": "슬롯 닫기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(585.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "팀 변경",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(825.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "관전자로 전환",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(585.0, 675.0)",
+					"size": "(220.0, 48.0)",
+					"text": "컴퓨터 추가",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(825.0, 675.0)",
+					"size": "(220.0, 48.0)",
+					"text": "컴퓨터 제거",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(585.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "준비",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(1065.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "방 나가기",
+					"type": "Button"
+				}
+			],
+			"page": "room_menu",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(395.0, 725.0)",
+					"size": "(220.0, 48.0)",
+					"text": "돌아가기",
+					"type": "Button"
+				}
+			],
+			"page": "leaderboard",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(690.0, 798.0)",
+					"size": "(220.0, 48.0)",
+					"text": "연결 취소",
+					"type": "Button"
+				}
+			],
+			"page": "loading",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(70.0968, 48.90912)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1222.779, 701.3264)",
+					"size": "(70.0968, 48.90912)",
+					"text": "",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(70.0968, 48.90912)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1308.776, 701.3264)",
+					"size": "(70.0968, 48.90912)",
+					"text": "",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(135.3031, 22.00909)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1026.472, 681.9449)",
+					"size": "(135.3031, 22.00909)",
+					"text": "",
+					"type": "Button"
+				}
+			],
+			"page": "battle",
+			"queue_slot_size": "(90.0, 32.0)",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(145.0, 44.0)",
+						"painted_bounds": "[P: (0, 2), S: (145, 40)]",
+						"painted_size": "(145, 40)",
+						"path": "res://assets/ui/egyul_native_20261024/button-145x44.png"
+					},
+					"position": "(109.0, 123.0)",
+					"size": "(145.0, 44.0)",
+					"text": "승인",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(145.0, 44.0)",
+						"painted_bounds": "[P: (0, 2), S: (145, 40)]",
+						"painted_size": "(145, 40)",
+						"path": "res://assets/ui/egyul_native_20261024/button-145x44.png"
+					},
+					"position": "(266.0, 123.0)",
+					"size": "(145.0, 44.0)",
+					"text": "거절",
+					"type": "Button"
+				}
+			],
+			"page": "surrender",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1040.0, 220.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(600.0, 295.0)",
+					"size": "(220.0, 48.0)",
+					"text": "계속하기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(600.0, 370.0)",
+					"size": "(220.0, 48.0)",
+					"text": "환경 설정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(600.0, 520.0)",
+					"size": "(220.0, 48.0)",
+					"text": "항복",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(600.0, 595.0)",
+					"size": "(220.0, 48.0)",
+					"text": "메인 화면",
+					"type": "Button"
+				}
+			],
+			"page": "pause",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (0, 0), S: (220, 48)]",
+						"painted_size": "(220, 48)",
+						"path": "res://assets/ui/egyul_native_20261024/button-220x48-v2.png"
+					},
+					"position": "(435.0, 625.0)",
+					"size": "(220.0, 48.0)",
+					"text": "메인 화면",
+					"type": "Button"
+				}
+			],
+			"page": "result",
+			"race": 1
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 2), S: (318, 71)]",
+						"painted_size": "(318, 71)",
+						"path": "res://assets/ui_native/main_r2_normal.png"
+					},
+					"position": "(58.0, 270.0)",
+					"size": "(320.0, 76.0)",
+					"text": "싱글플레이",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 2), S: (318, 71)]",
+						"painted_size": "(318, 71)",
+						"path": "res://assets/ui_native/main_r2_normal.png"
+					},
+					"position": "(58.0, 356.0)",
+					"size": "(320.0, 76.0)",
+					"text": "멀티플레이",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 2), S: (318, 71)]",
+						"painted_size": "(318, 71)",
+						"path": "res://assets/ui_native/main_r2_normal.png"
+					},
+					"position": "(58.0, 442.0)",
+					"size": "(320.0, 76.0)",
+					"text": "환경 설정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(320.0, 76.0)",
+						"painted_bounds": "[P: (1, 2), S: (318, 71)]",
+						"painted_size": "(318, 71)",
+						"path": "res://assets/ui_native/main_r2_normal.png"
+					},
+					"position": "(58.0, 528.0)",
+					"size": "(320.0, 76.0)",
+					"text": "게임 종료",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(1356.0, 822.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 재시도",
+					"type": "Button"
+				}
+			],
+			"page": "main",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "최신 버전",
+					"type": "Button"
+				}
+			],
+			"page": "update_current",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 받기",
+					"type": "Button"
+				}
+			],
+			"page": "update_available",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "다운로드 50%",
+					"type": "Button"
+				}
+			],
+			"page": "update_downloading",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(0.0, 0.0)",
+					"size": "(220.0, 48.0)",
+					"text": "업데이트 재시도",
+					"type": "Button"
+				}
+			],
+			"page": "update_failed",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 240.0)",
+					"size": "(220.0, 48.0)",
+					"text": "아라아울",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(840.0, 665.0)",
+					"size": "(220.0, 48.0)",
+					"text": "빨강",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 345.0)",
+					"size": "(220.0, 48.0)",
+					"text": "황철 분지",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 450.0)",
+					"size": "(220.0, 48.0)",
+					"text": "1명 · 1 대 1",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 555.0)",
+					"size": "(220.0, 48.0)",
+					"text": "보통",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "자유전",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(335.0, 710.0)",
+					"size": "(220.0, 48.0)",
+					"text": "전투 시작",
+					"type": "Button"
+				}
+			],
+			"page": "single",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(395.0, 238.0)",
+					"size": "(220.0, 48.0)",
+					"text": "창 모드",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(735.0, 238.0)",
+					"size": "(220.0, 48.0)",
+					"text": "1440 × 900",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(245.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(395.0, 343.0)",
+					"size": "(245.0, 42.0)",
+					"text": "가장자리 화면 이동",
+					"type": "CheckButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(395.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "확인",
+					"type": "Button"
+				}
+			],
+			"page": "settings",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1040.0, 220.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(555.0, 490.0)",
+					"size": "(220.0, 48.0)",
+					"text": "로그인",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(865.0, 490.0)",
+					"size": "(220.0, 48.0)",
+					"text": "회원 가입",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(515.0, 640.0)",
+					"size": "(220.0, 48.0)",
+					"text": "돌아가기",
+					"type": "Button"
+				}
+			],
+			"page": "account_menu",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "아라아울",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(525.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "빨강",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(775.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "방 만들기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(1015.0, 255.0)",
+					"size": "(220.0, 48.0)",
+					"text": "새로고침",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(1075.0, 200.0)",
+					"size": "(220.0, 48.0)",
+					"text": "계정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "래더 매치",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(575.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "순위표",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(1085.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "뒤로",
+					"type": "Button"
+				}
+			],
+			"page": "rooms",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1260.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 565.0)",
+					"size": "(220.0, 48.0)",
+					"text": "황철 분지",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(295.0, 625.0)",
+					"size": "(220.0, 48.0)",
+					"text": "팀전",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(765.0, 272.0)",
+					"size": "(105.0, 36.0)",
+					"text": "이귤",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(885.0, 272.0)",
+					"size": "(105.0, 36.0)",
+					"text": "초록",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(765.0, 311.0)",
+					"size": "(105.0, 36.0)",
+					"text": "노바너",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(885.0, 311.0)",
+					"size": "(105.0, 36.0)",
+					"text": "보라",
+					"type": "OptionButton"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(1150.0, 350.0)",
+					"size": "(105.0, 36.0)",
+					"text": "슬롯 닫기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(105.0, 36.0)",
+						"type": "StyleBoxFlat"
+					},
+					"position": "(1150.0, 389.0)",
+					"size": "(105.0, 36.0)",
+					"text": "슬롯 닫기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(585.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "팀 변경",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(825.0, 620.0)",
+					"size": "(220.0, 48.0)",
+					"text": "관전자로 전환",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(585.0, 675.0)",
+					"size": "(220.0, 48.0)",
+					"text": "컴퓨터 추가",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(825.0, 675.0)",
+					"size": "(220.0, 48.0)",
+					"text": "컴퓨터 제거",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(585.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "준비",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(1065.0, 730.0)",
+					"size": "(220.0, 48.0)",
+					"text": "방 나가기",
+					"type": "Button"
+				}
+			],
+			"page": "room_menu",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(395.0, 725.0)",
+					"size": "(220.0, 48.0)",
+					"text": "돌아가기",
+					"type": "Button"
+				}
+			],
+			"page": "leaderboard",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(690.0, 798.0)",
+					"size": "(220.0, 48.0)",
+					"text": "연결 취소",
+					"type": "Button"
+				}
+			],
+			"page": "loading",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(70.0968, 48.90912)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1214.468, 684.8)",
+					"size": "(70.0968, 48.90912)",
+					"text": "",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(70.0968, 48.90912)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1304.126, 684.8)",
+					"size": "(70.0968, 48.90912)",
+					"text": "",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"painted_size": "(135.3031, 22.00909)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1022.109, 665.2364)",
+					"size": "(135.3031, 22.00909)",
+					"text": "",
+					"type": "Button"
+				}
+			],
+			"page": "battle",
+			"queue_slot_size": "(90.0, 32.0)",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(84.0, 143.0)",
+					"size": "(145.0, 44.0)",
+					"text": "승인",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(241.0, 143.0)",
+					"size": "(145.0, 44.0)",
+					"text": "거절",
+					"type": "Button"
+				}
+			],
+			"page": "surrender",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1040.0, 220.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(600.0, 295.0)",
+					"size": "(220.0, 48.0)",
+					"text": "계속하기",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(600.0, 370.0)",
+					"size": "(220.0, 48.0)",
+					"text": "환경 설정",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(600.0, 520.0)",
+					"size": "(220.0, 48.0)",
+					"text": "항복",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(600.0, 595.0)",
+					"size": "(220.0, 48.0)",
+					"text": "메인 화면",
+					"type": "Button"
+				}
+			],
+			"page": "pause",
+			"race": 2
+		},
+		{
+			"buttons": [
+				{
+					"art": {
+						"painted_size": "(44.0, 42.0)",
+						"type": "StyleBoxEmpty"
+					},
+					"position": "(1160.0, 125.0)",
+					"size": "(44.0, 42.0)",
+					"text": "×",
+					"type": "Button"
+				},
+				{
+					"art": {
+						"canvas": "(220.0, 48.0)",
+						"painted_bounds": "[P: (1, 0), S: (217, 48)]",
+						"painted_size": "(217, 48)",
+						"path": "res://assets/ui_native/modal_220x48_r2_normal.png"
+					},
+					"position": "(435.0, 625.0)",
+					"size": "(220.0, 48.0)",
+					"text": "메인 화면",
+					"type": "Button"
+				}
+			],
+			"page": "result",
+			"race": 2
+		}
+	],
+	"visual_consistency_not_implied_by_equal_control_size": true
+}

@@ -116,7 +116,9 @@ func _refresh_button_styles() -> void:
 		button.add_theme_stylebox_override("hover",_button_style(1))
 		button.add_theme_stylebox_override("pressed",_button_style(2))
 		button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
+		ACCenteredButtonCaption.apply(button)
 	if update_button!=null:
+		update_button.add_theme_font_size_override("font_size",16)
 		if background_index==1:ACEgyulNativeUI.button(update_button)
 		else:
 			update_button.custom_minimum_size=Vector2(220,48)
@@ -125,6 +127,7 @@ func _refresh_button_styles() -> void:
 				for side in [SIDE_LEFT,SIDE_TOP,SIDE_RIGHT,SIDE_BOTTOM]:plate.set_texture_margin(side,0);plate.set_content_margin(side,0)
 				update_button.add_theme_stylebox_override(state,plate)
 		update_button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
+		ACCenteredButtonCaption.apply(update_button)
 		var fill=StyleBoxFlat.new();fill.bg_color=[Color("e4b548"),Color("d58b32"),Color("d55450")][background_index]
 		update_bar.add_theme_stylebox_override("fill",fill)
 	_layout()
