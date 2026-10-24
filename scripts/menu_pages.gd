@@ -664,14 +664,20 @@ func pause() -> void:
 	var resume=func():close();main.paused=false
 	modal.closed.disconnect(modal.closed.get_connections()[0].callable)
 	modal.closed.connect(resume)
-	button(p,"계속하기",45,0,300,resume)
-	button(p,"환경 설정",45,75,300,settings)
-	button(p,"항복",45,225,300,func():resume.call();main._send_command({"type":"surrender"}))
-	button(p,"메인 화면",45,300,300,func():
+	# Fit the four remaining actions to the approved plate; removed actions
+	# must not leave a reserved row or force this short menu to scroll.
+	var room=modal.native_scroll.size
+	var x=roundf((room.x-220.0)*.5)
+	var y=roundf((room.y-(48.0+72.0*3))*.5)
+	modal.heading.position.x=roundf((modal.board.size.x-modal.heading.size.x)*.5)
+	modal.heading.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+	button(p,"계속하기",x,y,220,resume)
+	button(p,"환경 설정",x,y+72,220,settings)
+	button(p,"항복",x,y+144,220,func():resume.call();main._send_command({"type":"surrender"}))
+	button(p,"메인 화면",x,y+216,220,func():
 		if not main.state.get("ended",false):main._send_command({"type":"surrender"})
 		main._leave_network()
 		main.core=null
 		main.paused=false
 		main._main_menu()
 	)
-	label(p,"온라인 경기는 메뉴를 열어도 계속 진행됩니다.",390,570,16)

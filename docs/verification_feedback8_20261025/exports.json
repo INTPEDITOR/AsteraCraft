@@ -1,0 +1,139 @@
+{
+  "passed": true,
+  "version": "0.6.2",
+  "release": "feedback8-20261025",
+  "checks": {
+    "source-menus": {
+      "checks": 107,
+      "factions": 3,
+      "failures": [],
+      "local_online_cases": [
+        {
+          "board": "(820.0, 650.0)",
+          "content": "[P: (515.0, 295.0), S: (570.0, 395.0)]",
+          "online": false,
+          "positions": [
+            "(175.0, 66.0)",
+            "(175.0, 138.0)",
+            "(175.0, 210.0)",
+            "(175.0, 282.0)"
+          ],
+          "race": 0,
+          "scrollbar_visible": false
+        },
+        {
+          "board": "(820.0, 650.0)",
+          "content": "[P: (515.0, 295.0), S: (570.0, 395.0)]",
+          "online": true,
+          "positions": [
+            "(175.0, 66.0)",
+            "(175.0, 138.0)",
+            "(175.0, 210.0)",
+            "(175.0, 282.0)"
+          ],
+          "race": 0,
+          "scrollbar_visible": false
+        },
+        {
+          "board": "(820.0, 650.0)",
+          "content": "[P: (515.0, 295.0), S: (570.0, 395.0)]",
+          "online": false,
+          "positions": [
+            "(175.0, 66.0)",
+            "(175.0, 138.0)",
+            "(175.0, 210.0)",
+            "(175.0, 282.0)"
+          ],
+          "race": 1,
+          "scrollbar_visible": false
+        },
+        {
+          "board": "(820.0, 650.0)",
+          "content": "[P: (515.0, 295.0), S: (570.0, 395.0)]",
+          "online": true,
+          "positions": [
+            "(175.0, 66.0)",
+            "(175.0, 138.0)",
+            "(175.0, 210.0)",
+            "(175.0, 282.0)"
+          ],
+          "race": 1,
+          "scrollbar_visible": false
+        },
+        {
+          "board": "(820.0, 650.0)",
+          "content": "[P: (515.0, 295.0), S: (570.0, 395.0)]",
+          "online": false,
+          "positions": [
+            "(175.0, 66.0)",
+            "(175.0, 138.0)",
+            "(175.0, 210.0)",
+            "(175.0, 282.0)"
+          ],
+          "race": 2,
+          "scrollbar_visible": false
+        },
+        {
+          "board": "(820.0, 650.0)",
+          "content": "[P: (515.0, 295.0), S: (570.0, 395.0)]",
+          "online": true,
+          "positions": [
+            "(175.0, 66.0)",
+            "(175.0, 138.0)",
+            "(175.0, 210.0)",
+            "(175.0, 282.0)"
+          ],
+          "race": 2,
+          "scrollbar_visible": false
+        }
+      ],
+      "passed": true,
+      "screenshots": [
+        "pause-r0.png",
+        "pause-r1.png",
+        "pause-r2.png"
+      ]
+    },
+    "pack": {
+      "passed": true,
+      "exit_code": 0,
+      "native_images": 12,
+      "scope": "Exported Windows PCK mounted as main pack without source fallback; all12 native images decoded, helper/HUD/metadata available, source work directory absent"
+    },
+    "windows-startup": {
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_ms": 33988,
+      "loading_art_textures": 30,
+      "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+    },
+    "packaged-menus": {
+      "passed": true,
+      "exit_code": 0,
+      "checks": 107,
+      "factions": 3,
+      "scope": "Final Windows PCK mounted in the matching Godot runtime from the export directory without source fallback. All three faction menus rendered and local/online state and settings/resume validated. Release EXE startup verified separately."
+    },
+    "archive": {
+      "passed": true,
+      "bytes": 1340607315,
+      "sha256": "21166a03166be50787a67a46983616578856f13961b4eae32e65f2d775aaff0c",
+      "files": [
+        "AsteraCraft.exe",
+        "AsteraCraft.pck",
+        "libwebrtc_native.windows.template_release.x86_64.dll",
+        "README.txt",
+        "game_icon.ico",
+        "LICENSES-LevelUp.txt"
+      ]
+    },
+    "update-install": {
+      "passed": true,
+      "checks": 11,
+      "elapsed_seconds": 21.64,
+      "phase": "confirmed",
+      "tag": "feedback8-20261025",
+      "scope": "Actual Windows helper replaces a disposable feedback7_20261024 installation with the final feedback8_20261025 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+    }
+  }
+}

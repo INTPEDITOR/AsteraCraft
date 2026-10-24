@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "native_images": 12,
+  "scope": "Exported Windows PCK mounted as main pack without source fallback; all12 native images decoded, helper/HUD/metadata available, source work directory absent"
+}

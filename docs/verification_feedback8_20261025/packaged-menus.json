@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "checks": 107,
+  "factions": 3,
+  "scope": "Final Windows PCK mounted in the matching Godot runtime from the export directory without source fallback. All three faction menus rendered and local/online state and settings/resume validated. Release EXE startup verified separately."
+}

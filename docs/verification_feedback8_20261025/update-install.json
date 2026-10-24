@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "checks": 11,
+  "elapsed_seconds": 21.64,
+  "phase": "confirmed",
+  "tag": "feedback8-20261025",
+  "scope": "Actual Windows helper replaces a disposable feedback7_20261024 installation with the final feedback8_20261025 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+}
