@@ -1,5 +1,5 @@
 {
-  "status": "implemented_and_runtime_verified",
+  "status": "implemented_and_verified",
   "units": 10,
   "excluded": [
     "medic",
@@ -15,7 +15,7 @@
       "description": "전열사수 최대 체력15 증가(70→85).",
       "race": 0,
       "unit_kind": 1,
-      "building": 3,
+      "building": 7,
       "stat": "hp",
       "add": 15,
       "as": 100,
@@ -30,7 +30,7 @@
       "description": "추적미사일 차륜차 공격 주기1.2초→0.9초.",
       "race": 0,
       "unit_kind": 6,
-      "building": 4,
+      "building": 9,
       "stat": "period",
       "multiply": 0.75,
       "as": 150,
@@ -47,15 +47,13 @@
       "description": "장갑수송정 이동 속도50% 증가.",
       "race": 0,
       "unit_kind": 11,
-      "building": 5,
+      "building": 10,
       "stat": "speed",
       "multiply": 1.5,
       "as": 150,
       "tera": 100,
       "time": 60,
-      "requires": [
-        10
-      ],
+      "requires": [],
       "max_level": 1
     },
     {
@@ -96,7 +94,7 @@
       "description": "서약수호자 이동 속도50% 증가.",
       "race": 2,
       "unit_kind": 1,
-      "building": 3,
+      "building": 6,
       "stat": "speed",
       "multiply": 1.5,
       "as": 150,
@@ -113,13 +111,14 @@
       "description": "고대석익병 사거리2.8→4.3.",
       "race": 2,
       "unit_kind": 7,
-      "building": 4,
+      "building": 6,
       "stat": "range",
       "add": 1.5,
       "as": 150,
       "tera": 150,
       "time": 75,
       "requires": [
+        4,
         7
       ],
       "max_level": 1
@@ -130,15 +129,13 @@
       "description": "화염돌파차 사거리3.2→4.5.",
       "race": 0,
       "unit_kind": 13,
-      "building": 4,
+      "building": 9,
       "stat": "range",
       "add": 1.3,
       "as": 150,
       "tera": 150,
       "time": 60,
-      "requires": [
-        9
-      ],
+      "requires": [],
       "max_level": 1
     },
     {
@@ -175,5 +172,6 @@
       ],
       "max_level": 1
     }
-  ]
+  ],
+  "verification": "verification_feedback4_20261024/checks.json"
 }

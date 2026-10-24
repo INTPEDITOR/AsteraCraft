@@ -17,8 +17,11 @@ var publisher: Texture2D
 var backdrop: Texture2D
 var wordmark: Texture2D
 var prompt_font: Font
+var audio: ACAudio
 
 func _ready() -> void:
+	var preferences=ACSettings.load_file()
+	ACSettings.apply_display(preferences)
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter=Control.MOUSE_FILTER_STOP
 	var args=OS.get_cmdline_user_args()
@@ -29,6 +32,9 @@ func _ready() -> void:
 	var image=load("res://assets/title_logo_correct.png").get_image()
 	wordmark=ImageTexture.create_from_image(image.get_region(image.get_used_rect()))
 	prompt_font=preload("res://scripts/ui_font.gd").create()
+	audio=ACAudio.acquire(self)
+	audio.set_channel_volumes(float(preferences.music_volume),float(preferences.voice_volume),float(preferences.sfx_volume))
+	audio.set_music_context(-1,.15)
 	load("res://scripts/game_updater.gd").confirm_booted()
 	queue_redraw()
 
@@ -78,4 +84,5 @@ func _enter_main() -> void:
 	leaving=true
 	start_requested.emit()
 	if navigate_on_start:
+		if is_instance_valid(audio) and audio.get_parent()==self:audio.reparent(get_tree().root)
 		get_tree().change_scene_to_file("res://main.tscn")

@@ -1,0 +1,59 @@
+{
+  "status": "user_approved_for_runtime_integration",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: sketch-to-render. Create ONE original game-ready bottom HUD for a living mutant citrus-tree swarm faction. Image1 is ONLY an unstyled geometry guide and the EDIT TARGET: replace its gray areas with NEW original organic artwork while keeping every black opening and the ultra-wide1963x330 layout. Image2 is ONLY the faction's living citrus-root world/style reference, not a scene to reproduce. This frame must have a strong distinctive living-organism identity: gnarled branching roots grafted into segmented dark orange citrus-peel/chitin plates, subtle translucent amber sap organs, small glowing cyan nerve nodes nestled in natural root knots, and a few deep green leaf tips or tiny citrus blossoms. The left minimap feels like a hollow tree-ring aperture, the long information bay is cradled by a stretched ancient root, the portrait is nestled in a growth pod, and the12command bays are seed-chambers divided by thin flexible root tendons. Preserve their exact rectangular SAFE inner spaces from Image1 so content remains readable. Make the ornament design asymmetrical and organically grown, with varied forked roots and a few naturally embedded small fruits; every section should feel part of the same living citrus organism. Warm deep chestnut/umber bark, rich restrained orange-peel material, amber sap light, dark muted green, rare small cyan nerve lights. Hand-painted realistic high-detail RTS UI asset. Keep the silhouette very shallow and ultra-wide, matching Image1 height and panel positions exactly: square minimap far left; one very wide info panel; one small menu pill above a narrow tall portrait; exactly4columns by3rows at right. Thin expressive borders, clear black interiors; do not cover or pinch content slots. No industrial style: no metal rails, beveled armor panels, bolts, rivets, cables, straight glowing vent bars, pipes or machine-like inlays. No medieval white-gold trim. No buildings, landscape, characters, icons, text, logos, letters, watermarks or UI labels. This is a newly designed living bark-and-citrus skin, not a material swap of another race's UI. Real transparent RGBA outside the irregular organic silhouette, opaque charcoal-black content openings. Fit all ornaments inside the guide's original overall rectangle; no tall decoration or extra padding.",
+  "source": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-84e977e9-a58a-4208-88b7-481008a7b225.png",
+  "candidate": "work/egyul-hud-common-20261024/living-v2.png",
+  "layout_guide": "work/egyul-hud-common-20261024/plain-layout.png",
+  "style_reference": "assets/menu_planet_1_roots_v058.png",
+  "target_common_canvas": [
+    1963,
+    330
+  ],
+  "runtime_connected": true,
+  "runtime": "assets/ui/egyul_hud_living_common_20261024.png",
+  "approval": "User selected 이 시안으로 적용 after viewing the common-size comparison mockup",
+  "previous_candidate_rejected": "36678b45 derivative style",
+  "sha256": "f1a7fe8dbcafd6623ca4fa872e4437a4b88304fc9e952e589903236ecf0624fd",
+  "actual_runtime_verification": "verification_feedback4_20261024/common-hud-r1-preview.png",
+  "render_source_regions": [
+    [
+      0,
+      134,
+      2170,
+      98
+    ],
+    [
+      0,
+      232,
+      2170,
+      234
+    ],
+    [
+      0,
+      466,
+      2170,
+      102
+    ]
+  ],
+  "render_target_regions": [
+    [
+      0,
+      0,
+      1963,
+      62
+    ],
+    [
+      0,
+      62,
+      1963,
+      218
+    ],
+    [
+      0,
+      280,
+      1963,
+      50
+    ]
+  ]
+}

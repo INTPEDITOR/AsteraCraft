@@ -6,15 +6,25 @@ import os
 import shutil
 import subprocess
 import time
+import argparse
+
+parser=argparse.ArgumentParser()
+parser.add_argument('--old',default='feedback2_20261024')
+parser.add_argument('--new',default='feedback3_20261024')
+parser.add_argument('--tag',default='feedback3-20261024')
+parser.add_argument('--out',default='updater-e2e-20261024')
+options=parser.parse_args()
+for value in [options.old,options.new,options.tag,options.out]:
+    assert value and all(c.isalnum() or c in '_-' for c in value),'simple build identifiers only'
 
 root = Path(__file__).resolve().parents[1]
-out = root / 'build/updater-e2e-20261024'
+out = root / 'build' / options.out
 game = out / 'game'
 appdata = out / 'appdata'
 state = appdata / 'Godot/app_userdata/아스테라크래프트/updates/state.json'
-old = root / 'build/feedback2_20261024'
-new = root / 'build/feedback3_20261024'
-archive = new / 'AsteraCraft-Windows-feedback3-20261024.zip'
+old = root / 'build' / options.old
+new = root / 'build' / options.new
+archive = new / ('AsteraCraft-Windows-'+options.tag+'.zip')
 names = ['AsteraCraft.exe', 'AsteraCraft.pck', 'libwebrtc_native.windows.template_release.x86_64.dll']
 checks = 0
 
@@ -39,7 +49,7 @@ helper.write_bytes((root / 'data/windows_updater.txt').read_bytes())
 env = dict(os.environ, APPDATA=str(appdata))
 args = ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden',
         '-File', str(helper), '-GameDirectory', str(game), '-Archive', str(archive),
-        '-ArchiveSha256', digest(archive), '-Tag', 'feedback3-20261024', '-StateFile', str(state)]
+        '-ArchiveSha256', digest(archive), '-Tag', options.tag, '-StateFile', str(state)]
 started = time.monotonic()
 process = subprocess.run(args, env=env, capture_output=True, timeout=240, creationflags=0x08000000)
 (out / 'helper-stdout.txt').write_bytes(process.stdout)
@@ -51,7 +61,7 @@ closed = subprocess.run(['powershell.exe', '-NoProfile', '-Command', stop], capt
                         creationflags=0x08000000, timeout=15)
 check(process.returncode == 0, 'helper completed real install and startup: ' + process.stderr.decode('cp949', errors='replace')[-1000:])
 record = json.loads(state.read_text(encoding='utf-8-sig'))
-check(record['phase'] == 'confirmed' and record['tag'] == 'feedback3-20261024', 'exported game confirmed its packed version')
+check(record['phase'] == 'confirmed' and record['tag'] == options.tag, 'exported game confirmed its packed version')
 for name in names:
     check(digest(game / name) == digest(new / name), 'current payload matches final export: ' + name)
     check(digest(game / '.asteracraft-update-backup' / name) == digest(old / name), 'previous payload retained: ' + name)
@@ -59,6 +69,6 @@ check((game / 'settings.keep').read_text() == 'keep user settings', 'unrelated u
 check(closed.returncode == 0 and bool(closed.stdout.strip()), 'only fixture game was located and closed')
 result = {'passed': True, 'checks': checks, 'elapsed_seconds': round(time.monotonic() - started, 2),
           'phase': record['phase'], 'tag': record['tag'],
-          'scope': 'Actual Windows helper replaces a disposable feedback2 installation with the final feedback3 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified.'}
+          'scope': f'Actual Windows helper replaces a disposable {options.old} installation with the final {options.new} ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified.'}
 (out / 'result.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
 print(json.dumps(result))

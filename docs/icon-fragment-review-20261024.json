@@ -1,0 +1,17 @@
+{
+  "reviewed_icons": 205,
+  "multi_component_icons_inspected": 17,
+  "fixed_icons": [
+    {
+      "race": 0,
+      "kind": "commands",
+      "index": 16,
+      "source": "assets\\ui\\clean_icons_20261024\\commands_r0_16.png",
+      "source_sha256": "4a0d93ffc0f73cca19a1a800954da8af1859826b75afecd5affd62023d1a59f3",
+      "output": "assets\\ui\\icon_fragment_fixes_20261024\\commands_r0_16.png",
+      "removed_foreign_pixels": 72,
+      "kept_subject_pixels_unchanged": true
+    }
+  ],
+  "retained_detached_parts": "Other inspected components are intentional aim brackets, arrows, petals, stars or building spires; retained. Original atlas and original cleaned cells preserved."
+}

@@ -389,7 +389,7 @@ func room_menu() -> void:
 		if seated.get("bot",false) and owner:
 			race.visible=false
 			var bot_id=str(seated.user)
-			var bot_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],220,0,170,int(seated.race),func(i):main._room_update({"bot_id":bot_id,"bot_race":i}))
+			var bot_select=option(row,ACData.get_data().race_names,220,0,170,int(seated.race),func(i):main._room_update({"bot_id":bot_id,"bot_race":i}))
 			bot_select.size.y=36;bot_select.custom_minimum_size.y=36
 			bot_select.add_theme_font_size_override("font_size",17)
 			bot_select.set_meta("owner_only",true)
@@ -397,7 +397,7 @@ func room_menu() -> void:
 			room_controls.append(bot_select)
 		if seated.get("user","")==main.account.id:
 			race.visible=false
-			main.race_select=option(row,["바위너구리","귤 변이 군체","고대 부엉이"],220,0,170,int(seated.race),func(i):main.race_choice=i;main._room_update({"race":i}))
+			main.race_select=option(row,ACData.get_data().race_names,220,0,170,int(seated.race),func(i):main.race_choice=i;main._room_update({"race":i}))
 			main.race_select.size.y=36
 			main.race_select.custom_minimum_size.y=36
 			main.race_select.add_theme_font_size_override("font_size",17)
@@ -488,7 +488,7 @@ func update_room_text() -> void:
 		if row.has("color_select"):
 			row.color_select.visible=not observing;row.color_select.select(color_id)
 			for option_id in range(8):row.color_select.set_item_disabled(option_id,r.members.any(func(other):return not other.get("observer",false) and other.user!=member.user and int(other.get("color_id",-1))==option_id))
-		row.race.text="관전자" if observing else ["바위너구리","귤 변이 군체","고대 부엉이"][int(member.race)]
+		row.race.text="관전자" if observing else ACData.get_data().race_names[int(member.race)]
 		row.team.text=str(int(member.team)+1) if r.mode=="teams" and not observing else "—"
 		row.status.text="관전" if observing else ("준비 완료" if member.ready else "준비 대기")
 		row.status.modulate=Color("a5d88f") if member.ready else Color("b8b6ac")
@@ -608,7 +608,7 @@ func result(won: bool) -> Control:
 	var seconds=int(main.state.get("time",0))
 	var rows=[
 		["전투 시간","%02d:%02d"%[seconds/60,seconds%60]],
-		["종족",["바위너구리","귤 변이 군체","고대 부엉이"][int(player.get("race",main.settings.last_played_race))]],
+		["종족",ACData.get_data().race_names[int(player.get("race",main.settings.last_played_race))]],
 		["수집한 자원",str(int(player.get("gathered",0)))],
 		["처치한 유닛",str(int(player.get("kills",0)))]
 	]

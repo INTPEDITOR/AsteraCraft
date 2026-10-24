@@ -44,6 +44,16 @@ var last_cue := ""
 var director
 var debug_stats := {"played": 0, "culled": 0, "duplicates": 0, "stolen": 0, "missing": 0}
 
+static func acquire(host: Node) -> ACAudio:
+	var tree=host.get_tree()
+	var existing=tree.get_meta("astera_audio") if tree.has_meta("astera_audio") else null
+	if is_instance_valid(existing) and existing is ACAudio:return existing
+	var mixer=ACAudio.new()
+	mixer.name="GameAudio"
+	tree.set_meta("astera_audio",mixer)
+	host.add_child(mixer)
+	return mixer
+
 func _ready() -> void:
 	_ensure_buses()
 	_listener = AudioListener2D.new()
@@ -246,6 +256,7 @@ func process_state(state: Dictionary, local_slot: int, camera: Vector2, zoom: fl
 			continue
 		if entity.get("beam_active",false) and now<float(_fired_marks.get(id,-99.0))+.65:continue
 		_fired_marks[id] = fired
+		if float(entity.get("cast_at",-99.0))>=fired-.001:continue
 		if now - fired <= 0.65 and int(entity.get("container", -1)) < 0:
 			var kind := _weapon_kind(entity)
 			play_unit(int(entity.get("race", 0)), kind, _center(entity), "attack")
@@ -333,6 +344,8 @@ func consume_effects(effects: Array, now: float) -> void:
 					_mining_marks[id] = now + 0.68
 				play_mining(race, position)
 		elif type=="heal":
+			if effect.get("projectile","")=="mind_control":
+				_play_at("skill_mind_control",position,.68,4,"ability");continue
 			var id := int(effect.get("unit_id",effect.get("unit",source.get("id",-1))))
 			var stamp := float(effect.get("started",now))
 			if id>=0 and absf(stamp-float(_healing_marks.get(id,-99.0)))<0.2:
@@ -345,9 +358,11 @@ func consume_effects(effects: Array, now: float) -> void:
 			if director!=null:director.announce("nuclear",-1,0,5)
 		elif type in ["nuclear_ascent","nuclear_descent"]:
 			_play_at(type,position,.65,4,"combat")
+		elif type=="ability_sound":
+			_play_at(str(effect.get("cue","")),position,.68,4,"ability")
 		elif type=="skill":
 			var nuclear=str(effect.get("skill",""))=="nuclear"
-			_play_at("skill_"+str(effect.get("skill","")).replace("_warning",""),position,.8 if nuclear else .45,5 if nuclear else 2,"combat")
+			_play_at("skill_"+str(effect.get("skill","")).replace("_warning",""),position,.8 if nuclear else .68,5 if nuclear else 4,"combat" if nuclear else "ability")
 		elif type in ["ability", "cast", "warning", "repair"]:
 			if kind < 0:
 				kind = [4, 9, 5][clampi(race, 0, 2)]

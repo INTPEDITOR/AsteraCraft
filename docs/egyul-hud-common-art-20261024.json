@@ -1,0 +1,13 @@
+{
+  "status": "rejected_derivative_faction_style",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Asset: ONE ultra-wide RTS bottom HUD skin. Image 1 is the EDIT TARGET and the exact geometric layout template, a 1963x330 horizontal strip. Image 2 is ONLY a dark bark/root material reference. Replace ONLY Image 1's yellow metal frame with a completely NEW dark chestnut wooden-root frame for the Egyul citrus biomechanical faction. Lock the complete outer bounding box, extremely wide 1963:330 aspect ratio, and ALL panel positions and opening dimensions to Image 1. The top and bottom edges and overall HUD height must match Image 1 exactly, not the taller Image 2. Preserve the left square minimap, very wide middle information panel, narrow tall portrait with one tiny menu pill above it, and exactly FOUR columns by THREE rows of command slots at the far right. The black content openings must stay perfectly clear and safely inset. Safe inner content rectangles in 1963x330 coordinates: minimap x64 y62 w218 h218; information x362 y90 w826 h190; menu x1254 y42 w166 h27; portrait x1263 y104 w148 h178; command grid columns x1490/1600/1710/1820, rows y66/150/234, each clear inner area86x60. Do not enlarge, shift, add or remove any opening. Draw new rich realistic hand-painted bark grain and slender interwoven roots following the EXISTING thin frame geometry, a few small embedded orange fruits or amber sap inlays at joints, very restrained tiny cyan sap accents. Avoid tall decorative fruits/roots, thick borders, foliage covering openings, and bright golden vines. Keep all ornaments inside the original strip height; absolutely no large extra transparent margins above or below. Genuine transparent RGBA outside the irregular silhouette, opaque charcoal-black content interiors. No background scene, text, letters, labels, icons, characters, logos, watermark or game screenshot. The result must work as the same-size sibling of the metal HUD, with a newly illustrated wood skin.",
+  "source": "C:/Users/Admin/.codex/generated_images/01a1658f-18eb-7781-929a-256a0df7e051/exec-36678b45-b660-4319-adf2-dbcda9a008a3.png",
+  "candidate": "work/egyul-hud-common-20261024/raw.png",
+  "reference_layout": "assets/ui_hud_0_complete_v060.png",
+  "target_common_canvas": [
+    1963,
+    330
+  ],
+  "original_preserved": true
+}

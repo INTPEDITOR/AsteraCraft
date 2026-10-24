@@ -1,0 +1,359 @@
+{
+  "logic": {
+    "actual_skill_casts_with_sound": [
+      "stim",
+      "smoke",
+      "nuclear",
+      "scan",
+      "overcharge",
+      "field_repair",
+      "neural",
+      "mind_control",
+      "shed",
+      "sap_heal",
+      "sap_reclaim",
+      "sap_bloom",
+      "carapace",
+      "scatter",
+      "root_surge",
+      "judgment",
+      "silence",
+      "bind",
+      "discipline",
+      "march",
+      "barrier",
+      "purify",
+      "shockwave",
+      "pierce",
+      "verdict"
+    ],
+    "checks": 116,
+    "failures": [],
+    "passed": true,
+    "production_during_research": 4,
+    "research_buildings": {
+      "flamer_range": 9,
+      "frontline_vitality": 7,
+      "missile_autoloader": 9,
+      "transport_thrusters": 10
+    }
+  },
+  "screen": {
+    "checks": 159,
+    "faction_update_plates": [
+      "res://assets/ui_native/main_r0_normal.png",
+      "res://assets/ui_native/main_r1_normal.png",
+      "res://assets/ui_native/main_r2_normal.png"
+    ],
+    "failures": [],
+    "impact_frames_checked": 112,
+    "passed": true
+  },
+  "hud": {
+    "candidate_only": false,
+    "checks": 11,
+    "failures": [],
+    "passed": true,
+    "sizes": [
+      {
+        "command": "(70.09679, 48.90474)",
+        "height": 268.976043701172,
+        "minimap": "(165.2491, 165.2491)",
+        "portrait": "(117.3714, 141.8237)",
+        "race": 0
+      },
+      {
+        "command": "(70.09679, 48.90474)",
+        "height": 268.976043701172,
+        "minimap": "(165.2491, 165.2491)",
+        "portrait": "(117.3714, 141.8237)",
+        "race": 1
+      },
+      {
+        "command": "(70.09679, 48.90474)",
+        "height": 268.976043701172,
+        "minimap": "(165.2491, 165.2491)",
+        "portrait": "(117.3714, 141.8237)",
+        "race": 2
+      }
+    ],
+    "user_approved_runtime_skin": true
+  },
+  "startup": {
+    "checks": 7,
+    "continuous_music": true,
+    "failures": [],
+    "first_screen_resolution": [
+      1280,
+      720
+    ],
+    "passed": true
+  },
+  "edges": {
+    "checks": 32,
+    "failures": [],
+    "maps": [
+      {
+        "boundary_and_corner_screens": 8,
+        "map": 0,
+        "source_data_unchanged": true
+      },
+      {
+        "boundary_and_corner_screens": 8,
+        "map": 1,
+        "source_data_unchanged": true
+      },
+      {
+        "boundary_and_corner_screens": 8,
+        "map": 2,
+        "source_data_unchanged": true
+      }
+    ],
+    "passed": true,
+    "scope": "Raised edge geometry and24 actual rendered perimeter views; original navigation/water/height/resource data unchanged."
+  },
+  "passives": {
+    "checks": 185,
+    "failures": [],
+    "movement": [
+      {
+        "actual": 0.504001617431641,
+        "expected": 0.504,
+        "unit": "0:11"
+      },
+      {
+        "actual": 0.377998352050781,
+        "expected": 0.378,
+        "unit": "2:1"
+      }
+    ],
+    "range_attacks": [
+      {
+        "distance": 4.9,
+        "fired": 10,
+        "unit": "1:5"
+      },
+      {
+        "distance": 4.2,
+        "fired": 10,
+        "unit": "2:7"
+      },
+      {
+        "distance": 4.4,
+        "fired": 10,
+        "unit": "0:13"
+      },
+      {
+        "distance": 5,
+        "fired": 10,
+        "unit": "1:10"
+      }
+    ],
+    "units": 10
+  },
+  "passive_bot": {
+    "checks": 9,
+    "failures": [],
+    "passed": true,
+    "scope": "Three-race AI queues and pays for an appropriate army passive, then completes its actual research."
+  },
+  "nuclear": {
+    "checks": 8,
+    "damage": 1130.625,
+    "failures": [],
+    "ordinary_friendly_spell_protection": true,
+    "radius": 8
+  },
+  "source_terrain": {
+    "checks": 786720,
+    "failures": [],
+    "maps": [
+      {
+        "ramps": 12,
+        "recovered_walk_minitiles": 9757,
+        "theme": 0,
+        "traversals": 24
+      },
+      {
+        "ramps": 6,
+        "recovered_walk_minitiles": 6509,
+        "theme": 1,
+        "traversals": 12
+      },
+      {
+        "ramps": 4,
+        "recovered_walk_minitiles": 8986,
+        "theme": 2,
+        "traversals": 8
+      }
+    ]
+  },
+  "regression": {
+    "checks": 47,
+    "failures": [],
+    "resources": [
+      {
+        "id": 100009,
+        "pos": [
+          2.5,
+          5
+        ],
+        "rect": [
+          84,
+          79.3991012573242,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100011,
+        "pos": [
+          1.5,
+          6
+        ],
+        "rect": [
+          28,
+          135.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100013,
+        "pos": [
+          2.5,
+          7
+        ],
+        "rect": [
+          84,
+          191.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100015,
+        "pos": [
+          2.5,
+          8
+        ],
+        "rect": [
+          84,
+          247.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100018,
+        "pos": [
+          1.5,
+          9
+        ],
+        "rect": [
+          28,
+          303.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100021,
+        "pos": [
+          2.5,
+          10
+        ],
+        "rect": [
+          84,
+          359.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100024,
+        "pos": [
+          2.5,
+          11
+        ],
+        "rect": [
+          84,
+          415.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100027,
+        "pos": [
+          5.5,
+          12
+        ],
+        "rect": [
+          252,
+          471.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100028,
+        "pos": [
+          3.5,
+          12
+        ],
+        "rect": [
+          140,
+          471.399108886719,
+          112,
+          109.600898742676
+        ],
+        "retained": true
+      },
+      {
+        "id": 100108,
+        "pos": [
+          8.5,
+          1.5
+        ],
+        "rect": [
+          364,
+          -91,
+          224,
+          112
+        ],
+        "retained": true
+      }
+    ]
+  },
+  "updater_controller": {
+    "automatic_attempts_per_process": 1,
+    "checks": 20,
+    "failed_tag_requires_manual_retry": true,
+    "failures": [],
+    "ordinary_match_can_continue": true
+  },
+  "actual_update_restart": {
+    "passed": true,
+    "checks": 11,
+    "elapsed_seconds": 25.27,
+    "phase": "confirmed",
+    "tag": "feedback4-20261024",
+    "scope": "Actual Windows helper replaces a disposable feedback3_20261024 installation with the final feedback4_20261024 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+  },
+  "exported_game": {
+    "passed": true,
+    "exit_code": 0,
+    "elapsed_ms": 37894,
+    "loading_art_textures": 30,
+    "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+  }
+}

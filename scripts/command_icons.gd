@@ -11,6 +11,8 @@ func _init() -> void:
 func texture(race: int, kind: String, index: int) -> Texture2D:
 	var key="%s:%d:%d"%[kind,race,index]
 	if _frames.has(key):return _frames[key]
+	var corrected="res://assets/ui/icon_fragment_fixes_20261024/%s_r%d_%02d.png"%[kind,race,index]
+	if ResourceLoader.exists(corrected):_frames[key]=load(corrected);return _frames[key]
 	var clean="res://assets/ui/clean_icons_20261024/%s_r%d_%02d.png"%[kind,race,index]
 	if not (kind=="commands" and index in [29,30]) and ResourceLoader.exists(clean):_frames[key]=load(clean);return _frames[key]
 	if kind=="commands" and index in [29,30]:

@@ -1,5 +1,6 @@
 class_name ACAbilities
 extends RefCounted
+const NUCLEAR_RADIUS := 8.0
 
 static func catalog(race: int, kind: int) -> Array:
 	return ACData.get_data().get("abilities",[]).filter(func(d):return int(d.race)==race and d.kinds.any(func(value):return int(value)==kind))
@@ -8,14 +9,14 @@ static func description(key: String) -> String:
 	return {
 		"stim":"자신 체력10 소모 · 7초간 이동 +25%, 공격 주기 -25%\n체력10 이하 사용 불가",
 		"smoke":"6초간 연막 안 아군이 받는 일반 공격 피해 35% 감소.",
-		"nuclear":"상승 4초 → 조준 11초 → 낙하 3초\n반경 5 · 최대 1,350 피해 · 자신과 아군도 피해\n유도 중 이동 불가",
+		"nuclear":"상승 4초 → 조준 11초 → 낙하 3초\n반경 8 · 최대 1,350 피해 · 자신과 아군도 피해\n유도 중 이동 불가",
 		"scan":"8초 동안 반경 10의 시야를 확보합니다.",
 		"overcharge":"0.5초 후 지정 지점 반경 1.5의 지상 적에게 100 피해.",
 		"field_repair":"6초간 정지하여 초당 체력 25 회복. 이동 명령 시 중단.",
 		"neural":"5초 동안 적 1기의 공격 주기를 40% 늘립니다.",
 		"mind_control":"보이는 적 유닛 1기를 영구 전환. 건물·배양체·탑승객이 있는 수송선 제외.",
 		"shed":"이동 둔화·구속 해제 및 3초간 이동·공격 강화.",
-		"sap_heal":"자동 치료 켜기/끄기. 주변 귤 아군 1기의 체력을 초당 8 회복하며 마나를 초당 4 소모합니다. 기본 켜짐.",
+		"sap_heal":"자동 치료 켜기/끄기. 주변 이귤 아군 1기의 체력을 초당 8 회복하며 마나를 초당 4 소모합니다. 기본 켜짐.",
 		"sap_reclaim":"내 지상 유닛 1기를 소모하고 모즙체의 마나 75 회복. 자신·배양체·건물·탑승 중인 유닛·승객이 있는 수송선 제외. 마나가 가득 차면 사용 불가.",
 		"sap_bloom":"반경 4 안의 주변 아군 유닛을 6초간 공격속도 25% 증가. 중복 사용해도 효과가 더해지지 않습니다.",
 		"carapace":"6초간 받는 일반 공격 피해 45% 감소.",
@@ -81,7 +82,7 @@ static func use(c,u: Dictionary,key: String,point: Vector2,target_id: int=-1) ->
 	u.energy-=float(s.energy)
 	if not u.has("skill_ready"):u.skill_ready={}
 	u.skill_ready[key]=c.time+float(s.cooldown)
-	u.fired=c.time;u._aiming=true
+	u.fired=c.time;u.cast_at=c.time;u._aiming=true
 	match key:
 		"stim":u.hp-=10;u.stim_until=c.time+7
 		"smoke","discipline":
@@ -106,6 +107,7 @@ static func use(c,u: Dictionary,key: String,point: Vector2,target_id: int=-1) ->
 		"sap_heal":
 			u.sap_heal_enabled=not bool(u.get("sap_heal_enabled",true))
 			if not u.sap_heal_enabled:u.healing=false;u.heal_target=-1;u.heal_kind=""
+			c._effect("ability_sound",u,c.center(u),.8,{"cue":"skill_sap_heal"})
 		"sap_reclaim":
 			c._release_mining_claim(target)
 			for b in c.buildings:
@@ -175,7 +177,7 @@ static func update(c,dt: float) -> void:
 			"shockwave":radius=2.2;damage=45
 			"root_surge":radius=2.2;damage=60
 			"verdict":radius=1.5;damage=180
-			"nuclear":radius=5.0;damage=1350
+			"nuclear":radius=NUCLEAR_RADIUS;damage=1350
 		var query_center=(c.center(caster)+point)*.5 if key=="verdict" else point
 		var query_radius=c.center(caster).distance_to(point)*.5+2 if key=="verdict" else radius+2
 		for target in c._query_entities(query_center,query_radius):

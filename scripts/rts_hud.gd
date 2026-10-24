@@ -130,6 +130,7 @@ var _last_size := Vector2.ZERO
 var _symbol_material: ShaderMaterial
 var _cargo_material: ShaderMaterial
 var _frame_art: Array[Texture2D] = []
+var _frame_slices: Dictionary={}
 var _frame_source_regions: Array[Rect2i] = []
 var _uniform_shells: Array[bool] = []
 var _complete_shells: Array[bool] = []
@@ -325,13 +326,34 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 				# Measured dark openings in newly authored art. Keep the previous
 				# displayed height and nearly identical centers, with safe padding.
 				_native_shell_geometry[faction]={"crop":Rect2i(0,135,2001,405),"display_height":360.0/1963.0,"mini":Rect2(55,243,244,233),"detail":Rect2(355,264,868,211),"menu":Rect2(1280,224,171,28),"portrait":Rect2(1277,276,176,204),"command":Rect2(1512,245,435,243),"cols":[1517,1631,1744,1856],"rows":[250,337,423],"slot":Vector2(86,60)}
+			if faction==1 and ResourceLoader.exists("res://assets/ui/egyul_hud_living_common_20261024.png"):
+				native_path="res://assets/ui/egyul_hud_living_common_20261024.png"
+				_native_shell_geometry[faction]=COMMON_SHELL.duplicate(true)
+				_frame_slices[faction]=living_egyul_slices()
 		var native=_native_shell_geometry.has(faction) and ResourceLoader.exists(native_path)
 		if native:path=native_path
 		_frame_art.append(load(path) if ResourceLoader.exists(path) else null)
 		_uniform_shells.append(native)
 		var legacy_region=[Rect2i(0,200,1983,417),Rect2i(0,128,1983,502),Rect2i(0,110,1904,509)][faction]
 		_frame_source_regions.append(_native_shell_geometry[faction].crop if native else legacy_region)
-		_frame_body_profiles.append(_make_body_profile(_frame_art[faction],_frame_source_regions[faction]))
+		_frame_body_profiles.append(_make_sliced_body_profile(_frame_art[faction],_frame_slices[faction]) if _frame_slices.has(faction) else _make_body_profile(_frame_art[faction],_frame_source_regions[faction]))
+
+static func living_egyul_slices() -> Array:
+	# Fit decorative margins to the common layout without editing source pixels.
+	return [{"source":Rect2(0,134,2170,98),"target":Rect2(0,0,1963,62)},{"source":Rect2(0,232,2170,234),"target":Rect2(0,62,1963,218)},{"source":Rect2(0,466,2170,102),"target":Rect2(0,280,1963,50)}]
+
+func _make_sliced_body_profile(texture: Texture2D,slices: Array) -> PackedInt32Array:
+	var profile=PackedInt32Array();profile.resize(1963);profile.fill(-1)
+	var image=texture.get_image()
+	for x in range(1963):
+		for slice in slices:
+			var source: Rect2=slice.source;var target: Rect2=slice.target
+			var column=clampi(int((x+.5)/1963.0*source.size.x),0,image.get_width()-1)
+			for y in range(int(source.position.y),int(source.end.y)):
+				if image.get_pixel(column,y).a>.5:
+					profile[x]=roundi(target.position.y+(y-source.position.y)/source.size.y*target.size.y);break
+			if profile[x]>=0:break
+	return _complete_body_profile(profile,330)
 
 func _make_body_profile(texture: Texture2D,crop: Rect2i) -> PackedInt32Array:
 	var profile=PackedInt32Array()
@@ -344,13 +366,16 @@ func _make_body_profile(texture: Texture2D,crop: Rect2i) -> PackedInt32Array:
 				if source.get_pixel(crop.position.x+x,crop.position.y+y).a>.5:
 					profile[x]=y
 					break
+	return _complete_body_profile(profile,crop.size.y)
+
+func _complete_body_profile(profile: PackedInt32Array,height: int) -> PackedInt32Array:
 	# Some source canvases have empty edge columns. Continue the nearest frame
 	# edge downward rather than leaving cracks along the bottom or screen sides.
 	var previous=-1
 	for x in range(profile.size()):
 		if profile[x]>=0:previous=profile[x]
 		elif previous>=0:profile[x]=previous
-	var following=crop.size.y-1
+	var following=height-1
 	for x in range(profile.size()-1,-1,-1):
 		if profile[x]>=0:following=profile[x]
 		else:profile[x]=following
@@ -583,7 +608,12 @@ func _detail_frame_rect() -> Rect2:
 	return shell_rect(_shell_geometry().detail)
 
 func _detail_content_rect() -> Rect2:
-	return _detail_frame_rect()
+	var area=_detail_frame_rect()
+	if _frame_slices.has(race):
+		# Keep text clear of the living frame's inward roots and sap droplets.
+		var inset=Vector2(26,24)*shell_draw_rect().size.x/1963.0
+		return Rect2(area.position+inset,area.size-Vector2(inset.x*2,inset.y))
+	return area
 
 func _command_frame_rect() -> Rect2:
 	return shell_rect(_shell_geometry().command)
@@ -1270,8 +1300,8 @@ func _build_commands() -> void:
 			if faction==0:
 				all.append(_command("수리",KEY_R,"R",ICON_REPAIR,func():_target_order("repair"),"아스를 사용하여 기계와 건물을 수리합니다."))
 		var role=str(_definition.get("role",""))
-		if role in ["siege","fortress","tree","shield"]:
-			var names={"siege":"공성 전개","fortress":"요새 전개","tree":"뿌리 고정","shield":"방패 전개"}
+		if role in ["siege","fortress","tree"]:
+			var names={"siege":"공성 전개","fortress":"요새 전개","tree":"뿌리 고정"}
 			var title="전개 해제" if _unit.get("anchored",false) else names[role]
 			var help="현재 위치에서 전개 상태를 전환합니다."
 			if faction==0 and kind==5:
@@ -1606,9 +1636,11 @@ func _draw() -> void:
 	# Opaque backing stops world flashes showing through painted frame edges.
 	draw_rect(_minimap_frame_rect().grow(4),Color("101517"))
 	if _frame_art.size()==3 and _frame_art[race]!=null:
-		draw_texture_rect_region(_frame_art[race],shell_draw_rect(),Rect2(_frame_source_regions[race]))
+		if _frame_slices.has(race):
+			for slice in _frame_slices[race]:draw_texture_rect_region(_frame_art[race],shell_rect(slice.target),slice.source)
+		else:draw_texture_rect_region(_frame_art[race],shell_draw_rect(),Rect2(_frame_source_regions[race]))
 	# Clear painted/filtered slivers inside the known aperture after the shell.
-	if race!=1 or not "hud_citrus_wood_new_20261024" in _frame_art[race].resource_path:
+	if not _frame_slices.has(race) and (race!=1 or not "hud_citrus_wood_new_20261024" in _frame_art[race].resource_path):
 		draw_rect(_minimap_frame_rect().grow(-.5),Color("101517"))
 	if main.has_method("_render_minimap"):main._render_minimap(self)
 	draw_rect(mini.grow(.25),Color("101517"),false,1.5)

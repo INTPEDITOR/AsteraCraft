@@ -20,7 +20,6 @@ var _last_size := Vector2.ZERO
 var title_art: Texture2D
 var _shade: GradientTexture2D
 var update_panel: PanelContainer
-var update_label: Label
 var update_button: Button
 var update_bar: ProgressBar
 var updater: Node
@@ -113,6 +112,12 @@ func _refresh_button_styles() -> void:
 		button.add_theme_stylebox_override("hover",_button_style(1))
 		button.add_theme_stylebox_override("pressed",_button_style(2))
 		button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
+	if update_button!=null:
+		for entry in [["normal",0],["hover",1],["pressed",2],["disabled",2]]:
+			update_button.add_theme_stylebox_override(entry[0],_button_style(entry[1]))
+		update_button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
+		var fill=StyleBoxFlat.new();fill.bg_color=[Color("e4b548"),Color("d58b32"),Color("d55450")][background_index]
+		update_bar.add_theme_stylebox_override("fill",fill)
 
 func _button_style(state_index: int) -> StyleBox:
 	if button_plates.size()==9:
@@ -158,27 +163,30 @@ func _layout() -> void:
 		nav_buttons[index].position=Vector2(58,top+index*spacing)
 		nav_buttons[index].size=Vector2(BUTTON_WIDTH,BUTTON_HEIGHT)
 	_last_size=size
-	if update_panel!=null:update_panel.position=Vector2(maxf(12,size.x-444),maxf(12,size.y-145));update_panel.size=Vector2(420,120)
+	if update_panel!=null:update_panel.position=Vector2(maxf(12,size.x-224),maxf(12,size.y-78));update_panel.size=Vector2(200,50)
 	queue_redraw()
 
 func _build_update_panel() -> void:
 	update_panel=PanelContainer.new();add_child(update_panel)
-	var plate=StyleBoxFlat.new();plate.bg_color=Color(.025,.035,.04,.93);plate.border_color=Color("967c45");plate.set_border_width_all(1);plate.set_corner_radius_all(6);plate.set_content_margin_all(14)
-	update_panel.add_theme_stylebox_override("panel",plate)
-	var column=VBoxContainer.new();column.add_theme_constant_override("separation",7);update_panel.add_child(column)
-	update_label=Label.new();update_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;update_label.custom_minimum_size=Vector2(390,36);update_label.add_theme_font_size_override("font_size",14);column.add_child(update_label)
-	update_bar=ProgressBar.new();update_bar.custom_minimum_size=Vector2(390,8);update_bar.show_percentage=false;column.add_child(update_bar)
-	update_button=Button.new();update_button.custom_minimum_size=Vector2(0,34);update_button.add_theme_font_size_override("font_size",14);column.add_child(update_button)
-	update_button.pressed.connect(func():updater.activate())
+	update_panel.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
+	var column=VBoxContainer.new();column.add_theme_constant_override("separation",2);update_panel.add_child(column)
+	update_button=Button.new();update_button.custom_minimum_size=Vector2(200,46);update_button.add_theme_font_size_override("font_size",14);column.add_child(update_button)
+	update_button.add_theme_color_override("font_color",Color("e8d9ae"))
+	update_button.add_theme_color_override("font_hover_color",Color("fff0bd"))
+	update_button.add_theme_color_override("font_disabled_color",Color("c5b891"))
+	update_bar=ProgressBar.new();update_bar.custom_minimum_size=Vector2(200,4);update_bar.show_percentage=false;column.add_child(update_bar)
+	var background=StyleBoxFlat.new();background.bg_color=Color(.02,.025,.03,.8);update_bar.add_theme_stylebox_override("background",background)
+	_refresh_button_styles()
+	update_button.pressed.connect(func():_play_ui("confirm");updater.activate())
 	updater.changed.connect(_refresh_update_panel)
 	_refresh_update_panel()
 
 func _refresh_update_panel() -> void:
 	if update_panel==null or not is_instance_valid(update_panel):return
-	update_label.text=str(updater.message)
+	update_button.tooltip_text=str(updater.message)
 	var busy=updater.state in ["checking","downloading","verifying","installing"]
 	update_button.disabled=busy
-	update_button.text="업데이트" if updater.state=="available" else "업데이트하고 다시 시작" if updater.state=="ready" else "다시 시도" if updater.state in ["failed","error"] else "확인 중…" if busy else "새 버전 확인"
+	update_button.text="업데이트 받기" if updater.state=="available" else "설치 후 재시작" if updater.state=="ready" else "업데이트 재시도" if updater.state in ["failed","error"] else "다운로드 %d%%"%roundi(updater.progress*100) if updater.state=="downloading" else "파일 확인 중…" if updater.state=="verifying" else "설치 중…" if updater.state=="installing" else "확인 중…" if busy else "최신 버전" if updater.state=="current" else "업데이트 확인"
 	update_bar.visible=updater.state in ["downloading","verifying","ready","installing"]
 	update_bar.value=float(updater.progress)*100
 

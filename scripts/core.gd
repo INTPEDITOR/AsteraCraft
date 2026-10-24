@@ -976,6 +976,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 	var order_index=0
 	var energy_blocked=false
 	var ability_accepted=false
+	var removed_ability=false
 	var columns=ceili(sqrt(maxi(1,cmd.get("ids",[]).size())))
 	var spacing=.8
 	if cmd.get("formation",false):
@@ -997,6 +998,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 		if type!="ability":u.self_repair_until=0.0
 		if type=="ability":
 			var ability_role=str(unit_data(u).role)
+			if ability_role=="shield":removed_ability=true;continue
 			if ability_role in ["parasite","mage","priest"]:
 				var skill="mind_control" if ability_role=="parasite" else "judgment" if ability_role=="mage" else "barrier"
 				return ABILITIES.use(self,u,skill,ACData.point(cmd.get("pos",u.pos)),int(cmd.get("target",u.id if ability_role=="priest" else -1)))
@@ -1005,7 +1007,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 			if energy_cost>0 and float(u.energy)<energy_cost:
 				energy_blocked=true
 				continue
-			if ability_role in ["siege","fortress","tree","shield","transport","mage","priest"]:ability_accepted=true
+			if ability_role in ["siege","fortress","tree","transport","mage","priest"]:ability_accepted=true
 			if int(u.race)==0 and int(u.kind)==7:ability_accepted=true
 			if was_fleeing:u.order="idle";u.path=[]
 			_ability(u,ACData.point(cmd.get("pos",u.pos)))
@@ -1059,6 +1061,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 					u.order="move"
 		if was_mining and not mining_worker(u):collision_recovery_revision=-1
 	if energy_blocked and not ability_accepted:return "에너지가 부족합니다"
+	if removed_ability and not ability_accepted:return "이 유닛은 전개 기술이 없습니다"
 	return ""
 
 func _home_ore(worker: Dictionary) -> int:
@@ -2592,15 +2595,18 @@ func _ability(u: Dictionary, pos: Vector2) -> void:
 		if u.get("cloak_active",false):u.cloak_active=false
 		elif u.energy>=25:u.energy-=25;u.cloak_active=true
 		u.ability_cd=.5
+		_effect("ability_sound",u,center(u),.8,{"cue":"skill_scan"})
 	elif int(u.race)==0 and d.role=="siege":
 		if float(u.get("deploy_until",0))>time:return
 		u.deploy_to=not bool(u.anchored);u.deploy_started=time
 		u.deploy_until=time+(2.5 if u.deploy_to else 1.8)
 		u.ability_cd=float(u.deploy_until)-time;u.order="hold";u.path=[]
 		BURST.cancel(u)
-	elif d.role in ["fortress","tree","shield"]:
+		_effect("ability_sound",u,center(u),.8,{"cue":"skill_field_repair"})
+	elif d.role in ["fortress","tree"]:
 		u.anchored=not u.anchored
 		u.ability_cd=1.0
+		_effect("ability_sound",u,center(u),.8,{"cue":"skill_carapace" if int(u.race)==1 else "skill_field_repair" if int(u.race)==0 else "skill_barrier"})
 	elif d.role=="transport":
 		for id in u.cargo.duplicate():NEW_UNITS.unload(self,u,int(id))
 		u.ability_cd=1

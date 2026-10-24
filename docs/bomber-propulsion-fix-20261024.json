@@ -1,0 +1,90 @@
+{
+  "source": "assets\\staged16_20261023\\race0\\u10_motion\\idle.png",
+  "source_sha256": "a404df2101125c9a96b0e96299378c507e1ed1b4e6fa95c6c9d90ba95c4db972",
+  "method": "Preserve source hull, isolate cool rear exhaust by color and heading; north rear collars copied from the existing two-engine south assembly. No new full-body art.",
+  "original_preserved": true,
+  "headings": [
+    {
+      "heading": 0,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1805
+    },
+    {
+      "heading": 1,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1719
+    },
+    {
+      "heading": 2,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1717
+    },
+    {
+      "heading": 3,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1515
+    },
+    {
+      "heading": 4,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1403
+    },
+    {
+      "heading": 5,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1436
+    },
+    {
+      "heading": 6,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1564
+    },
+    {
+      "heading": 7,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1734
+    },
+    {
+      "heading": 8,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1798
+    },
+    {
+      "heading": 9,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1718
+    },
+    {
+      "heading": 10,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1549
+    },
+    {
+      "heading": 11,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1382
+    },
+    {
+      "heading": 12,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1489
+    },
+    {
+      "heading": 13,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1499
+    },
+    {
+      "heading": 14,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1668
+    },
+    {
+      "heading": 15,
+      "engine_nozzles": 2,
+      "removed_baked_flame_pixels": 1795
+    }
+  ],
+  "runtime_hull": "assets/bomber_propulsion_20261024/hulls.png",
+  "runtime_exhaust": "assets/bomber_propulsion_20261024/exhaust.png"
+}

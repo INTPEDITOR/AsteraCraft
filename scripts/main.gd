@@ -216,8 +216,7 @@ func _ready() -> void:
 		var source: Image=load("res://assets/tera_vent_%s_v058.png"%biome).get_image()
 		var texture=assets._trim(source,Rect2i(Vector2i.ZERO,source.get_size()))
 		tera_theme_textures.append(texture);tera_theme_images.append(texture.get_image())
-	audio=ACAudio.new()
-	add_child(audio)
+	audio=ACAudio.acquire(self)
 	if audio.director!=null:
 		audio.director.attack_visible=func(point: Vector2):return page=="game" and _world_visible_at(_ground_point(point))
 	_apply_settings(false)
@@ -613,6 +612,9 @@ func _sync_world_canvas() -> void:
 	world_mask.visible=world_clip.visible
 	if not world_clip.visible:return
 	var map_rect=Rect2(world_to_screen(Vector2.ZERO),world_to_screen(Vector2.ONE*ACMap.SIZE)-world_to_screen(Vector2.ZERO)).abs()
+	# Relief can extend above its logical grid; the boundary mesh masks the
+	# exact perimeter without squeezing the top terrain into the first row.
+	map_rect.position.y-=128*zoom;map_rect.size.y+=256*zoom
 	var clip=map_rect.intersection(_world_render_rect())
 	world_clip.position=clip.position
 	world_clip.size=clip.size
@@ -789,16 +791,20 @@ func _clamp_camera() -> void:
 	var center=_view_rect().get_center();var render=_world_render_rect()
 	var lower=(center-render.position)/(32.0*zoom)
 	var upper=Vector2.ONE*ACMap.SIZE-(render.end-center)/(32.0*zoom)
-	# The raised southern perimeter also has to reach transparent HUD gaps.
+	# The southern edge must reach the visible field above the HUD, rather
+	# than the bottom of the window hidden behind the command panel.
+	upper.y=ACMap.SIZE-(_camera_view_bottom()-center.y)/(32.0*zoom)
 	var signature=hash([draw_map.get_instance_id(),draw_map.render_signature])
 	if signature!=_camera_boundary_signature:
 		_camera_boundary_signature=signature;_camera_southern_rise=0.0
 		for point in draw_map.visual_boundary():
 			if point.y>=ACMap.SIZE:_camera_southern_rise=maxf(_camera_southern_rise,float(point.z))
-	upper.y-=_camera_southern_rise/32.0
 	for axis in range(2):
 		if lower[axis]>upper[axis]:lower[axis]=ACMap.SIZE*.5;upper[axis]=lower[axis]
 	camera=camera.clamp(lower,upper)
+
+func _camera_view_bottom() -> float:
+	return clampf(battle_hud.shell_draw_rect().position.y,43,size.y) if is_instance_valid(battle_hud) else _view_rect().end.y
 
 func _notification(what: int) -> void:
 	if what!=NOTIFICATION_RESIZED or page!="game" or state.is_empty():return
@@ -2034,7 +2040,7 @@ func _draw_building_ghost(race: int,kind: int,pos: Vector2,valid: bool) -> void:
 	# Neutral body tint preserves the selected pigment; only the footprint
 	# communicates valid/invalid placement, independently of the shader.
 	var tint=Color(1,1,1,.55)
-	_draw_footprint(pos,Vector2(definition.w,definition.h),Color(.3,1,.5,.75) if valid else Color(1,.25,.2,.9))
+	_draw_footprint(pos-Vector2(.5,.5) if kind==1 else pos,Vector2(definition.w,definition.h),Color(.3,1,.5,.75) if valid else Color(1,.25,.2,.9))
 	var authored=assets.sprites.building(race,kind,1,false,Vector2.DOWN,0)
 	if not authored.is_empty():
 		var foundation=point+Vector2(0,front)
@@ -2165,6 +2171,13 @@ func _uses_fixed_hull(e: Dictionary) -> bool:
 	# The scout's separately authored rotor cycle is retained; jet hulls stay still.
 	return (bool(d.air) and str(d.get("material",""))=="mechanical" and not (int(e.race)==0 and int(e.kind)==8)) or (int(e.race)==1 and int(e.kind)==11) or (int(e.race)==2 and int(e.kind)==8)
 
+func _air_hover_offset(e: Dictionary,clock: float) -> Vector2:
+	if not ACData.entity_unit(e,state.get("players",[])).air:return Vector2.ZERO
+	var bomber=int(e.race)==0 and int(e.kind)==10
+	if _uses_fixed_hull(e) and not bomber:return Vector2.ZERO
+	if bomber:clock=float(state.get("time",0))+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
+	return Vector2(sin(clock*.85)*.45,-sin(clock*1.7)*(2.6 if bomber else 1.8))*zoom
+
 func _draw_unit(e: Dictionary) -> void:
 	var d=ACData.entity_unit(e,state.get("players",[]))
 	var foot=_ground_point(_visual_position(e))
@@ -2206,13 +2219,14 @@ func _draw_unit(e: Dictionary) -> void:
 	if int(e.id) in selected:world_canvas.draw_arc(Vector2.ZERO,radius+4,0,TAU,36,_team_color(int(e.owner)),1.6,true)
 	_world_transform(Vector2.ZERO)
 	var sp=foot-Vector2(0,22*zoom if d.air else 0)
-	if d.air and not _uses_fixed_hull(e):
-		sp.y-=sin(animation_clock*1.7)*1.8*zoom
-		sp.x+=sin(animation_clock*.85)*.45*zoom
+	sp+=_air_hover_offset(e,animation_clock)
 	var extent=float(d.get("visual_extent",float(d.size)*(62 if d.air else 47)))*zoom
 	var color=Color(.96,.97,.98)
 	if e.get("cloaked",false):color.a=.42
-	if bool(d.air) and bool(e.get("moving",false)) and assets.propulsion_frames.size()==3:
+	if int(e.race)==0 and int(e.kind)==10 and bool(e.get("moving",false)):
+		var exhaust=assets.bomber_exhaust(_visual_facing(e))
+		if not exhaust.is_empty():_draw_unit_frame(exhaust,sp,extent,Color(1,1,1,color.a*(.88+.12*sin(elapsed*18))))
+	elif bool(d.air) and bool(e.get("moving",false)) and assets.propulsion_frames.size()==3:
 		# Separate exhaust frames preserve the approved hull pixels and view angle.
 		var facing=_visual_facing(e).normalized()
 		var exhaust: Texture2D=assets.propulsion_frames[int(e.race)][posmod(int(elapsed*16)+int(e.id),8)]
@@ -2533,10 +2547,15 @@ func _render_minimap(canvas: CanvasItem) -> void:
 	for remembered in state.get("building_memory",[]):
 		var p=_center(remembered)
 		if _fog_value(int(p.y)*128+int(p.x))==1:canvas.draw_rect(Rect2(rect.position+p*map_scale-Vector2.ONE,Vector2(4,4)).intersection(rect),_team_color(int(remembered.owner)).darkened(.65))
-	var view_size=_view_rect().size/(32*zoom)*map_scale
-	var viewport_rect=Rect2(rect.position+camera*map_scale-view_size*.5,view_size).intersection(rect.grow(-1))
+	var viewport_rect=_minimap_camera_rect(rect)
 	canvas.draw_rect(viewport_rect,Color.WHITE,false,1)
 	if audio!=null and audio.director!=null:audio.director.draw_pings(canvas,rect,float(state.get("time",0)))
+
+func _minimap_camera_rect(rect: Rect2) -> Rect2:
+	var visible=Rect2(0,42,size.x,maxf(1,_camera_view_bottom()-42))
+	var origin=camera+(visible.position-_view_rect().get_center())/(32*zoom)
+	var scale=rect.size/ACMap.SIZE
+	return Rect2(rect.position+origin*scale,visible.size/(32*zoom)*scale).intersection(rect.grow(-1))
 
 func _context_target(mouse: Vector2,_pos: Vector2) -> int:
 	var target=_hit_test(mouse)
@@ -2616,9 +2635,7 @@ func _weapon_tip(source: Dictionary,origin: Vector2,target: Vector2,shot_index: 
 	# The painted firing pose restarts on each shot, including render
 	# interpolation. Its source-bound mouth must sample that same pose.
 	if layered.get("staged16",false) and vehicle_action=="attack":clock=vehicle_clock
-	if definition.air and source.has("id") and not _uses_fixed_hull(source):
-		elevated.y-=sin(clock*1.7)*1.8*zoom
-		elevated.x+=sin(clock*.85)*.45*zoom
+	if source.has("id"):elevated+=_air_hover_offset(source,clock)
 	# A moving aircraft may aim at a target while its hull still faces its
 	# displacement. Register the socket against the body actually being drawn.
 	var pose=assets.unit(int(source.race),int(source.kind),heading,"idle" if _uses_fixed_hull(source) else "attack",0.0 if _uses_fixed_hull(source) else clock)
@@ -2669,6 +2686,7 @@ func _draw_death_body(fx: Dictionary) -> void:
 	_draw_unit_frame(pose,point,float(definition.get("visual_extent",float(definition.size)*(62 if definition.air else 47)))*zoom,Color(1,1,1,opacity))
 
 func _draw_effect(fx: Dictionary) -> void:
+	if fx.get("type","")=="ability_sound":return
 	var now=float(state.time)+(minf(visual_clock,visual_step) if not paused else 0.0)
 	var start=float(fx.get("started",now-.05))
 	var duration=maxf(.05,float(fx.get("until",now+.1))-start)

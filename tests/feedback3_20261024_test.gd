@@ -47,7 +47,7 @@ func run() -> void:
 		for corner in [Vector2.ZERO,Vector2(128,0),Vector2(128,128),Vector2(0,128)]:
 			main.camera=corner;main._clamp_camera()
 			var origin=main.world_to_screen(Vector2.ZERO);var end=main.world_to_screen(Vector2(128,128))
-			check(origin.x<=.01 and origin.y<=.01 and end.x>=main.size.x-.01 and end.y>=main.size.y+main._camera_southern_rise*zoom-.01,"full viewport is covered at %s zoom %.2f"%[corner,zoom])
+			check(origin.x<=.01 and origin.y<=.01 and end.x>=main.size.x-.01 and end.y>=main._camera_view_bottom()-.01,"north/east render edges and southern visible field are covered at %s zoom %.2f"%[corner,zoom])
 	main.zoom=1.75;main.camera=Vector2(14,0);main._clamp_camera();await redraw();await shot("top-edge-no-black-strip")
 	main.camera=Vector2(64,64)
 	for index in range(4):

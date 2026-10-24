@@ -4,7 +4,7 @@ func run() -> void:
 	for race in range(3):
 		var c=arena(race,race);c.time=20;c.players[0].difficulty=1
 		var hq=c.add_building(0,0,Vector2(20,20),true);c.players[0].home=hq.id
-		var building=c.add_building(0,[3,4,3][race],Vector2(30,20),true)
+		var building=c.add_building(0,[7,4,6][race],Vector2(30,20),true)
 		for kind in ([9] if race==1 else [7] if race==2 else []):c.add_building(0,kind,Vector2(25,30),true)
 		for index in range(8):c.add_unit(0,1,Vector2(35+index,35))
 		BotAI.tick(c,0)

@@ -441,7 +441,9 @@ func _visual_vertex(grid: Vector2i) -> float:
 	if not _visual_vertices.has(index):
 		var point=Vector2(grid)*.5
 		var height=_sample_visual_elevation(point)
-		_visual_vertices[index]=point.y*32.0-clampf(point.y*32.0-height,0,4096)
+		# Keep the actual relief height. Clamping projected screen Y collapsed
+		# the first/last terrain triangles and stretched their texture at edges.
+		_visual_vertices[index]=height
 	return float(_visual_vertices[index])
 
 ## Clockwise outer edge of the actual terrain mesh. Unlike gameplay queries,
@@ -457,6 +459,8 @@ func visual_boundary() -> PackedVector3Array:
 
 func _sample_visual_elevation(point: Vector2) -> float:
 	var warp=Vector2(sin(point.y*1.31+point.x*.17),sin(point.x*1.13-point.y*.23))*.18
+	var edge=minf(minf(point.x,point.y),minf(SIZE-point.x,SIZE-point.y))
+	warp*=smoothstep(0.0,2.0,edge)
 	# Navigation and CHK entities use integer tile centres. Sampling at -0.5
 	# displaced the painted cliff half a tile from its physical boundary.
 	var sample=point+warp

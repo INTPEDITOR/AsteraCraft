@@ -1,0 +1,11 @@
+{
+  "unit": "2:2",
+  "action": "walk",
+  "heading": 10,
+  "source_heading": 6,
+  "rows": 7,
+  "operation": "Reflect the existing southeast walking sequence for southwest, preserving every other heading and action.",
+  "source": "assets\\staged16_20261023\\race2\\u02_motion\\walk.png",
+  "source_sha256": "0f67f1333e4adc0534eff825dbf16ea889a764bdb817364d28cab46df78559da",
+  "original_preserved": true
+}

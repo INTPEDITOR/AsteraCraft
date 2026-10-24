@@ -192,6 +192,10 @@ func draw(canvas: CanvasItem, map: ACMap, view: Rect2, zoom: float, project: Cal
 	var clip = world_rect.intersection(view)
 	if not clip.has_area():return
 	var calls = 0
+	if not data.has("southern_skirt"):data.southern_skirt=_southern_skirt_mesh(map)
+	if data.southern_skirt.get_surface_count()>0 and rock_tiles.size()==6:
+		canvas.draw_mesh(data.southern_skirt,rock_tiles[3+map.theme],transform)
+		calls+=1
 	for layer in data.layers:
 		canvas.draw_mesh(layer.mesh,_texture(layer.slot),transform,layer.tint)
 		calls += 1
@@ -238,9 +242,21 @@ func _boundary_mask_mesh(map: ACMap) -> ArrayMesh:
 		var b=boundary[(index+1)%boundary.size()]
 		var inner_a=Vector2(a.x*32,a.y*32-a.z)
 		var inner_b=Vector2(b.x*32,b.y*32-b.z)
+		if a.y>=ACMap.SIZE and b.y>=ACMap.SIZE:
+			inner_a.y=a.y*32;inner_b.y=b.y*32
 		var outer_a=center+(inner_a-center)*16.0
 		var outer_b=center+(inner_b-center)*16.0
 		_append_quad(builder,PackedVector2Array([inner_a,inner_b,outer_b,outer_a]),PackedVector2Array([Vector2.ZERO,Vector2.ZERO,Vector2.ZERO,Vector2.ZERO]),PackedFloat32Array([1,1,1,1]))
+	return _mesh(builder)
+
+func _southern_skirt_mesh(map: ACMap) -> ArrayMesh:
+	var builder=_builder();var boundary=map.visual_boundary()
+	for index in range(boundary.size()):
+		var a=boundary[index];var b=boundary[(index+1)%boundary.size()]
+		if a.y<ACMap.SIZE or b.y<ACMap.SIZE or maxf(a.z,b.z)<=0:continue
+		var top_a=Vector2(a.x*32,a.y*32-a.z);var top_b=Vector2(b.x*32,b.y*32-b.z)
+		var foot_a=Vector2(a.x*32,a.y*32);var foot_b=Vector2(b.x*32,b.y*32)
+		_append_quad(builder,PackedVector2Array([top_a,top_b,foot_b,foot_a]),PackedVector2Array([Vector2(a.x*.25,0),Vector2(b.x*.25,0),Vector2(b.x*.25,b.z/128.0),Vector2(a.x*.25,a.z/128.0)]),PackedFloat32Array([.85,.85,.4,.4]))
 	return _mesh(builder)
 
 func prepare(map: ACMap,progress: Callable=Callable()) -> void:
@@ -250,6 +266,7 @@ func prepare(map: ACMap,progress: Callable=Callable()) -> void:
 		_cache[key]=_build_cache(map,map.render_signature,progress)
 	# Also prepare the southern boundary before the first playable frame.
 	_cache[key].boundary_mask=_boundary_mask_mesh(map)
+	_cache[key].southern_skirt=_southern_skirt_mesh(map)
 	if progress.is_valid():progress.call(1.0,"전장 화면 준비 완료")
 
 func _build_cache(map: ACMap, signature: int,progress: Callable=Callable()) -> Dictionary:

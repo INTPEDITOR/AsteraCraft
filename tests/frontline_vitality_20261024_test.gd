@@ -14,12 +14,12 @@ func run() -> void:
 	var full=c.add_unit(0,1,Vector2(40,40));var wounded=c.add_unit(0,1,Vector2(42,40));wounded.hp=50
 	var dead=c.add_unit(0,1,Vector2(39,39));dead.hp=0
 	var enemy=c.add_unit(1,1,Vector2(44,40));var assault=c.add_unit(0,2,Vector2(40,42));var medic=c.add_unit(0,4,Vector2(40,41));medic.energy=100
-	var barracks=c.add_building(0,3,Vector2(36,37),true)
+	var barracks=c.add_building(0,7,Vector2(36,37),true)
 	check(full.hp==70 and ACData.max_health(full,c.players)==70,"unresearched rifle remains70")
-	check(ACResearch.catalog(0,3).filter(func(item):return item.id==KEY).size()==1,"single research in rifle production building")
-	check(ACResearch.definition(0,7,KEY).is_empty(),"medic building receives no new passive")
+	check(ACResearch.catalog(0,7).filter(func(item):return item.id==KEY).size()==1,"single rifle health research in field infirmary")
+	check(ACResearch.definition(0,3,KEY).is_empty(),"rifle production building no longer researches health")
 	check(ACResearch.catalog(1,8).all(func(item):return item.id!=KEY),"parasite building receives no new passive")
-	var definition=ACResearch.definition(0,3,KEY)
+	var definition=ACResearch.definition(0,7,KEY)
 	check(definition.max_level==1,"research can be completed only once")
 	check(ACResearch.enqueue(c,0,barracks,KEY)=="","queue accepts new research")
 	check(c.players[0].as==900 and c.players[0].tera==900,"100/100 cost charged once")
@@ -56,5 +56,5 @@ func run() -> void:
 	var caster=c.add_unit(2,8,Vector2(40,40));caster.energy=200;c.visibility[2].fill(1)
 	check(c._mind_control(caster,full.id)=="" and full.owner==2 and full.hp==70,"capture by owner without research clamps health to70")
 	check(ACData.max_health(full,c.players)==70,"captured unit uses new owner cap")
-	FileAccess.open(OUT+"result.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"unit":"0:1","building":"0:3","base_hp":70,"researched_hp":85,"cost":[100,100],"time":45,"total_approved_passives":10},"\t"))
+	FileAccess.open(OUT+"result.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"unit":"0:1","building":"0:7","base_hp":70,"researched_hp":85,"cost":[100,100],"time":45,"total_approved_passives":10},"\t"))
 	print("FRONTLINE_VITALITY checks=",checks," failures=",failures.size());quit(0 if failures.is_empty() else 1)

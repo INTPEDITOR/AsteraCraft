@@ -5,6 +5,7 @@ extends RefCounted
 var unit_frames: Dictionary={}
 var motion_frames: Dictionary={}
 var propulsion_frames: Array=[]
+var bomber_exhaust_definition: Dictionary={}
 var building_frames: Dictionary={}
 var building_idle_frames: Dictionary={}
 var building_idle_pixels: Dictionary={}
@@ -40,6 +41,8 @@ var sprites=preload("res://scripts/sprite_library.gd").new()
 
 func load_all() -> void:
 	sprites.load_catalogs()
+	var bomber_path="res://data/bomber_propulsion_20261024.json"
+	if FileAccess.file_exists(bomber_path):bomber_exhaust_definition=JSON.parse_string(FileAccess.get_file_as_string(bomber_path))
 	direction_repairs.clear()
 	var direction_path="res://data/art_direction_repairs_20261023.json"
 	if FileAccess.file_exists(direction_path):
@@ -674,6 +677,11 @@ func unit(race: int, kind: int, direction: Vector2, action: String="idle", clock
 	frame.frame=0
 	return frame
 
+func bomber_exhaust(direction: Vector2) -> Dictionary:
+	var frame=sprites.sample(bomber_exhaust_definition,"idle",direction,0).duplicate()
+	if not frame.is_empty():frame.bomber_exhaust=true
+	return frame
+
 func _load_v060() -> void:
 	if FileAccess.file_exists("res://data/siege_layers_v061.json"):
 		siege_layers=JSON.parse_string(FileAccess.get_file_as_string("res://data/siege_layers_v061.json"))
@@ -763,6 +771,12 @@ func _load_v060() -> void:
 				var texture=AtlasTexture.new();texture.atlas=source;texture.filter_clip=true
 				texture.region=Rect2(Vector2(phase,row)*cell,cell);frames.append(texture)
 			v060_effects["weapon_"+keys[row]]=frames
+	var isolated_path="res://data/weapon_effects_isolated_20261024.json"
+	if FileAccess.file_exists(isolated_path):
+		var isolated=JSON.parse_string(FileAccess.get_file_as_string(isolated_path))
+		for item in isolated.frames:
+			if not v060_effects.has(str(item.key)):continue
+			if ResourceLoader.exists(str(item.file)):v060_effects[str(item.key)][int(item.phase)]=load(str(item.file))
 	if FileAccess.file_exists("res://data/units_art_v061.json"):
 		var carrier: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/units_art_v061.json")).units.carrier
 		var source: Texture2D=load(str(carrier.file));var frames=[]
