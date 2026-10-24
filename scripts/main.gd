@@ -15,6 +15,7 @@ const ConstructionVisual=preload("res://scripts/construction_visual.gd")
 const DEFAULT_ZOOM=1.75
 const MIN_ZOOM=1.0
 const MAX_ZOOM=2.5
+const CAMERA_EDGE_GUARD=2.0
 var assets:=ACAssets.new()
 var battle_hud: ACRtsHUD
 var audio: ACAudio
@@ -41,6 +42,7 @@ var world_mask: Control
 var camera_velocity=Vector2.ZERO
 var _camera_boundary_signature=-1
 var _camera_southern_rise=0.0
+var _camera_northern_profile=PackedFloat32Array()
 var pointer_position=Vector2.INF
 var visual_previous: Dictionary={}
 var visual_current: Dictionary={}
@@ -657,7 +659,11 @@ func _sync_nuclear_clouds() -> void:
 
 func _draw_world_mask() -> void:
 	if page!="game":return
-	var bounds=Rect2(world_to_screen(Vector2.ZERO),world_to_screen(Vector2.ONE*ACMap.SIZE)-world_to_screen(Vector2.ZERO)).abs().intersection(Rect2(Vector2.ZERO,size))
+	var bounds=Rect2(world_to_screen(Vector2.ZERO),world_to_screen(Vector2.ONE*ACMap.SIZE)-world_to_screen(Vector2.ZERO)).abs()
+	# The terrain boundary mesh already masks the exact raised northern edge.
+	# A second, logical y=0 mask would conceal real terrain above that line.
+	bounds.position.y-=128*zoom;bounds.size.y+=128*zoom
+	bounds=bounds.intersection(_world_render_rect())
 	for rect in [Rect2(0,0,size.x,bounds.position.y),Rect2(0,bounds.end.y,size.x,maxf(0,size.y-bounds.end.y)),Rect2(0,bounds.position.y,bounds.position.x,bounds.size.y),Rect2(bounds.end.x,bounds.position.y,maxf(0,size.x-bounds.end.x),bounds.size.y)]:
 		if rect.has_area():world_mask.draw_rect(rect,Color.BLACK)
 
@@ -779,20 +785,35 @@ func _clamp_camera() -> void:
 	var center=_view_rect().get_center();var render=_world_render_rect()
 	var lower=(center-render.position)/(32.0*zoom)
 	var upper=Vector2.ONE*ACMap.SIZE-(render.end-center)/(32.0*zoom)
-	# The southern edge must reach the visible field above the HUD, rather
-	# than the bottom of the window hidden behind the command panel.
-	upper.y=ACMap.SIZE-(_camera_view_bottom()-center.y)/(32.0*zoom)
+	if lower.x>upper.x:lower.x=ACMap.SIZE*.5;upper.x=lower.x
+	camera.x=clampf(camera.x,lower.x,upper.x)
 	var signature=hash([draw_map.get_instance_id(),draw_map.render_signature])
 	if signature!=_camera_boundary_signature:
 		_camera_boundary_signature=signature;_camera_southern_rise=0.0
+		_camera_northern_profile.resize(ACMap.SIZE*2+1);_camera_northern_profile.fill(0.0)
 		for point in draw_map.visual_boundary():
 			if point.y>=ACMap.SIZE:_camera_southern_rise=maxf(_camera_southern_rise,float(point.z))
-	for axis in range(2):
-		if lower[axis]>upper[axis]:lower[axis]=ACMap.SIZE*.5;upper[axis]=lower[axis]
+			if point.y==0:_camera_northern_profile[roundi(point.x*2)]=point.z
+	# Only the currently visible northern perimeter constrains the top. Raised
+	# terrain has real room above logical y=0; depressed water edges have less.
+	var left=clampf(camera.x+(render.position.x-center.x)/(32.0*zoom),0,ACMap.SIZE)
+	var right=clampf(camera.x+(render.end.x-center.x)/(32.0*zoom),0,ACMap.SIZE)
+	var northern_rise=minf(_camera_northern_rise_at(left),_camera_northern_rise_at(right))
+	for index in range(ceili(left*2),floori(right*2)+1):northern_rise=minf(northern_rise,_camera_northern_profile[index])
+	lower.y=(center.y-render.position.y+CAMERA_EDGE_GUARD)/(32.0*zoom)-northern_rise/32.0
+	# The southern skirt/mask ends on logical y=SIZE. Cover the deepest visible
+	# HUD valley, rather than its rectangular base, with a two-pixel overlap.
+	upper.y=ACMap.SIZE-(_camera_view_bottom()+CAMERA_EDGE_GUARD-center.y)/(32.0*zoom)
+	if lower.y>upper.y:lower.y=ACMap.SIZE*.5;upper.y=lower.y
 	camera=camera.clamp(lower,upper)
 
+func _camera_northern_rise_at(world_x: float) -> float:
+	var grid=clampf(world_x*2,0,ACMap.SIZE*2)
+	var index=floori(grid);var following=mini(index+1,_camera_northern_profile.size()-1)
+	return lerpf(_camera_northern_profile[index],_camera_northern_profile[following],grid-index)
+
 func _camera_view_bottom() -> float:
-	return clampf(battle_hud.shell_draw_rect().position.y,43,size.y) if is_instance_valid(battle_hud) else _view_rect().end.y
+	return clampf(battle_hud.world_view_bottom(),43,size.y) if is_instance_valid(battle_hud) else _view_rect().end.y
 
 func _notification(what: int) -> void:
 	if what!=NOTIFICATION_RESIZED or page!="game" or state.is_empty():return
@@ -1875,6 +1896,8 @@ func _sync_entity_canvases(objects: Array,points: Dictionary={}) -> void:
 				if (not e.get("moving",false) or _moving_fire_pose(e)) and float(state.time)-float(e.get("fired",-99))<attack_window and assets.sprites.has_action(int(e.race),int(e.kind),"attack"):
 					action="attack"
 				fps=clampf(float(assets.unit_action_info(int(e.race),int(e.kind),action).get("fps",12)),4,30)
+				# Static hull artwork still needs a smooth, continuous hover.
+				if ACData.entity_unit(e,state.get("players",[])).air:fps=maxf(fps,30)
 			var stagger=float(posmod(id,12))/12.0
 			node.next_pose=(floorf(now*fps-stagger)+1+stagger)/fps
 			node.queue_redraw()
@@ -2084,11 +2107,12 @@ func _uses_fixed_hull(e: Dictionary) -> bool:
 	# The scout's separately authored rotor cycle is retained; jet hulls stay still.
 	return (bool(d.air) and str(d.get("material",""))=="mechanical" and not (int(e.race)==0 and int(e.kind)==8)) or (int(e.race)==1 and int(e.kind)==11) or (int(e.race)==2 and int(e.kind)==8)
 
-func _air_hover_offset(e: Dictionary,clock: float) -> Vector2:
+func _air_hover_offset(e: Dictionary,_action_clock: float=0.0) -> Vector2:
 	if not ACData.entity_unit(e,state.get("players",[])).air:return Vector2.ZERO
 	var bomber=int(e.race)==0 and int(e.kind)==10
-	if _uses_fixed_hull(e) and not bomber:return Vector2.ZERO
-	if bomber:clock=float(state.get("time",0))+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
+	# Hover belongs to flight, not an attack/walk clip. Keep phase continuous
+	# when orders change, including for aircraft whose hull artwork is fixed.
+	var clock=float(state.get("time",0))+(minf(visual_clock,visual_step) if not paused else 0.0)+float(e.id)*.173
 	return Vector2(sin(clock*.85)*.45,-sin(clock*1.7)*(2.6 if bomber else 1.8))*zoom
 
 func _draw_unit(e: Dictionary) -> void:

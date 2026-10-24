@@ -1,0 +1,169 @@
+{
+	"checks": 18,
+	"failures": [],
+	"passed": true,
+	"screens": [
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 5.973214)",
+			"map": 0,
+			"race": 0,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 121.6278)",
+			"map": 0,
+			"race": 0,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 5.973214)",
+			"map": 0,
+			"race": 1,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 122.0)",
+			"map": 0,
+			"race": 1,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 5.973214)",
+			"map": 0,
+			"race": 2,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 122.4139)",
+			"map": 0,
+			"race": 2,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 6.160714)",
+			"map": 1,
+			"race": 0,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 121.6278)",
+			"map": 1,
+			"race": 0,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 6.160714)",
+			"map": 1,
+			"race": 1,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 122.0)",
+			"map": 1,
+			"race": 1,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 6.160714)",
+			"map": 1,
+			"race": 2,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 122.4139)",
+			"map": 1,
+			"race": 2,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 6.160714)",
+			"map": 2,
+			"race": 0,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 121.6278)",
+			"map": 2,
+			"race": 0,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 6.160714)",
+			"map": 2,
+			"race": 1,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 122.0)",
+			"map": 2,
+			"race": 1,
+			"samples": 398,
+			"south": true
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 6.160714)",
+			"map": 2,
+			"race": 2,
+			"samples": 398,
+			"south": false
+		},
+		{
+			"black_pixels": 0,
+			"black_points": [],
+			"camera": "(103.0, 122.4139)",
+			"map": 2,
+			"race": 2,
+			"samples": 398,
+			"south": true
+		}
+	]
+}

@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "source": {
+    "camera-geometry": {
+      "passed": true,
+      "checks": 4057
+    },
+    "camera-screens": {
+      "passed": true,
+      "checks": 18
+    },
+    "air-hover": {
+      "passed": true,
+      "checks": 1189
+    }
+  },
+  "exports": {
+    "pack": {
+      "passed": true,
+      "exit_code": 0,
+      "native_images": 12,
+      "scope": "Exported Windows PCK mounted as main pack without source fallback; all12 native images decoded, helper/HUD/metadata available, source work directory absent"
+    },
+    "windows-startup": {
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_ms": 34550,
+      "loading_art_textures": 30,
+      "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+    },
+    "archive": {
+      "passed": true,
+      "bytes": 1340600750,
+      "sha256": "6f7354c70473a38101af9addf469cb7a82b046f5f0b5e88996b9b4e80b232104",
+      "files": [
+        "AsteraCraft.exe",
+        "AsteraCraft.pck",
+        "libwebrtc_native.windows.template_release.x86_64.dll",
+        "README.txt",
+        "game_icon.ico",
+        "LICENSES-LevelUp.txt"
+      ]
+    },
+    "update-install": {
+      "passed": true,
+      "checks": 11,
+      "elapsed_seconds": 29.56,
+      "phase": "confirmed",
+      "tag": "feedback7-20261024",
+      "scope": "Actual Windows helper replaces a disposable feedback6_20261024 installation with the final feedback7_20261024 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+    }
+  }
+}

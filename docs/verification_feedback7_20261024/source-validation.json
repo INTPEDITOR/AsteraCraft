@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": {
+    "camera-geometry": {
+      "passed": true,
+      "checks": 4057
+    },
+    "camera-screens": {
+      "passed": true,
+      "checks": 18
+    },
+    "air-hover": {
+      "passed": true,
+      "checks": 1189
+    }
+  }
+}

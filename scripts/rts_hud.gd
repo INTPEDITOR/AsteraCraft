@@ -140,6 +140,7 @@ var _native_shell_geometry: Dictionary = {
 	2:{"crop":Rect2i(15,218,1954,341),"mini":Rect2(120,295,220,210),"detail":Rect2(405,296,748,208),"menu":Rect2(1220,283,36,20),"portrait":Rect2(1218,327,150,180),"command":Rect2(1435,296,422,206),"cols":[1435,1546,1658,1769],"rows":[296,371,446],"slot":Vector2(88,56)}
 }
 var _frame_body_profiles: Array[PackedInt32Array] = []
+var _frame_body_depths: Array[int] = []
 var _authored_shell_profiles: Dictionary={}
 var _body_materials: Array[Texture2D] = []
 var _body_outline:=PackedVector2Array()
@@ -367,6 +368,9 @@ void fragment() { COLOR = vec4(symbol_color.rgb, texture(TEXTURE, UV).a * symbol
 		var legacy_region=[Rect2i(0,200,1983,417),Rect2i(0,128,1983,502),Rect2i(0,110,1904,509)][faction]
 		_frame_source_regions.append(_native_shell_geometry[faction].crop if native else legacy_region)
 		_frame_body_profiles.append(_authored_shell_profiles[faction] if _authored_shell_profiles.has(faction) else _make_sliced_body_profile(_frame_art[faction],_frame_slices[faction]) if _frame_slices.has(faction) else _make_body_profile(_frame_art[faction],_frame_source_regions[faction]))
+		var depth=0
+		for value in _frame_body_profiles.back():depth=maxi(depth,value)
+		_frame_body_depths.append(depth)
 
 static func living_egyul_slices() -> Array:
 	# Fit decorative margins to the common layout without editing source pixels.
@@ -444,6 +448,12 @@ func body_top_at(screen_x: float) -> float:
 	var column=clampi(int(floor(screen_x/size.x*profile.size())),0,profile.size()-1)
 	var area=shell_draw_rect()
 	return area.position.y+float(profile[column])*area.size.y/_frame_source_regions[race].size.y
+
+func world_view_bottom() -> float:
+	var area=shell_draw_rect()
+	if _frame_body_depths.size()!=3:return area.position.y
+	# The world remains visible in the valleys between the painted ornaments.
+	return area.position.y+float(_frame_body_depths[race])*area.size.y/_frame_source_regions[race].size.y
 
 func blocks_world_input(point: Vector2) -> bool:
 	if not Rect2(Vector2.ZERO,size).has_point(point):return false

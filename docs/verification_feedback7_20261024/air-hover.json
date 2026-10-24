@@ -1,0 +1,80 @@
+{
+	"aircraft": [
+		{
+			"body_y_span": 6.24740600585938,
+			"kind": 8,
+			"name": "무인 관측 드론",
+			"race": 0
+		},
+		{
+			"body_y_span": 6.25454711914063,
+			"kind": 9,
+			"name": "요격기",
+			"race": 0
+		},
+		{
+			"body_y_span": 9.05961608886719,
+			"kind": 10,
+			"name": "강습폭격기",
+			"race": 0
+		},
+		{
+			"body_y_span": 6.25634765625,
+			"kind": 11,
+			"name": "장갑수송정",
+			"race": 0
+		},
+		{
+			"body_y_span": 6.27105712890625,
+			"kind": 14,
+			"name": "강철둥지 모함",
+			"race": 0
+		},
+		{
+			"body_y_span": 6.24386596679688,
+			"kind": 15,
+			"name": "요격 드론",
+			"race": 0
+		},
+		{
+			"body_y_span": 6.2362060546875,
+			"kind": 10,
+			"name": "귤박쥐",
+			"race": 1
+		},
+		{
+			"body_y_span": 6.27743530273438,
+			"kind": 11,
+			"name": "포낭비행체",
+			"race": 1
+		},
+		{
+			"body_y_span": 6.23373413085938,
+			"kind": 6,
+			"name": "밤눈감시자",
+			"race": 2
+		},
+		{
+			"body_y_span": 6.23446655273438,
+			"kind": 9,
+			"name": "월익추적자",
+			"race": 2
+		},
+		{
+			"body_y_span": 6.27725219726563,
+			"kind": 11,
+			"name": "회랑지기",
+			"race": 2
+		},
+		{
+			"body_y_span": 6.23751831054688,
+			"kind": 12,
+			"name": "대심판선",
+			"race": 2
+		}
+	],
+	"checks": 1189,
+	"failures": [],
+	"frames": 16,
+	"passed": true
+}

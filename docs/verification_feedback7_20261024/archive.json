@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "bytes": 1340600750,
+  "sha256": "6f7354c70473a38101af9addf469cb7a82b046f5f0b5e88996b9b4e80b232104",
+  "files": [
+    "AsteraCraft.exe",
+    "AsteraCraft.pck",
+    "libwebrtc_native.windows.template_release.x86_64.dll",
+    "README.txt",
+    "game_icon.ico",
+    "LICENSES-LevelUp.txt"
+  ]
+}

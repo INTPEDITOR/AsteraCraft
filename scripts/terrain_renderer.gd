@@ -297,7 +297,6 @@ func _build_cache(map: ACMap, signature: int,progress: Callable=Callable()) -> D
 			var fraction = sample-Vector2(x,y)
 			fraction.x = smoothstep(0.0,1.0,fraction.x)
 			fraction.y = smoothstep(0.0,1.0,fraction.y)
-			var rise = 0.0
 			var index = gy*STRIDE+gx
 			for dy in range(2):
 				for dx in range(2):
@@ -307,8 +306,9 @@ func _build_cache(map: ACMap, signature: int,progress: Callable=Callable()) -> D
 					fields[5][index]+=weight*water
 					if classes[source]!=5:fields[classes[source]][index]+=weight*(1.0-water)
 					levels[index]+=weight*float(map.height_map[source])
-					rise += weight*_rise(map,source%128,source/128)
-			points[index] = Vector2(p.x*32.0,clampf(p.y*32.0-rise,0,WORLD_PIXELS))
+			# Use the same relief vertices as units, picking and the perimeter.
+			# Clamping screen Y erased raised land above logical y=0.
+			points[index] = Vector2(p.x*32.0,p.y*32.0-map._visual_vertex(Vector2i(gx,gy)))
 	_apply_surface_regions(map,fields)
 	if progress.is_valid():progress.call(.16,"지형 표면 준비 중")
 	var layers: Array = []
@@ -532,7 +532,7 @@ func _source_blocker_geometry(map: ACMap) -> Dictionary:
 	return result
 
 func _rock_project(map: ACMap,p: Vector2,rise: float) -> Vector2:
-	return p-Vector2(0,map.visual_elevation(p/32.0)+rise)
+	return _bank_point(map,p)-Vector2(0,rise)
 
 func _source_land_blocked(map: ACMap,x: int,y: int) -> bool:
 	var index=(y/4)*128+x/4
@@ -785,7 +785,10 @@ func _material_span(slot: int) -> float:
 
 func _bank_point(map: ACMap, pixel: Vector2) -> Vector2:
 	pixel=pixel.clamp(Vector2.ZERO,Vector2.ONE*WORLD_PIXELS)
-	return Vector2(pixel.x,clampf(pixel.y-map.visual_elevation(pixel/32.0),0,WORLD_PIXELS))
+	# Gameplay treats x/y=SIZE as outside. Render its limiting surface height
+	# instead of dropping that last vertex back to zero or flattening screen Y.
+	var point=(pixel/32.0).min(Vector2.ONE*(ACMap.SIZE-.00001))
+	return Vector2(pixel.x,pixel.y-map.visual_elevation(point))
 
 func _level_light(level: float) -> float:
 	return .80+.18*clampf(level,0,2)
@@ -807,7 +810,7 @@ func _diamond_layers(map: ACMap, fields: Array, levels: PackedFloat32Array=Packe
 						var pixel=center+Vector2((q.x-q.y)*DIAMOND_SIZE.x*.5,(q.x+q.y-1)*DIAMOND_SIZE.y*.5)
 						pixel=pixel.clamp(Vector2.ZERO,Vector2.ONE*WORLD_PIXELS)
 						var opacity=clampf(1.0-_field_at(fields[4],pixel)-smoothstep(.28,.42,_field_at(fields[5],pixel)),0,1)
-						quad.append(Vector2(pixel.x,clampf(pixel.y-map.visual_elevation(pixel/32.0),0,WORLD_PIXELS)))
+						quad.append(_bank_point(map,pixel))
 						uv.append(_detail_uv(pixel,QUIET_WORLD_SPAN))
 						detail_uv.append(_detail_uv(pixel,160.0))
 						shades.append(_level_light(_field_at(levels,pixel)) if not levels.is_empty() else 1.0)
