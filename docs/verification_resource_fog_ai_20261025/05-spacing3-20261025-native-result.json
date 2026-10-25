@@ -1,0 +1,106 @@
+{
+	"checks": 9,
+	"failures": [],
+	"passed": true,
+	"records": [
+		{
+			"anchor": [
+				117.0,
+				7.0
+			],
+			"as_gap": 3.0,
+			"map": 0,
+			"race": 0,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				7.0,
+				6.0
+			],
+			"as_gap": 3.0,
+			"map": 0,
+			"race": 1,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				7.0,
+				116.0
+			],
+			"as_gap": 3.0,
+			"map": 0,
+			"race": 2,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				116.0,
+				40.0
+			],
+			"as_gap": 3.0,
+			"map": 1,
+			"race": 0,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				42.0,
+				119.0
+			],
+			"as_gap": 3.0,
+			"map": 1,
+			"race": 1,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				8.0,
+				85.0
+			],
+			"as_gap": 3.0,
+			"map": 1,
+			"race": 2,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				57.0,
+				6.0
+			],
+			"as_gap": 3.0,
+			"map": 2,
+			"race": 0,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				117.0,
+				27.0
+			],
+			"as_gap": 3.0,
+			"map": 2,
+			"race": 1,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		},
+		{
+			"anchor": [
+				7.0,
+				87.0
+			],
+			"as_gap": 3.0,
+			"map": 2,
+			"race": 2,
+			"refinery_gap": 3.0,
+			"tera_gap": 3.0
+		}
+	]
+}

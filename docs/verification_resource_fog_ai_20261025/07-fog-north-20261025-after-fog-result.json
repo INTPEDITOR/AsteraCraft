@@ -1,0 +1,39 @@
+{
+	"checks": 6,
+	"failures": [],
+	"mode": "fog",
+	"passed": true,
+	"phase": "after",
+	"records": [
+		{
+			"incorrect_dark": [],
+			"map": 0,
+			"minimum_ratio": 1.0,
+			"samples": 32,
+			"source": [
+				33.625,
+				12.125
+			]
+		},
+		{
+			"incorrect_dark": [],
+			"map": 1,
+			"minimum_ratio": 1.0,
+			"samples": 85,
+			"source": [
+				105.875,
+				8.125
+			]
+		},
+		{
+			"incorrect_dark": [],
+			"map": 2,
+			"minimum_ratio": 1.0,
+			"samples": 20,
+			"source": [
+				43.125,
+				10.875
+			]
+		}
+	]
+}

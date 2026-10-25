@@ -1,0 +1,343 @@
+{
+	"cases": [
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				38.0,
+				6.0
+			],
+			"low": [
+				33.625,
+				12.125
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				38.0,
+				6.0
+			],
+			"low": [
+				33.625,
+				12.375
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				38.0,
+				6.0
+			],
+			"low": [
+				33.625,
+				12.625
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				27.0,
+				7.0
+			],
+			"low": [
+				31.875,
+				12.875
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				27.0,
+				7.0
+			],
+			"low": [
+				32.125,
+				12.875
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				27.0,
+				7.0
+			],
+			"low": [
+				32.375,
+				12.875
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				36.0,
+				7.0
+			],
+			"low": [
+				32.625,
+				12.875
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				36.0,
+				7.0
+			],
+			"low": [
+				32.875,
+				12.875
+			],
+			"map": 0
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				100.0,
+				4.0
+			],
+			"low": [
+				105.875,
+				8.125
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				100.0,
+				4.0
+			],
+			"low": [
+				105.875,
+				8.375
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				100.0,
+				4.0
+			],
+			"low": [
+				105.875,
+				8.625
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				99.0,
+				4.0
+			],
+			"low": [
+				105.125,
+				8.875
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				100.0,
+				4.0
+			],
+			"low": [
+				105.375,
+				8.875
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				100.0,
+				4.0
+			],
+			"low": [
+				105.625,
+				8.875
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				100.0,
+				4.0
+			],
+			"low": [
+				105.875,
+				8.875
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				22.0,
+				4.0
+			],
+			"low": [
+				27.375,
+				9.875
+			],
+			"map": 1
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				48.0,
+				5.0
+			],
+			"low": [
+				43.125,
+				10.875
+			],
+			"map": 2
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				48.0,
+				5.0
+			],
+			"low": [
+				43.375,
+				10.875
+			],
+			"map": 2
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				48.0,
+				5.0
+			],
+			"low": [
+				43.625,
+				10.875
+			],
+			"map": 2
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				48.0,
+				5.0
+			],
+			"low": [
+				43.875,
+				10.875
+			],
+			"map": 2
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				46.0,
+				8.0
+			],
+			"low": [
+				42.125,
+				14.875
+			],
+			"map": 2
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				46.0,
+				8.0
+			],
+			"low": [
+				42.375,
+				14.875
+			],
+			"map": 2
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				46.0,
+				8.0
+			],
+			"low": [
+				42.625,
+				14.875
+			],
+			"map": 2
+		},
+		{
+			"actual_height": 0.0,
+			"eye_height": 0,
+			"high_ground_hidden": true,
+			"high_target": [
+				46.0,
+				8.0
+			],
+			"low": [
+				42.875,
+				14.875
+			],
+			"map": 2
+		}
+	],
+	"checks": 345,
+	"failures": [],
+	"passed": true
+}

@@ -1,18 +1,24 @@
-> [2026-10-24 sprite preview / Windows download](https://github.com/INTPEDITOR/AsteraCraft/releases/tag/sprites-20261024) - all44 unit sprites connected, missing42 attack poses added; quick checks139/0. Full visual review of23 units remains deferred. [Report](docs/RELEASE_SPRITES_20261024.md).
+# 아스테라크래프트 (AsteraCraft) v0.6.5
 
-# 아스테라크래프트 (AsteraCraft) v0.5.8
-
-Godot 4.6으로 제작한 Windows용 2D 실시간 전략 게임입니다. 바위너구리 연합, 귤 변이 군체, 고대 부엉이 문명 중 하나를 선택해 아스와 테라를 채취하고 전투합니다.
+Godot 4.6으로 제작한 Windows용 2D 실시간 전략 게임입니다. 노바너, 이귤, 아라아울 중 하나를 선택해 아스와 테라를 채취하고 전투합니다.
 
 ## 다운로드와 실행
 
-[GitHub v0.5.8 다운로드](https://github.com/INTPEDITOR/AsteraCraft/releases/tag/v0.5.8)에서 `AsteraCraft-Windows-v0.5.8-voicefx-20261018.zip`을 받으세요. **ZIP 전체를 압축 해제한 뒤 `AsteraCraft.exe`를 실행**합니다. EXE 옆의 PCK와 WebRTC DLL을 함께 유지하세요.
+[GitHub v0.6.5 다운로드](https://github.com/INTPEDITOR/AsteraCraft/releases/tag/feedback11-20261025)에서 `AsteraCraft-Windows-feedback11-20261025.zip`을 받으세요. **ZIP 전체를 압축 해제한 뒤 `AsteraCraft.exe`를 실행**합니다. EXE 옆의 PCK와 WebRTC DLL을 함께 유지하세요. 이전 v0.6.4는 게임 메인 화면에서 업데이트할 수 있습니다.
 
-Windows 64비트와 OpenGL 3.3 지원 환경이 필요합니다. 멀티플레이 참가자는 모두 v0.5.8을 사용하세요. 공개 HTTPS 서비스에서 게임 내 계정·래더·방 목록·연결 정보를 처리하고, 실제 전투는 방장 PC가 호스팅합니다.
+Windows 64비트와 OpenGL 3.3 지원 환경이 필요합니다. 멀티플레이 참가자는 같은 최신 버전(v0.6.5)을 사용하세요. 공개 HTTPS 서비스에서 게임 내 계정·래더·방 목록·연결 정보를 처리하고, 실제 전투는 방장 PC가 호스팅합니다.
 
 WebRTC 직접 연결과 STUN을 사용하며 전투 중계 서버는 없습니다. 엄격한 NAT·방화벽 환경은 연결되지 않을 수 있습니다. 공개 서비스를 거치는 같은 PC 2명+관전자 검증은 통과했으며 서로 다른 인터넷 회선 검증은 남아 있습니다.
 
 ## 현재 버전
+
+- 시작 본진12곳과 멀티30곳의 아스·테라 건설 간격을 실제 지면 경계로3칸씩 맞췄습니다. 원본 자원과 지형을 유지하며 파이썬 두 섬은 채굴량1 광물을 먼저 채취해야 합니다.
+- 같은 층의 보이는 지면이 검게 가려지던 안개 투영을 수정했습니다. 고지대·공중 시야 규칙은 유지합니다.
+- 북쪽 유닛과 체력 표시를 보이게 하고, 좌우·아래쪽은 맵 밖 검은 틈이 나오지 않는 경계까지 화면을 이동합니다.
+- 컴퓨터는 적진 앞에서 병력을 집결한 뒤 함께 진입합니다. 보충 병력과 부상자도 무리로 합류합니다.
+- [이번 수정 내역](docs/FEEDBACK_FIXES11_20261025.md), [최종 패키지 검증](docs/verification_feedback11_20261025/exports.json).
+
+## 게임 기능
 
 - 192×96 마름모 지면을 공통 질감 좌표로 연결하고 네 가지 재질을 넓은 구획으로 나눕니다. 세 맵의 물·층간 경계와 경사로, 장식 분포를 보완했습니다. 카메라 뒤쪽 절벽 면은 숨깁니다. HUD 비율과 승인된 비행체 시점은 유지합니다.
 - 대형 유닛의 좁은 통로·모서리 이동과 근접 접근 경로를 수정했습니다. 건설 중 일꾼도 유닛 충돌을 무시합니다. 부엉이는 완성된 인구 탑 12칸 범위에 건설하며 탑 자체는 예외입니다. 테라 주기는 3초입니다.
@@ -28,7 +34,7 @@ WebRTC 직접 연결과 STUN을 사용하며 전투 중계 서버는 없습니�
 
 - 종족별 BGM과 메인 화면 음악을 모두 적용했습니다. 메뉴: Echoes of Astera, 바위너구리: Ironbound Frontier, 귤: Seeds of Dominion, 부엉이: Crimson Covenant.
 
-자세한 내용은 [최신 변경 기록](RELEASE_NOTES.md)을 확인하세요. 대규모 밀집 전투 성능, 서로 다른 회선 연결, 외부 TTS 교체, 장시간 경쟁 밸런스 검증은 남아 있습니다.
+이전 변경은 [변경 기록](RELEASE_NOTES.md)을 확인하세요. 대규모 밀집 전투 성능, 서로 다른 회선 연결, 외부 TTS 교체, 장시간 경쟁 밸런스 검증은 남아 있습니다.
 
 - 귤 뿌리와 적 건물은 직접 확인한 마지막 상태만 안개 속에 남습니다. 배양체는 일반 유닛을 통과하며 배양체끼리 겹치지 않습니다.
 - 본진은 세 종족 모두4×3칸이며 아스 가장자리에서 최소3칸 떨어져야 합니다. 시작 본진도 같은 규칙을 따릅니다.

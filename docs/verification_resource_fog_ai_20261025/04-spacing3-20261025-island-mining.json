@@ -1,0 +1,85 @@
+{
+	"checks": 54,
+	"failures": [],
+	"passed": true,
+	"records": [
+		{
+			"anchor": [
+				116.0,
+				6.0
+			],
+			"as_gap": 3.0,
+			"base": 0,
+			"gate": 100024.0,
+			"mining_ticks": 44,
+			"race": 0,
+			"tera_gap": 3.0,
+			"travel_ticks": 11
+		},
+		{
+			"anchor": [
+				116.0,
+				6.0
+			],
+			"as_gap": 3.0,
+			"base": 0,
+			"gate": 100024.0,
+			"mining_ticks": 44,
+			"race": 1,
+			"tera_gap": 3.0,
+			"travel_ticks": 11
+		},
+		{
+			"anchor": [
+				116.0,
+				6.0
+			],
+			"as_gap": 3.0,
+			"base": 0,
+			"gate": 100024.0,
+			"mining_ticks": 44,
+			"race": 2,
+			"tera_gap": 3.0,
+			"travel_ticks": 11
+		},
+		{
+			"anchor": [
+				7.0,
+				117.0
+			],
+			"as_gap": 3.0,
+			"base": 10,
+			"gate": 100043.0,
+			"mining_ticks": 44,
+			"race": 0,
+			"tera_gap": 3.0,
+			"travel_ticks": 5
+		},
+		{
+			"anchor": [
+				7.0,
+				117.0
+			],
+			"as_gap": 3.0,
+			"base": 10,
+			"gate": 100043.0,
+			"mining_ticks": 44,
+			"race": 1,
+			"tera_gap": 3.0,
+			"travel_ticks": 5
+		},
+		{
+			"anchor": [
+				7.0,
+				117.0
+			],
+			"as_gap": 3.0,
+			"base": 10,
+			"gate": 100043.0,
+			"mining_ticks": 44,
+			"race": 2,
+			"tera_gap": 3.0,
+			"travel_ticks": 5
+		}
+	]
+}

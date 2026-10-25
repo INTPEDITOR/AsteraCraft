@@ -604,7 +604,7 @@ func _sync_world_canvas() -> void:
 	var map_rect=Rect2(world_to_screen(Vector2.ZERO),world_to_screen(Vector2.ONE*ACMap.SIZE)-world_to_screen(Vector2.ZERO)).abs()
 	# Relief can extend above its logical grid; the boundary mesh masks the
 	# exact perimeter without squeezing the top terrain into the first row.
-	map_rect.position.y-=128*zoom;map_rect.size.y+=256*zoom
+	map_rect.position.y-=256*zoom;map_rect.size.y+=384*zoom
 	var clip=map_rect.intersection(_world_render_rect())
 	world_clip.position=clip.position
 	world_clip.size=clip.size
@@ -616,7 +616,10 @@ func _sync_world_canvas() -> void:
 		var fog=state.get("fog",PackedByteArray());var seen=state.get("explored",PackedByteArray())
 		if simulation_worker==null and not network_client and core!=null:
 			fog=core.visibility[local_slot];seen=core.explored[local_slot]
-		_fog_canvas.update_masks(fog,seen,_fog_stamp(),Rect2(map_rect.position-world_clip.position,map_rect.size),Rect2(Vector2.ZERO,clip.size))
+		# The clip contains relief overhang, but the fog's logical coordinates
+		# must retain the original 128x128 span; never stretch it into the clip.
+		var fog_rect=Rect2(world_to_screen(Vector2.ZERO)-world_clip.position,Vector2.ONE*ACMap.SIZE*32*zoom)
+		_fog_canvas.update_masks(fog,seen,_fog_stamp(),fog_rect,Rect2(Vector2.ZERO,clip.size),draw_map)
 	world_mask.size=size
 	world_mask.queue_redraw()
 	_sync_nuclear_clouds()
@@ -662,7 +665,7 @@ func _draw_world_mask() -> void:
 	var bounds=Rect2(world_to_screen(Vector2.ZERO),world_to_screen(Vector2.ONE*ACMap.SIZE)-world_to_screen(Vector2.ZERO)).abs()
 	# The terrain boundary mesh already masks the exact raised northern edge.
 	# A second, logical y=0 mask would conceal real terrain above that line.
-	bounds.position.y-=128*zoom;bounds.size.y+=128*zoom
+	bounds.position.y-=256*zoom;bounds.size.y+=256*zoom
 	bounds=bounds.intersection(_world_render_rect())
 	for rect in [Rect2(0,0,size.x,bounds.position.y),Rect2(0,bounds.end.y,size.x,maxf(0,size.y-bounds.end.y)),Rect2(0,bounds.position.y,bounds.position.x,bounds.size.y),Rect2(bounds.end.x,bounds.position.y,maxf(0,size.x-bounds.end.x),bounds.size.y)]:
 		if rect.has_area():world_mask.draw_rect(rect,Color.BLACK)
@@ -794,12 +797,24 @@ func _clamp_camera() -> void:
 		for point in draw_map.visual_boundary():
 			if point.y>=ACMap.SIZE:_camera_southern_rise=maxf(_camera_southern_rise,float(point.z))
 			if point.y==0:_camera_northern_profile[roundi(point.x*2)]=point.z
-	# Only the currently visible northern perimeter constrains the top. Raised
-	# terrain has real room above logical y=0; depressed water edges have less.
+	# Keep the full raised perimeter and northern sprite overhang reachable.
+	# Remember observed overhang so a departing unit cannot snap the camera.
+	for e in state.get("units",[])+state.get("buildings",[]):
+		if e.hp<=0 or e.get("container",-1)>=0:continue
+		var p=_center(e) if e.has("progress") else _visual_position(e)
+		if p.y>12:continue
+		var node=_entity_canvases.get(int(e.id))
+		if node==null or node.drawn_zoom<=0 or not node.bounds.has_area():continue
+		# Health/shield bars sit up to 14 logical pixels above the full hull.
+		var top=(minf(node.bounds.position.y,node.body_bounds.position.y if node.body_bounds.has_area() else node.bounds.position.y)-18.0)/node.drawn_zoom
+		var rise=draw_map.visual_elevation(p)-p.y*32.0-top
+		if rise<=0:continue
+		var half=node.bounds.size.x/(node.drawn_zoom*64.0)
+		for x in range(maxi(0,floori((p.x-half)*2)),mini(256,ceili((p.x+half)*2))+1):_camera_northern_profile[x]=maxf(_camera_northern_profile[x],rise)
 	var left=clampf(camera.x+(render.position.x-center.x)/(32.0*zoom),0,ACMap.SIZE)
 	var right=clampf(camera.x+(render.end.x-center.x)/(32.0*zoom),0,ACMap.SIZE)
-	var northern_rise=minf(_camera_northern_rise_at(left),_camera_northern_rise_at(right))
-	for index in range(ceili(left*2),floori(right*2)+1):northern_rise=minf(northern_rise,_camera_northern_profile[index])
+	var northern_rise=maxf(_camera_northern_rise_at(left),_camera_northern_rise_at(right))
+	for index in range(ceili(left*2),floori(right*2)+1):northern_rise=maxf(northern_rise,_camera_northern_profile[index])
 	lower.y=(center.y-render.position.y+CAMERA_EDGE_GUARD)/(32.0*zoom)-northern_rise/32.0
 	# The southern skirt/mask ends on logical y=SIZE. Cover the deepest visible
 	# HUD valley, rather than its rectangular base, with a two-pixel overlap.
@@ -1798,6 +1813,9 @@ func _draw_world() -> void:
 	_world_transform()
 	world_canvas.draw_rect(view,Color("0a1119"))
 	terrain_artist.draw(world_canvas,draw_map,view,zoom,world_to_screen,screen_to_world,_fog_value,float(state.get("time",0)),_fog_stamp(),false)
+	# Mask empty terrain before entities. A perimeter mask painted after the
+	# units erased their heads/hulls when feet stood on a legal northern cell.
+	terrain_artist.draw_boundary_mask(world_canvas,draw_map,view,zoom,world_to_screen)
 	var objects: Array=[]
 	var points={}
 	for res in state.get("resources",[]):
@@ -1931,7 +1949,6 @@ func _draw_world_overlay() -> void:
 		var rect=Rect2(drag_start,get_global_mouse_position()-drag_start).abs()
 		world_canvas.draw_rect(rect,Color(.2,1,.5,.07))
 		world_canvas.draw_rect(rect,Color(.3,1,.5),false,1.5)
-	terrain_artist.draw_boundary_mask(world_canvas,draw_map,view,zoom,world_to_screen)
 
 func _fog_stamp() -> int:
 	if spectator:return hash(["all_visible",draw_map.get_instance_id()])&0x7fffffff

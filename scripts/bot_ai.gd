@@ -318,8 +318,53 @@ static func redistribute(c,owner: int,workers: Array,bases: Array) -> void:
 			w.erase("mining_anchor");w.erase("mining_base")
 			return
 
+static func staging_safe(c,point: Vector2,visible: Array) -> bool:
+	for enemy in visible:
+		var d=ACData.building(int(enemy.race),int(enemy.kind)) if enemy.has("progress") else c.unit_data(enemy)
+		var distance=c.footprint_distance(enemy,point) if enemy.has("progress") else c.center(enemy).distance_to(point)
+		if distance<maxf(8,float(d.get("range",0))+4):return false
+	return true
+
+static func forward_staging(c,army: Array,home: Vector2,goal: Vector2,visible: Array,previous: Vector2) -> Vector2:
+	var dimensions=Vector2.ZERO
+	for u in army:
+		if not c.unit_data(u).air:dimensions=dimensions.max(c._body_size(u))
+	if previous.is_finite() and (dimensions==Vector2.ZERO or c._ground_fits_size(dimensions,previous)) and staging_safe(c,previous,visible):return previous
+	var back=(home-goal).normalized()
+	for distance in [16,20,24,28]:
+		for angle in [0,.3,-.3,.6,-.6]:
+			var point=(goal+back.rotated(angle)*distance).round().clamp(Vector2.ONE,Vector2(126,126))
+			if not staging_safe(c,point,visible):continue
+			if dimensions!=Vector2.ZERO:
+				if not c._ground_fits_size(dimensions,point) or c.map.path(home,point).is_empty():continue
+			return point
+	return home
+
+static func staging_slot(c,p: Dictionary,u: Dictionary,stage: Vector2,home: Vector2) -> Vector2:
+	if not p.has("_ai_stage_slots"):p._ai_stage_slots={}
+	var slots: Dictionary=p._ai_stage_slots;var id=int(u.id)
+	if not slots.has(id):
+		var index=0
+		while slots.values().any(func(s):return int(s.index)==index):index+=1
+		slots[id]={"index":index,"origin":[-999,-999],"pos":ACData.packed(stage)}
+	var item: Dictionary=slots[id]
+	if ACData.point(item.origin).distance_squared_to(stage)<.01:return ACData.point(item.pos)
+	var back=(home-stage).normalized();var side=back.orthogonal();var index=int(item.index)
+	var desired=(stage+side*float(index%7-3)*1.65+back*float(index/7)*1.65).clamp(Vector2.ONE,Vector2(126,126))
+	var chosen=desired
+	if not c.unit_data(u).air and not c._ground_fits_size(c._body_size(u),desired):
+		var found=false
+		for ring in range(1,7):
+			for turn in range(12):
+				var candidate=desired+Vector2.from_angle(float(turn)*TAU/12)*float(ring)*.5
+				if c._ground_fits_size(c._body_size(u),candidate):chosen=candidate;found=true;break
+			if found:break
+		if not found:chosen=stage
+	item.origin=ACData.packed(stage);item.pos=ACData.packed(chosen);return chosen
+
 static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile: Dictionary) -> void:
 	var p: Dictionary=c.players[owner];var home: Vector2=c.center(bases[0])
+	army=army.filter(func(u):return int(u.get("container",-1))<0 and not (c.unit_data(u).role=="transport" and not c.unit_data(u).air))
 	var target: Dictionary={};var defend=false;var distance=INF
 	for enemy in visible:
 		for hq in bases:
@@ -328,9 +373,6 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 	if not defend:
 		for enemy in visible:
 			if enemy.has("progress") and c.center(enemy).distance_to(home)<distance:distance=c.center(enemy).distance_to(home);target=enemy
-	var fighting=0
-	for u in army:
-		if c.unit_data(u).damage>0:fighting+=1
 	var slot=posmod(int(p.spawn_slot)+1+int(p.ai_goal),4)
 	if slot==int(p.spawn_slot):p.ai_goal=(int(p.ai_goal)+1)%3;slot=posmod(int(p.spawn_slot)+1+int(p.ai_goal),4)
 	var goal: Vector2=c.center(target) if not target.is_empty() else ACData.point(c.map.starts[slot])
@@ -341,17 +383,43 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 	var wave: Array=p.get("_ai_wave",[]).filter(func(id):
 		var u=c.entity(int(id))
 		return not u.is_empty() and u.hp>0 and int(u.owner)==owner and int(u.container)<0)
-	if defend or wave.size()<maxi(3,int(p.get("_ai_wave_size",0))*.3):wave=[]
+	if defend or (not p.get("_ai_wave",[]).is_empty() and wave.size()<maxi(3,ceili(int(p.get("_ai_wave_size",0))*.5))):
+		wave=[];p._ai_cohort=[]
 	var attack=not wave.is_empty()
-	var ready=0
+	var old_stage=ACData.point(p.get("_ai_stage_pos",[-999,-999]))
+	if not p.has("_ai_stage_goal") or ACData.point(p._ai_stage_goal).distance_squared_to(goal)>36:old_stage=Vector2.INF
+	var stage=rally if defend else forward_staging(c,army,home,goal,visible,old_stage)
+	p._ai_stage_pos=ACData.packed(stage);p._ai_stage_goal=ACData.packed(goal)
+	if p.has("_ai_stage_slots"):
+		for id in p._ai_stage_slots.keys():
+			if not army.any(func(u):return int(u.id)==int(id)):p._ai_stage_slots.erase(id)
+	var slots={}
 	for u in army:
-		if float(c.unit_data(u).damage)>0 and c.center(u).distance_squared_to(rally)<=64:ready+=1
+		if int(u.id) not in wave:slots[int(u.id)]=staging_slot(c,p,u,stage,home)
 	var threshold=int(profile.attack)+mini(16,floori(c.time/600)*4)
-	if not defend and not attack and fighting>=threshold and ready>=ceili(fighting*float(profile.assembly)):
-		for u in army:
-			if c.center(u).distance_squared_to(rally)<=100:wave.append(int(u.id))
-		p._ai_wave_size=wave.size();p._ai_has_attacked=true;attack=true
+	if not defend:
+		var pool=army.filter(func(u):return int(u.id) not in wave and float(c.unit_data(u).damage)>0 and not (u.hp<float(c.unit_data(u).hp)*float(profile.retreat) and c.time-float(u.damaged)<5))
+		var cohort: Array=p.get("_ai_cohort",[]).filter(func(id):return pool.any(func(u):return int(u.id)==int(id)))
+		if cohort.size()<threshold and pool.size()>=threshold:
+			pool.sort_custom(func(a,b):return c.center(a).distance_squared_to(stage)<c.center(b).distance_squared_to(stage))
+			cohort=pool.slice(0,threshold).map(func(u):return int(u.id))
+		p._ai_cohort=cohort
+		var ready=cohort.filter(func(id):return c.center(c.entity(int(id))).distance_squared_to(slots[int(id)])<=3.0625)
+		# Arrive in front of the enemy before committing. Late/slow units stay
+		# with the next cohort instead of individually following a departed wave.
+		if cohort.size()>=threshold and ready.size()==cohort.size():
+			var departing=[]
+			for u in army:
+				if int(u.id) not in wave and c.center(u).distance_squared_to(slots[int(u.id)])<=3.0625:departing.append(int(u.id))
+			wave.append_array(departing)
+			p._ai_wave_size=wave.size();p._ai_has_attacked=true;attack=true;p._ai_cohort=[]
+			c.command(owner,{"type":"attack_move","ids":departing,"pos":ACData.packed(goal),"formation":true})
+			p._ai_wave_goal=ACData.packed(goal)
+			for id in departing:p._ai_stage_slots.erase(int(id))
+	if attack and ACData.point(p.get("_ai_wave_goal",ACData.packed(goal))).distance_squared_to(goal)>9:
+		c.command(owner,{"type":"attack_move","ids":wave,"pos":ACData.packed(goal),"formation":true});p._ai_wave_goal=ACData.packed(goal)
 	p._ai_wave=wave
+	p._ai_attack_phase="defend" if defend else "push" if attack else "assemble"
 	for u in army:
 		var d=c.unit_data(u)
 		if int(p.difficulty)>=2 and d.role=="parasite" and float(u.energy)>=200 and float(u.ability_cd)<=0:
@@ -365,10 +433,13 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 		if int(p.difficulty)>=2 and int(u.race)==0 and int(u.kind)==7 and not u.get("cloak_active",false) and float(u.energy)>=30 and (attack or c.time-float(u.damaged)<5):c._ability(u,c.center(u))
 		if not d.air and d.role=="transport":continue
 		if float(u.hp)<float(d.hp)*float(profile.retreat) and c.time-float(u.damaged)<5:
-			if u.order!="move":u.order="move";u.goal=ACData.packed(rally);u.path=[]
+			# A recovered straggler rejoins staging instead of walking back into
+			# the departed wave alone when its short damage timer expires.
+			wave.erase(int(u.id))
+			if u.order!="move" or ACData.point(u.goal).distance_squared_to(rally)>1:c.command(owner,{"type":"move","ids":[u.id],"pos":ACData.packed(rally)})
 			continue
 		if int(p.difficulty)>=2 and d.role=="mage" and not target.is_empty() and c.center(u).distance_to(goal)<float(d.range)+2:c._ability(u,goal)
-		if bool(profile.get("focus",false)) and float(d.damage)>0:
+		if (defend or int(u.id) in wave) and bool(profile.get("focus",false)) and float(d.damage)>0:
 			var focus: Dictionary={};var score=INF
 			for enemy in visible:
 				if not c._can_attack(d,enemy) or c.center(u).distance_to(c.center(enemy))>maxf(7,float(d.range)+2):continue
@@ -377,7 +448,14 @@ static func combat(c,owner: int,army: Array,bases: Array,visible: Array,profile:
 			if not focus.is_empty():
 				if u.order!="attack" or int(u.target)!=int(focus.id):c.command(owner,{"type":"attack","ids":[u.id],"target":focus.id})
 				continue
-		var destination: Vector2=goal if defend or (attack and int(u.id) in wave) else rally
-		if destination==rally and c.center(u).distance_to(rally)<3 and u.order in ["idle","hold","attack_move"]:continue
-		if u.order in ["idle","hold"] or ACData.point(u.goal).distance_squared_to(destination)>9:
-			u.order="attack_move";u.goal=ACData.packed(destination);u.path=[]
+		if attack and int(u.id) in wave:
+			if u.order in ["idle","hold"]:c.command(owner,{"type":"attack_move","ids":[u.id],"pos":ACData.packed(goal)})
+			continue
+		if defend:
+			if u.order in ["idle","hold","move"] or ACData.point(u.goal).distance_squared_to(goal)>9:c.command(owner,{"type":"attack_move","ids":[u.id],"pos":ACData.packed(goal)})
+			continue
+		var destination: Vector2=slots[int(u.id)]
+		if c.center(u).distance_squared_to(destination)<=1.44:
+			if u.order!="hold":c.command(owner,{"type":"hold","ids":[u.id]})
+		elif u.order!="move" or ACData.point(u.goal).distance_squared_to(destination)>.25:
+			c.command(owner,{"type":"move","ids":[u.id],"pos":ACData.packed(destination)})

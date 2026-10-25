@@ -7,7 +7,7 @@ func check(ok,message):
 	if not ok:failures.append(message);printerr("FAIL ",message)
 func arena(race,level):
 	var c=ACCore.new()
-	c.setup({"map":0,"seed":621,"spawn_slots":[0,2],"players":[{"race":race,"difficulty":level},{"race":0}]})
+	c.setup({"map":0,"seed":621,"spawn_slots":[0,2],"players":[{"race":race,"difficulty":level,"bot":true},{"race":0}]})
 	c.units.clear();c.buildings.clear();c.map.resources.clear()
 	c.map.source_detail_active=false;c.map.terrain.fill(0);c.map.height_map.fill(0);c.map.buildable_map.fill(1)
 	c.map.reset_solids([]);c.collision_index_valid=false
@@ -46,7 +46,11 @@ func run():
 			var army=[]
 			for i in range(int(AI.PROFILES[level].attack)):army.append(c.add_unit(0,1,rally))
 			AI.combat(c,0,army,[hq],[],AI.PROFILES[level])
-			check(c.players[0]._ai_wave.size()==army.size() and army.all(func(u):return u.order=="attack_move" and ACData.point(u.goal).distance_to(rally)>10),"assembled wave attacks "+label)
+			check(c.players[0]._ai_wave.is_empty() and army.all(func(u):return u.order=="move"),"army travels to forward staging "+label)
+			var stage=ACData.point(c.players[0]._ai_stage_pos)
+			for u in army:u.pos=ACData.packed(AI.staging_slot(c,c.players[0],u,stage,c.center(hq)))
+			AI.combat(c,0,army,[hq],[],AI.PROFILES[level])
+			check(c.players[0]._ai_wave.size()==army.size() and army.all(func(u):return u.order=="attack_move"),"assembled wave attacks "+label)
 	for level in range(6):
 		var c=arena(2,level)
 		var factory=c.buildings.filter(func(b):return b.owner==0 and b.kind==3)[0]

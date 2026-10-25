@@ -4,8 +4,8 @@ extends RefCounted
 const SIZE := 128
 const SOURCE_WALK_POLICY := 3
 const ELEVATION_PIXELS := 24.0
-const HQ_MINERAL_GAP := 2.0
-const HQ_TERA_GAP := 2.0
+const HQ_MINERAL_GAP := 3.0
+const HQ_TERA_GAP := 3.0
 var terrain := PackedByteArray()
 var height_map := PackedByteArray()
 var surface_map := PackedByteArray()
@@ -179,7 +179,7 @@ func _apply_resource_spacing() -> void:
 			break
 	for site in entry.base_sites:headquarters_sites[int(site.base)]=site.headquarters_anchor.duplicate()
 	source_info.resource_layout_exact=entry.tera_overrides.is_empty()
-	source_info.resource_layout_policy="Balanced As2/Tera2; user-requested closer Tera; original minerals, terrain and source files preserved"
+	source_info.resource_layout_policy=str(plan.policy)
 
 func _build_visual_relief() -> void:
 	render_signature=hash([terrain,height_map,surface_map,visual_roles,theme])
@@ -374,13 +374,25 @@ static func footprint_gap(a: Rect2, b: Rect2) -> float:
 	return maxf(maxf(a.position.x-b.end.x,b.position.x-a.end.x),maxf(a.position.y-b.end.y,b.position.y-a.end.y))
 
 static func headquarters_resource_gap(node: Dictionary) -> float:
-	# Match the balanced starting mineral/Tera setback. The user requested
-	# closer Tera than the original CHK's three-tile starting perimeter.
+	# Match the original three-tile starting mineral/Tera setback.
 	# A depleted mineral disappears; a depleted Tera vent remains occupied.
 	return HQ_TERA_GAP if node.type=="tera" else HQ_MINERAL_GAP if node.type=="as" and node.amount>0 else 0.0
 
 func _closest_start_anchor(slot: int, size: Vector2) -> Vector2:
 	var original=(ACData.point(starts[slot])-size*.5).floor()
+	# The authored starting anchor already has the requested 3/3 perimeter.
+	# Prefer it before optimizing toward a mineral line.
+	if size==Vector2(4,3) and HQ_MINERAL_GAP==3 and HQ_TERA_GAP==3:
+		var valid=true
+		for y in range(int(original.y),int(original.y+size.y)):
+			for x in range(int(original.x),int(original.x+size.x)):
+				if not buildable(Vector2i(x,y)):valid=false
+		var rect=Rect2(original-Vector2.ONE*.5,size)
+		for node in resources:
+			if node.type=="as" and node.amount<=0:continue
+			var body=Rect2(ACData.point(node.pos)-ACData.point(node.collision_size)*.5,ACData.point(node.collision_size))
+			if footprint_gap(rect,body)<headquarters_resource_gap(node):valid=false;break
+		if valid:return original
 	var home_ore=[]
 	for node in resources:
 		if node.type=="as" and int(node.slot)==slot:home_ore.append(node)

@@ -1,0 +1,33 @@
+{
+  "checks": 7,
+  "failures": [],
+  "scenarios": [
+    {
+      "cpu_p95_ms": 2.734,
+      "fog_uploads": 2,
+      "mean_fps": 144.033277448421,
+      "p95_frame_ms": 7.162,
+      "p99_frame_ms": 8.931,
+      "scenario": "player_fog_stationary",
+      "terrain_builds": 1
+    },
+    {
+      "cpu_p95_ms": 2.775,
+      "fog_uploads": 4,
+      "mean_fps": 103.310872401775,
+      "p95_frame_ms": 16.057,
+      "p99_frame_ms": 20.917,
+      "scenario": "explore_and_pan",
+      "terrain_builds": 0
+    },
+    {
+      "cpu_p95_ms": 2.897,
+      "fog_uploads": 3,
+      "mean_fps": 117.448087945128,
+      "p95_frame_ms": 12.476,
+      "p99_frame_ms": 15.624,
+      "scenario": "enemy_hidden",
+      "terrain_builds": 0
+    }
+  ]
+}

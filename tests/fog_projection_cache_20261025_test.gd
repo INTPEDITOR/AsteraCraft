@@ -1,0 +1,20 @@
+extends "res://tests/view_input_v03_test.gd"
+func run():
+	var fog=ACFogCanvas.new();root.add_child(fog);var map=ACMap.new();map.make(0)
+	var vis=PackedByteArray();vis.resize(16384);vis.fill(1);var seen=vis.duplicate()
+	var view=Rect2(0,0,1600,900)
+	fog.update_masks(vis,seen,1,Rect2(0,0,4096,4096),view,map);await frames(3)
+	var count=fog.viewport_updates
+	for i in range(20):fog.update_masks(vis,seen,1,Rect2(-i*32,-i*16,4096,4096),view,map)
+	check(fog.viewport_updates==count and fog.uploads==1 and fog.mesh_builds==1,"pan repositions retained fog without redrawing mesh or uploading masks")
+	fog.update_masks(vis,seen,1,Rect2(-300,-200,8192,8192),view,map)
+	check(fog.viewport_updates==count,"zoom keeps the same resolved relief image")
+	vis[0]=0;fog.update_masks(vis,seen,2,Rect2(0,0,4096,4096),view,map);await frames(3)
+	check(fog.viewport_updates==count+1 and fog.uploads==2,"visibility change updates retained projection once")
+	map.make(1);fog.update_masks(vis,seen,3,Rect2(0,0,4096,4096),view,map);await frames(3)
+	check(fog.mesh_builds==2,"new map builds its own matching relief")
+	map.make(0);fog.update_masks(vis,seen,4,Rect2(0,0,4096,4096),view,map);await frames(3)
+	check(fog.mesh_builds==2,"returning to a map reuses relief geometry")
+	DirAccess.make_dir_recursive_absolute("res://build/fog-north-20261025")
+	FileAccess.open("res://build/fog-north-20261025/projection-cache.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":failures.is_empty(),"checks":checks,"failures":failures,"mesh_builds":fog.mesh_builds,"viewport_updates":fog.viewport_updates},"\t"))
+	print("FOG_PROJECTION_CACHE ",JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)

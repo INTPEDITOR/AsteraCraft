@@ -16,6 +16,9 @@ func run() -> void:
 			for race in range(3):
 				c.units.clear();c.buildings.clear();c.map.reset_solids([]);c.collision_index_valid=false
 				c.players[race].as=10000;c.players[race].tera=10000
+				for node in c.map.resources:
+					if int(node.id) in site.get("requires_mining",[]).map(func(id):return int(id)):node.amount=0
+				c._sync_resource_obstacles()
 				var anchor=ACData.point(site.headquarters_anchor)
 				var worker=c.add_unit(race,0,anchor+Vector2(1,1))
 				var future={"id":-999,"owner":race,"race":race,"kind":0,"pos":site.headquarters_anchor,"progress":0.0}
@@ -34,7 +37,7 @@ func run() -> void:
 				if race==1:c.roots.update(c);c.time+=20.0;c.roots.update(c)
 				if site.tera_id!=null:
 					var vent=c.resource(int(site.tera_id));var snap=c.refinery_anchor(vent)
-					check(c.footprint(hq).grow(2).intersects(c.resource_rect(vent))==false,"headquarters keeps exact Tera boundary "+label)
+					check(c.footprint(hq).grow(3).intersects(c.resource_rect(vent))==false,"headquarters keeps exact Tera boundary "+label)
 					check(c.placement(race,1,snap,false)=="","refinery still fits actual Tera anchor "+label)
 					var bad=Vector2.INF;var terrain_blocked=Vector2.INF
 					c.buildings.clear();c.map.reset_solids([]);c.collision_index_valid=false
@@ -43,7 +46,7 @@ func run() -> void:
 							var point=Vector2(x,y)
 							if c.placement(race,0,point,false).begins_with("본진은 테라"):bad=point;break
 							var distance=ACMap.footprint_gap(Rect2(point-Vector2.ONE*.5,Vector2(4,3)),c.resource_rect(vent))
-							if distance>=0 and distance<2 and c.placement(race,0,point,false)!="":terrain_blocked=point
+							if distance>=0 and distance<3 and c.placement(race,0,point,false)!="":terrain_blocked=point
 						if bad.is_finite():break
 					if not bad.is_finite():bad=terrain_blocked
 					check(bad.is_finite(),"near-Tera blocked sample exists "+label)

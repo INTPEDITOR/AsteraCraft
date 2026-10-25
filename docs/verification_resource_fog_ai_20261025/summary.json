@@ -1,0 +1,189 @@
+{
+  "passed": true,
+  "generated_at": "2026-10-25T22:16:11.992644+09:00",
+  "scope": "Local source/runtime verification after feedback10; not a published release",
+  "baseline_commit": "c62fa1dfb9304a1087576b87fc1f3aafa20e5543",
+  "sources": {
+    "scripts/world_map.gd": "380090614940c8184d438224fc233c028a0a3ee39d03de25aaf6470c98ae7933",
+    "scripts/fog_canvas.gd": "ce93e656d494d5f7630877eb74671b3ca60f72fd763476b4eac1c6b179cbce83",
+    "scripts/main.gd": "e64a14f1499d4d6e3bc42e0fdb703cae4b083f122b6c14285ab3480d0a817a96",
+    "scripts/bot_ai.gd": "ba383f458de1969085f7b7c1f328452d7233e3bb3ed277d8254724b6c7c8f3a5",
+    "data/resource_spacing_20261025.json": "99d92218fc1fc276bd1f120b14471eeb24cc597f5f4103727042caaa70d7e99f",
+    "data/original_maps.json": "dc2b9ed0cb6adfa4e605ac2a1ce30bb9f3aff7157665c9afd1f1cce7c538b2dc",
+    "data/source_terrain_detail.json": "9fb997b83b41b1d77d471ee341b9e5c7139e76cd3af53abe10077771d6ce4cca",
+    "data/terrain_visual_roles.json": "59b0befebc02494307ffaaae44aa54a58b4c01e9a6c0da214a1572279e64df11"
+  },
+  "reports": [
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/00-base-resource-spacing-20261025-spacing3-result.json",
+      "origin": "build/base-resource-spacing-20261025/spacing3/result.json",
+      "checks": 291,
+      "cases": 0,
+      "sha256": "c10a44551c370bf8830064d0ff84f41f4ee3a0f4b09f249bc09cf75edf4bc746"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/01-base-resource-spacing-20261025-commands-result.json",
+      "origin": "build/base-resource-spacing-20261025/commands/result.json",
+      "checks": 948,
+      "cases": 0,
+      "sha256": "0af6d3cad539beb631b62d1365d61fcc69d9a00650af15851b7e920ecbd289a1"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/02-base-resource-spacing-20261025-preview-worker.json",
+      "origin": "build/base-resource-spacing-20261025/preview-worker.json",
+      "checks": 18,
+      "cases": 0,
+      "sha256": "45bf97996debfcdebf7ed430595a7e955f7bb3acc60dcb218cd9910f0ecf661d"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/03-tera-source-comparison-20261025-result.json",
+      "origin": "build/tera-source-comparison-20261025/result.json",
+      "checks": 62,
+      "cases": 0,
+      "sha256": "4cbaa70eeedc9e3ff93ca82c8d7be8fa14c0bc3c976c1f0fc9c9cd1278f360df"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/04-spacing3-20261025-island-mining.json",
+      "origin": "build/spacing3-20261025/island-mining.json",
+      "checks": 54,
+      "cases": 6,
+      "sha256": "726c9ba5c353ecb3f2dbb05fd26758ff66a2a0355fc75e9b01166a7a56de36ee"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/05-spacing3-20261025-native-result.json",
+      "origin": "build/spacing3-20261025/native/result.json",
+      "checks": 9,
+      "cases": 9,
+      "sha256": "649e1fb9a589ebd6ace98f881a1a9aa829f029757ab8867697de2a955b5e136f"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/06-qa-v060-original-map-audit.json",
+      "origin": "build/qa-v060/original-map-audit.json",
+      "checks": 246132,
+      "cases": 0,
+      "sha256": "9f6653b13cf1420ebd0b71ae6eec3689cd9dd2b03f564e9470292d85361cb846"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/07-fog-north-20261025-after-fog-result.json",
+      "origin": "build/fog-north-20261025/after-fog/result.json",
+      "checks": 6,
+      "cases": 3,
+      "sha256": "ba3010f398e0e9c12b831cc66ea9276784805c6bb74ae6b06732961ce6305166"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/08-fog-north-20261025-after-north-result.json",
+      "origin": "build/fog-north-20261025/after-north/result.json",
+      "checks": 51,
+      "cases": 9,
+      "sha256": "91e5b5d48cb419cd7ab27651aeafb291001a8aa8ed4cd9c3e7026f475e082572"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/09-fog-north-20261025-projection-cache.json",
+      "origin": "build/fog-north-20261025/projection-cache.json",
+      "checks": 5,
+      "cases": 0,
+      "sha256": "f3679eb1b44afe99478d10dab3bc9270876a5eddebbe4f3a51b3e4a13824dec5"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/10-qa-v061-fog-render.json",
+      "origin": "build/qa-v061-fog-render.json",
+      "checks": 7,
+      "cases": 0,
+      "sha256": "76f91f7a937653f1f2b293ed8677ecc3a3975090b5a30fecd5ff9d5c9c1ab78d"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/11-camera-side-bottom-20261025-result.json",
+      "origin": "build/camera-side-bottom-20261025/result.json",
+      "checks": 261,
+      "cases": 135,
+      "sha256": "13798586e4e3859731e74619ff7a8085d75b56cc763a731a046c1058758ed3d1"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/12-ai-staging-20261025-result.json",
+      "origin": "build/ai-staging-20261025/result.json",
+      "checks": 42,
+      "cases": 1,
+      "sha256": "b2e04bfc8d5c64a2d1efca63ecf1251577dada1b95e72d7eb417ef3993a326b8"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/13-ai-staging-20261025-source-walk.json",
+      "origin": "build/ai-staging-20261025/source-walk.json",
+      "checks": null,
+      "cases": 9,
+      "sha256": "f702bd1d2f163b307c70ada99bab706e1fd9e068cf0efcc1cdea3813f23a48f1"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/14-ai-staging-20261025-source-walk-level0.json",
+      "origin": "build/ai-staging-20261025/source-walk-level0.json",
+      "checks": null,
+      "cases": 3,
+      "sha256": "3f6138965e352a8b7ed215c9bbfa738051c603e2fe942e4f20eddd9b2888e899"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/15-group-move-continuity-20261025-spacing3-result.json",
+      "origin": "build/group-move-continuity-20261025/spacing3/result.json",
+      "checks": 34989,
+      "cases": 0,
+      "sha256": "b28a9f0d5fc0e9e775a2ef5528f5ba71cfdfc93eb0e41e5a43883accdddff01f"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/16-worker-passages-20261025-result.json",
+      "origin": "build/worker-passages-20261025/result.json",
+      "checks": 860,
+      "cases": 12,
+      "sha256": "ff713b607a61b7ddf269e314757d29d6cb7770839c4228fc97426689008def15"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/17-worker-passages-20261025-jobs.json",
+      "origin": "build/worker-passages-20261025/jobs.json",
+      "checks": 12,
+      "cases": 0,
+      "sha256": "a4031321e58a1a316f7400f4901a70c23641af38f017d247631935e74e6e6440"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/18-cliff-fix-20261025-spacing3-result.json",
+      "origin": "build/cliff-fix-20261025/spacing3/result.json",
+      "checks": 345,
+      "cases": 0,
+      "sha256": "4488887fbd47f68f91c4755b97fd0ca02f93f0b56a4ab85f0014519fd6f47245"
+    },
+    {
+      "report": "docs/verification_resource_fog_ai_20261025/19-difficulty-progression-20261025-response-0.json",
+      "origin": "build/difficulty-progression-20261025/response-0.json",
+      "checks": 15,
+      "cases": 18,
+      "sha256": "2c0b10e559b7cc81bcecec1e81f6c9d45563097ac0d86c8be5de415c99339a05"
+    },
+    {
+      "origin": "build/highground-3-console.txt",
+      "checks": 37,
+      "passed": true
+    },
+    {
+      "origin": "build/fog-revision-3-console.txt",
+      "checks": 4,
+      "passed": true
+    },
+    {
+      "origin": "build/fog-memory-3-console.txt",
+      "checks": 11,
+      "passed": true
+    },
+    {
+      "origin": "build/ai-staging-parse-console.txt",
+      "checks": 140,
+      "passed": true
+    },
+    {
+      "origin": "build/spacing3-melee-console.txt",
+      "checks": 8,
+      "passed": true
+    }
+  ],
+  "screenshots": {
+    "build/spacing3-20261025/native": 9,
+    "build/fog-north-20261025/after-fog": 6,
+    "build/fog-north-20261025/after-north": 9,
+    "build/camera-side-bottom-20261025": 45
+  }
+}

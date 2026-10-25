@@ -30,10 +30,15 @@ func run() -> void:
 		for owner in range(4):
 			var hq=c.entity(c.players[owner].home)
 			var measured=gaps(c,c.footprint(hq),c.map.resources)
-			check(measured["as"]>=2 and measured["as"]<3,"starting headquarters mineral gap map=%d slot=%d"%[map_id,owner])
-			check(is_equal_approx(measured.tera,2.0),"starting headquarters tera gap map=%d slot=%d"%[map_id,owner])
+			check(measured["as"]>=3 and measured["as"]<4,"starting headquarters mineral gap map=%d slot=%d"%[map_id,owner])
+			check(is_equal_approx(measured.tera,3.0),"starting headquarters tera gap map=%d slot=%d"%[map_id,owner])
 			starts.append({"map":map_id,"slot":owner,"anchor":hq.pos.duplicate(),"gaps":measured})
 		c.units.clear();c.buildings.clear();c.map.reset_solids([]);c.collision_index_valid=false
+		# Exhaust placement after the two authored one-mineral gates are mined.
+		# Their actual gather/build sequence has a separate regression.
+		for node in c.map.resources:
+			if node.type=="as" and int(node.amount)==1:node.amount=0
+		c._sync_resource_obstacles()
 		var candidates=[];var too_close=0
 		# Exhaust actual construction validation over every on-map 4x3 anchor.
 		# Source resources, buildability and 8-pixel terrain masks remain active.
@@ -44,7 +49,7 @@ func run() -> void:
 				if not error.is_empty():continue
 				var rect=Rect2(pos-Vector2.ONE*.5,Vector2(4,3))
 				var near=gaps(c,rect,c.map.resources)
-				if near.tera<2:
+				if near.tera<3:
 					too_close+=1
 					if violations.size()<15:violations.append({"map":map_id,"anchor":ACData.packed(pos),"gaps":near})
 				candidates.append({"anchor":pos,"rect":rect})
@@ -65,9 +70,9 @@ func run() -> void:
 				var average=0.0
 				for node in ore:
 					var p=ACData.point(node.pos);average+=p.distance_squared_to(p.clamp(choice.rect.position,choice.rect.end))
-				var value=(measured["as"]-2)*100000+average/ore.size()+choice.rect.get_center().distance_squared_to(site)*.01
+				var value=(measured["as"]-3)*100000+average/ore.size()+choice.rect.get_center().distance_squared_to(site)*.01
 				if value<score:score=value;best={"anchor":ACData.packed(choice.anchor),"gaps":measured}
-				if is_equal_approx(float(measured["as"]),2.0) and is_finite(float(measured.tera)):
+				if is_equal_approx(float(measured["as"]),3.0) and is_finite(float(measured.tera)):
 					var key=str(measured.tera)
 					if not paired_gas.has(key) or average<float(paired_gas[key].score):paired_gas[key]={"anchor":ACData.packed(choice.anchor),"score":average}
 			var label="map=%d base=%d access=%s"%[map_id,base_index,base.access]
@@ -76,12 +81,12 @@ func run() -> void:
 				best={"anchor":ACData.packed(anchor),"gaps":gaps(c,Rect2(anchor-Vector2.ONE*.5,Vector2(4,3)),nodes)}
 			check(not best.is_empty(),"source base has a legal headquarters "+label)
 			if not best.is_empty():
-				check(best.gaps["as"]>=2 and best.gaps["as"]<3,"expansion matches starting mineral distance "+label)
+				check(best.gaps["as"]>=3 and best.gaps["as"]<4,"expansion matches starting mineral distance "+label)
 				var has_tera=nodes.any(func(n):return n.type=="tera")
 				check(not has_tera or is_equal_approx(best.gaps.tera,closest_tera),"expansion permits the closest source-terrain Tera placement "+label)
 				var anchor=ACData.point(best.anchor)
 				for race in range(3):check(c.placement(race,0,anchor,false)=="","same base anchor accepted for race=%d "%race+label)
-				reports.append({"map":map_id,"base":base_index,"kind":base.kind,"access":base.access,"pos":base.pos,"minerals":ore.size(),"best":best,"closest_tera_gap":closest_tera,"tera_gaps_with_as2":paired_gas})
+				reports.append({"map":map_id,"base":base_index,"kind":base.kind,"access":base.access,"pos":base.pos,"minerals":ore.size(),"best":best,"closest_tera_gap":closest_tera,"tera_gaps_with_as3":paired_gas})
 			base_count+=1
 		print("BASE_SPACING_MAP ",JSON.stringify({"map":map_id,"bases":base_count,"legal_anchors":candidates.size(),"tera_violations":too_close}))
 	for file in source_files:check(FileAccess.get_sha256(file)==hashes[file],"original map file preserved "+file)

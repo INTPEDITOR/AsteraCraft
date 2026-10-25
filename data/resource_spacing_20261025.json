@@ -5,9 +5,9 @@
     4,
     3
   ],
-  "mineral_gap": 2,
-  "tera_gap": 2,
-  "policy": "Keep current starting headquarters, source minerals/terrain, ALL expansion Tera and resource counts. Balance starting Tera only. Prefer As2/Tera2 headquarters anchors; where source terrain prevents both, keep resources fixed and move headquarters toward Tera. Edge-to-edge build-grid distance.",
+  "mineral_gap": 3,
+  "tera_gap": 3,
+  "policy": "Original CHK starting headquarters anchors and ALL original resources/terrain unchanged. Three-tile edge clearance to As and Tera/refineries. Prefer exact 3/3 expansion anchors; report source terrain exceptions.",
   "maps": [
     {
       "id": 0,
@@ -16,108 +16,23 @@
       "source_sha256": "2ec44cd1722a31056510505ab5a6e35886520bec9bad80004672c0271be37048",
       "starting_headquarters_anchors": [
         [
-          118.0,
-          8.0
+          117,
+          7
         ],
         [
-          6.0,
-          7.0
+          7,
+          6
         ],
         [
-          6.0,
-          117.0
+          7,
+          116
         ],
         [
-          118.0,
-          118.0
+          117,
+          117
         ]
       ],
-      "tera_overrides": [
-        {
-          "id": 100108,
-          "source_pos": [
-            9,
-            2
-          ],
-          "original_pos": [
-            8.5,
-            1.5
-          ],
-          "pos": [
-            8.5,
-            3.5
-          ],
-          "delta": [
-            0.0,
-            2.0
-          ],
-          "base": 2,
-          "slot": 1
-        },
-        {
-          "id": 100109,
-          "source_pos": [
-            119,
-            3
-          ],
-          "original_pos": [
-            118.5,
-            2.5
-          ],
-          "pos": [
-            118.5,
-            4.5
-          ],
-          "delta": [
-            0.0,
-            2.0
-          ],
-          "base": 1,
-          "slot": 0
-        },
-        {
-          "id": 100118,
-          "source_pos": [
-            9,
-            112
-          ],
-          "original_pos": [
-            8.5,
-            111.5
-          ],
-          "pos": [
-            8.5,
-            113.5
-          ],
-          "delta": [
-            0.0,
-            2.0
-          ],
-          "base": 12,
-          "slot": 2
-        },
-        {
-          "id": 100119,
-          "source_pos": [
-            119,
-            113
-          ],
-          "original_pos": [
-            118.5,
-            112.5
-          ],
-          "pos": [
-            118.5,
-            114.5
-          ],
-          "delta": [
-            0.0,
-            2.0
-          ],
-          "base": 11,
-          "slot": 3
-        }
-      ],
+      "tera_overrides": [],
       "base_sites": [
         {
           "base": 0,
@@ -125,12 +40,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            51,
-            5
+            50,
+            6
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100110
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100110,
+          "requires_mining": []
         },
         {
           "base": 1,
@@ -138,12 +54,13 @@
           "access": "ground",
           "slot": 0,
           "headquarters_anchor": [
-            118,
-            8
+            117,
+            7
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100109
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100109,
+          "requires_mining": []
         },
         {
           "base": 2,
@@ -151,12 +68,13 @@
           "access": "ground",
           "slot": 1,
           "headquarters_anchor": [
-            6,
-            7
+            7,
+            6
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100108
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100108,
+          "requires_mining": []
         },
         {
           "base": 3,
@@ -164,12 +82,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            87,
-            12
+            88,
+            13
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100111
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100111,
+          "requires_mining": []
         },
         {
           "base": 4,
@@ -177,12 +96,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            13,
-            39
+            14,
+            38
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100112
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100112,
+          "requires_mining": []
         },
         {
           "base": 5,
@@ -190,12 +110,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            118,
-            53
+            117,
+            52
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100113
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100113,
+          "requires_mining": []
         },
         {
           "base": 6,
@@ -203,12 +124,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            60,
+            61,
             63
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100115
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100115,
+          "requires_mining": []
         },
         {
           "base": 7,
@@ -216,12 +138,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            64,
+            63,
             62
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100114
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100114,
+          "requires_mining": []
         },
         {
           "base": 8,
@@ -229,12 +152,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            6,
-            71
+            7,
+            72
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100116
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100116,
+          "requires_mining": []
         },
         {
           "base": 9,
@@ -242,12 +166,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            111,
-            87
+            110,
+            88
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100117
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100117,
+          "requires_mining": []
         },
         {
           "base": 10,
@@ -255,12 +180,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            37,
-            113
+            36,
+            112
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100120
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100120,
+          "requires_mining": []
         },
         {
           "base": 11,
@@ -268,12 +194,13 @@
           "access": "ground",
           "slot": 3,
           "headquarters_anchor": [
-            118,
-            118
+            117,
+            117
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100119
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100119,
+          "requires_mining": []
         },
         {
           "base": 12,
@@ -281,12 +208,13 @@
           "access": "ground",
           "slot": 2,
           "headquarters_anchor": [
-            6,
-            117
+            7,
+            116
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100118
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100118,
+          "requires_mining": []
         },
         {
           "base": 13,
@@ -294,12 +222,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            76,
-            119
+            75,
+            118
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100121
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100121,
+          "requires_mining": []
         }
       ]
     },
@@ -310,87 +239,23 @@
       "source_sha256": "e4ae3e8632479dfc1cddcadc3da32a6427c165ea436d251dedea170a66ae75d9",
       "starting_headquarters_anchors": [
         [
-          84.0,
-          6.0
+          83,
+          6
         ],
         [
-          117.0,
-          40.0
+          116,
+          40
         ],
         [
-          41.0,
-          119.0
+          42,
+          119
         ],
         [
-          7.0,
-          84.0
+          8,
+          85
         ]
       ],
-      "tera_overrides": [
-        {
-          "id": 100112,
-          "source_pos": [
-            85,
-            2
-          ],
-          "original_pos": [
-            84.5,
-            1.5
-          ],
-          "pos": [
-            84.5,
-            2.5
-          ],
-          "delta": [
-            0.0,
-            1.0
-          ],
-          "base": 3,
-          "slot": 0
-        },
-        {
-          "id": 100115,
-          "source_pos": [
-            44,
-            115
-          ],
-          "original_pos": [
-            43.5,
-            114.5
-          ],
-          "pos": [
-            43.5,
-            115.5
-          ],
-          "delta": [
-            0.0,
-            1.0
-          ],
-          "base": 9,
-          "slot": 2
-        },
-        {
-          "id": 100120,
-          "source_pos": [
-            118,
-            36
-          ],
-          "original_pos": [
-            117.5,
-            35.5
-          ],
-          "pos": [
-            117.5,
-            36.5
-          ],
-          "delta": [
-            0.0,
-            1.0
-          ],
-          "base": 14,
-          "slot": 1
-        }
-      ],
+      "tera_overrides": [],
       "base_sites": [
         {
           "base": 0,
@@ -398,12 +263,15 @@
           "access": "air",
           "slot": -1,
           "headquarters_anchor": [
-            117,
-            5
+            116,
+            6
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100110
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100110,
+          "requires_mining": [
+            100024
+          ]
         },
         {
           "base": 1,
@@ -411,12 +279,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            6,
-            5
+            7,
+            6
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100111
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100111,
+          "requires_mining": []
         },
         {
           "base": 2,
@@ -424,12 +293,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            47,
-            6
+            48,
+            7
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100119
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100119,
+          "requires_mining": []
         },
         {
           "base": 3,
@@ -437,12 +307,13 @@
           "access": "ground",
           "slot": 0,
           "headquarters_anchor": [
-            84,
+            83,
             6
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100112
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100112,
+          "requires_mining": []
         },
         {
           "base": 5,
@@ -450,12 +321,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            88,
-            33
+            87,
+            34
           ],
-          "mineral_gap": 2.0,
+          "mineral_gap": 3.0,
           "tera_gap": null,
-          "tera_id": null
+          "tera_id": null,
+          "requires_mining": []
         },
         {
           "base": 6,
@@ -463,12 +335,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            6,
-            56
+            7,
+            57
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100113
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100113,
+          "requires_mining": []
         },
         {
           "base": 7,
@@ -476,12 +349,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            118,
-            67
+            117,
+            66
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100114
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100114,
+          "requires_mining": []
         },
         {
           "base": 9,
@@ -489,12 +363,13 @@
           "access": "ground",
           "slot": 2,
           "headquarters_anchor": [
-            41,
+            42,
             119
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100115
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100115,
+          "requires_mining": []
         },
         {
           "base": 10,
@@ -502,12 +377,15 @@
           "access": "air",
           "slot": -1,
           "headquarters_anchor": [
-            3,
-            113
+            7,
+            117
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 7.0,
-          "tera_id": 100117
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100117,
+          "requires_mining": [
+            100043
+          ]
         },
         {
           "base": 11,
@@ -515,12 +393,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            118,
-            119
+            117,
+            118
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100118
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100118,
+          "requires_mining": []
         },
         {
           "base": 12,
@@ -528,12 +407,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            76,
-            119
+            75,
+            118
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100116
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100116,
+          "requires_mining": []
         },
         {
           "base": 13,
@@ -541,12 +421,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            36,
-            93
+            37,
+            92
           ],
-          "mineral_gap": 2.0,
+          "mineral_gap": 3.0,
           "tera_gap": null,
-          "tera_id": null
+          "tera_id": null,
+          "requires_mining": []
         },
         {
           "base": 14,
@@ -554,12 +435,13 @@
           "access": "ground",
           "slot": 1,
           "headquarters_anchor": [
-            117,
+            116,
             40
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100120
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100120,
+          "requires_mining": []
         },
         {
           "base": 15,
@@ -567,12 +449,13 @@
           "access": "ground",
           "slot": 3,
           "headquarters_anchor": [
-            7,
-            84
+            8,
+            85
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100121
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100121,
+          "requires_mining": []
         }
       ]
     },
@@ -583,66 +466,23 @@
       "source_sha256": "00dbb8e4681f508ed9ddb1f7428c02d5c3d67e89985e4c471ecb37fe6f389768",
       "starting_headquarters_anchors": [
         [
-          6.0,
-          87.0
+          7,
+          87
         ],
         [
-          26.0,
-          119.0
+          27,
+          118
         ],
         [
-          56.0,
-          5.0
+          57,
+          6
         ],
         [
-          118.0,
-          28.0
+          117,
+          27
         ]
       ],
-      "tera_overrides": [
-        {
-          "id": 100107,
-          "source_pos": [
-            119,
-            23
-          ],
-          "original_pos": [
-            118.5,
-            22.5
-          ],
-          "pos": [
-            118.5,
-            24.5
-          ],
-          "delta": [
-            0.0,
-            2.0
-          ],
-          "base": 3,
-          "slot": 3
-        },
-        {
-          "id": 100110,
-          "source_pos": [
-            9,
-            83
-          ],
-          "original_pos": [
-            8.5,
-            82.5
-          ],
-          "pos": [
-            8.5,
-            83.5
-          ],
-          "delta": [
-            0.0,
-            1.0
-          ],
-          "base": 9,
-          "slot": 0
-        }
-      ],
+      "tera_overrides": [],
       "base_sites": [
         {
           "base": 0,
@@ -650,12 +490,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            92,
-            5
+            91,
+            6
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100106
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100106,
+          "requires_mining": []
         },
         {
           "base": 1,
@@ -663,12 +504,13 @@
           "access": "ground",
           "slot": 2,
           "headquarters_anchor": [
-            56,
-            5
+            57,
+            6
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100105
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100105,
+          "requires_mining": []
         },
         {
           "base": 2,
@@ -676,12 +518,13 @@
           "access": "air",
           "slot": -1,
           "headquarters_anchor": [
-            5,
-            6
+            6,
+            7
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100104
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100104,
+          "requires_mining": []
         },
         {
           "base": 3,
@@ -689,12 +532,13 @@
           "access": "ground",
           "slot": 3,
           "headquarters_anchor": [
-            118,
-            28
+            117,
+            27
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100107
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100107,
+          "requires_mining": []
         },
         {
           "base": 4,
@@ -702,12 +546,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            43,
-            23
+            44,
+            22
           ],
-          "mineral_gap": 2.0,
+          "mineral_gap": 3.0,
           "tera_gap": null,
-          "tera_id": null
+          "tera_id": null,
+          "requires_mining": []
         },
         {
           "base": 5,
@@ -715,12 +560,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            82,
-            43
+            81,
+            44
           ],
-          "mineral_gap": 2.0,
+          "mineral_gap": 3.0,
           "tera_gap": null,
-          "tera_id": null
+          "tera_id": null,
+          "requires_mining": []
         },
         {
           "base": 6,
@@ -728,12 +574,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            6,
-            49
+            7,
+            50
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100108
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100108,
+          "requires_mining": []
         },
         {
           "base": 7,
@@ -742,11 +589,12 @@
           "slot": -1,
           "headquarters_anchor": [
             31,
-            55
+            56
           ],
-          "mineral_gap": 2.0,
+          "mineral_gap": 3.0,
           "tera_gap": null,
-          "tera_id": null
+          "tera_id": null,
+          "requires_mining": []
         },
         {
           "base": 8,
@@ -754,12 +602,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            118,
-            64
+            117,
+            63
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100109
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100109,
+          "requires_mining": []
         },
         {
           "base": 9,
@@ -767,12 +616,13 @@
           "access": "ground",
           "slot": 0,
           "headquarters_anchor": [
-            6,
+            7,
             87
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100110
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100110,
+          "requires_mining": []
         },
         {
           "base": 10,
@@ -780,12 +630,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            58,
-            91
+            59,
+            90
           ],
-          "mineral_gap": 2.0,
+          "mineral_gap": 3.0,
           "tera_gap": null,
-          "tera_id": null
+          "tera_id": null,
+          "requires_mining": []
         },
         {
           "base": 11,
@@ -793,12 +644,13 @@
           "access": "air",
           "slot": -1,
           "headquarters_anchor": [
-            119,
-            116
+            118,
+            115
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100113
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100113,
+          "requires_mining": []
         },
         {
           "base": 12,
@@ -806,12 +658,13 @@
           "access": "ground",
           "slot": -1,
           "headquarters_anchor": [
-            64,
-            119
+            63,
+            118
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100111
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100111,
+          "requires_mining": []
         },
         {
           "base": 13,
@@ -819,12 +672,13 @@
           "access": "ground",
           "slot": 1,
           "headquarters_anchor": [
-            26,
-            119
+            27,
+            118
           ],
-          "mineral_gap": 2.0,
-          "tera_gap": 2.0,
-          "tera_id": 100112
+          "mineral_gap": 3.0,
+          "tera_gap": 3.0,
+          "tera_id": 100112,
+          "requires_mining": []
         }
       ]
     }

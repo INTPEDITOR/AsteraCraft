@@ -1,0 +1,1088 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "name": "manifest",
+      "passed": true,
+      "exit_code": 0,
+      "summary": null,
+      "native": false
+    },
+    {
+      "name": "spacing",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "bases": 42,
+        "checks": 291,
+        "failures": [],
+        "passed": true,
+        "starts": 12
+      },
+      "native": false
+    },
+    {
+      "name": "construction",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "cases": 126,
+        "checks": 948,
+        "failures": [],
+        "passed": true
+      },
+      "native": false
+    },
+    {
+      "name": "islands",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 54,
+        "failures": [],
+        "passed": true,
+        "records": [
+          {
+            "anchor": [
+              116,
+              6
+            ],
+            "as_gap": 3,
+            "base": 0,
+            "gate": 100024,
+            "mining_ticks": 44,
+            "race": 0,
+            "tera_gap": 3,
+            "travel_ticks": 11
+          },
+          {
+            "anchor": [
+              116,
+              6
+            ],
+            "as_gap": 3,
+            "base": 0,
+            "gate": 100024,
+            "mining_ticks": 44,
+            "race": 1,
+            "tera_gap": 3,
+            "travel_ticks": 11
+          },
+          {
+            "anchor": [
+              116,
+              6
+            ],
+            "as_gap": 3,
+            "base": 0,
+            "gate": 100024,
+            "mining_ticks": 44,
+            "race": 2,
+            "tera_gap": 3,
+            "travel_ticks": 11
+          },
+          {
+            "anchor": [
+              7,
+              117
+            ],
+            "as_gap": 3,
+            "base": 10,
+            "gate": 100043,
+            "mining_ticks": 44,
+            "race": 0,
+            "tera_gap": 3,
+            "travel_ticks": 5
+          },
+          {
+            "anchor": [
+              7,
+              117
+            ],
+            "as_gap": 3,
+            "base": 10,
+            "gate": 100043,
+            "mining_ticks": 44,
+            "race": 1,
+            "tera_gap": 3,
+            "travel_ticks": 5
+          },
+          {
+            "anchor": [
+              7,
+              117
+            ],
+            "as_gap": 3,
+            "base": 10,
+            "gate": 100043,
+            "mining_ticks": 44,
+            "race": 2,
+            "tera_gap": 3,
+            "travel_ticks": 5
+          }
+        ]
+      },
+      "native": false
+    },
+    {
+      "name": "tera",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 62,
+        "expansions_checked": 24,
+        "failures": [],
+        "moved_starts": 0,
+        "passed": true,
+        "rows": [
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100108,
+            "map": 0,
+            "runtime": [
+              8.5,
+              1.5
+            ],
+            "source": [
+              8.5,
+              1.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100109,
+            "map": 0,
+            "runtime": [
+              118.5,
+              2.5
+            ],
+            "source": [
+              118.5,
+              2.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100110,
+            "map": 0,
+            "runtime": [
+              58.5,
+              4.5
+            ],
+            "source": [
+              58.5,
+              4.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100111,
+            "map": 0,
+            "runtime": [
+              88.5,
+              8.5
+            ],
+            "source": [
+              88.5,
+              8.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100112,
+            "map": 0,
+            "runtime": [
+              14.5,
+              44.5
+            ],
+            "source": [
+              14.5,
+              44.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100113,
+            "map": 0,
+            "runtime": [
+              121.5,
+              58.5
+            ],
+            "source": [
+              121.5,
+              58.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100114,
+            "map": 0,
+            "runtime": [
+              71.5,
+              63.5
+            ],
+            "source": [
+              71.5,
+              63.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100115,
+            "map": 0,
+            "runtime": [
+              55.5,
+              63.5
+            ],
+            "source": [
+              55.5,
+              63.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100116,
+            "map": 0,
+            "runtime": [
+              7.5,
+              67.5
+            ],
+            "source": [
+              7.5,
+              67.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100117,
+            "map": 0,
+            "runtime": [
+              112.5,
+              83.5
+            ],
+            "source": [
+              112.5,
+              83.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100118,
+            "map": 0,
+            "runtime": [
+              8.5,
+              111.5
+            ],
+            "source": [
+              8.5,
+              111.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100119,
+            "map": 0,
+            "runtime": [
+              118.5,
+              112.5
+            ],
+            "source": [
+              118.5,
+              112.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100120,
+            "map": 0,
+            "runtime": [
+              38.5,
+              118.5
+            ],
+            "source": [
+              38.5,
+              118.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100121,
+            "map": 0,
+            "runtime": [
+              83.5,
+              121.5
+            ],
+            "source": [
+              83.5,
+              121.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100110,
+            "map": 1,
+            "runtime": [
+              122.5,
+              1.5
+            ],
+            "source": [
+              122.5,
+              1.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100111,
+            "map": 1,
+            "runtime": [
+              3.5,
+              1.5
+            ],
+            "source": [
+              3.5,
+              1.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100112,
+            "map": 1,
+            "runtime": [
+              84.5,
+              1.5
+            ],
+            "source": [
+              84.5,
+              1.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100113,
+            "map": 1,
+            "runtime": [
+              6.5,
+              52.5
+            ],
+            "source": [
+              6.5,
+              52.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100114,
+            "map": 1,
+            "runtime": [
+              119.5,
+              72.5
+            ],
+            "source": [
+              119.5,
+              72.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100115,
+            "map": 1,
+            "runtime": [
+              43.5,
+              114.5
+            ],
+            "source": [
+              43.5,
+              114.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100116,
+            "map": 1,
+            "runtime": [
+              83.5,
+              119.5
+            ],
+            "source": [
+              83.5,
+              119.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100117,
+            "map": 1,
+            "runtime": [
+              2.5,
+              123.5
+            ],
+            "source": [
+              2.5,
+              123.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100118,
+            "map": 1,
+            "runtime": [
+              123.5,
+              124.5
+            ],
+            "source": [
+              123.5,
+              124.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100119,
+            "map": 1,
+            "runtime": [
+              42.5,
+              6.5
+            ],
+            "source": [
+              42.5,
+              6.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100120,
+            "map": 1,
+            "runtime": [
+              117.5,
+              35.5
+            ],
+            "source": [
+              117.5,
+              35.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100121,
+            "map": 1,
+            "runtime": [
+              9.5,
+              80.5
+            ],
+            "source": [
+              9.5,
+              80.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100104,
+            "map": 2,
+            "runtime": [
+              7.5,
+              2.5
+            ],
+            "source": [
+              7.5,
+              2.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100105,
+            "map": 2,
+            "runtime": [
+              51.5,
+              6.5
+            ],
+            "source": [
+              51.5,
+              6.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100106,
+            "map": 2,
+            "runtime": [
+              99.5,
+              9.5
+            ],
+            "source": [
+              99.5,
+              9.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100107,
+            "map": 2,
+            "runtime": [
+              118.5,
+              22.5
+            ],
+            "source": [
+              118.5,
+              22.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100108,
+            "map": 2,
+            "runtime": [
+              11.5,
+              45.5
+            ],
+            "source": [
+              11.5,
+              45.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100109,
+            "map": 2,
+            "runtime": [
+              115.5,
+              69.5
+            ],
+            "source": [
+              115.5,
+              69.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100110,
+            "map": 2,
+            "runtime": [
+              8.5,
+              82.5
+            ],
+            "source": [
+              8.5,
+              82.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100111,
+            "map": 2,
+            "runtime": [
+              71.5,
+              116.5
+            ],
+            "source": [
+              71.5,
+              116.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100112,
+            "map": 2,
+            "runtime": [
+              21.5,
+              118.5
+            ],
+            "source": [
+              21.5,
+              118.5
+            ]
+          },
+          {
+            "declared_start_adjustment": false,
+            "delta": [
+              0,
+              0
+            ],
+            "id": 100113,
+            "map": 2,
+            "runtime": [
+              119.5,
+              121.5
+            ],
+            "source": [
+              119.5,
+              121.5
+            ]
+          }
+        ],
+        "tera": 36
+      },
+      "native": false
+    },
+    {
+      "name": "ai",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 42,
+        "failures": [],
+        "passed": true,
+        "records": [
+          {
+            "first_wait": 37.8999999999998,
+            "passable": true,
+            "push": 46.6499999999993,
+            "wait_seconds": 8.7499999999995
+          }
+        ]
+      },
+      "native": false
+    },
+    {
+      "name": "ai-economy",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 140,
+        "failures": []
+      },
+      "native": false
+    },
+    {
+      "name": "ai-routes",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "cases": 9,
+        "failures": [],
+        "passed": true
+      },
+      "native": false
+    },
+    {
+      "name": "formations",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 34989,
+        "failures": 0,
+        "passed": true
+      },
+      "native": false
+    },
+    {
+      "name": "cliff",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "cases": 24,
+        "checks": 345,
+        "failures": [],
+        "passed": true
+      },
+      "native": false
+    },
+    {
+      "name": "highground",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "beam_damage_one_second": 26.6571428571442,
+        "checks": 37,
+        "failures": []
+      },
+      "native": false
+    },
+    {
+      "name": "worker",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 860,
+        "failures": [],
+        "passed": true,
+        "records": [
+          {
+            "horizontal": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 62
+            },
+            "race": 0,
+            "vertical": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 54
+            }
+          },
+          {
+            "horizontal": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 52
+            },
+            "race": 1,
+            "vertical": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 52
+            }
+          },
+          {
+            "horizontal": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 50
+            },
+            "race": 2,
+            "vertical": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 50
+            }
+          },
+          {
+            "map": 0,
+            "race": 0,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 54
+            }
+          },
+          {
+            "map": 0,
+            "race": 1,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 52
+            }
+          },
+          {
+            "map": 0,
+            "race": 2,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 50
+            }
+          },
+          {
+            "map": 1,
+            "race": 0,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 54
+            }
+          },
+          {
+            "map": 1,
+            "race": 1,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 52
+            }
+          },
+          {
+            "map": 1,
+            "race": 2,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 50
+            }
+          },
+          {
+            "map": 2,
+            "race": 0,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 54
+            }
+          },
+          {
+            "map": 2,
+            "race": 1,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 52
+            }
+          },
+          {
+            "map": 2,
+            "race": 2,
+            "source_walk": {
+              "arrived": true,
+              "crossed": true,
+              "ticks": 50
+            }
+          }
+        ]
+      },
+      "native": false
+    },
+    {
+      "name": "worker-jobs",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 12,
+        "failures": [],
+        "passed": true
+      },
+      "native": false
+    },
+    {
+      "name": "melee",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "cases": [
+          {
+            "attack_pose_ticks": 333,
+            "case": "reverses=false target_first=false",
+            "strikes": 59,
+            "target_hp": 4765.4
+          },
+          {
+            "attack_pose_ticks": 343,
+            "case": "reverses=false target_first=true",
+            "strikes": 55,
+            "target_hp": 4781.75
+          },
+          {
+            "attack_pose_ticks": 241,
+            "case": "reverses=true target_first=false",
+            "strikes": 37,
+            "target_hp": 4853.4
+          },
+          {
+            "attack_pose_ticks": 269,
+            "case": "reverses=true target_first=true",
+            "strikes": 40,
+            "target_hp": 4841.75
+          }
+        ],
+        "checks": 8,
+        "failures": []
+      },
+      "native": false
+    },
+    {
+      "name": "fog-memory",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 11,
+        "failures": []
+      },
+      "native": false
+    },
+    {
+      "name": "fog-revision",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 4,
+        "failures": []
+      },
+      "native": false
+    },
+    {
+      "name": "fog",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 6,
+        "failures": 0,
+        "mode": "fog",
+        "passed": true,
+        "phase": "after"
+      },
+      "native": true
+    },
+    {
+      "name": "north",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 51,
+        "failures": 0,
+        "mode": "north",
+        "passed": true,
+        "phase": "after"
+      },
+      "native": true
+    },
+    {
+      "name": "boundaries",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 261,
+        "failures": [],
+        "passed": true
+      },
+      "native": true
+    },
+    {
+      "name": "spacing-render",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 9,
+        "failures": []
+      },
+      "native": true
+    },
+    {
+      "name": "fog-cache",
+      "passed": true,
+      "exit_code": 0,
+      "summary": {
+        "checks": 5,
+        "failures": []
+      },
+      "native": true
+    }
+  ],
+  "scope": "Exact final Windows PCK mounted from export folder. Production scripts, data, and artwork resolve only from PCK. External QA drivers and an explicit test-only debug WebRTC DLL are supplied to the editor runtime. Shipping EXE startup with its release DLL is verified separately. All results postdate this PCK."
+}

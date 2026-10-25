@@ -1,4 +1,9 @@
-"""Balance only Tera positions against unchanged source terrain and minerals."""
+"""Historical 2/2 planner, superseded by the source-preserving 3/3 plan.
+
+Do not run this script to regenerate current data. Use
+plan_resource_spacing_3_20261025.py --apply instead.
+"""
+raise SystemExit("Superseded: run plan_resource_spacing_3_20261025.py --apply for the current 3/3 rule")
 from pathlib import Path
 import hashlib
 import json

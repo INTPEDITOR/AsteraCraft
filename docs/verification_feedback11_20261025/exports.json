@@ -1,0 +1,1324 @@
+{
+  "passed": true,
+  "version": "0.6.5",
+  "release": "feedback11-20261025",
+  "reports": {
+    "pack": {
+      "passed": true,
+      "runs": [
+        {
+          "name": "manifest",
+          "passed": true,
+          "exit_code": 0,
+          "summary": null,
+          "native": false
+        },
+        {
+          "name": "spacing",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "bases": 42,
+            "checks": 291,
+            "failures": [],
+            "passed": true,
+            "starts": 12
+          },
+          "native": false
+        },
+        {
+          "name": "construction",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "cases": 126,
+            "checks": 948,
+            "failures": [],
+            "passed": true
+          },
+          "native": false
+        },
+        {
+          "name": "islands",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 54,
+            "failures": [],
+            "passed": true,
+            "records": [
+              {
+                "anchor": [
+                  116,
+                  6
+                ],
+                "as_gap": 3,
+                "base": 0,
+                "gate": 100024,
+                "mining_ticks": 44,
+                "race": 0,
+                "tera_gap": 3,
+                "travel_ticks": 11
+              },
+              {
+                "anchor": [
+                  116,
+                  6
+                ],
+                "as_gap": 3,
+                "base": 0,
+                "gate": 100024,
+                "mining_ticks": 44,
+                "race": 1,
+                "tera_gap": 3,
+                "travel_ticks": 11
+              },
+              {
+                "anchor": [
+                  116,
+                  6
+                ],
+                "as_gap": 3,
+                "base": 0,
+                "gate": 100024,
+                "mining_ticks": 44,
+                "race": 2,
+                "tera_gap": 3,
+                "travel_ticks": 11
+              },
+              {
+                "anchor": [
+                  7,
+                  117
+                ],
+                "as_gap": 3,
+                "base": 10,
+                "gate": 100043,
+                "mining_ticks": 44,
+                "race": 0,
+                "tera_gap": 3,
+                "travel_ticks": 5
+              },
+              {
+                "anchor": [
+                  7,
+                  117
+                ],
+                "as_gap": 3,
+                "base": 10,
+                "gate": 100043,
+                "mining_ticks": 44,
+                "race": 1,
+                "tera_gap": 3,
+                "travel_ticks": 5
+              },
+              {
+                "anchor": [
+                  7,
+                  117
+                ],
+                "as_gap": 3,
+                "base": 10,
+                "gate": 100043,
+                "mining_ticks": 44,
+                "race": 2,
+                "tera_gap": 3,
+                "travel_ticks": 5
+              }
+            ]
+          },
+          "native": false
+        },
+        {
+          "name": "tera",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 62,
+            "expansions_checked": 24,
+            "failures": [],
+            "moved_starts": 0,
+            "passed": true,
+            "rows": [
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100108,
+                "map": 0,
+                "runtime": [
+                  8.5,
+                  1.5
+                ],
+                "source": [
+                  8.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100109,
+                "map": 0,
+                "runtime": [
+                  118.5,
+                  2.5
+                ],
+                "source": [
+                  118.5,
+                  2.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100110,
+                "map": 0,
+                "runtime": [
+                  58.5,
+                  4.5
+                ],
+                "source": [
+                  58.5,
+                  4.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100111,
+                "map": 0,
+                "runtime": [
+                  88.5,
+                  8.5
+                ],
+                "source": [
+                  88.5,
+                  8.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100112,
+                "map": 0,
+                "runtime": [
+                  14.5,
+                  44.5
+                ],
+                "source": [
+                  14.5,
+                  44.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100113,
+                "map": 0,
+                "runtime": [
+                  121.5,
+                  58.5
+                ],
+                "source": [
+                  121.5,
+                  58.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100114,
+                "map": 0,
+                "runtime": [
+                  71.5,
+                  63.5
+                ],
+                "source": [
+                  71.5,
+                  63.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100115,
+                "map": 0,
+                "runtime": [
+                  55.5,
+                  63.5
+                ],
+                "source": [
+                  55.5,
+                  63.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100116,
+                "map": 0,
+                "runtime": [
+                  7.5,
+                  67.5
+                ],
+                "source": [
+                  7.5,
+                  67.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100117,
+                "map": 0,
+                "runtime": [
+                  112.5,
+                  83.5
+                ],
+                "source": [
+                  112.5,
+                  83.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100118,
+                "map": 0,
+                "runtime": [
+                  8.5,
+                  111.5
+                ],
+                "source": [
+                  8.5,
+                  111.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100119,
+                "map": 0,
+                "runtime": [
+                  118.5,
+                  112.5
+                ],
+                "source": [
+                  118.5,
+                  112.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100120,
+                "map": 0,
+                "runtime": [
+                  38.5,
+                  118.5
+                ],
+                "source": [
+                  38.5,
+                  118.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100121,
+                "map": 0,
+                "runtime": [
+                  83.5,
+                  121.5
+                ],
+                "source": [
+                  83.5,
+                  121.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100110,
+                "map": 1,
+                "runtime": [
+                  122.5,
+                  1.5
+                ],
+                "source": [
+                  122.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100111,
+                "map": 1,
+                "runtime": [
+                  3.5,
+                  1.5
+                ],
+                "source": [
+                  3.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100112,
+                "map": 1,
+                "runtime": [
+                  84.5,
+                  1.5
+                ],
+                "source": [
+                  84.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100113,
+                "map": 1,
+                "runtime": [
+                  6.5,
+                  52.5
+                ],
+                "source": [
+                  6.5,
+                  52.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100114,
+                "map": 1,
+                "runtime": [
+                  119.5,
+                  72.5
+                ],
+                "source": [
+                  119.5,
+                  72.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100115,
+                "map": 1,
+                "runtime": [
+                  43.5,
+                  114.5
+                ],
+                "source": [
+                  43.5,
+                  114.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100116,
+                "map": 1,
+                "runtime": [
+                  83.5,
+                  119.5
+                ],
+                "source": [
+                  83.5,
+                  119.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100117,
+                "map": 1,
+                "runtime": [
+                  2.5,
+                  123.5
+                ],
+                "source": [
+                  2.5,
+                  123.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100118,
+                "map": 1,
+                "runtime": [
+                  123.5,
+                  124.5
+                ],
+                "source": [
+                  123.5,
+                  124.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100119,
+                "map": 1,
+                "runtime": [
+                  42.5,
+                  6.5
+                ],
+                "source": [
+                  42.5,
+                  6.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100120,
+                "map": 1,
+                "runtime": [
+                  117.5,
+                  35.5
+                ],
+                "source": [
+                  117.5,
+                  35.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100121,
+                "map": 1,
+                "runtime": [
+                  9.5,
+                  80.5
+                ],
+                "source": [
+                  9.5,
+                  80.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100104,
+                "map": 2,
+                "runtime": [
+                  7.5,
+                  2.5
+                ],
+                "source": [
+                  7.5,
+                  2.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100105,
+                "map": 2,
+                "runtime": [
+                  51.5,
+                  6.5
+                ],
+                "source": [
+                  51.5,
+                  6.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100106,
+                "map": 2,
+                "runtime": [
+                  99.5,
+                  9.5
+                ],
+                "source": [
+                  99.5,
+                  9.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100107,
+                "map": 2,
+                "runtime": [
+                  118.5,
+                  22.5
+                ],
+                "source": [
+                  118.5,
+                  22.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100108,
+                "map": 2,
+                "runtime": [
+                  11.5,
+                  45.5
+                ],
+                "source": [
+                  11.5,
+                  45.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100109,
+                "map": 2,
+                "runtime": [
+                  115.5,
+                  69.5
+                ],
+                "source": [
+                  115.5,
+                  69.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100110,
+                "map": 2,
+                "runtime": [
+                  8.5,
+                  82.5
+                ],
+                "source": [
+                  8.5,
+                  82.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100111,
+                "map": 2,
+                "runtime": [
+                  71.5,
+                  116.5
+                ],
+                "source": [
+                  71.5,
+                  116.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100112,
+                "map": 2,
+                "runtime": [
+                  21.5,
+                  118.5
+                ],
+                "source": [
+                  21.5,
+                  118.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100113,
+                "map": 2,
+                "runtime": [
+                  119.5,
+                  121.5
+                ],
+                "source": [
+                  119.5,
+                  121.5
+                ]
+              }
+            ],
+            "tera": 36
+          },
+          "native": false
+        },
+        {
+          "name": "ai",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 42,
+            "failures": [],
+            "passed": true,
+            "records": [
+              {
+                "first_wait": 37.8999999999998,
+                "passable": true,
+                "push": 46.6499999999993,
+                "wait_seconds": 8.7499999999995
+              }
+            ]
+          },
+          "native": false
+        },
+        {
+          "name": "ai-economy",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 140,
+            "failures": []
+          },
+          "native": false
+        },
+        {
+          "name": "ai-routes",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "cases": 9,
+            "failures": [],
+            "passed": true
+          },
+          "native": false
+        },
+        {
+          "name": "formations",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 34989,
+            "failures": 0,
+            "passed": true
+          },
+          "native": false
+        },
+        {
+          "name": "cliff",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "cases": 24,
+            "checks": 345,
+            "failures": [],
+            "passed": true
+          },
+          "native": false
+        },
+        {
+          "name": "highground",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "beam_damage_one_second": 26.6571428571442,
+            "checks": 37,
+            "failures": []
+          },
+          "native": false
+        },
+        {
+          "name": "worker",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 860,
+            "failures": [],
+            "passed": true,
+            "records": [
+              {
+                "horizontal": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 62
+                },
+                "race": 0,
+                "vertical": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "horizontal": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                },
+                "race": 1,
+                "vertical": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "horizontal": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                },
+                "race": 2,
+                "vertical": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              },
+              {
+                "map": 0,
+                "race": 0,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "map": 0,
+                "race": 1,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "map": 0,
+                "race": 2,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              },
+              {
+                "map": 1,
+                "race": 0,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "map": 1,
+                "race": 1,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "map": 1,
+                "race": 2,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              },
+              {
+                "map": 2,
+                "race": 0,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "map": 2,
+                "race": 1,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "map": 2,
+                "race": 2,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              }
+            ]
+          },
+          "native": false
+        },
+        {
+          "name": "worker-jobs",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 12,
+            "failures": [],
+            "passed": true
+          },
+          "native": false
+        },
+        {
+          "name": "melee",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "cases": [
+              {
+                "attack_pose_ticks": 333,
+                "case": "reverses=false target_first=false",
+                "strikes": 59,
+                "target_hp": 4765.4
+              },
+              {
+                "attack_pose_ticks": 343,
+                "case": "reverses=false target_first=true",
+                "strikes": 55,
+                "target_hp": 4781.75
+              },
+              {
+                "attack_pose_ticks": 241,
+                "case": "reverses=true target_first=false",
+                "strikes": 37,
+                "target_hp": 4853.4
+              },
+              {
+                "attack_pose_ticks": 269,
+                "case": "reverses=true target_first=true",
+                "strikes": 40,
+                "target_hp": 4841.75
+              }
+            ],
+            "checks": 8,
+            "failures": []
+          },
+          "native": false
+        },
+        {
+          "name": "fog-memory",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 11,
+            "failures": []
+          },
+          "native": false
+        },
+        {
+          "name": "fog-revision",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 4,
+            "failures": []
+          },
+          "native": false
+        },
+        {
+          "name": "fog",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 6,
+            "failures": 0,
+            "mode": "fog",
+            "passed": true,
+            "phase": "after"
+          },
+          "native": true
+        },
+        {
+          "name": "north",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 51,
+            "failures": 0,
+            "mode": "north",
+            "passed": true,
+            "phase": "after"
+          },
+          "native": true
+        },
+        {
+          "name": "boundaries",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 261,
+            "failures": [],
+            "passed": true
+          },
+          "native": true
+        },
+        {
+          "name": "spacing-render",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 9,
+            "failures": []
+          },
+          "native": true
+        },
+        {
+          "name": "fog-cache",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 5,
+            "failures": []
+          },
+          "native": true
+        }
+      ],
+      "scope": "Exact final Windows PCK mounted from export folder. Production scripts, data, and artwork resolve only from PCK. External QA drivers and an explicit test-only debug WebRTC DLL are supplied to the editor runtime. Shipping EXE startup with its release DLL is verified separately. All results postdate this PCK."
+    },
+    "windows-startup": {
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_ms": 34233,
+      "loading_art_textures": 30,
+      "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+    },
+    "archive": {
+      "passed": true,
+      "bytes": 1340632737,
+      "sha256": "dda7bd09fb69529501671af4bac10d41d7cdb64595041d9f56e6deb106e31775",
+      "files": [
+        "AsteraCraft.exe",
+        "AsteraCraft.pck",
+        "libwebrtc_native.windows.template_release.x86_64.dll",
+        "README.txt",
+        "game_icon.ico",
+        "LICENSES-LevelUp.txt"
+      ]
+    },
+    "update-install": {
+      "passed": true,
+      "checks": 11,
+      "elapsed_seconds": 22.59,
+      "phase": "confirmed",
+      "tag": "feedback11-20261025",
+      "scope": "Actual Windows helper replaces a disposable feedback10_20261025 installation with the final feedback11_20261025 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+    },
+    "source-regression": {
+      "passed": true,
+      "generated_at": "2026-10-25T22:16:11.992644+09:00",
+      "scope": "Local source/runtime verification after feedback10; not a published release",
+      "baseline_commit": "c62fa1dfb9304a1087576b87fc1f3aafa20e5543",
+      "sources": {
+        "scripts/world_map.gd": "380090614940c8184d438224fc233c028a0a3ee39d03de25aaf6470c98ae7933",
+        "scripts/fog_canvas.gd": "ce93e656d494d5f7630877eb74671b3ca60f72fd763476b4eac1c6b179cbce83",
+        "scripts/main.gd": "e64a14f1499d4d6e3bc42e0fdb703cae4b083f122b6c14285ab3480d0a817a96",
+        "scripts/bot_ai.gd": "ba383f458de1969085f7b7c1f328452d7233e3bb3ed277d8254724b6c7c8f3a5",
+        "data/resource_spacing_20261025.json": "99d92218fc1fc276bd1f120b14471eeb24cc597f5f4103727042caaa70d7e99f",
+        "data/original_maps.json": "dc2b9ed0cb6adfa4e605ac2a1ce30bb9f3aff7157665c9afd1f1cce7c538b2dc",
+        "data/source_terrain_detail.json": "9fb997b83b41b1d77d471ee341b9e5c7139e76cd3af53abe10077771d6ce4cca",
+        "data/terrain_visual_roles.json": "59b0befebc02494307ffaaae44aa54a58b4c01e9a6c0da214a1572279e64df11"
+      },
+      "reports": [
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/00-base-resource-spacing-20261025-spacing3-result.json",
+          "origin": "build/base-resource-spacing-20261025/spacing3/result.json",
+          "checks": 291,
+          "cases": 0,
+          "sha256": "c10a44551c370bf8830064d0ff84f41f4ee3a0f4b09f249bc09cf75edf4bc746"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/01-base-resource-spacing-20261025-commands-result.json",
+          "origin": "build/base-resource-spacing-20261025/commands/result.json",
+          "checks": 948,
+          "cases": 0,
+          "sha256": "0af6d3cad539beb631b62d1365d61fcc69d9a00650af15851b7e920ecbd289a1"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/02-base-resource-spacing-20261025-preview-worker.json",
+          "origin": "build/base-resource-spacing-20261025/preview-worker.json",
+          "checks": 18,
+          "cases": 0,
+          "sha256": "45bf97996debfcdebf7ed430595a7e955f7bb3acc60dcb218cd9910f0ecf661d"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/03-tera-source-comparison-20261025-result.json",
+          "origin": "build/tera-source-comparison-20261025/result.json",
+          "checks": 62,
+          "cases": 0,
+          "sha256": "4cbaa70eeedc9e3ff93ca82c8d7be8fa14c0bc3c976c1f0fc9c9cd1278f360df"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/04-spacing3-20261025-island-mining.json",
+          "origin": "build/spacing3-20261025/island-mining.json",
+          "checks": 54,
+          "cases": 6,
+          "sha256": "726c9ba5c353ecb3f2dbb05fd26758ff66a2a0355fc75e9b01166a7a56de36ee"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/05-spacing3-20261025-native-result.json",
+          "origin": "build/spacing3-20261025/native/result.json",
+          "checks": 9,
+          "cases": 9,
+          "sha256": "649e1fb9a589ebd6ace98f881a1a9aa829f029757ab8867697de2a955b5e136f"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/06-qa-v060-original-map-audit.json",
+          "origin": "build/qa-v060/original-map-audit.json",
+          "checks": 246132,
+          "cases": 0,
+          "sha256": "9f6653b13cf1420ebd0b71ae6eec3689cd9dd2b03f564e9470292d85361cb846"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/07-fog-north-20261025-after-fog-result.json",
+          "origin": "build/fog-north-20261025/after-fog/result.json",
+          "checks": 6,
+          "cases": 3,
+          "sha256": "ba3010f398e0e9c12b831cc66ea9276784805c6bb74ae6b06732961ce6305166"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/08-fog-north-20261025-after-north-result.json",
+          "origin": "build/fog-north-20261025/after-north/result.json",
+          "checks": 51,
+          "cases": 9,
+          "sha256": "91e5b5d48cb419cd7ab27651aeafb291001a8aa8ed4cd9c3e7026f475e082572"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/09-fog-north-20261025-projection-cache.json",
+          "origin": "build/fog-north-20261025/projection-cache.json",
+          "checks": 5,
+          "cases": 0,
+          "sha256": "f3679eb1b44afe99478d10dab3bc9270876a5eddebbe4f3a51b3e4a13824dec5"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/10-qa-v061-fog-render.json",
+          "origin": "build/qa-v061-fog-render.json",
+          "checks": 7,
+          "cases": 0,
+          "sha256": "76f91f7a937653f1f2b293ed8677ecc3a3975090b5a30fecd5ff9d5c9c1ab78d"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/11-camera-side-bottom-20261025-result.json",
+          "origin": "build/camera-side-bottom-20261025/result.json",
+          "checks": 261,
+          "cases": 135,
+          "sha256": "13798586e4e3859731e74619ff7a8085d75b56cc763a731a046c1058758ed3d1"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/12-ai-staging-20261025-result.json",
+          "origin": "build/ai-staging-20261025/result.json",
+          "checks": 42,
+          "cases": 1,
+          "sha256": "b2e04bfc8d5c64a2d1efca63ecf1251577dada1b95e72d7eb417ef3993a326b8"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/13-ai-staging-20261025-source-walk.json",
+          "origin": "build/ai-staging-20261025/source-walk.json",
+          "checks": null,
+          "cases": 9,
+          "sha256": "f702bd1d2f163b307c70ada99bab706e1fd9e068cf0efcc1cdea3813f23a48f1"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/14-ai-staging-20261025-source-walk-level0.json",
+          "origin": "build/ai-staging-20261025/source-walk-level0.json",
+          "checks": null,
+          "cases": 3,
+          "sha256": "3f6138965e352a8b7ed215c9bbfa738051c603e2fe942e4f20eddd9b2888e899"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/15-group-move-continuity-20261025-spacing3-result.json",
+          "origin": "build/group-move-continuity-20261025/spacing3/result.json",
+          "checks": 34989,
+          "cases": 0,
+          "sha256": "b28a9f0d5fc0e9e775a2ef5528f5ba71cfdfc93eb0e41e5a43883accdddff01f"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/16-worker-passages-20261025-result.json",
+          "origin": "build/worker-passages-20261025/result.json",
+          "checks": 860,
+          "cases": 12,
+          "sha256": "ff713b607a61b7ddf269e314757d29d6cb7770839c4228fc97426689008def15"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/17-worker-passages-20261025-jobs.json",
+          "origin": "build/worker-passages-20261025/jobs.json",
+          "checks": 12,
+          "cases": 0,
+          "sha256": "a4031321e58a1a316f7400f4901a70c23641af38f017d247631935e74e6e6440"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/18-cliff-fix-20261025-spacing3-result.json",
+          "origin": "build/cliff-fix-20261025/spacing3/result.json",
+          "checks": 345,
+          "cases": 0,
+          "sha256": "4488887fbd47f68f91c4755b97fd0ca02f93f0b56a4ab85f0014519fd6f47245"
+        },
+        {
+          "report": "docs/verification_resource_fog_ai_20261025/19-difficulty-progression-20261025-response-0.json",
+          "origin": "build/difficulty-progression-20261025/response-0.json",
+          "checks": 15,
+          "cases": 18,
+          "sha256": "2c0b10e559b7cc81bcecec1e81f6c9d45563097ac0d86c8be5de415c99339a05"
+        },
+        {
+          "origin": "build/highground-3-console.txt",
+          "checks": 37,
+          "passed": true
+        },
+        {
+          "origin": "build/fog-revision-3-console.txt",
+          "checks": 4,
+          "passed": true
+        },
+        {
+          "origin": "build/fog-memory-3-console.txt",
+          "checks": 11,
+          "passed": true
+        },
+        {
+          "origin": "build/ai-staging-parse-console.txt",
+          "checks": 140,
+          "passed": true
+        },
+        {
+          "origin": "build/spacing3-melee-console.txt",
+          "checks": 8,
+          "passed": true
+        }
+      ],
+      "screenshots": {
+        "build/spacing3-20261025/native": 9,
+        "build/fog-north-20261025/after-fog": 6,
+        "build/fog-north-20261025/after-north": 9,
+        "build/camera-side-bottom-20261025": 45
+      }
+    }
+  },
+  "source_sha256": {
+    "scripts/bot_ai.gd": "ba383f458de1969085f7b7c1f328452d7233e3bb3ed277d8254724b6c7c8f3a5",
+    "scripts/core.gd": "0968db728211f3d4aeb26b45e15ffed6afd8b7ad69c7552688c2e5babfb1a3d0",
+    "scripts/fog_canvas.gd": "ce93e656d494d5f7630877eb74671b3ca60f72fd763476b4eac1c6b179cbce83",
+    "scripts/world_map.gd": "380090614940c8184d438224fc233c028a0a3ee39d03de25aaf6470c98ae7933",
+    "scripts/main.gd": "e64a14f1499d4d6e3bc42e0fdb703cae4b083f122b6c14285ab3480d0a817a96",
+    "data/game.json": "a11ce0985642078e50cb9a5915d8ec9df49ef99a23a0372b42062261d3bc4a6c",
+    "data/resource_spacing_20261025.json": "99d92218fc1fc276bd1f120b14471eeb24cc597f5f4103727042caaa70d7e99f",
+    "data/original_maps.json": "dc2b9ed0cb6adfa4e605ac2a1ce30bb9f3aff7157665c9afd1f1cce7c538b2dc",
+    "data/source_terrain_detail.json": "9fb997b83b41b1d77d471ee341b9e5c7139e76cd3af53abe10077771d6ce4cca"
+  },
+  "scope": "Final Windows PCK tests and native screenshots use production code/data/art only from the PCK with external QA drivers and an explicit test-only debug extension. Actual shipping EXE startup with release extension, ZIP CRC/SHA256 and disposable previous-version install/restart are checked separately. Does not claim a live network match or macOS support."
+}

@@ -1,0 +1,556 @@
+{
+	"cases": 9,
+	"failures": [],
+	"passed": true,
+	"records": [
+		{
+			"first_wait": 82.3499999999973,
+			"map": 0,
+			"passable": true,
+			"push": 122.949999999995,
+			"race": 0,
+			"stage": [
+				20.0,
+				106.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						8.344,
+						116.844
+					],
+					"order": "attack_move",
+					"pos": [
+						23.128,
+						110.199
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						9.656,
+						116.844
+					],
+					"order": "attack_move",
+					"pos": [
+						22.149,
+						109.033
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						8.344,
+						118.156
+					],
+					"order": "attack_move",
+					"pos": [
+						21.082,
+						107.75
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						9.656,
+						118.156
+					],
+					"order": "attack_move",
+					"pos": [
+						20.147,
+						107.646
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 60.2999999999986,
+			"map": 0,
+			"passable": true,
+			"push": 105.099999999996,
+			"race": 1,
+			"stage": [
+				20.0,
+				106.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						8.311,
+						116.811
+					],
+					"order": "attack_move",
+					"pos": [
+						22.946,
+						110.616
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						9.689,
+						116.811
+					],
+					"order": "attack_move",
+					"pos": [
+						22.096,
+						109.02
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						8.311,
+						118.189
+					],
+					"order": "attack_move",
+					"pos": [
+						21.074,
+						108.236
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						9.689,
+						118.189
+					],
+					"order": "attack_move",
+					"pos": [
+						20.115,
+						107.4
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 85.4999999999971,
+			"map": 0,
+			"passable": true,
+			"push": 116.999999999995,
+			"race": 2,
+			"stage": [
+				20.0,
+				106.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						8.278,
+						116.778
+					],
+					"order": "attack_move",
+					"pos": [
+						23.166,
+						110.118
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						9.722,
+						116.778
+					],
+					"order": "attack_move",
+					"pos": [
+						22.107,
+						109.389
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						8.278,
+						118.222
+					],
+					"order": "attack_move",
+					"pos": [
+						21.114,
+						108.077
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						9.722,
+						118.222
+					],
+					"order": "attack_move",
+					"pos": [
+						20.027,
+						107.697
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 81.6499999999973,
+			"map": 1,
+			"passable": true,
+			"push": 123.299999999995,
+			"race": 0,
+			"stage": [
+				49.0,
+				105.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						43.344,
+						119.844
+					],
+					"order": "attack_move",
+					"pos": [
+						54.006,
+						107.793
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						44.656,
+						119.844
+					],
+					"order": "attack_move",
+					"pos": [
+						52.21,
+						106.608
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						43.344,
+						121.156
+					],
+					"order": "attack_move",
+					"pos": [
+						50.772,
+						106.106
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						44.656,
+						121.156
+					],
+					"order": "attack_move",
+					"pos": [
+						49.833,
+						106.564
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 58.8999999999986,
+			"map": 1,
+			"passable": true,
+			"push": 102.649999999996,
+			"race": 1,
+			"stage": [
+				54.0,
+				108.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						43.311,
+						119.811
+					],
+					"order": "attack_move",
+					"pos": [
+						57.57,
+						111.146
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						44.689,
+						119.811
+					],
+					"order": "attack_move",
+					"pos": [
+						57.023,
+						109.463
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						43.311,
+						121.189
+					],
+					"order": "attack_move",
+					"pos": [
+						55.563,
+						108.926
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						44.689,
+						121.189
+					],
+					"order": "attack_move",
+					"pos": [
+						54.439,
+						109.192
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 83.3999999999972,
+			"map": 1,
+			"passable": true,
+			"push": 115.249999999995,
+			"race": 2,
+			"stage": [
+				54.0,
+				108.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						43.278,
+						119.778
+					],
+					"order": "attack_move",
+					"pos": [
+						57.378,
+						110.742
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						44.722,
+						119.778
+					],
+					"order": "attack_move",
+					"pos": [
+						56.885,
+						109.649
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						43.278,
+						121.222
+					],
+					"order": "attack_move",
+					"pos": [
+						55.733,
+						109.233
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						44.722,
+						121.222
+					],
+					"order": "attack_move",
+					"pos": [
+						54.439,
+						109.29
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 85.1499999999971,
+			"map": 2,
+			"passable": true,
+			"push": 123.299999999995,
+			"race": 0,
+			"stage": [
+				60.0,
+				23.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						58.344,
+						6.844
+					],
+					"order": "attack_move",
+					"pos": [
+						57.146,
+						19.29
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						59.656,
+						6.844
+					],
+					"order": "attack_move",
+					"pos": [
+						58.398,
+						20.33
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						58.344,
+						8.156
+					],
+					"order": "attack_move",
+					"pos": [
+						59.027,
+						21.62
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						59.656,
+						8.156
+					],
+					"order": "attack_move",
+					"pos": [
+						61.057,
+						22.063
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 61.6999999999985,
+			"map": 2,
+			"passable": true,
+			"push": 105.449999999996,
+			"race": 1,
+			"stage": [
+				60.0,
+				23.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						58.311,
+						6.811
+					],
+					"order": "attack_move",
+					"pos": [
+						56.49,
+						19.538
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						59.689,
+						6.811
+					],
+					"order": "attack_move",
+					"pos": [
+						58.487,
+						20.302
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						58.311,
+						8.189
+					],
+					"order": "attack_move",
+					"pos": [
+						59.281,
+						21.316
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						59.689,
+						8.189
+					],
+					"order": "attack_move",
+					"pos": [
+						61.205,
+						21.906
+					]
+				}
+			]
+		},
+		{
+			"first_wait": 88.9999999999969,
+			"map": 2,
+			"passable": true,
+			"push": 116.999999999995,
+			"race": 2,
+			"stage": [
+				60.0,
+				23.0
+			],
+			"units": [
+				{
+					"blocked": 0.0,
+					"goal": [
+						58.278,
+						6.778
+					],
+					"order": "attack_move",
+					"pos": [
+						57.041,
+						19.412
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						59.722,
+						6.778
+					],
+					"order": "attack_move",
+					"pos": [
+						57.829,
+						20.627
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						58.278,
+						8.222
+					],
+					"order": "attack_move",
+					"pos": [
+						59.152,
+						21.558
+					]
+				},
+				{
+					"blocked": 0.0,
+					"goal": [
+						59.722,
+						8.222
+					],
+					"order": "attack_move",
+					"pos": [
+						60.886,
+						22.174
+					]
+				}
+			]
+		}
+	]
+}

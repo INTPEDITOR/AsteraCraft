@@ -21,7 +21,7 @@ func run():
 				if delta!=Vector2.ZERO:failures.append("expansion tera moved")
 			rows.append({"map":id,"id":node.id,"source":node.pos,"runtime":live.pos,"delta":ACData.packed(delta),"declared_start_adjustment":not declared.is_empty()})
 	checks+=2
-	if moved!=9 or rows.size()!=36:failures.append("unexpected resource counts")
+	if moved!=0 or rows.size()!=36:failures.append("all original Tera positions must remain unchanged")
 	var result={"passed":failures.is_empty(),"checks":checks,"failures":failures,"tera":rows.size(),"moved_starts":moved,"expansions_checked":expansions,"rows":rows}
 	DirAccess.make_dir_recursive_absolute("res://build/tera-source-comparison-20261025")
 	FileAccess.open("res://build/tera-source-comparison-20261025/result.json",FileAccess.WRITE).store_string(JSON.stringify(result,"\t"))

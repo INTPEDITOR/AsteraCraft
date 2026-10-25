@@ -1,0 +1,13 @@
+{
+	"checks": 42,
+	"failures": [],
+	"passed": true,
+	"records": [
+		{
+			"first_wait": 37.8999999999998,
+			"passable": true,
+			"push": 46.6499999999993,
+			"wait_seconds": 8.7499999999995
+		}
+	]
+}
