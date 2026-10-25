@@ -1,0 +1,64 @@
+{
+  "status": "implemented_and_locally_verified_not_released",
+  "scope": "General melee attack cadence. Keep damage, HP/shield, armor, costs, population, movement, range and abilities unchanged. Exclude workers, suicide attacks, support without attacks, and ranged units. Advanced AI tactics require a separate user review before implementation.",
+  "changes": [
+    {
+      "race": 0,
+      "kind": 2,
+      "name": "돌격병",
+      "before": 0.75,
+      "after": 0.65,
+      "reason": "Mobile assault infantry already has stim; use a smaller base increase."
+    },
+    {
+      "race": 0,
+      "kind": 3,
+      "name": "방패보병",
+      "before": 1.0,
+      "after": 0.8,
+      "reason": "Slow, two-population frontline needs a larger improvement once in contact."
+    },
+    {
+      "race": 1,
+      "kind": 1,
+      "name": "껍질발톱",
+      "before": 0.65,
+      "after": 0.55,
+      "reason": "Cheap two-body production and the existing 50-percent attack-speed research limit the base increase."
+    },
+    {
+      "race": 1,
+      "kind": 3,
+      "name": "후피거수",
+      "before": 1.0,
+      "after": 0.85,
+      "reason": "Improve heavy frontline damage without stacking more durability onto its defensive skill."
+    },
+    {
+      "race": 1,
+      "kind": 8,
+      "name": "접목충",
+      "before": 0.9,
+      "after": 0.8,
+      "reason": "Small basic-attack improvement; preserve its caster role and existing skills."
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "name": "서약수호자",
+      "before": 1.15,
+      "after": 0.95,
+      "reason": "Improve the two-population frontline while preserving the separate movement research."
+    },
+    {
+      "race": 2,
+      "kind": 10,
+      "name": "황혼잠행자",
+      "before": 1.3,
+      "after": 1.1,
+      "reason": "Expensive stealth melee gains sustained damage while its first-hit damage stays unchanged."
+    }
+  ],
+  "validation_scope": "Real ACCore contact/cadence and equal-resource open-field battles with mirrored deployment. Gas is weighted 1.5 for a comparison budget and production_count is respected. These scenarios do not establish final competitive balance, economy, terrain, or every skill combination.",
+  "verification": "docs/verification_melee_balance_20261025/checks.json"
+}

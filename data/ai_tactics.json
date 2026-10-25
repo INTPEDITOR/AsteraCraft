@@ -1,0 +1,2687 @@
+{
+  "version": 1,
+  "approved": true,
+  "counts": [
+    [
+      3,
+      6,
+      12,
+      18,
+      23,
+      25
+    ],
+    [
+      3,
+      6,
+      12,
+      18,
+      23,
+      25
+    ],
+    [
+      3,
+      6,
+      12,
+      18,
+      23,
+      25
+    ]
+  ],
+  "plans": [
+    {
+      "id": "N1",
+      "name": "전열사수 물량전",
+      "race": 0,
+      "min_level": 0,
+      "stage": 0,
+      "min_time": 0,
+      "style": "line",
+      "primary": [
+        1
+      ],
+      "support": [
+        4
+      ],
+      "weights": {
+        "1": 6,
+        "4": 2
+      },
+      "skills": [
+        "stim",
+        "smoke"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N2",
+      "name": "돌격병 빠른 돌파",
+      "race": 0,
+      "min_level": 0,
+      "stage": 0,
+      "min_time": 0,
+      "style": "rush",
+      "primary": [
+        2
+      ],
+      "support": [
+        1,
+        4
+      ],
+      "weights": {
+        "1": 2,
+        "2": 6,
+        "4": 2
+      },
+      "skills": [
+        "stim",
+        "smoke"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N3",
+      "name": "방패보병 중장 보병전",
+      "race": 0,
+      "min_level": 0,
+      "stage": 0,
+      "min_time": 0,
+      "style": "line",
+      "primary": [
+        3
+      ],
+      "support": [
+        1,
+        4
+      ],
+      "weights": {
+        "1": 2,
+        "3": 6,
+        "4": 2
+      },
+      "skills": [
+        "stim",
+        "smoke"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        3
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N4",
+      "name": "혼합 보병 기동전",
+      "race": 0,
+      "min_level": 1,
+      "stage": 1,
+      "min_time": 100,
+      "style": "mobile",
+      "primary": [
+        1,
+        2
+      ],
+      "support": [
+        3,
+        4
+      ],
+      "weights": {
+        "1": 6,
+        "2": 6,
+        "3": 2,
+        "4": 2
+      },
+      "skills": [
+        "stim",
+        "smoke"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        1,
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N5",
+      "name": "보병·전차 연합",
+      "race": 0,
+      "min_level": 1,
+      "stage": 1,
+      "min_time": 100,
+      "style": "siege",
+      "primary": [
+        1,
+        5
+      ],
+      "support": [
+        4,
+        8
+      ],
+      "weights": {
+        "1": 6,
+        "4": 2,
+        "5": 6,
+        "8": 0.7
+      },
+      "skills": [
+        "stim",
+        "smoke",
+        "scan",
+        "overcharge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        1,
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N6",
+      "name": "돌격병·화염차 돌파군",
+      "race": 0,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "rush",
+      "primary": [
+        2,
+        13
+      ],
+      "support": [
+        6
+      ],
+      "weights": {
+        "2": 6,
+        "6": 2,
+        "13": 6
+      },
+      "skills": [
+        "stim"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2,
+        13
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N7",
+      "name": "화염차·차륜차 기동군",
+      "race": 0,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "raid",
+      "primary": [
+        13,
+        6
+      ],
+      "support": [
+        8
+      ],
+      "weights": {
+        "6": 6,
+        "8": 0.7,
+        "13": 6
+      },
+      "skills": [
+        "scan"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        13,
+        6
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N8",
+      "name": "차륜차 중심 대공군",
+      "race": 0,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "counter_air",
+      "primary": [
+        6
+      ],
+      "support": [
+        5,
+        13,
+        8
+      ],
+      "weights": {
+        "5": 2,
+        "6": 6,
+        "8": 0.7,
+        "13": 2
+      },
+      "skills": [
+        "scan",
+        "overcharge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        6
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N9",
+      "name": "전차 장기 공성",
+      "race": 0,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "siege",
+      "primary": [
+        5
+      ],
+      "support": [
+        6,
+        3,
+        8
+      ],
+      "weights": {
+        "3": 2,
+        "5": 6,
+        "6": 2,
+        "8": 0.7
+      },
+      "skills": [
+        "scan",
+        "overcharge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N10",
+      "name": "전차 방어 후 확장",
+      "race": 0,
+      "min_level": 1,
+      "stage": 0,
+      "min_time": 0,
+      "style": "expand",
+      "primary": [
+        5
+      ],
+      "support": [
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "5": 6
+      },
+      "skills": [
+        "stim",
+        "overcharge"
+      ],
+      "economy": "expand",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N11",
+      "name": "방패·전차 전선 유지",
+      "race": 0,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "siege",
+      "primary": [
+        3,
+        5
+      ],
+      "support": [
+        4,
+        6
+      ],
+      "weights": {
+        "3": 6,
+        "4": 2,
+        "5": 6,
+        "6": 2
+      },
+      "skills": [
+        "smoke",
+        "overcharge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        3,
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N12",
+      "name": "이동요새 주력군",
+      "race": 0,
+      "min_level": 2,
+      "stage": 2,
+      "min_time": 300,
+      "style": "heavy",
+      "primary": [
+        12
+      ],
+      "support": [
+        6
+      ],
+      "weights": {
+        "6": 2,
+        "12": 6
+      },
+      "skills": [
+        "field_repair"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        12
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N13",
+      "name": "요새·전차 중공성군",
+      "race": 0,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "siege",
+      "primary": [
+        12,
+        5
+      ],
+      "support": [
+        6
+      ],
+      "weights": {
+        "5": 6,
+        "6": 2,
+        "12": 6
+      },
+      "skills": [
+        "overcharge",
+        "field_repair"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        12,
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N14",
+      "name": "요새·보병 혼합군",
+      "race": 0,
+      "min_level": 2,
+      "stage": 2,
+      "min_time": 300,
+      "style": "heavy",
+      "primary": [
+        12,
+        1
+      ],
+      "support": [
+        3,
+        4
+      ],
+      "weights": {
+        "1": 6,
+        "3": 2,
+        "4": 2,
+        "12": 6
+      },
+      "skills": [
+        "stim",
+        "smoke",
+        "field_repair"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        12,
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N15",
+      "name": "강습폭격기 주력 공세",
+      "race": 0,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "air_raid",
+      "primary": [
+        10
+      ],
+      "support": [
+        9,
+        8
+      ],
+      "weights": {
+        "8": 0.7,
+        "9": 2,
+        "10": 6
+      },
+      "skills": [
+        "scan"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [],
+      "transport": -1
+    },
+    {
+      "id": "N16",
+      "name": "제공권 확보 후 폭격",
+      "race": 0,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "air_control",
+      "primary": [
+        9
+      ],
+      "support": [
+        10,
+        6,
+        8
+      ],
+      "weights": {
+        "6": 2,
+        "8": 0.7,
+        "9": 6,
+        "10": 2
+      },
+      "skills": [
+        "scan"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [],
+      "transport": -1
+    },
+    {
+      "id": "N17",
+      "name": "전차·폭격기 연합 공세",
+      "race": 0,
+      "min_level": 3,
+      "stage": 2,
+      "min_time": 300,
+      "style": "split",
+      "primary": [
+        5,
+        10
+      ],
+      "support": [
+        9,
+        8
+      ],
+      "weights": {
+        "5": 6,
+        "8": 0.7,
+        "9": 2,
+        "10": 6
+      },
+      "skills": [
+        "scan",
+        "overcharge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": true,
+      "payload": [
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N18",
+      "name": "강철둥지 모함 함대",
+      "race": 0,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "carrier",
+      "primary": [
+        14
+      ],
+      "support": [
+        9,
+        8
+      ],
+      "weights": {
+        "8": 0.7,
+        "9": 2,
+        "14": 6
+      },
+      "skills": [
+        "scan"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [],
+      "transport": -1
+    },
+    {
+      "id": "N19",
+      "name": "모함·요새 복합군",
+      "race": 0,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "carrier",
+      "primary": [
+        14,
+        12
+      ],
+      "support": [
+        9
+      ],
+      "weights": {
+        "9": 2,
+        "12": 6,
+        "14": 6
+      },
+      "skills": [
+        "field_repair"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        12
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N20",
+      "name": "그림자 정찰병 사격군",
+      "race": 0,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "stealth",
+      "primary": [
+        7
+      ],
+      "support": [
+        1,
+        4,
+        8
+      ],
+      "weights": {
+        "1": 2,
+        "4": 2,
+        "7": 6,
+        "8": 0.7
+      },
+      "skills": [
+        "stim",
+        "smoke",
+        "nuclear",
+        "scan"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N21",
+      "name": "핵 지원 공성전",
+      "race": 0,
+      "min_level": 5,
+      "stage": 2,
+      "min_time": 300,
+      "style": "nuclear",
+      "primary": [
+        7,
+        5
+      ],
+      "support": [
+        1,
+        8
+      ],
+      "weights": {
+        "1": 2,
+        "5": 6,
+        "7": 6,
+        "8": 0.7
+      },
+      "skills": [
+        "stim",
+        "nuclear",
+        "scan",
+        "overcharge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        7,
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "N22",
+      "name": "보병 공중기동전",
+      "race": 0,
+      "min_level": 4,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        1,
+        2
+      ],
+      "support": [
+        4
+      ],
+      "weights": {
+        "1": 6,
+        "2": 6,
+        "4": 2,
+        "11": 1.5
+      },
+      "skills": [
+        "stim",
+        "smoke"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        1,
+        2
+      ],
+      "transport": 11
+    },
+    {
+      "id": "N23",
+      "name": "전차 공중기동전",
+      "race": 0,
+      "min_level": 4,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        5
+      ],
+      "support": [
+        6,
+        8
+      ],
+      "weights": {
+        "5": 6,
+        "6": 2,
+        "8": 0.7,
+        "11": 1.5
+      },
+      "skills": [
+        "scan",
+        "overcharge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        5
+      ],
+      "transport": 11
+    },
+    {
+      "id": "N24",
+      "name": "화염차 수송 기습",
+      "race": 0,
+      "min_level": 5,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        13
+      ],
+      "support": [
+        9
+      ],
+      "weights": {
+        "9": 2,
+        "11": 1.5,
+        "13": 6
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        13
+      ],
+      "transport": 11
+    },
+    {
+      "id": "N25",
+      "name": "지상·공중 분산 견제",
+      "race": 0,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "split_raid",
+      "primary": [
+        13,
+        10
+      ],
+      "support": [
+        6,
+        8
+      ],
+      "weights": {
+        "6": 2,
+        "8": 0.7,
+        "10": 6,
+        "13": 6
+      },
+      "skills": [
+        "scan"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": true,
+      "payload": [
+        13
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E1",
+      "name": "껍질발톱 초반 물량",
+      "race": 1,
+      "min_level": 0,
+      "stage": 0,
+      "min_time": 0,
+      "style": "rush",
+      "primary": [
+        1
+      ],
+      "support": [],
+      "weights": {
+        "1": 6
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E2",
+      "name": "발톱 기동 확장전",
+      "race": 1,
+      "min_level": 3,
+      "stage": 0,
+      "min_time": 0,
+      "style": "expand_raid",
+      "primary": [
+        1
+      ],
+      "support": [
+        7,
+        9
+      ],
+      "weights": {
+        "1": 6,
+        "7": 2,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom"
+      ],
+      "economy": "expand",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E3",
+      "name": "과즙분사체 물량군",
+      "race": 1,
+      "min_level": 0,
+      "stage": 0,
+      "min_time": 0,
+      "style": "line",
+      "primary": [
+        2
+      ],
+      "support": [
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "2": 6
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E4",
+      "name": "덩굴포식자 제압군",
+      "race": 1,
+      "min_level": 1,
+      "stage": 1,
+      "min_time": 100,
+      "style": "control",
+      "primary": [
+        5
+      ],
+      "support": [
+        1,
+        9
+      ],
+      "weights": {
+        "1": 2,
+        "5": 6,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E5",
+      "name": "거수·발톱 돌파군",
+      "race": 1,
+      "min_level": 1,
+      "stage": 1,
+      "min_time": 100,
+      "style": "rush",
+      "primary": [
+        3,
+        1
+      ],
+      "support": [
+        9
+      ],
+      "weights": {
+        "1": 6,
+        "3": 6,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        3,
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E6",
+      "name": "거수·분사체 정규군",
+      "race": 1,
+      "min_level": 0,
+      "stage": 1,
+      "min_time": 100,
+      "style": "line",
+      "primary": [
+        3,
+        2
+      ],
+      "support": [
+        7,
+        9
+      ],
+      "weights": {
+        "2": 6,
+        "3": 6,
+        "7": 2,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        3,
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E7",
+      "name": "거수·덩굴 압박군",
+      "race": 1,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "control",
+      "primary": [
+        3,
+        5
+      ],
+      "support": [
+        9
+      ],
+      "weights": {
+        "3": 6,
+        "5": 6,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        3,
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E8",
+      "name": "씨앗박격체 공성군",
+      "race": 1,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "siege",
+      "primary": [
+        6
+      ],
+      "support": [
+        3,
+        7,
+        9
+      ],
+      "weights": {
+        "3": 2,
+        "6": 6,
+        "7": 2,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace",
+        "scatter"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        6
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E9",
+      "name": "가시꽃 중심 대공군",
+      "race": 1,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "counter_air",
+      "primary": [
+        7
+      ],
+      "support": [
+        2,
+        5,
+        9
+      ],
+      "weights": {
+        "2": 2,
+        "5": 2,
+        "7": 6,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E10",
+      "name": "귤박쥐 공중 기동전",
+      "race": 1,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "air_raid",
+      "primary": [
+        10
+      ],
+      "support": [
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "10": 6
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [],
+      "transport": -1
+    },
+    {
+      "id": "E11",
+      "name": "귤박쥐·분사체 연합군",
+      "race": 1,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "mixed",
+      "primary": [
+        10,
+        2
+      ],
+      "support": [
+        9
+      ],
+      "weights": {
+        "2": 6,
+        "9": 1.2,
+        "10": 6
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E12",
+      "name": "귤박쥐·가시꽃 제공전",
+      "race": 1,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "air_control",
+      "primary": [
+        10,
+        7
+      ],
+      "support": [
+        3
+      ],
+      "weights": {
+        "3": 2,
+        "7": 6,
+        "10": 6
+      },
+      "skills": [
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E13",
+      "name": "과숙폭탄 돌파군",
+      "race": 1,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "suicide",
+      "primary": [
+        4
+      ],
+      "support": [
+        1,
+        3
+      ],
+      "weights": {
+        "1": 2,
+        "3": 2,
+        "4": 6
+      },
+      "skills": [
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        4
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E14",
+      "name": "폭탄·박격체 범위군",
+      "race": 1,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "siege",
+      "primary": [
+        4,
+        6
+      ],
+      "support": [
+        3,
+        7
+      ],
+      "weights": {
+        "3": 2,
+        "4": 6,
+        "6": 6,
+        "7": 2
+      },
+      "skills": [
+        "carapace",
+        "scatter"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        4,
+        6
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E15",
+      "name": "접목충·거수 통제군",
+      "race": 1,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "control",
+      "primary": [
+        8,
+        3
+      ],
+      "support": [
+        2,
+        9
+      ],
+      "weights": {
+        "2": 2,
+        "3": 6,
+        "8": 6,
+        "9": 1.2
+      },
+      "skills": [
+        "neural",
+        "mind_control",
+        "shed",
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        8,
+        3
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E16",
+      "name": "접목충·귤박쥐 기동군",
+      "race": 1,
+      "min_level": 3,
+      "stage": 2,
+      "min_time": 300,
+      "style": "mobile",
+      "primary": [
+        8,
+        10
+      ],
+      "support": [
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "8": 6,
+        "10": 6
+      },
+      "skills": [
+        "neural",
+        "mind_control",
+        "shed"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        8
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E17",
+      "name": "모즙체 지원 장기전",
+      "race": 1,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "sustain",
+      "primary": [
+        9,
+        2
+      ],
+      "support": [
+        3,
+        5,
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "2": 6,
+        "3": 2,
+        "5": 2,
+        "9": 6
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        9,
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E18",
+      "name": "대과수·거수 중군",
+      "race": 1,
+      "min_level": 2,
+      "stage": 2,
+      "min_time": 300,
+      "style": "heavy",
+      "primary": [
+        12,
+        3
+      ],
+      "support": [
+        7,
+        9
+      ],
+      "weights": {
+        "3": 6,
+        "7": 2,
+        "9": 1.2,
+        "12": 6
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace",
+        "root_surge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        12,
+        3
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E19",
+      "name": "대과수·박격체 공성",
+      "race": 1,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "siege",
+      "primary": [
+        12,
+        6
+      ],
+      "support": [
+        7,
+        9
+      ],
+      "weights": {
+        "6": 6,
+        "7": 2,
+        "9": 1.2,
+        "12": 6
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "scatter",
+        "root_surge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        12,
+        6
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E20",
+      "name": "대과수·귤박쥐 복합군",
+      "race": 1,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "split",
+      "primary": [
+        12,
+        10
+      ],
+      "support": [
+        7,
+        9
+      ],
+      "weights": {
+        "7": 2,
+        "9": 1.2,
+        "10": 6,
+        "12": 6
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "root_surge"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": true,
+      "payload": [
+        12
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E21",
+      "name": "뿌리 전진 거점전",
+      "race": 1,
+      "min_level": 4,
+      "stage": 1,
+      "min_time": 100,
+      "style": "forward",
+      "primary": [
+        5,
+        6
+      ],
+      "support": [
+        3,
+        9
+      ],
+      "weights": {
+        "3": 2,
+        "5": 6,
+        "6": 6,
+        "9": 1.2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace",
+        "scatter"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": true,
+      "drop": false,
+      "split": false,
+      "payload": [
+        5,
+        6
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E22",
+      "name": "방어 확장 후 거대군",
+      "race": 1,
+      "min_level": 1,
+      "stage": 0,
+      "min_time": 0,
+      "style": "expand_transition",
+      "primary": [
+        2,
+        7
+      ],
+      "support": [
+        9,
+        3,
+        12
+      ],
+      "weights": {
+        "2": 6,
+        "3": 2,
+        "7": 6,
+        "9": 1.2,
+        "12": 2
+      },
+      "skills": [
+        "sap_heal",
+        "sap_reclaim",
+        "sap_bloom",
+        "carapace",
+        "root_surge"
+      ],
+      "economy": "expand",
+      "transition": true,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2,
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "E23",
+      "name": "분사체·덩굴 수송전",
+      "race": 1,
+      "min_level": 4,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        2,
+        5
+      ],
+      "support": [
+        10
+      ],
+      "weights": {
+        "2": 6,
+        "5": 6,
+        "10": 2,
+        "11": 1.5
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        2,
+        5
+      ],
+      "transport": 11
+    },
+    {
+      "id": "E24",
+      "name": "후피거수 강습전",
+      "race": 1,
+      "min_level": 5,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        3
+      ],
+      "support": [
+        2,
+        10
+      ],
+      "weights": {
+        "2": 2,
+        "3": 6,
+        "10": 2,
+        "11": 1.5
+      },
+      "skills": [
+        "carapace"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        3
+      ],
+      "transport": 11
+    },
+    {
+      "id": "E25",
+      "name": "과숙폭탄 수송전",
+      "race": 1,
+      "min_level": 5,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        4
+      ],
+      "support": [
+        10,
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "4": 6,
+        "10": 2,
+        "11": 1.5
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        4
+      ],
+      "transport": 11
+    },
+    {
+      "id": "A1",
+      "name": "서약수호자 초기 공세",
+      "race": 2,
+      "min_level": 0,
+      "stage": 0,
+      "min_time": 0,
+      "style": "rush",
+      "primary": [
+        1
+      ],
+      "support": [],
+      "weights": {
+        "1": 6
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A2",
+      "name": "성문궁수 주력군",
+      "race": 2,
+      "min_level": 0,
+      "stage": 0,
+      "min_time": 0,
+      "style": "line",
+      "primary": [
+        2
+      ],
+      "support": [
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "2": 6
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A3",
+      "name": "수호자·사제 돌파군",
+      "race": 2,
+      "min_level": 0,
+      "stage": 1,
+      "min_time": 100,
+      "style": "rush",
+      "primary": [
+        1
+      ],
+      "support": [
+        4,
+        3
+      ],
+      "weights": {
+        "1": 6,
+        "3": 2,
+        "4": 2
+      },
+      "skills": [
+        "bind",
+        "discipline",
+        "march",
+        "barrier",
+        "purify"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A4",
+      "name": "전진 거점 압박",
+      "race": 2,
+      "min_level": 3,
+      "stage": 0,
+      "min_time": 0,
+      "style": "forward",
+      "primary": [
+        2,
+        3
+      ],
+      "support": [
+        4
+      ],
+      "weights": {
+        "2": 6,
+        "3": 6,
+        "4": 2
+      },
+      "skills": [
+        "bind",
+        "discipline",
+        "march",
+        "barrier",
+        "purify"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": true,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2,
+        3
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A5",
+      "name": "집행관·궁수 제압군",
+      "race": 2,
+      "min_level": 1,
+      "stage": 1,
+      "min_time": 100,
+      "style": "control",
+      "primary": [
+        3,
+        2
+      ],
+      "support": [
+        4
+      ],
+      "weights": {
+        "2": 6,
+        "3": 6,
+        "4": 2
+      },
+      "skills": [
+        "bind",
+        "discipline",
+        "march",
+        "barrier",
+        "purify"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        3,
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A6",
+      "name": "고대석익병 중군",
+      "race": 2,
+      "min_level": 1,
+      "stage": 1,
+      "min_time": 100,
+      "style": "heavy",
+      "primary": [
+        7
+      ],
+      "support": [
+        2,
+        4
+      ],
+      "weights": {
+        "2": 2,
+        "4": 2,
+        "7": 6
+      },
+      "skills": [
+        "barrier",
+        "purify",
+        "shockwave"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A7",
+      "name": "석익병·수호자 돌파군",
+      "race": 2,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "rush",
+      "primary": [
+        7,
+        1
+      ],
+      "support": [
+        3,
+        4
+      ],
+      "weights": {
+        "1": 6,
+        "3": 2,
+        "4": 2,
+        "7": 6
+      },
+      "skills": [
+        "bind",
+        "discipline",
+        "march",
+        "barrier",
+        "purify",
+        "shockwave"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        7,
+        1
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A8",
+      "name": "궤도창 장거리 공성",
+      "race": 2,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "siege",
+      "primary": [
+        8
+      ],
+      "support": [
+        7,
+        2,
+        6
+      ],
+      "weights": {
+        "2": 2,
+        "6": 0.7,
+        "7": 2,
+        "8": 6
+      },
+      "skills": [
+        "shockwave",
+        "pierce"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        8
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A9",
+      "name": "성좌추격기 주력군",
+      "race": 2,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "beam",
+      "primary": [
+        13
+      ],
+      "support": [
+        1,
+        2,
+        4
+      ],
+      "weights": {
+        "1": 2,
+        "2": 2,
+        "4": 2,
+        "13": 6
+      },
+      "skills": [
+        "barrier",
+        "purify"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        13
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A10",
+      "name": "추격기·석익병 중장군",
+      "race": 2,
+      "min_level": 2,
+      "stage": 2,
+      "min_time": 300,
+      "style": "heavy",
+      "primary": [
+        13,
+        7
+      ],
+      "support": [
+        4,
+        6
+      ],
+      "weights": {
+        "4": 2,
+        "6": 0.7,
+        "7": 6,
+        "13": 6
+      },
+      "skills": [
+        "barrier",
+        "purify",
+        "shockwave"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        13,
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A11",
+      "name": "천문심판관 지원군",
+      "race": 2,
+      "min_level": 2,
+      "stage": 1,
+      "min_time": 100,
+      "style": "caster",
+      "primary": [
+        5
+      ],
+      "support": [
+        1,
+        2,
+        4
+      ],
+      "weights": {
+        "1": 2,
+        "2": 2,
+        "4": 2,
+        "5": 6
+      },
+      "skills": [
+        "judgment",
+        "silence",
+        "barrier",
+        "purify"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        5
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A12",
+      "name": "심판관·석익병 범위군",
+      "race": 2,
+      "min_level": 3,
+      "stage": 2,
+      "min_time": 300,
+      "style": "caster",
+      "primary": [
+        5,
+        7
+      ],
+      "support": [
+        3,
+        6
+      ],
+      "weights": {
+        "3": 2,
+        "5": 6,
+        "6": 0.7,
+        "7": 6
+      },
+      "skills": [
+        "judgment",
+        "silence",
+        "bind",
+        "discipline",
+        "march",
+        "shockwave"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        5,
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A13",
+      "name": "황혼잠행자 은신 주력",
+      "race": 2,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "stealth",
+      "primary": [
+        10
+      ],
+      "support": [
+        6,
+        3
+      ],
+      "weights": {
+        "3": 2,
+        "6": 0.7,
+        "10": 6
+      },
+      "skills": [
+        "bind",
+        "discipline",
+        "march"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        10
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A14",
+      "name": "잠행자·궁수 혼합군",
+      "race": 2,
+      "min_level": 3,
+      "stage": 2,
+      "min_time": 300,
+      "style": "flank",
+      "primary": [
+        10,
+        2
+      ],
+      "support": [
+        4,
+        6
+      ],
+      "weights": {
+        "2": 6,
+        "4": 2,
+        "6": 0.7,
+        "10": 6
+      },
+      "skills": [
+        "barrier",
+        "purify"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": true,
+      "payload": [
+        10,
+        2
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A15",
+      "name": "월익·잠행자 연합",
+      "race": 2,
+      "min_level": 4,
+      "stage": 1,
+      "min_time": 100,
+      "style": "air_stealth",
+      "primary": [
+        9,
+        10
+      ],
+      "support": [
+        6
+      ],
+      "weights": {
+        "6": 0.7,
+        "9": 6,
+        "10": 6
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": true,
+      "payload": [
+        10
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A16",
+      "name": "월익·궤도창 제공 공성",
+      "race": 2,
+      "min_level": 3,
+      "stage": 1,
+      "min_time": 100,
+      "style": "siege",
+      "primary": [
+        9,
+        8
+      ],
+      "support": [
+        6,
+        1
+      ],
+      "weights": {
+        "1": 2,
+        "6": 0.7,
+        "8": 6,
+        "9": 6
+      },
+      "skills": [
+        "pierce"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        8
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A17",
+      "name": "대심판선 함대",
+      "race": 2,
+      "min_level": 2,
+      "stage": 2,
+      "min_time": 300,
+      "style": "capital",
+      "primary": [
+        12
+      ],
+      "support": [
+        9,
+        6
+      ],
+      "weights": {
+        "6": 0.7,
+        "9": 2,
+        "12": 6
+      },
+      "skills": [
+        "verdict"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [],
+      "transport": -1
+    },
+    {
+      "id": "A18",
+      "name": "대심판선·석익병 연합",
+      "race": 2,
+      "min_level": 3,
+      "stage": 2,
+      "min_time": 300,
+      "style": "mixed",
+      "primary": [
+        12,
+        7
+      ],
+      "support": [
+        4,
+        6
+      ],
+      "weights": {
+        "4": 2,
+        "6": 0.7,
+        "7": 6,
+        "12": 6
+      },
+      "skills": [
+        "barrier",
+        "purify",
+        "shockwave",
+        "verdict"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        7
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A19",
+      "name": "대심판선·추격기 화력군",
+      "race": 2,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "beam",
+      "primary": [
+        12,
+        13
+      ],
+      "support": [
+        9,
+        6
+      ],
+      "weights": {
+        "6": 0.7,
+        "9": 2,
+        "12": 6,
+        "13": 6
+      },
+      "skills": [
+        "verdict"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        13
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A20",
+      "name": "대심판선·궤도창 중공성",
+      "race": 2,
+      "min_level": 4,
+      "stage": 2,
+      "min_time": 300,
+      "style": "siege",
+      "primary": [
+        12,
+        8
+      ],
+      "support": [
+        9,
+        1,
+        6
+      ],
+      "weights": {
+        "1": 2,
+        "6": 0.7,
+        "8": 6,
+        "9": 2,
+        "12": 6
+      },
+      "skills": [
+        "pierce",
+        "verdict"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        8
+      ],
+      "transport": -1
+    },
+    {
+      "id": "A21",
+      "name": "황혼잠행자 수송전",
+      "race": 2,
+      "min_level": 4,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        10
+      ],
+      "support": [
+        9
+      ],
+      "weights": {
+        "9": 2,
+        "10": 6,
+        "11": 1.5
+      },
+      "skills": [],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        10
+      ],
+      "transport": 11
+    },
+    {
+      "id": "A22",
+      "name": "궤도창 수송 포격전",
+      "race": 2,
+      "min_level": 4,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        8
+      ],
+      "support": [
+        9,
+        6
+      ],
+      "weights": {
+        "6": 0.7,
+        "8": 6,
+        "9": 2,
+        "11": 1.5
+      },
+      "skills": [
+        "pierce"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        8
+      ],
+      "transport": 11
+    },
+    {
+      "id": "A23",
+      "name": "고대석익병 강습전",
+      "race": 2,
+      "min_level": 5,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        7
+      ],
+      "support": [
+        4,
+        9
+      ],
+      "weights": {
+        "4": 2,
+        "7": 6,
+        "9": 2,
+        "11": 1.5
+      },
+      "skills": [
+        "barrier",
+        "purify",
+        "shockwave"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        7
+      ],
+      "transport": 11
+    },
+    {
+      "id": "A24",
+      "name": "천문심판관 수송전",
+      "race": 2,
+      "min_level": 5,
+      "stage": 1,
+      "min_time": 100,
+      "style": "drop",
+      "primary": [
+        11,
+        5
+      ],
+      "support": [
+        9,
+        6
+      ],
+      "weights": {
+        "5": 6,
+        "6": 0.7,
+        "9": 2,
+        "11": 1.5
+      },
+      "skills": [
+        "judgment",
+        "silence"
+      ],
+      "economy": "balanced",
+      "transition": false,
+      "forward": false,
+      "drop": true,
+      "split": false,
+      "payload": [
+        5
+      ],
+      "transport": 11
+    },
+    {
+      "id": "A25",
+      "name": "방어 확장 후 함대전환",
+      "race": 2,
+      "min_level": 1,
+      "stage": 0,
+      "min_time": 0,
+      "style": "expand_transition",
+      "primary": [
+        2,
+        12
+      ],
+      "support": [
+        9,
+        6
+      ],
+      "weights": {
+        "2": 6,
+        "6": 0.7,
+        "9": 2,
+        "12": 6
+      },
+      "skills": [
+        "verdict"
+      ],
+      "economy": "expand",
+      "transition": true,
+      "forward": false,
+      "drop": false,
+      "split": false,
+      "payload": [
+        2
+      ],
+      "transport": -1
+    }
+  ]
+}

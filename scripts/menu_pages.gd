@@ -85,11 +85,17 @@ func single() -> void:
 	option(p,preload("res://scripts/bot_ai.gd").NAMES,0,355,300,main.difficulty,func(i):main.difficulty=i)
 	option(p,["자유전","2 대 2 팀전"],0,420,300,1 if main.game_mode=="teams" else 0,func(i):main.game_mode="teams" if i==1 else "ffa")
 	button(p,"전투 시작",0,510,300,func():
-		var count=3 if main.game_mode=="teams" else main.bot_count
-		var players:Array=[{"name":main.account.get("nickname","지휘관"),"race":main.race_choice,"team":0,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice]}]
-		for i in range(count):players.append({"name":"컴퓨터 %d"%(i+1),"race":(main.race_choice+i+1)%3,"team":(i+1)%2,"bot":true,"difficulty":main.difficulty})
-		main._begin_local({"map":main.map_choice,"mode":main.game_mode,"players":players})
+		main._begin_local(single_config())
 	,48)
+
+func single_config(random: RandomNumberGenerator=null) -> Dictionary:
+	if random==null:random=RandomNumberGenerator.new();random.randomize()
+	var count=3 if main.game_mode=="teams" else main.bot_count
+	var players:Array=[{"name":main.account.get("nickname","지휘관"),"race":main.race_choice,"team":0,"color_id":main.color_choice if main.color_choice>=0 else ACPlayerColors.NATIVE[main.race_choice]}]
+	for i in range(count):players.append({"name":"컴퓨터 %d"%(i+1),"race":random.randi_range(0,2),"team":(i+1)%2,"bot":true,"difficulty":main.difficulty})
+	var colors=ACPlayerColors.resolve(players)
+	for i in range(players.size()):players[i].color_id=colors[i]
+	return {"map":main.map_choice,"mode":main.game_mode,"players":players}
 
 func color_option(parent: Control,x: float,y: float,width: float,selected: int,callback: Callable) -> OptionButton:
 	var picker=option(parent,ACPlayerColors.NAMES,x,y,width,selected,callback)

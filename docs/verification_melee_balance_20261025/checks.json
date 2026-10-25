@@ -1,0 +1,758 @@
+{
+  "status": "source_locally_verified_not_released",
+  "version": "0.6.5",
+  "game_sha256": "0347651a0bf52fd577633a9115cdf206163a809fde008f0accd949118b5a895f",
+  "changes": [
+    {
+      "race": 0,
+      "kind": 2,
+      "name": "돌격병",
+      "before": 0.75,
+      "after": 0.65,
+      "reason": "Mobile assault infantry already has stim; use a smaller base increase.",
+      "nominal_attack_speed_gain_percent": 15.38
+    },
+    {
+      "race": 0,
+      "kind": 3,
+      "name": "방패보병",
+      "before": 1.0,
+      "after": 0.8,
+      "reason": "Slow, two-population frontline needs a larger improvement once in contact.",
+      "nominal_attack_speed_gain_percent": 25.0
+    },
+    {
+      "race": 1,
+      "kind": 1,
+      "name": "껍질발톱",
+      "before": 0.65,
+      "after": 0.55,
+      "reason": "Cheap two-body production and the existing 50-percent attack-speed research limit the base increase.",
+      "nominal_attack_speed_gain_percent": 18.18
+    },
+    {
+      "race": 1,
+      "kind": 3,
+      "name": "후피거수",
+      "before": 1.0,
+      "after": 0.85,
+      "reason": "Improve heavy frontline damage without stacking more durability onto its defensive skill.",
+      "nominal_attack_speed_gain_percent": 17.65
+    },
+    {
+      "race": 1,
+      "kind": 8,
+      "name": "접목충",
+      "before": 0.9,
+      "after": 0.8,
+      "reason": "Small basic-attack improvement; preserve its caster role and existing skills.",
+      "nominal_attack_speed_gain_percent": 12.5
+    },
+    {
+      "race": 2,
+      "kind": 1,
+      "name": "서약수호자",
+      "before": 1.15,
+      "after": 0.95,
+      "reason": "Improve the two-population frontline while preserving the separate movement research.",
+      "nominal_attack_speed_gain_percent": 21.05
+    },
+    {
+      "race": 2,
+      "kind": 10,
+      "name": "황혼잠행자",
+      "before": 1.3,
+      "after": 1.1,
+      "reason": "Expensive stealth melee gains sustained damage while its first-hit damage stays unchanged.",
+      "nominal_attack_speed_gain_percent": 18.18
+    }
+  ],
+  "approved_transport_extent": 72,
+  "advanced_ai": "Not implemented; 30 concrete tactics await user review.",
+  "checks": 784,
+  "focused_checks_passed": true,
+  "focused_suites": {
+    "melee_cadence_and_battles": {
+      "checks": 307,
+      "failures": []
+    },
+    "contact": {
+      "checks": 265,
+      "failures": []
+    },
+    "research": {
+      "checks": 185,
+      "failures": []
+    },
+    "pursuit": {
+      "checks": 8,
+      "failures": []
+    },
+    "stim": {
+      "checks": 19,
+      "failures": []
+    }
+  },
+  "cadence_cases": 54,
+  "real_field_battles": 48,
+  "duel_comparison": [
+    {
+      "case": "assault-v-rifle",
+      "reverse": false,
+      "counts": [
+        4,
+        8
+      ],
+      "remaining_before": [
+        0,
+        6
+      ],
+      "remaining_after": [
+        0,
+        6
+      ],
+      "health_before": [
+        0.0,
+        420.0
+      ],
+      "health_after": [
+        0.0,
+        420.0
+      ],
+      "seconds_before": 7.04999999999998,
+      "seconds_after": 7.04999999999998
+    },
+    {
+      "case": "assault-v-rifle",
+      "reverse": true,
+      "counts": [
+        4,
+        8
+      ],
+      "remaining_before": [
+        0,
+        6
+      ],
+      "remaining_after": [
+        0,
+        6
+      ],
+      "health_before": [
+        0.0,
+        392.0
+      ],
+      "health_after": [
+        0.0,
+        364.0
+      ],
+      "seconds_before": 7.24999999999998,
+      "seconds_after": 7.24999999999998
+    },
+    {
+      "case": "shield-v-rifle",
+      "reverse": false,
+      "counts": [
+        3,
+        8
+      ],
+      "remaining_before": [
+        0,
+        4
+      ],
+      "remaining_after": [
+        1,
+        0
+      ],
+      "health_before": [
+        0.0,
+        232.0
+      ],
+      "health_after": [
+        20.0,
+        0.0
+      ],
+      "seconds_before": 17.7000000000001,
+      "seconds_after": 23.4000000000002
+    },
+    {
+      "case": "shield-v-rifle",
+      "reverse": true,
+      "counts": [
+        3,
+        8
+      ],
+      "remaining_before": [
+        0,
+        5
+      ],
+      "remaining_after": [
+        0,
+        2
+      ],
+      "health_before": [
+        0.0,
+        254.0
+      ],
+      "health_after": [
+        0.0,
+        104.0
+      ],
+      "seconds_before": 16.3500000000001,
+      "seconds_after": 20.7500000000002
+    },
+    {
+      "case": "claw-v-rifle",
+      "reverse": false,
+      "counts": [
+        24,
+        8
+      ],
+      "remaining_before": [
+        0,
+        7
+      ],
+      "remaining_after": [
+        0,
+        7
+      ],
+      "health_before": [
+        0.0,
+        398.0
+      ],
+      "health_after": [
+        0.0,
+        342.0
+      ],
+      "seconds_before": 12.35,
+      "seconds_after": 12.35
+    },
+    {
+      "case": "claw-v-rifle",
+      "reverse": true,
+      "counts": [
+        24,
+        8
+      ],
+      "remaining_before": [
+        0,
+        7
+      ],
+      "remaining_after": [
+        0,
+        6
+      ],
+      "health_before": [
+        0.0,
+        366.0
+      ],
+      "health_after": [
+        0.0,
+        300.0
+      ],
+      "seconds_before": 12.35,
+      "seconds_after": 12.85
+    },
+    {
+      "case": "heavy-v-archer",
+      "reverse": false,
+      "counts": [
+        2,
+        2
+      ],
+      "remaining_before": [
+        2,
+        0
+      ],
+      "remaining_after": [
+        2,
+        0
+      ],
+      "health_before": [
+        386.0,
+        0.0
+      ],
+      "health_after": [
+        386.0,
+        0.0
+      ],
+      "seconds_before": 8.99999999999999,
+      "seconds_after": 8.24999999999998
+    },
+    {
+      "case": "heavy-v-archer",
+      "reverse": true,
+      "counts": [
+        2,
+        2
+      ],
+      "remaining_before": [
+        2,
+        0
+      ],
+      "remaining_after": [
+        2,
+        0
+      ],
+      "health_before": [
+        386.0,
+        0.0
+      ],
+      "health_after": [
+        386.0,
+        0.0
+      ],
+      "seconds_before": 8.99999999999999,
+      "seconds_after": 8.24999999999998
+    },
+    {
+      "case": "guardian-v-archer",
+      "reverse": false,
+      "counts": [
+        4,
+        2
+      ],
+      "remaining_before": [
+        4,
+        0
+      ],
+      "remaining_after": [
+        4,
+        0
+      ],
+      "health_before": [
+        352.0,
+        0.0
+      ],
+      "health_after": [
+        374.0,
+        0.0
+      ],
+      "seconds_before": 10.8,
+      "seconds_after": 10.0
+    },
+    {
+      "case": "guardian-v-archer",
+      "reverse": true,
+      "counts": [
+        4,
+        2
+      ],
+      "remaining_before": [
+        4,
+        0
+      ],
+      "remaining_after": [
+        3,
+        0
+      ],
+      "health_before": [
+        374.1,
+        0.0
+      ],
+      "health_after": [
+        381.0,
+        0.0
+      ],
+      "seconds_before": 9.85000000000001,
+      "seconds_after": 9.25
+    },
+    {
+      "case": "stealth-v-missile-detected",
+      "reverse": false,
+      "counts": [
+        1,
+        2
+      ],
+      "remaining_before": [
+        0,
+        2
+      ],
+      "remaining_after": [
+        0,
+        2
+      ],
+      "health_before": [
+        0.0,
+        288.0
+      ],
+      "health_after": [
+        0.0,
+        252.0
+      ],
+      "seconds_before": 5.09999999999999,
+      "seconds_after": 5.09999999999999
+    },
+    {
+      "case": "stealth-v-missile-detected",
+      "reverse": true,
+      "counts": [
+        1,
+        2
+      ],
+      "remaining_before": [
+        0,
+        2
+      ],
+      "remaining_after": [
+        0,
+        2
+      ],
+      "health_before": [
+        0.0,
+        288.0
+      ],
+      "health_after": [
+        0.0,
+        252.0
+      ],
+      "seconds_before": 5.09999999999999,
+      "seconds_after": 5.09999999999999
+    },
+    {
+      "case": "caster-v-worker-detected",
+      "reverse": false,
+      "counts": [
+        1,
+        12
+      ],
+      "remaining_before": [
+        0,
+        12
+      ],
+      "remaining_after": [
+        0,
+        12
+      ],
+      "health_before": [
+        0.0,
+        705.0
+      ],
+      "health_after": [
+        0.0,
+        702.0
+      ],
+      "seconds_before": 6.44999999999999,
+      "seconds_after": 6.44999999999999
+    },
+    {
+      "case": "caster-v-worker-detected",
+      "reverse": true,
+      "counts": [
+        1,
+        12
+      ],
+      "remaining_before": [
+        0,
+        12
+      ],
+      "remaining_after": [
+        0,
+        12
+      ],
+      "health_before": [
+        0.0,
+        696.0
+      ],
+      "health_after": [
+        0.0,
+        693.0
+      ],
+      "seconds_before": 8.64999999999999,
+      "seconds_after": 8.64999999999999
+    },
+    {
+      "case": "assault-v-claw",
+      "reverse": false,
+      "counts": [
+        4,
+        24
+      ],
+      "remaining_before": [
+        2,
+        0
+      ],
+      "remaining_after": [
+        0,
+        6
+      ],
+      "health_before": [
+        91.0,
+        0.0
+      ],
+      "health_after": [
+        0.0,
+        163.02
+      ],
+      "seconds_before": 20.1000000000002,
+      "seconds_after": 21.3000000000002
+    },
+    {
+      "case": "assault-v-claw",
+      "reverse": true,
+      "counts": [
+        4,
+        24
+      ],
+      "remaining_before": [
+        3,
+        0
+      ],
+      "remaining_after": [
+        2,
+        0
+      ],
+      "health_before": [
+        129.0,
+        0.0
+      ],
+      "health_after": [
+        82.0,
+        0.0
+      ],
+      "seconds_before": 21.3000000000002,
+      "seconds_after": 20.4500000000002
+    },
+    {
+      "case": "claw-v-guardian",
+      "reverse": false,
+      "counts": [
+        24,
+        4
+      ],
+      "remaining_before": [
+        0,
+        3
+      ],
+      "remaining_after": [
+        0,
+        4
+      ],
+      "health_before": [
+        0.0,
+        255.8
+      ],
+      "health_after": [
+        0.0,
+        279.0
+      ],
+      "seconds_before": 17.2000000000001,
+      "seconds_after": 15.0000000000001
+    },
+    {
+      "case": "claw-v-guardian",
+      "reverse": true,
+      "counts": [
+        24,
+        4
+      ],
+      "remaining_before": [
+        0,
+        4
+      ],
+      "remaining_after": [
+        0,
+        3
+      ],
+      "health_before": [
+        0.0,
+        324.0
+      ],
+      "health_after": [
+        0.0,
+        347.0
+      ],
+      "seconds_before": 18.2500000000001,
+      "seconds_after": 16.4000000000001
+    },
+    {
+      "case": "guardian-v-assault",
+      "reverse": false,
+      "counts": [
+        4,
+        4
+      ],
+      "remaining_before": [
+        2,
+        0
+      ],
+      "remaining_after": [
+        2,
+        0
+      ],
+      "health_before": [
+        151.0,
+        0.0
+      ],
+      "health_after": [
+        190.0,
+        0.0
+      ],
+      "seconds_before": 11.85,
+      "seconds_after": 10.45
+    },
+    {
+      "case": "guardian-v-assault",
+      "reverse": true,
+      "counts": [
+        4,
+        4
+      ],
+      "remaining_before": [
+        0,
+        2
+      ],
+      "remaining_after": [
+        2,
+        0
+      ],
+      "health_before": [
+        0.0,
+        58.0
+      ],
+      "health_after": [
+        21.0,
+        0.0
+      ],
+      "seconds_before": 11.85,
+      "seconds_after": 11.45
+    },
+    {
+      "case": "shield-v-heavy",
+      "reverse": false,
+      "counts": [
+        3,
+        2
+      ],
+      "remaining_before": [
+        0,
+        2
+      ],
+      "remaining_after": [
+        0,
+        2
+      ],
+      "health_before": [
+        0.0,
+        340.0
+      ],
+      "health_after": [
+        0.0,
+        330.0
+      ],
+      "seconds_before": 14.6500000000001,
+      "seconds_after": 13.8000000000001
+    },
+    {
+      "case": "shield-v-heavy",
+      "reverse": true,
+      "counts": [
+        3,
+        2
+      ],
+      "remaining_before": [
+        0,
+        2
+      ],
+      "remaining_after": [
+        0,
+        2
+      ],
+      "health_before": [
+        0.0,
+        350.0
+      ],
+      "health_after": [
+        0.0,
+        330.0
+      ],
+      "seconds_before": 14.4500000000001,
+      "seconds_after": 12.95
+    },
+    {
+      "case": "shield-v-guardian",
+      "reverse": false,
+      "counts": [
+        3,
+        4
+      ],
+      "remaining_before": [
+        0,
+        3
+      ],
+      "remaining_after": [
+        0,
+        3
+      ],
+      "health_before": [
+        0.0,
+        237.1
+      ],
+      "health_after": [
+        0.0,
+        259.8
+      ],
+      "seconds_before": 21.3000000000002,
+      "seconds_after": 15.2500000000001
+    },
+    {
+      "case": "shield-v-guardian",
+      "reverse": true,
+      "counts": [
+        3,
+        4
+      ],
+      "remaining_before": [
+        0,
+        4
+      ],
+      "remaining_after": [
+        0,
+        3
+      ],
+      "health_before": [
+        0.0,
+        214.0
+      ],
+      "health_after": [
+        0.0,
+        211.0
+      ],
+      "seconds_before": 17.4000000000001,
+      "seconds_after": 15.0000000000001
+    }
+  ],
+  "known_test_failures_reproduced_before_change": [
+    {
+      "test": "combat_test",
+      "before": [
+        "FAIL: shield absorbs before HP",
+        "FAIL: shield research reduces damage",
+        "FAIL: siege toggles anchoring",
+        "FAIL: anchored siege cannot move",
+        "FAIL: telegraphed spell resolves"
+      ],
+      "after": [
+        "FAIL: shield absorbs before HP",
+        "FAIL: shield research reduces damage",
+        "FAIL: siege toggles anchoring",
+        "FAIL: anchored siege cannot move",
+        "FAIL: telegraphed spell resolves"
+      ],
+      "unchanged_from_before": true
+    },
+    {
+      "test": "abilities_v060_test",
+      "before": [
+        "FAIL low initial energy stim"
+      ],
+      "after": [
+        "FAIL low initial energy stim"
+      ],
+      "unchanged_from_before": true
+    }
+  ],
+  "limits": [
+    "Equal-resource open-field comparisons and mechanic regression only; not final competitive balance or win-rate proof.",
+    "No Windows export, packaging, updater or public release performed for these changes."
+  ]
+}

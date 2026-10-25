@@ -1391,15 +1391,16 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 				if cached.cell_size!=Vector2.ONE*.25:
 					clearance_paths.clear();break
 				var cached_owner=int(size_key.z)-1 if size_key is Vector3i else -1
-				var area_changed=changed
+				var changed_areas=[]
+				if changed.has_area():changed_areas.append(changed)
 				if cached_owner>=0:
-					var seam=map.worker_passage_bounds(cached_owner)
-					if seam.has_area():area_changed=area_changed.merge(seam) if area_changed.has_area() else seam
-				if not area_changed.has_area():continue
+					changed_areas.append_array(map.worker_passage_regions(cached_owner))
+				if changed_areas.is_empty():continue
 				var padding=ceili(maxf(size_key.x,size_key.y)/8.0)+4
-				var area=area_changed.grow(padding).intersection(cached.region)
-				for x in range(area.position.x,area.end.x):
-					for y in range(area.position.y,area.end.y):cached.set_point_solid(Vector2i(x,y),not _ground_fits_size(Vector2(size_key.x,size_key.y)/16.0,Vector2(x,y)*.25,cached_owner))
+				for changed_area in changed_areas:
+					var area=changed_area.grow(padding).intersection(cached.region)
+					for x in range(area.position.x,area.end.x):
+						for y in range(area.position.y,area.end.y):cached.set_point_solid(Vector2i(x,y),not _ground_fits_size(Vector2(size_key.x,size_key.y)/16.0,Vector2(x,y)*.25,cached_owner))
 		else:clearance_paths.clear()
 		clearance_revision=map.revision
 	var size_key=Vector2i((dimensions*16).ceil())
@@ -1432,9 +1433,10 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 				var low=first-high_offset+Vector2i.ONE;var high=end-low_offset
 				nav.fill_solid_region(Rect2i(low,high-low).intersection(nav.region))
 		if passage_owner>=0:
-			var area=map.worker_passage_bounds(passage_owner).grow(ceili(maxf(clearance.x,clearance.y)*4)+4).intersection(nav.region)
-			for x in range(area.position.x,area.end.x):
-				for y in range(area.position.y,area.end.y):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)*.25,passage_owner))
+			for seam in map.worker_passage_regions(passage_owner):
+				var area=seam.grow(ceili(maxf(clearance.x,clearance.y)*4)+4).intersection(nav.region)
+				for x in range(area.position.x,area.end.x):
+					for y in range(area.position.y,area.end.y):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)*.25,passage_owner))
 		clearance_paths[key]=nav
 	var navigator: AStarGrid2D=clearance_paths[key] if body_path else map.navigator
 	var temporary: Array=[]

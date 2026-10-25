@@ -1,0 +1,785 @@
+{
+  "status": "implemented_and_locally_verified_not_released",
+  "generated_at": "2026-10-25T17:10:51.147Z",
+  "runtime_plans": 75,
+  "plans_per_race": 25,
+  "repertoires": [
+    3,
+    6,
+    12,
+    18,
+    23,
+    25
+  ],
+  "source_sha256": {
+    "data/ai_tactics.json": "55802f1692582500e4abcb702ecf4998772418c154c9287f786421e52608e005",
+    "data/game.json": "0347651a0bf52fd577633a9115cdf206163a809fde008f0accd949118b5a895f",
+    "scripts/bot_ai.gd": "31d753a8f6600a8ced5199dd621247d2389540855a832f22473c521ca37f89bd",
+    "scripts/bot_tactics.gd": "b7cb4033a7c1ce7fd4bdf4bb93d234ab91257cb14785fbec483cd8b9be9cb594",
+    "scripts/bot_missions.gd": "8a87105791e6dee9e041a351026292b6a6ead7626a30696586d4f6663edeb852",
+    "scripts/bot_skills.gd": "2770ed6a9da2325b5cd5aa24fbecb8c68630bf4581f206c0d9583ddcb610e301",
+    "scripts/world_map.gd": "add0b04550a44692b6aa79d190126f055e0295ccbe8d8f9f717868664fe0c199",
+    "scripts/core.gd": "fc9be84aa9fd09249ab027bb0251260b002b4bf24760125317d25f28cbadd559",
+    "scripts/menu_pages.gd": "1dc90e0630746b0a039f577a00e4966208036d03965074b72a61761b0c667f2a"
+  },
+  "passed_suites": [
+    {
+      "name": "exact_worker_centerline",
+      "file": "build/worker-centerline-20261026/result.json",
+      "console": "build/worker-centerline-console.txt",
+      "checks": 117,
+      "cases": 39,
+      "passed": true,
+      "sha256": "dff0ca73c3bd84315dcb29cc7379653be4cd06d4ef544cfc82a3e9624b2ca751"
+    },
+    {
+      "name": "geometry_equivalence_before_after_query_optimization",
+      "file": "build/worker-centerline-20261026/equivalence.json",
+      "console": "build/worker-centerline-equivalence-console.txt",
+      "checks": 7020,
+      "cases": null,
+      "passed": true,
+      "sha256": "55b3d470b6e4a8f35193e082db2b7bad8049a89a52cfe353a643d7e3bb313538"
+    },
+    {
+      "name": "worker_permissions_and_native_maps",
+      "file": "build/worker-passages-20261025/result.json",
+      "console": "build/worker-centerline-passages-final-console.txt",
+      "checks": 860,
+      "cases": null,
+      "passed": true,
+      "sha256": "ff713b607a61b7ddf269e314757d29d6cb7770839c4228fc97426689008def15"
+    },
+    {
+      "name": "worker_mining_and_construction",
+      "file": "build/worker-passages-20261025/jobs.json",
+      "console": "build/worker-centerline-jobs-console.txt",
+      "checks": 12,
+      "cases": null,
+      "passed": true,
+      "sha256": "a4031321e58a1a316f7400f4901a70c23641af38f017d247631935e74e6e6440"
+    },
+    {
+      "name": "cliff_guards",
+      "file": "build/cliff-fix-20261025/result.json",
+      "console": "build/worker-centerline-cliffs-console.txt",
+      "checks": 345,
+      "cases": 24,
+      "passed": true,
+      "sha256": "4488887fbd47f68f91c4755b97fd0ca02f93f0b56a4ab85f0014519fd6f47245"
+    },
+    {
+      "name": "movement_continuity",
+      "file": "build/move-continuity-20261025/worker-centerline/result.json",
+      "console": "build/worker-centerline-movement-console.txt",
+      "checks": 101,
+      "cases": null,
+      "passed": true,
+      "sha256": "d6be2808636024f1f1ec76bc00b10f2791371a75f37a2c42faf1822b963c7b4e"
+    },
+    {
+      "name": "native_group_movement",
+      "file": "build/group-move-continuity-20261025/worker-centerline/result.json",
+      "console": "build/worker-centerline-group-console.txt",
+      "checks": 34989,
+      "cases": 9,
+      "passed": true,
+      "sha256": "b28a9f0d5fc0e9e775a2ef5528f5ba71cfdfc93eb0e41e5a43883accdddff01f"
+    },
+    {
+      "name": "all_75_real_primary_production",
+      "file": "build/ai-tactics-20261026/plans.json",
+      "console": "build/ai-tactics-plans-final-console.txt",
+      "checks": 540,
+      "cases": null,
+      "passed": true,
+      "sha256": "88a9a2c48bf4643469ee40597520861444bd3d1f5523554137cbd0ee0600538f"
+    },
+    {
+      "name": "all_10_drop_missions_nuclear_and_skills",
+      "file": "build/ai-tactics-20261026/missions.json",
+      "console": "build/ai-tactics-missions-final-console.txt",
+      "checks": 86,
+      "cases": null,
+      "passed": true,
+      "sha256": "e7a57a78ac5627b4b7e6d80ad2e811152f10fae477ce05261743a7ff7710610c"
+    },
+    {
+      "name": "local_defense_scouting_two_leg_cohorts",
+      "file": "build/ai-tactics-20261026/coordination.json",
+      "console": "build/ai-tactics-coordination-final-console.txt",
+      "checks": 13,
+      "cases": null,
+      "passed": true,
+      "sha256": "bcf59610f6064a0d4c9bf2a44b36768c760d6b61c95d13524c6a22dc61dea2cc"
+    },
+    {
+      "name": "slow_member_forward_assembly",
+      "file": "build/ai-staging-20261025/result.json",
+      "console": "build/ai-tactics-forward-final-console.txt",
+      "checks": 42,
+      "cases": null,
+      "passed": true,
+      "sha256": "819f968c2009512c00ea567dbd3d57b97ded7146905785a78afa0f2c380ef741"
+    },
+    {
+      "name": "three_race_three_map_staging",
+      "file": "build/ai-staging-20261025/source-walk.json",
+      "console": "build/ai-tactics-source-staging-final-console.txt",
+      "checks": null,
+      "cases": 9,
+      "passed": true,
+      "sha256": "0b10bf861486d5ab36436ac071623315c9b62094df463e4e87d73568cb8751a0"
+    },
+    {
+      "name": "actual_passive_research",
+      "file": "build/passives-20261024/bot-result.json",
+      "console": "build/ai-tactics-passives-final-console.txt",
+      "checks": 9,
+      "cases": null,
+      "passed": true,
+      "sha256": "6065b3443a225d73d7fb7236bcbbe88f4eb48e356ccf53f82f0f2be91cc0befe"
+    },
+    {
+      "name": "six_difficulties_90_defense_scenarios",
+      "file": "build/difficulty-progression-20261025/response-0.json",
+      "console": "build/ai-tactics-difficulty-final-console.txt",
+      "checks": 15,
+      "cases": null,
+      "passed": true,
+      "sha256": "36590688df9d1af74e34791da5c16cabf0ad81a00c2b1789226e21ed4ef0dbf2"
+    },
+    {
+      "name": "same_race_and_unique_colors",
+      "file": "build/single-mirror-20261025/result.json",
+      "console": "build/ai-tactics-mirror-final-console.txt",
+      "checks": 39,
+      "cases": null,
+      "passed": true,
+      "sha256": "67e3aca15712717fa730a87d326429a05b6f2acae06d01451e5a2b7fc4e95ded"
+    },
+    {
+      "name": "bot_economy_production_power_supply",
+      "checks": 140,
+      "passed": true,
+      "console": "build/ai-tactics-bot-final-console.txt"
+    }
+  ],
+  "checks": 44328,
+  "worker_centerline": {
+    "physical_walk_cases": 39,
+    "contact_samples": 728,
+    "maximum_center_deviation_tiles": 0,
+    "scope": "Own ground workers only, on the real shared footprint edge. Foreign and allied-other-owner buildings, terrain and resources remain blocked."
+  },
+  "hell": {
+    "decision_interval_seconds": 0.25,
+    "opening_main_cohort_minimum": 6,
+    "all_25_plans": true,
+    "resource_or_unit_stat_cheats": false,
+    "scouting_only": true,
+    "mirror_matches": [
+      {
+        "file": "build/ai-tactics-20261026/match-0-739.json",
+        "race": 0,
+        "swapped_spawns": false,
+        "seconds": 600.000000000068,
+        "ended": false,
+        "winners": [],
+        "players": [
+          {
+            "actions": {
+              "defend:local": 20,
+              "home:defense_build": 3,
+              "scout:dispatch": 6,
+              "skill:smoke": 1,
+              "skill:stim": 33,
+              "stage:cohort_depart": 4,
+              "train:1": 15,
+              "train:2": 14,
+              "train:4": 4
+            },
+            "army": 16,
+            "buildings": 19,
+            "first_attack": 533.200000000053,
+            "first_enemy_seen": 219.399999999992,
+            "gathered": 9811,
+            "kills": 23,
+            "level": 5,
+            "lost": false,
+            "plans": [
+              {
+                "id": "N2",
+                "time": 0.1
+              },
+              {
+                "id": "N22",
+                "time": 420.100000000027
+              }
+            ],
+            "resources": [
+              915,
+              61
+            ],
+            "spent": 8885,
+            "workers": 32
+          },
+          {
+            "actions": {
+              "defend:local": 3,
+              "scout:dispatch": 5,
+              "stage:cohort_depart": 4,
+              "train:1": 6,
+              "train:2": 3,
+              "train:3": 8,
+              "train:6": 1,
+              "train:8": 1
+            },
+            "army": 7,
+            "buildings": 16,
+            "first_attack": 438.300000000031,
+            "first_enemy_seen": 426.400000000028,
+            "gathered": 7824,
+            "kills": 12,
+            "level": 4,
+            "lost": false,
+            "plans": [
+              {
+                "id": "N10",
+                "time": 0.1
+              },
+              {
+                "id": "N9",
+                "time": 240.199999999991
+              },
+              {
+                "id": "N19",
+                "time": 480.300000000041
+              }
+            ],
+            "resources": [
+              160,
+              69
+            ],
+            "spent": 7645,
+            "workers": 19
+          }
+        ],
+        "remaining_army_resource_value": [
+          1822.5,
+          1125
+        ],
+        "p95_step_ms": 55.724,
+        "max_step_ms": 419.88,
+        "scope": "Actual unmodified starting economy, native map, Hell versus Very Hard mirror. No extra units/resources/tech or omniscient scouting."
+      },
+      {
+        "file": "build/ai-tactics-20261026/match-0-739-swap.json",
+        "race": 0,
+        "swapped_spawns": true,
+        "seconds": 600.000000000068,
+        "ended": false,
+        "winners": [],
+        "players": [
+          {
+            "actions": {
+              "defend:local": 37,
+              "home:defense_build": 3,
+              "scout:dispatch": 4,
+              "skill:smoke": 3,
+              "skill:stim": 49,
+              "stage:cohort_depart": 6,
+              "train:1": 13,
+              "train:2": 4,
+              "train:4": 2
+            },
+            "army": 11,
+            "buildings": 20,
+            "first_attack": 550.900000000057,
+            "first_enemy_seen": 219.699999999992,
+            "gathered": 9370,
+            "kills": 40,
+            "level": 5,
+            "lost": false,
+            "plans": [
+              {
+                "id": "N2",
+                "time": 0.1
+              },
+              {
+                "id": "N21",
+                "time": 420.100000000027
+              }
+            ],
+            "resources": [
+              1390,
+              120
+            ],
+            "spent": 7910,
+            "workers": 32
+          },
+          {
+            "actions": {
+              "defend:local": 3,
+              "scout:dispatch": 2,
+              "skill:smoke": 2,
+              "skill:stim": 29,
+              "stage:cohort_depart": 3,
+              "train:1": 28,
+              "train:4": 4,
+              "train:7": 1
+            },
+            "army": 2,
+            "buildings": 15,
+            "first_attack": 475.40000000004,
+            "first_enemy_seen": 336.800000000008,
+            "gathered": 7484,
+            "kills": 9,
+            "level": 4,
+            "lost": false,
+            "plans": [
+              {
+                "id": "N10",
+                "time": 0.1
+              },
+              {
+                "id": "N1",
+                "time": 240.199999999991
+              },
+              {
+                "id": "N20",
+                "time": 476.10000000004
+              }
+            ],
+            "resources": [
+              40,
+              119
+            ],
+            "spent": 7375,
+            "workers": 10
+          }
+        ],
+        "remaining_army_resource_value": [
+          1005,
+          350
+        ],
+        "p95_step_ms": 46.395,
+        "max_step_ms": 375.716,
+        "scope": "Actual unmodified starting economy, native map, Hell versus Very Hard mirror. No extra units/resources/tech or omniscient scouting."
+      },
+      {
+        "file": "build/ai-tactics-20261026/match-1-739.json",
+        "race": 1,
+        "swapped_spawns": false,
+        "seconds": 600.000000000068,
+        "ended": false,
+        "winners": [],
+        "players": [
+          {
+            "actions": {
+              "defend:local": 16,
+              "home:defense_build": 5,
+              "scout:dispatch": 9,
+              "stage:cohort_depart": 11,
+              "train:1": 38,
+              "train:7": 6
+            },
+            "army": 28,
+            "buildings": 18,
+            "first_attack": 220.599999999992,
+            "first_enemy_seen": 216.099999999992,
+            "gathered": 12615,
+            "kills": 31,
+            "level": 5,
+            "lost": false,
+            "plans": [
+              {
+                "id": "E3",
+                "time": 0.1
+              },
+              {
+                "id": "E1",
+                "time": 240.399999999991
+              },
+              {
+                "id": "E2",
+                "time": 405.400000000024
+              },
+              {
+                "id": "E1",
+                "time": 570.400000000061
+              }
+            ],
+            "resources": [
+              2230,
+              120
+            ],
+            "spent": 10315,
+            "workers": 44
+          },
+          {
+            "actions": {
+              "defend:local": 9,
+              "home:defense_build": 1,
+              "scout:dispatch": 6,
+              "skill:carapace": 14,
+              "stage:cohort_depart": 5,
+              "train:1": 15,
+              "train:2": 7,
+              "train:3": 5
+            },
+            "army": 11,
+            "buildings": 10,
+            "first_attack": -1,
+            "first_enemy_seen": 544.700000000055,
+            "gathered": 6842,
+            "kills": 56,
+            "level": 4,
+            "lost": false,
+            "plans": [
+              {
+                "id": "E22",
+                "time": 0.1
+              },
+              {
+                "id": "E5",
+                "time": 240.199999999991
+              },
+              {
+                "id": "E3",
+                "time": 480.300000000041
+              }
+            ],
+            "resources": [
+              1240,
+              227
+            ],
+            "spent": 5425,
+            "workers": 8
+          }
+        ],
+        "remaining_army_resource_value": [
+          1975,
+          1350
+        ],
+        "p95_step_ms": 75.704,
+        "max_step_ms": 663.701,
+        "scope": "Actual unmodified starting economy, native map, Hell versus Very Hard mirror. No extra units/resources/tech or omniscient scouting."
+      },
+      {
+        "file": "build/ai-tactics-20261026/match-1-739-swap.json",
+        "race": 1,
+        "swapped_spawns": true,
+        "seconds": 600.000000000068,
+        "ended": false,
+        "winners": [],
+        "players": [
+          {
+            "actions": {
+              "defend:local": 13,
+              "home:defense_build": 5,
+              "scout:dispatch": 7,
+              "stage:cohort_depart": 6,
+              "train:1": 10,
+              "train:2": 6,
+              "train:4": 21,
+              "train:5": 1,
+              "train:6": 1,
+              "train:7": 1
+            },
+            "army": 14,
+            "buildings": 18,
+            "first_attack": 249.09999999999,
+            "first_enemy_seen": 217.899999999992,
+            "gathered": 9928,
+            "kills": 18,
+            "level": 5,
+            "lost": false,
+            "plans": [
+              {
+                "id": "E3",
+                "time": 0.1
+              },
+              {
+                "id": "E14",
+                "time": 249.39999999999
+              },
+              {
+                "id": "E23",
+                "time": 489.400000000043
+              }
+            ],
+            "resources": [
+              670,
+              3
+            ],
+            "spent": 9305,
+            "workers": 30
+          },
+          {
+            "actions": {
+              "home:defense_build": 2,
+              "scout:dispatch": 9,
+              "skill:carapace": 3,
+              "stage:cohort_depart": 1,
+              "train:1": 4,
+              "train:10": 2,
+              "train:2": 2,
+              "train:3": 1,
+              "train:7": 7
+            },
+            "army": 7,
+            "buildings": 14,
+            "first_attack": 457.200000000035,
+            "first_enemy_seen": 421.500000000027,
+            "gathered": 6902,
+            "kills": 36,
+            "level": 4,
+            "lost": false,
+            "plans": [
+              {
+                "id": "E22",
+                "time": 0.1
+              },
+              {
+                "id": "E12",
+                "time": 240.199999999991
+              },
+              {
+                "id": "E22",
+                "time": 480.300000000041
+              }
+            ],
+            "resources": [
+              945,
+              27
+            ],
+            "spent": 5980,
+            "workers": 14
+          }
+        ],
+        "remaining_army_resource_value": [
+          1337.5,
+          940
+        ],
+        "p95_step_ms": 52.034,
+        "max_step_ms": 324.889,
+        "scope": "Actual unmodified starting economy, native map, Hell versus Very Hard mirror. No extra units/resources/tech or omniscient scouting."
+      },
+      {
+        "file": "build/ai-tactics-20261026/match-2-739.json",
+        "race": 2,
+        "swapped_spawns": false,
+        "seconds": 600.000000000068,
+        "ended": false,
+        "winners": [],
+        "players": [
+          {
+            "actions": {
+              "defend:local": 3,
+              "home:defense_build": 1,
+              "scout:dispatch": 3,
+              "stage:cohort_depart": 3,
+              "train:1": 7,
+              "train:2": 9,
+              "train:4": 1
+            },
+            "army": 10,
+            "buildings": 20,
+            "first_attack": 357.700000000013,
+            "first_enemy_seen": 216.099999999992,
+            "gathered": 10731,
+            "kills": 17,
+            "level": 5,
+            "lost": false,
+            "plans": [
+              {
+                "id": "A2",
+                "time": 0.1
+              },
+              {
+                "id": "A14",
+                "time": 358.000000000013
+              },
+              {
+                "id": "A15",
+                "time": 598.000000000067
+              }
+            ],
+            "resources": [
+              2170,
+              61
+            ],
+            "spent": 8550,
+            "workers": 32
+          },
+          {
+            "actions": {
+              "home:defense_build": 1,
+              "scout:dispatch": 3,
+              "stage:cohort_depart": 2,
+              "train:1": 14,
+              "train:13": 1,
+              "train:2": 10,
+              "train:4": 1,
+              "train:6": 1
+            },
+            "army": 13,
+            "buildings": 17,
+            "first_attack": -1,
+            "first_enemy_seen": -1,
+            "gathered": 9892,
+            "kills": 8,
+            "level": 4,
+            "lost": false,
+            "plans": [
+              {
+                "id": "A25",
+                "time": 0.1
+              },
+              {
+                "id": "A25",
+                "time": 240.199999999991
+              },
+              {
+                "id": "A9",
+                "time": 480.300000000041
+              }
+            ],
+            "resources": [
+              790,
+              27
+            ],
+            "spent": 9125,
+            "workers": 31
+          }
+        ],
+        "remaining_army_resource_value": [
+          2150,
+          2475
+        ],
+        "p95_step_ms": 51.539,
+        "max_step_ms": 540.061,
+        "scope": "Actual unmodified starting economy, native map, Hell versus Very Hard mirror. No extra units/resources/tech or omniscient scouting."
+      },
+      {
+        "file": "build/ai-tactics-20261026/match-2-739-swap.json",
+        "race": 2,
+        "swapped_spawns": true,
+        "seconds": 600.000000000068,
+        "ended": false,
+        "winners": [],
+        "players": [
+          {
+            "actions": {
+              "defend:local": 9,
+              "home:defense_build": 1,
+              "scout:dispatch": 5,
+              "stage:cohort_depart": 2,
+              "train:1": 13,
+              "train:2": 4
+            },
+            "army": 5,
+            "buildings": 13,
+            "first_attack": 494.800000000044,
+            "first_enemy_seen": -1,
+            "gathered": 8428,
+            "kills": 18,
+            "level": 5,
+            "lost": false,
+            "plans": [
+              {
+                "id": "A2",
+                "time": 0.1
+              },
+              {
+                "id": "A23",
+                "time": 420.100000000027
+              }
+            ],
+            "resources": [
+              25,
+              878
+            ],
+            "spent": 7575,
+            "workers": 20
+          },
+          {
+            "actions": {
+              "forward:build": 6,
+              "scout:dispatch": 1,
+              "stage:cohort_depart": 3,
+              "train:1": 10,
+              "train:2": 9
+            },
+            "army": 6,
+            "buildings": 13,
+            "first_attack": 351.500000000011,
+            "first_enemy_seen": 348.700000000011,
+            "gathered": 8052,
+            "kills": 41,
+            "level": 4,
+            "lost": false,
+            "plans": [
+              {
+                "id": "A25",
+                "time": 0.1
+              },
+              {
+                "id": "A4",
+                "time": 240.199999999991
+              },
+              {
+                "id": "A1",
+                "time": 480.300000000041
+              }
+            ],
+            "resources": [
+              400,
+              452
+            ],
+            "spent": 7250,
+            "workers": 27
+          }
+        ],
+        "remaining_army_resource_value": [
+          725,
+          750
+        ],
+        "p95_step_ms": 39.69,
+        "max_step_ms": 304.762,
+        "scope": "Actual unmodified starting economy, native map, Hell versus Very Hard mirror. No extra units/resources/tech or omniscient scouting."
+      }
+    ],
+    "mirror_run_note": "Six mirrors preceded the final geometry-equivalent passage-query optimization. The following solo run and 7020 direct geometry comparisons validate that optimization.",
+    "solo_performance": {
+      "file": "build/ai-tactics-20261026/match-0-739-solo.json",
+      "p95_step_ms": 39.132,
+      "max_step_ms": 224.014,
+      "worst_step": {
+        "phases": {
+          "ai_us": 227,
+          "building_us": 2092,
+          "cleanup_us": 194,
+          "collision_us": 2633,
+          "unit_us": 218840,
+          "vision_us": 0
+        },
+        "time": 572.300000000062,
+        "us": 224014
+      },
+      "before": {
+        "file": "build/ai-tactics-20261026/match-0-739-solo-before-query-optimization.json",
+        "p95_step_ms": 38.454,
+        "max_step_ms": 315.701
+      }
+    }
+  },
+  "limits": [
+    "Every plan is checked for real paid primary production at mature tech. This is not 75 complete games from the normal starting economy.",
+    "All 10 transport plans perform physical load, flight, legal unload, combat, extraction and return. Nuclear, conversion and delayed area spells use real gameplay commands.",
+    "Six normal-economy mirrors compare Hell against Very Hard, swapping native map starting positions. Small fixed-seed samples are not a general win-rate or human difficulty guarantee.",
+    "Headless accelerated runs may overlap. Timings are diagnostics, not a rendered-frame-rate claim; remaining worst-step spikes are recorded.",
+    "No Windows build, updater integration, GitHub publication or change to the last public release was performed for this source update."
+  ]
+}

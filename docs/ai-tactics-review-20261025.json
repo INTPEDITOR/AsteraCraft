@@ -1,0 +1,2029 @@
+{
+  "status": "implemented_and_locally_verified_not_released",
+  "quantity_per_race": 25,
+  "total": 75,
+  "scope": "Three factions, 25 army-level strategic plans each. Original game design informed by the earlier official StarCraft references, not a claim that all 75 are named StarCraft strategies.",
+  "design_level": "Primary army composition, support units, macro objective and operating method. Individual abilities are subordinate actions, not additional strategies.",
+  "rules": [
+    "Each higher difficulty adds to the preceding repertoire; it does not discard earlier strategies.",
+    "Weighted random selection uses only scouted enemy information and time-limited memory. No hidden enemy-state reads, free resources or stronger unit stats.",
+    "Every mission budgets real resources, prerequisites, population, transports and legal unload ground. Transport capacity is passenger population sum 8, not StarCraft slot counts.",
+    "Prepare, assemble outside enemy defenses, wait for slow members, enter together, then retreat/regroup on heavy loss. Do not stream single reinforcements to their deaths.",
+    "Defend home first; cancel a planned drop if anti-air covers both approach and unloading. Replan after observed enemy composition changes, not every simulation tick.",
+    "Scout and target priorities cannot bypass fog, cloak detection, terrain elevation or weapon ground/air restrictions.",
+    "None of these advanced missions may be implemented until the user reviews the tactics below.",
+    "Final user correction: 25 large army/strategy plans for each faction, 75 total. Earlier 40/60 counts and micro-only additions are superseded.",
+    "Production weights and build orders belong to each army plan; no free units, instant tech, forced enemy reactions or stat bonuses.",
+    "Pure ground/air-specialized armies must transition or bring support when scouting reveals counters. Nova fighters and Araowl moon fighters cannot attack ground.",
+    "Skills including smoke, bind, cleanse, scatter and repair belong inside these army plans; do not count them as separate large strategies."
+  ],
+  "difficulties": [
+    {
+      "name": "매우 쉬움",
+      "new": "정면 집결·기본 혼합 병력"
+    },
+    {
+      "name": "쉬움",
+      "new": "방어 후 역습·연구 완료 시점 진출"
+    },
+    {
+      "name": "보통",
+      "new": "정찰한 조합에 대한 대응·확장 압박·포격 지원"
+    },
+    {
+      "name": "어려움",
+      "new": "우회·기동 견제·시야 확보·은신 침투"
+    },
+    {
+      "name": "매우어려움",
+      "new": "수송 강습·수송 회수·제공권 연계·두 방향 압박"
+    },
+    {
+      "name": "헬",
+      "new": "양동+강습·공격 중 전환·핵 유도·복합 작전"
+    }
+  ],
+  "tactics": [
+    {
+      "id": "N1",
+      "race": 0,
+      "name": "전열사수 물량전",
+      "phase": "초반",
+      "main_kinds": [
+        1
+      ],
+      "support_kinds": [
+        4
+      ],
+      "main_units": [
+        "전열사수"
+      ],
+      "support_units": [
+        "야전의무병"
+      ],
+      "units": "전열사수·야전의무병",
+      "action": "전열사수를 꾸준히 충원해 큰 보병대를 만들고 의무병 지원으로 전선을 밀어붙인다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N2",
+      "race": 0,
+      "name": "돌격병 빠른 돌파",
+      "phase": "초반",
+      "main_kinds": [
+        2
+      ],
+      "support_kinds": [
+        1,
+        4
+      ],
+      "main_units": [
+        "돌격병"
+      ],
+      "support_units": [
+        "전열사수",
+        "야전의무병"
+      ],
+      "units": "돌격병·전열사수·야전의무병",
+      "action": "돌격병을 먼저 모아 적의 원거리 병력에 붙는 근접 중심 초반 공격을 건다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N3",
+      "race": 0,
+      "name": "방패보병 중장 보병전",
+      "phase": "초반~중반",
+      "main_kinds": [
+        3
+      ],
+      "support_kinds": [
+        1,
+        4
+      ],
+      "main_units": [
+        "방패보병"
+      ],
+      "support_units": [
+        "전열사수",
+        "야전의무병"
+      ],
+      "units": "방패보병·전열사수·야전의무병",
+      "action": "방패보병 비중을 높여 전열을 오래 유지하고 뒤의 사수들이 안정적으로 사격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N4",
+      "race": 0,
+      "name": "혼합 보병 기동전",
+      "phase": "중반",
+      "main_kinds": [
+        1,
+        2
+      ],
+      "support_kinds": [
+        3,
+        4
+      ],
+      "main_units": [
+        "전열사수",
+        "돌격병"
+      ],
+      "support_units": [
+        "방패보병",
+        "야전의무병"
+      ],
+      "units": "전열사수·돌격병·방패보병·야전의무병",
+      "action": "사수·돌격병 혼합군을 중심으로 전장을 옮겨 다니며 적 지상군과 멀티를 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N5",
+      "race": 0,
+      "name": "보병·전차 연합",
+      "phase": "중반",
+      "main_kinds": [
+        1,
+        5
+      ],
+      "support_kinds": [
+        4,
+        8
+      ],
+      "main_units": [
+        "전열사수",
+        "굴착포 전차"
+      ],
+      "support_units": [
+        "야전의무병",
+        "무인 관측 드론"
+      ],
+      "units": "전열사수·굴착포 전차·야전의무병·무인 관측 드론",
+      "action": "보병이 전차를 보호하고 전차가 먼 거리의 방어선과 밀집 지상군을 무너뜨린다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N6",
+      "race": 0,
+      "name": "돌격병·화염차 돌파군",
+      "phase": "중반",
+      "main_kinds": [
+        2,
+        13
+      ],
+      "support_kinds": [
+        6
+      ],
+      "main_units": [
+        "돌격병",
+        "화염돌파차"
+      ],
+      "support_units": [
+        "추적미사일 차륜차"
+      ],
+      "units": "돌격병·화염돌파차·추적미사일 차륜차",
+      "action": "기동 근접군과 화염차를 함께 밀어 넣어 적의 보병 전열과 채취선을 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N7",
+      "race": 0,
+      "name": "화염차·차륜차 기동군",
+      "phase": "중반",
+      "main_kinds": [
+        13,
+        6
+      ],
+      "support_kinds": [
+        8
+      ],
+      "main_units": [
+        "화염돌파차",
+        "추적미사일 차륜차"
+      ],
+      "support_units": [
+        "무인 관측 드론"
+      ],
+      "units": "화염돌파차·추적미사일 차륜차·무인 관측 드론",
+      "action": "빠른 기계 부대로 적 주력과 정면 소모전을 피하며 외곽 멀티와 충원로를 번갈아 공격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N8",
+      "race": 0,
+      "name": "차륜차 중심 대공군",
+      "phase": "중반",
+      "main_kinds": [
+        6
+      ],
+      "support_kinds": [
+        5,
+        13,
+        8
+      ],
+      "main_units": [
+        "추적미사일 차륜차"
+      ],
+      "support_units": [
+        "굴착포 전차",
+        "화염돌파차",
+        "무인 관측 드론"
+      ],
+      "units": "추적미사일 차륜차·굴착포 전차·화염돌파차·무인 관측 드론",
+      "action": "정찰한 적 공중군에 맞춰 차륜차를 주력으로 생산하고 전차·화염차가 지상 공격을 맡는다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N9",
+      "race": 0,
+      "name": "전차 장기 공성",
+      "phase": "중반~후반",
+      "main_kinds": [
+        5
+      ],
+      "support_kinds": [
+        6,
+        3,
+        8
+      ],
+      "main_units": [
+        "굴착포 전차"
+      ],
+      "support_units": [
+        "추적미사일 차륜차",
+        "방패보병",
+        "무인 관측 드론"
+      ],
+      "units": "굴착포 전차·추적미사일 차륜차·방패보병·무인 관측 드론",
+      "action": "전차를 충분히 모아 적진 앞에 공성선을 만들고 거점을 차례로 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N10",
+      "race": 0,
+      "name": "전차 방어 후 확장",
+      "phase": "초반→후반",
+      "main_kinds": [
+        5
+      ],
+      "support_kinds": [
+        1,
+        0
+      ],
+      "main_units": [
+        "굴착포 전차"
+      ],
+      "support_units": [
+        "전열사수",
+        "정비공"
+      ],
+      "units": "굴착포 전차·전열사수·정비공",
+      "action": "소수 전차와 보병으로 입구를 지키며 멀티를 먼저 확보한 뒤 기계 병력을 늘려 진출한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N11",
+      "race": 0,
+      "name": "방패·전차 전선 유지",
+      "phase": "중반",
+      "main_kinds": [
+        3,
+        5
+      ],
+      "support_kinds": [
+        4,
+        6
+      ],
+      "main_units": [
+        "방패보병",
+        "굴착포 전차"
+      ],
+      "support_units": [
+        "야전의무병",
+        "추적미사일 차륜차"
+      ],
+      "units": "방패보병·굴착포 전차·야전의무병·추적미사일 차륜차",
+      "action": "방패보병이 접근하는 적을 막고 전차가 후방에서 사격하는 느리지만 단단한 지상군을 운용한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N12",
+      "race": 0,
+      "name": "이동요새 주력군",
+      "phase": "후반",
+      "main_kinds": [
+        12
+      ],
+      "support_kinds": [
+        6,
+        0
+      ],
+      "main_units": [
+        "이동요새"
+      ],
+      "support_units": [
+        "추적미사일 차륜차",
+        "정비공"
+      ],
+      "units": "이동요새·추적미사일 차륜차·정비공",
+      "action": "이동요새 여러 기를 중심으로 큰 전선을 형성하고 차륜차와 정비공이 전투 지속을 지원한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N13",
+      "race": 0,
+      "name": "요새·전차 중공성군",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        5
+      ],
+      "support_kinds": [
+        6,
+        0
+      ],
+      "main_units": [
+        "이동요새",
+        "굴착포 전차"
+      ],
+      "support_units": [
+        "추적미사일 차륜차",
+        "정비공"
+      ],
+      "units": "이동요새·굴착포 전차·추적미사일 차륜차·정비공",
+      "action": "요새로 전차를 지키며 적의 두꺼운 방어 거점을 장거리 포격과 중화력으로 해체한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N14",
+      "race": 0,
+      "name": "요새·보병 혼합군",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        1
+      ],
+      "support_kinds": [
+        3,
+        4
+      ],
+      "main_units": [
+        "이동요새",
+        "전열사수"
+      ],
+      "support_units": [
+        "방패보병",
+        "야전의무병"
+      ],
+      "units": "이동요새·전열사수·방패보병·야전의무병",
+      "action": "요새가 전선을 잡고 대규모 보병이 빈 공간을 채워 여러 지상·공중 표적에 대응한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N15",
+      "race": 0,
+      "name": "강습폭격기 주력 공세",
+      "phase": "중반~후반",
+      "main_kinds": [
+        10
+      ],
+      "support_kinds": [
+        9,
+        8
+      ],
+      "main_units": [
+        "강습폭격기"
+      ],
+      "support_units": [
+        "요격기",
+        "무인 관측 드론"
+      ],
+      "units": "강습폭격기·요격기·무인 관측 드론",
+      "action": "폭격기 편대를 주력으로 키워 지상군과 채취선을 공격하고 요격기가 호위한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N16",
+      "race": 0,
+      "name": "제공권 확보 후 폭격",
+      "phase": "중반",
+      "main_kinds": [
+        9
+      ],
+      "support_kinds": [
+        10,
+        6,
+        8
+      ],
+      "main_units": [
+        "요격기"
+      ],
+      "support_units": [
+        "강습폭격기",
+        "추적미사일 차륜차",
+        "무인 관측 드론"
+      ],
+      "units": "요격기·강습폭격기·추적미사일 차륜차·무인 관측 드론",
+      "action": "요격기를 먼저 확보해 적 공중군과 수송을 억제한 뒤 폭격기로 지상 압박을 이어간다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N17",
+      "race": 0,
+      "name": "전차·폭격기 연합 공세",
+      "phase": "후반",
+      "main_kinds": [
+        5,
+        10
+      ],
+      "support_kinds": [
+        9,
+        8
+      ],
+      "main_units": [
+        "굴착포 전차",
+        "강습폭격기"
+      ],
+      "support_units": [
+        "요격기",
+        "무인 관측 드론"
+      ],
+      "units": "굴착포 전차·강습폭격기·요격기·무인 관측 드론",
+      "action": "전차가 정면을 포격하는 동안 폭격기가 지형을 넘어 측면의 지상 표적을 공격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N18",
+      "race": 0,
+      "name": "강철둥지 모함 함대",
+      "phase": "후반",
+      "main_kinds": [
+        14
+      ],
+      "support_kinds": [
+        9,
+        8
+      ],
+      "main_units": [
+        "강철둥지 모함"
+      ],
+      "support_units": [
+        "요격기",
+        "무인 관측 드론"
+      ],
+      "units": "강철둥지 모함·요격기·무인 관측 드론",
+      "action": "실제 비용으로 요격 드론을 충원한 모함을 모으고 요격기 호위 아래 제공권과 전장을 장악한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N19",
+      "race": 0,
+      "name": "모함·요새 복합군",
+      "phase": "후반",
+      "main_kinds": [
+        14,
+        12
+      ],
+      "support_kinds": [
+        9,
+        0
+      ],
+      "main_units": [
+        "강철둥지 모함",
+        "이동요새"
+      ],
+      "support_units": [
+        "요격기",
+        "정비공"
+      ],
+      "units": "강철둥지 모함·이동요새·요격기·정비공",
+      "action": "지상의 요새와 공중 모함이 함께 전진해 한쪽 공격 유형만으로 막기 어려운 주력을 만든다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N20",
+      "race": 0,
+      "name": "그림자 정찰병 사격군",
+      "phase": "중반~후반",
+      "main_kinds": [
+        7
+      ],
+      "support_kinds": [
+        1,
+        4,
+        8
+      ],
+      "main_units": [
+        "그림자 정찰병"
+      ],
+      "support_units": [
+        "전열사수",
+        "야전의무병",
+        "무인 관측 드론"
+      ],
+      "units": "그림자 정찰병·전열사수·야전의무병·무인 관측 드론",
+      "action": "정찰병의 은신·사격을 주력으로 삼아 고가 표적을 압박하고 보병이 정면과 퇴로를 보호한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N21",
+      "race": 0,
+      "name": "핵 지원 공성전",
+      "phase": "후반",
+      "main_kinds": [
+        7,
+        5
+      ],
+      "support_kinds": [
+        1,
+        8
+      ],
+      "main_units": [
+        "그림자 정찰병",
+        "굴착포 전차"
+      ],
+      "support_units": [
+        "전열사수",
+        "무인 관측 드론"
+      ],
+      "units": "그림자 정찰병·굴착포 전차·전열사수·무인 관측 드론",
+      "action": "핵을 실제 생산한 뒤 전차 공성으로 적을 묶고 핵 유도로 밀집 거점의 철수와 방어 재배치를 유도한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N22",
+      "race": 0,
+      "name": "보병 공중기동전",
+      "phase": "중반",
+      "main_kinds": [
+        11,
+        1,
+        2
+      ],
+      "support_kinds": [
+        4
+      ],
+      "main_units": [
+        "장갑수송정",
+        "전열사수",
+        "돌격병"
+      ],
+      "support_units": [
+        "야전의무병"
+      ],
+      "units": "장갑수송정·전열사수·돌격병·야전의무병",
+      "action": "장갑수송정으로 보병 주력을 운반해 지상 방어선을 우회하고 취약한 본진·멀티를 공격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N23",
+      "race": 0,
+      "name": "전차 공중기동전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        11,
+        5
+      ],
+      "support_kinds": [
+        6,
+        8
+      ],
+      "main_units": [
+        "장갑수송정",
+        "굴착포 전차"
+      ],
+      "support_units": [
+        "추적미사일 차륜차",
+        "무인 관측 드론"
+      ],
+      "units": "장갑수송정·굴착포 전차·추적미사일 차륜차·무인 관측 드론",
+      "action": "수송정으로 전차를 합법적인 고지대와 측면에 옮겨 적 거점을 여러 사격 방향에서 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N24",
+      "race": 0,
+      "name": "화염차 수송 기습",
+      "phase": "중반",
+      "main_kinds": [
+        11,
+        13
+      ],
+      "support_kinds": [
+        9
+      ],
+      "main_units": [
+        "장갑수송정",
+        "화염돌파차"
+      ],
+      "support_units": [
+        "요격기"
+      ],
+      "units": "장갑수송정·화염돌파차·요격기",
+      "action": "화염차를 수송해 적 채취선 뒤에 투입하고 지상 수비군이 복귀하기 전에 회수한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "N25",
+      "race": 0,
+      "name": "지상·공중 분산 견제",
+      "phase": "중반~후반",
+      "main_kinds": [
+        13,
+        10
+      ],
+      "support_kinds": [
+        6,
+        8
+      ],
+      "main_units": [
+        "화염돌파차",
+        "강습폭격기"
+      ],
+      "support_units": [
+        "추적미사일 차륜차",
+        "무인 관측 드론"
+      ],
+      "units": "화염돌파차·강습폭격기·추적미사일 차륜차·무인 관측 드론",
+      "action": "화염차와 폭격기를 별도 부대로 굴려 서로 다른 멀티를 압박하며 적 주력을 분산시킨다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E1",
+      "race": 1,
+      "name": "껍질발톱 초반 물량",
+      "phase": "초반",
+      "main_kinds": [
+        1
+      ],
+      "support_kinds": [],
+      "main_units": [
+        "껍질발톱"
+      ],
+      "support_units": [],
+      "units": "껍질발톱",
+      "action": "초반 발톱 생산에 집중해 적이 방어와 고급 기술을 갖추기 전에 한 무리로 공격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E2",
+      "race": 1,
+      "name": "발톱 기동 확장전",
+      "phase": "초반→중반",
+      "main_kinds": [
+        1
+      ],
+      "support_kinds": [
+        7,
+        9
+      ],
+      "main_units": [
+        "껍질발톱"
+      ],
+      "support_units": [
+        "가시꽃",
+        "모즙체"
+      ],
+      "units": "껍질발톱·가시꽃·모즙체",
+      "action": "확장을 늘리며 발톱 부대로 외곽을 넓게 압박하고 가시꽃·모즙체가 거점을 지킨다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E3",
+      "race": 1,
+      "name": "과즙분사체 물량군",
+      "phase": "초반~중반",
+      "main_kinds": [
+        2
+      ],
+      "support_kinds": [
+        1
+      ],
+      "main_units": [
+        "과즙분사체"
+      ],
+      "support_units": [
+        "껍질발톱"
+      ],
+      "units": "과즙분사체·껍질발톱",
+      "action": "분사체를 주력으로 꾸준히 충원하고 발톱이 앞에서 접근하는 지상군을 견제한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E4",
+      "race": 1,
+      "name": "덩굴포식자 제압군",
+      "phase": "중반",
+      "main_kinds": [
+        5
+      ],
+      "support_kinds": [
+        1,
+        9
+      ],
+      "main_units": [
+        "덩굴포식자"
+      ],
+      "support_units": [
+        "껍질발톱",
+        "모즙체"
+      ],
+      "units": "덩굴포식자·껍질발톱·모즙체",
+      "action": "덩굴포식자를 주력으로 적의 접근과 퇴각을 늦추며 모즙체 지원 아래 지상 전선을 유지한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E5",
+      "race": 1,
+      "name": "거수·발톱 돌파군",
+      "phase": "중반",
+      "main_kinds": [
+        3,
+        1
+      ],
+      "support_kinds": [
+        9
+      ],
+      "main_units": [
+        "후피거수",
+        "껍질발톱"
+      ],
+      "support_units": [
+        "모즙체"
+      ],
+      "units": "후피거수·껍질발톱·모즙체",
+      "action": "거수가 공격을 버티는 동안 다수의 발톱이 양옆을 파고드는 근접 중심 대군을 운용한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E6",
+      "race": 1,
+      "name": "거수·분사체 정규군",
+      "phase": "중반",
+      "main_kinds": [
+        3,
+        2
+      ],
+      "support_kinds": [
+        7,
+        9
+      ],
+      "main_units": [
+        "후피거수",
+        "과즙분사체"
+      ],
+      "support_units": [
+        "가시꽃",
+        "모즙체"
+      ],
+      "units": "후피거수·과즙분사체·가시꽃·모즙체",
+      "action": "거수 전열과 분사체 화력을 균형 있게 모아 지상 정면전을 주도하고 가시꽃으로 대공을 보완한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E7",
+      "race": 1,
+      "name": "거수·덩굴 압박군",
+      "phase": "중반",
+      "main_kinds": [
+        3,
+        5
+      ],
+      "support_kinds": [
+        9
+      ],
+      "main_units": [
+        "후피거수",
+        "덩굴포식자"
+      ],
+      "support_units": [
+        "모즙체"
+      ],
+      "units": "후피거수·덩굴포식자·모즙체",
+      "action": "거수의 근접 화력과 덩굴포식자의 둔화를 결합해 적 지상 주력을 붙잡고 전투를 지속한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E8",
+      "race": 1,
+      "name": "씨앗박격체 공성군",
+      "phase": "중반~후반",
+      "main_kinds": [
+        6
+      ],
+      "support_kinds": [
+        3,
+        7,
+        9
+      ],
+      "main_units": [
+        "씨앗박격체"
+      ],
+      "support_units": [
+        "후피거수",
+        "가시꽃",
+        "모즙체"
+      ],
+      "units": "씨앗박격체·후피거수·가시꽃·모즙체",
+      "action": "박격체를 주력으로 모아 적의 방어 거점과 밀집 지상군을 포격하고 거수·가시꽃이 보호한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E9",
+      "race": 1,
+      "name": "가시꽃 중심 대공군",
+      "phase": "중반",
+      "main_kinds": [
+        7
+      ],
+      "support_kinds": [
+        2,
+        5,
+        9
+      ],
+      "main_units": [
+        "가시꽃"
+      ],
+      "support_units": [
+        "과즙분사체",
+        "덩굴포식자",
+        "모즙체"
+      ],
+      "units": "가시꽃·과즙분사체·덩굴포식자·모즙체",
+      "action": "가시꽃 비중을 크게 높여 적 공중 주력의 진입을 억제하고 분사체·덩굴포식자가 지상 부대를 막는다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E10",
+      "race": 1,
+      "name": "귤박쥐 공중 기동전",
+      "phase": "중반",
+      "main_kinds": [
+        10
+      ],
+      "support_kinds": [
+        1
+      ],
+      "main_units": [
+        "귤박쥐"
+      ],
+      "support_units": [
+        "껍질발톱"
+      ],
+      "units": "귤박쥐·껍질발톱",
+      "action": "귤박쥐를 주력으로 키워 고립 부대와 채취선을 연속 공격하고 발톱으로 지상 압박을 보탠다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E11",
+      "race": 1,
+      "name": "귤박쥐·분사체 연합군",
+      "phase": "중반",
+      "main_kinds": [
+        10,
+        2
+      ],
+      "support_kinds": [
+        9
+      ],
+      "main_units": [
+        "귤박쥐",
+        "과즙분사체"
+      ],
+      "support_units": [
+        "모즙체"
+      ],
+      "units": "귤박쥐·과즙분사체·모즙체",
+      "action": "분사체 지상군과 귤박쥐 공중군이 함께 움직이며 적 지상·공중 조합을 상대한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E12",
+      "race": 1,
+      "name": "귤박쥐·가시꽃 제공전",
+      "phase": "중반",
+      "main_kinds": [
+        10,
+        7
+      ],
+      "support_kinds": [
+        3
+      ],
+      "main_units": [
+        "귤박쥐",
+        "가시꽃"
+      ],
+      "support_units": [
+        "후피거수"
+      ],
+      "units": "귤박쥐·가시꽃·후피거수",
+      "action": "가시꽃 진지를 바탕으로 귤박쥐가 공중 교전에 참여하고 거수가 지상 침투를 막는다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E13",
+      "race": 1,
+      "name": "과숙폭탄 돌파군",
+      "phase": "중반",
+      "main_kinds": [
+        4
+      ],
+      "support_kinds": [
+        1,
+        3
+      ],
+      "main_units": [
+        "과숙폭탄"
+      ],
+      "support_units": [
+        "껍질발톱",
+        "후피거수"
+      ],
+      "units": "과숙폭탄·껍질발톱·후피거수",
+      "action": "발톱·거수로 전선을 만들고 폭탄을 주력 타격 수단으로 사용해 적 지상 밀집군을 무너뜨린다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E14",
+      "race": 1,
+      "name": "폭탄·박격체 범위군",
+      "phase": "중반~후반",
+      "main_kinds": [
+        4,
+        6
+      ],
+      "support_kinds": [
+        3,
+        7
+      ],
+      "main_units": [
+        "과숙폭탄",
+        "씨앗박격체"
+      ],
+      "support_units": [
+        "후피거수",
+        "가시꽃"
+      ],
+      "units": "과숙폭탄·씨앗박격체·후피거수·가시꽃",
+      "action": "박격체 포격으로 적이 자리를 옮기게 만들고 접근하는 지상군을 폭탄과 거수로 맞받는다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E15",
+      "race": 1,
+      "name": "접목충·거수 통제군",
+      "phase": "후반",
+      "main_kinds": [
+        8,
+        3
+      ],
+      "support_kinds": [
+        2,
+        9
+      ],
+      "main_units": [
+        "접목충",
+        "후피거수"
+      ],
+      "support_units": [
+        "과즙분사체",
+        "모즙체"
+      ],
+      "units": "접목충·후피거수·과즙분사체·모즙체",
+      "action": "거수가 전선을 버티는 동안 접목충이 신경 교란·정신 조종으로 적 고가 병력의 전력을 줄인다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E16",
+      "race": 1,
+      "name": "접목충·귤박쥐 기동군",
+      "phase": "후반",
+      "main_kinds": [
+        8,
+        10
+      ],
+      "support_kinds": [
+        1
+      ],
+      "main_units": [
+        "접목충",
+        "귤박쥐"
+      ],
+      "support_units": [
+        "껍질발톱"
+      ],
+      "units": "접목충·귤박쥐·껍질발톱",
+      "action": "빠른 접목충 지상 부대와 귤박쥐가 고립된 고가 표적을 압박하고 정면 소모전은 피한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E17",
+      "race": 1,
+      "name": "모즙체 지원 장기전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        9,
+        2
+      ],
+      "support_kinds": [
+        3,
+        5,
+        1
+      ],
+      "main_units": [
+        "모즙체",
+        "과즙분사체"
+      ],
+      "support_units": [
+        "후피거수",
+        "덩굴포식자",
+        "껍질발톱"
+      ],
+      "units": "모즙체·과즙분사체·후피거수·덩굴포식자·껍질발톱",
+      "action": "모즙체 비중을 높여 치유·개화로 병력을 보존하고 필요할 때 생명환원을 사용하며 압박을 이어간다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E18",
+      "race": 1,
+      "name": "대과수·거수 중군",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        3
+      ],
+      "support_kinds": [
+        7,
+        9
+      ],
+      "main_units": [
+        "대과수",
+        "후피거수"
+      ],
+      "support_units": [
+        "가시꽃",
+        "모즙체"
+      ],
+      "units": "대과수·후피거수·가시꽃·모즙체",
+      "action": "대과수와 거수를 주력으로 모아 큰 지상 전선을 만들고 가시꽃·모즙체가 대공과 회복을 담당한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E19",
+      "race": 1,
+      "name": "대과수·박격체 공성",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        6
+      ],
+      "support_kinds": [
+        7,
+        9
+      ],
+      "main_units": [
+        "대과수",
+        "씨앗박격체"
+      ],
+      "support_units": [
+        "가시꽃",
+        "모즙체"
+      ],
+      "units": "대과수·씨앗박격체·가시꽃·모즙체",
+      "action": "대과수를 전선의 중심으로 두고 박격체가 뒤에서 적 건물과 방어선을 포격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E20",
+      "race": 1,
+      "name": "대과수·귤박쥐 복합군",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        10
+      ],
+      "support_kinds": [
+        7,
+        9
+      ],
+      "main_units": [
+        "대과수",
+        "귤박쥐"
+      ],
+      "support_units": [
+        "가시꽃",
+        "모즙체"
+      ],
+      "units": "대과수·귤박쥐·가시꽃·모즙체",
+      "action": "대과수가 지상을 장악하고 귤박쥐가 지형을 넘어 측면과 후방을 공격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E21",
+      "race": 1,
+      "name": "뿌리 전진 거점전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        5,
+        6
+      ],
+      "support_kinds": [
+        0,
+        3,
+        9
+      ],
+      "main_units": [
+        "덩굴포식자",
+        "씨앗박격체"
+      ],
+      "support_units": [
+        "일귤",
+        "후피거수",
+        "모즙체"
+      ],
+      "units": "덩굴포식자·씨앗박격체·일귤·후피거수·모즙체",
+      "action": "일귤이 뿌리중계체·방어 거점을 실제 건설하며 덩굴·박격체 주력이 거점 사이를 전진한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E22",
+      "race": 1,
+      "name": "방어 확장 후 거대군",
+      "phase": "초반→후반",
+      "main_kinds": [
+        2,
+        7
+      ],
+      "support_kinds": [
+        9,
+        3,
+        12
+      ],
+      "main_units": [
+        "과즙분사체",
+        "가시꽃"
+      ],
+      "support_units": [
+        "모즙체",
+        "후피거수",
+        "대과수"
+      ],
+      "units": "과즙분사체·가시꽃·모즙체·후피거수·대과수",
+      "action": "분사체·가시꽃과 방어 건물로 멀티를 확보하고 경제가 갖춰지면 거수·대과수 중심으로 전환한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E23",
+      "race": 1,
+      "name": "분사체·덩굴 수송전",
+      "phase": "중반",
+      "main_kinds": [
+        11,
+        2,
+        5
+      ],
+      "support_kinds": [
+        10
+      ],
+      "main_units": [
+        "포낭비행체",
+        "과즙분사체",
+        "덩굴포식자"
+      ],
+      "support_units": [
+        "귤박쥐"
+      ],
+      "units": "포낭비행체·과즙분사체·덩굴포식자·귤박쥐",
+      "action": "포낭비행체로 원거리 지상 병력을 수송해 적의 측면과 멀티에 별도 전선을 만든다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E24",
+      "race": 1,
+      "name": "후피거수 강습전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        11,
+        3
+      ],
+      "support_kinds": [
+        2,
+        10
+      ],
+      "main_units": [
+        "포낭비행체",
+        "후피거수"
+      ],
+      "support_units": [
+        "과즙분사체",
+        "귤박쥐"
+      ],
+      "units": "포낭비행체·후피거수·과즙분사체·귤박쥐",
+      "action": "거수를 실은 포낭비행체로 방어선을 넘어 내려놓고 분사체·귤박쥐가 교두보를 지원한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "E25",
+      "race": 1,
+      "name": "과숙폭탄 수송전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        11,
+        4
+      ],
+      "support_kinds": [
+        10,
+        1
+      ],
+      "main_units": [
+        "포낭비행체",
+        "과숙폭탄"
+      ],
+      "support_units": [
+        "귤박쥐",
+        "껍질발톱"
+      ],
+      "units": "포낭비행체·과숙폭탄·귤박쥐·껍질발톱",
+      "action": "포낭비행체에 폭탄을 싣고 본대와 다른 방향의 채취선·밀집 지상 거점을 기습한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A1",
+      "race": 2,
+      "name": "서약수호자 초기 공세",
+      "phase": "초반",
+      "main_kinds": [
+        1
+      ],
+      "support_kinds": [],
+      "main_units": [
+        "서약수호자"
+      ],
+      "support_units": [],
+      "units": "서약수호자",
+      "action": "초반 수호자 생산에 집중해 적이 원거리 화력과 고급 기술을 갖추기 전에 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A2",
+      "race": 2,
+      "name": "성문궁수 주력군",
+      "phase": "초반~중반",
+      "main_kinds": [
+        2
+      ],
+      "support_kinds": [
+        1
+      ],
+      "main_units": [
+        "성문궁수"
+      ],
+      "support_units": [
+        "서약수호자"
+      ],
+      "units": "성문궁수·서약수호자",
+      "action": "궁수 비중을 높여 지상·공중 사격을 맡기고 소수 수호자가 앞을 막는다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A3",
+      "race": 2,
+      "name": "수호자·사제 돌파군",
+      "phase": "중반",
+      "main_kinds": [
+        1
+      ],
+      "support_kinds": [
+        4,
+        3
+      ],
+      "main_units": [
+        "서약수호자"
+      ],
+      "support_units": [
+        "결계사제",
+        "규율집행관"
+      ],
+      "units": "서약수호자·결계사제·규율집행관",
+      "action": "수호자를 주력으로 모아 사제의 보호·치유와 집행관 지원 아래 지상 방어선을 돌파한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A4",
+      "race": 2,
+      "name": "전진 거점 압박",
+      "phase": "초반~중반",
+      "main_kinds": [
+        2,
+        3
+      ],
+      "support_kinds": [
+        0,
+        4
+      ],
+      "main_units": [
+        "성문궁수",
+        "규율집행관"
+      ],
+      "support_units": [
+        "축조자",
+        "결계사제"
+      ],
+      "units": "성문궁수·규율집행관·축조자·결계사제",
+      "action": "축조자가 규율탑과 방어탑을 실제 건설하고 궁수·집행관 주력이 적 멀티 앞에 거점을 만든다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A5",
+      "race": 2,
+      "name": "집행관·궁수 제압군",
+      "phase": "중반",
+      "main_kinds": [
+        3,
+        2
+      ],
+      "support_kinds": [
+        4
+      ],
+      "main_units": [
+        "규율집행관",
+        "성문궁수"
+      ],
+      "support_units": [
+        "결계사제"
+      ],
+      "units": "규율집행관·성문궁수·결계사제",
+      "action": "집행관 비중을 높여 적의 움직임을 제한하고 궁수 집단이 안전하게 사격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A6",
+      "race": 2,
+      "name": "고대석익병 중군",
+      "phase": "중반",
+      "main_kinds": [
+        7
+      ],
+      "support_kinds": [
+        2,
+        4
+      ],
+      "main_units": [
+        "고대석익병"
+      ],
+      "support_units": [
+        "성문궁수",
+        "결계사제"
+      ],
+      "units": "고대석익병·성문궁수·결계사제",
+      "action": "석익병을 주력으로 정면 전선을 형성하고 궁수와 사제가 화력·지속력을 보완한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A7",
+      "race": 2,
+      "name": "석익병·수호자 돌파군",
+      "phase": "중반",
+      "main_kinds": [
+        7,
+        1
+      ],
+      "support_kinds": [
+        3,
+        4
+      ],
+      "main_units": [
+        "고대석익병",
+        "서약수호자"
+      ],
+      "support_units": [
+        "규율집행관",
+        "결계사제"
+      ],
+      "units": "고대석익병·서약수호자·규율집행관·결계사제",
+      "action": "튼튼한 석익병과 수호자를 함께 밀어 넣어 적의 원거리 지상군에 가까이 붙는 전투를 건다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A8",
+      "race": 2,
+      "name": "궤도창 장거리 공성",
+      "phase": "중반~후반",
+      "main_kinds": [
+        8
+      ],
+      "support_kinds": [
+        7,
+        2,
+        6
+      ],
+      "main_units": [
+        "궤도창"
+      ],
+      "support_units": [
+        "고대석익병",
+        "성문궁수",
+        "밤눈감시자"
+      ],
+      "units": "궤도창·고대석익병·성문궁수·밤눈감시자",
+      "action": "궤도창을 충분히 모으고 석익병 호위·감시자 시야 아래 적 거점을 먼 거리에서 해체한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A9",
+      "race": 2,
+      "name": "성좌추격기 주력군",
+      "phase": "중반~후반",
+      "main_kinds": [
+        13
+      ],
+      "support_kinds": [
+        1,
+        2,
+        4
+      ],
+      "main_units": [
+        "성좌추격기"
+      ],
+      "support_units": [
+        "서약수호자",
+        "성문궁수",
+        "결계사제"
+      ],
+      "units": "성좌추격기·서약수호자·성문궁수·결계사제",
+      "action": "추격기를 주력으로 키워 수호자가 붙잡은 지상 표적에 지속 빔 화력을 집중한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A10",
+      "race": 2,
+      "name": "추격기·석익병 중장군",
+      "phase": "후반",
+      "main_kinds": [
+        13,
+        7
+      ],
+      "support_kinds": [
+        4,
+        6
+      ],
+      "main_units": [
+        "성좌추격기",
+        "고대석익병"
+      ],
+      "support_units": [
+        "결계사제",
+        "밤눈감시자"
+      ],
+      "units": "성좌추격기·고대석익병·결계사제·밤눈감시자",
+      "action": "석익병의 전열과 추격기의 지속 화력을 결합해 적의 고체력 지상 주력을 상대한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A11",
+      "race": 2,
+      "name": "천문심판관 지원군",
+      "phase": "중반~후반",
+      "main_kinds": [
+        5
+      ],
+      "support_kinds": [
+        1,
+        2,
+        4
+      ],
+      "main_units": [
+        "천문심판관"
+      ],
+      "support_units": [
+        "서약수호자",
+        "성문궁수",
+        "결계사제"
+      ],
+      "units": "천문심판관·서약수호자·성문궁수·결계사제",
+      "action": "심판관을 충분히 확보해 수호자·궁수 본대가 싸우는 동안 지연 범위 공격으로 적 밀집군을 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A12",
+      "race": 2,
+      "name": "심판관·석익병 범위군",
+      "phase": "후반",
+      "main_kinds": [
+        5,
+        7
+      ],
+      "support_kinds": [
+        3,
+        6
+      ],
+      "main_units": [
+        "천문심판관",
+        "고대석익병"
+      ],
+      "support_units": [
+        "규율집행관",
+        "밤눈감시자"
+      ],
+      "units": "천문심판관·고대석익병·규율집행관·밤눈감시자",
+      "action": "석익병의 충격파와 심판관의 범위 공격을 중심으로 밀집한 지상 부대를 상대한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A13",
+      "race": 2,
+      "name": "황혼잠행자 은신 주력",
+      "phase": "중반~후반",
+      "main_kinds": [
+        10
+      ],
+      "support_kinds": [
+        6,
+        3
+      ],
+      "main_units": [
+        "황혼잠행자"
+      ],
+      "support_units": [
+        "밤눈감시자",
+        "규율집행관"
+      ],
+      "units": "황혼잠행자·밤눈감시자·규율집행관",
+      "action": "잠행자를 주력으로 모아 정찰된 탐지 공백과 고립 표적을 공략하고 감시자·집행관이 지원한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A14",
+      "race": 2,
+      "name": "잠행자·궁수 혼합군",
+      "phase": "후반",
+      "main_kinds": [
+        10,
+        2
+      ],
+      "support_kinds": [
+        4,
+        6
+      ],
+      "main_units": [
+        "황혼잠행자",
+        "성문궁수"
+      ],
+      "support_units": [
+        "결계사제",
+        "밤눈감시자"
+      ],
+      "units": "황혼잠행자·성문궁수·결계사제·밤눈감시자",
+      "action": "궁수가 정면을 잡는 동안 잠행자가 측면에서 접근해 적 원거리 주력과 지원 병력을 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A15",
+      "race": 2,
+      "name": "월익·잠행자 연합",
+      "phase": "중반~후반",
+      "main_kinds": [
+        9,
+        10
+      ],
+      "support_kinds": [
+        6
+      ],
+      "main_units": [
+        "월익추적자",
+        "황혼잠행자"
+      ],
+      "support_units": [
+        "밤눈감시자"
+      ],
+      "units": "월익추적자·황혼잠행자·밤눈감시자",
+      "action": "월익추적자가 적 공중군·공중 탐지기를 상대하고 잠행자가 지상 거점을 공격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A16",
+      "race": 2,
+      "name": "월익·궤도창 제공 공성",
+      "phase": "중반~후반",
+      "main_kinds": [
+        9,
+        8
+      ],
+      "support_kinds": [
+        6,
+        1
+      ],
+      "main_units": [
+        "월익추적자",
+        "궤도창"
+      ],
+      "support_units": [
+        "밤눈감시자",
+        "서약수호자"
+      ],
+      "units": "월익추적자·궤도창·밤눈감시자·서약수호자",
+      "action": "월익추적자가 공중 위협을 차단하고 감시자가 시야를 제공하는 동안 궤도창이 지상을 포격한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A17",
+      "race": 2,
+      "name": "대심판선 함대",
+      "phase": "후반",
+      "main_kinds": [
+        12
+      ],
+      "support_kinds": [
+        9,
+        6
+      ],
+      "main_units": [
+        "대심판선"
+      ],
+      "support_units": [
+        "월익추적자",
+        "밤눈감시자"
+      ],
+      "units": "대심판선·월익추적자·밤눈감시자",
+      "action": "대심판선을 주력으로 모아 월익 호위 아래 적 지상·공중 거점을 함께 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A18",
+      "race": 2,
+      "name": "대심판선·석익병 연합",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        7
+      ],
+      "support_kinds": [
+        4,
+        6
+      ],
+      "main_units": [
+        "대심판선",
+        "고대석익병"
+      ],
+      "support_units": [
+        "결계사제",
+        "밤눈감시자"
+      ],
+      "units": "대심판선·고대석익병·결계사제·밤눈감시자",
+      "action": "공중 대심판선과 지상 석익병이 전선을 함께 형성하고 사제가 지상군을 지원한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A19",
+      "race": 2,
+      "name": "대심판선·추격기 화력군",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        13
+      ],
+      "support_kinds": [
+        9,
+        6
+      ],
+      "main_units": [
+        "대심판선",
+        "성좌추격기"
+      ],
+      "support_units": [
+        "월익추적자",
+        "밤눈감시자"
+      ],
+      "units": "대심판선·성좌추격기·월익추적자·밤눈감시자",
+      "action": "대심판선과 추격기의 화력을 적 고체력 지상군에 집중하고 월익추적자가 대공 호위를 맡는다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A20",
+      "race": 2,
+      "name": "대심판선·궤도창 중공성",
+      "phase": "후반",
+      "main_kinds": [
+        12,
+        8
+      ],
+      "support_kinds": [
+        9,
+        1,
+        6
+      ],
+      "main_units": [
+        "대심판선",
+        "궤도창"
+      ],
+      "support_units": [
+        "월익추적자",
+        "서약수호자",
+        "밤눈감시자"
+      ],
+      "units": "대심판선·궤도창·월익추적자·서약수호자·밤눈감시자",
+      "action": "함대와 장거리 포격대를 함께 모아 적의 대규모 방어선을 여러 공격 거리에서 압박한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A21",
+      "race": 2,
+      "name": "황혼잠행자 수송전",
+      "phase": "중반",
+      "main_kinds": [
+        11,
+        10
+      ],
+      "support_kinds": [
+        9
+      ],
+      "main_units": [
+        "회랑지기",
+        "황혼잠행자"
+      ],
+      "support_units": [
+        "월익추적자"
+      ],
+      "units": "회랑지기·황혼잠행자·월익추적자",
+      "action": "회랑지기로 잠행자 주력을 적 후방에 운반해 지상 방어선과 탐지 배치를 우회한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A22",
+      "race": 2,
+      "name": "궤도창 수송 포격전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        11,
+        8
+      ],
+      "support_kinds": [
+        9,
+        6
+      ],
+      "main_units": [
+        "회랑지기",
+        "궤도창"
+      ],
+      "support_units": [
+        "월익추적자",
+        "밤눈감시자"
+      ],
+      "units": "회랑지기·궤도창·월익추적자·밤눈감시자",
+      "action": "회랑지기로 궤도창을 측면에 옮겨 포격하고 적이 접근하면 회수해 다른 거점을 노린다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A23",
+      "race": 2,
+      "name": "고대석익병 강습전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        11,
+        7
+      ],
+      "support_kinds": [
+        4,
+        9
+      ],
+      "main_units": [
+        "회랑지기",
+        "고대석익병"
+      ],
+      "support_units": [
+        "결계사제",
+        "월익추적자"
+      ],
+      "units": "회랑지기·고대석익병·결계사제·월익추적자",
+      "action": "회랑지기로 석익병을 수송해 적 후방에 단단한 교두보를 만들고 사제·월익이 지원한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A24",
+      "race": 2,
+      "name": "천문심판관 수송전",
+      "phase": "중반~후반",
+      "main_kinds": [
+        11,
+        5
+      ],
+      "support_kinds": [
+        9,
+        6
+      ],
+      "main_units": [
+        "회랑지기",
+        "천문심판관"
+      ],
+      "support_units": [
+        "월익추적자",
+        "밤눈감시자"
+      ],
+      "units": "회랑지기·천문심판관·월익추적자·밤눈감시자",
+      "action": "회랑지기로 심판관을 밀집한 채취선·부대 근처에 내려 범위 공격한 뒤 회수한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    },
+    {
+      "id": "A25",
+      "race": 2,
+      "name": "방어 확장 후 함대전환",
+      "phase": "초반→후반",
+      "main_kinds": [
+        2,
+        12
+      ],
+      "support_kinds": [
+        9,
+        6
+      ],
+      "main_units": [
+        "성문궁수",
+        "대심판선"
+      ],
+      "support_units": [
+        "월익추적자",
+        "밤눈감시자"
+      ],
+      "units": "성문궁수·대심판선·월익추적자·밤눈감시자",
+      "action": "궁수와 동력 방어탑으로 멀티를 지키며 자원을 확보한 뒤 대심판선 함대로 주력을 전환한다.",
+      "trigger": "실제 생산·연구·자원·인구 조건을 충족하고 정찰 정보와 지형에 이 조합의 목적이 맞을 때",
+      "abort": "정찰한 적 조합이 주력의 약점을 찌르거나 본진 방어·생존·퇴로가 위태로우면 철수/재집결/다른 주력으로 전환",
+      "implementation_status": "implemented_and_locally_verified_not_released"
+    }
+  ],
+  "sources": [
+    "https://classic.battle.net/scc/terran/tadv.shtml",
+    "https://classic.battle.net/scc/terran/tvt.shtml",
+    "https://classic.battle.net/scc/terran/uv.shtml",
+    "https://classic.battle.net/scc/terran/ug.shtml",
+    "https://classic.battle.net/scc/terran/is.shtml",
+    "https://classic.battle.net/scc/zerg/zvz.shtml",
+    "https://classic.battle.net/scc/zerg/units/zergling.shtml",
+    "https://classic.battle.net/scc/zerg/units/mutalisk.shtml",
+    "https://classic.battle.net/scc/zerg/units/ultralisk.shtml",
+    "https://classic.battle.net/scc/zerg/units/iterran.shtml",
+    "https://classic.battle.net/scc/zerg/units/defiler.shtml",
+    "https://classic.battle.net/scc/protoss/astrat.shtml",
+    "https://classic.battle.net/scc/protoss/units/shuttle.shtml",
+    "https://classic.battle.net/scc/protoss/units/reaver.shtml",
+    "https://classic.battle.net/scc/protoss/units/templar.shtml",
+    "https://classic.battle.net/scc/protoss/units/corsair.shtml",
+    "https://classic.battle.net/scc/protoss/units/darkarchon.shtml",
+    "https://classic.battle.net/scc/protoss/units/carrier.shtml"
+  ],
+  "current_game_limits": {
+    "nova": "Fighter air-only; bomber ground-only; carrier drones must be paid for; nukes damage own army; no mines or flying buildings.",
+    "egyul": "Bat attacks ground/air; pod is transport only; Mojeup is a ground detector; roots spread across legal ground; no burrow/Lurker/DarkSwarm/Nydus.",
+    "araowl": "Moon fighter air-only; chaser ground-only; capital is a direct-fire ship, not a carrier; no Recall/Stasis/warp/Yamato; judgment is delayed area damage, not storm damage over time.",
+    "transports": "Passenger population sum 8; legal actual ground for unload; no landing on impassable cliff faces."
+  },
+  "approval": "User approved all 25 army plans per faction on 2026-10-26; implemented and locally verified. No public release requested for this update.",
+  "verification": "docs/verification_ai_tactics_20261026/checks.json"
+}

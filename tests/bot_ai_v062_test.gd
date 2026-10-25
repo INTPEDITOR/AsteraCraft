@@ -44,13 +44,19 @@ func run():
 			var hq=c.entity(c.players[0].home)
 			var rally=c.map.nearest_free(c.center(hq)+(Vector2(63.5,63.5)-c.center(hq)).normalized()*7)
 			var army=[]
-			for i in range(int(AI.PROFILES[level].attack)):army.append(c.add_unit(0,1,rally))
+			# Hell now commits a larger main force instead of a four-body feed.
+			var committed_count=6 if level==5 else int(AI.PROFILES[level].attack)
+			for i in range(committed_count+(1 if level>=2 else 0)):army.append(c.add_unit(0,1,rally))
 			AI.combat(c,0,army,[hq],[],AI.PROFILES[level])
-			check(c.players[0]._ai_wave.is_empty() and army.all(func(u):return u.order=="move"),"army travels to forward staging "+label)
-			var stage=ACData.point(c.players[0]._ai_stage_pos)
-			for u in army:u.pos=ACData.packed(AI.staging_slot(c,c.players[0],u,stage,c.center(hq)))
-			AI.combat(c,0,army,[hq],[],AI.PROFILES[level])
-			check(c.players[0]._ai_wave.size()==army.size() and army.all(func(u):return u.order=="attack_move"),"assembled wave attacks "+label)
+			check(c.players[0]._ai_wave.is_empty() and army.all(func(u):return u.order in ["move","hold"]),"army assembles before travelling as a cohort "+label)
+			for leg in range(3):
+				for u in army:
+					var slot=c.players[0].get("_ai_stage_slots",{}).get(int(u.id),{})
+					if not slot.is_empty():u.pos=slot.pos.duplicate()
+				AI.combat(c,0,army,[hq],[],AI.PROFILES[level])
+			var scout=int(c.players[0].get("_ai_scout",-1))
+			var fighters=army.filter(func(u):return int(u.id)!=scout)
+			check(c.players[0]._ai_wave.size()==fighters.size() and fighters.size()>=committed_count and fighters.all(func(u):return u.order=="attack_move"),"assembled main wave attacks while its scout remains independent "+label)
 	for level in range(6):
 		var c=arena(2,level)
 		var factory=c.buildings.filter(func(b):return b.owner==0 and b.kind==3)[0]

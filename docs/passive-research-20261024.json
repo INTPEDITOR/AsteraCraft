@@ -59,7 +59,7 @@
     {
       "id": "claw_overdrive",
       "name": "과활성 신경절",
-      "description": "껍질발톱 공격 속도50% 증가(공격 간격0.65→약0.43초).",
+      "description": "껍질발톱 공격 속도50% 증가(공격 간격0.55→약0.37초).",
       "race": 1,
       "unit_kind": 1,
       "building": 4,
