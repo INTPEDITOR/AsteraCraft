@@ -1,0 +1,92 @@
+[
+  {
+    "map": 0,
+    "race": 0,
+    "before_arrival": 13.05,
+    "after_arrival": 13.05,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 0,
+    "race": 1,
+    "before_arrival": 15.35,
+    "after_arrival": 15.35,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 0,
+    "race": 2,
+    "before_arrival": 16.85,
+    "after_arrival": 16.85,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 1,
+    "race": 0,
+    "before_arrival": 17.45,
+    "after_arrival": 17.45,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 1,
+    "race": 1,
+    "before_arrival": 15.15,
+    "after_arrival": 15.15,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 1,
+    "race": 2,
+    "before_arrival": 18.8,
+    "after_arrival": 18.8,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 2,
+    "race": 0,
+    "before_arrival": 18.85,
+    "after_arrival": 18.85,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 2,
+    "race": 1,
+    "before_arrival": 11.4,
+    "after_arrival": 11.4,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  },
+  {
+    "map": 2,
+    "race": 2,
+    "before_arrival": 15.85,
+    "after_arrival": 15.85,
+    "same_trajectory": true,
+    "same_final_positions": true,
+    "same_max_stop": true,
+    "new_deferred_stops": 0
+  }
+]

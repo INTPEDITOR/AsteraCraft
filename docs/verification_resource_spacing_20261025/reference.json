@@ -1,0 +1,392 @@
+{
+  "source_sha256": "dc2b9ed0cb6adfa4e605ac2a1ce30bb9f3aff7157665c9afd1f1cce7c538b2dc",
+  "starts": [
+    {
+      "anchor": [
+        118.0,
+        8.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      },
+      "map": 0,
+      "slot": 0
+    },
+    {
+      "anchor": [
+        6.0,
+        7.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      },
+      "map": 0,
+      "slot": 1
+    },
+    {
+      "anchor": [
+        6.0,
+        117.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      },
+      "map": 0,
+      "slot": 2
+    },
+    {
+      "anchor": [
+        118.0,
+        118.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      },
+      "map": 0,
+      "slot": 3
+    },
+    {
+      "anchor": [
+        84.0,
+        6.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      },
+      "map": 1,
+      "slot": 0
+    },
+    {
+      "anchor": [
+        117.0,
+        40.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      },
+      "map": 1,
+      "slot": 1
+    },
+    {
+      "anchor": [
+        41.0,
+        119.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      },
+      "map": 1,
+      "slot": 2
+    },
+    {
+      "anchor": [
+        7.0,
+        84.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 2.0
+      },
+      "map": 1,
+      "slot": 3
+    },
+    {
+      "anchor": [
+        6.0,
+        87.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      },
+      "map": 2,
+      "slot": 0
+    },
+    {
+      "anchor": [
+        26.0,
+        119.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 2.0
+      },
+      "map": 2,
+      "slot": 1
+    },
+    {
+      "anchor": [
+        56.0,
+        5.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 2.0
+      },
+      "map": 2,
+      "slot": 2
+    },
+    {
+      "anchor": [
+        118.0,
+        28.0
+      ],
+      "gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      },
+      "map": 2,
+      "slot": 3
+    }
+  ],
+  "original_starts": [
+    {
+      "map": 0,
+      "slot": 0,
+      "source_headquarters_anchor": [
+        117,
+        7
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        118.0,
+        8.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      }
+    },
+    {
+      "map": 0,
+      "slot": 1,
+      "source_headquarters_anchor": [
+        7,
+        6
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        6.0,
+        7.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      }
+    },
+    {
+      "map": 0,
+      "slot": 2,
+      "source_headquarters_anchor": [
+        7,
+        116
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        6.0,
+        117.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      }
+    },
+    {
+      "map": 0,
+      "slot": 3,
+      "source_headquarters_anchor": [
+        117,
+        117
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        118.0,
+        118.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      }
+    },
+    {
+      "map": 1,
+      "slot": 0,
+      "source_headquarters_anchor": [
+        83,
+        6
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        84.0,
+        6.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      }
+    },
+    {
+      "map": 1,
+      "slot": 1,
+      "source_headquarters_anchor": [
+        116,
+        40
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        117.0,
+        40.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      }
+    },
+    {
+      "map": 1,
+      "slot": 2,
+      "source_headquarters_anchor": [
+        42,
+        119
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        41.0,
+        119.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      }
+    },
+    {
+      "map": 1,
+      "slot": 3,
+      "source_headquarters_anchor": [
+        8,
+        85
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        7.0,
+        84.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 2.0
+      }
+    },
+    {
+      "map": 2,
+      "slot": 0,
+      "source_headquarters_anchor": [
+        7,
+        87
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        6.0,
+        87.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 3.0
+      }
+    },
+    {
+      "map": 2,
+      "slot": 1,
+      "source_headquarters_anchor": [
+        27,
+        118
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        26.0,
+        119.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 2.0
+      }
+    },
+    {
+      "map": 2,
+      "slot": 2,
+      "source_headquarters_anchor": [
+        57,
+        6
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        56.0,
+        5.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 2.0
+      }
+    },
+    {
+      "map": 2,
+      "slot": 3,
+      "source_headquarters_anchor": [
+        117,
+        27
+      ],
+      "source_gaps": {
+        "as": 3.0,
+        "tera": 3.0
+      },
+      "previous_game_headquarters_anchor": [
+        118.0,
+        28.0
+      ],
+      "previous_game_gaps": {
+        "as": 2.0,
+        "tera": 4.0
+      }
+    }
+  ],
+  "finding": "Source resource conversion matches original CHK. The prior mineral-facing headquarters shift changed Tera spacing; latest user requests closer Tera but fixed expansion resources."
+}

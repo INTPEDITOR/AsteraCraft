@@ -1,0 +1,86 @@
+{
+  "checks": 5,
+  "failures": [],
+  "mode": "opening",
+  "passed": true,
+  "records": [
+    {
+      "army": 19,
+      "buildings": 10,
+      "first_expansion": 494.900000000044,
+      "first_wave": 417.500000000026,
+      "gathered": 7191,
+      "level": 0,
+      "race": 2,
+      "spent": 4925.0,
+      "time": 546.900000000056,
+      "won": true,
+      "workers": 8
+    },
+    {
+      "army": 19,
+      "buildings": 13,
+      "first_expansion": 420.600000000027,
+      "first_wave": 373.500000000016,
+      "gathered": 6650,
+      "level": 1,
+      "race": 2,
+      "spent": 6600.0,
+      "time": 495.200000000044,
+      "won": true,
+      "workers": 14
+    },
+    {
+      "army": 16,
+      "buildings": 13,
+      "first_expansion": 423.700000000028,
+      "first_wave": 325.500000000006,
+      "gathered": 6041,
+      "level": 2,
+      "race": 2,
+      "spent": 5875.0,
+      "time": 450.700000000034,
+      "won": true,
+      "workers": 16
+    },
+    {
+      "army": 14,
+      "buildings": 12,
+      "first_expansion": 383.500000000019,
+      "first_wave": 275.599999999994,
+      "gathered": 5355,
+      "level": 3,
+      "race": 2,
+      "spent": 5275.0,
+      "time": 396.300000000022,
+      "won": true,
+      "workers": 16
+    },
+    {
+      "army": 12,
+      "buildings": 12,
+      "first_expansion": 348.300000000011,
+      "first_wave": 229.699999999991,
+      "gathered": 4834,
+      "level": 4,
+      "race": 2,
+      "spent": 4725.0,
+      "time": 358.900000000013,
+      "won": true,
+      "workers": 17
+    },
+    {
+      "army": 10,
+      "buildings": 9,
+      "first_expansion": 230.799999999991,
+      "first_wave": 182.899999999994,
+      "gathered": 4466,
+      "level": 5,
+      "race": 2,
+      "spent": 3800.0,
+      "time": 327.300000000006,
+      "won": true,
+      "workers": 20
+    }
+  ]
+}

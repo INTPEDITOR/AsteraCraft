@@ -1,0 +1,270 @@
+{
+  "checks": 96,
+  "failures": [],
+  "journeys": [
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 0,
+      "route": 143.002636909485,
+      "slots": [
+        0,
+        1
+      ],
+      "walked": 143.74576574564
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 0,
+      "route": 145.575497865677,
+      "slots": [
+        1,
+        2
+      ],
+      "walked": 143.049821391702
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 0,
+      "route": 141.242404669523,
+      "slots": [
+        2,
+        3
+      ],
+      "walked": 141.778337925673
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 0,
+      "route": 144.576910018921,
+      "slots": [
+        3,
+        0
+      ],
+      "walked": 142.079698681831
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 0,
+      "route": 143.002636909485,
+      "slots": [
+        0,
+        1
+      ],
+      "walked": 143.156537994742
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 0,
+      "route": 145.462827920914,
+      "slots": [
+        1,
+        2
+      ],
+      "walked": 143.043445367366
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 0,
+      "route": 141.242404669523,
+      "slots": [
+        2,
+        3
+      ],
+      "walked": 140.824004769325
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 0,
+      "route": 144.646791934967,
+      "slots": [
+        3,
+        0
+      ],
+      "walked": 142.004072189331
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 1,
+      "route": 129.736731290817,
+      "slots": [
+        0,
+        1
+      ],
+      "walked": 128.973260968924
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 1,
+      "route": 126.411029100418,
+      "slots": [
+        1,
+        2
+      ],
+      "walked": 124.73618400842
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 1,
+      "route": 127.258735537529,
+      "slots": [
+        2,
+        3
+      ],
+      "walked": 126.889440491796
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 1,
+      "route": 131.316777229309,
+      "slots": [
+        3,
+        0
+      ],
+      "walked": 127.824462801218
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 1,
+      "route": 129.998092412949,
+      "slots": [
+        0,
+        1
+      ],
+      "walked": 129.264576852322
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 1,
+      "route": 126.411029100418,
+      "slots": [
+        1,
+        2
+      ],
+      "walked": 123.863274306059
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 1,
+      "route": 127.258735537529,
+      "slots": [
+        2,
+        3
+      ],
+      "walked": 127.402771860361
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 1,
+      "route": 131.316777229309,
+      "slots": [
+        3,
+        0
+      ],
+      "walked": 128.118459515274
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 2,
+      "route": 166.375368833542,
+      "slots": [
+        0,
+        1
+      ],
+      "walked": 165.143589198589
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 2,
+      "route": 168.127457380295,
+      "slots": [
+        1,
+        2
+      ],
+      "walked": 166.0002309829
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 2,
+      "route": 118.023435592651,
+      "slots": [
+        2,
+        3
+      ],
+      "walked": 117.392912596464
+    },
+    {
+      "arrived": true,
+      "kind": 0,
+      "map": 2,
+      "route": 179.554218769073,
+      "slots": [
+        3,
+        0
+      ],
+      "walked": 178.195977672935
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 2,
+      "route": 166.331787347794,
+      "slots": [
+        0,
+        1
+      ],
+      "walked": 165.536724336445
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 2,
+      "route": 168.127457380295,
+      "slots": [
+        1,
+        2
+      ],
+      "walked": 165.301588222384
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 2,
+      "route": 118.023435592651,
+      "slots": [
+        2,
+        3
+      ],
+      "walked": 116.658768609166
+    },
+    {
+      "arrived": true,
+      "kind": 1,
+      "map": 2,
+      "route": 179.554218769073,
+      "slots": [
+        3,
+        0
+      ],
+      "walked": 178.204372018576
+    }
+  ]
+}

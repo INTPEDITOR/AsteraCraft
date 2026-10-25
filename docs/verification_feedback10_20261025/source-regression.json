@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "name": "worker",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 7.94
+    },
+    {
+      "name": "bot-budget",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 21.91
+    },
+    {
+      "name": "bot-research",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 2.95
+    },
+    {
+      "name": "placement",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 9.51
+    },
+    {
+      "name": "construction",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 29.24
+    },
+    {
+      "name": "preview",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 3.59
+    },
+    {
+      "name": "cliff",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 9.33
+    },
+    {
+      "name": "formations",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 23.88
+    },
+    {
+      "name": "types",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 5.81
+    },
+    {
+      "name": "melee",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 7.77
+    },
+    {
+      "name": "brood",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 1.64
+    },
+    {
+      "name": "ramps",
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 28.67
+    }
+  ]
+}

@@ -5,6 +5,7 @@ const SIZE := 128
 const SOURCE_WALK_POLICY := 3
 const ELEVATION_PIXELS := 24.0
 const HQ_MINERAL_GAP := 2.0
+const HQ_TERA_GAP := 2.0
 var terrain := PackedByteArray()
 var height_map := PackedByteArray()
 var surface_map := PackedByteArray()
@@ -20,16 +21,21 @@ var render_regions: Array = []
 var ramps: Array = []
 var bridges: Array = []
 var bases: Array = []
+var headquarters_sites: Dictionary = {}
 var decorations: Array = []
 var source_info: Dictionary = {}
 var resource_obstacles: Array = []
 var _last_buildings: Array = []
+var _worker_passages: Dictionary={}
+var _worker_previous_bounds: Dictionary={}
 var _definition: Dictionary = {}
 var visual_ramps: Array = []
 var visual_roles := PackedByteArray()
 var _visual_elevations := PackedFloat32Array()
 var _visual_vertices: Dictionary = {}
 var source_walk_masks := PackedInt32Array()
+var source_height_bits := PackedInt64Array()
+var source_height_active := false
 var source_water_masks := PackedInt32Array()
 var _visual_water_fractions := PackedFloat32Array()
 var source_ramp_regions: Array = []
@@ -50,9 +56,12 @@ func reflect(p: Vector2, slot: int) -> Vector2:
 func make(map_id: int, layout: String="source_chk_cv5_vf4") -> void:
 	theme=clampi(map_id,0,2)
 	for array in [resources,starts,render_regions,ramps,bridges,bases,decorations,resource_obstacles]:array.clear()
+	headquarters_sites.clear()
 	_last_buildings=[]
+	_worker_passages.clear();_worker_previous_bounds.clear()
 	visual_roles.clear()
 	source_walk_masks.clear()
+	source_height_bits.clear();source_height_active=false
 	source_water_masks.clear();_visual_water_fractions.clear()
 	source_ramp_regions.clear()
 	source_detail_active=false
@@ -118,6 +127,7 @@ func _make_original(map_id: int) -> void:
 	starts=_definition.starts.duplicate(true)
 	resources=_definition.resources.duplicate(true)
 	bases=_definition.bases.duplicate(true)
+	_apply_resource_spacing()
 	if FileAccess.file_exists("res://data/terrain_visual_roles.json"):
 		var visuals=JSON.parse_string(FileAccess.get_file_as_string("res://data/terrain_visual_roles.json"))
 		if visuals.get("source_sha256","")==FileAccess.get_sha256("res://data/original_maps.json"):
@@ -126,6 +136,7 @@ func _make_original(map_id: int) -> void:
 		var detail=JSON.parse_string(FileAccess.get_file_as_string("res://data/source_terrain_detail.json"))
 		assert(detail.source_sha256==FileAccess.get_sha256("res://data/original_maps.json"),"Source geometry metadata mismatch")
 		source_walk_masks=PackedInt32Array(detail.maps[map_id].walk_masks)
+		if detail.maps[map_id].has("height_bits"):source_height_bits=PackedInt64Array(detail.maps[map_id].height_bits)
 		for raw in detail.maps[map_id].ramps:
 			var region=raw.duplicate(true)
 			region.center=ACData.point(raw.center)
@@ -149,6 +160,26 @@ func _make_original(map_id: int) -> void:
 	_build_visual_relief()
 	for ramp in visual_ramps:ramps.append({"kind":"source","center":ACData.packed(ramp.center),"width":ramp.width})
 	_configure_navigation()
+
+func _apply_resource_spacing() -> void:
+	var file="res://data/resource_spacing_20261025.json"
+	if not FileAccess.file_exists(file):return
+	var plan=JSON.parse_string(FileAccess.get_file_as_string(file))
+	assert(plan.source_sha256==FileAccess.get_sha256("res://data/original_maps.json"),"Resource spacing source mismatch")
+	assert(float(plan.mineral_gap)==HQ_MINERAL_GAP and float(plan.tera_gap)==HQ_TERA_GAP,"Placement and resource layout must share clearance")
+	var entry: Dictionary=plan.maps[theme]
+	for change in entry.tera_overrides:
+		assert(int(change.slot)>=0,"Expansion Tera must stay at the source position")
+		for node in resources:
+			if int(node.id)!=int(change.id):continue
+			assert(node.type=="tera" and ACData.point(node.pos)==ACData.point(change.original_pos),"Only declared source Tera may move")
+			node.original_pos=node.pos.duplicate()
+			node.pos=change.pos.duplicate()
+			node.spacing_adjusted=true
+			break
+	for site in entry.base_sites:headquarters_sites[int(site.base)]=site.headquarters_anchor.duplicate()
+	source_info.resource_layout_exact=entry.tera_overrides.is_empty()
+	source_info.resource_layout_policy="Balanced As2/Tera2; user-requested closer Tera; original minerals, terrain and source files preserved"
 
 func _build_visual_relief() -> void:
 	render_signature=hash([terrain,height_map,surface_map,visual_roles,theme])
@@ -342,6 +373,12 @@ static func footprint_gap(a: Rect2, b: Rect2) -> float:
 	# Build-grid exclusion uses edge-to-edge distance, not sprite centers.
 	return maxf(maxf(a.position.x-b.end.x,b.position.x-a.end.x),maxf(a.position.y-b.end.y,b.position.y-a.end.y))
 
+static func headquarters_resource_gap(node: Dictionary) -> float:
+	# Match the balanced starting mineral/Tera setback. The user requested
+	# closer Tera than the original CHK's three-tile starting perimeter.
+	# A depleted mineral disappears; a depleted Tera vent remains occupied.
+	return HQ_TERA_GAP if node.type=="tera" else HQ_MINERAL_GAP if node.type=="as" and node.amount>0 else 0.0
+
 func _closest_start_anchor(slot: int, size: Vector2) -> Vector2:
 	var original=(ACData.point(starts[slot])-size*.5).floor()
 	var home_ore=[]
@@ -360,7 +397,8 @@ func _closest_start_anchor(slot: int, size: Vector2) -> Vector2:
 			var rect=Rect2(Vector2(x,y)-Vector2.ONE*.5,size)
 			for node in resources:
 				var body=Rect2(ACData.point(node.pos)-ACData.point(node.collision_size)*.5,ACData.point(node.collision_size))
-				if rect.intersects(body.grow(HQ_MINERAL_GAP if node.type=="as" and node.amount>0 else 0.0)):valid=false;break
+				if node.type=="as" and node.amount<=0:continue
+				if rect.intersects(body.grow(headquarters_resource_gap(node))):valid=false;break
 			if not valid:continue
 			var nearest=INF;var average=0.0
 			for node in home_ore:
@@ -478,6 +516,7 @@ func _sample_visual_elevation(point: Vector2) -> float:
 func reset_solids(buildings: Array) -> void:
 	render_signature=hash([terrain,height_map,surface_map,visual_roles,theme])
 	_last_buildings=buildings
+	_worker_passages.clear()
 	for y in range(SIZE):
 		for x in range(SIZE):navigator.set_point_solid(Vector2i(x,y),terrain[y*SIZE+x]!=0 and not (source_walk_masks.size()==SIZE*SIZE and visual_role(y*SIZE+x)==3))
 	for obstacle in resource_obstacles:
@@ -494,6 +533,7 @@ func reset_solids(buildings: Array) -> void:
 	# Synthetic test/editor terrain uses its edited coarse geometry. Source
 	# detail is active only while the imported terrain itself is unchanged.
 	source_detail_active=source_walk_masks.size()==SIZE*SIZE and terrain==PackedByteArray(_definition.terrain)
+	source_height_active=source_detail_active and source_height_bits.size()==SIZE*SIZE and height_map==PackedByteArray(_definition.height_map)
 	if source_detail_active:_rebuild_source_collision(buildings)
 	revision+=1
 
@@ -549,6 +589,91 @@ func source_ground_fits(dimensions: Vector2, pos: Vector2) -> bool:
 	var high=Vector2i(((pos+dimensions*.5+Vector2.ONE*.49999)*4).floor())+Vector2i.ONE
 	if low.x<0 or low.y<0 or high.x>512 or high.y>512:return false
 	return _detail_prefix[high.y*513+high.x]-_detail_prefix[low.y*513+high.x]-_detail_prefix[high.y*513+low.x]+_detail_prefix[low.y*513+low.x]==0
+
+func _worker_passage_context(owner: int) -> Dictionary:
+	if _worker_passages.has(owner):return _worker_passages[owner]
+	var own: Array=[];var foreign: Array=[];var corridors: Array=[]
+	for building in _last_buildings:
+		if building.hp<=0:continue
+		var d=ACData.building(int(building.race),int(building.kind))
+		var rect=Rect2(ACData.point(building.pos)-Vector2.ONE*.5,Vector2(d.w,d.h))
+		if int(building.owner)==owner:own.append(rect)
+		else:foreign.append(rect)
+	# A narrow shared edge is a worker passage, never the whole footprint.
+	for i in range(own.size()):
+		for j in range(i+1,own.size()):
+			var a: Rect2=own[i];var b: Rect2=own[j]
+			var low=maxf(a.position.y,b.position.y);var high=minf(a.end.y,b.end.y)
+			if high>low and (is_equal_approx(a.end.x,b.position.x) or is_equal_approx(b.end.x,a.position.x)):
+				var edge=a.end.x if is_equal_approx(a.end.x,b.position.x) else b.end.x
+				corridors.append(Rect2(edge-.5,low-.5,1,high-low+1))
+			low=maxf(a.position.x,b.position.x);high=minf(a.end.x,b.end.x)
+			if high>low and (is_equal_approx(a.end.y,b.position.y) or is_equal_approx(b.end.y,a.position.y)):
+				var edge=a.end.y if is_equal_approx(a.end.y,b.position.y) else b.end.y
+				corridors.append(Rect2(low-.5,edge-.5,high-low+1,1))
+	var bounds=Rect2i()
+	for corridor in corridors:
+		var low=Vector2i(((corridor.position+Vector2.ONE*.5)*4).floor())
+		var high=Vector2i(((corridor.end+Vector2.ONE*.5)*4).ceil())
+		var area=Rect2i(low,high-low).intersection(Rect2i(0,0,512,512))
+		bounds=bounds.merge(area) if bounds.has_area() else area
+	var previous: Rect2i=_worker_previous_bounds.get(owner,Rect2i())
+	var changed=bounds.merge(previous) if previous.has_area() and bounds.has_area() else (previous if previous.has_area() else bounds)
+	_worker_previous_bounds[owner]=bounds
+	var context={"corridors":corridors,"foreign":foreign,"bounds":bounds,"changed":changed,"prefix":PackedInt32Array()}
+	_worker_passages[owner]=context
+	return context
+
+func worker_has_passages(owner: int) -> bool:
+	return not _worker_passage_context(owner).corridors.is_empty()
+
+func worker_passage_bounds(owner: int) -> Rect2i:
+	return _worker_passage_context(owner).changed
+
+func worker_ground_fits(owner: int, dimensions: Vector2, pos: Vector2) -> bool:
+	var context=_worker_passage_context(owner)
+	if context.corridors.is_empty():return false
+	if context.prefix.is_empty():
+		var solid: PackedByteArray=_detail_solid.duplicate() if source_detail_active else PackedByteArray()
+		if not source_detail_active:
+			solid.resize(512*512)
+			for y in range(512):
+				for x in range(512):solid[y*512+x]=int(navigator.is_point_solid(Vector2i(x/4,y/4)))
+		for corridor in context.corridors:
+			var low=Vector2i(((corridor.position+Vector2.ONE*.5)*4).ceil()).max(Vector2i.ZERO)
+			var high=Vector2i(((corridor.end+Vector2.ONE*.5)*4).floor()).min(Vector2i(512,512))
+			for y in range(low.y,high.y):
+				for x in range(low.x,high.x):
+					var cell=Rect2(Vector2(x,y)*.25-Vector2.ONE*.5,Vector2.ONE*.25)
+					if not terrain_ground_fits(Vector2.ONE*.24998,cell.get_center()):continue
+					if resource_obstacles.any(func(r):return cell.intersects(r)):continue
+					if context.foreign.any(func(r):return cell.intersects(r)):continue
+					solid[y*512+x]=0
+		var prefix=PackedInt32Array();prefix.resize(513*513);prefix.fill(0)
+		for y in range(512):
+			var row=0
+			for x in range(512):
+				row+=solid[y*512+x]
+				prefix[(y+1)*513+x+1]=row+prefix[y*513+x+1]
+		context.prefix=prefix
+	var low=Vector2i(((pos-dimensions*.5+Vector2.ONE*.50001)*4).floor())
+	var high=Vector2i(((pos+dimensions*.5+Vector2.ONE*.49999)*4).floor())+Vector2i.ONE
+	if low.x<0 or low.y<0 or high.x>512 or high.y>512:return false
+	var prefix: PackedInt32Array=context.prefix
+	return prefix[high.y*513+high.x]-prefix[low.y*513+high.x]-prefix[high.y*513+low.x]+prefix[low.y*513+low.x]==0
+
+static func ground_cell(point: Vector2) -> Vector2i:
+	# Imported entity positions use integer tile centers, not tile corners.
+	return Vector2i((point+Vector2.ONE*.5).floor())
+
+func ground_level(point: Vector2) -> int:
+	var tile=ground_cell(point)
+	if not inside(tile):return 0
+	if source_height_active:
+		var sub=Vector2i(((point+Vector2.ONE*.5)*4).floor())
+		var bit=(sub.y%4)*4+sub.x%4
+		return (source_height_bits[tile.y*SIZE+tile.x]>>(bit*2))&3
+	return int(height_map[tile.y*SIZE+tile.x])
 
 func terrain_ground_fits(dimensions: Vector2,pos: Vector2) -> bool:
 	# Terrain-only query for a builder traversing its own unfinished scaffold.

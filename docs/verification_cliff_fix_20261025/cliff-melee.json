@@ -1,0 +1,30 @@
+{
+  "cases": [
+    {
+      "attack_pose_ticks": 293,
+      "case": "reverses=false target_first=false",
+      "strikes": 48,
+      "target_hp": 4809.4
+    },
+    {
+      "attack_pose_ticks": 325,
+      "case": "reverses=false target_first=true",
+      "strikes": 55,
+      "target_hp": 4781.75
+    },
+    {
+      "attack_pose_ticks": 448,
+      "case": "reverses=true target_first=false",
+      "strikes": 63,
+      "target_hp": 4749.4
+    },
+    {
+      "attack_pose_ticks": 247,
+      "case": "reverses=true target_first=true",
+      "strikes": 39,
+      "target_hp": 4845.75
+    }
+  ],
+  "checks": 8,
+  "failures": []
+}

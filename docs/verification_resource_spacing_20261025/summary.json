@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "status": "source fixed and locally verified; not deployed",
+  "approved_distance": "latest approved screenshot; starting As2/Tera2; expansion Tera positions fixed",
+  "maps": 3,
+  "resource_bases": 42,
+  "starting_bases": 12,
+  "faction_base_construction_cases": 126,
+  "placement_checks": 291,
+  "actual_command_checks": 948,
+  "native_preview_checks": 12,
+  "background_preview_and_ai_checks": 18,
+  "original_source_checks": 246132,
+  "map_crossing_checks": 96,
+  "map_crossings": 24,
+  "starting_tera_adjustments": 9,
+  "expansion_tera_adjustments": 0,
+  "mineral_adjustments": 0,
+  "terrain_adjustments": 0,
+  "original_files_modified": false,
+  "original_starts_as3_tera3": 12,
+  "current_starts_as2_tera2": 12,
+  "matching_as2_tera2_bases": 35,
+  "mineral_only_bases": 6,
+  "source_terrain_exception": [
+    {
+      "map": 1,
+      "base": 10,
+      "kind": "expansion",
+      "access": "air",
+      "slot": -1,
+      "headquarters_anchor": [
+        3,
+        113
+      ],
+      "mineral_gap": 2.0,
+      "tera_gap": 7.0,
+      "tera_id": 100117
+    }
+  ],
+  "source_sha256": {
+    "scripts/core.gd": "fbfe294cd777c9a91ed1e08472e74413a1da3c79d13fa5e164c181fe030fec99",
+    "scripts/world_map.gd": "32c2d58e89c159f98d51e5a265aad4ca7611705fb948c39aff0922eca8b2b314",
+    "scripts/bot_ai.gd": "82ff7ba55cc3d6ca6582306ce5086f259cd9c297137a6047d829393f9839f2e8",
+    "data/resource_spacing_20261025.json": "1a76db42fa778cd4caa9650285069cfed5c83b3e10122f093ff085b0894e11b9"
+  }
+}

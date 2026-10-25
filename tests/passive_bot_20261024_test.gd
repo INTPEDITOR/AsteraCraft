@@ -2,7 +2,8 @@ extends "res://tests/abilities_v060_test.gd"
 const BotAI=preload("res://scripts/bot_ai.gd")
 func run() -> void:
 	for race in range(3):
-		var c=arena(race,race);c.time=20;c.players[0].difficulty=1
+		var c=arena(race,race);c.time=20;c.players[0].difficulty=2
+		c.players[0]._ai_has_attacked=true
 		var hq=c.add_building(0,0,Vector2(20,20),true);c.players[0].home=hq.id
 		var building=c.add_building(0,[7,4,6][race],Vector2(30,20),true)
 		for kind in ([9] if race==1 else [7] if race==2 else []):c.add_building(0,kind,Vector2(25,30),true)

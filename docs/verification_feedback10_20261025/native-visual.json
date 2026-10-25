@@ -1,0 +1,6 @@
+{
+  "checks": 10,
+  "failures": [],
+  "passed": true,
+  "scope": "Final Windows PCK mounted without source data or asset fallback, with explicit test-only debug extension DLL; actual native 1920x1080 menu and three-race worker/building render. Shipping EXE startup is separate."
+}

@@ -1,0 +1,127 @@
+{
+  "checks": 860,
+  "failures": [],
+  "passed": true,
+  "records": [
+    {
+      "horizontal": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 62
+      },
+      "race": 0,
+      "vertical": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 54
+      }
+    },
+    {
+      "horizontal": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 52
+      },
+      "race": 1,
+      "vertical": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 52
+      }
+    },
+    {
+      "horizontal": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 50
+      },
+      "race": 2,
+      "vertical": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 50
+      }
+    },
+    {
+      "map": 0,
+      "race": 0,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 54
+      }
+    },
+    {
+      "map": 0,
+      "race": 1,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 52
+      }
+    },
+    {
+      "map": 0,
+      "race": 2,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 50
+      }
+    },
+    {
+      "map": 1,
+      "race": 0,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 54
+      }
+    },
+    {
+      "map": 1,
+      "race": 1,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 52
+      }
+    },
+    {
+      "map": 1,
+      "race": 2,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 50
+      }
+    },
+    {
+      "map": 2,
+      "race": 0,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 54
+      }
+    },
+    {
+      "map": 2,
+      "race": 1,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 52
+      }
+    },
+    {
+      "map": 2,
+      "race": 2,
+      "source_walk": {
+        "arrived": true,
+        "crossed": true,
+        "ticks": 50
+      }
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "status": "source fixed and locally verified; not deployed",
+  "solid_cliff_guard": "Collision displacement checks its entire swept body, recovery keeps the original ground level, exact 8px foot height drives vision.",
+  "walk_masks_changed": false,
+  "height_masks_changed": false,
+  "ramps_changed": false,
+  "before_guard_checks": 345,
+  "before_guard_failures": 51,
+  "after_guard_checks": 345,
+  "after_guard_failures": 0,
+  "cliff_vision_scenarios": 24,
+  "walkable_height_samples": 548962,
+  "height_mismatches_after": 0,
+  "ramp_regions": 22,
+  "ramp_traversals_before": 44,
+  "ramp_traversals_after": 44,
+  "exact_mask_and_ramp_checks": 786720,
+  "formation_cases": 9,
+  "units_per_formation": 12,
+  "formation_checks": 34989,
+  "same_trajectories_and_arrival_times": true,
+  "comparison": [
+    {
+      "map": 0,
+      "race": 0,
+      "before_arrival": 13.05,
+      "after_arrival": 13.05,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 0,
+      "race": 1,
+      "before_arrival": 15.35,
+      "after_arrival": 15.35,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 0,
+      "race": 2,
+      "before_arrival": 16.85,
+      "after_arrival": 16.85,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 1,
+      "race": 0,
+      "before_arrival": 17.45,
+      "after_arrival": 17.45,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 1,
+      "race": 1,
+      "before_arrival": 15.15,
+      "after_arrival": 15.15,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 1,
+      "race": 2,
+      "before_arrival": 18.8,
+      "after_arrival": 18.8,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 2,
+      "race": 0,
+      "before_arrival": 18.85,
+      "after_arrival": 18.85,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 2,
+      "race": 1,
+      "before_arrival": 11.4,
+      "after_arrival": 11.4,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    },
+    {
+      "map": 2,
+      "race": 2,
+      "before_arrival": 15.85,
+      "after_arrival": 15.85,
+      "same_trajectory": true,
+      "same_final_positions": true,
+      "same_max_stop": true,
+      "new_deferred_stops": 0
+    }
+  ],
+  "ground_unit_types": 31,
+  "continuity_checks": 101,
+  "map_crossings": 24,
+  "map_crossing_checks": 96,
+  "highground_fire_and_air_sight_checks": 37,
+  "fog_cache_checks": 4,
+  "melee_follow_checks": 8,
+  "brood_collision_checks": 17,
+  "resource_build_cases_after_cliff_fix": 126,
+  "source_sha256": {
+    "scripts/core.gd": "fbfe294cd777c9a91ed1e08472e74413a1da3c79d13fa5e164c181fe030fec99",
+    "scripts/world_map.gd": "32c2d58e89c159f98d51e5a265aad4ca7611705fb948c39aff0922eca8b2b314",
+    "scripts/bot_ai.gd": "82ff7ba55cc3d6ca6582306ce5086f259cd9c297137a6047d829393f9839f2e8",
+    "data/resource_spacing_20261025.json": "1a76db42fa778cd4caa9650285069cfed5c83b3e10122f093ff085b0894e11b9"
+  },
+  "limitations": "Source simulations and separate existing resource renderer previews; no new Windows package or network match validation. Required yielding/crowding waits are not eliminated; tested movement traces remain identical."
+}

@@ -1,0 +1,146 @@
+{
+  "checks": 12,
+  "failures": [],
+  "passed": true,
+  "runtime": "actual source game renderer and construction preview at 1920x1080; all three factions",
+  "screens": [
+    {
+      "actual_ghost": {
+        "kind": 0,
+        "owner": 0,
+        "pos": [
+          87.0,
+          11.0
+        ],
+        "race": 0,
+        "valid": false
+      },
+      "allowed": false,
+      "anchor": [
+        87.0,
+        11.0
+      ],
+      "file": "race0-blocked-too-close.png",
+      "pointer": [
+        825.6,
+        355.8
+      ],
+      "race": 0
+    },
+    {
+      "actual_ghost": {
+        "kind": 0,
+        "owner": 0,
+        "pos": [
+          87.0,
+          12.0
+        ],
+        "race": 0,
+        "valid": true
+      },
+      "allowed": true,
+      "anchor": [
+        87.0,
+        12.0
+      ],
+      "file": "race0-allowed-as2-tera2.png",
+      "pointer": [
+        825.6,
+        407.0
+      ],
+      "race": 0
+    },
+    {
+      "actual_ghost": {
+        "kind": 0,
+        "owner": 0,
+        "pos": [
+          87.0,
+          11.0
+        ],
+        "race": 1,
+        "valid": false
+      },
+      "allowed": false,
+      "anchor": [
+        87.0,
+        11.0
+      ],
+      "file": "race1-blocked-too-close.png",
+      "pointer": [
+        825.6,
+        355.8
+      ],
+      "race": 1
+    },
+    {
+      "actual_ghost": {
+        "kind": 0,
+        "owner": 0,
+        "pos": [
+          87.0,
+          12.0
+        ],
+        "race": 1,
+        "valid": true
+      },
+      "allowed": true,
+      "anchor": [
+        87.0,
+        12.0
+      ],
+      "file": "race1-allowed-as2-tera2.png",
+      "pointer": [
+        825.6,
+        407.0
+      ],
+      "race": 1
+    },
+    {
+      "actual_ghost": {
+        "kind": 0,
+        "owner": 0,
+        "pos": [
+          87.0,
+          11.0
+        ],
+        "race": 2,
+        "valid": false
+      },
+      "allowed": false,
+      "anchor": [
+        87.0,
+        11.0
+      ],
+      "file": "race2-blocked-too-close.png",
+      "pointer": [
+        825.6,
+        355.8
+      ],
+      "race": 2
+    },
+    {
+      "actual_ghost": {
+        "kind": 0,
+        "owner": 0,
+        "pos": [
+          87.0,
+          12.0
+        ],
+        "race": 2,
+        "valid": true
+      },
+      "allowed": true,
+      "anchor": [
+        87.0,
+        12.0
+      ],
+      "file": "race2-allowed-as2-tera2.png",
+      "pointer": [
+        825.6,
+        407.0
+      ],
+      "race": 2
+    }
+  ]
+}

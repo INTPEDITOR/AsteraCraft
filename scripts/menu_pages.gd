@@ -82,7 +82,7 @@ func single() -> void:
 	label(p,"컴퓨터 수",210)
 	option(p,["1명","2명","3명"],0,250,300,main.bot_count-1,func(i):main.bot_count=i+1)
 	label(p,"컴퓨터 난이도",315)
-	option(p,["쉬움","보통","어려움"],0,355,300,main.difficulty,func(i):main.difficulty=i)
+	option(p,preload("res://scripts/bot_ai.gd").NAMES,0,355,300,main.difficulty,func(i):main.difficulty=i)
 	option(p,["자유전","2 대 2 팀전"],0,420,300,1 if main.game_mode=="teams" else 0,func(i):main.game_mode="teams" if i==1 else "ffa")
 	button(p,"전투 시작",0,510,300,func():
 		var count=3 if main.game_mode=="teams" else main.bot_count

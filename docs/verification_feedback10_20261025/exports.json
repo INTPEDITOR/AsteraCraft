@@ -1,0 +1,1070 @@
+{
+  "passed": true,
+  "version": "0.6.4",
+  "release": "feedback10-20261025",
+  "checks": {
+    "pack": {
+      "passed": true,
+      "runs": [
+        {
+          "name": "native",
+          "passed": true,
+          "exit_code": 0,
+          "summary": null
+        },
+        {
+          "name": "worker",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 860,
+            "failures": [],
+            "passed": true,
+            "records": [
+              {
+                "horizontal": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 62
+                },
+                "race": 0,
+                "vertical": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "horizontal": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                },
+                "race": 1,
+                "vertical": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "horizontal": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                },
+                "race": 2,
+                "vertical": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              },
+              {
+                "map": 0,
+                "race": 0,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "map": 0,
+                "race": 1,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "map": 0,
+                "race": 2,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              },
+              {
+                "map": 1,
+                "race": 0,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "map": 1,
+                "race": 1,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "map": 1,
+                "race": 2,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              },
+              {
+                "map": 2,
+                "race": 0,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 54
+                }
+              },
+              {
+                "map": 2,
+                "race": 1,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 52
+                }
+              },
+              {
+                "map": 2,
+                "race": 2,
+                "source_walk": {
+                  "arrived": true,
+                  "crossed": true,
+                  "ticks": 50
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "worker-jobs",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 12,
+            "failures": [],
+            "passed": true
+          }
+        },
+        {
+          "name": "tera",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 62,
+            "expansions_checked": 24,
+            "failures": [],
+            "moved_starts": 9,
+            "passed": true,
+            "rows": [
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  2
+                ],
+                "id": 100108,
+                "map": 0,
+                "runtime": [
+                  8.5,
+                  3.5
+                ],
+                "source": [
+                  8.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  2
+                ],
+                "id": 100109,
+                "map": 0,
+                "runtime": [
+                  118.5,
+                  4.5
+                ],
+                "source": [
+                  118.5,
+                  2.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100110,
+                "map": 0,
+                "runtime": [
+                  58.5,
+                  4.5
+                ],
+                "source": [
+                  58.5,
+                  4.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100111,
+                "map": 0,
+                "runtime": [
+                  88.5,
+                  8.5
+                ],
+                "source": [
+                  88.5,
+                  8.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100112,
+                "map": 0,
+                "runtime": [
+                  14.5,
+                  44.5
+                ],
+                "source": [
+                  14.5,
+                  44.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100113,
+                "map": 0,
+                "runtime": [
+                  121.5,
+                  58.5
+                ],
+                "source": [
+                  121.5,
+                  58.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100114,
+                "map": 0,
+                "runtime": [
+                  71.5,
+                  63.5
+                ],
+                "source": [
+                  71.5,
+                  63.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100115,
+                "map": 0,
+                "runtime": [
+                  55.5,
+                  63.5
+                ],
+                "source": [
+                  55.5,
+                  63.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100116,
+                "map": 0,
+                "runtime": [
+                  7.5,
+                  67.5
+                ],
+                "source": [
+                  7.5,
+                  67.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100117,
+                "map": 0,
+                "runtime": [
+                  112.5,
+                  83.5
+                ],
+                "source": [
+                  112.5,
+                  83.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  2
+                ],
+                "id": 100118,
+                "map": 0,
+                "runtime": [
+                  8.5,
+                  113.5
+                ],
+                "source": [
+                  8.5,
+                  111.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  2
+                ],
+                "id": 100119,
+                "map": 0,
+                "runtime": [
+                  118.5,
+                  114.5
+                ],
+                "source": [
+                  118.5,
+                  112.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100120,
+                "map": 0,
+                "runtime": [
+                  38.5,
+                  118.5
+                ],
+                "source": [
+                  38.5,
+                  118.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100121,
+                "map": 0,
+                "runtime": [
+                  83.5,
+                  121.5
+                ],
+                "source": [
+                  83.5,
+                  121.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100110,
+                "map": 1,
+                "runtime": [
+                  122.5,
+                  1.5
+                ],
+                "source": [
+                  122.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100111,
+                "map": 1,
+                "runtime": [
+                  3.5,
+                  1.5
+                ],
+                "source": [
+                  3.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  1
+                ],
+                "id": 100112,
+                "map": 1,
+                "runtime": [
+                  84.5,
+                  2.5
+                ],
+                "source": [
+                  84.5,
+                  1.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100113,
+                "map": 1,
+                "runtime": [
+                  6.5,
+                  52.5
+                ],
+                "source": [
+                  6.5,
+                  52.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100114,
+                "map": 1,
+                "runtime": [
+                  119.5,
+                  72.5
+                ],
+                "source": [
+                  119.5,
+                  72.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  1
+                ],
+                "id": 100115,
+                "map": 1,
+                "runtime": [
+                  43.5,
+                  115.5
+                ],
+                "source": [
+                  43.5,
+                  114.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100116,
+                "map": 1,
+                "runtime": [
+                  83.5,
+                  119.5
+                ],
+                "source": [
+                  83.5,
+                  119.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100117,
+                "map": 1,
+                "runtime": [
+                  2.5,
+                  123.5
+                ],
+                "source": [
+                  2.5,
+                  123.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100118,
+                "map": 1,
+                "runtime": [
+                  123.5,
+                  124.5
+                ],
+                "source": [
+                  123.5,
+                  124.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100119,
+                "map": 1,
+                "runtime": [
+                  42.5,
+                  6.5
+                ],
+                "source": [
+                  42.5,
+                  6.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  1
+                ],
+                "id": 100120,
+                "map": 1,
+                "runtime": [
+                  117.5,
+                  36.5
+                ],
+                "source": [
+                  117.5,
+                  35.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100121,
+                "map": 1,
+                "runtime": [
+                  9.5,
+                  80.5
+                ],
+                "source": [
+                  9.5,
+                  80.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100104,
+                "map": 2,
+                "runtime": [
+                  7.5,
+                  2.5
+                ],
+                "source": [
+                  7.5,
+                  2.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100105,
+                "map": 2,
+                "runtime": [
+                  51.5,
+                  6.5
+                ],
+                "source": [
+                  51.5,
+                  6.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100106,
+                "map": 2,
+                "runtime": [
+                  99.5,
+                  9.5
+                ],
+                "source": [
+                  99.5,
+                  9.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  2
+                ],
+                "id": 100107,
+                "map": 2,
+                "runtime": [
+                  118.5,
+                  24.5
+                ],
+                "source": [
+                  118.5,
+                  22.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100108,
+                "map": 2,
+                "runtime": [
+                  11.5,
+                  45.5
+                ],
+                "source": [
+                  11.5,
+                  45.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100109,
+                "map": 2,
+                "runtime": [
+                  115.5,
+                  69.5
+                ],
+                "source": [
+                  115.5,
+                  69.5
+                ]
+              },
+              {
+                "declared_start_adjustment": true,
+                "delta": [
+                  0,
+                  1
+                ],
+                "id": 100110,
+                "map": 2,
+                "runtime": [
+                  8.5,
+                  83.5
+                ],
+                "source": [
+                  8.5,
+                  82.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100111,
+                "map": 2,
+                "runtime": [
+                  71.5,
+                  116.5
+                ],
+                "source": [
+                  71.5,
+                  116.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100112,
+                "map": 2,
+                "runtime": [
+                  21.5,
+                  118.5
+                ],
+                "source": [
+                  21.5,
+                  118.5
+                ]
+              },
+              {
+                "declared_start_adjustment": false,
+                "delta": [
+                  0,
+                  0
+                ],
+                "id": 100113,
+                "map": 2,
+                "runtime": [
+                  119.5,
+                  121.5
+                ],
+                "source": [
+                  119.5,
+                  121.5
+                ]
+              }
+            ],
+            "tera": 36
+          }
+        },
+        {
+          "name": "construction",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "cases": 126,
+            "checks": 948,
+            "failures": [],
+            "passed": true
+          }
+        },
+        {
+          "name": "cliff",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "cases": 24,
+            "checks": 345,
+            "failures": [],
+            "passed": true
+          }
+        },
+        {
+          "name": "formations",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 34989,
+            "failures": 0,
+            "passed": true
+          }
+        },
+        {
+          "name": "types",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 101,
+            "failures": 0,
+            "ground_units": 31,
+            "passed": true
+          }
+        },
+        {
+          "name": "melee",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "cases": 88,
+            "checks": 265,
+            "failures": [],
+            "passed": true
+          }
+        },
+        {
+          "name": "ramps",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 786720,
+            "failures": [],
+            "maps": [
+              {
+                "ramps": 12,
+                "recovered_walk_minitiles": 9757,
+                "theme": 0,
+                "traversals": 24
+              },
+              {
+                "ramps": 6,
+                "recovered_walk_minitiles": 6509,
+                "theme": 1,
+                "traversals": 12
+              },
+              {
+                "ramps": 4,
+                "recovered_walk_minitiles": 8986,
+                "theme": 2,
+                "traversals": 8
+              }
+            ]
+          }
+        },
+        {
+          "name": "opening0",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 5,
+            "failures": [],
+            "passed": true
+          }
+        },
+        {
+          "name": "opening1",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 5,
+            "failures": [],
+            "passed": true
+          }
+        },
+        {
+          "name": "opening2",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 5,
+            "failures": [],
+            "passed": true
+          }
+        },
+        {
+          "name": "response",
+          "passed": true,
+          "exit_code": 0,
+          "summary": {
+            "checks": 15,
+            "failures": [],
+            "passed": true
+          }
+        }
+      ],
+      "scope": "Exact final Windows PCK mounted from export directory without source script, data, or texture fallback; external drivers and explicit test-only debug WebRTC DLL. All result files were created after this pack export. Actual shipping EXE startup is verified separately."
+    },
+    "windows-startup": {
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_ms": 30051,
+      "loading_art_textures": 30,
+      "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+    },
+    "native-visual": {
+      "checks": 10,
+      "failures": [],
+      "passed": true,
+      "scope": "Final Windows PCK mounted without source data or asset fallback, with explicit test-only debug extension DLL; actual native 1920x1080 menu and three-race worker/building render. Shipping EXE startup is separate."
+    },
+    "archive": {
+      "passed": true,
+      "bytes": 1340637740,
+      "sha256": "5280dfec1e9d5cfa0736aec0b1c48cc4b4cabb21aaa2fbf3c90abd4254ffd2b3",
+      "files": [
+        "AsteraCraft.exe",
+        "AsteraCraft.pck",
+        "libwebrtc_native.windows.template_release.x86_64.dll",
+        "README.txt",
+        "game_icon.ico",
+        "LICENSES-LevelUp.txt"
+      ]
+    },
+    "update-install": {
+      "passed": true,
+      "checks": 11,
+      "elapsed_seconds": 24.33,
+      "phase": "confirmed",
+      "tag": "feedback10-20261025",
+      "scope": "Actual Windows helper replaces a disposable feedback9_20261025 installation with the final feedback10_20261025 ZIP, launches its real EXE, receives startup confirmation from the packed version, preserves previous files and unrelated data. No user installation is modified."
+    },
+    "source-regression": {
+      "passed": true,
+      "runs": [
+        {
+          "name": "worker",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 7.94
+        },
+        {
+          "name": "bot-budget",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 21.91
+        },
+        {
+          "name": "bot-research",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 2.95
+        },
+        {
+          "name": "placement",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 9.51
+        },
+        {
+          "name": "construction",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 29.24
+        },
+        {
+          "name": "preview",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 3.59
+        },
+        {
+          "name": "cliff",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 9.33
+        },
+        {
+          "name": "formations",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 23.88
+        },
+        {
+          "name": "types",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 5.81
+        },
+        {
+          "name": "melee",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 7.77
+        },
+        {
+          "name": "brood",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 1.64
+        },
+        {
+          "name": "ramps",
+          "passed": true,
+          "exit_code": 0,
+          "seconds": 28.67
+        }
+      ]
+    }
+  },
+  "source_sha256": {
+    "scripts/bot_ai.gd": "95ec50e72982cf462cb48ebf14f0ca6fa2b11c40f55bd98fd9398624b4f073a4",
+    "scripts/core.gd": "0968db728211f3d4aeb26b45e15ffed6afd8b7ad69c7552688c2e5babfb1a3d0",
+    "scripts/world_map.gd": "300edb8582ed287142c97d3cfd6bc01662ed9d119d7427eaa07dd56c230397be",
+    "scripts/main.gd": "c780d2f62da1a5892ba5727e8fae89600c2d0f0899ef8cb708b2c7b2713bcec0",
+    "scripts/menu_pages.gd": "ddc18532dc601c9cee1bc0ee930ff62a0724ca48cae99304aa4abddaa9b03b73",
+    "data/game.json": "f18d88876fea3e4892fa5fdfed0b7601207ebffdefe76719ea3f240999e5acb4",
+    "data/resource_spacing_20261025.json": "1a76db42fa778cd4caa9650285069cfed5c83b3e10122f093ff085b0894e11b9",
+    "data/original_maps.json": "dc2b9ed0cb6adfa4e605ac2a1ce30bb9f3aff7157665c9afd1f1cce7c538b2dc",
+    "data/source_terrain_detail.json": "9fb997b83b41b1d77d471ee341b9e5c7139e76cd3af53abe10077771d6ce4cca"
+  },
+  "difficulty": {
+    "measured_reaction_seconds": [
+      2.9,
+      2.3,
+      1.48,
+      0.81,
+      0.31,
+      0.24
+    ],
+    "first_wave_seconds_by_race": [
+      [
+        351.5,
+        319.5,
+        280.5,
+        239.1,
+        203.1,
+        165.7
+      ],
+      [
+        261.5,
+        224.3,
+        174.9,
+        137.9,
+        122.6,
+        105.3
+      ],
+      [
+        417.5,
+        373.5,
+        325.5,
+        275.6,
+        229.7,
+        182.9
+      ]
+    ],
+    "scope": "18 actual source-map openings with identical seed and initial resources against an idle opponent; 90 identical-resource timed defense scenarios. First pressure and mean response improve at every level in every race. Victory time is not guaranteed monotonic in every matchup."
+  }
+}

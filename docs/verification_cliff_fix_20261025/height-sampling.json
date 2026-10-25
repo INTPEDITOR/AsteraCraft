@@ -1,0 +1,344 @@
+[
+  {
+    "examples": [
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          38.0,
+          6.0
+        ],
+        "pos": [
+          33.625,
+          12.125
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          38.0,
+          6.0
+        ],
+        "pos": [
+          33.625,
+          12.375
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          38.0,
+          6.0
+        ],
+        "pos": [
+          33.625,
+          12.625
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          27.0,
+          7.0
+        ],
+        "pos": [
+          31.875,
+          12.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          27.0,
+          7.0
+        ],
+        "pos": [
+          32.125,
+          12.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          27.0,
+          7.0
+        ],
+        "pos": [
+          32.375,
+          12.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          36.0,
+          7.0
+        ],
+        "pos": [
+          32.625,
+          12.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          36.0,
+          7.0
+        ],
+        "pos": [
+          32.875,
+          12.875
+        ],
+        "used": 1
+      }
+    ],
+    "false_high_vision_sources": 659,
+    "map": 0,
+    "mixed_height_cells": 2,
+    "pushes_over_cliff": [],
+    "reported_height_mismatches": 0,
+    "walkable_foot_samples": 181303
+  },
+  {
+    "examples": [
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          100.0,
+          4.0
+        ],
+        "pos": [
+          105.875,
+          8.125
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          100.0,
+          4.0
+        ],
+        "pos": [
+          105.875,
+          8.375
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          100.0,
+          4.0
+        ],
+        "pos": [
+          105.875,
+          8.625
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          99.0,
+          4.0
+        ],
+        "pos": [
+          105.125,
+          8.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          100.0,
+          4.0
+        ],
+        "pos": [
+          105.375,
+          8.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          100.0,
+          4.0
+        ],
+        "pos": [
+          105.625,
+          8.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          100.0,
+          4.0
+        ],
+        "pos": [
+          105.875,
+          8.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          22.0,
+          4.0
+        ],
+        "pos": [
+          27.375,
+          9.875
+        ],
+        "used": 1
+      }
+    ],
+    "false_high_vision_sources": 811,
+    "map": 1,
+    "mixed_height_cells": 1,
+    "pushes_over_cliff": [],
+    "reported_height_mismatches": 0,
+    "walkable_foot_samples": 205517
+  },
+  {
+    "examples": [
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          48.0,
+          5.0
+        ],
+        "pos": [
+          43.125,
+          10.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          48.0,
+          5.0
+        ],
+        "pos": [
+          43.375,
+          10.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          48.0,
+          5.0
+        ],
+        "pos": [
+          43.625,
+          10.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          48.0,
+          5.0
+        ],
+        "pos": [
+          43.875,
+          10.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          46.0,
+          8.0
+        ],
+        "pos": [
+          42.125,
+          14.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          46.0,
+          8.0
+        ],
+        "pos": [
+          42.375,
+          14.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          46.0,
+          8.0
+        ],
+        "pos": [
+          42.625,
+          14.875
+        ],
+        "used": 1
+      },
+      {
+        "actual": 0,
+        "coarse": 0,
+        "high_target": [
+          46.0,
+          8.0
+        ],
+        "pos": [
+          42.875,
+          14.875
+        ],
+        "used": 1
+      }
+    ],
+    "false_high_vision_sources": 734,
+    "map": 2,
+    "mixed_height_cells": 2,
+    "pushes_over_cliff": [],
+    "reported_height_mismatches": 0,
+    "walkable_foot_samples": 162142
+  }
+]

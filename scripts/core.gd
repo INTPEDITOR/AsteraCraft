@@ -161,7 +161,11 @@ func setup(config: Dictionary,progress: Callable=Callable()) -> void:
 	var player_colors=ACPlayerColors.resolve(config.players)
 	for i in range(config.players.size()):
 		var spec = config.players[i]
-		var p = {"name":str(spec.get("name","연구원")),"race":int(spec.get("race",0)),"team":int(spec.get("team",i)),"bot":bool(spec.get("bot",false)),"difficulty":int(spec.get("difficulty",1)),"as":50.0,"tera":0.0,"used":0.0,"cap":0.0,"reserved":0.0,"attack":0,"armor":0,"shield":0,"lost":false,"kills":0,"spent":0,"gathered":0,"ai_goal":0}
+		var difficulty=clampi(int(spec.get("difficulty",2)),0,5)
+		# Older matchmaking uses 0/1/2 for easy/normal/hard. Preserve those
+		# meanings until the service explicitly sends the six-level schema.
+		if config.has("id") and int(config.get("difficulty_schema",3))==3 and difficulty<=2:difficulty+=1
+		var p = {"name":str(spec.get("name","연구원")),"race":int(spec.get("race",0)),"team":int(spec.get("team",i)),"bot":bool(spec.get("bot",false)),"difficulty":difficulty,"as":50.0,"tera":0.0,"used":0.0,"cap":0.0,"reserved":0.0,"attack":0,"armor":0,"shield":0,"lost":false,"kills":0,"spent":0,"gathered":0,"ai_goal":0}
 		players.append(p)
 		p.color_id=player_colors[i]
 		var fog := PackedByteArray()
@@ -408,7 +412,7 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 		var own=unit_data(attacker)
 		var distance=ACData.point(attacker.pos).distance_to(present_middle)
 		var lead=velocity*minf(.45,distance/maxf(.1,float(own.speed)))*clampf((distance-float(own.range))*.5,0,1)
-		if _ground_sweep(_body_size(target),ACData.point(target.pos),ACData.point(target.pos)+lead):rect.position+=lead
+		if _ground_sweep(_body_size(target),ACData.point(target.pos),ACData.point(target.pos)+lead,_worker_passage_owner(target)):rect.position+=lead
 	var half=_body_size(attacker)*.5+Vector2.ONE*.04
 	var border=rect.grow_individual(half.x,half.y,half.x,half.y)
 	var origin=ACData.point(attacker.pos)
@@ -446,7 +450,7 @@ func _melee_approach(attacker: Dictionary, target: Dictionary) -> Vector2:
 		if inspected>=4:break
 		inspected+=1
 		var candidate: Vector2=choice.point
-		if _ground_sweep(_body_size(attacker),origin,candidate):
+		if _ground_sweep(_body_size(attacker),origin,candidate,_worker_passage_owner(attacker)):
 			result=candidate;best=float(choice.score);break
 		# Compare reachable approaches around walls, not merely the closest edge.
 		attacker._path_deferred=false
@@ -590,13 +594,13 @@ func _move_to_building(u: Dictionary, b: Dictionary, dt: float, reach: float=.04
 	else:u._approach_stalled=float(u.get("_approach_stalled",0))+dt
 	return arrived
 
-func _ground_sweep(dimensions: Vector2, from: Vector2, to: Vector2) -> bool:
+func _ground_sweep(dimensions: Vector2, from: Vector2, to: Vector2, passage_owner: int=-1) -> bool:
 	# The imported map's summed-area collision table can prove the whole
 	# swept rectangle empty in one query. Keep the sampled test for corners.
 	if map.source_detail_active and map.source_ground_fits(dimensions+(to-from).abs(),(from+to)*.5):return true
 	var samples=maxi(1,ceili(from.distance_to(to)/.2))
 	for index in range(samples+1):
-		if not _ground_fits_size(dimensions,from.lerp(to,float(index)/samples)):return false
+		if not _ground_fits_size(dimensions,from.lerp(to,float(index)/samples),passage_owner):return false
 	return true
 
 func _resource_approach(res: Dictionary, from: Vector2, dimensions: Vector2=Vector2(.52,.44), home: Vector2=Vector2.INF) -> Vector2:
@@ -717,10 +721,10 @@ func placement(owner: int, kind: int, pos: Vector2, require_worker: bool = true)
 			var bd=ACData.building(int(building.race),int(building.kind))
 			if rect.intersects(Rect2(ACData.point(building.pos),Vector2(bd.w,bd.h))):return "다른 건물과 겹칩니다"
 	for r in map.resources:
-		if r.type=="as" and r.amount>0 and physical_rect.intersects(resource_rect(r).grow(ACMap.HQ_MINERAL_GAP if kind==0 else 0.0)):
+		if r.type=="as" and r.amount>0 and physical_rect.intersects(resource_rect(r).grow(ACMap.headquarters_resource_gap(r) if kind==0 else 0.0)):
 			return "본진은 아스 광물 가장자리에서 %d칸 이상 떨어져야 합니다"%int(ACMap.HQ_MINERAL_GAP) if kind==0 else "아스 광물과 겹칩니다"
-		if r.type=="tera" and int(r.id)!=matched_vent and physical_rect.intersects(resource_rect(r)):
-			return "테라 매장지입니다"
+		if r.type=="tera" and int(r.id)!=matched_vent and physical_rect.intersects(resource_rect(r).grow(ACMap.headquarters_resource_gap(r) if kind==0 else 0.0)):
+			return "본진은 테라 매장지 가장자리에서 %d칸 이상 떨어져야 합니다"%int(ACMap.HQ_TERA_GAP) if kind==0 else "테라 매장지입니다"
 	if race==1 and kind!=0:
 		for x in range(int(rect.position.x),int(rect.end.x)):
 			for y in range(int(rect.position.y),int(rect.end.y)):
@@ -814,7 +818,13 @@ func _start_construction(worker: Dictionary, kind: int, pos: Vector2) -> String:
 	if players[owner].as<definition.as or players[owner].tera<definition.tera:return resource_error(owner,definition.as,definition.tera)
 	var plan={"id":-1000000-int(worker.id),"owner":owner,"race":worker.race,"kind":kind,"pos":ACData.packed(pos),"progress":0.0}
 	var approach=building_approach(plan,ACData.point(worker.pos),worker)
-	if not construction_reach(worker,plan) and (not _unit_fits(worker,approach,false) or (not _ground_sweep(_body_size(worker),ACData.point(worker.pos),approach) and map.path(ACData.point(worker.pos),approach).is_empty())):return "건설 위치까지 이동할 수 없습니다"
+	if not construction_reach(worker,plan):
+		if not _unit_fits(worker,approach,false):return "건설 위치까지 이동할 수 없습니다"
+		var passage_owner=_worker_passage_owner(worker)
+		if not _ground_sweep(_body_size(worker),ACData.point(worker.pos),approach,passage_owner):
+			worker._path_deferred=false
+			var route=_clearance_path(worker,ACData.point(worker.pos),approach) if passage_owner>=0 else map.path(ACData.point(worker.pos),approach)
+			if route.is_empty() and not worker.get("_path_deferred",false):return "건설 위치까지 이동할 수 없습니다"
 	var previous=entity(int(worker.target)) if worker.order=="construct" else {}
 	_release_builder(worker)
 	if not previous.is_empty() and previous.has("progress") and int(previous.worker)==int(worker.id):previous.worker=-1
@@ -1098,7 +1108,7 @@ func _home_ore(worker: Dictionary) -> int:
 		var goal=_resource_approach(node,ACData.point(worker.pos),_body_size(worker),home)
 		if not goal.is_finite():continue
 		var distance=ACData.point(worker.pos).distance_to(goal)
-		if not _ground_sweep(_body_size(worker),ACData.point(worker.pos),goal):
+		if not _ground_sweep(_body_size(worker),ACData.point(worker.pos),goal,_worker_passage_owner(worker)):
 			var route=map.path(ACData.point(worker.pos),goal)
 			if route.is_empty():continue
 			distance=0.0
@@ -1166,7 +1176,12 @@ func _retarget_busy_resource(worker: Dictionary, current: Dictionary) -> bool:
 	worker.mining_state="travel"
 	return true
 
-func _ground_fits_size(dimensions: Vector2, pos: Vector2) -> bool:
+func _worker_passage_owner(unit: Dictionary) -> int:
+	var owner=int(unit.get("owner",-1))
+	return owner if owner>=0 and int(unit.kind)==0 and _body_layer(unit)==COLLISION_GROUND and map.worker_has_passages(owner) else -1
+
+func _ground_fits_size(dimensions: Vector2, pos: Vector2, passage_owner: int=-1) -> bool:
+	if passage_owner>=0:return _ground_fits_size(dimensions,pos) or map.worker_ground_fits(passage_owner,dimensions,pos)
 	if map.source_detail_active:return map.source_ground_fits(dimensions,pos)
 	if navigation_revision!=map.revision:_refresh_navigation_mask()
 	var low_x=floori(pos.x-dimensions.x*.5+.5001)
@@ -1282,7 +1297,7 @@ func _unit_fits(unit: Dictionary, pos: Vector2, check_units: bool=true) -> bool:
 	pos=ACData.point(ACData.packed(pos))
 	var layer=_body_layer(unit)
 	var dimensions=_body_size(unit)
-	if layer==COLLISION_GROUND and not _ground_fits_size(dimensions,pos):return false
+	if layer==COLLISION_GROUND and not _ground_fits_size(dimensions,pos,_worker_passage_owner(unit)):return false
 	if layer==COLLISION_GROUND and not map.source_detail_active and not map.resources.is_empty():
 		var body=Rect2(pos-dimensions*.5,dimensions)
 		for node in _query_resources(pos,3):
@@ -1304,8 +1319,8 @@ func _unit_fits(unit: Dictionary, pos: Vector2, check_units: bool=true) -> bool:
 				if absf(float(other.pos[0])-pos.x)<half.x+other_half.x+COLLISION_SKIN*.5 and absf(float(other.pos[1])-pos.y)<half.y+other_half.y+COLLISION_SKIN*.5:return false
 	return true
 
-func unit_free_position(race: int, kind: int, near: Vector2, ignore_id: int=-1, radius: int=9) -> Vector2:
-	var probe={"id":ignore_id,"race":race,"kind":kind,"pos":ACData.packed(near)}
+func unit_free_position(race: int, kind: int, near: Vector2, ignore_id: int=-1, radius: int=9, ground_level_limit: int=-1) -> Vector2:
+	var probe={"id":ignore_id,"race":race,"kind":kind,"owner":int(entity(ignore_id).get("owner",-1)) if ignore_id>=0 else -1,"pos":ACData.packed(near)}
 	near=near.clamp(Vector2.ONE,Vector2(126,126))
 	if _unit_fits(probe,near):return near
 	var candidates: Array=[]
@@ -1320,6 +1335,7 @@ func unit_free_position(race: int, kind: int, near: Vector2, ignore_id: int=-1, 
 				candidates.append(pos)
 		candidates.sort_custom(func(a,b):return near.distance_squared_to(a)<near.distance_squared_to(b))
 		for pos in candidates:
+			if ground_level_limit>=0 and map.ground_level(pos)!=ground_level_limit:continue
 			if _unit_fits(probe,pos):return pos
 	return near
 
@@ -1336,7 +1352,8 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 	var dimensions=_body_size(unit)
 	var large=maxf(dimensions.x,dimensions.y)>1.0
 	var detailed=map.source_detail_active
-	var body_path=large or detailed
+	var passage_owner=_worker_passage_owner(unit)
+	var body_path=large or detailed or passage_owner>=0
 	# Combat contact is handled by reserved melee slots and local steering.
 	# Treating every fighting body as a new map wall made an inaccessible
 	# target trigger repeated full-map searches through a dense battle.
@@ -1345,13 +1362,14 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 	if path_cache_revision!=map.revision:
 		path_cache.clear()
 		path_cache_revision=map.revision
-	var grid_factor=4 if detailed else (2 if large else 1)
+	var grid_factor=4 if detailed or passage_owner>=0 else (2 if large else 1)
 	var route_key="%d,%d>%d,%d:%d,%d"%[roundi(from.x*grid_factor),roundi(from.y*grid_factor),roundi(to.x*grid_factor),roundi(to.y*grid_factor),ceili(dimensions.x*16) if body_path else 0,ceili(dimensions.y*16) if body_path else 0]
+	route_key+=":"+str(passage_owner)
 	if not crowded and path_cache.has(route_key) and float(path_cache[route_key].until)>time:
 		var cached: Array=path_cache[route_key].path
 		# Nearby continuous positions share a grid key, but a cliff corner may
 		# separate their first swept segment. Never reuse an unsafe entrance.
-		if cached.is_empty() or _ground_sweep(dimensions,from,ACData.point(cached[0])):
+		if cached.is_empty() or _ground_sweep(dimensions,from,ACData.point(cached[0]),passage_owner):
 			perf.path_cache_hits+=1
 			return cached.duplicate(false)
 		path_cache.erase(route_key)
@@ -1372,14 +1390,20 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 				var cached: AStarGrid2D=clearance_paths[size_key]
 				if cached.cell_size!=Vector2.ONE*.25:
 					clearance_paths.clear();break
-				if not changed.has_area():continue
+				var cached_owner=int(size_key.z)-1 if size_key is Vector3i else -1
+				var area_changed=changed
+				if cached_owner>=0:
+					var seam=map.worker_passage_bounds(cached_owner)
+					if seam.has_area():area_changed=area_changed.merge(seam) if area_changed.has_area() else seam
+				if not area_changed.has_area():continue
 				var padding=ceili(maxf(size_key.x,size_key.y)/8.0)+4
-				var area=changed.grow(padding).intersection(cached.region)
+				var area=area_changed.grow(padding).intersection(cached.region)
 				for x in range(area.position.x,area.end.x):
-					for y in range(area.position.y,area.end.y):cached.set_point_solid(Vector2i(x,y),not _ground_fits_size(Vector2(size_key)/16.0,Vector2(x,y)*.25))
+					for y in range(area.position.y,area.end.y):cached.set_point_solid(Vector2i(x,y),not _ground_fits_size(Vector2(size_key.x,size_key.y)/16.0,Vector2(x,y)*.25,cached_owner))
 		else:clearance_paths.clear()
 		clearance_revision=map.revision
-	var key=Vector2i((dimensions*16).ceil())
+	var size_key=Vector2i((dimensions*16).ceil())
+	var key=Vector3i(size_key.x,size_key.y,passage_owner+1) if passage_owner>=0 else size_key
 	if body_path and not clearance_paths.has(key):
 		var nav=AStarGrid2D.new()
 		nav.region=Rect2i(0,0,ACMap.SIZE*grid_factor,ACMap.SIZE*grid_factor)
@@ -1388,11 +1412,11 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 		nav.default_compute_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.default_estimate_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.update()
-		var clearance=Vector2(key)/16.0
-		var template=ACData.clearance_template(map.theme,key,str(map.source_info.get("walk_masks_sha256",""))) if detailed else []
+		var clearance=Vector2(size_key)/16.0
+		var template=ACData.clearance_template(map.theme,size_key,str(map.source_info.get("walk_masks_sha256",""))) if detailed else []
 		if template.is_empty():
 			for x in range(ACMap.SIZE*grid_factor):
-				for y in range(ACMap.SIZE*grid_factor):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)/grid_factor))
+				for y in range(ACMap.SIZE*grid_factor):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)/grid_factor,passage_owner))
 		else:
 			for rectangle in template:nav.fill_solid_region(Rect2i(int(rectangle[0]),int(rectangle[1]),int(rectangle[2]),int(rectangle[3])))
 			var obstacles=map.resource_obstacles.duplicate()
@@ -1407,6 +1431,10 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 				var end=Vector2i(((obstacle.end+Vector2.ONE*.5)*4).ceil()).min(Vector2i(512,512))
 				var low=first-high_offset+Vector2i.ONE;var high=end-low_offset
 				nav.fill_solid_region(Rect2i(low,high-low).intersection(nav.region))
+		if passage_owner>=0:
+			var area=map.worker_passage_bounds(passage_owner).grow(ceili(maxf(clearance.x,clearance.y)*4)+4).intersection(nav.region)
+			for x in range(area.position.x,area.end.x):
+				for y in range(area.position.y,area.end.y):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)*.25,passage_owner))
 		clearance_paths[key]=nav
 	var navigator: AStarGrid2D=clearance_paths[key] if body_path else map.navigator
 	var temporary: Array=[]
@@ -1420,7 +1448,7 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 					if navigator.region.has_point(point) and not navigator.is_point_solid(point):
 						navigator.set_point_solid(point,true)
 						temporary.append(point)
-	var first=_clearance_free(navigator,from,dimensions,true)
+	var first=_clearance_free(navigator,from,dimensions,true,passage_owner)
 	var last=_clearance_free(navigator,to)
 	var path: Array=[]
 	if first.x>=0 and last.x>=0:
@@ -1428,14 +1456,14 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 		for point in navigator.get_id_path(first,last,true):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
 	for point in temporary:navigator.set_point_solid(point,false)
 	if path.is_empty() and crowded:
-		first=_clearance_free(navigator,from,dimensions,true)
+		first=_clearance_free(navigator,from,dimensions,true,passage_owner)
 		last=_clearance_free(navigator,to)
 		if first.x>=0 and last.x>=0:
 			perf.path_requests+=1
 			for point in navigator.get_id_path(first,last,true):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
 	if not path.is_empty() and (Vector2(first)*navigator.cell_size).distance_to(from)<.3:
-		if path.size()==1 or _ground_sweep(dimensions,from,ACData.point(path[1])):path.pop_front()
-	if not path.is_empty():path=_smooth_ground_path(Vector2(Vector2i((dimensions*16).ceil()))/16.0 if body_path else dimensions,from,path,blockers)
+		if path.size()==1 or _ground_sweep(dimensions,from,ACData.point(path[1]),passage_owner):path.pop_front()
+	if not path.is_empty():path=_smooth_ground_path(Vector2(Vector2i((dimensions*16).ceil()))/16.0 if body_path else dimensions,from,path,blockers,passage_owner)
 	unit._path_avoids_units=crowded
 	if not crowded:path_cache[route_key]={"path":path.duplicate(false),"until":time+(2.0 if not path.is_empty() else .5)}
 	return path
@@ -1451,8 +1479,8 @@ func _settled_route_blockers(unit: Dictionary) -> Array:
 		result.append(rect)
 	return result
 
-func _route_sweep(dimensions: Vector2, from: Vector2, to: Vector2, blockers: Array) -> bool:
-	if not _ground_sweep(dimensions,from,to):return false
+func _route_sweep(dimensions: Vector2, from: Vector2, to: Vector2, blockers: Array, passage_owner: int=-1) -> bool:
+	if not _ground_sweep(dimensions,from,to,passage_owner):return false
 	var delta=to-from
 	for rect in blockers:
 		var enter=0.0;var leave=1.0;var intersects=true
@@ -1467,7 +1495,7 @@ func _route_sweep(dimensions: Vector2, from: Vector2, to: Vector2, blockers: Arr
 		if intersects:return false
 	return true
 
-func _smooth_ground_path(dimensions: Vector2, origin: Vector2, path: Array, blockers: Array=[]) -> Array:
+func _smooth_ground_path(dimensions: Vector2, origin: Vector2, path: Array, blockers: Array=[], passage_owner: int=-1) -> Array:
 	# Keep turns first, then remove only those visible to the entire body.
 	# This avoids dense quarter-tile stair steps without cutting cliff corners.
 	var corners: Array=[]
@@ -1481,13 +1509,13 @@ func _smooth_ground_path(dimensions: Vector2, origin: Vector2, path: Array, bloc
 	while cursor<corners.size():
 		var chosen=cursor
 		for candidate in range(mini(cursor+12,corners.size()-1),cursor,-1):
-			if _route_sweep(dimensions,previous,ACData.point(corners[candidate]),blockers):chosen=candidate;break
+			if _route_sweep(dimensions,previous,ACData.point(corners[candidate]),blockers,passage_owner):chosen=candidate;break
 		result.append(corners[chosen]);previous=ACData.point(corners[chosen]);cursor=chosen+1
 	return result
 
-func _clearance_free(navigator: AStarGrid2D, near: Vector2,dimensions: Vector2=Vector2.ZERO,reachable_start: bool=false) -> Vector2i:
+func _clearance_free(navigator: AStarGrid2D, near: Vector2,dimensions: Vector2=Vector2.ZERO,reachable_start: bool=false,passage_owner: int=-1) -> Vector2i:
 	var origin=Vector2i((near/navigator.cell_size).round())
-	var require_sweep=reachable_start and _ground_fits_size(dimensions,near)
+	var require_sweep=reachable_start and _ground_fits_size(dimensions,near,passage_owner)
 	for ring in range(ceili(9.0/navigator.cell_size.x)):
 		var best=INF
 		var result=Vector2i(-1,-1)
@@ -1496,7 +1524,7 @@ func _clearance_free(navigator: AStarGrid2D, near: Vector2,dimensions: Vector2=V
 				if maxi(absi(x),absi(y))!=ring:continue
 				var point=origin+Vector2i(x,y)
 				if navigator.region.has_point(point) and not navigator.is_point_solid(point):
-					if require_sweep and not _ground_sweep(dimensions,near,Vector2(point)*navigator.cell_size):continue
+					if require_sweep and not _ground_sweep(dimensions,near,Vector2(point)*navigator.cell_size,passage_owner):continue
 					var distance=(Vector2(point)*navigator.cell_size).distance_squared_to(near)
 					if distance<best:best=distance;result=point
 		if result.x>=0:return result
@@ -1627,6 +1655,9 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 	var p=ACData.point(u.pos)
 	var d=unit_data(u)
 	if d.air:return FLIGHT.move(self,u,goal,dt,reach)
+	var passage_owner=_worker_passage_owner(u)
+	if int(u.get("_path_passage_owner",-1))!=passage_owner:u.path=[];u.repath=0
+	u._path_passage_owner=passage_owner
 	if p.distance_to(goal)<=reach:
 		return true
 	if u.anchored or float(u.get("rooted_until",0))>time:
@@ -1638,7 +1669,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		var blockers=_settled_route_blockers(u) if bool(u.get("_path_avoids_units",false)) or float(u.blocked_clock)>.8 else []
 		var shortcut_check=time>=float(u.get("_shortcut_at",0)) or int(u.path_rev)!=map.revision or ACData.point(u.get("_shortcut_goal",ACData.packed(goal))).distance_squared_to(goal)>1
 		if shortcut_check:u._shortcut_at=time+.25+float(int(u.id)%5)*.015;u._shortcut_goal=ACData.packed(goal)
-		if shortcut_check and p.distance_squared_to(goal)<=144 and _route_sweep(_body_size(u),p,goal,blockers):
+		if shortcut_check and p.distance_squared_to(goal)<=144 and _route_sweep(_body_size(u),p,goal,blockers,passage_owner):
 			u.path=[ACData.packed(goal)];u.path_failed=false;u.path_rev=map.revision;u.repath=3.0;u._path_goal=ACData.packed(goal)
 		u.repath-=dt
 		if u.path.is_empty() and u.path_failed and u.repath>0 and int(u.path_rev)==map.revision and ACData.point(u.get("_path_goal",ACData.packed(goal))).distance_squared_to(goal)<.01:return false
@@ -1676,7 +1707,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		if shortcut_check and not u.path.is_empty():
 			for index in range(mini(u.path.size()-1,16),0,-1):
 				var point=ACData.point(u.path[index])
-				if p.distance_squared_to(point)<=64 and _route_sweep(_body_size(u),p,point,blockers):
+				if p.distance_squared_to(point)<=64 and _route_sweep(_body_size(u),p,point,blockers,passage_owner):
 					u.path=u.path.slice(index);break
 		next=ACData.point(u.path[0])
 		# Skip already-passed grid corners with a checked body sweep. Avoidance
@@ -1684,15 +1715,15 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		while u.path.size()>1:
 			var ahead=ACData.point(u.path[1])
 			if p.distance_to(ahead)>1.8:break
-			if not _route_sweep(_body_size(u),p,ahead,blockers):break
+			if not _route_sweep(_body_size(u),p,ahead,blockers,passage_owner):break
 			u.path.pop_front()
 			next=ahead
 		if p.distance_to(next)<.22:
 			if u.path.size()==1:
 				if p.distance_to(goal)<=reach:return true
-				if not _unit_fits(u,goal,false) or not _ground_sweep(_body_size(u),p,goal):return true
+				if not _unit_fits(u,goal,false) or not _ground_sweep(_body_size(u),p,goal,passage_owner):return true
 				next=goal
-			elif _route_sweep(_body_size(u),p,ACData.point(u.path[1]),blockers):
+			elif _route_sweep(_body_size(u),p,ACData.point(u.path[1]),blockers,passage_owner):
 				u.path.pop_front()
 				next=ACData.point(u.path[0])
 	var direction=(next-p).normalized()
@@ -1802,7 +1833,7 @@ func step(dt: float) -> void:
 	phase_start=Time.get_ticks_usec()
 	ai_clock-=dt
 	if ai_clock<=0:
-		ai_clock=.5
+		ai_clock=.1
 		for owner in range(players.size()):
 			if players[owner].bot and not players[owner].lost:
 				_ai(owner)
@@ -1918,7 +1949,7 @@ func _displace_unit(unit: Dictionary, delta: Vector2) -> bool:
 	if unit.anchored:return false
 	var next=(ACData.point(unit.pos)+delta).clamp(Vector2.ONE,Vector2(126,126))
 	next=ACData.point(ACData.packed(next))
-	if collision_layer(int(unit.race),int(unit.kind))==COLLISION_GROUND and not _ground_fits_size(collision_size(int(unit.race),int(unit.kind)),next):return false
+	if collision_layer(int(unit.race),int(unit.kind))==COLLISION_GROUND and not _ground_sweep(collision_size(int(unit.race),int(unit.kind)),ACData.point(unit.pos),next,_worker_passage_owner(unit)):return false
 	_set_unit_position(unit,next)
 	return true
 
@@ -1940,18 +1971,17 @@ func _resolve_unit_pair(a: Dictionary, b: Dictionary, soft: bool, dt: float) -> 
 		var b_share=amount-a_share
 		var a_next=ACData.point(a.pos)+direction*a_share
 		var b_next=ACData.point(b.pos)-direction*b_share
-		var a_fits=soft or _ground_fits_size(collision_size(int(a.race),int(a.kind)),a_next)
-		var b_fits=soft or _ground_fits_size(collision_size(int(b.race),int(b.kind)),b_next)
+		var a_fits=soft or _ground_sweep(collision_size(int(a.race),int(a.kind)),ACData.point(a.pos),a_next,_worker_passage_owner(a))
+		var b_fits=soft or _ground_sweep(collision_size(int(b.race),int(b.kind)),ACData.point(b.pos),b_next,_worker_passage_owner(b))
 		if a_fits and b_fits:
-			if a_share>0:_displace_unit(a,direction*a_share)
-			if b_share>0:_displace_unit(b,-direction*b_share)
-			return true
-		if not a.anchored and (soft or _ground_fits_size(collision_size(int(a.race),int(a.kind)),ACData.point(a.pos)+direction*amount)):
-			_displace_unit(a,direction*amount)
-			return true
-		if not b.anchored and (soft or _ground_fits_size(collision_size(int(b.race),int(b.kind)),ACData.point(b.pos)-direction*amount)):
-			_displace_unit(b,-direction*amount)
-			return true
+			var shifted=false
+			if a_share>0:shifted=_displace_unit(a,direction*a_share) or shifted
+			if b_share>0:shifted=_displace_unit(b,-direction*b_share) or shifted
+			if shifted:return true
+		if not a.anchored and (soft or _ground_sweep(collision_size(int(a.race),int(a.kind)),ACData.point(a.pos),ACData.point(a.pos)+direction*amount,_worker_passage_owner(a))):
+			if _displace_unit(a,direction*amount):return true
+		if not b.anchored and (soft or _ground_sweep(collision_size(int(b.race),int(b.kind)),ACData.point(b.pos),ACData.point(b.pos)-direction*amount,_worker_passage_owner(b))):
+			if _displace_unit(b,-direction*amount):return true
 	return false
 
 func _separate_units(dt: float, force_recovery: bool=true) -> void:
@@ -1970,8 +2000,8 @@ func _separate_units(dt: float, force_recovery: bool=true) -> void:
 	for unit in units:
 		if unit.hp<=0 or unit.container>=0 or collision_layer(int(unit.race),int(unit.kind))!=COLLISION_GROUND:continue
 		if unit.has("_construction_site") and _builder_attached(unit,entity(int(unit._construction_site))):continue
-		if not _ground_fits_size(collision_size(int(unit.race),int(unit.kind)),ACData.point(unit.pos)):
-			_set_unit_position(unit,unit_free_position(int(unit.race),int(unit.kind),ACData.point(unit.pos),int(unit.id)))
+		if not _ground_fits_size(collision_size(int(unit.race),int(unit.kind)),ACData.point(unit.pos),_worker_passage_owner(unit)):
+			_set_unit_position(unit,unit_free_position(int(unit.race),int(unit.kind),ACData.point(unit.pos),int(unit.id),9,map.ground_level(ACData.point(unit.pos))))
 			unit.path=[]
 	# Movement already rejects occupied boxes. The projection pass primarily
 	# handles unloads, scaffolds placed over units and legacy overlapping states.
@@ -1994,7 +2024,7 @@ func _separate_units(dt: float, force_recovery: bool=true) -> void:
 		if unit.hp<=0 or unit.container>=0 or unit.anchored or collision_layer(int(unit.race),int(unit.kind))!=COLLISION_GROUND:continue
 		if unit.has("_construction_site") and _builder_attached(unit,entity(int(unit._construction_site))):continue
 		if not _unit_fits(unit,ACData.point(unit.pos)):
-			_set_unit_position(unit,unit_free_position(int(unit.race),int(unit.kind),ACData.point(unit.pos),int(unit.id)))
+			_set_unit_position(unit,unit_free_position(int(unit.race),int(unit.kind),ACData.point(unit.pos),int(unit.id),9,map.ground_level(ACData.point(unit.pos))))
 			unit.path=[]
 
 func _regenerate(e: Dictionary, d: Dictionary, dt: float) -> void:
@@ -2194,7 +2224,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 				var contact=_melee_approach(u,target)
 				# A nearby moving target needs its present contact point, rather than
 				# a cached waypoint left behind by the previous approach.
-				if pos.distance_squared_to(contact)<=64 and _ground_sweep(_body_size(u),pos,contact):
+				if pos.distance_squared_to(contact)<=64 and _ground_sweep(_body_size(u),pos,contact,_worker_passage_owner(u)):
 					u.path=[ACData.packed(contact)];u.path_rev=map.revision;u._path_goal=ACData.packed(contact);u.repath=1.0;u.path_failed=false
 				_move(u,contact,dt,.04)
 				# Resolve actual contact in this simulation step. A moving opponent
@@ -2469,8 +2499,8 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 	var d=ACData.building(int(target.race),int(target.kind)) if target.has("progress") else unit_data(target)
 	var left=amount
 	if damage_kind=="attack" and not friendly and amount>0:
-		var from=Vector2i(center(attacker));var to=Vector2i(center(target))
-		if map.inside(from) and map.inside(to) and map.height_map[from.y*ACMap.SIZE+from.x]>map.height_map[to.y*ACMap.SIZE+to.x]:
+		var from=ACMap.ground_cell(center(attacker));var to=ACMap.ground_cell(center(target))
+		if map.inside(from) and map.inside(to) and map.ground_level(center(attacker))>map.ground_level(center(target)):
 			# Receiving fire briefly exposes the small area it came from.
 			if not attacker.has("_attack_reveals"):attacker._attack_reveals={}
 			for viewer in range(players.size()):
@@ -2785,13 +2815,14 @@ func _update_vision() -> void:
 			if e.has("progress") and int(e.kind)==0:radius=13
 			if not e.has("progress") and unit_data(e).role in ["detector","healer_detector"]:
 				radius=12
-			var p=Vector2i(center(e))
+			var foot=footprint(e).get_center() if e.has("progress") else center(e)
+			var p=ACMap.ground_cell(foot)
 			for viewer in e.get("_attack_reveals",{}):
 				var exposure: Dictionary=e._attack_reveals[viewer]
 				if int(viewer)>=0 and int(viewer)<players.size() and float(exposure.until)>time:
-					var location=Vector2i(ACData.point(exposure.pos))
+					var location=ACMap.ground_cell(ACData.point(exposure.pos))
 					sources[int(viewer)][Vector4i(location.x,location.y,2,-1)]=true
-			var height=-1 if not e.has("progress") and unit_data(e).air else int(map.height_map[clampi(p.y,0,127)*ACMap.SIZE+clampi(p.x,0,127)])
+			var height=-1 if not e.has("progress") and unit_data(e).air else map.ground_level(foot)
 			if not vision_spans.has(radius):
 				var spans: Array=[]
 				for dy in range(-radius,radius+1):spans.append(Vector2i(dy,int(floor(sqrt(float(radius*radius-dy*dy))))))
@@ -2845,7 +2876,7 @@ func is_cloaked(e: Dictionary) -> bool:
 func can_see(owner: int, e: Dictionary) -> bool:
 	if allied(owner,int(e.owner)):
 		return true
-	var p=Vector2i(center(e))
+	var p=ACMap.ground_cell(footprint(e).get_center() if e.has("progress") else center(e))
 	if not map.inside(p):return false
 	var index=p.y*ACMap.SIZE+p.x
 	var seen=visibility[owner][index]>0
