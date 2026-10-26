@@ -1,0 +1,2577 @@
+{
+  "method": "Native Hell-v-Hell games with the final approved unit values and AI sources frozen. User reduced the original 60-game plan: retain nine completed mirror games as separate references and finish fifteen cross-race games, five per pairing. No further mirror games. Retain completed cases and then running cases without winner-dependent selection; odd game counts are not fully side-balanced. Normal 50As and four workers, As yield eight, .05-second simulation, 1800-second limit draws remain draws.",
+  "scope": "cross_race_only",
+  "hashes": {
+    "scripts/bot_ai.gd": "e1aab6558cc257da1ae9f48876b6563b596dd30c18d913208b054934b0bf06da",
+    "scripts/bot_tactics.gd": "1ef0405a47f46b429f2ee831d3bfbbf1741668e71a04a3cc8fddb6620b086ba0",
+    "scripts/bot_tactic_learning.gd": "46004332c16520cd3ea7019d8e4b0275033cd85edc63a9bb1d7168e6bb618bf5",
+    "scripts/bot_economy.gd": "e77af0afc5a875408b2c176a87a9e11c9140f966c0f08a94fda1e6ebd89f824a",
+    "scripts/bot_harassment.gd": "ab65ff37514c3823aa3a28496fe4d22f9e415eed7bd53922d5228cfb3c8b39e9",
+    "scripts/bot_raid_orders.gd": "81d136e2fdf8378cd322d5b03eb26a69ca20741af5be536903907bb51bc48ad8",
+    "scripts/bot_citrus_air_raids.gd": "839a85d2c1898e85175fc8c1adfa50f0f780ec34bd8186ff3882c5d82e87b1d2",
+    "scripts/bot_combat_policy.gd": "73fc0efe1b80827b1e16de38c57e79c3fd35e1d46cf10286ae8c81795b7ac59d",
+    "scripts/bot_ara_policy.gd": "64aecf57edcd0c29610f7b63dfb58111fbe4e009a6e56f0c85cd8b8f7025ddf8",
+    "scripts/data.gd": "40b8f892b19d129014db3fdde35f2cff5b3b238aa42ff6aa11977c39fa479de3",
+    "scripts/research.gd": "ac4ac88ff8dc850d00ac2b79ef0c43f754a2c9f69ef25e9157ccac1f30b14cd8",
+    "scripts/root_field.gd": "5bc367941852f429ccc834f8844b7ece1c0c71d2e443240c557c6c5a1007d38a",
+    "scripts/flight_motion.gd": "cf23521c57593bf15101501a1fbe61afec3d15e55a1de359c010ce185208e0b0",
+    "scripts/burst_weapon.gd": "d8c7503138c1a0c74fc50d4fc2661ba6b5257d5a072eb87552b784e12687b99d",
+    "scripts/player_colors.gd": "3834f945006a295a8a8892ac7b14827843e985c62d74fb0c3ce3bc0ec6659393",
+    "scripts/bot_fortress_policy.gd": "038e6e246c0d4770c2924c4d1da24c5352bed5934ca81457e8d270cdf6eb25e9",
+    "scripts/bot_missions.gd": "d3859c57ff3f3034f3cf3716d7fa68c7a4e00c454f371d4a8d01701040bddfb3",
+    "scripts/bot_skills.gd": "892e83d0ccffdaf41b53d34264126fb92a38a1353276ca34a62c6a4f266fa16b",
+    "scripts/bot_recon.gd": "3bad2969a54770ea60ed58066d6cacda57e47d7e126349022937436f170b851e",
+    "scripts/bot_action_budget.gd": "286328784ed2639dec4d1608d7bf3bf1ef379b88d0d8cec5ffc5807ba86b86ba",
+    "scripts/core.gd": "26f5f774ad860d3c64fa978e4cdc073244449d3ad6aa924888fe22f7c7817a00",
+    "scripts/world_map.gd": "fe0762622539e8d2b5d3f0c690909db06ff912f2f253fbee2e2e0c26eac84f33",
+    "scripts/worker_motion.gd": "56b83925e7dceb1e5a045d9d76946801489316c94589f225cddbbbb2c31471f6",
+    "scripts/citrus_brood.gd": "87bd08cf4692b011243165a57831c9373bf25d6ba80b49f8a08812ae92e32f03",
+    "scripts/abilities.gd": "fa4d92b7d8e0e448c606974ce3799b2be52350794bf6d234063ff70d7e341cda",
+    "scripts/new_units.gd": "805bcdd5294e2af539f929666600922d5e14009d2428d34022fdeb4e1bb43d28",
+    "data/game.json": "1c47a65b9c501e425589f40615e9cbbba2bb8e9aabd37af0374af097fed358fd",
+    "data/ai_tactics.json": "67f90b0f9228ee428056b01b7b6a89b8b5ab1fce9bb136274fdf4a465bf394e3",
+    "data/ai_tactic_results_20261026.json": "c5c959706b934dcb9941df88361a45cfd8891dc29d7dc31ee965b7688712a5ae",
+    "tests/ai_match_20261026.gd": "3241a39e6b3e8653593c9e4e8a31d998d5bf21a2f38e053d38eb315bcd458258"
+  },
+  "completed": 15,
+  "total": 15,
+  "invalid": [],
+  "pairs": {
+    "0-1": {
+      "races": [
+        "노바너",
+        "이귤"
+      ],
+      "games": 5,
+      "wins": [
+        1,
+        4
+      ],
+      "draws": 0
+    },
+    "1-2": {
+      "races": [
+        "이귤",
+        "아라아울"
+      ],
+      "games": 5,
+      "wins": [
+        4,
+        1
+      ],
+      "draws": 0
+    },
+    "0-2": {
+      "races": [
+        "노바너",
+        "아라아울"
+      ],
+      "games": 5,
+      "wins": [
+        3,
+        1
+      ],
+      "draws": 1
+    }
+  },
+  "races": [
+    {
+      "name": "노바너",
+      "games": 10,
+      "wins": 4,
+      "losses": 5,
+      "draws": 1,
+      "produced": 1454,
+      "workers_produced": 681,
+      "observations": 10,
+      "population_total": 329.74231072336255,
+      "as_bank_total": 67903,
+      "tera_bank_total": 29536,
+      "surplus_expansions": 0,
+      "units": {
+        "u:0:1": {
+          "name": "전열사수",
+          "role": "rifle",
+          "produced": 814,
+          "games": 10,
+          "damage": 109416.9,
+          "killed_value": 98587.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 61050,
+          "damage_per_investment": 1.8,
+          "kill_value_per_investment": 1.6,
+          "enough_sample": true
+        },
+        "u:0:13": {
+          "name": "화염돌파차",
+          "role": "flamer",
+          "produced": 57,
+          "games": 10,
+          "damage": 10407.2,
+          "killed_value": 7547.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 11400,
+          "damage_per_investment": 0.9,
+          "kill_value_per_investment": 0.7,
+          "enough_sample": true
+        },
+        "u:0:2": {
+          "name": "돌격병",
+          "role": "assault",
+          "produced": 101,
+          "games": 10,
+          "damage": 8502.1,
+          "killed_value": 7140,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 12877.5,
+          "damage_per_investment": 0.7,
+          "kill_value_per_investment": 0.6,
+          "enough_sample": true
+        },
+        "u:0:3": {
+          "name": "방패보병",
+          "role": "shield",
+          "produced": 53,
+          "games": 9,
+          "damage": 8673.4,
+          "killed_value": 6117.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 8612.5,
+          "damage_per_investment": 1,
+          "kill_value_per_investment": 0.7,
+          "enough_sample": true
+        },
+        "u:0:4": {
+          "name": "야전의무병",
+          "role": "medic",
+          "produced": 147,
+          "games": 9,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 10882.424999999777,
+          "unloaded": 0,
+          "investment": 22050,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": true
+        },
+        "u:0:6": {
+          "name": "추적미사일 차륜차",
+          "role": "missile",
+          "produced": 64,
+          "games": 10,
+          "damage": 23044.9,
+          "killed_value": 24472.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 15200,
+          "damage_per_investment": 1.5,
+          "kill_value_per_investment": 1.6,
+          "enough_sample": true
+        },
+        "u:0:5": {
+          "name": "굴착포 전차",
+          "role": "siege",
+          "produced": 134,
+          "games": 8,
+          "damage": 54188.2,
+          "killed_value": 66587.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 43550,
+          "damage_per_investment": 1.2,
+          "kill_value_per_investment": 1.5,
+          "enough_sample": true
+        },
+        "u:0:7": {
+          "name": "그림자 정찰병",
+          "role": "stealth",
+          "produced": 22,
+          "games": 7,
+          "damage": 14773.9,
+          "killed_value": 23417.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 6050,
+          "damage_per_investment": 2.4,
+          "kill_value_per_investment": 3.9,
+          "enough_sample": true
+        },
+        "u:0:8": {
+          "name": "무인 관측 드론",
+          "role": "detector",
+          "produced": 26,
+          "games": 8,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 3900,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": true
+        },
+        "u:0:10": {
+          "name": "강습폭격기",
+          "role": "bomber",
+          "produced": 6,
+          "games": 2,
+          "damage": 2157.9,
+          "killed_value": 7312.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 2550,
+          "damage_per_investment": 0.8,
+          "kill_value_per_investment": 2.9,
+          "enough_sample": false
+        },
+        "u:0:9": {
+          "name": "요격기",
+          "role": "fighter",
+          "produced": 27,
+          "games": 6,
+          "damage": 1228.5,
+          "killed_value": 1350,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 8100,
+          "damage_per_investment": 0.2,
+          "kill_value_per_investment": 0.2,
+          "enough_sample": true
+        },
+        "u:0:11": {
+          "name": "장갑수송정",
+          "role": "transport",
+          "produced": 3,
+          "games": 1,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 0,
+          "unloaded": 14,
+          "investment": 900,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": false
+        }
+      },
+      "research": {
+        "attack": {
+          "name": "attack",
+          "completed_games": 10,
+          "activated": 0,
+          "combat_damage": 0
+        },
+        "frontline_vitality": {
+          "name": "전열사수 강화 전투복",
+          "completed_games": 10,
+          "activated": 0,
+          "combat_damage": 99840.16670769226
+        },
+        "armor": {
+          "name": "armor",
+          "completed_games": 9,
+          "activated": 0,
+          "combat_damage": 0
+        },
+        "flamer_range": {
+          "name": "장축 화염노즐",
+          "completed_games": 2,
+          "activated": 0,
+          "combat_damage": 2246.97692307697
+        },
+        "missile_autoloader": {
+          "name": "자동 장전기",
+          "completed_games": 1,
+          "activated": 0,
+          "combat_damage": 0
+        }
+      },
+      "win_rate_resolved": 44.4,
+      "average_military_population": 33,
+      "average_as_bank": 6790.3,
+      "average_tera_bank": 2953.6
+    },
+    {
+      "name": "이귤",
+      "games": 10,
+      "wins": 8,
+      "losses": 2,
+      "draws": 0,
+      "produced": 1548,
+      "workers_produced": 1000,
+      "observations": 10,
+      "population_total": 287.3232795000376,
+      "as_bank_total": 36501,
+      "tera_bank_total": 5601,
+      "surplus_expansions": 1,
+      "units": {
+        "u:1:1": {
+          "name": "껍질발톱",
+          "role": "swarm",
+          "produced": 660,
+          "games": 10,
+          "damage": 7609.8,
+          "killed_value": 6010,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 16500,
+          "damage_per_investment": 0.5,
+          "kill_value_per_investment": 0.4,
+          "enough_sample": true
+        },
+        "u:1:10": {
+          "name": "귤박쥐",
+          "role": "fighter",
+          "produced": 140,
+          "games": 9,
+          "damage": 10305.1,
+          "killed_value": 13627.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 21000,
+          "damage_per_investment": 0.5,
+          "kill_value_per_investment": 0.6,
+          "enough_sample": true
+        },
+        "u:1:11": {
+          "name": "포낭비행체",
+          "role": "transport",
+          "produced": 6,
+          "games": 2,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 0,
+          "unloaded": 1,
+          "investment": 1425,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": false
+        },
+        "u:1:2": {
+          "name": "과즙분사체",
+          "role": "spitter",
+          "produced": 307,
+          "games": 10,
+          "damage": 19748.1,
+          "killed_value": 22105,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 34537.5,
+          "damage_per_investment": 0.6,
+          "kill_value_per_investment": 0.6,
+          "enough_sample": true
+        },
+        "u:1:3": {
+          "name": "후피거수",
+          "role": "tank",
+          "produced": 102,
+          "games": 9,
+          "damage": 36767.3,
+          "killed_value": 36202.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 26775,
+          "damage_per_investment": 1.4,
+          "kill_value_per_investment": 1.4,
+          "enough_sample": true
+        },
+        "u:1:4": {
+          "name": "과숙폭탄",
+          "role": "suicide",
+          "produced": 123,
+          "games": 10,
+          "damage": 4324.8,
+          "killed_value": 2475,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 9532.5,
+          "damage_per_investment": 0.5,
+          "kill_value_per_investment": 0.3,
+          "enough_sample": true
+        },
+        "u:1:5": {
+          "name": "덩굴포식자",
+          "role": "root",
+          "produced": 15,
+          "games": 2,
+          "damage": 286.1,
+          "killed_value": 300,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 3187.5,
+          "damage_per_investment": 0.1,
+          "kill_value_per_investment": 0.1,
+          "enough_sample": false
+        },
+        "u:1:6": {
+          "name": "씨앗박격체",
+          "role": "siege",
+          "produced": 116,
+          "games": 7,
+          "damage": 25417.8,
+          "killed_value": 29057.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 31900,
+          "damage_per_investment": 0.8,
+          "kill_value_per_investment": 0.9,
+          "enough_sample": true
+        },
+        "u:1:7": {
+          "name": "가시꽃",
+          "role": "anti_air",
+          "produced": 73,
+          "games": 9,
+          "damage": 19137.8,
+          "killed_value": 23415,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 12045,
+          "damage_per_investment": 1.6,
+          "kill_value_per_investment": 1.9,
+          "enough_sample": true
+        },
+        "u:1:9": {
+          "name": "모즙체",
+          "role": "healer_detector",
+          "produced": 6,
+          "games": 4,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 117.0330000000006,
+          "unloaded": 0,
+          "investment": 1650,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": false
+        }
+      },
+      "research": {
+        "attack": {
+          "name": "attack",
+          "completed_games": 10,
+          "activated": 0,
+          "combat_damage": 0
+        },
+        "armor": {
+          "name": "armor",
+          "completed_games": 7,
+          "activated": 0,
+          "combat_damage": 0
+        },
+        "root_range": {
+          "name": "장축 덩굴",
+          "completed_games": 1,
+          "activated": 0,
+          "combat_damage": 0
+        }
+      },
+      "win_rate_resolved": 80,
+      "average_military_population": 28.7,
+      "average_as_bank": 3650.1,
+      "average_tera_bank": 560.1
+    },
+    {
+      "name": "아라아울",
+      "games": 10,
+      "wins": 2,
+      "losses": 7,
+      "draws": 1,
+      "produced": 1232,
+      "workers_produced": 671,
+      "observations": 10,
+      "population_total": 348.9279141533664,
+      "as_bank_total": 27508,
+      "tera_bank_total": 8756,
+      "surplus_expansions": 0,
+      "units": {
+        "u:2:1": {
+          "name": "서약수호자",
+          "role": "guardian",
+          "produced": 528,
+          "games": 10,
+          "damage": 19308.5,
+          "killed_value": 15645,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 66000,
+          "damage_per_investment": 0.3,
+          "kill_value_per_investment": 0.2,
+          "enough_sample": true
+        },
+        "u:2:2": {
+          "name": "성문궁수",
+          "role": "archer",
+          "produced": 277,
+          "games": 10,
+          "damage": 31100.4,
+          "killed_value": 29485,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 62325,
+          "damage_per_investment": 0.5,
+          "kill_value_per_investment": 0.5,
+          "enough_sample": true
+        },
+        "u:2:4": {
+          "name": "결계사제",
+          "role": "priest",
+          "produced": 47,
+          "games": 9,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 1972.7481730770724,
+          "unloaded": 0,
+          "investment": 15275,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": true
+        },
+        "u:2:3": {
+          "name": "규율집행관",
+          "role": "officer",
+          "produced": 39,
+          "games": 7,
+          "damage": 3193.1,
+          "killed_value": 2850,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 11700,
+          "damage_per_investment": 0.3,
+          "kill_value_per_investment": 0.2,
+          "enough_sample": true
+        },
+        "u:2:5": {
+          "name": "천문심판관",
+          "role": "mage",
+          "produced": 70,
+          "games": 9,
+          "damage": 3982.7,
+          "killed_value": 2290,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 25375,
+          "damage_per_investment": 0.2,
+          "kill_value_per_investment": 0.1,
+          "enough_sample": true
+        },
+        "u:2:7": {
+          "name": "고대석익병",
+          "role": "golem",
+          "produced": 154,
+          "games": 9,
+          "damage": 31134.2,
+          "killed_value": 36047.5,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 61600,
+          "damage_per_investment": 0.5,
+          "kill_value_per_investment": 0.6,
+          "enough_sample": true
+        },
+        "u:2:8": {
+          "name": "궤도창",
+          "role": "siege",
+          "produced": 25,
+          "games": 5,
+          "damage": 8113.3,
+          "killed_value": 8540,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 11250,
+          "damage_per_investment": 0.7,
+          "kill_value_per_investment": 0.8,
+          "enough_sample": true
+        },
+        "u:2:10": {
+          "name": "황혼잠행자",
+          "role": "stealth",
+          "produced": 48,
+          "games": 4,
+          "damage": 13424.5,
+          "killed_value": 15350,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 27600,
+          "damage_per_investment": 0.5,
+          "kill_value_per_investment": 0.6,
+          "enough_sample": true
+        },
+        "u:2:11": {
+          "name": "회랑지기",
+          "role": "transport",
+          "produced": 9,
+          "games": 4,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 0,
+          "unloaded": 3,
+          "investment": 3262.5,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": false
+        },
+        "u:2:6": {
+          "name": "밤눈감시자",
+          "role": "detector",
+          "produced": 13,
+          "games": 4,
+          "damage": 0,
+          "killed_value": 0,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 2437.5,
+          "damage_per_investment": 0,
+          "kill_value_per_investment": 0,
+          "enough_sample": true
+        },
+        "u:2:9": {
+          "name": "월익추적자",
+          "role": "fighter",
+          "produced": 14,
+          "games": 4,
+          "damage": 1089,
+          "killed_value": 2050,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 5075,
+          "damage_per_investment": 0.2,
+          "kill_value_per_investment": 0.4,
+          "enough_sample": true
+        },
+        "u:2:13": {
+          "name": "성좌추격기",
+          "role": "chaser",
+          "produced": 8,
+          "games": 1,
+          "damage": 1110.6,
+          "killed_value": 1250,
+          "healing": 0,
+          "unloaded": 0,
+          "investment": 3300,
+          "damage_per_investment": 0.3,
+          "kill_value_per_investment": 0.4,
+          "enough_sample": false
+        }
+      },
+      "research": {
+        "attack": {
+          "name": "attack",
+          "completed_games": 10,
+          "activated": 0,
+          "combat_damage": 0
+        },
+        "armor": {
+          "name": "armor",
+          "completed_games": 9,
+          "activated": 0,
+          "combat_damage": 0
+        },
+        "shield": {
+          "name": "shield",
+          "completed_games": 9,
+          "activated": 0,
+          "combat_damage": 0
+        },
+        "golem_range": {
+          "name": "장거리 결정포",
+          "completed_games": 2,
+          "activated": 0,
+          "combat_damage": 10395.22571428573
+        },
+        "guardian_march": {
+          "name": "신속 행군",
+          "completed_games": 4,
+          "activated": 0,
+          "combat_damage": 4168.4
+        }
+      },
+      "win_rate_resolved": 22.2,
+      "average_military_population": 34.9,
+      "average_as_bank": 2750.8,
+      "average_tera_bank": 875.6
+    }
+  ],
+  "games": [
+    {
+      "number": 1,
+      "id": "balance-3-00-0",
+      "map": 0,
+      "seconds": 635.5,
+      "wall_seconds": 273.9,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N1",
+          "plan_name": "전열사수 물량전",
+          "produced": 62,
+          "workers_produced": 37,
+          "average_military_population": 6.3,
+          "bank": [
+            17,
+            865
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 39
+            },
+            {
+              "name": "야전의무병",
+              "count": 8
+            },
+            {
+              "name": "돌격병",
+              "count": 6
+            },
+            {
+              "name": "화염돌파차",
+              "count": 4
+            },
+            {
+              "name": "방패보병",
+              "count": 3
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "attack": 1,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "이귤",
+          "plan": "E13",
+          "plan_name": "과숙폭탄 돌파군",
+          "produced": 123,
+          "workers_produced": 82,
+          "average_military_population": 28.8,
+          "bank": [
+            198,
+            400
+          ],
+          "bases": 4,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 46
+            },
+            {
+              "name": "과즙분사체",
+              "count": 33
+            },
+            {
+              "name": "귤박쥐",
+              "count": 15
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 14
+            },
+            {
+              "name": "후피거수",
+              "count": 12
+            },
+            {
+              "name": "포낭비행체",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "attack": 1
+          },
+          "research_in_progress": [
+            {
+              "id": "armor",
+              "left": 42.3500000000002,
+              "level": 1,
+              "name": "장갑 강화"
+            }
+          ],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "balance-3-00-1",
+      "map": 0,
+      "seconds": 902.9,
+      "wall_seconds": 563.1,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N7",
+          "plan_name": "화염차·차륜차 기동군",
+          "produced": 77,
+          "workers_produced": 63,
+          "average_military_population": 13,
+          "bank": [
+            14,
+            764
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 40
+            },
+            {
+              "name": "야전의무병",
+              "count": 11
+            },
+            {
+              "name": "방패보병",
+              "count": 8
+            },
+            {
+              "name": "돌격병",
+              "count": 6
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 5
+            },
+            {
+              "name": "화염돌파차",
+              "count": 4
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 1
+            },
+            {
+              "name": "그림자 정찰병",
+              "count": 1
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 1
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "이귤",
+          "plan": "E23",
+          "plan_name": "분사체·덩굴 수송전",
+          "produced": 218,
+          "workers_produced": 133,
+          "average_military_population": 36.5,
+          "bank": [
+            9726,
+            1759
+          ],
+          "bases": 7,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 100
+            },
+            {
+              "name": "과즙분사체",
+              "count": 22
+            },
+            {
+              "name": "후피거수",
+              "count": 20
+            },
+            {
+              "name": "귤박쥐",
+              "count": 19
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 19
+            },
+            {
+              "name": "씨앗박격체",
+              "count": 16
+            },
+            {
+              "name": "덩굴포식자",
+              "count": 12
+            },
+            {
+              "name": "가시꽃",
+              "count": 5
+            },
+            {
+              "name": "포낭비행체",
+              "count": 3
+            },
+            {
+              "name": "모즙체",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 2,
+            "root_range": 1
+          },
+          "research_in_progress": [
+            {
+              "id": "attack",
+              "left": 12.5000000000022,
+              "level": 3,
+              "name": "공격 강화"
+            },
+            {
+              "id": "bat_range",
+              "left": 4.10000000000212,
+              "level": 1,
+              "name": "익막 표적감각"
+            }
+          ],
+          "skills_activated": {},
+          "surplus_expansions": 1
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "balance-5-00-1",
+      "map": 0,
+      "seconds": 645.4,
+      "wall_seconds": 208.5,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "이귤",
+          "plan": "E16",
+          "plan_name": "접목충·귤박쥐 기동군",
+          "produced": 123,
+          "workers_produced": 77,
+          "average_military_population": 26.1,
+          "bank": [
+            79,
+            73
+          ],
+          "bases": 4,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 48
+            },
+            {
+              "name": "과즙분사체",
+              "count": 37
+            },
+            {
+              "name": "가시꽃",
+              "count": 22
+            },
+            {
+              "name": "귤박쥐",
+              "count": 8
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 8
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A7",
+          "plan_name": "석익병·수호자 돌파군",
+          "produced": 35,
+          "workers_produced": 32,
+          "average_military_population": 8.6,
+          "bank": [
+            129,
+            671
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "성문궁수",
+              "count": 19
+            },
+            {
+              "name": "서약수호자",
+              "count": 14
+            },
+            {
+              "name": "결계사제",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "attack": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "balance-5-00-0",
+      "map": 0,
+      "seconds": 926,
+      "wall_seconds": 570,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "이귤",
+          "plan": "E19",
+          "plan_name": "대과수·박격체 공성",
+          "produced": 176,
+          "workers_produced": 97,
+          "average_military_population": 47.5,
+          "bank": [
+            4563,
+            281
+          ],
+          "bases": 4,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 52
+            },
+            {
+              "name": "과즙분사체",
+              "count": 47
+            },
+            {
+              "name": "씨앗박격체",
+              "count": 25
+            },
+            {
+              "name": "귤박쥐",
+              "count": 17
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 13
+            },
+            {
+              "name": "가시꽃",
+              "count": 11
+            },
+            {
+              "name": "후피거수",
+              "count": 10
+            },
+            {
+              "name": "모즙체",
+              "count": 1
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1
+          },
+          "research_in_progress": [
+            {
+              "id": "attack",
+              "left": 32.3000000000016,
+              "level": 2,
+              "name": "공격 강화"
+            },
+            {
+              "id": "bat_range",
+              "left": 39.500000000002,
+              "level": 1,
+              "name": "익막 표적감각"
+            }
+          ],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A6",
+          "plan_name": "고대석익병 중군",
+          "produced": 107,
+          "workers_produced": 70,
+          "average_military_population": 25.6,
+          "bank": [
+            281,
+            104
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 49
+            },
+            {
+              "name": "성문궁수",
+              "count": 34
+            },
+            {
+              "name": "고대석익병",
+              "count": 9
+            },
+            {
+              "name": "궤도창",
+              "count": 6
+            },
+            {
+              "name": "천문심판관",
+              "count": 5
+            },
+            {
+              "name": "규율집행관",
+              "count": 2
+            },
+            {
+              "name": "결계사제",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "shield": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {
+            "bind": 1,
+            "judgment": 2
+          },
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "balance-4-00-1",
+      "map": 0,
+      "seconds": 1396.9,
+      "wall_seconds": 1388.2,
+      "status": "resolved",
+      "winner": "아라아울",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N1",
+          "plan_name": "전열사수 물량전",
+          "produced": 182,
+          "workers_produced": 81,
+          "average_military_population": 36.9,
+          "bank": [
+            101,
+            3755
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 97
+            },
+            {
+              "name": "야전의무병",
+              "count": 21
+            },
+            {
+              "name": "돌격병",
+              "count": 15
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 15
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 13
+            },
+            {
+              "name": "화염돌파차",
+              "count": 7
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 6
+            },
+            {
+              "name": "강습폭격기",
+              "count": 3
+            },
+            {
+              "name": "그림자 정찰병",
+              "count": 3
+            },
+            {
+              "name": "요격기",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 2,
+            "attack": 3,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A18",
+          "plan_name": "대심판선·석익병 연합",
+          "produced": 224,
+          "workers_produced": 84,
+          "average_military_population": 53.8,
+          "bank": [
+            14916,
+            2864
+          ],
+          "bases": 6,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 89
+            },
+            {
+              "name": "황혼잠행자",
+              "count": 32
+            },
+            {
+              "name": "성문궁수",
+              "count": 31
+            },
+            {
+              "name": "고대석익병",
+              "count": 26
+            },
+            {
+              "name": "규율집행관",
+              "count": 16
+            },
+            {
+              "name": "천문심판관",
+              "count": 15
+            },
+            {
+              "name": "월익추적자",
+              "count": 6
+            },
+            {
+              "name": "밤눈감시자",
+              "count": 4
+            },
+            {
+              "name": "회랑지기",
+              "count": 3
+            },
+            {
+              "name": "결계사제",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 3,
+            "attack": 3,
+            "golem_range": 1,
+            "guardian_march": 1,
+            "shield": 3
+          },
+          "research_in_progress": [],
+          "skills_activated": {
+            "bind": 9,
+            "judgment": 2
+          },
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "balance-4-01-0",
+      "map": 1,
+      "seconds": 968.5,
+      "wall_seconds": 478.2,
+      "status": "resolved",
+      "winner": "노바너",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N5",
+          "plan_name": "보병·전차 연합",
+          "produced": 122,
+          "workers_produced": 87,
+          "average_military_population": 39.4,
+          "bank": [
+            16214,
+            3948
+          ],
+          "bases": 6,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 63
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 26
+            },
+            {
+              "name": "돌격병",
+              "count": 7
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 7
+            },
+            {
+              "name": "방패보병",
+              "count": 5
+            },
+            {
+              "name": "그림자 정찰병",
+              "count": 4
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 4
+            },
+            {
+              "name": "화염돌파차",
+              "count": 3
+            },
+            {
+              "name": "요격기",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "armor": 3,
+            "attack": 3,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A12",
+          "plan_name": "심판관·석익병 범위군",
+          "produced": 78,
+          "workers_produced": 71,
+          "average_military_population": 15.3,
+          "bank": [
+            69,
+            62
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 37
+            },
+            {
+              "name": "성문궁수",
+              "count": 19
+            },
+            {
+              "name": "고대석익병",
+              "count": 6
+            },
+            {
+              "name": "천문심판관",
+              "count": 5
+            },
+            {
+              "name": "황혼잠행자",
+              "count": 4
+            },
+            {
+              "name": "결계사제",
+              "count": 2
+            },
+            {
+              "name": "월익추적자",
+              "count": 2
+            },
+            {
+              "name": "회랑지기",
+              "count": 1
+            },
+            {
+              "name": "규율집행관",
+              "count": 1
+            },
+            {
+              "name": "밤눈감시자",
+              "count": 1
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "guardian_march": 1,
+            "shield": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {
+            "bind": 1,
+            "judgment": 3
+          },
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "balance-3-01-1",
+      "map": 1,
+      "seconds": 936.3,
+      "wall_seconds": 698.9,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N22",
+          "plan_name": "보병 공중기동전",
+          "produced": 99,
+          "workers_produced": 77,
+          "average_military_population": 18.5,
+          "bank": [
+            41,
+            825
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 47
+            },
+            {
+              "name": "야전의무병",
+              "count": 13
+            },
+            {
+              "name": "방패보병",
+              "count": 8
+            },
+            {
+              "name": "화염돌파차",
+              "count": 7
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 7
+            },
+            {
+              "name": "요격기",
+              "count": 6
+            },
+            {
+              "name": "돌격병",
+              "count": 4
+            },
+            {
+              "name": "그림자 정찰병",
+              "count": 4
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 2
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 1
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "이귤",
+          "plan": "E19",
+          "plan_name": "대과수·박격체 공성",
+          "produced": 260,
+          "workers_produced": 133,
+          "average_military_population": 39.2,
+          "bank": [
+            12541,
+            1537
+          ],
+          "bases": 6,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 114
+            },
+            {
+              "name": "과즙분사체",
+              "count": 44
+            },
+            {
+              "name": "귤박쥐",
+              "count": 28
+            },
+            {
+              "name": "씨앗박격체",
+              "count": 27
+            },
+            {
+              "name": "후피거수",
+              "count": 19
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 17
+            },
+            {
+              "name": "가시꽃",
+              "count": 8
+            },
+            {
+              "name": "덩굴포식자",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "attack": 2
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "balance-3-01-0",
+      "map": 1,
+      "seconds": 1085.8,
+      "wall_seconds": 730.6,
+      "status": "resolved",
+      "winner": "노바너",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N5",
+          "plan_name": "보병·전차 연합",
+          "produced": 229,
+          "workers_produced": 81,
+          "average_military_population": 38.9,
+          "bank": [
+            8137,
+            1150
+          ],
+          "bases": 6,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 126
+            },
+            {
+              "name": "야전의무병",
+              "count": 44
+            },
+            {
+              "name": "돌격병",
+              "count": 20
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 11
+            },
+            {
+              "name": "방패보병",
+              "count": 10
+            },
+            {
+              "name": "화염돌파차",
+              "count": 5
+            },
+            {
+              "name": "요격기",
+              "count": 4
+            },
+            {
+              "name": "장갑수송정",
+              "count": 3
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 3
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 2,
+            "flamer_range": 1,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "이귤",
+          "plan": "E3",
+          "plan_name": "과즙분사체 물량군",
+          "produced": 220,
+          "workers_produced": 127,
+          "average_military_population": 13.5,
+          "bank": [
+            795,
+            1047
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 120
+            },
+            {
+              "name": "과즙분사체",
+              "count": 34
+            },
+            {
+              "name": "귤박쥐",
+              "count": 25
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 24
+            },
+            {
+              "name": "후피거수",
+              "count": 15
+            },
+            {
+              "name": "가시꽃",
+              "count": 1
+            },
+            {
+              "name": "모즙체",
+              "count": 1
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 2
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "balance-3-02-0",
+      "map": 2,
+      "seconds": 643.8,
+      "wall_seconds": 241.8,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N8",
+          "plan_name": "차륜차 중심 대공군",
+          "produced": 52,
+          "workers_produced": 23,
+          "average_military_population": 9.1,
+          "bank": [
+            81,
+            169
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 26
+            },
+            {
+              "name": "야전의무병",
+              "count": 10
+            },
+            {
+              "name": "돌격병",
+              "count": 6
+            },
+            {
+              "name": "방패보병",
+              "count": 5
+            },
+            {
+              "name": "화염돌파차",
+              "count": 4
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 1
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 2,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "이귤",
+          "plan": "E5",
+          "plan_name": "거수·발톱 돌파군",
+          "produced": 103,
+          "workers_produced": 104,
+          "average_military_population": 24.5,
+          "bank": [
+            606,
+            41
+          ],
+          "bases": 5,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 46
+            },
+            {
+              "name": "과즙분사체",
+              "count": 18
+            },
+            {
+              "name": "후피거수",
+              "count": 13
+            },
+            {
+              "name": "귤박쥐",
+              "count": 9
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 9
+            },
+            {
+              "name": "씨앗박격체",
+              "count": 6
+            },
+            {
+              "name": "가시꽃",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "attack": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "balance-5-01-0",
+      "map": 1,
+      "seconds": 651.5,
+      "wall_seconds": 242.7,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "이귤",
+          "plan": "E8",
+          "plan_name": "씨앗박격체 공성군",
+          "produced": 118,
+          "workers_produced": 103,
+          "average_military_population": 22,
+          "bank": [
+            1248,
+            9
+          ],
+          "bases": 5,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 58
+            },
+            {
+              "name": "과즙분사체",
+              "count": 22
+            },
+            {
+              "name": "씨앗박격체",
+              "count": 12
+            },
+            {
+              "name": "귤박쥐",
+              "count": 11
+            },
+            {
+              "name": "가시꽃",
+              "count": 7
+            },
+            {
+              "name": "후피거수",
+              "count": 5
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A11",
+          "plan_name": "천문심판관 지원군",
+          "produced": 47,
+          "workers_produced": 29,
+          "average_military_population": 9.6,
+          "bank": [
+            113,
+            326
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "성문궁수",
+              "count": 26
+            },
+            {
+              "name": "서약수호자",
+              "count": 18
+            },
+            {
+              "name": "결계사제",
+              "count": 1
+            },
+            {
+              "name": "천문심판관",
+              "count": 1
+            },
+            {
+              "name": "고대석익병",
+              "count": 1
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "shield": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "balance-5-01-1",
+      "map": 1,
+      "seconds": 857.4,
+      "wall_seconds": 255.8,
+      "status": "resolved",
+      "winner": "아라아울",
+      "players": [
+        {
+          "race": "이귤",
+          "plan": "E19",
+          "plan_name": "대과수·박격체 공성",
+          "produced": 81,
+          "workers_produced": 45,
+          "average_military_population": 11.7,
+          "bank": [
+            29,
+            372
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 26
+            },
+            {
+              "name": "과즙분사체",
+              "count": 20
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 9
+            },
+            {
+              "name": "씨앗박격체",
+              "count": 9
+            },
+            {
+              "name": "귤박쥐",
+              "count": 8
+            },
+            {
+              "name": "가시꽃",
+              "count": 7
+            },
+            {
+              "name": "후피거수",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A20",
+          "plan_name": "대심판선·궤도창 중공성",
+          "produced": 104,
+          "workers_produced": 71,
+          "average_military_population": 27.2,
+          "bank": [
+            3176,
+            681
+          ],
+          "bases": 6,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 49
+            },
+            {
+              "name": "성문궁수",
+              "count": 26
+            },
+            {
+              "name": "고대석익병",
+              "count": 13
+            },
+            {
+              "name": "결계사제",
+              "count": 6
+            },
+            {
+              "name": "궤도창",
+              "count": 6
+            },
+            {
+              "name": "규율집행관",
+              "count": 2
+            },
+            {
+              "name": "천문심판관",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "shield": 1
+          },
+          "research_in_progress": [
+            {
+              "id": "guardian_march",
+              "left": 41.2500000000019,
+              "level": 1,
+              "name": "신속 행군"
+            }
+          ],
+          "skills_activated": {
+            "judgment": 1
+          },
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "balance-5-02-0",
+      "map": 2,
+      "seconds": 770.2,
+      "wall_seconds": 381.1,
+      "status": "resolved",
+      "winner": "이귤",
+      "players": [
+        {
+          "race": "이귤",
+          "plan": "E14",
+          "plan_name": "폭탄·박격체 범위군",
+          "produced": 126,
+          "workers_produced": 99,
+          "average_military_population": 37.4,
+          "bank": [
+            6716,
+            82
+          ],
+          "bases": 5,
+          "composition": [
+            {
+              "name": "껍질발톱",
+              "count": 50
+            },
+            {
+              "name": "과즙분사체",
+              "count": 30
+            },
+            {
+              "name": "씨앗박격체",
+              "count": 21
+            },
+            {
+              "name": "가시꽃",
+              "count": 10
+            },
+            {
+              "name": "과숙폭탄",
+              "count": 7
+            },
+            {
+              "name": "후피거수",
+              "count": 6
+            },
+            {
+              "name": "모즙체",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A23",
+          "plan_name": "고대석익병 강습전",
+          "produced": 58,
+          "workers_produced": 55,
+          "average_military_population": 10.8,
+          "bank": [
+            292,
+            1092
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 25
+            },
+            {
+              "name": "성문궁수",
+              "count": 22
+            },
+            {
+              "name": "고대석익병",
+              "count": 6
+            },
+            {
+              "name": "천문심판관",
+              "count": 3
+            },
+            {
+              "name": "궤도창",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "shield": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "balance-4-01-1",
+      "map": 1,
+      "seconds": 1055.4,
+      "wall_seconds": 682.1,
+      "status": "resolved",
+      "winner": "노바너",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N9",
+          "plan_name": "전차 장기 공성",
+          "produced": 158,
+          "workers_produced": 74,
+          "average_military_population": 41.2,
+          "bank": [
+            11018,
+            2439
+          ],
+          "bases": 6,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 102
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 24
+            },
+            {
+              "name": "돌격병",
+              "count": 10
+            },
+            {
+              "name": "방패보병",
+              "count": 6
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 6
+            },
+            {
+              "name": "야전의무병",
+              "count": 3
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 3
+            },
+            {
+              "name": "화염돌파차",
+              "count": 2
+            },
+            {
+              "name": "그림자 정찰병",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 2,
+            "attack": 3,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [
+            {
+              "id": "armor",
+              "left": 73.3000000000001,
+              "level": 3,
+              "name": "장갑 강화"
+            }
+          ],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A7",
+          "plan_name": "석익병·수호자 돌파군",
+          "produced": 139,
+          "workers_produced": 79,
+          "average_military_population": 28,
+          "bank": [
+            139,
+            267
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 73
+            },
+            {
+              "name": "성문궁수",
+              "count": 33
+            },
+            {
+              "name": "천문심판관",
+              "count": 14
+            },
+            {
+              "name": "고대석익병",
+              "count": 8
+            },
+            {
+              "name": "규율집행관",
+              "count": 4
+            },
+            {
+              "name": "결계사제",
+              "count": 4
+            },
+            {
+              "name": "황혼잠행자",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "shield": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {
+            "bind": 2,
+            "judgment": 8
+          },
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "balance-4-00-0",
+      "map": 0,
+      "seconds": 1800,
+      "wall_seconds": 2748.7,
+      "status": "time_limit_draw",
+      "winner": "무승부",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N11",
+          "plan_name": "방패·전차 전선 유지",
+          "produced": 243,
+          "workers_produced": 99,
+          "average_military_population": 87.4,
+          "bank": [
+            30768,
+            15561
+          ],
+          "bases": 6,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 131
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 34
+            },
+            {
+              "name": "화염돌파차",
+              "count": 18
+            },
+            {
+              "name": "야전의무병",
+              "count": 18
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 14
+            },
+            {
+              "name": "돌격병",
+              "count": 7
+            },
+            {
+              "name": "요격기",
+              "count": 7
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 5
+            },
+            {
+              "name": "방패보병",
+              "count": 4
+            },
+            {
+              "name": "강습폭격기",
+              "count": 3
+            },
+            {
+              "name": "그림자 정찰병",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 3,
+            "attack": 3,
+            "flamer_range": 1,
+            "frontline_vitality": 1,
+            "missile_autoloader": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A7",
+          "plan_name": "석익병·수호자 돌파군",
+          "produced": 201,
+          "workers_produced": 109,
+          "average_military_population": 102,
+          "bank": [
+            4385,
+            61
+          ],
+          "bases": 1,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 66
+            },
+            {
+              "name": "성문궁수",
+              "count": 39
+            },
+            {
+              "name": "고대석익병",
+              "count": 34
+            },
+            {
+              "name": "천문심판관",
+              "count": 17
+            },
+            {
+              "name": "황혼잠행자",
+              "count": 9
+            },
+            {
+              "name": "결계사제",
+              "count": 9
+            },
+            {
+              "name": "성좌추격기",
+              "count": 8
+            },
+            {
+              "name": "규율집행관",
+              "count": 7
+            },
+            {
+              "name": "밤눈감시자",
+              "count": 5
+            },
+            {
+              "name": "월익추적자",
+              "count": 3
+            },
+            {
+              "name": "회랑지기",
+              "count": 2
+            },
+            {
+              "name": "궤도창",
+              "count": 2
+            }
+          ],
+          "research_completed": {
+            "armor": 3,
+            "attack": 3,
+            "golem_range": 1,
+            "guardian_march": 1,
+            "shield": 2
+          },
+          "research_in_progress": [],
+          "skills_activated": {
+            "bind": 1,
+            "judgment": 5
+          },
+          "surplus_expansions": 0
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "balance-4-02-0",
+      "map": 2,
+      "seconds": 1695.6,
+      "wall_seconds": 1477.3,
+      "status": "resolved",
+      "winner": "노바너",
+      "players": [
+        {
+          "race": "노바너",
+          "plan": "N17",
+          "plan_name": "전차·폭격기 연합 공세",
+          "produced": 230,
+          "workers_produced": 59,
+          "average_military_population": 39,
+          "bank": [
+            1512,
+            60
+          ],
+          "bases": 5,
+          "composition": [
+            {
+              "name": "전열사수",
+              "count": 143
+            },
+            {
+              "name": "돌격병",
+              "count": 20
+            },
+            {
+              "name": "굴착포 전차",
+              "count": 20
+            },
+            {
+              "name": "야전의무병",
+              "count": 19
+            },
+            {
+              "name": "추적미사일 차륜차",
+              "count": 7
+            },
+            {
+              "name": "그림자 정찰병",
+              "count": 6
+            },
+            {
+              "name": "요격기",
+              "count": 5
+            },
+            {
+              "name": "방패보병",
+              "count": 4
+            },
+            {
+              "name": "화염돌파차",
+              "count": 3
+            },
+            {
+              "name": "무인 관측 드론",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "armor": 2,
+            "attack": 3,
+            "frontline_vitality": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {},
+          "surplus_expansions": 0
+        },
+        {
+          "race": "아라아울",
+          "plan": "A12",
+          "plan_name": "심판관·석익병 범위군",
+          "produced": 239,
+          "workers_produced": 71,
+          "average_military_population": 68,
+          "bank": [
+            4008,
+            2628
+          ],
+          "bases": 0,
+          "composition": [
+            {
+              "name": "서약수호자",
+              "count": 108
+            },
+            {
+              "name": "고대석익병",
+              "count": 51
+            },
+            {
+              "name": "성문궁수",
+              "count": 28
+            },
+            {
+              "name": "결계사제",
+              "count": 19
+            },
+            {
+              "name": "궤도창",
+              "count": 9
+            },
+            {
+              "name": "천문심판관",
+              "count": 8
+            },
+            {
+              "name": "규율집행관",
+              "count": 7
+            },
+            {
+              "name": "회랑지기",
+              "count": 3
+            },
+            {
+              "name": "밤눈감시자",
+              "count": 3
+            },
+            {
+              "name": "월익추적자",
+              "count": 3
+            }
+          ],
+          "research_completed": {
+            "armor": 1,
+            "attack": 1,
+            "guardian_march": 1,
+            "shield": 1
+          },
+          "research_in_progress": [],
+          "skills_activated": {
+            "bind": 3,
+            "judgment": 5
+          },
+          "surplus_expansions": 0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Damage counts enemy unit victims only; structure damage is excluded.",
+    "Average military population includes the opening and uses 15-second snapshots.",
+    "Production and damage efficiency are matchup/AI observations, not an isolated unit-stat ranking.",
+    "Successful skill activation is separate from final effect; nuclear impacts, healing and actual unloads have their own records.",
+    "Healers, transports and detectors must not be ranked as weak by direct damage alone.",
+    "The reduced odd game counts are not fully side-balanced; completed games were retained when the user reduced the target."
+  ]
+}

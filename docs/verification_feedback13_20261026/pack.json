@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "scope": "Final exported PCK loaded from its own folder; checks version, balances, difficulty goals, economy, shield mechanics and original-map core startup without source fallback."
+}

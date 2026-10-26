@@ -1,5 +1,11 @@
 extends Control
 
+signal startup_initialized
+var startup_preparation=false
+var startup_ready=false
+var startup_progress=0.0
+var startup_caption="메인 화면 준비 중"
+
 const Core=preload("res://scripts/core.gd")
 var simulation_worker: ACSimulationWorker
 var loading_job: ACBattleLoader
@@ -104,6 +110,7 @@ var map_choice=0
 var bot_count=1
 var difficulty=2
 var game_mode="ffa"
+var action_meter=preload("res://scripts/action_meter.gd").new()
 var session_token=""
 var account: Dictionary={}
 var backend_url="https://asteracraft-matchmaking.changjin93.chatgpt.site/api"
@@ -198,9 +205,23 @@ func _ready() -> void:
 		add_child(ui)
 		_join_game(config)
 		return
-	assets.load_all()
+	if startup_preparation:
+		var steps=assets.loading_steps()
+		for index in range(steps.size()):
+			_startup_report(.02+float(index)/steps.size()*.62,str(steps[index].caption))
+			await _startup_frame()
+			steps[index].run.call()
+		_startup_report(.66,"건설 이미지 준비 중")
+		await _startup_frame()
+	else:assets.load_all()
 	construction_visual.load_all()
+	if startup_preparation:
+		_startup_report(.74,"지형 이미지 준비 중")
+		await _startup_frame()
 	terrain_artist.load_art()
+	if startup_preparation:
+		_startup_report(.86,"자원·음향 준비 중")
+		await _startup_frame()
 	effect_frames=_atlas("res://assets/effect_sprites.png",4,4)
 	building_parts=_atlas("res://assets/building_parts.png",4,4)
 	world_resources=_atlas("res://assets/resources_v2.png",2,1)
@@ -218,7 +239,14 @@ func _ready() -> void:
 	ui.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ui.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	add_child(ui)
+	if startup_preparation:
+		_startup_report(.94,"메인 메뉴 준비 중")
+		await _startup_frame()
 	_main_menu()
+	if startup_preparation:await _startup_frame()
+	_startup_report(1.0,"준비 완료")
+	startup_ready=true
+	startup_initialized.emit()
 	if "--smoke-game" in args:
 		_start_local({"map":0,"mode":"ffa","players":[{"name":"테스트","race":0},{"name":"봇","race":1,"bot":true,"difficulty":1}]})
 		if page=="game" and core!=null and not state.get("units",[]).is_empty():print("SMOKE_GAME_READY")
@@ -234,6 +262,15 @@ func _ready() -> void:
 			else:push_error("Packaged loading artwork missing: %d/%d"%[art_ready,art_expected])
 	if "--capture-menu" in args:
 		_capture_later("user://menu.png")
+
+func _startup_report(value: float,caption: String) -> void:
+	startup_progress=maxf(startup_progress,value);startup_caption=caption
+
+func _startup_frame() -> void:
+	# Present the current loading state before the next synchronous GPU/image
+	# preparation job. Normal direct/dedicated entry keeps its existing path.
+	await get_tree().process_frame
+	await get_tree().process_frame
 
 func _style(bg: Color,border: Color,width: int=1) -> StyleBoxFlat:
 	var s=StyleBoxFlat.new()
@@ -444,6 +481,7 @@ func _finish_remote_loading() -> void:
 	_build_hud()
 
 func _start_local(config: Dictionary,prepared_core: ACCore=null,prepared_map: ACMap=null) -> void:
+	action_meter.reset()
 	_stop_simulation_worker()
 	for node in _entity_canvases.values():node.queue_free()
 	_entity_canvases.clear();_entity_by_id.clear();_entity_list=[];_entity_source={}
@@ -499,6 +537,7 @@ func _process_simulation_worker(dt: float) -> bool:
 	return not output.is_empty()
 
 func _build_hud() -> void:
+	action_meter.reset()
 	_clear_ui()
 	page="game"
 	battle_hud=ACRtsHUD.new()
@@ -854,6 +893,7 @@ func _focus_home(reset_zoom: bool=false) -> void:
 	render_rects.clear();_selection_bodies.clear()
 
 func _process(dt: float) -> void:
+	action_meter.advance(dt,_apm_active())
 	if network_client and remote_game.get("transport","")=="webrtc":
 		match_heartbeat-=dt
 		if match_heartbeat<=0:
@@ -1049,7 +1089,7 @@ func _build_position(mouse: Vector2) -> Vector2:
 	var point=screen_to_world(mouse)
 	var definition=ACData.building(int(state.players[local_slot].race),build_kind)
 	# Commands and ghosts share the footprint centre, not its top-left corner.
-	if build_kind!=1:return (point-Vector2(definition.w,definition.h)*.5).round()
+	if build_kind!=1:return (point-Vector2(float(definition.w)-1,float(definition.h)-1)*.5).round()
 	var resource=_resource_at(mouse)
 	if resource.is_empty() or resource.type!="tera":
 		for node in state.get("resources",[]):
@@ -1132,6 +1172,7 @@ func _select_army() -> void:
 	queue_redraw()
 
 func _input(event: InputEvent) -> void:
+	_record_apm_input(event)
 	if page=="game" and (ui==null or ui.get_node_or_null("MenuModal")==null) and _handle_minimap_input(event):
 		get_viewport().set_input_as_handled()
 		return
@@ -1162,6 +1203,29 @@ func _input(event: InputEvent) -> void:
 	if page=="game" and event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_F2:
 		_select_army()
 		get_viewport().set_input_as_handled()
+
+func _apm_active() -> bool:
+	return page=="game" and not dedicated and not spectator and not paused and not state.is_empty() and not state.get("ended",false)
+
+func _record_apm_input(event: InputEvent) -> void:
+	if not _apm_active() or (ui!=null and ui.get_node_or_null("MenuModal")!=null):return
+	var focus=get_viewport().gui_get_focus_owner()
+	if focus is LineEdit or focus is TextEdit:return
+	if event is InputEventKey:
+		if not event.pressed or event.echo or event.alt_pressed or event.meta_pressed:return
+		var code=event.physical_keycode if event.physical_keycode not in [0,KEY_UNKNOWN] else event.keycode
+		var gameplay=code==KEY_F2 or code>=KEY_1 and code<=KEY_9
+		if not event.ctrl_pressed and is_instance_valid(battle_hud):gameplay=gameplay or battle_hud.hover_hotkeys.has(int(code))
+		if code==KEY_ESCAPE:gameplay=build_kind>=0 or attack_mode or build_panel or pointer_order!=""
+		if gameplay:action_meter.record()
+	elif event is InputEventMouseButton and event.pressed and event.button_index in [MOUSE_BUTTON_LEFT,MOUSE_BUTTON_RIGHT]:
+		var point=event.position
+		var gameplay=_can_point_world(point)
+		if _mini_rect().has_point(point):gameplay=event.button_index==MOUSE_BUTTON_RIGHT or attack_mode or pointer_order!=""
+		if event.button_index==MOUSE_BUTTON_LEFT and is_instance_valid(battle_hud):
+			for button in battle_hud.action_buttons+battle_hud.selection_buttons+battle_hud.queue_buttons:
+				if is_instance_valid(button) and button.is_visible_in_tree() and button.get_global_rect().has_point(point):gameplay=true;break
+		if gameplay:action_meter.record()
 
 func _minimap_camera(point: Vector2) -> void:
 	var rect=_mini_rect()

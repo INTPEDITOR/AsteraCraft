@@ -1,24 +1,25 @@
 extends RefCounted
 const T=preload("res://scripts/bot_tactics.gd")
+const RAIDS=preload("res://scripts/bot_raid_orders.gd")
 
 static func move(c,owner: int,u: Dictionary,point: Vector2,attack: bool=false) -> void:
 	if u.hp<=0 or u.container>=0 or not u.get("channel",{}).is_empty() or float(u.get("self_repair_until",0))>c.time:return
 	var order="attack_move" if attack else "move"
 	if u.order!=order or ACData.point(u.goal).distance_squared_to(point)>1:c.command(owner,{"type":order,"ids":[u.id],"pos":ACData.packed(point)})
 
-static func remembered_goal(c,owner: int,plan: Dictionary,fallback: Vector2) -> Vector2:
+static func remembered_goal(c,owner: int,plan: Dictionary,fallback: Vector2,excluded: Array=[]) -> Vector2:
 	var p: Dictionary=c.players[owner];var best=fallback;var score=-INF
 	var home=c.entity(int(p.home));var origin=c.center(home) if not home.is_empty() else Vector2(64,64)
 	for item in p.get("_ai_sightings",{}).values():
-		if not item.building:continue
+		if not item.building or int(item.id) in excluded:continue
 		var point=ACData.point(item.pos);var value=float(item.value)-origin.distance_to(point)
 		if int(item.kind)==0:value+=500
 		if value>score:score=value;best=point
 	if str(plan.style) in ["raid","air_raid","split_raid","drop","expand_raid"] and score>-INF:
 		var closest=INF
-		for resource in c.map.resources:
-			if resource.type!="as":continue
-			var point=ACData.point(resource.pos);var distance=point.distance_to(best)
+		for item in p.get("_ai_sightings",{}).values():
+			if item.building or str(item.role)!="worker" or c.time-float(item.seen)>25:continue
+			var point=ACData.point(item.pos);var distance=point.distance_to(best)
 			if distance<12 and distance<closest:closest=distance;fallback=point
 		if closest<INF:return fallback
 	return best
@@ -32,74 +33,49 @@ static func air_risk(c,owner: int,point: Vector2) -> float:
 	return risk
 
 static func landing(c,carrier: Dictionary,payload: Array,goal: Vector2,home: Vector2) -> Vector2:
-	var best=Vector2.INF;var cost=INF;var owner=int(carrier.owner)
+	var owner=int(carrier.owner);var candidates=[]
 	var back=(home-goal).normalized()
+	var ground=payload.filter(func(u):return not c.unit_data(u).air)
+	ground.sort_custom(func(a,b):return c._body_size(a).x*c._body_size(a).y>c._body_size(b).x*c._body_size(b).y)
+	var approach=goal
+	if not ground.is_empty():
+		var lead=ground[0]
+		approach=c.unit_free_position(int(lead.race),int(lead.kind),goal,-1,4)
+		if approach.distance_to(goal)>4.5 or not c._ground_fits_size(c._body_size(lead),approach):return Vector2.INF
 	for radius in [7,10,13]:
 		for angle in [0,.7,-.7,1.4,-1.4,2.1,-2.1,PI]:
 			var point=(goal+back.rotated(angle)*radius).clamp(Vector2(2,2),Vector2(125,125))
 			if payload.any(func(u):return not c._ground_fits_size(c._body_size(u),point)):continue
-			var value=air_risk(c,owner,point)*30+point.distance_to(c.center(carrier))*.1+radius
-			if value<cost:cost=value;best=point
-	return best if cost<100 else Vector2.INF
+			var value=air_risk(c,owner,point)*30+preload("res://scripts/bot_ara_policy.gd").landing_risk(c,owner,point)*18+point.distance_to(c.center(carrier))*.1+radius
+			candidates.append({"point":point,"value":value})
+	# Rank cheap observed-risk checks before spending the shared path budget.
+	# The old angular order exhausted it on exposed frontal landings first.
+	candidates.sort_custom(func(a,b):return float(a.value)<float(b.value))
+	for candidate in candidates:
+		if float(candidate.value)>=100:break
+		var point: Vector2=candidate.point
+		if not ground.is_empty():
+			var route=c._clearance_path(ground[0],point,approach)
+			if route.is_empty() or ACData.point(route.back()).distance_to(approach)>.75:continue
+			if not c._ground_sweep(c._body_size(ground[0]),ACData.point(route.back()),approach):continue
+		return point
+	return Vector2.INF
 
 static func scout(c,owner: int,army: Array,home: Vector2,defend: bool) -> Array:
-	var p: Dictionary=c.players[owner];var reserved=[]
-	if int(p.difficulty)<2:return reserved
-	var u=c.entity(int(p.get("_ai_scout",-1)))
-	if defend:
-		if not u.is_empty():
-			u._ai_scouting=false
-			if int(u.kind)==0:move(c,owner,u,home)
-		p._ai_scout=-1;return reserved
-	if not u.is_empty() and (u.hp<=0 or int(u.owner)!=owner or u.container>=0 or c.time-float(p.get("_ai_scout_started",0))>160):
-		if int(u.owner)==owner:u._ai_scouting=false
-		u={};p._ai_scout=-1;p._ai_scout_next=c.time+20
-	if u.is_empty():
-		if c.time<float(p.get("_ai_scout_next",0)):return reserved
-		var candidates=army.filter(func(a):return a.hp>0 and a.container<0 and c.unit_data(a).role in ["detector","fighter"] and c.time-float(a.damaged)>8)
-		var known_enemy=p.get("_ai_sightings",{}).values().any(func(item):return item.building and int(item.kind)==0)
-		if int(p.difficulty)==5 and c.time>12 and not known_enemy and not p.has("_ai_first_enemy_seen") and int(p.get("_ai_worker_scouts",0))<2:
-			var workers=c.units.filter(func(w):return int(w.owner)==owner and int(w.kind)==0 and w.hp>0 and w.container<0)
-			if workers.size()>=5 and candidates.is_empty():candidates=workers.filter(func(w):return w.order in ["gather","idle"] and w.hp>float(c.unit_data(w).hp)*.7)
-		if candidates.is_empty() and army.size()>=6 and not known_enemy:
-			candidates=army.filter(func(a):return a.hp>float(c.unit_data(a).hp)*.7 and a.container<0 and float(c.unit_data(a).damage)>0 and float(c.unit_data(a).speed)>=2.4 and not c.unit_data(a).role in ["carrier_drone","fortress","siege"])
-		if candidates.is_empty():return reserved
-		candidates.sort_custom(func(a,b):return c.unit_data(a).role=="detector" and c.unit_data(b).role!="detector")
-		u=candidates[0];u._ai_scouting=true;p._ai_scout=u.id;p._ai_scout_started=c.time;T.log_action(p,"scout:dispatch")
-		if int(u.kind)==0:p._ai_worker_scouts=int(p.get("_ai_worker_scouts",0))+1
-	reserved.append(int(u.id))
-	if u.hp<float(c.unit_data(u).hp)*.5:
-		u._ai_scouting=false;p._ai_scout=-1;p._ai_scout_next=c.time+20;move(c,owner,u,home);return reserved
-	if c.time-float(u.damaged)<5:move(c,owner,u,home);return reserved
-	var known=p.get("_ai_sightings",{}).values().filter(func(item):return item.building and int(item.kind)==0)
-	if not known.is_empty():
-		var enemy=ACData.point(known[0].pos);var watch=enemy+(home-enemy).normalized()*10
-		if c.center(u).distance_to(enemy)<8:move(c,owner,u,watch)
-		elif c.center(u).distance_to(watch)>3:move(c,owner,u,watch)
-		return reserved
-	var options=[]
-	for start in c.map.starts:
-		var point=ACData.point(start);var cell=ACMap.ground_cell(point)
-		if point.distance_to(home)>20 and c.visibility[owner][cell.y*ACMap.SIZE+cell.x]<=0:options.append(point)
-	if options.is_empty():
-		for base in c.map.bases:
-			var point=ACData.point(base.pos)
-			if point.distance_to(home)>20:options.append(point)
-	if not options.is_empty():
-		# Visibility removes searched sites from this list. Pick the nearest
-		# remaining site instead of incrementing an index into a shrinking list.
-		options.sort_custom(func(a,b):return c.center(u).distance_squared_to(a)<c.center(u).distance_squared_to(b))
-		var point: Vector2=options[0]
-		move(c,owner,u,point)
-	return reserved
+	return preload("res://scripts/bot_recon.gd").scout(c,owner,army,home,defend)
 
 static func before_combat(c,owner: int,army: Array,plan: Dictionary,home: Vector2,goal: Vector2,visible: Array,defend: bool) -> Array:
 	var p: Dictionary=c.players[owner];var reserved=scout(c,owner,army,home,defend)
+	reserved.append_array(RAIDS.deployed(c,owner,visible))
+	reserved.append_array(p.get("_ai_local_defense",[]))
 	for u in army:
+		if c.unit_data(u).role in ["detector","healer_detector"]:reserved.append(int(u.id));continue
 		if not u.get("channel",{}).is_empty() or (not defend and float(u.get("self_repair_until",0))>c.time):reserved.append(int(u.id))
 	if plan.drop:reserved.append_array(drops(c,owner,army,plan,home,goal,defend))
 	if str(plan.style)=="nuclear":reserved.append_array(nuclear(c,owner,army,home,goal,visible,defend))
-	if int(p.difficulty)==5 and not defend and army.size()>=12:
+	reserved.append_array(preload("res://scripts/bot_harassment.gd").tick(c,owner,army,home,visible,defend,reserved))
+	reserved.append_array(preload("res://scripts/bot_citrus_air_raids.gd").tick(c,owner,army,home,visible,defend,reserved))
+	if int(p.difficulty)==5 and not defend and army.size()>=12 and c.time>=float(p.get("_ai_decisive_until",0)):
 		var guards: Array=p.get("_ai_garrison",[]).filter(func(id):return army.any(func(u):return int(u.id)==int(id) and u.hp>0) and not int(id) in reserved)
 		for u in army:
 			if guards.size()>=2:break
@@ -141,12 +117,13 @@ static func fortify(c,owner: int,workers: Array,bases: Array,available: Vector2)
 static func drops(c,owner: int,army: Array,plan: Dictionary,home: Vector2,goal: Vector2,defend: bool) -> Array:
 	var p: Dictionary=c.players[owner];var missions: Array=p.get("_ai_missions",[]);var reserved=[]
 	var carriers=army.filter(func(u):return int(u.kind)==int(plan.transport) and u.hp>0 and u.container<0)
-	if not defend and not p.get("_ai_sightings",{}).is_empty() and c.time>=float(p.get("_ai_drop_next",0)):
+	if not defend and str(p.get("_ai_attack_phase",""))!="decisive" and not p.get("_ai_sightings",{}).is_empty() and c.time>=float(p.get("_ai_drop_next",0)):
 		for carrier in carriers:
 			if missions.size()>=2 or missions.any(func(m):return int(m.carrier)==int(carrier.id)):continue
 			var taken=[]
 			for m in missions:taken.append_array(m.members)
-			var riders=army.filter(func(u):return u.hp>0 and u.container<0 and int(u.kind) in plan.payload and not int(u.id) in taken and c.time-float(u.damaged)>3)
+			var busy: Array=p.get("_ai_wave",[])+p.get("_ai_marching",[])+p.get("_ai_garrison",[])+p.get("_ai_local_defense",[])
+			var riders=army.filter(func(u):return u.hp>0 and u.container<0 and int(u.kind) in plan.payload and not int(u.id) in taken and not int(u.id) in busy and not u.get("_ai_scouting",false) and c.time-float(u.damaged)>3)
 			riders.sort_custom(func(a,b):return c.center(a).distance_squared_to(c.center(carrier))<c.center(b).distance_squared_to(c.center(carrier)))
 			var members=[];var population=0.0
 			for u in riders:
@@ -193,7 +170,11 @@ static func drops(c,owner: int,army: Array,plan: Dictionary,home: Vector2,goal: 
 				else:
 					if carrier.order!="hold":c.command(owner,{"type":"hold","ids":[carrier.id]})
 					for id in carrier.cargo.duplicate():c.command(owner,{"type":"unload_one","id":carrier.id,"passenger":id})
-					if carrier.cargo.is_empty():m.phase="fight";m.phase_at=c.time;p._ai_has_attacked=true;T.log_action(p,"drop:unload")
+					if carrier.cargo.is_empty():
+						var ids=RAIDS.detach(c,owner,riders)
+						if not p.has("_ai_deployed_raids"):p._ai_deployed_raids=[]
+						p._ai_deployed_raids.append({"members":ids,"goal":m.goal,"started":c.time})
+						m.members=[];m.phase="return";m.phase_at=c.time;p._ai_has_attacked=true;T.log_action(p,"drop:unload")
 			"fight":
 				for u in riders:
 					var d=c.unit_data(u)
@@ -288,25 +269,37 @@ static func forward_build(c,owner: int,workers: Array,plan: Dictionary,stage: Ve
 
 static func after_combat(c,owner: int,army: Array,plan: Dictionary,visible: Array,home: Vector2,goal: Vector2,defend: bool) -> void:
 	var p: Dictionary=c.players[owner];var wave: Array=p.get("_ai_wave",[])
+	var decisive=not defend and str(p.get("_ai_attack_phase",""))=="decisive"
 	var committed=army.filter(func(u):return int(u.id) in wave and u.hp>0 and u.container<0)
-	var front=committed.filter(func(u):return float(c.unit_data(u).damage)>0 or c.unit_data(u).role=="carrier")
+	var front=committed.filter(func(u):return float(c.unit_data(u).damage)>0 and "g" in str(c.unit_data(u).targets) or c.unit_data(u).role=="carrier")
 	for u in army:
+		if int(u.get("_ai_expendable_owner",-1))==owner or int(u.id) in p.get("_ai_claw_pending",[]):continue
+		if int(u.id) in p.get("_ai_bat_raid",{}).get("members",[]) or int(u.id) in p.get("_ai_mobile_raid",{}).get("members",[]):continue
+		if int(u.id) in p.get("_ai_assault_raid",{}).get("members",[]):continue
+		if int(u.id) in p.get("_ai_claw_raid",{}).get("members",[]):continue
 		if u.hp<=0 or u.container>=0 or not u.get("channel",{}).is_empty() or float(u.get("self_repair_until",0))>c.time:continue
+		if c.time<float(u.get("_ai_kite_until",0)):continue
 		var d=c.unit_data(u)
+		if d.role in ["detector","healer_detector"]:continue
 		if d.role=="transport" and not int(u.id) in wave:continue
-		if d.role in ["siege","fortress","tree"] and not d.air and float(u.get("deploy_until",0))<=c.time:
+		if d.role in ["siege","fortress","tree"] and ACData.can_deploy(d) and not d.air and float(u.get("deploy_until",0))<=c.time:
 			var target=visible.filter(func(e):return c._can_attack(d,e) and c.center(u).distance_to(c.center(e))<=ACData.attack_range(d,true)*.95)
 			var want=(defend or int(u.id) in wave) and not target.is_empty()
-			if want!=bool(u.anchored):c.command(owner,{"type":"ability","ids":[u.id]})
+			if want:u.erase("_ai_siege_empty_since")
+			elif u.anchored:
+				if not u.has("_ai_siege_empty_since"):u._ai_siege_empty_since=c.time
+				want=c.time<float(u.get("_ai_siege_hold_until",0)) or c.time-float(u._ai_siege_empty_since)<2.5
+			if want!=bool(u.anchored) and c.command(owner,{"type":"ability","ids":[u.id]})=="":
+				if want:u._ai_siege_hold_until=c.time+5
 		if not int(u.id) in wave or defend:continue
-		if bool(plan.split) and d.air:
+		if not decisive and bool(plan.split) and d.air:
 			var side=(goal-home).normalized().orthogonal()*10
 			var flank=(goal+side).clamp(Vector2(2,2),Vector2(125,125))
 			if not u.has("_ai_flank_target") or ACData.point(u._ai_flank_target).distance_to(goal)>6:
 				u._ai_flank_target=ACData.packed(goal);u._ai_flank_done=false
 			if c.center(u).distance_to(flank)<3:u._ai_flank_done=true
 			move(c,owner,u,goal if u.get("_ai_flank_done",false) else flank,true)
-		elif str(plan.style) in ["raid","air_raid","expand_raid","mobile","stealth"] and c.center(u).distance_to(goal)<5:
+		elif not decisive and str(plan.style) in ["raid","air_raid","expand_raid","mobile","stealth"] and c.center(u).distance_to(goal)<5:
 			var points=[]
 			for item in p.get("_ai_sightings",{}).values():
 				if item.building and int(item.kind)==0 and ACData.point(item.pos).distance_to(goal)>12:points.append(ACData.point(item.pos))
@@ -318,3 +311,6 @@ static func after_combat(c,owner: int,army: Array,plan: Dictionary,visible: Arra
 		if d.air and "a" in str(d.targets) and not "g" in str(d.targets):
 			var enemies=visible.filter(func(e):return not e.has("progress") and c.unit_data(e).air and c.center(e).distance_to(c.center(u))<12)
 			if not enemies.is_empty() and (u.order!="attack" or int(u.target)!=int(enemies[0].id)):c.command(owner,{"type":"attack","ids":[u.id],"target":enemies[0].id})
+			elif enemies.is_empty() and not front.is_empty():
+				var leader=front[0]
+				move(c,owner,u,c.center(leader)+(home-c.center(leader)).normalized()*3)

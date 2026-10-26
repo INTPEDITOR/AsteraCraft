@@ -29,6 +29,7 @@ var _last_buildings: Array = []
 var _worker_passages: Dictionary={}
 var _worker_previous_bounds: Dictionary={}
 var _worker_previous_regions: Dictionary={}
+var _worker_region_changes: Dictionary={}
 var _definition: Dictionary = {}
 var visual_ramps: Array = []
 var visual_roles := PackedByteArray()
@@ -44,6 +45,12 @@ var source_detail_active := false
 var _detail_prefix := PackedInt32Array()
 var _detail_solid := PackedByteArray()
 var _detail_changes: Dictionary={}
+var _detail_change_regions: Dictionary={}
+var _detail_static_masks=PackedInt32Array()
+var _detail_static_solid=PackedByteArray()
+var _detail_obstacle_grid: Dictionary={}
+var _detail_obstacle_prefix=PackedInt32Array()
+var _detail_obstacle_rows=PackedInt64Array()
 
 func rotate(p: Vector2i, turns: int) -> Vector2i:
 	var q = p
@@ -60,6 +67,7 @@ func make(map_id: int, layout: String="source_chk_cv5_vf4") -> void:
 	headquarters_sites.clear()
 	_last_buildings=[]
 	_worker_passages.clear();_worker_previous_bounds.clear();_worker_previous_regions.clear()
+	_worker_region_changes.clear()
 	visual_roles.clear()
 	source_walk_masks.clear()
 	source_height_bits.clear();source_height_active=false
@@ -551,13 +559,26 @@ func reset_solids(buildings: Array) -> void:
 	revision+=1
 
 func _rebuild_source_collision(buildings: Array) -> void:
-	var solid=PackedByteArray()
-	solid.resize(512*512)
-	for y in range(512):
-		for x in range(512):
-			var tile=(y/4)*SIZE+x/4
-			# Integers here denote cell centers, matching CHK entity conversion.
-			solid[y*512+x]=int((source_walk_masks[tile]&(1<<((y%4)*4+x%4)))==0)
+	# Original walk masks are immutable during a match. Only buildings and
+	# resources change, so retain the unpainted terrain rather than expanding
+	# the same 16384 masks into 262144 cells for every foundation or death.
+	if _detail_static_masks!=source_walk_masks or _detail_static_solid.size()!=512*512:
+		_detail_static_masks=source_walk_masks.duplicate()
+		_detail_static_solid.resize(512*512)
+		for y in range(512):
+			for x in range(512):
+				var tile=(y/4)*SIZE+x/4
+				_detail_static_solid[y*512+x]=int((source_walk_masks[tile]&(1<<((y%4)*4+x%4)))==0)
+		_detail_prefix.resize(513*513);_detail_prefix.fill(0)
+		for y in range(512):
+			var row=0
+			for x in range(512):
+				row+=_detail_static_solid[y*512+x]
+				_detail_prefix[(y+1)*513+x+1]=row+_detail_prefix[y*513+x+1]
+	var solid=_detail_static_solid.duplicate()
+	_detail_obstacle_grid.clear()
+	_detail_obstacle_rows.resize(32);_detail_obstacle_rows.fill(0)
+	var occupied=PackedByteArray();occupied.resize(32*32);occupied.fill(0)
 	var obstacles=resource_obstacles.duplicate()
 	for building in buildings:
 		if building.hp<=0:continue
@@ -566,28 +587,44 @@ func _rebuild_source_collision(buildings: Array) -> void:
 	for rect in obstacles:
 		var first=Vector2i(((rect.position+Vector2.ONE*.5)*4).floor()).max(Vector2i.ZERO)
 		var end=Vector2i(((rect.end+Vector2.ONE*.5)*4).ceil()).min(Vector2i(512,512))
+		if first.x>=end.x or first.y>=end.y:continue
+		var box=Rect2i(first,end-first)
+		for by in range(first.y/16,(end.y-1)/16+1):
+			for bx in range(first.x/16,(end.x-1)/16+1):
+				var key=Vector2i(bx,by);occupied[by*32+bx]=1
+				_detail_obstacle_rows[by]|=1<<bx
+				if not _detail_obstacle_grid.has(key):_detail_obstacle_grid[key]=[]
+				_detail_obstacle_grid[key].append(box)
 		for y in range(first.y,end.y):
 			for x in range(first.x,end.x):solid[y*512+x]=1
-	var changed=Rect2i()
+	var changed=Rect2i();var regions=[];var open_runs={}
 	if _detail_solid.size()!=solid.size():changed=Rect2i(0,0,512,512)
 	else:
 		for y in range(512):
 			if solid.slice(y*512,(y+1)*512)==_detail_solid.slice(y*512,(y+1)*512):continue
-			for x in range(512):
-				if solid[y*512+x]==_detail_solid[y*512+x]:continue
-				var cell=Rect2i(x,y,1,1)
-				changed=changed.merge(cell) if changed.has_area() else cell
+			var x=0
+			while x<512:
+				if solid[y*512+x]==_detail_solid[y*512+x]:x+=1;continue
+				var first=x
+				while x<512 and solid[y*512+x]!=_detail_solid[y*512+x]:x+=1
+				var run=Rect2i(first,y,x-first,1);var key=Vector2i(first,x-first)
+				changed=changed.merge(run) if changed.has_area() else run
+				if open_runs.has(key) and regions[int(open_runs[key])].end.y==y:
+					var index=int(open_runs[key]);regions[index]=Rect2i(regions[index].position,regions[index].size+Vector2i(0,1))
+				else:open_runs[key]=regions.size();regions.append(run)
 	_detail_changes[revision+1]=changed
+	_detail_change_regions[revision+1]=[changed] if regions.is_empty() and changed.has_area() else regions
 	for old in _detail_changes.keys():
-		if int(old)<revision-63:_detail_changes.erase(old)
+		if int(old)<revision-63:_detail_changes.erase(old);_detail_change_regions.erase(old)
 	_detail_solid=solid
-	_detail_prefix.resize(513*513)
-	_detail_prefix.fill(0)
-	for y in range(512):
+	# A 32x32 broad phase plus exact integer rectangles replaces rebuilding
+	# the terrain's 512x512 prefix for changing rectangular obstacles.
+	_detail_obstacle_prefix.resize(33*33);_detail_obstacle_prefix.fill(0)
+	for y in range(32):
 		var row=0
-		for x in range(512):
-			row+=solid[y*512+x]
-			_detail_prefix[(y+1)*513+x+1]=row+_detail_prefix[y*513+x+1]
+		for x in range(32):
+			row+=occupied[y*32+x]
+			_detail_obstacle_prefix[(y+1)*33+x+1]=row+_detail_obstacle_prefix[y*33+x+1]
 
 func source_changes_since(previous: int) -> Rect2i:
 	var result=Rect2i()
@@ -597,11 +634,30 @@ func source_changes_since(previous: int) -> Rect2i:
 		if changed.has_area():result=result.merge(changed) if result.has_area() else changed
 	return result
 
+func source_change_regions_since(previous: int) -> Array:
+	var result=[]
+	for version in range(previous+1,revision+1):
+		if not _detail_change_regions.has(version):return [Rect2i(0,0,512,512)]
+		result.append_array(_detail_change_regions[version])
+	return result
+
 func source_ground_fits(dimensions: Vector2, pos: Vector2) -> bool:
 	var low=Vector2i(((pos-dimensions*.5+Vector2.ONE*.50001)*4).floor())
 	var high=Vector2i(((pos+dimensions*.5+Vector2.ONE*.49999)*4).floor())+Vector2i.ONE
 	if low.x<0 or low.y<0 or high.x>512 or high.y>512:return false
-	return _detail_prefix[high.y*513+high.x]-_detail_prefix[low.y*513+high.x]-_detail_prefix[high.y*513+low.x]+_detail_prefix[low.y*513+low.x]==0
+	if _detail_prefix[high.y*513+high.x]-_detail_prefix[low.y*513+high.x]-_detail_prefix[high.y*513+low.x]+_detail_prefix[low.y*513+low.x]!=0:return false
+	var first=Vector2i(low.x/16,low.y/16);var end=Vector2i((high.x-1)/16+1,(high.y-1)/16+1)
+	if _detail_obstacle_prefix[end.y*33+end.x]-_detail_obstacle_prefix[first.y*33+end.x]-_detail_obstacle_prefix[end.y*33+first.x]+_detail_obstacle_prefix[first.y*33+first.x]==0:return true
+	var query=Rect2i(low,high-low)
+	var mask=((1<<end.x)-1)^((1<<first.x)-1)
+	for y in range(first.y,end.y):
+		var row=_detail_obstacle_rows[y]&mask
+		if row==0:continue
+		for x in range(first.x,end.x):
+			if (row&(1<<x))==0:continue
+			for box in _detail_obstacle_grid.get(Vector2i(x,y),[]):
+				if query.intersects(box):return false
+	return true
 
 func _worker_passage_context(owner: int) -> Dictionary:
 	if _worker_passages.has(owner):return _worker_passages[owner]
@@ -626,6 +682,21 @@ func _worker_passage_context(owner: int) -> Dictionary:
 				var edge=a.end.y if is_equal_approx(a.end.y,b.position.y) else b.end.y
 				corridors.append(Rect2(low-.5,edge-.5,high-low+1,1))
 				centerlines.append({"axis":1,"edge":edge,"low":low,"high":high})
+	# An entrance can continue along the same physical perimeter to reach a
+	# T junction. It never permits a centre inside a building: the strict
+	# worker_center_clear check also protects perpendicular closed end caps.
+	corridors.clear()
+	for line in centerlines:
+		var axis=int(line.axis);var along=1-axis;var changed=true
+		while changed:
+			changed=false
+			for rect in own:
+				if not is_equal_approx(float(line.edge),rect.position[axis]) and not is_equal_approx(float(line.edge),rect.end[axis]):continue
+				if rect.position[along]>float(line.high)+.001 or rect.end[along]<float(line.low)-.001:continue
+				var low=minf(float(line.low),rect.position[along]);var high=maxf(float(line.high),rect.end[along])
+				if low<float(line.low) or high>float(line.high):line.low=low;line.high=high;changed=true
+		if axis==0:corridors.append(Rect2(float(line.edge)-.5,float(line.low)-.5,1,float(line.high)-float(line.low)+1))
+		else:corridors.append(Rect2(float(line.low)-.5,float(line.edge)-.5,float(line.high)-float(line.low)+1,1))
 	var bounds=Rect2i();var regions=[];var clear_regions=[]
 	for corridor in corridors:
 		var clear_low=Vector2i(((corridor.position+Vector2.ONE*.5)*4).ceil()).max(Vector2i.ZERO)
@@ -639,9 +710,16 @@ func _worker_passage_context(owner: int) -> Dictionary:
 	var previous: Rect2i=_worker_previous_bounds.get(owner,Rect2i())
 	var changed=bounds.merge(previous) if previous.has_area() and bounds.has_area() else (previous if previous.has_area() else bounds)
 	_worker_previous_bounds[owner]=bounds
-	var changed_regions: Array=_worker_previous_regions.get(owner,[]).duplicate()
-	changed_regions.append_array(regions);_worker_previous_regions[owner]=regions
-	var context={"corridors":corridors,"centerlines":centerlines,"foreign":foreign,"bounds":bounds,"changed":changed,"regions":changed_regions,"clear_regions":clear_regions}
+	var old_regions: Array=_worker_previous_regions.get(owner,[])
+	var changed_regions: Array=old_regions.duplicate();changed_regions.append_array(regions)
+	var delta=old_regions.filter(func(region):return not region in regions)
+	delta.append_array(regions.filter(func(region):return not region in old_regions))
+	if not _worker_region_changes.has(owner):_worker_region_changes[owner]={}
+	if not delta.is_empty():_worker_region_changes[owner][revision]=delta
+	for old in _worker_region_changes[owner].keys():
+		if int(old)<revision-64:_worker_region_changes[owner].erase(old)
+	_worker_previous_regions[owner]=regions
+	var context={"corridors":corridors,"centerlines":centerlines,"own":own,"foreign":foreign,"bounds":bounds,"changed":changed,"regions":changed_regions,"current_regions":regions,"clear_regions":clear_regions}
 	_worker_passages[owner]=context
 	return context
 
@@ -654,15 +732,30 @@ func worker_passage_bounds(owner: int) -> Rect2i:
 func worker_passage_regions(owner: int) -> Array:
 	return _worker_passage_context(owner).regions
 
+func worker_passage_regions_since(owner: int,previous: int) -> Array:
+	_worker_passage_context(owner)
+	var result=[]
+	for version in _worker_region_changes.get(owner,{}):
+		if int(version)>previous:result.append_array(_worker_region_changes[owner][version])
+	return result
+
+func worker_center_clear(owner: int,pos: Vector2) -> bool:
+	# A seam can admit the body across two touching buildings, never its
+	# centre into either footprint or a perpendicular building at the end.
+	for rect in _worker_passage_context(owner).own:
+		if pos.x>rect.position.x+.0011 and pos.x<rect.end.x-.0011 and pos.y>rect.position.y+.0011 and pos.y<rect.end.y-.0011:return false
+	return true
+
 func worker_ground_fits(owner: int, dimensions: Vector2, pos: Vector2) -> bool:
 	var context=_worker_passage_context(owner)
-	if context.corridors.is_empty():return false
+	if context.corridors.is_empty() or not worker_center_clear(owner,pos):return false
 	# Only the unit body may straddle the two own buildings. Its contact
 	# center follows their exact shared edge, never an interior parallel lane.
 	var aligned=false
 	for line in context.centerlines:
 		var axis=int(line.axis);var along=1-axis
-		if absf(pos[axis]-float(line.edge))<=.0011 and pos[along]>=float(line.low)-dimensions[along]*.5-.01 and pos[along]<=float(line.high)+dimensions[along]*.5+.01:aligned=true;break
+		var cap=ceili(dimensions[along]*16.0)/32.0+.01
+		if absf(pos[axis]-float(line.edge))<=.0011 and pos[along]>=float(line.low)-cap and pos[along]<=float(line.high)+cap:aligned=true;break
 	if not aligned:return false
 	var low=Vector2i(((pos-dimensions*.5+Vector2.ONE*.50001)*4).floor())
 	var high=Vector2i(((pos+dimensions*.5+Vector2.ONE*.49999)*4).floor())+Vector2i.ONE

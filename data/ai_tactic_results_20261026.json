@@ -1,0 +1,5004 @@
+{
+  "schema": 2,
+  "method": "Local historical priors only, not current win rates. Older forty games carry half weight; latest completed nineteen carry full weight. Require paid primary production, real attacks and actual special execution. Preserve scouting counters, sample shrinkage and exploration.",
+  "sources": [
+    {
+      "name": "ai-balance60-claw-raid-unit-damage-20261026",
+      "weight": 0.5,
+      "hashes": {
+        "scripts/bot_ai.gd": "060e86cf068c63d62e0d22908d2680c766184075321dc26a2e1cad9368df9438",
+        "scripts/bot_tactics.gd": "611b38aabbfe9479829bb7457efb6a35b7beb48749f823a0eba9e2275424821c",
+        "scripts/bot_economy.gd": "e77af0afc5a875408b2c176a87a9e11c9140f966c0f08a94fda1e6ebd89f824a",
+        "scripts/bot_harassment.gd": "d9a6fc1b1681621b40ddd3ec99f163c736b4d36605afd1c777cbf2b758ce931a",
+        "scripts/bot_fortress_policy.gd": "038e6e246c0d4770c2924c4d1da24c5352bed5934ca81457e8d270cdf6eb25e9",
+        "scripts/bot_missions.gd": "f4e6599d1076a2c4792598e227f68f9b2c2329e2e3236ab9d4b7b76cb7bf3b6d",
+        "scripts/bot_skills.gd": "c390981fc058914d8bf77bfefc0169afdf27a5f041ab08eb566acb756596037a",
+        "scripts/bot_recon.gd": "4d5d31bf65c47f0b632d77815b490bd888654eb6c92568887e08dc4c7b46f8b5",
+        "scripts/bot_action_budget.gd": "286328784ed2639dec4d1608d7bf3bf1ef379b88d0d8cec5ffc5807ba86b86ba",
+        "scripts/core.gd": "b228f689ffab528d5a49b4f6b930c6f7da3adf755e853fd7e8f85f409f8f725f",
+        "scripts/world_map.gd": "fe0762622539e8d2b5d3f0c690909db06ff912f2f253fbee2e2e0c26eac84f33",
+        "scripts/worker_motion.gd": "56b83925e7dceb1e5a045d9d76946801489316c94589f225cddbbbb2c31471f6",
+        "scripts/citrus_brood.gd": "87bd08cf4692b011243165a57831c9373bf25d6ba80b49f8a08812ae92e32f03",
+        "scripts/abilities.gd": "fa4d92b7d8e0e448c606974ce3799b2be52350794bf6d234063ff70d7e341cda",
+        "scripts/new_units.gd": "805bcdd5294e2af539f929666600922d5e14009d2428d34022fdeb4e1bb43d28",
+        "data/game.json": "0d7d74f38e8304bd98d70920d6499c7937915fb68450fd3828ce9d2c22fbeb0d",
+        "data/ai_tactics.json": "67f90b0f9228ee428056b01b7b6a89b8b5ab1fce9bb136274fdf4a465bf394e3",
+        "tests/ai_match_20261026.gd": "358aef3129724d2fd3557e83618afb070e058fc99d005b99eac0d577c9f96470"
+      }
+    },
+    {
+      "name": "ai-balance60-matchup-learning-20261026",
+      "weight": 1,
+      "hashes": {
+        "scripts/bot_ai.gd": "0f06bf0ad993388a7c3c44e32df2bf800eb5d965c13550d32ae7af54a0e137ff",
+        "scripts/bot_tactics.gd": "e901d03a90b044d016d1e34fdd112d5bd540b4b9c87eb20500bb69f7a5dd3f83",
+        "scripts/bot_tactic_learning.gd": "4f5c4d60e753953173fc0e662100628801b4f0232f15b15217421e8cab66d53d",
+        "scripts/bot_economy.gd": "e77af0afc5a875408b2c176a87a9e11c9140f966c0f08a94fda1e6ebd89f824a",
+        "scripts/bot_harassment.gd": "d9a6fc1b1681621b40ddd3ec99f163c736b4d36605afd1c777cbf2b758ce931a",
+        "scripts/bot_fortress_policy.gd": "038e6e246c0d4770c2924c4d1da24c5352bed5934ca81457e8d270cdf6eb25e9",
+        "scripts/bot_missions.gd": "f4e6599d1076a2c4792598e227f68f9b2c2329e2e3236ab9d4b7b76cb7bf3b6d",
+        "scripts/bot_skills.gd": "892e83d0ccffdaf41b53d34264126fb92a38a1353276ca34a62c6a4f266fa16b",
+        "scripts/bot_recon.gd": "4d5d31bf65c47f0b632d77815b490bd888654eb6c92568887e08dc4c7b46f8b5",
+        "scripts/bot_action_budget.gd": "286328784ed2639dec4d1608d7bf3bf1ef379b88d0d8cec5ffc5807ba86b86ba",
+        "scripts/core.gd": "b228f689ffab528d5a49b4f6b930c6f7da3adf755e853fd7e8f85f409f8f725f",
+        "scripts/world_map.gd": "fe0762622539e8d2b5d3f0c690909db06ff912f2f253fbee2e2e0c26eac84f33",
+        "scripts/worker_motion.gd": "56b83925e7dceb1e5a045d9d76946801489316c94589f225cddbbbb2c31471f6",
+        "scripts/citrus_brood.gd": "87bd08cf4692b011243165a57831c9373bf25d6ba80b49f8a08812ae92e32f03",
+        "scripts/abilities.gd": "fa4d92b7d8e0e448c606974ce3799b2be52350794bf6d234063ff70d7e341cda",
+        "scripts/new_units.gd": "805bcdd5294e2af539f929666600922d5e14009d2428d34022fdeb4e1bb43d28",
+        "data/game.json": "6acff49cdd1e34655df8e9124e322573bff895782dfe35bc223463a7a74c6fb9",
+        "data/ai_tactics.json": "67f90b0f9228ee428056b01b7b6a89b8b5ab1fce9bb136274fdf4a465bf394e3",
+        "data/ai_tactic_results_20261026.json": "351a8b4624137596613381ab3aecdee07420b389a5508a33a1ea6c526df1f215",
+        "tests/ai_match_20261026.gd": "54d775008aaaafc6188baee5d21947bf53a92c82fe49ee537040088dfcef6dcb"
+      }
+    }
+  ],
+  "games": [
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-00-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-00-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-00-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-00-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-00-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-01-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-01-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-01-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-01-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-01-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-01-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-02-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-02-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-02-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-02-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-02-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-02-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-03-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-03-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-03-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-03-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-03-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-04-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-04-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-04-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-04-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-04-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-04-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-05-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-05-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-05-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-05-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-05-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-2-05-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-06-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-06-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-06-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-1-06-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-07-0",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "id": "balance-0-07-1",
+      "weight": 0.5
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-0-00-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-0-00-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-1-00-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-1-00-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-2-00-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-2-00-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-0-01-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-0-01-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-1-01-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-1-01-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-2-01-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-2-01-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-0-02-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-0-02-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-1-02-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-1-02-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-2-02-0",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-2-02-1",
+      "weight": 1
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "id": "balance-0-03-0",
+      "weight": 1
+    }
+  ],
+  "matchups": {
+    "0:1": {
+      "games": 15,
+      "wins": 6.5
+    },
+    "1:0": {
+      "games": 15,
+      "wins": 8.5
+    },
+    "0:2": {
+      "games": 12.5,
+      "wins": 4
+    },
+    "2:0": {
+      "games": 12.5,
+      "wins": 8.5
+    },
+    "1:2": {
+      "games": 11.5,
+      "wins": 5
+    },
+    "2:1": {
+      "games": 11.5,
+      "wins": 6.5
+    }
+  },
+  "plans": {
+    "N2:1": {
+      "games": 5,
+      "wins": 3
+    },
+    "N4:1": {
+      "games": 6,
+      "wins": 2
+    },
+    "E17:0": {
+      "games": 2,
+      "wins": 2
+    },
+    "E22:0": {
+      "games": 4,
+      "wins": 2
+    },
+    "E5:0": {
+      "games": 3,
+      "wins": 3
+    },
+    "E14:0": {
+      "games": 4,
+      "wins": 2.5
+    },
+    "N4:2": {
+      "games": 3,
+      "wins": 0.5
+    },
+    "A1:0": {
+      "games": 6,
+      "wins": 3.5
+    },
+    "A7:0": {
+      "games": 3.5,
+      "wins": 3.5
+    },
+    "N5:2": {
+      "games": 2.5,
+      "wins": 0.5
+    },
+    "N9:2": {
+      "games": 2.5,
+      "wins": 1
+    },
+    "A13:0": {
+      "games": 1.5,
+      "wins": 1.5
+    },
+    "A21:0": {
+      "games": 1.5,
+      "wins": 1.5
+    },
+    "E14:2": {
+      "games": 5.5,
+      "wins": 4.5
+    },
+    "A12:1": {
+      "games": 2.5,
+      "wins": 1.5
+    },
+    "A2:1": {
+      "games": 7,
+      "wins": 3.5
+    },
+    "A3:1": {
+      "games": 2,
+      "wins": 1.5
+    },
+    "N1:1": {
+      "games": 5.5,
+      "wins": 1.5
+    },
+    "E1:0": {
+      "games": 3,
+      "wins": 2
+    },
+    "E3:0": {
+      "games": 3,
+      "wins": 1.5
+    },
+    "N1:2": {
+      "games": 2.5,
+      "wins": 0.5
+    },
+    "N2:2": {
+      "games": 3.5,
+      "wins": 1.5
+    },
+    "A2:0": {
+      "games": 6.5,
+      "wins": 2.5
+    },
+    "A23:0": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "A10:0": {
+      "games": 1.5,
+      "wins": 1.5
+    },
+    "E3:2": {
+      "games": 3,
+      "wins": 2
+    },
+    "E8:2": {
+      "games": 3,
+      "wins": 1.5
+    },
+    "A1:1": {
+      "games": 7.5,
+      "wins": 3.5
+    },
+    "A10:1": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "N5:1": {
+      "games": 8.5,
+      "wins": 4
+    },
+    "A11:0": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "A3:0": {
+      "games": 2.5,
+      "wins": 0.5
+    },
+    "A14:0": {
+      "games": 2.5,
+      "wins": 2.5
+    },
+    "E19:2": {
+      "games": 1.5,
+      "wins": 1.5
+    },
+    "A14:1": {
+      "games": 1.5,
+      "wins": 1
+    },
+    "A7:1": {
+      "games": 4,
+      "wins": 2.5
+    },
+    "E9:2": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "N8:1": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "N6:1": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "E18:2": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "A5:1": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "N11:1": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "E13:0": {
+      "games": 1,
+      "wins": 0.5
+    },
+    "E2:0": {
+      "games": 1.5,
+      "wins": 0
+    },
+    "E25:0": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "N15:2": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "N7:2": {
+      "games": 6,
+      "wins": 2.5
+    },
+    "A15:0": {
+      "games": 1.5,
+      "wins": 1.5
+    },
+    "E13:2": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "E21:2": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "N25:1": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "A12:0": {
+      "games": 3.5,
+      "wins": 3.5
+    },
+    "A16:0": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "E7:2": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "E2:2": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "E6:2": {
+      "games": 0.5,
+      "wins": 0.5
+    },
+    "N7:1": {
+      "games": 0.5,
+      "wins": 0
+    },
+    "N10:1": {
+      "games": 1,
+      "wins": 0
+    },
+    "E12:0": {
+      "games": 1,
+      "wins": 1
+    },
+    "E9:0": {
+      "games": 1,
+      "wins": 1
+    },
+    "N8:2": {
+      "games": 3,
+      "wins": 1
+    },
+    "A25:1": {
+      "games": 1,
+      "wins": 0
+    },
+    "E19:0": {
+      "games": 1,
+      "wins": 1
+    },
+    "E17:2": {
+      "games": 1,
+      "wins": 0
+    }
+  },
+  "evidence": [
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-0",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 0,
+      "population": 30,
+      "primary_attacks": 281,
+      "investment_share": 0.555
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 0,
+      "population": 26,
+      "primary_attacks": 418,
+      "investment_share": 0.445
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E17",
+      "opponent": 0,
+      "win": 1,
+      "population": 19,
+      "primary_attacks": 243,
+      "investment_share": 0.47
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E22",
+      "opponent": 0,
+      "win": 1,
+      "population": 25,
+      "primary_attacks": 124,
+      "investment_share": 0.272
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E5",
+      "opponent": 0,
+      "win": 1,
+      "population": 12,
+      "primary_attacks": 463,
+      "investment_share": 0.186
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 0,
+      "population": 36,
+      "primary_attacks": 126,
+      "investment_share": 0.596
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-1",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 0,
+      "population": 23,
+      "primary_attacks": 214,
+      "investment_share": 0.404
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E14",
+      "opponent": 0,
+      "win": 1,
+      "population": 25,
+      "primary_attacks": 174,
+      "investment_share": 0.525
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 2,
+      "win": 0,
+      "population": 18,
+      "primary_attacks": 284,
+      "investment_share": 0.631
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 1,
+      "population": 26,
+      "primary_attacks": 17,
+      "investment_share": 0.514
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-0",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 0,
+      "win": 1,
+      "population": 28,
+      "primary_attacks": 265,
+      "investment_share": 0.486
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 2,
+      "win": 0,
+      "population": 61,
+      "primary_attacks": 238,
+      "investment_share": 0.263
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N9",
+      "opponent": 2,
+      "win": 0,
+      "population": 6,
+      "primary_attacks": 147,
+      "investment_share": 0.215
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 1,
+      "population": 52,
+      "primary_attacks": 39,
+      "investment_share": 0.186
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A13",
+      "opponent": 0,
+      "win": 1,
+      "population": 18,
+      "primary_attacks": 44,
+      "investment_share": 0.23
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A21",
+      "opponent": 0,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 70,
+      "investment_share": 0.225
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E14",
+      "opponent": 2,
+      "win": 1,
+      "population": 31,
+      "primary_attacks": 24,
+      "investment_share": 0.324
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 1,
+      "win": 0,
+      "population": 42,
+      "primary_attacks": 86,
+      "investment_share": 0.453
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 0,
+      "population": 34,
+      "primary_attacks": 100,
+      "investment_share": 0.25
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 1,
+      "plan": "A3",
+      "opponent": 1,
+      "win": 0,
+      "population": 22,
+      "primary_attacks": 120,
+      "investment_share": 0.272
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 1,
+      "population": 33,
+      "primary_attacks": 200,
+      "investment_share": 0.52
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 1,
+      "population": 24,
+      "primary_attacks": 427,
+      "investment_share": 0.383
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-0",
+      "owner": 1,
+      "plan": "E1",
+      "opponent": 0,
+      "win": 0,
+      "population": 13,
+      "primary_attacks": 29,
+      "investment_share": 0.572
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-0",
+      "owner": 1,
+      "plan": "E3",
+      "opponent": 0,
+      "win": 0,
+      "population": 12,
+      "primary_attacks": 81,
+      "investment_share": 0.428
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-1",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 0,
+      "population": 19,
+      "primary_attacks": 108,
+      "investment_share": 0.403
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-1",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 0,
+      "population": 23,
+      "primary_attacks": 325,
+      "investment_share": 0.597
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E14",
+      "opponent": 0,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 87,
+      "investment_share": 0.578
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E22",
+      "opponent": 0,
+      "win": 1,
+      "population": 23,
+      "primary_attacks": 123,
+      "investment_share": 0.319
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 2,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 523,
+      "investment_share": 0.315
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-0",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 2,
+      "win": 1,
+      "population": 52,
+      "primary_attacks": 3620,
+      "investment_share": 0.685
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 0,
+      "population": 38,
+      "primary_attacks": 117,
+      "investment_share": 0.336
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-0",
+      "owner": 1,
+      "plan": "A23",
+      "opponent": 0,
+      "win": 0,
+      "population": 8,
+      "primary_attacks": 9,
+      "investment_share": 0.194
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 2,
+      "win": 0,
+      "population": 21,
+      "primary_attacks": 214,
+      "investment_share": 0.521
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-1",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 2,
+      "win": 0,
+      "population": 18,
+      "primary_attacks": 343,
+      "investment_share": 0.479
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A10",
+      "opponent": 0,
+      "win": 1,
+      "population": 20,
+      "primary_attacks": 64,
+      "investment_share": 0.475
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 54,
+      "investment_share": 0.422
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-0",
+      "owner": 0,
+      "plan": "E14",
+      "opponent": 2,
+      "win": 1,
+      "population": 28.5,
+      "primary_attacks": 119,
+      "investment_share": 0.475
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-0",
+      "owner": 0,
+      "plan": "E3",
+      "opponent": 2,
+      "win": 1,
+      "population": 12,
+      "primary_attacks": 71,
+      "investment_share": 0.245
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-0",
+      "owner": 0,
+      "plan": "E8",
+      "opponent": 2,
+      "win": 1,
+      "population": 18,
+      "primary_attacks": 226,
+      "investment_share": 0.279
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 0,
+      "population": 16,
+      "primary_attacks": 53,
+      "investment_share": 0.4
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-0",
+      "owner": 1,
+      "plan": "A10",
+      "opponent": 1,
+      "win": 0,
+      "population": 24,
+      "primary_attacks": 57,
+      "investment_share": 0.581
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 1,
+      "population": 18,
+      "primary_attacks": 36,
+      "investment_share": 0.432
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 1,
+      "population": 40,
+      "primary_attacks": 441,
+      "investment_share": 0.568
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 0,
+      "population": 17,
+      "primary_attacks": 82,
+      "investment_share": 0.355
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 0,
+      "population": 19,
+      "primary_attacks": 215,
+      "investment_share": 0.645
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E22",
+      "opponent": 0,
+      "win": 1,
+      "population": 36,
+      "primary_attacks": 252,
+      "investment_share": 0.421
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-1",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 0,
+      "population": 33,
+      "primary_attacks": 204,
+      "investment_share": 0.358
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 0,
+      "population": 35,
+      "primary_attacks": 872,
+      "investment_share": 0.3
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E1",
+      "opponent": 0,
+      "win": 1,
+      "population": 33,
+      "primary_attacks": 42,
+      "investment_share": 0.377
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E17",
+      "opponent": 0,
+      "win": 1,
+      "population": 20,
+      "primary_attacks": 490,
+      "investment_share": 0.389
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 2,
+      "win": 0,
+      "population": 42,
+      "primary_attacks": 829,
+      "investment_share": 0.278
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 2,
+      "win": 0,
+      "population": 25,
+      "primary_attacks": 382,
+      "investment_share": 0.203
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 1,
+      "population": 26,
+      "primary_attacks": 28,
+      "investment_share": 0.203
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 1,
+      "plan": "A11",
+      "opponent": 0,
+      "win": 1,
+      "population": 12,
+      "primary_attacks": 25,
+      "investment_share": 0.25
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 1,
+      "plan": "A3",
+      "opponent": 0,
+      "win": 1,
+      "population": 18,
+      "primary_attacks": 42,
+      "investment_share": 0.214
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 2,
+      "win": 0,
+      "population": 27,
+      "primary_attacks": 212,
+      "investment_share": 0.554
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-1",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 2,
+      "win": 0,
+      "population": 20,
+      "primary_attacks": 294,
+      "investment_share": 0.446
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 1,
+      "population": 14,
+      "primary_attacks": 17,
+      "investment_share": 0.214
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A14",
+      "opponent": 0,
+      "win": 1,
+      "population": 16,
+      "primary_attacks": 290,
+      "investment_share": 0.401
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 0,
+      "win": 1,
+      "population": 36,
+      "primary_attacks": 36,
+      "investment_share": 0.385
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E14",
+      "opponent": 2,
+      "win": 1,
+      "population": 18.5,
+      "primary_attacks": 133,
+      "investment_share": 0.279
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E19",
+      "opponent": 2,
+      "win": 1,
+      "population": 42,
+      "primary_attacks": 352,
+      "investment_share": 0.333
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E3",
+      "opponent": 2,
+      "win": 1,
+      "population": 19,
+      "primary_attacks": 124,
+      "investment_share": 0.276
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 1,
+      "plan": "A14",
+      "opponent": 1,
+      "win": 0,
+      "population": 20,
+      "primary_attacks": 151,
+      "investment_share": 0.37
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 0,
+      "population": 38,
+      "primary_attacks": 162,
+      "investment_share": 0.268
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 1,
+      "win": 0,
+      "population": 38,
+      "primary_attacks": 103,
+      "investment_share": 0.312
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E9",
+      "opponent": 2,
+      "win": 0,
+      "population": 22,
+      "primary_attacks": 87,
+      "investment_share": 0.358
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 1,
+      "population": 20,
+      "primary_attacks": 56,
+      "investment_share": 0.19
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 1,
+      "win": 1,
+      "population": 16,
+      "primary_attacks": 68,
+      "investment_share": 0.252
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 1,
+      "population": 24,
+      "primary_attacks": 13,
+      "investment_share": 0.207
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 1,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 39,
+      "investment_share": 0.351
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 1,
+      "population": 20,
+      "primary_attacks": 224,
+      "investment_share": 0.241
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-0",
+      "owner": 0,
+      "plan": "N8",
+      "opponent": 1,
+      "win": 1,
+      "population": 16,
+      "primary_attacks": 276,
+      "investment_share": 0.482
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-1",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 0,
+      "population": 25,
+      "primary_attacks": 214,
+      "investment_share": 0.476
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-1",
+      "owner": 0,
+      "plan": "N6",
+      "opponent": 1,
+      "win": 0,
+      "population": 10,
+      "primary_attacks": 46,
+      "investment_share": 0.488
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-1",
+      "owner": 1,
+      "plan": "E1",
+      "opponent": 0,
+      "win": 1,
+      "population": 9,
+      "primary_attacks": 32,
+      "investment_share": 0.21
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-1",
+      "owner": 1,
+      "plan": "E14",
+      "opponent": 0,
+      "win": 1,
+      "population": 36.5,
+      "primary_attacks": 79,
+      "investment_share": 0.418
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-1",
+      "owner": 1,
+      "plan": "E22",
+      "opponent": 0,
+      "win": 1,
+      "population": 57,
+      "primary_attacks": 353,
+      "investment_share": 0.372
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-03-1",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 2,
+      "win": 0,
+      "population": 38,
+      "primary_attacks": 332,
+      "investment_share": 0.682
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-03-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 2,
+      "win": 0,
+      "population": 27,
+      "primary_attacks": 324,
+      "investment_share": 0.318
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-03-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 1,
+      "population": 26,
+      "primary_attacks": 55,
+      "investment_share": 0.192
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-03-1",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 0,
+      "win": 1,
+      "population": 44,
+      "primary_attacks": 123,
+      "investment_share": 0.436
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 0,
+      "plan": "E18",
+      "opponent": 2,
+      "win": 0,
+      "population": 57,
+      "primary_attacks": 135,
+      "investment_share": 0.45
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 1,
+      "win": 1,
+      "population": 44,
+      "primary_attacks": 74,
+      "investment_share": 0.316
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 1,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 535,
+      "investment_share": 0.304
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 0,
+      "plan": "E8",
+      "opponent": 2,
+      "win": 0,
+      "population": 27,
+      "primary_attacks": 32,
+      "investment_share": 0.267
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 1,
+      "plan": "A5",
+      "opponent": 1,
+      "win": 1,
+      "population": 46,
+      "primary_attacks": 606,
+      "investment_share": 0.353
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 1,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 233,
+      "investment_share": 0.245
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 1,
+      "population": 46,
+      "primary_attacks": 298,
+      "investment_share": 0.298
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-0",
+      "owner": 0,
+      "plan": "N11",
+      "opponent": 1,
+      "win": 1,
+      "population": 40,
+      "primary_attacks": 112,
+      "investment_share": 0.266
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-0",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 1,
+      "population": 31,
+      "primary_attacks": 620,
+      "investment_share": 0.264
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-0",
+      "owner": 1,
+      "plan": "E13",
+      "opponent": 0,
+      "win": 0,
+      "population": 9.5,
+      "primary_attacks": 11,
+      "investment_share": 0.597
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-0",
+      "owner": 1,
+      "plan": "E14",
+      "opponent": 0,
+      "win": 0,
+      "population": 21,
+      "primary_attacks": 67,
+      "investment_share": 0.304
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 1,
+      "population": 31,
+      "primary_attacks": 185,
+      "investment_share": 0.259
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 1,
+      "population": 26,
+      "primary_attacks": 584,
+      "investment_share": 0.218
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 1,
+      "population": 36,
+      "primary_attacks": 1911,
+      "investment_share": 0.381
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 1,
+      "plan": "E2",
+      "opponent": 0,
+      "win": 0,
+      "population": 13,
+      "primary_attacks": 71,
+      "investment_share": 0.202
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 1,
+      "plan": "E25",
+      "opponent": 0,
+      "win": 0,
+      "population": 7.5,
+      "primary_attacks": 12,
+      "investment_share": 0.544
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 0,
+      "plan": "N15",
+      "opponent": 2,
+      "win": 1,
+      "population": 27,
+      "primary_attacks": 64,
+      "investment_share": 0.42
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 2,
+      "win": 1,
+      "population": 22,
+      "primary_attacks": 99,
+      "investment_share": 0.248
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 0,
+      "population": 18,
+      "primary_attacks": 15,
+      "investment_share": 0.401
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 0,
+      "population": 30,
+      "primary_attacks": 75,
+      "investment_share": 0.325
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 2,
+      "win": 0,
+      "population": 27,
+      "primary_attacks": 293,
+      "investment_share": 0.314
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 2,
+      "win": 0,
+      "population": 29,
+      "primary_attacks": 254,
+      "investment_share": 0.251
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 2,
+      "win": 0,
+      "population": 39,
+      "primary_attacks": 408,
+      "investment_share": 0.349
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 1,
+      "plan": "A15",
+      "opponent": 0,
+      "win": 1,
+      "population": 24,
+      "primary_attacks": 11,
+      "investment_share": 0.238
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 0,
+      "win": 1,
+      "population": 74,
+      "primary_attacks": 127,
+      "investment_share": 0.352
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-0",
+      "owner": 0,
+      "plan": "E13",
+      "opponent": 2,
+      "win": 0,
+      "population": 6,
+      "primary_attacks": 6,
+      "investment_share": 0.625
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 1,
+      "population": 12,
+      "primary_attacks": 17,
+      "investment_share": 0.235
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-0",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 1,
+      "win": 1,
+      "population": 28,
+      "primary_attacks": 37,
+      "investment_share": 0.416
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 337,
+      "investment_share": 0.349
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-1",
+      "owner": 0,
+      "plan": "E21",
+      "opponent": 2,
+      "win": 0,
+      "population": 26,
+      "primary_attacks": 69,
+      "investment_share": 0.444
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 274,
+      "investment_share": 0.309
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 1,
+      "population": 25,
+      "primary_attacks": 803,
+      "investment_share": 0.253
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-0",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 1,
+      "population": 49,
+      "primary_attacks": 1103,
+      "investment_share": 0.442
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-0",
+      "owner": 1,
+      "plan": "E14",
+      "opponent": 0,
+      "win": 0,
+      "population": 13,
+      "primary_attacks": 31,
+      "investment_share": 0.352
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 1,
+      "population": 21,
+      "primary_attacks": 1471,
+      "investment_share": 0.28
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-1",
+      "owner": 0,
+      "plan": "N25",
+      "opponent": 1,
+      "win": 1,
+      "population": 36,
+      "primary_attacks": 100,
+      "investment_share": 0.471
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-1",
+      "owner": 1,
+      "plan": "E14",
+      "opponent": 0,
+      "win": 0,
+      "population": 17,
+      "primary_attacks": 35,
+      "investment_share": 0.329
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-0",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 2,
+      "win": 0,
+      "population": 34,
+      "primary_attacks": 178,
+      "investment_share": 0.553
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 2,
+      "win": 0,
+      "population": 29,
+      "primary_attacks": 355,
+      "investment_share": 0.447
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 1,
+      "population": 38,
+      "primary_attacks": 120,
+      "investment_share": 0.361
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-0",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 0,
+      "win": 1,
+      "population": 64,
+      "primary_attacks": 152,
+      "investment_share": 0.484
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 2,
+      "win": 0,
+      "population": 27,
+      "primary_attacks": 353,
+      "investment_share": 0.187
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 2,
+      "win": 0,
+      "population": 37,
+      "primary_attacks": 598,
+      "investment_share": 0.344
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 2,
+      "win": 0,
+      "population": 20,
+      "primary_attacks": 33,
+      "investment_share": 0.353
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 1,
+      "population": 22,
+      "primary_attacks": 29,
+      "investment_share": 0.273
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 0,
+      "win": 1,
+      "population": 28,
+      "primary_attacks": 84,
+      "investment_share": 0.309
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 1,
+      "plan": "A16",
+      "opponent": 0,
+      "win": 1,
+      "population": 16,
+      "primary_attacks": 162,
+      "investment_share": 0.25
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-0",
+      "owner": 0,
+      "plan": "E7",
+      "opponent": 2,
+      "win": 0,
+      "population": 60,
+      "primary_attacks": 72,
+      "investment_share": 0.597
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 1,
+      "population": 28,
+      "primary_attacks": 63,
+      "investment_share": 0.245
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-0",
+      "owner": 1,
+      "plan": "A3",
+      "opponent": 1,
+      "win": 1,
+      "population": 22,
+      "primary_attacks": 54,
+      "investment_share": 0.328
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-1",
+      "owner": 0,
+      "plan": "E2",
+      "opponent": 2,
+      "win": 1,
+      "population": 57,
+      "primary_attacks": 734,
+      "investment_share": 0.452
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-1",
+      "owner": 0,
+      "plan": "E6",
+      "opponent": 2,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 271,
+      "investment_share": 0.316
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 0,
+      "population": 16,
+      "primary_attacks": 74,
+      "investment_share": 0.322
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-1",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 1,
+      "win": 0,
+      "population": 28,
+      "primary_attacks": 61,
+      "investment_share": 0.375
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 0,
+      "population": 28,
+      "primary_attacks": 76,
+      "investment_share": 0.303
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 0,
+      "population": 40,
+      "primary_attacks": 551,
+      "investment_share": 0.53
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-0",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 0,
+      "population": 16,
+      "primary_attacks": 278,
+      "investment_share": 0.235
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 0,
+      "population": 16,
+      "primary_attacks": 536,
+      "investment_share": 0.187
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-0",
+      "owner": 1,
+      "plan": "E1",
+      "opponent": 0,
+      "win": 1,
+      "population": 27,
+      "primary_attacks": 371,
+      "investment_share": 0.568
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-0",
+      "owner": 1,
+      "plan": "E13",
+      "opponent": 0,
+      "win": 1,
+      "population": 8.5,
+      "primary_attacks": 12,
+      "investment_share": 0.331
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-1",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 0,
+      "population": 15,
+      "primary_attacks": 59,
+      "investment_share": 0.344
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-1",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 1,
+      "win": 0,
+      "population": 14,
+      "primary_attacks": 28,
+      "investment_share": 0.656
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-1",
+      "owner": 1,
+      "plan": "E3",
+      "opponent": 0,
+      "win": 1,
+      "population": 10,
+      "primary_attacks": 106,
+      "investment_share": 0.424
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-0",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 2,
+      "win": 1,
+      "population": 15,
+      "primary_attacks": 552,
+      "investment_share": 0.311
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-0",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 2,
+      "win": 1,
+      "population": 38,
+      "primary_attacks": 2288,
+      "investment_share": 0.515
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 0,
+      "population": 26,
+      "primary_attacks": 22,
+      "investment_share": 0.448
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-0",
+      "owner": 1,
+      "plan": "A3",
+      "opponent": 0,
+      "win": 0,
+      "population": 22,
+      "primary_attacks": 22,
+      "investment_share": 0.552
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 2,
+      "win": 1,
+      "population": 29,
+      "primary_attacks": 843,
+      "investment_share": 0.336
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-1",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 2,
+      "win": 1,
+      "population": 35,
+      "primary_attacks": 1971,
+      "investment_share": 0.533
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 0,
+      "population": 30,
+      "primary_attacks": 68,
+      "investment_share": 0.358
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-1",
+      "owner": 1,
+      "plan": "A3",
+      "opponent": 0,
+      "win": 0,
+      "population": 26,
+      "primary_attacks": 48,
+      "investment_share": 0.517
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 1404,
+      "investment_share": 0.501
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-0",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 1,
+      "population": 24,
+      "primary_attacks": 178,
+      "investment_share": 0.354
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-0",
+      "owner": 1,
+      "plan": "E1",
+      "opponent": 0,
+      "win": 0,
+      "population": 11,
+      "primary_attacks": 33,
+      "investment_share": 0.532
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 0,
+      "population": 23,
+      "primary_attacks": 193,
+      "investment_share": 0.73
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-1",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 0,
+      "population": 11,
+      "primary_attacks": 203,
+      "investment_share": 0.27
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-1",
+      "owner": 1,
+      "plan": "E1",
+      "opponent": 0,
+      "win": 1,
+      "population": 10,
+      "primary_attacks": 61,
+      "investment_share": 0.362
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-1",
+      "owner": 1,
+      "plan": "E5",
+      "opponent": 0,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 391,
+      "investment_share": 0.577
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-0",
+      "owner": 0,
+      "plan": "N4",
+      "opponent": 1,
+      "win": 0,
+      "population": 14,
+      "primary_attacks": 341,
+      "investment_share": 0.35
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-0",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 0,
+      "population": 35,
+      "primary_attacks": 624,
+      "investment_share": 0.578
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E3",
+      "opponent": 0,
+      "win": 1,
+      "population": 26,
+      "primary_attacks": 513,
+      "investment_share": 0.414
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E5",
+      "opponent": 0,
+      "win": 1,
+      "population": 22,
+      "primary_attacks": 152,
+      "investment_share": 0.29
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-1",
+      "owner": 0,
+      "plan": "N10",
+      "opponent": 1,
+      "win": 0,
+      "population": 6,
+      "primary_attacks": 44,
+      "investment_share": 0.333
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 0,
+      "population": 37,
+      "primary_attacks": 305,
+      "investment_share": 0.59
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E12",
+      "opponent": 0,
+      "win": 1,
+      "population": 44,
+      "primary_attacks": 814,
+      "investment_share": 0.509
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E9",
+      "opponent": 0,
+      "win": 1,
+      "population": 42,
+      "primary_attacks": 416,
+      "investment_share": 0.285
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 2,
+      "win": 0,
+      "population": 28,
+      "primary_attacks": 304,
+      "investment_share": 0.54
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 0,
+      "plan": "N9",
+      "opponent": 2,
+      "win": 0,
+      "population": 12,
+      "primary_attacks": 86,
+      "investment_share": 0.268
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 1,
+      "plan": "A13",
+      "opponent": 0,
+      "win": 1,
+      "population": 12,
+      "primary_attacks": 208,
+      "investment_share": 0.184
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 1,
+      "plan": "A15",
+      "opponent": 0,
+      "win": 1,
+      "population": 33,
+      "primary_attacks": 258,
+      "investment_share": 0.241
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 1,
+      "plan": "A21",
+      "opponent": 0,
+      "win": 1,
+      "population": 20,
+      "primary_attacks": 66,
+      "investment_share": 0.323
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 2,
+      "win": 1,
+      "population": 12,
+      "primary_attacks": 137,
+      "investment_share": 0.325
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N8",
+      "opponent": 2,
+      "win": 1,
+      "population": 8,
+      "primary_attacks": 167,
+      "investment_share": 0.603
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 0,
+      "population": 24,
+      "primary_attacks": 21,
+      "investment_share": 0.518
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 0,
+      "population": 30,
+      "primary_attacks": 92,
+      "investment_share": 0.482
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-0",
+      "owner": 0,
+      "plan": "E8",
+      "opponent": 2,
+      "win": 0,
+      "population": 6,
+      "primary_attacks": 15,
+      "investment_share": 0.212
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-0",
+      "owner": 1,
+      "plan": "A14",
+      "opponent": 1,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 511,
+      "investment_share": 0.364
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 1,
+      "population": 36,
+      "primary_attacks": 111,
+      "investment_share": 0.267
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-0",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 1,
+      "win": 1,
+      "population": 40,
+      "primary_attacks": 231,
+      "investment_share": 0.369
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E14",
+      "opponent": 2,
+      "win": 1,
+      "population": 29.5,
+      "primary_attacks": 505,
+      "investment_share": 0.392
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E19",
+      "opponent": 2,
+      "win": 1,
+      "population": 42,
+      "primary_attacks": 52,
+      "investment_share": 0.346
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 0,
+      "population": 12,
+      "primary_attacks": 13,
+      "investment_share": 0.182
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 0,
+      "population": 38,
+      "primary_attacks": 123,
+      "investment_share": 0.298
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 1,
+      "plan": "A25",
+      "opponent": 1,
+      "win": 0,
+      "population": 66,
+      "primary_attacks": 235,
+      "investment_share": 0.52
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-0",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 1,
+      "population": 26,
+      "primary_attacks": 640,
+      "investment_share": 0.459
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-0",
+      "owner": 1,
+      "plan": "E22",
+      "opponent": 0,
+      "win": 0,
+      "population": 15,
+      "primary_attacks": 92,
+      "investment_share": 0.341
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-0",
+      "owner": 1,
+      "plan": "E3",
+      "opponent": 0,
+      "win": 0,
+      "population": 17,
+      "primary_attacks": 66,
+      "investment_share": 0.659
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 0,
+      "population": 41,
+      "primary_attacks": 703,
+      "investment_share": 0.623
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E17",
+      "opponent": 0,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 162,
+      "investment_share": 0.295
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E5",
+      "opponent": 0,
+      "win": 1,
+      "population": 63,
+      "primary_attacks": 320,
+      "investment_share": 0.399
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-0",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 2,
+      "win": 0,
+      "population": 10,
+      "primary_attacks": 15,
+      "investment_share": 0.43
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-0",
+      "owner": 0,
+      "plan": "N8",
+      "opponent": 2,
+      "win": 0,
+      "population": 6,
+      "primary_attacks": 45,
+      "investment_share": 0.419
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-0",
+      "owner": 1,
+      "plan": "A10",
+      "opponent": 0,
+      "win": 1,
+      "population": 36,
+      "primary_attacks": 288,
+      "investment_share": 0.37
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-0",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 0,
+      "win": 1,
+      "population": 26,
+      "primary_attacks": 54,
+      "investment_share": 0.377
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 1,
+      "population": 34,
+      "primary_attacks": 91,
+      "investment_share": 0.252
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 2,
+      "win": 0,
+      "population": 20,
+      "primary_attacks": 131,
+      "investment_share": 0.676
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 0,
+      "win": 1,
+      "population": 48,
+      "primary_attacks": 152,
+      "investment_share": 0.405
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A14",
+      "opponent": 0,
+      "win": 1,
+      "population": 38,
+      "primary_attacks": 182,
+      "investment_share": 0.198
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 0,
+      "win": 1,
+      "population": 42,
+      "primary_attacks": 107,
+      "investment_share": 0.218
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-0",
+      "owner": 0,
+      "plan": "E14",
+      "opponent": 2,
+      "win": 1,
+      "population": 31.5,
+      "primary_attacks": 116,
+      "investment_share": 0.553
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-0",
+      "owner": 0,
+      "plan": "E3",
+      "opponent": 2,
+      "win": 1,
+      "population": 15,
+      "primary_attacks": 72,
+      "investment_share": 0.282
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 0,
+      "population": 24,
+      "primary_attacks": 52,
+      "investment_share": 0.5
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 0,
+      "plan": "E14",
+      "opponent": 2,
+      "win": 0,
+      "population": 19.5,
+      "primary_attacks": 44,
+      "investment_share": 0.356
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 1,
+      "population": 20,
+      "primary_attacks": 27,
+      "investment_share": 0.202
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 1,
+      "plan": "A3",
+      "opponent": 1,
+      "win": 1,
+      "population": 16,
+      "primary_attacks": 38,
+      "investment_share": 0.191
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 0,
+      "plan": "N1",
+      "opponent": 1,
+      "win": 0,
+      "population": 23,
+      "primary_attacks": 361,
+      "investment_share": 0.288
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 0,
+      "population": 41,
+      "primary_attacks": 708,
+      "investment_share": 0.573
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E14",
+      "opponent": 0,
+      "win": 1,
+      "population": 40,
+      "primary_attacks": 111,
+      "investment_share": 0.382
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E19",
+      "opponent": 0,
+      "win": 1,
+      "population": 30,
+      "primary_attacks": 199,
+      "investment_share": 0.241
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 0,
+      "plan": "N2",
+      "opponent": 1,
+      "win": 1,
+      "population": 23,
+      "primary_attacks": 600,
+      "investment_share": 0.271
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 1,
+      "population": 59,
+      "primary_attacks": 2176,
+      "investment_share": 0.501
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E22",
+      "opponent": 0,
+      "win": 0,
+      "population": 38,
+      "primary_attacks": 168,
+      "investment_share": 0.357
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N8",
+      "opponent": 2,
+      "win": 0,
+      "population": 6,
+      "primary_attacks": 30,
+      "investment_share": 0.447
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 1,
+      "population": 24,
+      "primary_attacks": 46,
+      "investment_share": 0.184
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-0",
+      "owner": 1,
+      "plan": "A12",
+      "opponent": 0,
+      "win": 1,
+      "population": 28,
+      "primary_attacks": 67,
+      "investment_share": 0.257
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-0",
+      "owner": 1,
+      "plan": "A14",
+      "opponent": 0,
+      "win": 1,
+      "population": 42,
+      "primary_attacks": 173,
+      "investment_share": 0.56
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 0,
+      "plan": "N7",
+      "opponent": 2,
+      "win": 1,
+      "population": 20,
+      "primary_attacks": 181,
+      "investment_share": 0.264
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 0,
+      "plan": "N9",
+      "opponent": 2,
+      "win": 1,
+      "population": 12,
+      "primary_attacks": 188,
+      "investment_share": 0.414
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 0,
+      "win": 0,
+      "population": 34,
+      "primary_attacks": 35,
+      "investment_share": 0.47
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 0,
+      "win": 0,
+      "population": 24,
+      "primary_attacks": 125,
+      "investment_share": 0.204
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A3",
+      "opponent": 0,
+      "win": 0,
+      "population": 18,
+      "primary_attacks": 40,
+      "investment_share": 0.211
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E14",
+      "opponent": 2,
+      "win": 1,
+      "population": 29.5,
+      "primary_attacks": 249,
+      "investment_share": 0.415
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E8",
+      "opponent": 2,
+      "win": 1,
+      "population": 21,
+      "primary_attacks": 55,
+      "investment_share": 0.268
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 0,
+      "population": 20,
+      "primary_attacks": 70,
+      "investment_share": 0.323
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 1,
+      "plan": "A2",
+      "opponent": 1,
+      "win": 0,
+      "population": 40,
+      "primary_attacks": 113,
+      "investment_share": 0.295
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 1,
+      "plan": "A7",
+      "opponent": 1,
+      "win": 0,
+      "population": 62,
+      "primary_attacks": 47,
+      "investment_share": 0.382
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E17",
+      "opponent": 2,
+      "win": 0,
+      "population": 20,
+      "primary_attacks": 181,
+      "investment_share": 0.191
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E3",
+      "opponent": 2,
+      "win": 0,
+      "population": 24,
+      "primary_attacks": 348,
+      "investment_share": 0.307
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A1",
+      "opponent": 1,
+      "win": 1,
+      "population": 18,
+      "primary_attacks": 95,
+      "investment_share": 0.18
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-03-0",
+      "owner": 0,
+      "plan": "N5",
+      "opponent": 1,
+      "win": 1,
+      "population": 19,
+      "primary_attacks": 611,
+      "investment_share": 0.646
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-03-0",
+      "owner": 1,
+      "plan": "E2",
+      "opponent": 0,
+      "win": 0,
+      "population": 11,
+      "primary_attacks": 32,
+      "investment_share": 0.699
+    }
+  ],
+  "excluded": [
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E3",
+      "population": 5,
+      "fire": 0,
+      "share": 0.07164419400281746,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E1",
+      "population": 5,
+      "fire": 38,
+      "share": 0.28957083525611443,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E19",
+      "population": 9,
+      "fire": 55,
+      "share": 0.09137055837563451,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 5,
+      "fire": 0,
+      "share": 0.09390862944162437,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-0",
+      "owner": 0,
+      "plan": "N2",
+      "population": 11,
+      "fire": 2,
+      "share": 0.36894824707846413,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N1",
+      "population": 35,
+      "fire": 375,
+      "share": 0.1794703230653644,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N2",
+      "population": 9,
+      "fire": 0,
+      "share": 0.056630353117956424,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N21",
+      "population": 18,
+      "fire": 215,
+      "share": 0.15308039068369647,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N4",
+      "population": 26,
+      "fire": 388,
+      "share": 0.13298271975957926,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A15",
+      "population": 26,
+      "fire": 350,
+      "share": 0.14923318914667716,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A16",
+      "population": 15,
+      "fire": 5,
+      "share": 0.1441211167911915,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-00-1",
+      "owner": 1,
+      "plan": "A6",
+      "population": 16,
+      "fire": 26,
+      "share": 0.06645694062131341,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E10",
+      "population": 9,
+      "fire": 407,
+      "share": 0.060810810810810814,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E13",
+      "population": 5.5,
+      "fire": 8,
+      "share": 0.1679054054054054,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E25",
+      "population": 5.5,
+      "fire": 10,
+      "share": 0.38806306306306304,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E3",
+      "population": 6,
+      "fire": 0,
+      "share": 0.0588963963963964,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-00-1",
+      "owner": 1,
+      "plan": "A11",
+      "population": 2,
+      "fire": 0,
+      "share": 0.025226390685640362,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-0",
+      "owner": 0,
+      "plan": "N7",
+      "population": 4,
+      "fire": 0,
+      "share": 0.09750068662455369,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 6,
+      "fire": 0,
+      "share": 0.10303186022610483,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-0",
+      "owner": 1,
+      "plan": "A24",
+      "population": 8,
+      "fire": 11,
+      "share": 0.4699499165275459,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A12",
+      "population": 8,
+      "fire": 103,
+      "share": 0.10284463894967177,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-0",
+      "owner": 1,
+      "plan": "A2",
+      "population": 2,
+      "fire": 16,
+      "share": 0.019543973941368076,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-1",
+      "owner": 0,
+      "plan": "E13",
+      "population": 3.5,
+      "fire": 3,
+      "share": 0.6952681388012618,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-01-1",
+      "owner": 0,
+      "plan": "E3",
+      "population": 6,
+      "fire": 0,
+      "share": 0.3047318611987382,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E23",
+      "population": 33,
+      "fire": 742,
+      "share": 0.44852498494882603,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E3",
+      "population": 6,
+      "fire": 0,
+      "share": 0.1300421432871764,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-1",
+      "owner": 0,
+      "plan": "N21",
+      "population": 15,
+      "fire": 81,
+      "share": 0.3417360806663744,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E13",
+      "population": 4.5,
+      "fire": 7,
+      "share": 0.18673158855751673,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 4,
+      "fire": 0,
+      "share": 0.047839318320146075,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N2",
+      "population": 10,
+      "fire": 0,
+      "share": 0.08158906450234943,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N22",
+      "population": 39,
+      "fire": 1973,
+      "share": 0.3591057952441976,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N24",
+      "population": 4,
+      "fire": 13,
+      "share": 0.07831411077886943,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-02-0",
+      "owner": 1,
+      "plan": "A21",
+      "population": 8,
+      "fire": 98,
+      "share": 0.3333333333333333,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E2",
+      "population": 11,
+      "fire": 42,
+      "share": 0.11183684350839776,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-0",
+      "owner": 1,
+      "plan": "A24",
+      "population": 4,
+      "fire": 4,
+      "share": 0.05063291139240506,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E13",
+      "population": 6,
+      "fire": 5,
+      "share": 0.5107731305449936,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E3",
+      "population": 4,
+      "fire": 0,
+      "share": 0.1308618504435995,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-0",
+      "owner": 0,
+      "plan": "N1",
+      "population": 11,
+      "fire": 23,
+      "share": 0.14107883817427386,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-0",
+      "owner": 0,
+      "plan": "N7",
+      "population": 8,
+      "fire": 368,
+      "share": 0.13600737667127707,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-0",
+      "owner": 1,
+      "plan": "E1",
+      "population": 11,
+      "fire": 4,
+      "share": 0.07436445711570444,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-0",
+      "owner": 1,
+      "plan": "E13",
+      "population": 5.5,
+      "fire": 10,
+      "share": 0.4694701829413162,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-0",
+      "owner": 1,
+      "plan": "E24",
+      "population": 30,
+      "fire": 40,
+      "share": 0.45616535994297935,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-03-1",
+      "owner": 0,
+      "plan": "N2",
+      "population": 4,
+      "fire": 61,
+      "share": 0.03625377643504532,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-03-1",
+      "owner": 1,
+      "plan": "A21",
+      "population": 6,
+      "fire": 96,
+      "share": 0.3720219914477703,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 0,
+      "plan": "E1",
+      "population": 5,
+      "fire": 52,
+      "share": 0.048409029099809625,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 0,
+      "plan": "E13",
+      "population": 5,
+      "fire": 5,
+      "share": 0.3147946695675823,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 0,
+      "plan": "E21",
+      "population": 5,
+      "fire": 20,
+      "share": 0.026516181669839545,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 0,
+      "plan": "E22",
+      "population": 1,
+      "fire": 6,
+      "share": 0.006119118846886048,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 0,
+      "plan": "E25",
+      "population": 2.5,
+      "fire": 1,
+      "share": 0.11150394343214577,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 0,
+      "plan": "E6",
+      "population": 3,
+      "fire": 88,
+      "share": 0.04228991025292358,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 1,
+      "plan": "A15",
+      "population": 19,
+      "fire": 0,
+      "share": 0.2239525398591027,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-0",
+      "owner": 1,
+      "plan": "A2",
+      "population": 40,
+      "fire": 167,
+      "share": 0.1557285873192436,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 0,
+      "plan": "E1",
+      "population": 8,
+      "fire": 83,
+      "share": 0.078552117753079,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 0,
+      "plan": "E13",
+      "population": 5.5,
+      "fire": 7,
+      "share": 0.25923700811054373,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 0,
+      "plan": "E25",
+      "population": 8.5,
+      "fire": 6,
+      "share": 0.39531390808050465,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 1,
+      "plan": "A13",
+      "population": 0,
+      "fire": 0,
+      "share": 0.2522017614091273,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-03-1",
+      "owner": 1,
+      "plan": "A2",
+      "population": 36,
+      "fire": 72,
+      "share": 0.14971977582065651,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-0",
+      "owner": 0,
+      "plan": "N4",
+      "population": 19,
+      "fire": 454,
+      "share": 0.17229953611663354,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-0",
+      "owner": 1,
+      "plan": "E3",
+      "population": 7,
+      "fire": 0,
+      "share": 0.0985788810937219,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 0,
+      "plan": "N1",
+      "population": 2,
+      "fire": 160,
+      "share": 0.03814367450731087,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 0,
+      "plan": "N21",
+      "population": 0,
+      "fire": 45,
+      "share": 0.03337571519389701,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 0,
+      "plan": "N22",
+      "population": 1,
+      "fire": 250,
+      "share": 0.027177368086458997,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 0,
+      "plan": "N7",
+      "population": 0,
+      "fire": 0,
+      "share": 0.04291163382072473,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 1,
+      "plan": "E13",
+      "population": 2,
+      "fire": 4,
+      "share": 0.16532553035844916,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-04-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 6,
+      "fire": 3,
+      "share": 0.08833211411850768,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 0,
+      "plan": "N1",
+      "population": 26,
+      "fire": 258,
+      "share": 0.1541095890410959,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 0,
+      "plan": "N2",
+      "population": 10,
+      "fire": 7,
+      "share": 0.10839041095890412,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 0,
+      "plan": "N4",
+      "population": 3,
+      "fire": 409,
+      "share": 0.0690068493150685,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 1,
+      "plan": "A11",
+      "population": 4,
+      "fire": 0,
+      "share": 0.05390334572490706,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 1,
+      "plan": "A3",
+      "population": 4,
+      "fire": 2,
+      "share": 0.09107806691449814,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 1,
+      "plan": "A6",
+      "population": 8,
+      "fire": 10,
+      "share": 0.08550185873605948,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-0",
+      "owner": 1,
+      "plan": "A7",
+      "population": 2,
+      "fire": 4,
+      "share": 0.04275092936802974,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 0,
+      "plan": "N7",
+      "population": 4,
+      "fire": 48,
+      "share": 0.03944583413507793,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 0,
+      "plan": "N9",
+      "population": 3,
+      "fire": 14,
+      "share": 0.04637290744660381,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 1,
+      "plan": "A1",
+      "population": 32,
+      "fire": 26,
+      "share": 0.13180347160929684,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 1,
+      "plan": "A14",
+      "population": 26,
+      "fire": 251,
+      "share": 0.1788761400411886,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-04-1",
+      "owner": 1,
+      "plan": "A2",
+      "population": 32,
+      "fire": 29,
+      "share": 0.09944101206237128,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-0",
+      "owner": 0,
+      "plan": "E1",
+      "population": 6,
+      "fire": 35,
+      "share": 0.17534778388870917,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-0",
+      "owner": 0,
+      "plan": "E14",
+      "population": 4,
+      "fire": 10,
+      "share": 0.19961177612423164,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-1",
+      "owner": 0,
+      "plan": "E1",
+      "population": 7,
+      "fire": 46,
+      "share": 0.1233260666459047,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-1",
+      "owner": 0,
+      "plan": "E13",
+      "population": 5,
+      "fire": 7,
+      "share": 0.43288695110557457,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-1",
+      "owner": 1,
+      "plan": "A1",
+      "population": 12,
+      "fire": 21,
+      "share": 0.15704387990762125,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-04-1",
+      "owner": 1,
+      "plan": "A21",
+      "population": 14,
+      "fire": 104,
+      "share": 0.5334872979214781,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-0",
+      "owner": 0,
+      "plan": "N1",
+      "population": 12,
+      "fire": 28,
+      "share": 0.1294615849969752,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-0",
+      "owner": 0,
+      "plan": "N25",
+      "population": 6,
+      "fire": 0,
+      "share": 0.17543859649122806,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-0",
+      "owner": 1,
+      "plan": "E13",
+      "population": 5.5,
+      "fire": 10,
+      "share": 0.526158038147139,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-0",
+      "owner": 1,
+      "plan": "E3",
+      "population": 7,
+      "fire": 0,
+      "share": 0.12152588555858311,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-1",
+      "owner": 0,
+      "plan": "N1",
+      "population": 13,
+      "fire": 45,
+      "share": 0.11362564827911363,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-1",
+      "owner": 0,
+      "plan": "N4",
+      "population": 14,
+      "fire": 296,
+      "share": 0.13562784849913562,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-1",
+      "owner": 1,
+      "plan": "E13",
+      "population": 5.5,
+      "fire": 6,
+      "share": 0.5530621785881253,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-05-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 6,
+      "fire": 0,
+      "share": 0.11757830762038336,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-0",
+      "owner": 1,
+      "plan": "A15",
+      "population": 3,
+      "fire": 0,
+      "share": 0.15547378104875806,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 0,
+      "plan": "N2",
+      "population": 11,
+      "fire": 4,
+      "share": 0.11680761099365751,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-05-1",
+      "owner": 1,
+      "plan": "A2",
+      "population": 24,
+      "fire": 0,
+      "share": 0.16819973718791065,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-0",
+      "owner": 0,
+      "plan": "E1",
+      "population": 8,
+      "fire": 24,
+      "share": 0.10108896650914322,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-0",
+      "owner": 0,
+      "plan": "E13",
+      "population": 5,
+      "fire": 2,
+      "share": 0.3020341072529279,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-0",
+      "owner": 1,
+      "plan": "A23",
+      "population": 20,
+      "fire": 45,
+      "share": 0.4270516717325228,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-1",
+      "owner": 0,
+      "plan": "E1",
+      "population": 5,
+      "fire": 22,
+      "share": 0.0653012368666046,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-2-05-1",
+      "owner": 0,
+      "plan": "E22",
+      "population": 28,
+      "fire": 97,
+      "share": 0.16624551137119298,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-0",
+      "owner": 0,
+      "plan": "N8",
+      "population": 2,
+      "fire": 4,
+      "share": 0.04792746113989637,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-0",
+      "owner": 1,
+      "plan": "E2",
+      "population": 10,
+      "fire": 18,
+      "share": 0.101486669123971,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-1",
+      "owner": 1,
+      "plan": "E1",
+      "population": 6,
+      "fire": 29,
+      "share": 0.11666149550108594,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-06-1",
+      "owner": 1,
+      "plan": "E13",
+      "population": 3.5,
+      "fire": 7,
+      "share": 0.45982004343779087,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-0",
+      "owner": 0,
+      "plan": "N1",
+      "population": 12,
+      "fire": 0,
+      "share": 0.1739366025467353,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-1",
+      "owner": 0,
+      "plan": "N1",
+      "population": 10,
+      "fire": 0,
+      "share": 0.13152542372881357,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-1-06-1",
+      "owner": 1,
+      "plan": "A11",
+      "population": 6,
+      "fire": 9,
+      "share": 0.1248642779587405,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-0",
+      "owner": 0,
+      "plan": "N4",
+      "population": 10,
+      "fire": 380,
+      "share": 0.14494988434849654,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-0",
+      "owner": 1,
+      "plan": "E13",
+      "population": 4,
+      "fire": 5,
+      "share": 0.46755407653910147,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-claw-raid-unit-damage-20261026",
+      "game": "balance-0-07-1",
+      "owner": 1,
+      "plan": "E13",
+      "population": 2,
+      "fire": 0,
+      "share": 0.060987736161750086,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-0",
+      "owner": 0,
+      "plan": "N2",
+      "population": 8,
+      "fire": 30,
+      "share": 0.07123623011015912,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E1",
+      "population": 8,
+      "fire": 0,
+      "share": 0.04599659284497445,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-0",
+      "owner": 1,
+      "plan": "E13",
+      "population": 5.5,
+      "fire": 6,
+      "share": 0.2505394662123793,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-1",
+      "owner": 0,
+      "plan": "N2",
+      "population": 8,
+      "fire": 0,
+      "share": 0.07692307692307693,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E22",
+      "population": 27,
+      "fire": 109,
+      "share": 0.14855263157894738,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-00-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 5,
+      "fire": 0,
+      "share": 0.05763157894736842,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 0,
+      "plan": "N2",
+      "population": 5,
+      "fire": 11,
+      "share": 0.020851740590210284,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 0,
+      "plan": "N5",
+      "population": 3,
+      "fire": 3,
+      "share": 0.012369676621311186,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 0,
+      "plan": "N8",
+      "population": 8,
+      "fire": 105,
+      "share": 0.15921540908287685,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 1,
+      "plan": "A1",
+      "population": 26,
+      "fire": 449,
+      "share": 0.10649562207289757,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-0",
+      "owner": 1,
+      "plan": "A7",
+      "population": 48,
+      "fire": 64,
+      "share": 0.14436978212176746,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-00-1",
+      "owner": 0,
+      "plan": "N2",
+      "population": 5,
+      "fire": 0,
+      "share": 0.07255585160893625,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-0",
+      "owner": 0,
+      "plan": "E13",
+      "population": 5,
+      "fire": 2,
+      "share": 0.6332408049965302,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-0",
+      "owner": 0,
+      "plan": "E3",
+      "population": 7,
+      "fire": 0,
+      "share": 0.15475364330326163,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E17",
+      "population": 2,
+      "fire": 187,
+      "share": 0.07826195842724769,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E2",
+      "population": 11,
+      "fire": 11,
+      "share": 0.12409216128224393,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-00-1",
+      "owner": 0,
+      "plan": "E3",
+      "population": 5,
+      "fire": 0,
+      "share": 0.05985474580515903,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-0",
+      "owner": 0,
+      "plan": "N1",
+      "population": 8,
+      "fire": 27,
+      "share": 0.07946477334789732,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-0",
+      "owner": 0,
+      "plan": "N10",
+      "population": 9,
+      "fire": 0,
+      "share": 0.4617695248498088,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 0,
+      "plan": "N1",
+      "population": 6,
+      "fire": 0,
+      "share": 0.05654834761321909,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 0,
+      "plan": "N10",
+      "population": 0,
+      "fire": 0,
+      "share": 0.3209302325581395,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E2",
+      "population": 10,
+      "fire": 21,
+      "share": 0.08878642205435103,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E22",
+      "population": 40,
+      "fire": 490,
+      "share": 0.17384479544785636,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-01-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 7,
+      "fire": 0,
+      "share": 0.04375551849308349,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-0",
+      "owner": 0,
+      "plan": "N2",
+      "population": 5,
+      "fire": 0,
+      "share": 0.0898933468765871,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-0",
+      "owner": 0,
+      "plan": "N9",
+      "population": 3,
+      "fire": 9,
+      "share": 0.0611985779583545,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 0,
+      "plan": "N2",
+      "population": 4,
+      "fire": 0,
+      "share": 0.04469548133595285,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 0,
+      "plan": "N8",
+      "population": 4,
+      "fire": 79,
+      "share": 0.27930582842174195,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A1",
+      "population": 0,
+      "fire": 225,
+      "share": 0.03291880029261156,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-01-1",
+      "owner": 1,
+      "plan": "A2",
+      "population": 38,
+      "fire": 74,
+      "share": 0.14703730797366496,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-0",
+      "owner": 0,
+      "plan": "E11",
+      "population": 16,
+      "fire": 436,
+      "share": 0.164802825191289,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-0",
+      "owner": 1,
+      "plan": "A23",
+      "population": 12,
+      "fire": 27,
+      "share": 0.5,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 0,
+      "plan": "E13",
+      "population": 5,
+      "fire": 5,
+      "share": 0.36348267117497884,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 0,
+      "plan": "E22",
+      "population": 11,
+      "fire": 151,
+      "share": 0.15328261482107636,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 0,
+      "plan": "E3",
+      "population": 6,
+      "fire": 0,
+      "share": 0.12735981966751198,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 1,
+      "plan": "A10",
+      "population": 28,
+      "fire": 0,
+      "share": 0.2920997920997921,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-01-1",
+      "owner": 1,
+      "plan": "A23",
+      "population": 24,
+      "fire": 40,
+      "share": 0.31496881496881496,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 0,
+      "plan": "N22",
+      "population": 14,
+      "fire": 142,
+      "share": 0.1385496183206107,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E13",
+      "population": 6,
+      "fire": 3,
+      "share": 0.20792303338992643,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E22",
+      "population": 30,
+      "fire": 123,
+      "share": 0.12518392756083757,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-0",
+      "owner": 1,
+      "plan": "E3",
+      "population": 5,
+      "fire": 0,
+      "share": 0.04380305602716469,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 0,
+      "plan": "N1",
+      "population": 8,
+      "fire": 0,
+      "share": 0.038029273392577105,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 0,
+      "plan": "N10",
+      "population": 0,
+      "fire": 0,
+      "share": 0.1909304756926294,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E11",
+      "population": 4,
+      "fire": 4,
+      "share": 0.04617414248021108,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E16",
+      "population": 1,
+      "fire": 5,
+      "share": 0.058424425179042595,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E25",
+      "population": 5,
+      "fire": 6,
+      "share": 0.3910667169242367,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E3",
+      "population": 9,
+      "fire": 0,
+      "share": 0.13136072370900867,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-02-1",
+      "owner": 1,
+      "plan": "E7",
+      "population": 2,
+      "fire": 0,
+      "share": 0.01601960045231813,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N2",
+      "population": 5,
+      "fire": 0,
+      "share": 0.08801591248135256,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N7",
+      "population": 0,
+      "fire": 10,
+      "share": 0.18647439085032322,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-0",
+      "owner": 0,
+      "plan": "N9",
+      "population": 3,
+      "fire": 21,
+      "share": 0.278468423669816,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 0,
+      "plan": "N2",
+      "population": 5,
+      "fire": 0,
+      "share": 0.04354779185631689,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 0,
+      "plan": "N8",
+      "population": 4,
+      "fire": 26,
+      "share": 0.2783860253413704,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A10",
+      "population": 0,
+      "fire": 0,
+      "share": 0.061461794019933555,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-1-02-1",
+      "owner": 1,
+      "plan": "A7",
+      "population": 2,
+      "fire": 10,
+      "share": 0.053156146179401995,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E1",
+      "population": 5,
+      "fire": 10,
+      "share": 0.15567742739623583,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E19",
+      "population": 9,
+      "fire": 99,
+      "share": 0.10245544060825128,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-0",
+      "owner": 0,
+      "plan": "E3",
+      "population": 4,
+      "fire": 0,
+      "share": 0.0589555029290789,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E13",
+      "population": 1.5,
+      "fire": 0,
+      "share": 0.017762788083192805,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E2",
+      "population": 16,
+      "fire": 45,
+      "share": 0.10399100618324901,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E22",
+      "population": 8,
+      "fire": 12,
+      "share": 0.03462619449128724,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E25",
+      "population": 8,
+      "fire": 7,
+      "share": 0.3015177065767285,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 0,
+      "plan": "E6",
+      "population": 7,
+      "fire": 50,
+      "share": 0.04440697020798201,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A13",
+      "population": 4,
+      "fire": 0,
+      "share": 0.22076923076923077,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A16",
+      "population": 20,
+      "fire": 5,
+      "share": 0.2,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A2",
+      "population": 22,
+      "fire": 10,
+      "share": 0.0876923076923077,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A23",
+      "population": 24,
+      "fire": 43,
+      "share": 0.22230769230769232,
+      "special": false
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-2-02-1",
+      "owner": 1,
+      "plan": "A3",
+      "population": 22,
+      "fire": 46,
+      "share": 0.08923076923076922,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-03-0",
+      "owner": 0,
+      "plan": "N1",
+      "population": 8,
+      "fire": 0,
+      "share": 0.12696335078534032,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-03-0",
+      "owner": 0,
+      "plan": "N7",
+      "population": 4,
+      "fire": 95,
+      "share": 0.2268760907504363,
+      "special": true
+    },
+    {
+      "batch": "ai-balance60-matchup-learning-20261026",
+      "game": "balance-0-03-0",
+      "owner": 1,
+      "plan": "E1",
+      "population": 11,
+      "fire": 4,
+      "share": 0.3012777404169469,
+      "special": true
+    }
+  ]
+}

@@ -17,6 +17,20 @@ static func catalog(race: int, building: int) -> Array:
 		if int(item.race)==race and int(item.building)==building:items.append(item)
 	return items
 
+static func description(race: int,research: Dictionary) -> String:
+	var key=str(research.id)
+	if key in ["attack","armor","shield"]:
+		return str(ACData.get_data().race_names[race])+" 유닛 "+{"attack":"공격력","armor":"방어력","shield":"보호막 방어력"}[key]+" 증가."
+	if research.has("unit_kind"):
+		var subject=str(ACData.unit(race,int(research.unit_kind)).name)
+		return subject+" "+{"hp":"최대 체력","period":"공격 속도","speed":"이동 속도","range":"사거리","armor":"방어력","shield":"보호막"}.get(str(research.get("stat","")),"능력치")+" 증가."
+	if key=="judgment_mastery":return "천문심판관 천문심판 강화."
+	var skills=ACData.get_data().abilities.filter(func(skill):return int(skill.race)==race and str(skill.id)==key)
+	if skills.is_empty():return str(research.name)+" 사용."
+	var skill: Dictionary=skills[0];var names=[]
+	for kind in skill.kinds:names.append(str(ACData.unit(race,int(kind)).name))
+	return "·".join(names)+" "+str(skill.name)+" 사용."
+
 static func level(player: Dictionary, key: String) -> int:
 	return int(player.get(key,0)) if key in ["attack","armor","shield"] else int(player.get("technologies",{}).get(key,0))
 

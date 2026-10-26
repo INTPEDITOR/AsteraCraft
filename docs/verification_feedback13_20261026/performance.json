@@ -1,0 +1,161 @@
+{
+  "baseline": {
+    "game_seconds": 15,
+    "records": [
+      {
+        "buildings": 94,
+        "ended": false,
+        "game_seconds": 5,
+        "phases": {
+          "ai_us": 1583036,
+          "building_us": 320048,
+          "cleanup_us": 56246,
+          "collision_us": 76132,
+          "path_cache_hits": 44,
+          "path_requests": 193,
+          "spatial_queries": 5459,
+          "target_candidates": 68841,
+          "ticks": 100,
+          "unit_us": 7812796,
+          "vision_sources": 3382,
+          "vision_us": 184331
+        },
+        "units_end": 201,
+        "units_start": 202,
+        "wall_seconds": 10.105295
+      },
+      {
+        "buildings": 49,
+        "ended": false,
+        "game_seconds": 5,
+        "phases": {
+          "ai_us": 1234569,
+          "building_us": 166345,
+          "cleanup_us": 48167,
+          "collision_us": 39607,
+          "path_cache_hits": 12,
+          "path_requests": 273,
+          "spatial_queries": 4347,
+          "target_candidates": 64052,
+          "ticks": 100,
+          "unit_us": 6620757,
+          "vision_sources": 2092,
+          "vision_us": 122194
+        },
+        "units_end": 143,
+        "units_start": 141,
+        "wall_seconds": 8.354698
+      },
+      {
+        "buildings": 59,
+        "ended": false,
+        "game_seconds": 5,
+        "phases": {
+          "ai_us": 623031,
+          "building_us": 229947,
+          "cleanup_us": 101697,
+          "collision_us": 13294,
+          "path_cache_hits": 34,
+          "path_requests": 145,
+          "spatial_queries": 1580,
+          "target_candidates": 10621,
+          "ticks": 100,
+          "unit_us": 2132081,
+          "vision_sources": 1779,
+          "vision_us": 101354
+        },
+        "units_end": 98,
+        "units_start": 94,
+        "wall_seconds": 3.462201
+      }
+    ],
+    "step_p50_ms": 46.854,
+    "step_p95_ms": 148.088,
+    "steps": 300,
+    "valid": true,
+    "wall_seconds": 21.922218
+  },
+  "after": {
+    "game_seconds": 15,
+    "records": [
+      {
+        "buildings": 94,
+        "ended": false,
+        "game_seconds": 5,
+        "hot_paths": [],
+        "hot_units": [],
+        "phases": {
+          "ai_us": 1498658,
+          "building_us": 300010,
+          "cleanup_us": 53156,
+          "collision_us": 59475,
+          "path_cache_hits": 44,
+          "path_requests": 192,
+          "spatial_queries": 5459,
+          "target_candidates": 68850,
+          "ticks": 100,
+          "unit_us": 7416081,
+          "vision_sources": 3385,
+          "vision_us": 174385
+        },
+        "units_end": 201,
+        "units_start": 202,
+        "wall_seconds": 9.572065
+      },
+      {
+        "buildings": 49,
+        "ended": false,
+        "game_seconds": 5,
+        "hot_paths": [],
+        "hot_units": [],
+        "phases": {
+          "ai_us": 1168251,
+          "building_us": 160436,
+          "cleanup_us": 46100,
+          "collision_us": 38350,
+          "path_cache_hits": 12,
+          "path_requests": 275,
+          "spatial_queries": 4347,
+          "target_candidates": 63999,
+          "ticks": 100,
+          "unit_us": 6373845,
+          "vision_sources": 2091,
+          "vision_us": 114481
+        },
+        "units_end": 143,
+        "units_start": 141,
+        "wall_seconds": 8.021424
+      },
+      {
+        "buildings": 59,
+        "ended": false,
+        "game_seconds": 5,
+        "hot_paths": [],
+        "hot_units": [],
+        "phases": {
+          "ai_us": 592322,
+          "building_us": 226743,
+          "cleanup_us": 96184,
+          "collision_us": 12893,
+          "path_cache_hits": 35,
+          "path_requests": 142,
+          "spatial_queries": 1580,
+          "target_candidates": 10644,
+          "ticks": 100,
+          "unit_us": 2010067,
+          "vision_sources": 1781,
+          "vision_us": 99134
+        },
+        "units_end": 98,
+        "units_start": 94,
+        "wall_seconds": 3.288552
+      }
+    ],
+    "step_p50_ms": 45.843,
+    "step_p95_ms": 141.478,
+    "steps": 300,
+    "valid": true,
+    "wall_seconds": 20.882067
+  },
+  "scope": "One bounded reconstructed workload before/after; small measured change, not rendered FPS or an actual difficulty match."
+}

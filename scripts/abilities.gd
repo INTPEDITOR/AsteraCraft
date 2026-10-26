@@ -130,6 +130,7 @@ static func use(c,u: Dictionary,key: String,point: Vector2,target_id: int=-1) ->
 				for silo in c.buildings:
 					if int(silo.owner)==int(u.owner) and int(silo.race)==0 and int(silo.kind)==8 and silo.hp>0 and silo.progress>=1:source=c.center(silo);break
 			u.channel={"skill":key,"started":c.time,"until":c.time+15,"impact":c.time+18,"pos":ACData.packed(point),"source":ACData.packed(source),"stock":stock,"owner":u.owner}
+			if c.trace_bot_tactics:u.channel._ai_plan=str(player.get("_ai_tactic",""))
 			u.order="channel";u.path=[]
 			c._effect("nuclear_marker",{"owner":u.owner,"race":0,"id":u.id,"pos":ACData.packed(point)},point,18,{"caster":u.id})
 			c._effect("nuclear_ascent",{"owner":u.owner,"race":0,"pos":ACData.packed(source)},source,4,{"caster":u.id})
@@ -158,7 +159,7 @@ static func update(c,dt: float) -> void:
 			for fx in c.effects:
 				if fx.get("type","") in ["nuclear_marker","nuclear_ascent"] and int(fx.get("caster",-1))==int(u.id):fx.until=c.time
 		elif c.time>=float(channel.until):
-			c.ability_events.append({"owner":u.owner,"caster":u.id,"skill":"nuclear","when":channel.impact,"pos":channel.pos,"source":channel.source,"committed":true})
+			c.ability_events.append({"owner":u.owner,"caster":u.id,"skill":"nuclear","when":channel.impact,"pos":channel.pos,"source":channel.source,"committed":true,"_ai_plan":channel.get("_ai_plan","")})
 			c._effect("nuclear_descent",{"owner":u.owner,"race":0,"pos":channel.pos},ACData.point(channel.pos),3)
 			u.channel={};u.order="idle"
 	for event in c.ability_events:
@@ -194,6 +195,8 @@ static func update(c,dt: float) -> void:
 			if key in ["root_surge","shockwave"]:target.slow_until=c.time+2
 		var visual_source={"id":caster.id,"owner":event.owner,"race":0,"kind":7,"pos":event.pos} if key=="nuclear" else caster
 		effect(c,visual_source,key,point,16.0 if key=="nuclear" else .8,{"radius":radius})
+		if key=="nuclear" and c.trace_bot_tactics and c.players[int(event.owner)].bot:
+			preload("res://scripts/bot_tactics.gd").log_action(c.players[int(event.owner)],"nuclear:impact",str(event.get("_ai_plan","")))
 		event.when=-1
 	c.ability_events=c.ability_events.filter(func(e):return float(e.when)>=0)
 	for zone in c.ability_zones:

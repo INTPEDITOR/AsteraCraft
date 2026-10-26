@@ -62,22 +62,22 @@
     },
     {
       "id": "N2",
-      "name": "돌격병 빠른 돌파",
+      "name": "돌격병 기동 습격",
       "race": 0,
       "min_level": 0,
       "stage": 0,
       "min_time": 0,
-      "style": "rush",
+      "style": "raid",
       "primary": [
-        2
+        1
       ],
       "support": [
-        1,
+        2,
         4
       ],
       "weights": {
-        "1": 2,
-        "2": 6,
+        "1": 6,
+        "2": 2,
         "4": 2
       },
       "skills": [
@@ -146,7 +146,7 @@
       ],
       "weights": {
         "1": 6,
-        "2": 6,
+        "2": 2,
         "3": 2,
         "4": 2
       },
@@ -206,21 +206,23 @@
     },
     {
       "id": "N6",
-      "name": "돌격병·화염차 돌파군",
+      "name": "화염차·돌격병 기동 습격",
       "race": 0,
       "min_level": 2,
       "stage": 1,
       "min_time": 100,
-      "style": "rush",
+      "style": "raid",
       "primary": [
-        2,
         13
       ],
       "support": [
+        1,
+        2,
         6
       ],
       "weights": {
-        "2": 6,
+        "1": 6,
+        "2": 2,
         "6": 2,
         "13": 6
       },
@@ -415,21 +417,27 @@
     },
     {
       "id": "N12",
-      "name": "이동요새 주력군",
+      "name": "이동요새 지원 혼합군",
       "race": 0,
       "min_level": 2,
       "stage": 2,
       "min_time": 300,
       "style": "heavy",
       "primary": [
-        12
+        1,
+        5
       ],
       "support": [
-        6
+        12,
+        6,
+        4
       ],
       "weights": {
+        "1": 6,
+        "5": 6,
         "6": 2,
-        "12": 6
+        "4": 2,
+        "12": 1.5
       },
       "skills": [
         "field_repair"
@@ -453,16 +461,16 @@
       "min_time": 300,
       "style": "siege",
       "primary": [
-        12,
         5
       ],
       "support": [
+        12,
         6
       ],
       "weights": {
         "5": 6,
         "6": 2,
-        "12": 6
+        "12": 1.5
       },
       "skills": [
         "overcharge",
@@ -488,10 +496,10 @@
       "min_time": 300,
       "style": "heavy",
       "primary": [
-        12,
         1
       ],
       "support": [
+        12,
         3,
         4
       ],
@@ -499,7 +507,7 @@
         "1": 6,
         "3": 2,
         "4": 2,
-        "12": 6
+        "12": 1.5
       },
       "skills": [
         "stim",
@@ -657,15 +665,15 @@
       "min_time": 300,
       "style": "carrier",
       "primary": [
-        14,
-        12
+        14
       ],
       "support": [
+        12,
         9
       ],
       "weights": {
         "9": 2,
-        "12": 6,
+        "12": 1.5,
         "14": 6
       },
       "skills": [
@@ -908,9 +916,12 @@
       "primary": [
         1
       ],
-      "support": [],
+      "support": [
+        4
+      ],
       "weights": {
-        "1": 6
+        "1": 6,
+        "4": 1.5
       },
       "skills": [],
       "economy": "balanced",
@@ -936,12 +947,14 @@
       ],
       "support": [
         7,
-        9
+        9,
+        4
       ],
       "weights": {
         "1": 6,
         "7": 2,
-        "9": 1.2
+        "9": 1.2,
+        "4": 1.5
       },
       "skills": [
         "sap_heal",
@@ -970,11 +983,13 @@
         2
       ],
       "support": [
-        1
+        1,
+        4
       ],
       "weights": {
         "1": 2,
-        "2": 6
+        "2": 6,
+        "4": 1.5
       },
       "skills": [],
       "economy": "balanced",

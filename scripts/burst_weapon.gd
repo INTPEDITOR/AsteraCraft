@@ -32,7 +32,7 @@ static func tick(c,u: Dictionary) -> bool:
 		cancel(u);return false
 	if u.order=="attack" and int(u.target)!=int(target.id):cancel(u);return false
 	var reach=float(u._definition.range)+.25
-	if u.anchored and u._definition.role in ["siege","fortress"]:reach+=3
+	if u.anchored and ACData.can_deploy(u._definition) and u._definition.role in ["siege","fortress"]:reach+=3
 	if target.has("progress"):
 		var building=ACData.building(int(target.race),int(target.kind));reach+=minf(building.w,building.h)*.45
 	if c.center(u).distance_to(c.center(target))>reach:cancel(u);return false

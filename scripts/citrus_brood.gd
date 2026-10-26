@@ -6,8 +6,8 @@ extends RefCounted
 const RACE := 1
 const KIND := 13
 const IDLE_CAP := 3
-const HQ_INTERVAL := 15.0
-const NURSERY_INTERVAL := 25.0
+const HQ_INTERVAL := 12.0
+const NURSERY_INTERVAL := 18.0
 const MAX_QUEUE := 5
 const LINK_RADIUS := 12.0
 
@@ -17,12 +17,26 @@ static func is_pod(unit: Dictionary) -> bool:
 static func is_producer(building: Dictionary) -> bool:
 	return int(building.get("race",-1))==RACE and int(building.get("kind",-1)) in [0,3] and building.has("progress")
 
+static func _index(core) -> Dictionary:
+	var lookup: Dictionary=core.brood_lookup
+	if float(lookup.get("time",-1))==core.time and int(lookup.get("units",-1))==core.units.size() and int(lookup.get("buildings",-1))==core.buildings.size():return lookup
+	# Keep live dictionary references: health, completion, morph progress and
+	# ownership changes remain visible within the same simulation step.
+	lookup={"time":core.time,"units":core.units.size(),"buildings":core.buildings.size(),"by_id":{},"mothers":[],"pods":[]}
+	for building in core.buildings:
+		lookup.by_id[int(building.id)]=building
+		if int(building.race)==RACE and int(building.kind)==0:
+			lookup.mothers.append(building)
+	for unit in core.units:
+		if is_pod(unit):lookup.pods.append(unit)
+	core.brood_lookup=lookup;return lookup
+
 static func mother(core, building: Dictionary) -> Dictionary:
 	if building.is_empty() or not is_producer(building) or building.hp<=0 or building.progress<1:return {}
 	if int(building.kind)==0:return building
 	var best: Dictionary={}
 	var distance := LINK_RADIUS*LINK_RADIUS+0.000001
-	for candidate in core.buildings:
+	for candidate in _index(core).mothers:
 		if int(candidate.race)!=RACE or int(candidate.owner)!=int(building.owner) or int(candidate.kind)!=0 or candidate.hp<=0 or candidate.progress<1:continue
 		var score: float=core.center(candidate).distance_squared_to(core.center(building))
 		if score<distance:distance=score;best=candidate
@@ -32,7 +46,7 @@ static func idle_pods(core, building: Dictionary, local_only: bool=false) -> Arr
 	var result: Array=[]
 	var authority := mother(core,building)
 	if authority.is_empty():return result
-	for unit in core.units:
+	for unit in _index(core).pods:
 		if not is_pod(unit) or float(unit.get("hp",0))<=0 or int(unit.owner)!=int(building.owner) or str(unit.get("brood_state","idle"))!="idle":continue
 		if local_only:
 			if int(unit.get("brood_parent",-1))!=int(building.id):continue
@@ -194,6 +208,7 @@ static func tick_pod(core, pod: Dictionary, dt: float) -> void:
 	var kind := int(pod.morph_kind)
 	var owner := int(pod.owner)
 	var rally := ACData.point(pod.get("morph_rally",pod.pos))
+	var bot_plan=str(pod.get("_ai_train_plan",""))
 	var count := maxi(1,int(pod.get("morph_count",1)))
 	var positions: Array[Vector2]=[]
 	if count>1:
@@ -219,6 +234,7 @@ static func tick_pod(core, pod: Dictionary, dt: float) -> void:
 	var born: Array=[pod]
 	for index in range(1,count):born.append(core.add_unit(owner,kind,positions[index]))
 	for unit in born:
+		core.record_bot_training(owner,kind,bot_plan)
 		if kind==0:
 			unit.order="gather"
 			unit.target=core.nearest_resource(ACData.point(unit.pos),"as",owner)
@@ -283,8 +299,8 @@ static func _release(core, pod: Dictionary, refund: bool) -> void:
 	refresh(core)
 
 static func _parent(core, pod: Dictionary) -> Dictionary:
-	for building in core.buildings:
-		if int(building.id)==int(pod.get("brood_parent",-1)) and float(building.get("hp",0))>0 and int(building.owner)==int(pod.owner):return building
+	var building: Dictionary=_index(core).by_id.get(int(pod.get("brood_parent",-1)),{})
+	if not building.is_empty() and float(building.get("hp",0))>0 and int(building.owner)==int(pod.owner):return building
 	return {}
 
 static func _pod(core, id: int) -> Dictionary:
@@ -293,13 +309,17 @@ static func _pod(core, id: int) -> Dictionary:
 	return {}
 
 static func _sync(core, building: Dictionary) -> void:
+	# These are UI/AI mirrors of physical pod jobs, not the jobs themselves.
+	# During a simulation step, refresh them once after all pods advance;
+	# commands and standalone producer calls still update immediately.
+	if core.brood_defer_sync:return
 	building.larva=idle_pods(core,building).size()
 	building.queue=[]
 	var authority := mother(core,building)
 	building.brood_active=not authority.is_empty()
 	building.brood_mother=int(authority.get("id",-1))
 	if authority.is_empty():return
-	for pod in core.units:
+	for pod in _index(core).pods:
 		if not is_pod(pod) or pod.hp<=0 or str(pod.get("brood_state","idle"))!="morph" or not bool(pod.get("_morph_reserved",false)):continue
 		var linked := mother(core,_parent(core,pod))
 		if linked.is_empty() or linked.id!=authority.id:continue

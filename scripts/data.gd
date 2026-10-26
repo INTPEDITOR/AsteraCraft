@@ -70,9 +70,12 @@ static func unit_count(race: int) -> int:
 
 static func attack_range(definition: Dictionary,anchored: bool=false) -> float:
 	var reach=float(definition.get("range",0))
-	if anchored and str(definition.get("role","")) in ["siege","fortress"]:
+	if anchored and can_deploy(definition) and str(definition.get("role","")) in ["siege","fortress"]:
 		reach+=float(definition.get("deployed_range_bonus",3.0))
 	return reach
+
+static func can_deploy(definition: Dictionary) -> bool:
+	return bool(definition.get("deployable",str(definition.get("role","")) in ["siege","fortress","tree"]))
 
 static func portrait_score(entity: Dictionary) -> int:
 	if entity.is_empty() or entity.has("progress"):return -1

@@ -10,18 +10,26 @@ static func nearby(c,u: Dictionary,items: Array,radius: float,ground: bool=false
 
 static func tick(c,owner: int,army: Array,visible: Array,plan: Dictionary,engaged: bool,goal: Vector2) -> void:
 	var p: Dictionary=c.players[owner]
-	if int(p.difficulty)<1:return
+	if int(p.difficulty)<2:return
 	for u in army:
 		if u.hp<=0 or u.container>=0 or not u.get("channel",{}).is_empty():continue
-		var d=c.unit_data(u);var enemies=nearby(c,u,visible,10);var friends=nearby(c,u,army,4)
-		var ground=nearby(c,u,visible,8,true)
-		if int(u.race)==0 and int(u.kind)==7 and not u.get("cloak_active",false) and float(u.energy)>=30 and not enemies.is_empty():
-			c.command(owner,{"type":"ability","ids":[u.id]});T.log_action(p,"cloak")
-		for skill in ACAbilities.catalog(int(u.race),int(u.kind)):
+		var d=c.unit_data(u)
+		# Most troops have no usable active skill on this planning turn. Avoid
+		# scanning both complete armies for locked/cooling-down/self-only skills.
+		var skills=ACAbilities.catalog(int(u.race),int(u.kind)).filter(func(s):return str(s.id)!="nuclear" and ACAbilities.unlocked(p,s) and float(u.energy)>=float(s.energy) and float(u.get("skill_ready",{}).get(str(s.id),0))<=c.time)
+		var cloak=int(u.race)==0 and int(u.kind)==7 and not u.get("cloak_active",false) and float(u.energy)>=30
+		if skills.is_empty() and not cloak:continue
+		var keys=skills.map(func(s):return str(s.id))
+		var enemies=nearby(c,u,visible,10) if cloak or keys.any(func(k):return k in ["stim","smoke","field_repair","sap_bloom"]) else []
+		var friends=nearby(c,u,army,4) if keys.any(func(k):return k in ["smoke","sap_bloom","march"]) else []
+		var ground=nearby(c,u,visible,8,true) if keys.any(func(k):return k in ["carapace","scatter","pierce"]) else []
+		if cloak and not enemies.is_empty():
+			if c.command(owner,{"type":"ability","ids":[u.id]})=="":T.log_action(p,"cloak")
+		for skill in skills:
 			var key=str(skill.id)
 			if key=="nuclear" or not ACAbilities.unlocked(p,skill) or float(u.energy)<float(skill.energy) or float(u.get("skill_ready",{}).get(key,0))>c.time:continue
-			var targets=nearby(c,u,visible,float(skill.range))
-			var allies=nearby(c,u,army,float(skill.range))
+			var targets=nearby(c,u,visible,float(skill.range)) if key in ["neural","mind_control","judgment","overcharge","shockwave","root_surge","discipline","silence","bind","verdict"] else []
+			var allies=nearby(c,u,army,float(skill.range)) if key in ["sap_reclaim","barrier","purify"] else []
 			var used=false
 			match key:
 				"stim":
@@ -31,7 +39,9 @@ static func tick(c,owner: int,army: Array,visible: Array,plan: Dictionary,engage
 				"field_repair":
 					if enemies.is_empty() and u.hp<float(d.hp)*.7 and float(u.get("self_repair_until",0))<=c.time:used=cast(c,u,key,c.center(u))
 				"scan":
-					if engaged and c.center(u).distance_to(goal)<=float(skill.range) and not c.reveals.any(func(r):return int(r.owner)==owner and ACData.point(r.pos).distance_to(goal)<6):used=cast(c,u,key,goal)
+					var suspected=c.time<float(p.get("_ai_detection_until",0))
+					var point=ACData.point(p._ai_hidden_fire_pos) if suspected else goal
+					if (engaged or suspected) and c.center(u).distance_to(point)<=float(skill.range) and not c.reveals.any(func(r):return int(r.owner)==owner and ACData.point(r.pos).distance_to(point)<6):used=cast(c,u,key,point)
 				"carapace":
 					if not ground.is_empty() and float(u.get("carapace_until",0))<=c.time:used=cast(c,u,key,c.center(u))
 				"scatter","pierce":

@@ -7,6 +7,7 @@ const RESEARCH=preload("res://scripts/research.gd")
 const ABILITIES=preload("res://scripts/abilities.gd")
 const NEW_UNITS=preload("res://scripts/new_units.gd")
 const FLIGHT=preload("res://scripts/flight_motion.gd")
+const WORKER_MOTION=preload("res://scripts/worker_motion.gd")
 const BURST=preload("res://scripts/burst_weapon.gd")
 var roots=ROOT_FIELD.new()
 
@@ -71,13 +72,22 @@ var navigation_solids=PackedByteArray()
 var navigation_revision: int=-1
 var paths_this_tick: int=0
 var perf: Dictionary={"path_requests":0,"path_cache_hits":0,"spatial_queries":0,"target_candidates":0,"vision_sources":0,"ticks":0,"building_us":0,"unit_us":0,"collision_us":0,"cleanup_us":0,"vision_us":0,"ai_us":0}
+var bot_action_budget=preload("res://scripts/bot_action_budget.gd").new()
+var bot_planning_owner=-1
+var profile_hotspots=false
+var trace_bot_tactics=false
+var hot_units: Array=[]
+var hot_paths: Array=[]
+var brood_lookup: Dictionary={}
+var batch_brood_mirrors=true
+var brood_defer_sync=false
 
 # Unit positions are always ground-contact centers in map coordinates. Rendering
 # offsets, aircraft altitude and sprite trimming never change this anchor.
-const TERA_INTERVAL: float = 3.0
-const TERA_AMOUNT: int = 8
+const TERA_INTERVAL: float = 2.5
+const TERA_AMOUNT: int = 12
 const AS_INTERVAL: float = 2.2
-const AS_AMOUNT: int = 5
+const AS_AMOUNT: int = 8
 const ENERGY_REGEN: float = .65
 const TERA_HQ_RADIUS: float = 14.0
 const MAX_EFFECTS: int = 512
@@ -150,6 +160,8 @@ static func start_slots(player_count: int, seed: int, requested=[]) -> Array:
 	return result.slice(0,clampi(player_count,0,4))
 
 func setup(config: Dictionary,progress: Callable=Callable()) -> void:
+	brood_lookup.clear()
+	brood_defer_sync=false
 	if progress.is_valid():progress.call(.02,"전장 지형 준비 중")
 	if config.has("seed"):rng.seed=int(config.seed)
 	else:rng.randomize()
@@ -290,6 +302,14 @@ func add_unit(owner: int, kind: int, pos: Vector2) -> Dictionary:
 	units.append(u)
 	collision_index_valid=false
 	return u
+
+func record_bot_training(owner: int,kind: int,plan: String) -> void:
+	if not trace_bot_tactics or plan.is_empty() or kind==0:return
+	var player: Dictionary=players[owner]
+	var completed: Dictionary=player.get("_ai_plan_completed",{})
+	if not completed.has(plan):completed[plan]={}
+	completed[plan][str(kind)]=int(completed[plan].get(str(kind),0))+1
+	player._ai_plan_completed=completed
 
 func transform_brood(pod: Dictionary, kind: int) -> Dictionary:
 	var preserved_id=int(pod.id)
@@ -480,6 +500,40 @@ func building_contact(worker: Dictionary, building: Dictionary, reach: float=CON
 	if worker.is_empty() or worker.hp<=0 or worker.get("container",-1)>=0:return false
 	return not collision_rect(worker).intersects(footprint(building)) and body_footprint_gap(worker,building)<=reach
 
+func _melee_flank_waypoint(attacker: Dictionary,target: Dictionary,contact: Vector2) -> Vector2:
+	var origin=center(attacker)
+	var padding=_body_size(attacker)*.5+Vector2.ONE*.025
+	var body=footprint(target) if target.has("progress") else collision_rect(target)
+	var middle=body.get_center()
+	var blockers=[Rect2(body.position-padding,body.size+padding*2)]
+	for other in _nearby_units(middle,4):
+		if other.id==attacker.id or other.id==target.id or other.hp<=0 or other.container>=0 or _body_layer(other)!=COLLISION_GROUND:continue
+		# Only the contact line is an obstacle. Moving reinforcements remain
+		# local-avoidance neighbours instead of becoming changing map walls.
+		if other.moving or center(other).distance_to(middle)>maxf(body.size.x,body.size.y)*.5+1.5:continue
+		var rect=collision_rect(other);blockers.append(Rect2(rect.position-padding,rect.size+padding*2))
+	var owner=_worker_passage_owner(attacker)
+	if _route_sweep(_body_size(attacker),origin,contact,blockers,owner):return contact
+	var radius=maxf(body.size.x,body.size.y)*.5+maxf(_body_size(attacker).x,_body_size(attacker).y)*1.5+.6
+	var angle=(origin-middle).angle();var destination=(contact-middle).angle()
+	var difference=wrapf(destination-angle,-PI,PI)
+	var preferred=1.0 if difference>=0 else -1.0
+	if int(attacker.get("_surround_arc_target",-1))==int(target.id) and time<float(attacker.get("_surround_arc_until",0)):preferred=float(attacker.get("_surround_arc_side",preferred))
+	var choices=[]
+	# First retreat to a clear outer arc; then walk round the occupied front
+	# to the claimed side/rear contact. This never pushes through the target.
+	for side in [preferred,-preferred]:
+		var advance=minf(PI/6,maxf(PI/12,absf(difference)))
+		var next_angle=angle if origin.distance_to(middle)>radius+.3 else angle+side*advance
+		var point=middle+Vector2.from_angle(next_angle)*radius
+		if not _unit_fits(attacker,point) or not _route_sweep(_body_size(attacker),origin,point,blockers,owner):continue
+		var arc=fposmod((destination-next_angle)*side,TAU)
+		choices.append({"point":point,"side":side,"score":origin.distance_to(point)+arc*radius+(0 if side==preferred else .4)})
+	if choices.is_empty():return contact
+	choices.sort_custom(func(a,b):return a.score<b.score)
+	attacker._surround_arc_target=target.id;attacker._surround_arc_side=choices[0].side;attacker._surround_arc_until=time+1.0
+	return choices[0].point
+
 func construction_reach(worker: Dictionary, building: Dictionary) -> bool:
 	return building_contact(worker,building,CONSTRUCTION_TOOL_REACH)
 
@@ -599,6 +653,22 @@ func _ground_sweep(dimensions: Vector2, from: Vector2, to: Vector2, passage_owne
 	# swept rectangle empty in one query. Keep the sampled test for corners.
 	if map.source_detail_active and map.source_ground_fits(dimensions+(to-from).abs(),(from+to)*.5):return true
 	var samples=maxi(1,ceili(from.distance_to(to)/.2))
+	if map.source_detail_active and samples>=8:
+		# A long diagonal's bounding box may contain an unrelated cliff. Prove
+		# empty subranges with the same collision table, then sample only the
+		# unresolved ranges. Index ranges retain every original .2-tile sample.
+		var pending=[Vector2i(0,samples)]
+		while not pending.is_empty():
+			var interval: Vector2i=pending.pop_back()
+			var a=from.lerp(to,float(interval.x)/samples);var b=from.lerp(to,float(interval.y)/samples)
+			if map.source_ground_fits(dimensions+(b-a).abs(),(a+b)*.5):continue
+			if interval.y-interval.x<=4:
+				for index in range(interval.x,interval.y+1):
+					if not _ground_fits_size(dimensions,from.lerp(to,float(index)/samples),passage_owner):return false
+			else:
+				var middle=(interval.x+interval.y)/2
+				pending.append(Vector2i(middle+1,interval.y));pending.append(Vector2i(interval.x,middle))
+		return true
 	for index in range(samples+1):
 		if not _ground_fits_size(dimensions,from.lerp(to,float(index)/samples),passage_owner):return false
 	return true
@@ -860,6 +930,13 @@ func _advance_build_queue(worker: Dictionary) -> void:
 		events.append({"owner":worker.owner,"text":"연속 건설 건너뜀: "+error,"created":time})
 
 func command(owner: int, cmd: Dictionary) -> String:
+	var metered=bot_planning_owner==owner
+	if metered and not bot_action_budget.available(owner):return "행동 예산을 기다리는 중입니다"
+	var result=_apply_command(owner,cmd)
+	if metered and result=="":bot_action_budget.record(self,owner,str(cmd.get("type","")))
+	return result
+
+func _apply_command(owner: int, cmd: Dictionary) -> String:
 	if ended or owner<0 or owner>=players.size() or players[owner].lost:
 		return ""
 	var ids=cmd.get("ids",[])
@@ -1017,6 +1094,7 @@ func command(owner: int, cmd: Dictionary) -> String:
 		if type!="ability":u.self_repair_until=0.0
 		if type=="ability":
 			var ability_role=str(unit_data(u).role)
+			if ability_role=="siege" and not ACData.can_deploy(unit_data(u)):removed_ability=true;continue
 			if ability_role=="shield":removed_ability=true;continue
 			if ability_role in ["parasite","mage","priest"]:
 				var skill="mind_control" if ability_role=="parasite" else "judgment" if ability_role=="mage" else "barrier"
@@ -1090,6 +1168,11 @@ func command(owner: int, cmd: Dictionary) -> String:
 	return ""
 
 func _home_ore(worker: Dictionary) -> int:
+	var owner=int(worker.owner)
+	if owner>=0 and owner<players.size() and players[owner].bot and worker.has("_ai_mining_assignment"):
+		var assigned=resource(int(worker._ai_mining_assignment));var base=entity(int(worker.get("auto_mine_hq",-1)))
+		if not assigned.is_empty() and assigned.type=="as" and assigned.amount>0 and not base.is_empty() and int(base.owner)==owner and base.hp>0 and base.progress>=1 and footprint_distance(base,ACData.point(assigned.pos))<13:return int(assigned.id)
+		worker.erase("_ai_mining_assignment");return -1
 	var headquarters=entity(int(worker.get("auto_mine_hq",-1)))
 	if headquarters.is_empty():
 		headquarters=_nearest_hq(int(worker.owner),ACData.point(worker.pos))
@@ -1181,7 +1264,9 @@ func _worker_passage_owner(unit: Dictionary) -> int:
 	return owner if owner>=0 and int(unit.kind)==0 and _body_layer(unit)==COLLISION_GROUND and map.worker_has_passages(owner) else -1
 
 func _ground_fits_size(dimensions: Vector2, pos: Vector2, passage_owner: int=-1) -> bool:
-	if passage_owner>=0:return _ground_fits_size(dimensions,pos) or map.worker_ground_fits(passage_owner,dimensions,pos)
+	if passage_owner>=0:
+		if not map.worker_center_clear(passage_owner,pos):return false
+		return _ground_fits_size(dimensions,pos) or map.worker_ground_fits(passage_owner,dimensions,pos)
 	if map.source_detail_active:return map.source_ground_fits(dimensions,pos)
 	if navigation_revision!=map.revision:_refresh_navigation_mask()
 	var low_x=floori(pos.x-dimensions.x*.5+.5001)
@@ -1345,7 +1430,11 @@ func _clearance_path(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
 		unit._path_deferred=true;return []
 	var started=Time.get_ticks_usec()
 	var result=_clearance_path_impl(unit,from,to)
-	path_time_this_tick+=Time.get_ticks_usec()-started
+	var cost=Time.get_ticks_usec()-started
+	path_time_this_tick+=cost
+	if profile_hotspots and cost>20000:
+		hot_paths.append({"time":time,"usec":cost,"owner":unit.owner,"kind":unit.kind,"from":ACData.packed(from),"to":ACData.packed(to),"order":unit.order,"revision":map.revision,"cache_count":clearance_paths.size()})
+		if hot_paths.size()>100:hot_paths.pop_front()
 	return result
 
 func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array:
@@ -1366,10 +1455,17 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 	var route_key="%d,%d>%d,%d:%d,%d"%[roundi(from.x*grid_factor),roundi(from.y*grid_factor),roundi(to.x*grid_factor),roundi(to.y*grid_factor),ceili(dimensions.x*16) if body_path else 0,ceili(dimensions.y*16) if body_path else 0]
 	route_key+=":"+str(passage_owner)
 	if not crowded and path_cache.has(route_key) and float(path_cache[route_key].until)>time:
-		var cached: Array=path_cache[route_key].path
+		var entry: Dictionary=path_cache[route_key]
+		var cached: Array=entry.path
+		var same_endpoints=true
+		if entry.get("static_partial",false):
+			# A longer-lived negative/partial result is valid only for the same
+			# actual navigation endpoints, not just rounded continuous positions.
+			var nav: AStarGrid2D=entry.navigator
+			same_endpoints=_clearance_free(nav,from,dimensions,true,passage_owner)==entry.first and _clearance_free(nav,to)==entry.last
 		# Nearby continuous positions share a grid key, but a cliff corner may
 		# separate their first swept segment. Never reuse an unsafe entrance.
-		if cached.is_empty() or _ground_sweep(dimensions,from,ACData.point(cached[0]),passage_owner):
+		if same_endpoints and (cached.is_empty() or _ground_sweep(dimensions,from,ACData.point(cached[0]),passage_owner)):
 			perf.path_cache_hits+=1
 			return cached.duplicate(false)
 		path_cache.erase(route_key)
@@ -1385,22 +1481,22 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 		return result
 	if clearance_revision!=map.revision:
 		if detailed and clearance_revision>=0:
-			var changed=map.source_changes_since(clearance_revision)
+			var changed_regions=map.source_change_regions_since(clearance_revision)
 			for size_key in clearance_paths:
 				var cached: AStarGrid2D=clearance_paths[size_key]
 				if cached.cell_size!=Vector2.ONE*.25:
 					clearance_paths.clear();break
 				var cached_owner=int(size_key.z)-1 if size_key is Vector3i else -1
-				var changed_areas=[]
-				if changed.has_area():changed_areas.append(changed)
+				var changed_areas=changed_regions.duplicate()
 				if cached_owner>=0:
-					changed_areas.append_array(map.worker_passage_regions(cached_owner))
+					changed_areas.append_array(map.worker_passage_regions_since(cached_owner,clearance_revision))
 				if changed_areas.is_empty():continue
 				var padding=ceili(maxf(size_key.x,size_key.y)/8.0)+4
 				for changed_area in changed_areas:
 					var area=changed_area.grow(padding).intersection(cached.region)
 					for x in range(area.position.x,area.end.x):
 						for y in range(area.position.y,area.end.y):cached.set_point_solid(Vector2i(x,y),not _ground_fits_size(Vector2(size_key.x,size_key.y)/16.0,Vector2(x,y)*.25,cached_owner))
+				if cached_owner>=0:_worker_route_entries(cached,Vector2(size_key.x,size_key.y)/16.0,cached_owner,changed_areas)
 		else:clearance_paths.clear()
 		clearance_revision=map.revision
 	var size_key=Vector2i((dimensions*16).ceil())
@@ -1409,7 +1505,10 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 		var nav=AStarGrid2D.new()
 		nav.region=Rect2i(0,0,ACMap.SIZE*grid_factor,ACMap.SIZE*grid_factor)
 		nav.cell_size=Vector2.ONE/grid_factor
-		nav.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+		# Worker seams have zero-width centre lines. Adjacent diagonal grid
+		# corners may both fit although their swept segment cuts a building.
+		# Route orthogonally here; checked smoothing restores free-space angles.
+		nav.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_NEVER if passage_owner>=0 else AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 		nav.default_compute_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.default_estimate_heuristic=AStarGrid2D.HEURISTIC_OCTILE
 		nav.update()
@@ -1437,6 +1536,7 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 				var area=seam.grow(ceili(maxf(clearance.x,clearance.y)*4)+4).intersection(nav.region)
 				for x in range(area.position.x,area.end.x):
 					for y in range(area.position.y,area.end.y):nav.set_point_solid(Vector2i(x,y),not _ground_fits_size(clearance,Vector2(x,y)*.25,passage_owner))
+			_worker_route_entries(nav,clearance,passage_owner)
 		clearance_paths[key]=nav
 	var navigator: AStarGrid2D=clearance_paths[key] if body_path else map.navigator
 	var temporary: Array=[]
@@ -1463,12 +1563,42 @@ func _clearance_path_impl(unit: Dictionary, from: Vector2, to: Vector2) -> Array
 		if first.x>=0 and last.x>=0:
 			perf.path_requests+=1
 			for point in navigator.get_id_path(first,last,true):path.append(ACData.packed(Vector2(point)*navigator.cell_size))
+	var reached=not path.is_empty() and Vector2i((ACData.point(path[-1])/navigator.cell_size).round())==last
 	if not path.is_empty() and (Vector2(first)*navigator.cell_size).distance_to(from)<.3:
 		if path.size()==1 or _ground_sweep(dimensions,from,ACData.point(path[1]),passage_owner):path.pop_front()
-	if not path.is_empty():path=_smooth_ground_path(Vector2(Vector2i((dimensions*16).ceil()))/16.0 if body_path else dimensions,from,path,blockers,passage_owner)
+	if not path.is_empty():path=_smooth_ground_path(Vector2(Vector2i((dimensions*16).ceil()))/16.0 if body_path and passage_owner<0 else dimensions,from,path,blockers,passage_owner)
 	unit._path_avoids_units=crowded
-	if not crowded:path_cache[route_key]={"path":path.duplicate(false),"until":time+(2.0 if not path.is_empty() else .5)}
+	if not crowded:
+		var partial=first.x>=0 and last.x>=0 and not reached
+		var entry={"path":path.duplicate(false),"until":time+(20.0 if partial else 2.0 if not path.is_empty() else .5)}
+		if partial:entry.merge({"static_partial":true,"navigator":navigator,"first":first,"last":last})
+		path_cache[route_key]=entry
 	return path
+
+func _worker_route_entries(nav: AStarGrid2D,dimensions: Vector2,owner: int,changed: Array=[]) -> void:
+	# Point-only AStar cannot represent a forbidden perpendicular edge into
+	# an exact centre line. Remove the adjacent exterior grid corner when
+	# its body sweep cannot enter; the open end of the edge stays available.
+	var context=map._worker_passage_context(owner)
+	var requested=changed if not changed.is_empty() else context.current_regions
+	var areas=[];var checked={}
+	for region in requested:
+		for current in context.current_regions:
+			var area=region.grow(ceili(maxf(dimensions.x,dimensions.y)*4)+4).intersection(current.grow(3)).intersection(nav.region)
+			if area.has_area() and not area in areas:areas.append(area)
+	for area in areas:
+		for x in range(area.position.x,area.end.x):
+			for y in range(area.position.y,area.end.y):
+				var cell=Vector2i(x,y);var point=Vector2(cell)*.25
+				if checked.has(cell):continue
+				checked[cell]=true
+				if nav.is_point_solid(cell) or not _ground_fits_size(dimensions,point):continue
+				for line in context.centerlines:
+					var axis=int(line.axis);var along=1-axis;var distance=absf(point[axis]-float(line.edge))
+					var cap=ceili(dimensions[along]*16.0)/32.0+.01
+					if distance<.0011 or distance>.251 or point[along]<float(line.low)-cap or point[along]>float(line.high)+cap:continue
+					var entrance=point;entrance[axis]=float(line.edge)
+					if not _ground_sweep(dimensions,point,entrance,owner):nav.set_point_solid(cell,true);break
 
 func _settled_route_blockers(unit: Dictionary) -> Array:
 	var result=[]
@@ -1534,6 +1664,10 @@ func _clearance_free(navigator: AStarGrid2D, near: Vector2,dimensions: Vector2=V
 
 func _crowd_arrived(unit: Dictionary, goal: Vector2, reach: float) -> bool:
 	if unit.order not in ["move","attack_move"]:return false
+	# Only relax a shared final movement destination. A melee contact/flank
+	# waypoint must be reached accurately, even when attack-move owns the
+	# overall order. Nearby enemies must never count as arrived allies.
+	if ACData.point(unit.goal).distance_squared_to(goal)>.0001:return false
 	var distance_squared=ACData.point(unit.pos).distance_squared_to(goal)
 	if distance_squared>16:return false
 	# Adjacent formation slots may be occupied by friends who stopped within
@@ -1541,13 +1675,13 @@ func _crowd_arrived(unit: Dictionary, goal: Vector2, reach: float) -> bool:
 	# circling forever around an exact slot covered by the same formation.
 	var formation=unit.get("_formation_anchor",[])
 	var formation_blocked=not formation.is_empty() and ACData.point(unit.goal).distance_squared_to(goal)<.01 and _unit_fits(unit,goal,false) and not _unit_fits(unit,goal)
-	var cache_key=goal if not formation_blocked else "formation:%d:%s:%s"%[int(unit.owner),goal,formation]
+	var cache_key=Vector3(goal.x,goal.y,float(unit.owner)) if not formation_blocked else "formation:%d:%s:%s"%[int(unit.owner),goal,formation]
 	# A whole army can share one destination. Aggregate its settled occupants
 	# once per simulation step instead of repeating the same neighborhood scan.
 	if not crowd_arrival_cache.has(cache_key):
 		var members={};var largest=.5
 		for other in _nearby_units(goal,3):
-			if other.hp<=0 or other.container>=0 or _body_layer(other)!=COLLISION_GROUND:continue
+			if other.hp<=0 or other.container>=0 or _body_layer(other)!=COLLISION_GROUND or not allied(int(unit.owner),int(other.owner)):continue
 			var distance=ACData.point(other.pos).distance_squared_to(goal)
 			if distance>=9 or (other.moving and other.order not in ["idle","hold"]):continue
 			var same_formation=formation_blocked and int(other.owner)==int(unit.owner) and other.get("_formation_anchor",[])==formation
@@ -1661,6 +1795,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 	if int(u.get("_path_passage_owner",-1))!=passage_owner:u.path=[];u.repath=0
 	u._path_passage_owner=passage_owner
 	if p.distance_to(goal)<=reach:
+		if int(u.kind)==0:WORKER_MOTION.stop(u)
 		return true
 	if u.anchored or float(u.get("rooted_until",0))>time:
 		return false
@@ -1676,6 +1811,12 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		u.repath-=dt
 		if u.path.is_empty() and u.path_failed and u.repath>0 and int(u.path_rev)==map.revision and ACData.point(u.get("_path_goal",ACData.packed(goal))).distance_squared_to(goal)<.01:return false
 		var goal_shifted=ACData.point(u.get("_path_goal",ACData.packed(goal))).distance_squared_to(goal)>1.0
+		# An unchanged, unobstructed route remains valid. Periodically running
+		# a full quarter-tile AStar search while marching caused recurring
+		# stalls in large armies. Changed goals/terrain and real blockage still
+		# request a new path using the existing budget and collision rules.
+		if u.repath<=0 and not u.path.is_empty() and not u.path_failed and int(u.path_rev)==map.revision and not goal_shifted and float(u.blocked_clock)<.3:
+			u.repath=2.0+float(int(u.id)%5)*.07
 		if u.path.is_empty() or int(u.path_rev)!=map.revision or u.repath<=0 or goal_shifted:
 			u._path_deferred=false
 			var planned_path=_clearance_path(u,p,goal)
@@ -1732,6 +1873,12 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 	var speed=float(d.speed)*(.45 if time<u.slow_until else 1.0)
 	if float(u.get("stim_until",0))>time:speed*=1.25
 	if float(u.get("march_until",0))>time:speed*=1.25
+	if int(u.kind)==0:
+		var remaining=maxf(0,p.distance_to(goal)-reach)
+		if u.path.size()>1:
+			var corner=next-p;var after=ACData.point(u.path[1])-next
+			if corner.length_squared()>.00001 and after.length_squared()>.00001 and corner.normalized().dot(after.normalized())<.85:remaining=minf(remaining,corner.length())
+		speed=WORKER_MOTION.speed(u,speed,remaining,dt)
 	var step=direction*minf(speed*dt,p.distance_to(next))
 	var movement=step
 	if d.air:
@@ -1740,6 +1887,7 @@ func _move(u: Dictionary, goal: Vector2, dt: float, reach: float = .5) -> bool:
 		# Local avoidance must follow the routed corner, not steer back toward
 		# the final destination through the very obstacle the route avoids.
 		movement=_advance_ground(u,step,next,dt)
+	if int(u.kind)==0:WORKER_MOTION.record(u,movement,dt)
 	if movement.length_squared()>.00001:
 		u.facing=ACData.packed(movement.normalized())
 		u.moving=true
@@ -1760,6 +1908,7 @@ func _nearest_hq(owner: int, pos: Vector2) -> Dictionary:
 func step(dt: float) -> void:
 	if ended:
 		return
+	brood_defer_sync=batch_brood_mirrors
 	time+=dt
 	if time>=_path_cache_clean_at:
 		_path_cache_clean_at=time+2.0
@@ -1794,7 +1943,13 @@ func step(dt: float) -> void:
 	for u in units:
 		if u.hp<=0 or u.container>=0 or players[u.owner].lost:
 			continue
+		var unit_started=Time.get_ticks_usec() if profile_hotspots else 0
 		_tick_unit(u,dt)
+		if profile_hotspots:
+			var cost=Time.get_ticks_usec()-unit_started
+			if cost>20000:
+				hot_units.append({"time":time,"usec":cost,"id":u.id,"race":u.race,"kind":u.kind,"owner":u.owner,"order":u.order,"target":u.target,"pos":u.pos.duplicate(),"path_size":u.path.size(),"blocked":u.blocked_clock})
+				if hot_units.size()>100:hot_units.pop_front()
 	perf.unit_us+=Time.get_ticks_usec()-phase_start
 	phase_start=Time.get_ticks_usec()
 	_separate_units(dt,false)
@@ -1823,6 +1978,8 @@ func step(dt: float) -> void:
 					collision_index_valid=false
 					rider.hp*=.5
 	units=units.filter(func(u):return u.hp>0)
+	brood_defer_sync=false
+	if batch_brood_mirrors:CITRUS_BROOD.refresh(self)
 	_recalculate_supply()
 	perf.cleanup_us+=Time.get_ticks_usec()-phase_start
 	roots.update(self)
@@ -1894,6 +2051,7 @@ func _tick_building(b: Dictionary, dt: float) -> void:
 				spawn=map.nearest_free(spawn)
 			if ud.air or map.walkable(Vector2i(spawn.round())):
 				var u=add_unit(int(b.owner),int(q.kind),spawn)
+				record_bot_training(int(b.owner),int(q.kind),str(q.get("_ai_plan","")))
 				players[b.owner].reserved=maxf(0,players[b.owner].reserved-ud.pop)
 				b.queue.pop_front()
 				if int(u.kind)==0:
@@ -1935,14 +2093,14 @@ func _tick_tera(b: Dictionary, dt: float) -> void:
 				res=vent
 				b.tera_resource=vent.id
 				break
-	if res.is_empty() or res.amount<=0:
+	if res.is_empty():
 		b.tera_clock=0.0
 		return
 	b.tera_clock+=dt
-	while b.tera_clock>=TERA_INTERVAL and res.amount>0:
+	while b.tera_clock>=TERA_INTERVAL:
 		b.tera_clock-=TERA_INTERVAL
-		var amount=mini(TERA_AMOUNT,int(res.amount))
-		res.amount-=amount
+		var amount=float(TERA_AMOUNT)/3.0 if float(res.amount)<=0 else minf(TERA_AMOUNT,float(res.amount))
+		res.amount=maxf(0,float(res.amount)-amount)
 		players[b.owner].tera+=amount
 		players[b.owner].gathered+=amount
 		_effect("tera",b,center(b),.75,{"amount":amount,"resource":res.id})
@@ -2068,8 +2226,10 @@ func _tick_unit(u: Dictionary, dt: float) -> void:
 	var previous_pos=ACData.point(u.pos)
 	u._aiming=false
 	u._air_handled=false
+	u._worker_driven=false
 	_tick_unit_behavior(u,dt)
 	if u._definition.air and not u._air_handled:FLIGHT.coast(self,u,dt)
+	elif int(u.kind)==0:WORKER_MOTION.coast(self,u,dt)
 	var displacement=ACData.point(u.pos)-previous_pos
 	u._movement_velocity=ACData.packed(displacement/maxf(.001,dt))
 	if displacement.length_squared()>.000001:u.body_direction=ACData.packed(displacement.normalized())
@@ -2091,6 +2251,8 @@ func _tick_unit(u: Dictionary, dt: float) -> void:
 
 func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 	var d=u._definition if u.has("_definition") else unit_data(u)
+	if d.role=="siege" and not ACData.can_deploy(d):
+		u.anchored=false;u.erase("deploy_until");u.erase("deploy_started");u.erase("deploy_to")
 	if d.role=="chaser":u.beam_active=false
 	if u.has("_construction_site"):
 		var site=entity(int(u._construction_site))
@@ -2122,7 +2284,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 		var plan: Dictionary=u.get("build_plan",{})
 		var error=""
 		if plan.is_empty():error="건설 계획이 취소되었습니다"
-		elif construction_reach(u,plan):error=_arrive_construction(u)
+		elif construction_reach(u,plan) and not WORKER_MOTION.settling(u):error=_arrive_construction(u)
 		else:
 			_move_to_building(u,plan,dt)
 			if maxf(float(u.blocked_clock),float(u.get("_approach_stalled",0)))>6.0:error="건설 위치까지 이동할 수 없습니다"
@@ -2137,6 +2299,7 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			u.order="idle"
 			_advance_build_queue(u)
 		else:
+			if not u.has("_construction_site") and construction_reach(u,b) and WORKER_MOTION.settling(u):_move_to_building(u,b,dt);return
 			if int(u.race)==0:
 				_construct_hyrax(u,b,dt)
 			elif construction_reach(u,b):
@@ -2161,6 +2324,10 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			if t.has("progress"):_move_to_building(u,t,dt)
 			else:_move(u,center(t),dt,1.8)
 		else:
+			if WORKER_MOTION.settling(u):
+				if t.has("progress"):_move_to_building(u,t,dt)
+				else:_move(u,center(t),dt,1.8)
+				return
 			var amount=minf(td.hp-t.hp,td.hp*.02*dt)
 			if amount>0 and pay(int(u.owner),amount*.05,0):
 				t.hp+=amount
@@ -2183,13 +2350,14 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 				u.order="idle"
 		return
 	var target: Dictionary={}
+	var mobile_fire=bool(d.get("fire_while_moving",false))
 	if u.order=="attack":
 		target=entity(int(u.target))
 		if target.is_empty() or target.hp<=0 or not attack_target_allowed(u,target) or not can_see(int(u.owner),target):
 			u.order="attack_move"
 			u.target=-1
 			target={}
-	if target.is_empty() and d.damage>0 and (u.order in ["idle","hold","attack_move"] or (d.role=="chaser" and u.order=="move")):
+	if target.is_empty() and d.damage>0 and (u.order in ["idle","hold","attack_move"] or ((d.role=="chaser" or mobile_fire) and u.order=="move")):
 		if time>=float(u.get("_scan_at",0.0)):
 			target=_find_target(u,maxf(ACData.attack_range(d,bool(u.anchored)),7.0),str(d.targets))
 			u._auto_target=int(target.get("id",-1))
@@ -2197,6 +2365,11 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 		else:
 			target=entity(int(u.get("_auto_target",-1)))
 			if not target.is_empty() and (not attack_target_allowed(u,target) or not can_see(int(u.owner),target)):target={}
+	# Preserve bot explosives for useful blasts. Human attack commands retain
+	# their original behaviour; only bot-owned auto/explicit targets are gated.
+	if d.role=="suicide" and players[int(u.owner)].bot and not target.is_empty() and not preload("res://scripts/bot_combat_policy.gd").worthwhile_bomb(self,u,target):
+		target={};u._auto_target=-1
+		if u.order=="attack":u.order="attack_move";u.target=-1
 	if d.role=="chaser" and (target.is_empty() or not _can_attack(d,target)):u.focus_target=-1
 	if not target.is_empty() and _can_attack(d,target):
 		u._aiming=true
@@ -2216,19 +2389,24 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 			if d.role=="chaser":_tick_chaser_beam(u,target,dt)
 			else:_strike_unit(u,target,d)
 			if d.role=="chaser" and u.order in ["move","attack_move"]:_move(u,ACData.point(u.goal),dt)
+			elif mobile_fire and u.order in ["move","attack_move"]:
+				if _move(u,ACData.point(u.goal),dt):u.order="idle";u.target=-1
 		elif u.order!="hold":
 			if d.role=="chaser":u.focus_target=-1
 			if melee and time<float(u.get("_melee_attack_until",-1.0)):
 				u.facing=ACData.packed((center(target)-pos).normalized())
 				return
-			if d.role=="chaser" and u.order=="move":_move(u,ACData.point(u.goal),dt)
+			if mobile_fire and u.order in ["move","attack_move"]:
+				if _move(u,ACData.point(u.goal),dt):u.order="idle";u.target=-1
+			elif d.role=="chaser" and u.order=="move":_move(u,ACData.point(u.goal),dt)
 			elif melee:
 				var contact=_melee_approach(u,target)
+				var waypoint=_melee_flank_waypoint(u,target,contact) if pos.distance_to(contact)>.1 else contact
 				# A nearby moving target needs its present contact point, rather than
 				# a cached waypoint left behind by the previous approach.
-				if pos.distance_squared_to(contact)<=64 and _ground_sweep(_body_size(u),pos,contact,_worker_passage_owner(u)):
-					u.path=[ACData.packed(contact)];u.path_rev=map.revision;u._path_goal=ACData.packed(contact);u.repath=1.0;u.path_failed=false
-				_move(u,contact,dt,.04)
+				if pos.distance_squared_to(waypoint)<=64 and _ground_sweep(_body_size(u),pos,waypoint,_worker_passage_owner(u)):
+					u.path=[ACData.packed(waypoint)];u.path_rev=map.revision;u._path_goal=ACData.packed(waypoint);u.repath=1.0;u.path_failed=false
+				_move(u,waypoint,dt,.04)
 				# Resolve actual contact in this simulation step. A moving opponent
 				# must not escape before the next tick's range check.
 				if ACData.point(u.pos).distance_to(center(target))<=attack_range or combat_body_gap(u,target)<=.12:
@@ -2244,6 +2422,8 @@ func _tick_unit_behavior(u: Dictionary, dt: float) -> void:
 
 func _strike_unit(u: Dictionary,target: Dictionary,d: Dictionary) -> void:
 	if u.cooldown<=0:
+		if trace_bot_tactics and int(u.owner)>=0 and int(u.owner)<players.size() and players[int(u.owner)].bot:
+			preload("res://scripts/bot_tactics.gd").log_action(players[int(u.owner)],"fire:"+str(int(u.kind)))
 		if float(d.range)<=1.5:u._melee_attack_until=time+clampf(float(d.period)*.2,.08,.18)
 		if d.role=="suicide":
 			_area_damage(u,center(target),float(d.get("splash_radius",2.3)),float(d.damage),-1,str(d.targets))
@@ -2285,8 +2465,10 @@ func _gather(u: Dictionary, dt: float) -> void:
 		if hq.is_empty():
 			return
 		if building_contact(u,hq,AS_UNLOAD_REACH):
+			if WORKER_MOTION.settling(u):_move_to_building(u,hq,dt);return
 			players[u.owner][u.cargo_type]+=u.carried
 			players[u.owner].gathered+=u.carried
+			if u.cargo_type=="as":players[u.owner]._as_collected=float(players[u.owner].get("_as_collected",0))+float(u.carried)
 			_effect("deposit",u,pos,.45,{"amount":u.carried,"target":hq.id,"resource_type":u.cargo_type})
 			u.carried=0
 			u.path=[]
@@ -2326,6 +2508,9 @@ func _gather(u: Dictionary, dt: float) -> void:
 	if not near:
 		_release_mining_claim(u)
 		u.mining_state="travel"
+		_move(u,u._mining_goal,dt,.12)
+		return
+	if WORKER_MOTION.settling(u):
 		_move(u,u._mining_goal,dt,.12)
 		return
 	if _claim_miner(u,res):
@@ -2520,6 +2705,7 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 		var ward_absorb=minf(left,float(target.get("ward",0)))
 		target.ward=float(target.get("ward",0))-ward_absorb;left-=ward_absorb
 	if left<=0:return
+	var previous_shield=float(target.shield);var previous_health=float(target.hp)
 	if target.shield>0:
 		left=maxf(armor_scale,left-float(players[target.owner].shield)*armor_scale)
 		var absorbed=minf(left,target.shield)
@@ -2533,6 +2719,22 @@ func _damage(attacker: Dictionary, target: Dictionary, amount: float, show_proje
 			if facing.dot((center(attacker)-center(target)).normalized())>.3:
 				left*=.75
 		target.hp-=left
+	if damage_kind=="attack" and not target.has("progress") and float(d.get("ranged_damage_reduction",0))>0:
+		var ranged=attacker.has("progress") or ACData.attack_range(unit_data(attacker),bool(attacker.get("anchored",false)))>1.5
+		if ranged:
+			var loss=previous_shield-float(target.shield)+previous_health-float(target.hp)
+			var remaining=maxf(minf(loss,armor_scale),loss-float(d.ranged_damage_reduction)*armor_scale)
+			var reduced_shield_loss=minf(previous_shield-float(target.shield),remaining)
+			var reduced_health_loss=minf(previous_health-float(target.hp),maxf(0,remaining-reduced_shield_loss))
+			target.shield=previous_shield-reduced_shield_loss;target.hp=previous_health-reduced_health_loss
+	if damage_kind=="attack" and not target.has("progress") and previous_shield>0 and float(d.get("max_shield_hit_damage",0))>0:
+		# Armour and resistance apply first. Shield and health loss share one
+		# cap, including shield-breaking hits. Fractional beams/burst packets
+		# use the same attack fraction as their existing armour calculation.
+		var maximum=float(d.max_shield_hit_damage)*armor_scale
+		var shield_loss=minf(previous_shield-float(target.shield),maximum)
+		var health_loss=minf(previous_health-float(target.hp),maxf(0,maximum-shield_loss))
+		target.shield=previous_shield-shield_loss;target.hp=previous_health-health_loss
 	target.damaged=time
 	if show_projectile:
 		var style=projectile_style(attacker)
@@ -2612,6 +2814,8 @@ func _tick_chaser_beam(u: Dictionary,target: Dictionary,dt: float) -> void:
 	var fraction=dt*rate/float(d.period)
 	_damage(u,target,(float(d.damage)*focus+players[u.owner].attack*2)*fraction,false,"attack",fraction,fraction)
 	u.beam_active=target.hp>0;u.beam_target=int(target.id);u.fired=time;u.action_intent="attack"
+	if trace_bot_tactics and players[int(u.owner)].bot and time>=float(u.get("_ai_fire_trace_at",0)):
+		preload("res://scripts/bot_tactics.gd").log_action(players[int(u.owner)],"fire:"+str(int(u.kind)));u._ai_fire_trace_at=time+1
 
 func _tick_flame(u: Dictionary, target: Dictionary, dt: float) -> void:
 	# Integrate a continuous stream. Scale armor and bonuses by the same time
@@ -2638,6 +2842,8 @@ func _tick_flame(u: Dictionary, target: Dictionary, dt: float) -> void:
 	if show:u._flame_visual_at=time+.12
 	u.fired=time
 	u.action_intent="attack"
+	if trace_bot_tactics and players[int(u.owner)].bot and time>=float(u.get("_ai_fire_trace_at",0)):
+		preload("res://scripts/bot_tactics.gd").log_action(players[int(u.owner)],"fire:"+str(int(u.kind)));u._ai_fire_trace_at=time+1
 
 func _attack_splash(u: Dictionary,target: Dictionary,base: float,armor_scale: float=1.0,bonus_scale: float=1.0,upgrade_scale: float=1.0) -> void:
 	var d: Dictionary=u._definition
@@ -2647,10 +2853,10 @@ func _attack_splash(u: Dictionary,target: Dictionary,base: float,armor_scale: fl
 	var layer="g" if target.has("progress") or not unit_data(target).air else "a"
 	_area_damage(u,center(target),float(d.splash_radius),(base+float(players[u.owner].attack)*2*upgrade_scale)*factor,int(target.id),layer,armor_scale,bonus_scale*factor)
 
-func _area_damage(u: Dictionary, pos: Vector2, radius: float, damage: float, except_id: int = -1,targets: String="ga",armor_scale: float=1.0,bonus_scale: float=1.0) -> void:
+func _area_damage(u: Dictionary, pos: Vector2, radius: float, damage: float, except_id: int = -1,targets: String="ga",armor_scale: float=1.0,bonus_scale: float=1.0,damage_kind: String="attack") -> void:
 	for t in _query_entities(pos,radius):
 		if int(t.id)!=except_id and t.hp>0 and t.get("container",-1)<0 and attack_target_allowed(u,t) and center(t).distance_squared_to(pos)<=radius*radius:
-			if ("g" if t.has("progress") or not unit_data(t).air else "a") in targets:_damage(u,t,damage,false,"attack",armor_scale,bonus_scale)
+			if ("g" if t.has("progress") or not unit_data(t).air else "a") in targets:_damage(u,t,damage,false,damage_kind,armor_scale,bonus_scale)
 
 func _mind_control(u: Dictionary, target_id: int) -> String:
 	# Validate on the authoritative simulation, including fog and concealed units.
@@ -2688,6 +2894,7 @@ func _ability(u: Dictionary, pos: Vector2) -> void:
 	if u.ability_cd>0:
 		return
 	var d=unit_data(u)
+	if d.role=="siege" and not ACData.can_deploy(d):return
 	if int(u.race)==0 and int(u.kind)==7:
 		if u.get("cloak_active",false):u.cloak_active=false
 		elif u.energy>=25:u.energy-=25;u.cloak_active=true
@@ -2730,7 +2937,7 @@ func resolve_spells() -> void:
 		if e.get("spell",false) and not e.get("resolved",false) and time>=e.when:
 			e.resolved=true
 			var caster={"owner":e.owner,"race":2,"pos":e.pos}
-			_area_damage(caster,ACData.point(e.pos),2.5,75)
+			_area_damage(caster,ACData.point(e.pos),2.5,75,-1,"ga",1,1,"spell")
 			_effect("explosion",caster,ACData.point(e.pos),.5,{"projectile":"spell","caster":e.caster})
 
 func _support(u: Dictionary, d: Dictionary, dt: float) -> void:
@@ -2927,7 +3134,9 @@ func _check_end() -> void:
 					winners.append(i)
 
 func _ai(owner: int) -> void:
+	bot_action_budget.begin(self,owner);bot_planning_owner=owner
 	preload("res://scripts/bot_ai.gd").tick(self,owner)
+	bot_planning_owner=-1
 
 func _ai_build(owner: int,kind: int) -> void:
 	preload("res://scripts/bot_ai.gd").build(self,owner,kind)

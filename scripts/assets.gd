@@ -40,6 +40,25 @@ var siege_support_frames: Dictionary={}
 var sprites=preload("res://scripts/sprite_library.gd").new()
 
 func load_all() -> void:
+	for step in loading_steps():step.run.call()
+
+func loading_steps() -> Array:
+	# The same jobs serve synchronous callers and the title's frame-paced
+	# preparation. Keep art selection, frame extraction and job order shared.
+	var steps=[
+		{"caption":"원화 목록 준비 중","run":_prepare_catalogs},
+		{"caption":"유닛·기술 효과 준비 중","run":_load_v060},
+		{"caption":"스프라이트 정보 준비 중","run":_reset_frame_catalogs}]
+	for race in range(3):steps.append({"caption":ACData.get_data().race_names[race]+" 원화 준비 중","run":_load_race_assets.bind(race)})
+	steps.append_array([
+		{"caption":"자원·지면 이미지 준비 중","run":_load_world_assets},
+		{"caption":"포인터 준비 중","run":_load_cursors},
+		{"caption":"지원 효과 준비 중","run":_load_auxiliary_sprites},
+		{"caption":"비행체 이미지 준비 중","run":_load_air_assets},
+		{"caption":"공격 이미지 준비 중","run":_load_fire_assets}])
+	return steps
+
+func _prepare_catalogs() -> void:
 	sprites.load_catalogs()
 	var bomber_path="res://data/bomber_propulsion_20261024.json"
 	if FileAccess.file_exists(bomber_path):bomber_exhaust_definition=JSON.parse_string(FileAccess.get_file_as_string(bomber_path))
@@ -51,7 +70,8 @@ func load_all() -> void:
 			for key in catalog.get("units",{}):
 				var entry: Dictionary=catalog.units[key]
 				if entry.get("status","")=="accepted_direction_repair":direction_repairs[str(key)]=entry
-	_load_v060()
+
+func _reset_frame_catalogs() -> void:
 	unit_frames.clear()
 	motion_frames.clear()
 	propulsion_frames.clear()
@@ -112,34 +132,37 @@ func load_all() -> void:
 		building_revision=JSON.parse_string(FileAccess.get_file_as_string("res://data/building_regions_v3.json"))
 		asset_regions.get_or_add("buildings",{}).merge(building_revision.get("regions",{}),true)
 		asset_regions.get_or_add("individual_buildings",{}).merge(building_revision.get("individual_buildings",{}),true)
-	for race in range(3):
-		_load_motions(race)
-		_load_units(race,false)
-		_load_units(race,true)
-		var file="res://assets/buildings_%d.png"%race
-		if race==1 and ResourceLoader.exists("res://assets/buildings_1_v2.png"):
-			file="res://assets/buildings_1_v2.png"
-		if building_revision.get("sheets",{}).has(str(race)):
-			file=String(building_revision.sheets[str(race)])
-		if ResourceLoader.exists(file):
-			var image=load(file).get_image()
-			for kind in range(13):
-				var approved=building_revision.get("overrides",{}).get("%d:%d"%[race,kind],{})
-				if not approved.is_empty() and ResourceLoader.exists(String(approved.file)):
-					var replacement=load(String(approved.file)).get_image()
-					var replacement_rect=_region_rect(approved.region,replacement.get_size()) if approved.has("region") else Rect2i(Vector2i.ZERO,replacement.get_size())
-					building_frames["%d:%d"%[race,kind]]=_trim(replacement,replacement_rect)
-					continue
-				var individual=String(asset_regions.get("individual_buildings",{}).get("%d:%d"%[race,kind],""))
-				if individual!="" and ResourceLoader.exists(individual):
-					var standalone=load(individual).get_image()
-					building_frames["%d:%d"%[race,kind]]=_trim(standalone,Rect2i(Vector2i.ZERO,standalone.get_size()))
-					continue
-				var cell=Rect2i(int(kind%4)*image.get_width()/4,int(kind/4)*image.get_height()/4,image.get_width()/4,image.get_height()/4)
-				var key="%d:%d"%[race,kind]
-				if asset_regions.get("buildings",{}).has(key):
-					cell=_region_rect(asset_regions.buildings[key],image.get_size())
-				building_frames["%d:%d"%[race,kind]]=_trim(image,cell,building_revision.get("excluded_fragments",{}).get(key,[]))
+
+func _load_race_assets(race: int) -> void:
+	_load_motions(race)
+	_load_units(race,false)
+	_load_units(race,true)
+	var file="res://assets/buildings_%d.png"%race
+	if race==1 and ResourceLoader.exists("res://assets/buildings_1_v2.png"):
+		file="res://assets/buildings_1_v2.png"
+	if building_revision.get("sheets",{}).has(str(race)):
+		file=String(building_revision.sheets[str(race)])
+	if ResourceLoader.exists(file):
+		var image=load(file).get_image()
+		for kind in range(13):
+			var approved=building_revision.get("overrides",{}).get("%d:%d"%[race,kind],{})
+			if not approved.is_empty() and ResourceLoader.exists(String(approved.file)):
+				var replacement=load(String(approved.file)).get_image()
+				var replacement_rect=_region_rect(approved.region,replacement.get_size()) if approved.has("region") else Rect2i(Vector2i.ZERO,replacement.get_size())
+				building_frames["%d:%d"%[race,kind]]=_trim(replacement,replacement_rect)
+				continue
+			var individual=String(asset_regions.get("individual_buildings",{}).get("%d:%d"%[race,kind],""))
+			if individual!="" and ResourceLoader.exists(individual):
+				var standalone=load(individual).get_image()
+				building_frames["%d:%d"%[race,kind]]=_trim(standalone,Rect2i(Vector2i.ZERO,standalone.get_size()))
+				continue
+			var cell=Rect2i(int(kind%4)*image.get_width()/4,int(kind/4)*image.get_height()/4,image.get_width()/4,image.get_height()/4)
+			var key="%d:%d"%[race,kind]
+			if asset_regions.get("buildings",{}).has(key):
+				cell=_region_rect(asset_regions.buildings[key],image.get_size())
+			building_frames["%d:%d"%[race,kind]]=_trim(image,cell,building_revision.get("excluded_fragments",{}).get(key,[]))
+
+func _load_world_assets() -> void:
 	# Building bodies remain static; production lights are a separate small part.
 	if ResourceLoader.exists("res://assets/terrain.png"):
 		var image=load("res://assets/terrain.png").get_image()
@@ -154,8 +177,8 @@ func load_all() -> void:
 		var image=load(resource_file).get_image()
 		for i in range(2):
 			resource_frames.append(_trim(image,Rect2i(i*image.get_width()/2,0,image.get_width()/2,image.get_height())))
-	_load_cursors()
-	_load_auxiliary_sprites()
+
+func _load_air_assets() -> void:
 	for key in graphics_repairs.get("air",{}):
 		var info=graphics_repairs.air[key]
 		if ResourceLoader.exists(String(info.file)):
@@ -163,6 +186,8 @@ func load_all() -> void:
 			repaired_air[key]={"texture":texture,"anchor":ACData.point(info.anchor),"scale_hint":float(info.scale_hint),"embedded_pilot":bool(info.embedded_pilot),"overhead":true,"cell_size":texture.get_size()}
 	_load_graphics_v052()
 	_load_citrus_bat()
+
+func _load_fire_assets() -> void:
 	var fire: Dictionary=graphics_repairs.get("fire",{})
 	if not fire.is_empty() and ResourceLoader.exists(String(fire.file)):
 		var source: Texture2D=load(String(fire.file))

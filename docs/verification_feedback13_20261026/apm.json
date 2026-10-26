@@ -1,0 +1,37 @@
+{
+	"checks": 14,
+	"failures": [],
+	"passed": true,
+	"records": [
+		{
+			"actual": 51,
+			"budget": 50,
+			"level": 0
+		},
+		{
+			"actual": 101,
+			"budget": 100,
+			"level": 1
+		},
+		{
+			"actual": 151,
+			"budget": 150,
+			"level": 2
+		},
+		{
+			"actual": 201,
+			"budget": 200,
+			"level": 3
+		},
+		{
+			"actual": 250,
+			"budget": 250,
+			"level": 4
+		},
+		{
+			"actual": 301,
+			"budget": 300,
+			"level": 5
+		}
+	]
+}

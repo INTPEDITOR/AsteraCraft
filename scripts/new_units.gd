@@ -60,6 +60,7 @@ static func tick(c,u: Dictionary,dt: float) -> bool:
 		u._aiming=true;u.turret_direction=ACData.packed((middle-c.center(u)).normalized())
 		if c.center(u).distance_to(middle)<=float(d.range) and float(u.cooldown)<=0:
 			c._damage(u,target,float(d.damage)+c.players[u.owner].attack*2)
+			if c.trace_bot_tactics and c.players[int(u.owner)].bot:preload("res://scripts/bot_tactics.gd").log_action(c.players[int(u.owner)],"fire:15")
 			u.cooldown=float(d.period);u.fired=c.time;u.action_intent="attack"
 		return true
 	if d.role!="carrier":return false

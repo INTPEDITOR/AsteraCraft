@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "bytes": 1340718028,
+  "sha256": "17b998bf2b39bd6dbeda38df1376fbc7f13acc784b44ec4e6999220d9a821b98",
+  "files": [
+    "AsteraCraft.exe",
+    "AsteraCraft.pck",
+    "libwebrtc_native.windows.template_release.x86_64.dll",
+    "README.txt",
+    "game_icon.ico",
+    "LICENSES-LevelUp.txt"
+  ],
+  "scope": "New final ZIP creation, full CRC readback and SHA256 for the updater; diagnostic drivers are excluded."
+}

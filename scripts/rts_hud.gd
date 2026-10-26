@@ -624,7 +624,7 @@ func _layout() -> void:
 	menu_button.add_theme_stylebox_override("hover",_shell_button_style(1))
 	menu_button.add_theme_stylebox_override("pressed",_shell_button_style(2))
 	timer_label.position=Vector2(18,14)
-	timer_label.size=Vector2(200,23)
+	timer_label.size=Vector2(420,23)
 	var base=size.x-448
 	for i in range(3):
 		resources[i].position=Vector2(base+47+i*146,10)
@@ -738,7 +738,7 @@ func update_hud(force: bool=false) -> void:
 		while font_size>14 and _font.get_string_size(label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x>label.size.x:font_size-=1
 		label.add_theme_font_size_override("font_size",font_size)
 	var seconds=int(state.get("time",0))
-	timer_label.text="%02d:%02d   ·   %s"%[int(seconds/60),seconds%60,"실시간 전투"]
+	timer_label.text="%02d:%02d   ·   %s   ·   APM %d"%[int(seconds/60),seconds%60,"실시간 전투",main.action_meter.value()]
 	title_label.text=str(ACData.get_data().race_names[race])
 	title_label.add_theme_color_override("font_color",accent.lightened(.2))
 	status_label.text=main.status_text if main.elapsed<main.status_until else ("공격할 위치를 지정하세요" if main.attack_mode else ("건설 위치를 지정하세요 · 우클릭 취소" if main.build_kind>=0 else ""))
@@ -858,12 +858,11 @@ func _update_details() -> void:
 			description_label.text=_building_role(_definition).split("·")[0].strip_edges()
 		elif str(_unit.get("research",""))!="":
 			lines.append("연구 중  %d초"%ceili(_unit.get("research_left",0)))
-		elif int(_unit.kind)==1:lines.append("테라 자동 추출  ·  3초마다 +8" if _unit.get("tera_active",false) else "비활성 · 14칸 이내 완성된 본진 필요")
+		elif int(_unit.kind)==1:lines.append(_tera_status(_unit,_building_catalyst(_unit)))
 		if int(_unit.race)==2 and not _unit.get("powered",true):lines.append("비활성 · 규율탑 지원 없음")
 		if int(_unit.kind)==1:
 			var catalyst=_building_catalyst(_unit)
 			if not catalyst.is_empty():
-				if float(_unit.progress)>=1 and float(catalyst.get("amount",0))<=0:lines[2]="테라 고갈 · 자동 추출 중지"
 				var deposit="테라 남은 양  %s"%_amount_text(catalyst.get("amount",0))
 				if catalyst.has("initial_amount"):deposit+="   초기 총량  %s"%_amount_text(catalyst.initial_amount)
 				lines.append(deposit)
@@ -936,6 +935,12 @@ func _building_role(definition: Dictionary) -> String:
 	var description=str(definition.get("description",""))
 	var sentences=description.split(".",false)
 	return str(sentences[-1]).strip_edges() if not sentences.is_empty() else description
+
+func _tera_status(building: Dictionary,catalyst: Dictionary) -> String:
+	if not building.get("tera_active",false):return "비활성 · 14칸 이내 완성된 본진 필요"
+	var depleted=not catalyst.is_empty() and float(catalyst.get("amount",0))<=0
+	var amount=float(ACCore.TERA_AMOUNT)/(3.0 if depleted else 1.0)
+	return ("테라 고갈 · 저효율 추출" if depleted else "테라 자동 추출")+"  ·  %s초마다 +%s"%[_number(ACCore.TERA_INTERVAL),_number(amount)]
 
 func _building_catalyst(building: Dictionary) -> Dictionary:
 	var linked=int(building.get("tera_resource",-1))
@@ -1341,7 +1346,7 @@ func _build_commands() -> void:
 			if faction==0:
 				all.append(_command("수리",KEY_R,"R",ICON_REPAIR,func():_target_order("repair"),"아스를 사용하여 기계와 건물을 수리합니다."))
 		var role=str(_definition.get("role",""))
-		if role in ["siege","fortress","tree"]:
+		if role in ["siege","fortress","tree"] and ACData.can_deploy(_definition):
 			var names={"siege":"공성 전개","fortress":"요새 전개","tree":"뿌리 고정"}
 			var title="전개 해제" if _unit.get("anchored",false) else names[role]
 			var help="현재 위치에서 전개 상태를 전환합니다."
@@ -1384,7 +1389,7 @@ func _build_commands() -> void:
 				for job in _unit.get("research_queue",[]):
 					if str(job.kind)==stat_id:level+=1
 				var cost={"as":research.as+level*float(research.get("step",0)),"tera":research.tera+level*float(research.get("step",0)),"research_stat":stat_id,"level":level,"max_level":research.get("max_level",1),"requires":research.get("requires",[])}
-				var effect_tip=str(research.get("description","완료 시 해당 기술의 대상 유닛에 적용됩니다."))+"\n연구 %d초"%int(research.time)
+				var effect_tip=ACResearch.description(faction,research)+"\n연구 %d초"%int(research.time)
 				all.append(_command(str(research.name),0,"",ICON_RESEARCH,func():main._send_command({"type":"research","id":id,"stat":stat_id}),_cost_tip(cost)+"\n예약 포함 %d / %d단계\n"%[level,int(research.get("max_level",1))]+effect_tip,command_art.research(faction,stat_id),cost))
 			if faction==0 and kind==8:
 				all.append(_command("핵미사일 생산",0,"",ICON_TRAIN,func():main._send_command({"type":"produce_nuke","id":id}),"아스 300 · 테라 200 · 75초
