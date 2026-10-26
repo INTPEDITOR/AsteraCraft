@@ -1,0 +1,12 @@
+{
+  "button": "최신 버전",
+  "check_msec": 1014,
+  "idle_before_activation": true,
+  "passed": true,
+  "scope": "Final exported PCK in same-version editor-capable engine, normal logo/title preparation and reparent, Windows updater gate enabled, live public HTTPS feed and real hub button. Shipping EXE checked separately; no skip-intro shortcut in this test.",
+  "state": "current",
+  "total_msec": 9208,
+  "version": "0.6.8",
+  "exit_code": 0,
+  "elapsed_ms": 9596
+}

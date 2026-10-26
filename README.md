@@ -1,20 +1,19 @@
-# 아스테라크래프트 (AsteraCraft) v0.6.7
+# 아스테라크래프트 (AsteraCraft) v0.6.8
 
 Godot 4.6으로 제작한 Windows용 2D 실시간 전략 게임입니다. 노바너, 이귤, 아라아울 중 하나를 선택해 아스와 테라를 채취하고 전투합니다.
 
 ## 다운로드와 실행
 
-[GitHub v0.6.7 다운로드](https://github.com/INTPEDITOR/AsteraCraft/releases/tag/feedback13-20261026)에서 `AsteraCraft-Windows-feedback13-20261026.zip`을 받으세요. **ZIP 전체를 압축 해제한 뒤 `AsteraCraft.exe`를 실행**합니다. EXE 옆의 PCK와 WebRTC DLL을 함께 유지하세요. 이전 v0.6.5는 게임 메인 화면에서 업데이트할 수 있습니다.
+[GitHub v0.6.8 다운로드](https://github.com/INTPEDITOR/AsteraCraft/releases/tag/feedback14-20261026)에서 `AsteraCraft-Windows-feedback14-20261026.zip`을 받으세요. **ZIP 전체를 압축 해제한 뒤 `AsteraCraft.exe`를 실행**합니다. EXE 옆의 PCK와 WebRTC DLL을 함께 유지하세요. 이전 v0.6.5는 게임 메인 화면에서 업데이트할 수 있습니다.
 
-Windows 64비트와 OpenGL 3.3 지원 환경이 필요합니다. 멀티플레이 참가자는 같은 최신 버전(v0.6.7)을 사용하세요. 공개 HTTPS 서비스에서 게임 내 계정·래더·방 목록·연결 정보를 처리하고, 실제 전투는 방장 PC가 호스팅합니다.
+Windows 64비트와 OpenGL 3.3 지원 환경이 필요합니다. 멀티플레이 참가자는 같은 최신 버전(v0.6.8)을 사용하세요. 공개 HTTPS 서비스에서 게임 내 계정·래더·방 목록·연결 정보를 처리하고, 실제 전투는 방장 PC가 호스팅합니다.
 
 WebRTC 직접 연결과 STUN을 사용하며 전투 중계 서버는 없습니다. 엄격한 NAT·방화벽 환경은 연결되지 않을 수 있습니다. 공개 서비스를 거치는 같은 PC 2명+관전자 검증은 통과했으며 서로 다른 인터넷 회선 검증은 남아 있습니다.
 
 ## 현재 버전
 
-- 실전 통계 기반 유닛 소폭 조정과 AI 주력 연구·생산·정찰·견제·교전 개선을 반영했습니다.
-- 6난이도의 APM과 경제·운용 인구·전술을 차등 적용했습니다.
-- [이번 수정 내역](docs/FEEDBACK_FIXES13_20261026.md). 실제 난이도 간 대전은 사용자 요청으로 생략했습니다.
+- 시작 화면 전환 후 업데이트 버튼이 계속 확인 중으로 남는 오류를 수정했습니다.
+- [이번 수정 내역](docs/FEEDBACK_FIXES14_20261026.md). 0.6.7 밸런스·AI·난이도 설정은 유지합니다.
 
 ## 게임 기능
 

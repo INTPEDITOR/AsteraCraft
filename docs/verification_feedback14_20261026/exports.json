@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "version": "0.6.8",
+  "tag": "feedback14-20261026",
+  "source_checks": 21,
+  "reports": {
+    "lifecycle": {
+      "checks": 21,
+      "failures": [],
+      "passed": true,
+      "released_source_failure_reproduced": true,
+      "requests_received": 4,
+      "scope": "Real loopback HTTP, retained disabled menu activation, reparent cancellation, watchdog, stale completion, manual recovery; no downloads or installations"
+    },
+    "startup": {
+      "button": "최신 버전",
+      "check_msec": 1014,
+      "idle_before_activation": true,
+      "passed": true,
+      "scope": "Final exported PCK in same-version editor-capable engine, normal logo/title preparation and reparent, Windows updater gate enabled, live public HTTPS feed and real hub button. Shipping EXE checked separately; no skip-intro shortcut in this test.",
+      "state": "current",
+      "total_msec": 9208,
+      "version": "0.6.8",
+      "exit_code": 0,
+      "elapsed_ms": 9596
+    },
+    "executable": {
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_ms": 28754,
+      "loading_art_textures": 30,
+      "scope": "Exported Windows game starts a local computer match and decodes every approved packaged loading texture; no network match validation"
+    },
+    "archive": {
+      "passed": true,
+      "bytes": 1340719897,
+      "sha256": "951035b6ad920fee91d378fe7399b2d138caf431c64fcbe45e77dc441635eafd",
+      "files": [
+        "AsteraCraft.exe",
+        "AsteraCraft.pck",
+        "libwebrtc_native.windows.template_release.x86_64.dll",
+        "README.txt",
+        "game_icon.ico",
+        "LICENSES-LevelUp.txt"
+      ],
+      "scope": "New final ZIP creation, full CRC readback and SHA256 for the updater; diagnostic drivers are excluded."
+    },
+    "icons": {
+      "passed": true,
+      "resolutions": [
+        16,
+        24,
+        32,
+        48,
+        64,
+        128,
+        256
+      ],
+      "icon_groups": 4,
+      "source_sha256": "708aaedee3ddb406695b2e2d4930feeabe810d187ab494345ab1a1d0890b687d"
+    }
+  },
+  "source_sha256": {
+    "scripts/game_updater.gd": "efc963eba1725ede33370d4d9e8c25f418d68d0577a8e874891d13cf5f893ad6",
+    "data/game.json": "537db02fdb1b0694e84b02f97add6bb50b8f2b8b4650ddf05da7ae46f86f8e46",
+    "data/update_channel.json": "2c0508e522324379a455075ae5e717f20334a0166ff11ddb9c2c8e0c567a1770",
+    "project.godot": "68f4f28eee18ec4289676779884eb26c5f5cc2d784cbfeb60029906b19bd9e51"
+  },
+  "scope": "Updater lifecycle regression and public HTTPS check after real title preparation/reparent from final PCK; actual release EXE smoke, unchanged gameplay data, ZIP CRC/SHA256/icon. Installer payload replacement was not changed or retested."
+}

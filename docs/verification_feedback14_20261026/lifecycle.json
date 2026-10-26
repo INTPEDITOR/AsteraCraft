@@ -1,0 +1,8 @@
+{
+	"checks": 21,
+	"failures": [],
+	"passed": true,
+	"released_source_failure_reproduced": true,
+	"requests_received": 4,
+	"scope": "Real loopback HTTP, retained disabled menu activation, reparent cancellation, watchdog, stale completion, manual recovery; no downloads or installations"
+}
