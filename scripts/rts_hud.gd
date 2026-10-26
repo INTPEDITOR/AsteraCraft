@@ -457,7 +457,8 @@ func world_view_bottom() -> float:
 
 func blocks_world_input(point: Vector2) -> bool:
 	if not Rect2(Vector2.ZERO,size).has_point(point):return false
-	if point.y<42:return point.x>=size.x-470
+	# Top resource counters are read-only, like the clock/APM. Their labels
+	# ignore mouse input, so do not place an invisible input shield behind them.
 	if point.y<shell_draw_rect().position.y:return false
 	return point.y>=body_top_at(point.x)
 

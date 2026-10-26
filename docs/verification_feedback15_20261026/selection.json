@@ -1,0 +1,74 @@
+{
+	"cases": [
+		{
+			"body_center": [
+				736.107,
+				30.893
+			],
+			"elevation": 29.9951083659397,
+			"flat_north_y": 69.1665344238281,
+			"map": 0,
+			"race": 0,
+			"zoom": 1.0
+		},
+		{
+			"body_center": [
+				688.188,
+				55.562
+			],
+			"elevation": 29.9951083659397,
+			"flat_north_y": 122.541427612305,
+			"map": 0,
+			"race": 0,
+			"zoom": 1.75
+		},
+		{
+			"body_center": [
+				736.165,
+				26.175
+			],
+			"elevation": 25.11310455392,
+			"flat_north_y": 54.2930908203125,
+			"map": 1,
+			"race": 1,
+			"zoom": 1.0
+		},
+		{
+			"body_center": [
+				688.289,
+				47.306
+			],
+			"elevation": 25.11310455392,
+			"flat_north_y": 96.512939453125,
+			"map": 1,
+			"race": 1,
+			"zoom": 1.75
+		},
+		{
+			"body_center": [
+				735.073,
+				57.927
+			],
+			"elevation": 0.0,
+			"flat_north_y": 66.5660705566406,
+			"map": 2,
+			"race": 2,
+			"zoom": 1.0
+		},
+		{
+			"body_center": [
+				686.378,
+				102.872
+			],
+			"elevation": 0.0,
+			"flat_north_y": 117.990600585938,
+			"map": 2,
+			"race": 2,
+			"zoom": 1.75
+		}
+	],
+	"checks": 72,
+	"failures": [],
+	"passed": true,
+	"scope": "Actual rendered faction sprites and HUD, native input events, three original maps, two zoom levels, controlled stationary perimeter placement; no movement simulation"
+}

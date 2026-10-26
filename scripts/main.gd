@@ -1128,12 +1128,17 @@ func _selection_center(unit: Dictionary) -> Vector2:
 	return _ground_point(_visual_position(unit))-Vector2(0,(22.0 if d.air else float(d.get("visual_extent",32))*.38)*zoom)
 
 func _drag_hits_unit(rect: Rect2,unit: Dictionary) -> bool:
+	if float(unit.get("hp",0))<=0 or int(unit.get("container",-1))>=0 or not _visible(unit):return false
 	var middle=_selection_center(unit)
-	if rect.has_point(middle):return true
 	# Accept overlap with the central body, excluding a long barrel or empty
-	# atlas padding. A drag across most of a chassis should select that unit.
+	# atlas padding. Test the visible intersection, not an off-screen centre.
 	var bounds: Rect2=_selection_bodies.get(int(unit.id),render_rects.get(int(unit.id),Rect2(middle-Vector2.ONE*10*zoom,Vector2.ONE*20*zoom)))
-	return rect.intersects(Rect2(middle-bounds.size*.3,bounds.size*.6))
+	var overlap=rect.intersection(Rect2(middle-bounds.size*.3,bounds.size*.6)).intersection(_world_render_rect())
+	if not overlap.has_area():return false
+	var inset=Vector2(minf(.1,overlap.size.x*.25),minf(.1,overlap.size.y*.25))
+	for point in [overlap.get_center(),overlap.position+inset,Vector2(overlap.end.x-inset.x,overlap.position.y+inset.y),overlap.end-inset,Vector2(overlap.position.x+inset.x,overlap.end.y-inset.y)]:
+		if _world_visible_at(point):return true
+	return false
 
 func _hit_test(mouse: Vector2, own_only: bool=false) -> int:
 	var best=INF
@@ -1320,8 +1325,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					var rect=Rect2(drag_start,mouse-drag_start).abs()
 					for e in state.units:
 						if selected.size()>=12:break
-						var point=_selection_center(e)
-						if int(e.owner)==local_slot and e.hp>0 and e.container<0 and _visible(e) and _drag_hits_unit(rect,e) and _world_visible_at(point) and int(e.id) not in selected:selected.append(int(e.id))
+						if int(e.owner)==local_slot and _drag_hits_unit(rect,e) and int(e.id) not in selected:selected.append(int(e.id))
 					if selected.is_empty():
 						for e in state.buildings:
 							if selected.size()>=12:break
@@ -1334,7 +1338,7 @@ func _unhandled_input(event: InputEvent) -> void:
 						if double_select and not e.has("progress") and int(e.owner)==local_slot:
 							for u in state.units:
 								if selected.size()>=12:break
-								if int(u.owner)==local_slot and int(u.kind)==int(e.kind) and int(u.id) not in selected and _world_visible_at(_ground_point(_visual_position(u))):selected.append(int(u.id))
+								if int(u.owner)==local_slot and int(u.kind)==int(e.kind) and int(u.id) not in selected and _drag_hits_unit(_world_render_rect(),u):selected.append(int(u.id))
 						elif id not in selected and selected.size()<12:selected.append(id)
 					else:
 						var resource=_resource_at(mouse)
@@ -1376,7 +1380,15 @@ func _world_visible_at(point: Vector2) -> bool:
 	if not _world_render_rect().has_point(point):return false
 	if is_instance_valid(battle_hud) and battle_hud.blocks_world_input(point):return false
 	var map_rect=Rect2(world_to_screen(Vector2.ZERO),world_to_screen(Vector2.ONE*ACMap.SIZE)-world_to_screen(Vector2.ZERO)).abs()
-	return map_rect.has_point(point)
+	if map_rect.has_point(point):return true
+	# The terrain and unit canvas extend above logical y=0. Match that drawn
+	# northern edge without opening the black side/south margins for commands.
+	if point.x<map_rect.position.x or point.x>=map_rect.end.x or point.y>=map_rect.end.y or point.y<map_rect.position.y-256*zoom:return false
+	var world_x=(point.x-map_rect.position.x)/(32.0*zoom)
+	if point.y>=_ground_point(Vector2(world_x,0)).y:return true
+	# Bodies/heads can overhang even the elevated terrain. _hit_test already
+	# excludes hidden enemies and passengers; empty black sky stays inactive.
+	return _hit_test(point)>=0 or not _resource_at(point).is_empty()
 
 func _can_point_world(mouse: Vector2) -> bool:
 	if not _world_visible_at(mouse):return false
